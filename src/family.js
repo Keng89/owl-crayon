@@ -200,3 +200,40 @@ function weekPanel() {
     <p class="note">Played on ${active} of the last 7 days. ${q} math questions answered${q ? `, ${Math.round(ok / q * 100)}% right on the first try` : ''}. ${sum('art')} art lesson${sum('art') === 1 ? '' : 's'} or drawing${sum('art') === 1 ? '' : 's'} finished. ${sum('stars')} stars earned.</p>
     ${best ? `<p class="note">Strongest topic: ${MATH[best].ico} ${MATH[best].name} (${Math.round(acc(best) * 100)}% first try).${hard && hard !== best ? ` Worth practising together: ${MATH[hard].ico} ${MATH[hard].name} (${Math.round(acc(hard) * 100)}%).` : ''}</p>` : ''}</div>`;
 }
+
+/* ---------- badges: milestones a child can collect ---------- */
+const BADGES = [
+  ['star1', '🌟', 'First star', 'Earn your first star', () => st.stars >= 1],
+  ['star100', '⭐', 'Star collector', 'Earn 100 stars', () => st.stars >= 100],
+  ['star500', '💫', 'Star hero', 'Earn 500 stars', () => st.stars >= 500],
+  ['streak3', '🔥', 'On fire', 'Play 3 days in a row', () => st.bestStreak >= 3],
+  ['streak7', '📅', 'Every day', 'Play 7 days in a row', () => st.bestStreak >= 7],
+  ['streak30', '🏆', 'Super steady', 'Play 30 days in a row', () => st.bestStreak >= 30],
+  ['q50', '🔢', 'Number fan', 'Answer 50 math questions', () => Object.values(st.skills).reduce((a, s) => a + s.seen, 0) >= 50],
+  ['q500', '💯', 'Math machine', 'Answer 500 math questions', () => Object.values(st.skills).reduce((a, s) => a + s.seen, 0) >= 500],
+  ['master', '🎯', 'Topic master', 'Reach level 5 in any topic', () => Object.keys(MATH).some(k => st.skills[k].seen > 0 && level(k) === 5)],
+  ['worlds', '🗺️', 'Explorer', 'Open 3 math worlds', () => WORLDS.filter((w, i) => worldOpen(i)).length >= 3],
+  ['art1', '🖍️', 'Little artist', 'Finish an art lesson', () => Object.keys(st.art.done).length >= 1],
+  ['art10', '🎨', 'Art star', 'Finish 10 art lessons', () => Object.keys(st.art.done).length >= 10],
+  ['gal5', '🖼️', 'Gallery', 'Save 5 drawings', () => gallery.length >= 5],
+  ['pixel3', '👾', 'Pixel artist', 'Finish 3 pixel pictures', () => Object.keys(st.art.pixelDone).length >= 3],
+  ['owl10', '🦉', 'Curious mind', 'Visit Owl 10 times', () => st.plays.owl >= 10],
+  ['quest5', '🎁', 'Quest champ', 'Finish 5 daily quests', () => st.questsDone >= 5],
+  ['hatch', '🐣', 'Hatched!', 'Help your owl hatch', () => petStage(st.pet.xp) >= 1],
+  ['wise', '🎓', 'Wise friend', 'Grow your owl into a Wise Owl', () => petStage(st.pet.xp) >= 4]
+];
+function checkBadges() {
+  st.badges = st.badges || {};
+  const fresh = BADGES.filter(b => !st.badges[b[0]] && b[4]());
+  fresh.forEach(b => { st.badges[b[0]] = today(); });
+  if (fresh.length) { save(); setTimeout(() => { toast(`New badge: ${fresh[0][1]} ${fresh[0][2]}!`); tone([523, 659, 784]); }, 1600); }
+}
+function badgesView() {
+  st.badges = st.badges || {};
+  const got = BADGES.filter(b => st.badges[b[0]]).length;
+  view.innerHTML = `${crumbs('My badges')}<p class="note">${got} of ${BADGES.length} collected. Tap a badge to hear how to get it.</p>
+    <div class="badges">${BADGES.map(b => `<button class="badge${st.badges[b[0]] ? ' on' : ''}" data-b="${b[0]}"><span>${st.badges[b[0]] ? b[1] : '🔒'}</span><b>${b[2]}</b><small>${b[3]}</small></button>`).join('')}</div>`;
+  wireBack(home);
+  sayScreen(`You have ${got} badges! Tap a badge to hear how to get it.`);
+  view.querySelectorAll('[data-b]').forEach(x => x.onclick = () => { const b = BADGES.find(y => y[0] === x.dataset.b); say(st.badges[b[0]] ? `${b[2]}! You got this one.` : `${b[3]} to get the ${b[2]} badge.`); });
+}

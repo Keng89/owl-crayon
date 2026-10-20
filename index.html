@@ -275,6 +275,11 @@ ol.steps{margin:0;padding-left:1.4em;text-align:left;font-weight:700;font-size:1
 .wk i{display:block;width:70%;min-height:3px;border-radius:6px 6px 0 0;background:var(--sun)}
 .wk span{color:var(--ink-soft);font-weight:700}
 .art-svg .sk *,.trace-svg .sk *{stroke:var(--sk)}
+.badge-link{margin-left:auto;cursor:pointer;font-size:15px}
+.badges{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px}
+.badge{background:var(--paper);border-radius:22px;padding:14px 10px;display:flex;flex-direction:column;align-items:center;gap:4px;box-shadow:0 4px 0 var(--line);text-align:center;opacity:.7}
+.badge span{font-size:44px;line-height:1.1}.badge b{font-family:var(--display);font-size:18px}.badge small{color:var(--ink-soft);font-weight:700;font-size:13px;line-height:1.2}
+.badge.on{opacity:1;background:var(--sun-soft);box-shadow:0 4px 0 #F0D894}
 </style>
 
 </head><body>
@@ -324,7 +329,7 @@ const oops = () => tone([330, 262], 0.15);
 function speakable(text) {
   return String(text).replace(/<sup>(\d+)<\/sup>/g, ' to the power $1 ').replace(/<span class="frac"><i>([^<]*)<\/i><i>([^<]*)<\/i><\/span>/g, ' $1 over $2 ')
     .replace(/<[^>]+>/g, ' ').replace(/&[a-z]+;/g, ' ').replace(/×/g, ' times ').replace(/÷/g, ' divided by ').replace(/−/g, ' minus ').replace(/²/g, ' squared ').replace(/³/g, ' cubed ')
-    .replace(/√/g, ' square root of ').replace(/%/g, ' percent').replace(/°/g, ' degrees').replace(/\?/g, ' what ').replace(/[^\w\s.,!'+=:-]/g, ' ').replace(/\s+/g, ' ');
+    .replace(/√/g, ' square root of ').replace(/%/g, ' percent').replace(/°/g, ' degrees').replace(/(^|[\s=(+-])\?(?=[\s=)]|$)/g, '$1 what ').replace(/[^\w\s.,!?'+=:-]/g, ' ').replace(/\s+/g, ' ');
 }
 function say(text) {
   if (!st.speak || !('speechSynthesis' in window)) return;
@@ -1704,6 +1709,43 @@ function weekPanel() {
     ${best ? `<p class="note">Strongest topic: ${MATH[best].ico} ${MATH[best].name} (${Math.round(acc(best) * 100)}% first try).${hard && hard !== best ? ` Worth practising together: ${MATH[hard].ico} ${MATH[hard].name} (${Math.round(acc(hard) * 100)}%).` : ''}</p>` : ''}</div>`;
 }
 
+/* ---------- badges: milestones a child can collect ---------- */
+const BADGES = [
+  ['star1', '🌟', 'First star', 'Earn your first star', () => st.stars >= 1],
+  ['star100', '⭐', 'Star collector', 'Earn 100 stars', () => st.stars >= 100],
+  ['star500', '💫', 'Star hero', 'Earn 500 stars', () => st.stars >= 500],
+  ['streak3', '🔥', 'On fire', 'Play 3 days in a row', () => st.bestStreak >= 3],
+  ['streak7', '📅', 'Every day', 'Play 7 days in a row', () => st.bestStreak >= 7],
+  ['streak30', '🏆', 'Super steady', 'Play 30 days in a row', () => st.bestStreak >= 30],
+  ['q50', '🔢', 'Number fan', 'Answer 50 math questions', () => Object.values(st.skills).reduce((a, s) => a + s.seen, 0) >= 50],
+  ['q500', '💯', 'Math machine', 'Answer 500 math questions', () => Object.values(st.skills).reduce((a, s) => a + s.seen, 0) >= 500],
+  ['master', '🎯', 'Topic master', 'Reach level 5 in any topic', () => Object.keys(MATH).some(k => st.skills[k].seen > 0 && level(k) === 5)],
+  ['worlds', '🗺️', 'Explorer', 'Open 3 math worlds', () => WORLDS.filter((w, i) => worldOpen(i)).length >= 3],
+  ['art1', '🖍️', 'Little artist', 'Finish an art lesson', () => Object.keys(st.art.done).length >= 1],
+  ['art10', '🎨', 'Art star', 'Finish 10 art lessons', () => Object.keys(st.art.done).length >= 10],
+  ['gal5', '🖼️', 'Gallery', 'Save 5 drawings', () => gallery.length >= 5],
+  ['pixel3', '👾', 'Pixel artist', 'Finish 3 pixel pictures', () => Object.keys(st.art.pixelDone).length >= 3],
+  ['owl10', '🦉', 'Curious mind', 'Visit Owl 10 times', () => st.plays.owl >= 10],
+  ['quest5', '🎁', 'Quest champ', 'Finish 5 daily quests', () => st.questsDone >= 5],
+  ['hatch', '🐣', 'Hatched!', 'Help your owl hatch', () => petStage(st.pet.xp) >= 1],
+  ['wise', '🎓', 'Wise friend', 'Grow your owl into a Wise Owl', () => petStage(st.pet.xp) >= 4]
+];
+function checkBadges() {
+  st.badges = st.badges || {};
+  const fresh = BADGES.filter(b => !st.badges[b[0]] && b[4]());
+  fresh.forEach(b => { st.badges[b[0]] = today(); });
+  if (fresh.length) { save(); setTimeout(() => { toast(`New badge: ${fresh[0][1]} ${fresh[0][2]}!`); tone([523, 659, 784]); }, 1600); }
+}
+function badgesView() {
+  st.badges = st.badges || {};
+  const got = BADGES.filter(b => st.badges[b[0]]).length;
+  view.innerHTML = `${crumbs('My badges')}<p class="note">${got} of ${BADGES.length} collected. Tap a badge to hear how to get it.</p>
+    <div class="badges">${BADGES.map(b => `<button class="badge${st.badges[b[0]] ? ' on' : ''}" data-b="${b[0]}"><span>${st.badges[b[0]] ? b[1] : '🔒'}</span><b>${b[2]}</b><small>${b[3]}</small></button>`).join('')}</div>`;
+  wireBack(home);
+  sayScreen(`You have ${got} badges! Tap a badge to hear how to get it.`);
+  view.querySelectorAll('[data-b]').forEach(x => x.onclick = () => { const b = BADGES.find(y => y[0] === x.dataset.b); say(st.badges[b[0]] ? `${b[2]}! You got this one.` : `${b[3]} to get the ${b[2]} badge.`); });
+}
+
 /* ---------- adaptive engine: mastery per skill + spaced review ---------- */
 const level = s => 1 + Math.min(4, Math.floor(st.skills[s].m * 5));
 const BOXES = [1, 2, 4, 8, 16]; // days until the next review
@@ -1742,7 +1784,7 @@ function bumpStreak() {
   st.streak.n = st.streak.last && dayNum(t) - dayNum(st.streak.last) === 1 ? st.streak.n + 1 : 1; st.streak.last = t;
   st.bestStreak = Math.max(st.bestStreak || 0, st.streak.n);
 }
-function addStars(n) { st.stars += n; dayLog('stars', n); gainXP(n); bumpStreak(); save(); updateTop(); }
+function addStars(n) { st.stars += n; dayLog('stars', n); gainXP(n); bumpStreak(); save(); updateTop(); checkBadges(); }
 
 /* ---------- views ---------- */
 const view = document.getElementById('view');
@@ -1777,11 +1819,12 @@ function home() {
       <button class="tile t-art" id="tArt"><span class="big">🖍️</span><span><h2>Art School</h2><p>Step-by-step drawing and more</p></span></button>
       <button class="tile t-owl" id="tOwl"><span class="big">🦉</span><span><h2>Ask Owl</h2><p>Ask me anything!</p></span></button>
     </div>
-    <h3 class="section-title">My stickers <span class="tag">every 10 ⭐</span></h3>
+    <h3 class="section-title">My stickers <span class="tag">every 10 ⭐</span><button class="tag badge-link" id="badgesBtn">🏅 Badges ${Object.keys(st.badges || {}).length}/${BADGES.length}</button></h3>
     <div class="stickers">${stickers.length ? stickers.map(s => `<span>${s}</span>`).join('') : '<span class="empty">Earn 10 stars to get your first sticker.</span>'}</div>
     <button class="small-link" id="parent">For grown-ups</button>`;
   sayScreen(`Hi${st.name ? ' ' + st.name : ''}! ${mood} ${quest().claimed ? '' : left ? `Your quest has ${left} job${left > 1 ? 's' : ''} left.` : 'Open your treasure chest!'}`);
   $('#petBtn').onclick = () => go(petView);
+  $('#badgesBtn').onclick = () => go(badgesView);
   wireQuest();
   $('#tMath').onclick = () => go(mathHome);
   $('#tArt').onclick = () => go(artHome);
@@ -1858,8 +1901,11 @@ function question() {
       <div id="exp" style="width:100%"></div>
       <div class="row"><button class="help" id="how">💡 How does this work?</button></div>
     </div>`;
-  say(q.speak || q.prompt);
-  $('#spk').onclick = () => say(q.speak || q.prompt);
+  // Young children may not read word answers yet, so read them out too.
+  const words = q.choices.map(c => c.say != null ? String(c.say) : String(c.val));
+  const qSay = (q.speak || q.prompt) + (st.age <= 8 && words.some(w => /[a-z]/i.test(w)) && words.every(w => w.length < 40) ? ` Is it ${words.join(', or ')}?` : '');
+  say(qSay);
+  $('#spk').onclick = () => say(qSay);
   $('#how').onclick = () => { const s = MATH[skill]; $('#exp').innerHTML = `<div class="explain">${s.lesson.map(([t, v]) => `<p>${t}</p>${v() ? `<div class="visual">${v()}</div>` : ''}`).join('')}</div>`; say(s.lesson.map(x => x[0]).join(' ')); };
   view.querySelectorAll('.choice').forEach(b => b.onclick = () => {
     const c = q.choices[+b.dataset.i];
@@ -1886,7 +1932,7 @@ function question() {
 function finish() {
   const before = Math.floor((st.stars - sess.stars) / 10), after = Math.floor(st.stars / 10);
   const sticker = after > before ? STICKERS[(after - 1) % STICKERS.length] : null;
-  bumpStreak(); save(); updateTop(); confetti(); yay();
+  bumpStreak(); save(); updateTop(); confetti(); yay(); checkBadges();
   view.innerHTML = `<div class="view done">
     <div class="big">${sticker || '🏆'}</div>
     <h1>${sess.firstTries >= sess.plan.length - 1 ? 'Amazing!' : 'Well done!'}</h1>

@@ -260,3 +260,8 @@ ol.steps{margin:0;padding-left:1.4em;text-align:left;font-weight:700;font-size:1
 .wk i{display:block;width:70%;min-height:3px;border-radius:6px 6px 0 0;background:var(--sun)}
 .wk span{color:var(--ink-soft);font-weight:700}
 .art-svg .sk *,.trace-svg .sk *{stroke:var(--sk)}
+.badge-link{margin-left:auto;cursor:pointer;font-size:15px}
+.badges{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px}
+.badge{background:var(--paper);border-radius:22px;padding:14px 10px;display:flex;flex-direction:column;align-items:center;gap:4px;box-shadow:0 4px 0 var(--line);text-align:center;opacity:.7}
+.badge span{font-size:44px;line-height:1.1}.badge b{font-family:var(--display);font-size:18px}.badge small{color:var(--ink-soft);font-weight:700;font-size:13px;line-height:1.2}
+.badge.on{opacity:1;background:var(--sun-soft);box-shadow:0 4px 0 #F0D894}

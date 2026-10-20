@@ -29,7 +29,7 @@ const oops = () => tone([330, 262], 0.15);
 function speakable(text) {
   return String(text).replace(/<sup>(\d+)<\/sup>/g, ' to the power $1 ').replace(/<span class="frac"><i>([^<]*)<\/i><i>([^<]*)<\/i><\/span>/g, ' $1 over $2 ')
     .replace(/<[^>]+>/g, ' ').replace(/&[a-z]+;/g, ' ').replace(/×/g, ' times ').replace(/÷/g, ' divided by ').replace(/−/g, ' minus ').replace(/²/g, ' squared ').replace(/³/g, ' cubed ')
-    .replace(/√/g, ' square root of ').replace(/%/g, ' percent').replace(/°/g, ' degrees').replace(/\?/g, ' what ').replace(/[^\w\s.,!'+=:-]/g, ' ').replace(/\s+/g, ' ');
+    .replace(/√/g, ' square root of ').replace(/%/g, ' percent').replace(/°/g, ' degrees').replace(/(^|[\s=(+-])\?(?=[\s=)]|$)/g, '$1 what ').replace(/[^\w\s.,!?'+=:-]/g, ' ').replace(/\s+/g, ' ');
 }
 function say(text) {
   if (!st.speak || !('speechSynthesis' in window)) return;
@@ -177,7 +177,7 @@ function bumpStreak() {
   st.streak.n = st.streak.last && dayNum(t) - dayNum(st.streak.last) === 1 ? st.streak.n + 1 : 1; st.streak.last = t;
   st.bestStreak = Math.max(st.bestStreak || 0, st.streak.n);
 }
-function addStars(n) { st.stars += n; dayLog('stars', n); gainXP(n); bumpStreak(); save(); updateTop(); }
+function addStars(n) { st.stars += n; dayLog('stars', n); gainXP(n); bumpStreak(); save(); updateTop(); checkBadges(); }
 
 /* ---------- views ---------- */
 const view = document.getElementById('view');
@@ -212,11 +212,12 @@ function home() {
       <button class="tile t-art" id="tArt"><span class="big">🖍️</span><span><h2>Art School</h2><p>Step-by-step drawing and more</p></span></button>
       <button class="tile t-owl" id="tOwl"><span class="big">🦉</span><span><h2>Ask Owl</h2><p>Ask me anything!</p></span></button>
     </div>
-    <h3 class="section-title">My stickers <span class="tag">every 10 ⭐</span></h3>
+    <h3 class="section-title">My stickers <span class="tag">every 10 ⭐</span><button class="tag badge-link" id="badgesBtn">🏅 Badges ${Object.keys(st.badges || {}).length}/${BADGES.length}</button></h3>
     <div class="stickers">${stickers.length ? stickers.map(s => `<span>${s}</span>`).join('') : '<span class="empty">Earn 10 stars to get your first sticker.</span>'}</div>
     <button class="small-link" id="parent">For grown-ups</button>`;
   sayScreen(`Hi${st.name ? ' ' + st.name : ''}! ${mood} ${quest().claimed ? '' : left ? `Your quest has ${left} job${left > 1 ? 's' : ''} left.` : 'Open your treasure chest!'}`);
   $('#petBtn').onclick = () => go(petView);
+  $('#badgesBtn').onclick = () => go(badgesView);
   wireQuest();
   $('#tMath').onclick = () => go(mathHome);
   $('#tArt').onclick = () => go(artHome);
@@ -293,8 +294,11 @@ function question() {
       <div id="exp" style="width:100%"></div>
       <div class="row"><button class="help" id="how">💡 How does this work?</button></div>
     </div>`;
-  say(q.speak || q.prompt);
-  $('#spk').onclick = () => say(q.speak || q.prompt);
+  // Young children may not read word answers yet, so read them out too.
+  const words = q.choices.map(c => c.say != null ? String(c.say) : String(c.val));
+  const qSay = (q.speak || q.prompt) + (st.age <= 8 && words.some(w => /[a-z]/i.test(w)) && words.every(w => w.length < 40) ? ` Is it ${words.join(', or ')}?` : '');
+  say(qSay);
+  $('#spk').onclick = () => say(qSay);
   $('#how').onclick = () => { const s = MATH[skill]; $('#exp').innerHTML = `<div class="explain">${s.lesson.map(([t, v]) => `<p>${t}</p>${v() ? `<div class="visual">${v()}</div>` : ''}`).join('')}</div>`; say(s.lesson.map(x => x[0]).join(' ')); };
   view.querySelectorAll('.choice').forEach(b => b.onclick = () => {
     const c = q.choices[+b.dataset.i];
@@ -321,7 +325,7 @@ function question() {
 function finish() {
   const before = Math.floor((st.stars - sess.stars) / 10), after = Math.floor(st.stars / 10);
   const sticker = after > before ? STICKERS[(after - 1) % STICKERS.length] : null;
-  bumpStreak(); save(); updateTop(); confetti(); yay();
+  bumpStreak(); save(); updateTop(); confetti(); yay(); checkBadges();
   view.innerHTML = `<div class="view done">
     <div class="big">${sticker || '🏆'}</div>
     <h1>${sess.firstTries >= sess.plan.length - 1 ? 'Amazing!' : 'Well done!'}</h1>

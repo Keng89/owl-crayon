@@ -10,3 +10,4 @@ Serve the app first: `python3 -m http.server 8766` from the repo root. Then run 
 - `t11.js`: the grown-ups' weekly summary and Owl's offline answers for money, measuring and time.
 - `t12.js`: long-answer layouts (equation pairs, line equations) fit a phone and buttons have spoken labels.
 - `t13.js`: renders the finished Painting & Collage pictures to a screenshot for a visual check.
+- `t14.js`: badges are awarded and listed, and word answers are read aloud for young children.
