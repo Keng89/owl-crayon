@@ -25,7 +25,12 @@ const wait = ms => new Promise(r => setTimeout(r, ms));
         if (id === 'memory') {
           const ks = await p.$$eval('.mcard:not(.got)', cs => cs.map(c => [c.dataset.j, c.dataset.k]));
           if (q === 0) { const a = ks[0], c = ks.find(x => x[1] !== a[1]); await p.click(`[data-j="${a[0]}"]`); await p.click(`[data-j="${c[0]}"]`); await wait(1300); }
-          for (const k of [...new Set(ks.map(x => x[1]))]) { for (const [j] of ks.filter(x => x[1] === k)) await p.click(`[data-j="${j}"]`); await wait(250); }
+          const keys = [...new Set(ks.map(x => x[1]))];
+          for (const [n, k] of keys.entries()) {
+            for (const [j] of ks.filter(x => x[1] === k)) await p.click(`[data-j="${j}"]`);
+            await wait(250);
+            if (n === 1 && keys[2]) { await p.click(`[data-j="${ks.find(x => x[1] === keys[2])[0]}"]`); await wait(350); await p.screenshot({ path: `${tag}-memory-mid.png` }); }
+          }
           q++; continue;
         }
         if (id === 'shop' && await p.$('.cbtn')) {

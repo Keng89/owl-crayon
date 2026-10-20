@@ -57,10 +57,10 @@ function gameRight(el, ms = 1100, words) {
   gLater(() => gm.i < gm.n ? gameQ() : gameEnd(), ms);
 }
 // A wrong tap: wobble, a kind hint, and on the second miss the right answer starts to glow.
-function gameMiss(el, hint, okEl) {
+function gameMiss(el, hint, okEl, msg) {
   gm.tries++; gm.run = 0; if (gm.tries === 2) gm.boost = Math.max(-1, gm.boost - 1);
   if (el) { el.classList.remove('wob'); void el.offsetWidth; el.classList.add('wob'); if (el.classList.contains('gopt')) el.classList.add('no'); }
-  oops(); const c = $('#cheer'); c.className = 'cheer soft'; c.textContent = pick(['Try again!', 'Almost!', 'Try another one!']);
+  oops(); const c = $('#cheer'); c.className = 'cheer soft'; c.textContent = msg || pick(['Try again!', 'Almost!', 'Try another one!']);
   say(hint || 'Not that one. Try again!');
   if (gm.tries >= 2 && okEl) okEl.classList.add('hint');
 }
@@ -147,8 +147,8 @@ function frogQ(d) {
   else { s = d >= 5 && Math.random() < .6 ? 0 : rnd(0, d <= 0 ? 4 : len - 2); h = rnd(1, Math.min(maxH, len - s)); }
   const ans = back ? s - h : s + h, v = k => k * step;
   const label = k => d <= 2 || d === 4 || k === s || (d === 3 ? k % 5 === 0 : k % 2 === 0);
-  const prompt = step === 1 ? `🐸 is on <b>${s}</b>. Hop <b>${h}</b> ${back ? 'back' : 'more'}!` : `🐸 is on <b>${v(s)}</b>. <b>${h}</b> jumps of <b>${step}</b>${back ? ' back' : ''}!`;
-  const speak = step === 1 ? `The frog is on ${s}. It hops ${h} ${back ? 'back' : 'more'}. Tap where it lands!` : `The frog is on ${v(s)}. It makes ${h} jumps of ${step}, going ${back ? 'back' : 'forward'}. Tap where it lands!`;
+  const prompt = step === 1 ? `🐸 is on <b>${s}</b>. Hop <b>${h}</b> ${back ? 'back' : 'more'}!` : `🐸 is on <b>${v(s)}</b>. Jump ${back ? 'back ' : ''}<b>${step}</b>, <b>${h}</b> times!`;
+  const speak = step === 1 ? `The frog is on ${s}. It hops ${h} ${back ? 'back' : 'more'}. Tap where it lands!` : `The frog is on ${v(s)}. It jumps ${back ? 'back ' : ''}${step}, ${h} times. Tap where it lands!`;
   const hint = step === 1 ? `Start on ${s} and count ${h} hop${h > 1 ? 's' : ''} ${back ? 'back' : 'forward'}.` : `Count by ${step}s from ${v(s)}, ${h} times${back ? ', going back' : ''}.`;
   gFrame(`<div class="pond"><div class="pads" style="--cols:${len === 20 ? 7 : 11}">${Array.from({ length: len + 1 }, (_, k) =>
       `<button class="pad gopt${label(k) ? '' : ' blank'}${k === s ? ' start' : ''}" data-k="${k}"${k === ans ? ' data-ok="1"' : ''} aria-label="${v(k)}">${label(k) ? v(k) : ''}</button>`).join('')}</div>
@@ -188,13 +188,13 @@ function shopQ(d) {
   const show = () => {
     $('#paid').innerHTML = paid.map((v, i) => `<button class="pc" data-i="${i}" aria-label="Give back ${v} cents">${coin(v)}</button>`).join('');
     $('#tot').textContent = paid.length ? `You paid ${total()}¢` : 'Tap the coins to pay';
-    view.querySelectorAll('.pc').forEach(b => b.onclick = () => { if (gm.lock) return; paid.splice(+b.dataset.i, 1); show(); tone([300]); });
+    view.querySelectorAll('.pc').forEach(b => b.onclick = () => { if (gm.lock) return; paid.splice(+b.dataset.i, 1); show(); $('#purse').classList.toggle('over', total() > price); tone([300]); });
   };
   view.querySelectorAll('.cbtn').forEach(b => b.onclick = () => {
     if (gm.lock || paid.length >= 20) return;
-    paid.push(+b.dataset.c); show(); const t = total();
+    paid.push(+b.dataset.c); show(); const t = total(); $('#purse').classList.toggle('over', t > price);
     if (t === price) { $('.item').classList.add('sold'); gameRight($('#purse'), 1400, `Thank you! 🛍️`); }
-    else if (t > price) gameMiss($('#purse'), `That is ${t} cents. Too much! Tap a coin in your purse to give it back.${gm.tries >= 1 ? ' Start with the biggest coin that fits.' : ''}`);
+    else if (t > price) { $('#tot').textContent = `${t}¢ is too much!`; gameMiss($('#purse'), `That is ${t} cents. Too much! Tap a coin in your purse to give it back.${gm.tries >= 1 ? ' Start with the biggest coin that fits.' : ''}`, null, 'Too much!'); }
     else { tone([500 + t * 4], .06); if (d <= 2) say(String(t)); }
   });
 }
@@ -232,13 +232,14 @@ function towerQ(d) {
   const T = d <= 0 ? 5 : d <= 2 ? (d === 1 && Math.random() < .3 ? 5 : 10) : d === 3 ? pick([10, 20]) : d === 6 && Math.random() < .5 ? 1000 : 100;
   const a = T <= 20 ? rnd(1, T - 1) : d === 4 ? rnd(1, 9) * 10 : T === 1000 ? rnd(1, 19) * 50 : rnd(11, 89), ans = T - a;
   const c = pick(['#F2604F', '#2E8BE6', '#6D55D1', '#2FA36B']);
-  const vis = T <= 20 ? `<div class="bricks" style="--bc:${Math.min(T, 10)}">${Array.from({ length: T }, (_, i) => `<i class="${i < a ? 'on' : 'off'}" style="--c:${c};--dl:${((i - a) * .06).toFixed(2)}s"></i>`).join('')}</div>`
-    : `<div class="bar2wrap"><b>${T}</b><div class="bar2"><span style="flex:${a}">${a}</span><span class="q" style="flex:${ans}">?</span></div></div>`;
+  const brick = i => `<i class="${i < a ? 'on' : 'off'}" style="--c:${c};--dl:${((i - a) * .07).toFixed(2)}s"></i>`;
+  const vis = T <= 20 ? `<div class="towers2">${Array.from({ length: T / Math.min(T, 10) }, (_, t) => `<div class="tw">${Array.from({ length: Math.min(T, 10) }, (_, i) => brick(t * 10 + i)).join('')}</div>`).join('')}</div>`
+    : `<div class="bar2wrap"><b>${T}</b><span class="brace"></span><div class="bar2"><span style="flex:${a}">${a}</span><span class="q" style="flex:${ans}">?</span></div></div>`;
   const ch = T <= 20 ? numChoices(ans, 0, T, d <= 1 ? 3 : 4) : nearBy(ans, T === 1000 ? [50, -50, 100, -100] : d === 4 ? [10, -10, 20, 1] : [10, -10, 1, -1, 2], 0, T, 4);
   gFrame(`${vis}${choicesHTML(ch, ans)}`, T <= 20 ? `Make <b class="gnum">${T}</b>! How many more?` : `<b>${a}</b> + <b class="gnum">?</b> = <b>${T}</b>`,
     T <= 20 ? `You have ${a} block${a > 1 ? 's' : ''}. How many more make ${T}?` : `${a} and what make ${T}?`);
   wireChoices(ans, T <= 20 ? 'Count the empty spaces.' : `Count up from ${a} to ${T}.`, () => {
-    view.querySelectorAll('.bricks .off').forEach(i => i.className = 'fill');
+    view.querySelectorAll('.towers2 .off').forEach(i => i.className = 'fill');
     const q = $('.bar2 .q'); if (q) { q.textContent = ans; q.classList.add('fillq'); }
   }, 1400);
 }

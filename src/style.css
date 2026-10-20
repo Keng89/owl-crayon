@@ -300,14 +300,15 @@ ol.steps{margin:0;padding-left:1.4em;text-align:left;font-weight:700;font-size:1
 .gnum{color:var(--coral)}
 .gexpr{font-size:1.25em;white-space:nowrap}
 .cheer.soft{color:var(--coral)}
+.game .cheer{height:auto;min-height:44px;text-align:center}
 .wob{animation:shake .35s!important}
 .gopt.no{opacity:.45}
 .hint{animation:glow 1s ease-in-out infinite!important}
 @keyframes glow{50%{transform:scale(1.1);box-shadow:0 0 0 8px rgba(255,194,61,.75)}}
 .gch{grid-template-columns:repeat(var(--n),1fr)}
 /* balloon pop */
-.sky{position:relative;width:100%;height:clamp(270px,44vh,400px);border-radius:24px;background:linear-gradient(#9FD6FF,#E6F5FF 75%,#CDEFC9 75%);overflow:hidden;display:flex;justify-content:space-around;align-items:flex-start;padding:22px 4px 0}
-.balloon{--c:#F2604F;flex:none;width:clamp(58px,15.5vw,104px);height:clamp(72px,19.5vw,128px);margin-top:var(--y);border-radius:50%/45% 45% 55% 55%;background:radial-gradient(circle at 32% 26%,rgba(255,255,255,.6) 0 9%,transparent 10%),var(--c);color:var(--t,#fff);font:800 clamp(21px,5.6vw,40px)/1 var(--display);position:relative;box-shadow:inset -6px -8px 0 rgba(0,0,0,.13);animation:rise 1s ease-out var(--d) both,sway 3s ease-in-out calc(var(--d) + 1s) infinite;z-index:1}
+.sky{position:relative;width:100%;height:clamp(250px,38vh,390px);border-radius:24px;background:linear-gradient(#9FD6FF,#E6F5FF 75%,#CDEFC9 75%);overflow:hidden;display:flex;justify-content:space-around;align-items:flex-start;padding:22px 4px 0}
+.balloon{--c:#F2604F;flex:none;width:clamp(60px,16vw,108px);height:clamp(74px,20vw,132px);margin-top:var(--y);border-radius:50%/45% 45% 55% 55%;background:radial-gradient(circle at 32% 26%,rgba(255,255,255,.6) 0 9%,transparent 10%),var(--c);color:var(--t,#fff);font:800 clamp(23px,6.2vw,44px)/1 var(--display);position:relative;box-shadow:inset -6px -8px 0 rgba(0,0,0,.13);animation:rise 1s ease-out var(--d) both,sway 3s ease-in-out calc(var(--d) + 1s) infinite;z-index:1}
 .balloon::before{content:"";position:absolute;left:50%;top:calc(100% - 2px);transform:translateX(-50%);border:6px solid transparent;border-bottom:9px solid var(--c);border-top:0}
 .balloon::after{content:"";position:absolute;left:50%;top:calc(100% + 7px);width:2px;height:80px;background:#8FA3B8}
 .balloon.pop{animation:popb .35s ease-out forwards!important;background:none;box-shadow:none}
@@ -335,6 +336,7 @@ ol.steps{margin:0;padding-left:1.4em;text-align:left;font-weight:700;font-size:1
 @keyframes sold{to{transform:translate(-70px,30px) scale(.3);opacity:0}}
 .price{position:absolute;right:-30px;top:-8px;background:var(--coral);color:#fff;font:800 22px var(--display);border-radius:10px;padding:2px 10px;transform:rotate(10deg);box-shadow:0 3px 0 #B8402F;white-space:nowrap}
 .purse{width:100%;max-width:520px;min-height:90px;border:4px dashed var(--line);border-radius:22px;padding:8px;display:flex;flex-direction:column;align-items:center;gap:6px;background:var(--bg)}
+.purse.over{border-color:var(--coral);background:var(--coral-soft)}
 .purse.right{border-color:var(--leaf);background:var(--leaf-soft)}
 .paid{display:flex;flex-wrap:wrap;gap:2px;justify-content:center}
 .paid svg{width:40px;height:40px;display:block}
@@ -352,16 +354,18 @@ ol.steps{margin:0;padding-left:1.4em;text-align:left;font-weight:700;font-size:1
 @keyframes flip{from{transform:rotateY(90deg)}}
 .mnum{font:800 clamp(32px,8vw,50px)/1 var(--display)}
 .mexpr{font:800 clamp(17px,4.6vw,28px)/1.1 var(--display);text-align:center}
-.mdots{display:grid;grid-template-columns:repeat(5,auto);gap:4px}.mdots i{width:clamp(10px,2.8vw,15px);aspect-ratio:1;border-radius:50%;background:var(--coral)}
+.mdots{display:grid;grid-template-columns:repeat(5,auto);gap:3px}.mdots i{width:clamp(8px,2.2vw,15px);aspect-ratio:1;border-radius:50%;background:var(--coral)}
 @media (min-width:700px){.mgrid.m12{--mc:6!important}}
 /* build the tower */
-.bricks{display:grid;grid-template-columns:repeat(var(--bc),minmax(0,1fr));gap:5px;width:100%;max-width:calc(var(--bc) * 56px)}
-.bricks i{height:38px;border-radius:7px;background:var(--c);box-shadow:inset 0 -6px 0 rgba(0,0,0,.18)}
-.bricks i.off{background:transparent;border:3px dashed var(--ink-soft);box-shadow:none}
-.bricks i.fill{background:var(--sun);animation:drop .45s ease-out backwards var(--dl)}
+.towers2{display:flex;gap:28px;justify-content:center;align-items:flex-end}
+.tw{display:flex;flex-direction:column-reverse;gap:3px;align-items:center;border-bottom:6px solid #8B5A2B;padding:0 8px}
+.tw::after{content:"🚩";font-size:26px;line-height:1;margin-bottom:-2px}
+.tw i{width:clamp(78px,22vw,110px);height:clamp(22px,3.4vh,30px);border-radius:6px;background:var(--c);box-shadow:inset 0 -5px 0 rgba(0,0,0,.18),inset 0 0 0 2px rgba(255,255,255,.25)}
+.tw i.off{background:transparent;border:3px dashed var(--ink-soft);box-shadow:none}
+.tw i.fill{background:var(--sun);animation:drop .45s ease-out backwards var(--dl)}
 @keyframes drop{from{transform:translateY(-70px);opacity:0}}
 .bar2wrap{width:100%;max-width:560px;text-align:center;font:800 24px var(--display);display:flex;flex-direction:column;gap:4px}
-.bar2wrap>b{border:3px solid var(--ink);border-bottom:0;height:22px;border-radius:8px 8px 0 0;line-height:0;padding-top:2px}
+.brace{display:block;height:14px;border:3px solid var(--ink);border-bottom:0;border-radius:8px 8px 0 0}
 .bar2{display:flex;height:66px;border-radius:14px;overflow:hidden;border:3px solid var(--ink);font:800 26px var(--display)}
 .bar2 span{display:grid;place-items:center;background:var(--sky);color:#fff;min-width:48px;flex-basis:0}
 .bar2 span.q{background:var(--sun-soft);color:var(--ink);border-left:3px solid var(--ink)}
@@ -392,4 +396,4 @@ ol.steps{margin:0;padding-left:1.4em;text-align:left;font-weight:700;font-size:1
 .gnew{font-size:18px;padding:6px 14px}
 @media (max-width:520px){.gtiles{grid-template-columns:1fr 1fr;gap:10px}.gtile{min-height:140px;padding:12px}.gtile b{font-size:20px}.gtile .ico{font-size:42px}
   .pads{grid-template-columns:repeat(auto-fill,minmax(46px,1fr))}.gch.n4{grid-template-columns:1fr 1fr}.counter{gap:18px}.item{font-size:64px}.counter .keeper{font-size:46px}.gstars span{font-size:50px}}
-@media (prefers-reduced-motion:reduce){.gtile .ico,.balloon,.cloud,.train,.hint,.mcard.up,.bricks i.fill,.gstars span.on,.item.sold{animation:none!important}.balloon.pop,.item.sold{opacity:0}}
+@media (prefers-reduced-motion:reduce){.gtile .ico,.balloon,.cloud,.train,.hint,.mcard.up,.tw i.fill,.gstars span.on,.item.sold{animation:none!important}.balloon.pop,.item.sold{opacity:0}}
