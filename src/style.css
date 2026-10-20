@@ -255,3 +255,7 @@ ol.steps{margin:0;padding-left:1.4em;text-align:left;font-weight:700;font-size:1
 @media (max-width:520px){.top{gap:6px}.top .home{width:46px;height:46px;font-size:23px;border-radius:15px}.pill{padding:6px 10px;font-size:16px}.who-btn span{font-size:56px}}
 @media (max-width:400px){.top .brand{display:none}}
 .coins{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;align-items:center}
+.week{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;align-items:end;height:120px;margin:8px 0}
+.wk{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:3px;height:100%;font-size:14px}
+.wk i{display:block;width:70%;min-height:3px;border-radius:6px 6px 0 0;background:var(--sun)}
+.wk span{color:var(--ink-soft);font-weight:700}

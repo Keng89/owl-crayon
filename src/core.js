@@ -177,7 +177,7 @@ function bumpStreak() {
   st.streak.n = st.streak.last && dayNum(t) - dayNum(st.streak.last) === 1 ? st.streak.n + 1 : 1; st.streak.last = t;
   st.bestStreak = Math.max(st.bestStreak || 0, st.streak.n);
 }
-function addStars(n) { st.stars += n; gainXP(n); bumpStreak(); save(); updateTop(); }
+function addStars(n) { st.stars += n; dayLog('stars', n); gainXP(n); bumpStreak(); save(); updateTop(); }
 
 /* ---------- views ---------- */
 const view = document.getElementById('view');
@@ -304,7 +304,7 @@ function question() {
       b.classList.add('right'); view.querySelectorAll('.choice').forEach(x => x.disabled = true);
       if (first) { learn(skill, true, ms); sess.firstTries++; }
       if (item.review) { const r = item.review; r.box = first ? Math.min(r.box + 1, BOXES.length - 1) : 0; r.due = dayNum(today()) + BOXES[r.box]; if (first && r.box === BOXES.length - 1) st.review = st.review.filter(x => x !== r); }
-      const earned = first ? 2 : 1; sess.stars += earned; st.stars += earned; gainXP(earned); updateTop();
+      const earned = first ? 2 : 1; sess.stars += earned; st.stars += earned; dayLog('stars', earned); dayLog('q'); if (first) dayLog('ok'); gainXP(earned); updateTop();
       questTick('math'); if (item.review) questTick('review'); if (first) questTick('firsttry');
       const words = first ? pick(['Great job!', 'You got it!', 'Super!', 'Yes!', 'Brilliant!']) : 'Now you know it!';
       $('#cheer').textContent = words + ' ⭐'.repeat(earned); yay(); say(words);
@@ -404,7 +404,7 @@ function drawLesson(id) {
     if (i < ls.steps.length - 1) { i++; render(); tone([600]); return; }
     const first = !st.art.done[ls.id]; st.art.done[ls.id] = today();
     if (pad.drawn()) pad.save(false);
-    questTick('art'); addStars(first ? 3 : 1); confetti(); yay();
+    questTick('art'); dayLog('art'); addStars(first ? 3 : 1); confetti(); yay();
     say(`You finished ${ls.title}! ${first ? 'You earned 3 stars!' : ''}`);
     const nl = nextLesson();
     view.innerHTML = `<div class="view done"><div class="big">${ls.ico}</div><h1>Beautiful work!</h1><p style="font-weight:800;font-size:22px">${first ? 'You earned 3 ⭐' : 'Practice makes perfect!'}${pad.drawn() ? ' Your drawing is saved in My pictures.' : ''}</p>
@@ -484,7 +484,7 @@ function makePad(el, { square = false, sym = 0, extra = '' } = {}) {
     const t = document.createElement('canvas'), w = 360; t.width = w; t.height = Math.round(w * cv.height / cv.width);
     const tc = t.getContext('2d'); tc.fillStyle = '#fff'; tc.fillRect(0, 0, t.width, t.height); tc.drawImage(cv, 0, 0, t.width, t.height);
     gallery.unshift(t.toDataURL('image/jpeg', 0.75)); gallery = gallery.slice(0, 30); saveGallery();
-    if (cheer) { questTick('art'); addStars(1); confetti(20); yay(); say('Saved to your pictures! You earned a star.'); }
+    if (cheer) { questTick('art'); dayLog('art'); addStars(1); confetti(20); yay(); say('Saved to your pictures! You earned a star.'); }
   }
   el.querySelector('#sav').onclick = () => savePic(true);
   return { setTrace: svg => { el.querySelector('#tr').innerHTML = svg; }, save: savePic, drawn: () => dirty };
@@ -630,6 +630,18 @@ const KB = [
   { k: ['sky', 'blue sky'], q: 'Why is the sky blue?', a: 'Sunlight has all the colors inside it. The air bounces the blue light around the most, so the sky looks blue!' },
   { k: ['draw a cat', 'draw cat', 'drawing a cat'], q: 'How do I draw a cat?', a: 'Draw a big circle for the head. Add two triangle ears on top. Then two dot eyes, a little nose and whiskers! There is a cat lesson in Art School.' },
   { k: ['draw', 'drawing', 'art'], q: 'What should I draw?', a: 'Try a house! A square for the walls and a triangle for the roof. Art School has lots of step-by-step lessons.' },
+  { k: ['money', 'coin', 'coins', 'cents', 'cent'], q: 'How do I count money?', a: 'Look at the number on each coin. Start with the biggest coin, then count on with the others. 10, then 15, then 16 cents!', v: () => coins([10, 5, 1]) },
+  { k: ['dollar', 'dollars'], q: 'How many cents in a dollar?', a: 'One dollar is the same as 100 cents. So two 50 cent coins make one dollar!', v: () => coins([50, 50]) },
+  { k: ['change', 'pay', 'shop', 'buy'], q: 'What is change?', a: 'Change is the money you get back when you pay too much. A toy costs 70 cents, you pay 100 cents, so you get 30 cents back. Count up from 70 to 100!' },
+  { k: ['measure', 'ruler', 'centimetre', 'centimeter', 'cm', 'long', 'length'], q: 'How do I measure with a ruler?', a: 'Put the start of the thing at 0 on the ruler. Look at the number where it ends. That is how long it is!', v: () => ruler(4, 6) },
+  { k: ['metre', 'meter'], q: 'How long is a metre?', a: 'A metre is 100 centimetres. That is about one big step for a grown-up, or as tall as a kitchen table.' },
+  { k: ['kilometre', 'kilometer', 'km'], q: 'How far is a kilometre?', a: 'A kilometre is 1000 metres. Walking one kilometre takes about 15 minutes.' },
+  { k: ['weigh', 'weight', 'heavy', 'kilogram', 'gram', 'kg'], q: 'What is a kilogram?', a: 'A kilogram tells us how heavy something is. A big bag of sugar weighs about 1 kilogram. 1 kilogram is 1000 grams.' },
+  { k: ['litre', 'liter', 'millilitre', 'milliliter', 'capacity'], q: 'What is a litre?', a: 'A litre tells us how much a container holds. A big bottle of water holds 1 litre. That is 1000 millilitres.' },
+  { k: ['chart', 'graph', 'bar chart', 'tally'], q: 'What is a bar chart?', a: 'A bar chart is a picture of numbers. Each bar shows how many. The tallest bar has the most!', v: () => chartSVG([['🍎', 3], ['🍌', 5], ['🍇', 2]]) },
+  { k: ['average', 'mean'], q: 'What is an average?', a: 'The average is the fair share. Add all the numbers, then share the total equally. 2, 4 and 6 add to 12. 12 shared by 3 is 4!' },
+  { k: ['minute', 'minutes', 'hour', 'hours', 'second', 'seconds'], q: 'How many minutes in an hour?', a: 'There are 60 minutes in an hour, and 60 seconds in a minute. A minute is about how long it takes to wash your hands really well.' },
+  { k: ['week', 'days in a week', 'month', 'year', 'calendar'], q: 'How many days are in a week?', a: 'A week has 7 days: Monday, Tuesday, Wednesday, Thursday, Friday, Saturday and Sunday. A year has 12 months and 365 days.' },
   { k: ['why math', 'why learn'], q: 'Why do we learn math?', a: 'Math helps us share snacks fairly, build things, cook, play games and so much more!' }
 ];
 const STOP = new Set('what is a an the how do does i you me my can why are to of it this that there please tell about make with and or'.split(' '));
@@ -741,6 +753,7 @@ function parent() {
     return `<tr><td>${s.ico} ${s.name}</td><td>${level(k)} / 5</td><td><div class="bar"><i style="width:${Math.round(x.m * 100)}%"></i></div></td><td>${a == null ? '–' : Math.round(a * 100) + '%'}</td><td>${x.ms ? (x.ms / 1000).toFixed(1) + 's' : '–'}</td><td>${x.seen}</td></tr>`; }).join('')).join('');
   const artDone = [1, 2, 3].map(lv => `${LEVEL_NAMES[lv]}: ${LESSONS.filter(l => l.level === lv && st.art.done[l.id]).length} of ${LESSONS.filter(l => l.level === lv).length}`).join(' · ');
   view.innerHTML = `<h1 style="font-size:36px">Grown-ups corner</h1><p class="note">Showing ${profileOf(pid).avatar} ${esc(st.name || 'Player')}. Switch players under Players below.</p>
+    ${weekPanel()}
     <div class="panel"><h2>Math progress</h2><p class="note">Each topic has 5 levels. It gets harder after answers that are right on the first try, and easier after mistakes. Missed questions come back for review after 1, 2, 4, 8 and 16 days. ${st.review.length} questions are in review, ${dueReviews().length} due today. A new world opens when your child reaches 50% in the world before it.</p>
       <div class="wide"><table class="ptable"><thead><tr><th>Topic</th><th>Level</th><th>Mastery</th><th>Right first try (last 20)</th><th>Avg time</th><th>Answered</th></tr></thead><tbody>${rows}</tbody></table></div></div>
     <div class="panel"><h2>Art progress</h2><p class="note">${artDone}. Pixel art level ${st.art.pixel} of 5. ${gallery.length} saved pictures.</p></div>
