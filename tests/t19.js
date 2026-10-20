@@ -50,7 +50,7 @@ const TAPS = '.gopt,.cbtn,.mcard,.serve,.pile2,.nkey,.hex,.cell,.tgt,.critter,.f
           if (await p.$('#pile') && q === 2) { await p.click('#pile'); await p.click('#pile'); }
           for (let m = 0; m < misses; m++) { const w = await p.$('.gopt:not([data-ok]):not(.no):not(.start):not(.used)'); if (w) { await w.click({ force: true }); await wait(250); } }
         }
-        if (misses === 2) { await wait(200); if (!(await p.$('.hint'))) fails.push(`${tag} ${id}: no hint after two misses`); }
+        if (misses === 2 && (await state()).tries >= 2) { await wait(200); if (!(await p.$('.hint'))) fails.push(`${tag} ${id}: no hint after two misses`); }
         // Tap the right answer until the question is done (rockets and feeding take several right taps).
         for (let k = 0; k < 60; k++) {
           const s = await state(); if (!s || s.lock || s.i !== s0.i) break;
@@ -105,7 +105,7 @@ const TAPS = '.gopt,.cbtn,.mcard,.serve,.pile2,.nkey,.hex,.cell,.tgt,.critter,.f
       no(pairs === 1 && comb(h.a, h.b) === h.T && new Set(n).size === n.length && n.length === (d === 0 ? 4 : d <= 2 ? 7 : d <= 4 ? 8 : 10), t + ' bee ' + h.T + ' ' + n + ' pairs ' + pairs);
       const m = G.mapMake(d), inG = ([x, y]) => x >= m.lo && x <= m.hi && y >= m.lo && y <= m.hi;
       no(inG(m.ans), t + ' map answer off the grid');
-      if (m.path) { no(m.path.every(inG), t + ' map path off the grid'); const [x, y] = m.moves.reduce(([x, y], [dr, k]) => [x + { r: k, l: -k }[dr] | 0, y + { u: k, d: -k }[dr] | 0], m.start); no(x === m.ans[0] && y === m.ans[1], t + ' map moves do not end at the answer'); }
+      if (m.path) { no(m.path.every(inG), t + ' map path off the grid'); const [x, y] = m.moves.reduce(([x, y], [dr, k]) => [x + ({ r: k, l: -k }[dr] || 0), y + ({ u: k, d: -k }[dr] || 0)], m.start); no(x === m.ans[0] && y === m.ans[1], t + ' map moves do not end at the answer'); }
       if (m.mode === 'read') { chk(m.choices, m.ans.join(','), t + ' map read'); no(m.choices.length >= 3, t + ' map read few choices'); }
     }
     return out;

@@ -535,6 +535,79 @@ ol.steps{margin:0;padding-left:1.4em;text-align:left;font-weight:700;font-size:1
 .g-map .ptext,.g-pizza .ptext,.g-feed .ptext,.g-fish .ptext{text-align:center;font-size:clamp(20px,5vw,26px);font-weight:700}
 .g-fish .ptext .mdots{display:inline-grid;vertical-align:middle}
 @media (prefers-reduced-motion:reduce){.fish{animation:none!important;left:calc((100% - var(--fw)) * var(--x))}.fish .fb{animation:none!important}.rocket.go,.bee1,.dart{animation:none!important}}
+/* math2 */
+.m2p svg{display:block;width:min(300px,78vw);height:auto}
+.m2p.sm svg{width:min(190px,48vw)}
+.m2p.xs svg{width:min(120px,30vw)}
+.m2p.chart svg{width:min(330px,84vw)}
+.m2row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;align-items:center}
+.m2row .m2p.sm svg{width:min(170px,40vw)}
+.m2die{width:clamp(64px,20vw,96px);height:auto;display:block}
+.m2frame{width:min(250px,72vw);height:auto;display:block}
+.m2stack{display:flex;flex-direction:column;gap:6px;align-items:center}
+.m2stack .m2frame{width:min(220px,62vw)}
+.m2grp{display:flex;align-items:center;justify-content:center;background:var(--paper);border:3px dashed var(--line);border-radius:20px;padding:4px;min-width:70px;min-height:70px}
+.m2grp .objs{background:none;font-size:clamp(26px,7.4vw,40px)}
+.m2grp.m2big .objs{font-size:clamp(46px,13vw,62px)}
+.m2grp.m2small .objs{font-size:20px}
+.m2pairs{display:flex;flex-direction:column;gap:4px;background:var(--bg);border-radius:16px;padding:8px;max-width:100%}
+.m2line{display:grid;gap:2px;font-size:clamp(17px,5.6vw,30px);text-align:center;line-height:1.25}
+.m2track{display:flex;gap:6px;justify-content:center;flex-wrap:wrap}
+.m2track span{min-width:58px;height:58px;padding:0 6px;border-radius:14px;background:var(--paper);border:3px solid var(--ink);display:grid;place-items:center;font:800 28px var(--display)}
+.m2track span.hi{background:var(--sun)}
+.m2track span.q{background:var(--bg);border-style:dashed;color:var(--coral)}
+.m2race{display:flex;align-items:flex-end;justify-content:center;gap:2px;background:linear-gradient(transparent 55%,#9BD88F 55%);border-radius:16px;padding:6px 8px;max-width:100%}
+.m2flag,.m2run{font-size:clamp(28px,8.6vw,44px);line-height:1.1;display:flex;flex-direction:column;align-items:center}
+.m2flag{margin-right:4px;border-right:4px dashed #fff;padding-right:4px}
+.m2run small{font:800 13px var(--body);background:var(--ink);color:#fff;border-radius:999px;padding:1px 6px;margin-top:2px}
+.m2shape{width:clamp(56px,17vw,80px);height:auto;display:block}
+.choice .m2shape{width:min(70px,100%)}
+.m2emo{font-size:clamp(36px,10vw,52px);line-height:1.1}
+.m2emo.big{font-size:clamp(60px,18vw,90px)}
+.choice .m2emo{font-size:40px}
+.m2num{font:800 48px/1 var(--display)}
+.m2odd{display:flex;justify-content:center}.m2odd svg{width:90px;height:auto}
+.m2odd .m2frame{width:150px}
+.m2solid{width:min(120px,30vw);height:auto;display:block}
+.choice .m2solid,.choice .m2glass{width:min(84px,100%);height:auto;display:block}
+.m2word{font:800 clamp(28px,8vw,44px)/1.1 var(--display);color:var(--grape)}
+.m2word.big{font-size:clamp(40px,12vw,60px)}
+.m2sym{display:block;height:auto}
+.m2p .m2sym{width:min(200px,52vw)}
+.choice .m2sym{width:min(80px,100%)}
+.m2tag{display:block;border-bottom:6px solid var(--c);padding-bottom:4px}
+.choice .m2tag{width:100%;display:flex;justify-content:center}
+.m2scale{display:block}
+.m2glass{display:block}
+.m2cups{display:flex;flex-wrap:wrap;gap:2px;max-width:150px;justify-content:center}.m2cups svg{width:28px;height:auto}
+.m2week{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;width:min(420px,100%)}
+.m2week span{background:var(--c);color:#fff;border-radius:12px;padding:10px 0;text-align:center;font:800 clamp(13px,3.6vw,18px) var(--display);opacity:.55}
+.m2week span.hi{opacity:1;outline:3px solid var(--ink);outline-offset:1px}
+.m2week span.q{background:var(--paper);color:var(--coral);opacity:1;outline:3px dashed var(--ink-soft);outline-offset:-3px}
+.m2months{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:4px;width:min(420px,100%)}
+.m2months span{background:var(--sky-soft);border-radius:10px;padding:8px 0;text-align:center;font:800 clamp(13px,3.6vw,17px) var(--display)}
+.m2months span.hi{background:var(--sun);outline:3px solid var(--ink)}
+.m2cal{background:var(--paper);border-radius:16px;padding:8px;border:3px solid var(--ink);width:min(330px,100%)}
+.m2calt{font:800 20px var(--display);text-align:center;margin-bottom:4px}
+.m2calg{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:3px;text-align:center;font-weight:800;font-size:15px}
+.m2calg b{color:var(--ink-soft);font-size:13px}
+.m2calg span{background:var(--bg);border-radius:6px;padding:4px 0}
+.m2calg span.hi{background:var(--sun);outline:2px solid var(--ink)}
+.m2frame,.m2bug,.m2nl,.m2tally,.m2cut,.m2house,.m2target,.m2hund{display:block}
+.choice .m2frame{width:100%;max-width:120px}
+.m2tally{height:auto}
+.m2p.sm .m2tally,.m2p .m2tally{width:auto;max-width:100%;height:52px}
+.choice .m2tally{width:100%;max-width:110px;height:auto}
+.m2tchart{display:grid;grid-template-columns:auto 1fr;gap:6px 10px;align-items:center;background:var(--paper);border-radius:16px;padding:10px;border:3px solid var(--line)}
+.m2tchart span{font-size:34px}.m2tchart svg{height:40px;width:auto}
+.choice .m2cut{width:min(80px,100%);height:auto}
+.m2win{display:grid;grid-template-columns:repeat(3,64px);gap:4px}
+.m2win span{height:58px;border:3px solid var(--ink);border-radius:12px;background:var(--paper);display:grid;place-items:center;font:800 26px var(--display)}
+.m2win span.q{border-style:dashed;color:var(--coral);background:var(--sun-soft)}
+.m2eq{font:800 clamp(26px,7vw,36px)/1.25 var(--display);text-align:center}
+.m2sign{font:800 52px/1 var(--display)}
+.m2cmp{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;font:800 clamp(34px,10vw,60px)/1.1 var(--display)}
+.m2box{display:inline-block;width:1.1em;height:1.1em;border:4px dashed var(--ink-soft);border-radius:12px;background:var(--sun-soft)}
 </style>
 
 </head><body>
@@ -1405,7 +1478,820 @@ S('simul', 4, 'Two equations together', '🧩', [
 /* --- world helpers used by the app --- */
 const worldSkills = w => Object.values(MATH).filter(s => s.world === w);
 const ageWorld = age => age <= 5 ? 0 : age <= 7 ? 1 : age <= 9 ? 2 : age <= 11 ? 3 : 4;
-/* ---------- math2 ---------- */
+/* ---------- math2: 22 more picture topics for Seedling Hill (world 0) and Sprout Valley (world 1) ---------- */
+// Included right after math.js. Everything lives inside this function so its helper names never clash with other files.
+(() => {
+const C = (val, html, say, txt) => ({ html: String(html), val: String(val), say: String(say), txt: !!txt });
+const P = (svg, cls = '') => `<div class="m2p ${cls}">${svg}</div>`;
+const ROW = (...a) => `<div class="m2row">${a.join('')}</div>`;
+// Number buttons: the answer plus nearby wrong numbers inside lo..hi (extra = likely mistakes, tried first).
+const nOpts = (ans, lo, hi, n = 3, extra = []) => opts(ans, [...extra, ...near(ans)].filter(v => Number.isInteger(v) && v >= lo && v <= hi && v !== ans), n);
+const SPEAK_EQ = s => String(s).replace(/\+/g, ' plus ').replace(/−/g, ' minus ').replace(/=/g, ' equals ').replace(/\s+/g, ' ').trim();
+const cap = s => s[0].toUpperCase() + s.slice(1);
+
+/* ---------- pictures ---------- */
+const PIPS = { 1: [[50, 50]], 2: [[27, 27], [73, 73]], 3: [[27, 27], [50, 50], [73, 73]], 4: [[27, 27], [73, 27], [27, 73], [73, 73]], 5: [[27, 27], [73, 27], [50, 50], [27, 73], [73, 73]], 6: [[27, 25], [73, 25], [27, 50], [73, 50], [27, 75], [73, 75]] };
+const die = (n, fill = '#fff') => `<svg class="m2die" viewBox="0 0 100 100" role="img" aria-label="dice showing ${n}"><rect x="4" y="4" width="92" height="92" rx="18" fill="${fill}" stroke="#22305A" stroke-width="4"/>${PIPS[n].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="9.5" fill="#22305A"/>`).join('')}</svg>`;
+const dice = (...ns) => ROW(...ns.map((n, i) => die(n, ['#fff', '#FFF1CC', '#D9EBFC'][i % 3])));
+
+function frame(cols, label) {
+  let s = '';
+  for (let i = 0; i < 10; i++) {
+    const x = 6 + (i % 5) * 36, y = 6 + Math.floor(i / 5) * 36;
+    s += `<rect x="${x}" y="${y}" width="36" height="36" fill="#fff" stroke="#22305A" stroke-width="2.5"/>`;
+    if (cols[i]) s += `<circle cx="${x + 18}" cy="${y + 18}" r="13" fill="${cols[i]}" stroke="#22305A" stroke-width="1.5"/>`;
+  }
+  return `<svg class="m2frame" viewBox="0 0 192 84" role="img" aria-label="${label || `ten frame with ${cols.filter(Boolean).length} counters`}">${s}</svg>`;
+}
+const fr = (n, c = '#F2604F', m = 0, c2 = '#2E8BE6') => frame(Array.from({ length: 10 }, (_, i) => i < n ? c : i < n + m ? c2 : null));
+
+const grp = (n, e, cls = '') => `<div class="m2grp ${cls}">${objs(n, e)}</div>`;
+// Two rows lined up so each thing has a partner: the leftovers show the difference.
+const lineUp = (a, ea, b, eb) => { const m = Math.max(a, b), row = (n, e) => `<div class="m2line" style="grid-template-columns:repeat(${m},1fr)">${Array.from({ length: m }, (_, i) => `<span>${i < n ? e : ''}</span>`).join('')}</div>`; return `<div class="m2pairs">${row(a, ea)}${row(b, eb)}</div>`; };
+const track = (arr, hi = -1) => `<div class="m2track">${arr.map((v, i) => `<span class="${v === '?' ? 'q' : i === hi ? 'hi' : ''}">${v}</span>`).join('')}</div>`;
+
+function mini(name, c) {
+  const s = SHAPES[name], body = s.svg ? s.svg(c) : `<polygon points="${polyPts(s.sides).map(p => p.join(',')).join(' ')}" fill="${c}"/>`;
+  return `<svg class="m2shape" viewBox="-6 -6 112 112" role="img" aria-label="${name}">${body.replace('/>', ' stroke="#22305A" stroke-width="4" stroke-linejoin="round"/>')}</svg>`;
+}
+
+/* ===================== World 0: Seedling Hill ===================== */
+
+S('quicklook', 0, 'Quick look', '🎲', [
+  ['Some numbers have a shape you know at once. Five on a dice looks like an X.', () => dice(5)],
+  ['Try to see how many without counting one by one.', () => dice(3, 6)],
+  ['In a ten frame, a full top row is 5.', () => P(fr(7), 'sm')]
+], L => {
+  const DIE_WORDS = ['', 'One dot on its own', 'Two dots, corner to corner', 'Three dots in a line', 'Four dots, one in each corner', 'Four corners and one in the middle', 'Two lines of three'];
+  if (L <= 2) {
+    const n = rnd(1, L === 1 ? 3 : 6);
+    return Q({ prompt: 'How many dots? Take a quick look!', speak: 'Take a quick look at the dice. How many dots?', visual: dice(n), choices: nOpts(n, 1, 6, L === 1 ? 3 : 4), answer: n,
+      explain: dice(n), explainText: `${DIE_WORDS[n]}. That is ${n}.` });
+  }
+  if (L === 3) {
+    const n = rnd(3, 10);
+    return Q({ prompt: 'How many dots in the ten frame?', speak: 'Take a quick look at the ten frame. How many dots?', visual: P(fr(n)), choices: nOpts(n, 1, 10, 4), answer: n,
+      explain: P(fr(n)), explainText: n > 5 ? `The top row is full: that is 5. Then ${n - 5} more on the bottom makes ${n}.` : n === 5 ? 'The top row is full. A full row is 5.' : `There are ${n} dots on the top row, and ${5 - n} empty ${5 - n === 1 ? 'box' : 'boxes'}.` });
+  }
+  const a = rnd(1, L === 4 ? 4 : 6), b = rnd(1, L === 4 ? 4 : 6), t = a + b, big = Math.max(a, b), sm = Math.min(a, b);
+  return Q({ prompt: 'How many dots on both dice?', speak: 'Look at both dice. How many dots altogether?', visual: dice(a, b), choices: nOpts(t, 2, 12, 4, [a, b, t + 1]), answer: t,
+    explain: dice(a, b), explainText: `See ${big} on one dice straight away. Then count on ${sm}: ${Array.from({ length: sm }, (_, i) => big + i + 1).join(', ')}. That is ${t}.` });
+});
+
+const FRUITS2 = [['🍎', 'apples'], ['🍌', 'bananas'], ['🐟', 'fish'], ['🌸', 'flowers'], ['🚗', 'cars'], ['🐞', 'ladybugs'], ['🍓', 'strawberries'], ['🎈', 'balloons'], ['🐥', 'chicks'], ['⭐', 'stars'], ['🍪', 'cookies'], ['🐸', 'frogs']];
+S('moreless', 0, 'More or fewer', '🧺', [
+  ['More means the bigger group. Fewer means the smaller group.', () => ROW(grp(5, '🍓'), grp(2, '🍌'))],
+  ['Line them up in pairs. The group with some left over has more.', () => lineUp(5, '🍓', 2, '🍌')],
+  ['Big pictures can trick you! Always count.', () => ROW(grp(2, '🐘', 'm2big'), grp(4, '🐭', 'm2small'))]
+], L => {
+  const [x, y] = shuffle(FRUITS2).slice(0, 2);
+  let a, b;
+  if (L === 5) {
+    a = rnd(3, 12); do b = rnd(2, 12); while (a === b);
+    const [hn, he, hw, ln, le, lw] = a > b ? [a, x[0], x[1], b, y[0], y[1]] : [b, y[0], y[1], a, x[0], x[1]], d = hn - ln;
+    return Q({ prompt: `How many more ${he} than ${le}?`, speak: `How many more ${hw} than ${lw}?`, visual: ROW(grp(a, x[0]), grp(b, y[0])), choices: nOpts(d, 1, 12, 4, [hn, ln, d + 1]), answer: d,
+      explain: lineUp(hn, he, ln, le), explainText: `Pair them up. ${ln} of the ${hw} have a partner, and ${d} ${d === 1 ? 'is' : 'are'} left over. So there ${d === 1 ? 'is' : 'are'} ${d} more.` });
+  }
+  if (L === 1) { a = rnd(1, 3); b = rnd(6, 9); if (Math.random() < 0.5) [a, b] = [b, a]; }
+  else if (L === 2) { a = rnd(1, 10); do b = rnd(1, 10); while (Math.abs(a - b) < 2); }
+  else if (L === 3) { a = rnd(2, 10); do b = rnd(2, 10); while (a === b); }
+  else { a = rnd(3, 9); b = Math.random() < 0.3 ? a : clamp(a + pick([-3, -2, -1, 1, 2, 3]), 2, 10); }
+  const more = L === 1 || Math.random() < 0.5, w = more ? 'more' : 'fewer', trick = L === 4 && a !== b;
+  const cls = n => trick ? (n === Math.min(a, b) ? 'm2big' : 'm2small') : '';
+  const choices = [C(x[1], x[0], x[1]), C(y[1], y[0], y[1])];
+  if (L === 4) choices.push(C('same', 'same', 'the same', true));
+  const ans = a === b ? 'same' : (more === (a > b)) ? x[1] : y[1];
+  const [hw, lw] = a > b ? [x[1], y[1]] : [y[1], x[1]];
+  return Q({ prompt: `Which group has ${w}?`, speak: `Which group has ${w}, the ${x[1]} or the ${y[1]}?${L === 4 ? ' Or are they the same? Count carefully!' : ''}`,
+    visual: ROW(grp(a, x[0], cls(a)), grp(b, y[0], cls(b))), choices: shuffle(choices), answer: ans,
+    explain: lineUp(a, x[0], b, y[0]), explainText: a === b ? `There are ${a} of each. Every one has a partner, so they are the same.` : `There are ${a} ${x[1]} and ${b} ${y[1]}. The ${hw} have some left over, so there are more ${hw} and fewer ${lw}.${trick ? ' Big pictures do not mean more!' : ''}` });
+});
+
+S('onemore', 0, 'One more, one less', '🐥', [
+  ['One more means add 1. It is the next number when you count.', () => `${objs(3, '🐥')}<span class="op">+</span>${objs(1, '🐥')}`],
+  ['One less means take 1 away. It is the number just before.', () => objs(4, '🎈', { gone: 1 })],
+  ['On a number track, one more is one step right. One less is one step left.', () => track([3, 4, 5], 1)]
+], L => {
+  const [e, nm] = pick(THINGS);
+  if (L === 1) {
+    const n = rnd(1, 5);
+    return Q({ prompt: '1 more comes along. How many now?', speak: `There are ${n} ${nm}. One more comes along. How many now?`, visual: `${objs(n, e)}<span class="op">+</span>${objs(1, e)}`, choices: nOpts(n + 1, 1, 7, 3, [n]), answer: n + 1,
+      explain: objs(n + 1, e, { num: true }), explainText: `${n} and 1 more is ${n + 1}. ${n + 1} comes right after ${n} when you count.` });
+  }
+  if (L === 2) {
+    const n = rnd(2, 7);
+    return Q({ prompt: '1 goes away. How many are left?', speak: `There are ${n} ${nm}. One goes away. How many are left?`, visual: objs(n, e, { gone: 1 }), choices: nOpts(n - 1, 0, 8, 3, [n]), answer: n - 1,
+      explain: objs(n - 1, e, { num: true }), explainText: `${n} take away 1 leaves ${n - 1}. ${n - 1} comes just before ${n}.` });
+  }
+  const more = Math.random() < 0.5, n = L === 3 ? rnd(1, 9) : L === 4 ? rnd(1, 19) : pick([rnd(11, 98), rnd(1, 9) * 10, rnd(1, 9) * 10 + 9]), ans = more ? n + 1 : n - 1;
+  const cross = Math.floor(ans / 10) !== Math.floor(n / 10);
+  return Q({ prompt: `What is 1 ${more ? 'more' : 'less'} than ${n}?`, visual: L === 3 ? objs(n, e) : `<span class="bignum">${n}</span>`, choices: nOpts(ans, 0, 100, L === 3 ? 3 : 4, [n, more ? n - 1 : n + 1, more ? n + 10 : n - 10]), answer: ans,
+    explain: track([n - 1, n, n + 1], more ? 2 : 0), explainText: `${more ? `1 more is the next number: ${n}, then ${n + 1}.` : `1 less is the number just before: ${n - 1}, then ${n}.`}${cross ? ' Watch out, the tens change here!' : ''}` });
+});
+
+const ORD = ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th'], ORDW = ['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh'];
+const RACERS = [['🐢', 'turtle'], ['🐇', 'rabbit'], ['🐌', 'snail'], ['🦆', 'duck'], ['🐕', 'dog'], ['🐈', 'cat'], ['🐎', 'horse'], ['🐖', 'pig'], ['🦔', 'hedgehog'], ['🐓', 'rooster']];
+const race = (rs, lab) => `<div class="m2race"><span class="m2flag">🏁</span>${rs.map((r, i) => `<span class="m2run">${r[0]}${lab ? `<small>${ORD[i]}</small>` : ''}</span>`).join('')}</div>`;
+S('ordinal', 0, 'First, second, third', '🏁', [
+  ['In a race, the one at the finish flag is 1st. We say first.', () => race(RACERS.slice(0, 3))],
+  ['Count from the flag: 1st first, 2nd second, 3rd third, 4th fourth, 5th fifth.', () => race(RACERS.slice(0, 5), true)],
+  ['The one at the very end is last.', () => '']
+], L => {
+  const n = [3, 4, 5, 5, 7][L - 1], rs = shuffle(RACERS).slice(0, n), rc = r => C(r[1], r[0], r[1]);
+  const three = t => shuffle([t, ...shuffle(rs.filter(r => r !== t)).slice(0, 2)]).map(rc);
+  if (L === 4 || (L === 5 && Math.random() < 0.5)) {
+    const i = rnd(0, n - 1), r = rs[i];
+    return Q({ prompt: `What place is the ${r[0]} in?`, speak: `What place is the ${r[1]} in the race?`, visual: race(rs), choices: opts(ORD[i], ORD.slice(0, n), 4, v => v, v => ORDW[ORD.indexOf(v)]), answer: ORD[i],
+      explain: race(rs, true), explainText: `Count from the flag: ${ORDW.slice(0, i + 1).join(', ')}. The ${r[1]} is ${ORDW[i]}.` });
+  }
+  if (L === 5) {
+    const i = rnd(1, n - 2), behind = Math.random() < 0.5, j = behind ? i + 1 : i - 1, t = rs[j];
+    return Q({ prompt: `Who is just ${behind ? 'behind' : 'in front of'} the ${ORD[i]}?`, speak: `Who is just ${behind ? 'behind' : 'in front of'} the animal in ${ORDW[i]} place?`, visual: race(rs), choices: three(t), answer: t[1],
+      explain: race(rs, true), explainText: `${cap(ORDW[i])} is the ${rs[i][1]}. Just ${behind ? 'behind it, further from the flag,' : 'in front of it, nearer the flag,'} is the ${t[1]}. It is ${ORDW[j]}.` });
+  }
+  const last = L === 1 ? Math.random() < 0.5 : L === 3 && Math.random() < 0.25, i = last ? n - 1 : rnd(0, L === 1 ? 0 : L === 2 ? 2 : n - 1), t = rs[i];
+  return Q({ prompt: `Who is ${last ? 'last' : ORD[i]}?`, speak: `Who is ${last ? 'last' : ORDW[i]} in the race?`, visual: race(rs), choices: three(t), answer: t[1],
+    explain: race(rs, true), explainText: last ? `Last is the one at the very end, furthest from the flag: the ${t[1]}.` : `Start at the flag and count: ${ORDW.slice(0, i + 1).join(', ')}. The ${t[1]} is ${ORDW[i]}.` });
+});
+
+const KINDS = {
+  fruit: [['🍎', 'apple'], ['🍌', 'banana'], ['🍇', 'grapes'], ['🍓', 'strawberry'], ['🍐', 'pear'], ['🍊', 'orange'], ['🍉', 'watermelon'], ['🍒', 'cherries']],
+  animal: [['🐶', 'dog'], ['🐱', 'cat'], ['🐰', 'rabbit'], ['🐻', 'bear'], ['🐸', 'frog'], ['🐷', 'pig'], ['🦊', 'fox'], ['🐮', 'cow']],
+  vehicle: [['🚗', 'car'], ['🚌', 'bus'], ['🚲', 'bike'], ['🚂', 'train'], ['✈️', 'plane'], ['🚀', 'rocket'], ['🚜', 'tractor'], ['🚒', 'fire engine']],
+  clothes: [['👕', 'T-shirt'], ['👖', 'jeans'], ['🧦', 'socks'], ['🧢', 'cap'], ['👗', 'dress'], ['🧤', 'gloves'], ['👟', 'shoe'], ['🧣', 'scarf']]
+};
+const KNAME = { fruit: 'fruit', animal: 'animals', vehicle: 'things that go', clothes: 'clothes' };
+S('oddone', 0, 'Odd one out', '🧩', [
+  ['Look for what is the same: colour, shape or kind.', () => ROW(mini('circle', '#F2604F'), mini('square', '#F2604F'), mini('star', '#F2604F'))],
+  ['One of these is not like the others. The blue one does not belong!', () => ROW(mini('circle', '#F2604F'), mini('circle', '#F2604F'), mini('circle', '#2E8BE6'), mini('circle', '#F2604F'))],
+  ['Things can belong together by kind too: these are all fruit.', () => '<span class="m2emo">🍎 🍌 🍇</span>']
+], L => {
+  const SH = ['circle', 'square', 'triangle', 'star', 'hexagon', 'rectangle'];
+  let items, why, prompt = 'Which one does not belong?', speak = 'Three are the same in some way. Which one does not belong?';
+  const kind = L === 1 ? 'colour' : L === 2 ? 'shape' : L === 3 ? 'kind' : L === 4 ? pick(['colour', 'shape']) : 'number';
+  if (kind === 'colour') {
+    const [c1, c2] = shuffle(COLORS).slice(0, 2), shapes = L === 1 ? Array(4).fill(pick(SH)) : shuffle(SH).slice(0, 4);
+    items = shapes.map((s, i) => { const c = i === 0 ? c2 : c1; return { html: mini(s, c[0]), say: `the ${c[1]} ${s}` }; });
+    why = `The others are all ${c1[1]}. This one is ${c2[1]}.`;
+  } else if (kind === 'shape') {
+    const [s1, s2] = shuffle(SH).slice(0, 2), cols = L === 2 ? Array(4).fill(pick(COLORS)) : shuffle(COLORS).slice(0, 4);
+    items = [s2, s1, s1, s1].map((s, i) => ({ html: mini(s, cols[i][0]), say: `the ${cols[i][1]} ${s}` }));
+    why = `The others are all ${s1}s. This one is a ${s2}.`;
+  } else if (kind === 'kind') {
+    const [k1, k2] = shuffle(Object.keys(KINDS)).slice(0, 2), o = pick(KINDS[k2]);
+    items = [o, ...shuffle(KINDS[k1]).slice(0, 3)].map(x => ({ html: `<span class="m2emo">${x[0]}</span>`, say: x[1] }));
+    why = `The others are all ${KNAME[k1]}. The ${o[1]} is not.`;
+  } else {
+    const n = rnd(2, 5), m = n + pick([-1, 1]), e = pick(THINGS)[0], reps = shuffle(['die', 'num', 'objs', 'frame']);
+    const show = (r, v) => r === 'die' ? die(v) : r === 'num' ? `<span class="m2num">${v}</span>` : r === 'objs' ? `<span class="mini">${objs(v, e)}</span>` : fr(v);
+    items = reps.map((r, i) => ({ html: show(r, i === 0 ? m : n), say: { die: 'the dice', num: 'the number', objs: 'the group of pictures', frame: 'the ten frame' }[r] }));
+    why = `The others all show ${n}. This one shows ${m}.`; prompt = 'Three show the same number. Which one is different?'; speak = 'Three of these show the same number. Which one shows a different number?';
+  }
+  const ids = ['a', 'b', 'c', 'd'];
+  return Q({ prompt, speak, choices: shuffle(items.map((it, i) => C(ids[i], it.html, it.say))), answer: 'a', explain: `<div class="m2odd">${items[0].html}</div>`, explainText: why });
+});
+
+/* 3D shapes, drawn simply so they read on a small screen. */
+const SOLID = {
+  sphere: c => `<circle cx="50" cy="52" r="40" fill="${c}" stroke="#22305A" stroke-width="3"/><path d="M10 52 A40 12 0 0 0 90 52" fill="none" stroke="#22305A" stroke-width="2" opacity=".55"/><ellipse cx="36" cy="36" rx="11" ry="7" fill="#fff" opacity=".55"/>`,
+  cube: c => `<path d="M14 36 H62 V84 H14 Z" fill="${c}"/><path d="M14 36 L36 16 H84 L62 36 Z" fill="${c}"/><path d="M14 36 L36 16 H84 L62 36 Z" fill="#fff" opacity=".4"/><path d="M62 36 L84 16 V64 L62 84 Z" fill="${c}"/><path d="M62 36 L84 16 V64 L62 84 Z" fill="#000" opacity=".2"/><path d="M14 36 H62 V84 H14 Z M14 36 L36 16 H84 L62 36 M84 16 V64 L62 84" fill="none" stroke="#22305A" stroke-width="3" stroke-linejoin="round"/>`,
+  cuboid: c => `<path d="M6 44 H68 V86 H6 Z" fill="${c}"/><path d="M6 44 L28 26 H92 L68 44 Z" fill="${c}"/><path d="M6 44 L28 26 H92 L68 44 Z" fill="#fff" opacity=".4"/><path d="M68 44 L92 26 V68 L68 86 Z" fill="${c}"/><path d="M68 44 L92 26 V68 L68 86 Z" fill="#000" opacity=".2"/><path d="M6 44 H68 V86 H6 Z M6 44 L28 26 H92 L68 44 M92 26 V68 L68 86" fill="none" stroke="#22305A" stroke-width="3" stroke-linejoin="round"/>`,
+  cylinder: c => `<path d="M22 22 V80 A28 9 0 0 0 78 80 V22 Z" fill="${c}" stroke="#22305A" stroke-width="3"/><path d="M60 24 V80" stroke="#000" stroke-opacity=".12" stroke-width="16"/><ellipse cx="50" cy="22" rx="28" ry="9" fill="${c}" stroke="#22305A" stroke-width="3"/><ellipse cx="50" cy="22" rx="28" ry="9" fill="#fff" opacity=".4"/>`,
+  cone: c => `<path d="M18 80 L50 10 L82 80 A32 10 0 0 1 18 80 Z" fill="${c}" stroke="#22305A" stroke-width="3" stroke-linejoin="round"/><path d="M50 12 L66 80 A32 10 0 0 0 82 80 Z" fill="#000" opacity=".15"/><path d="M18 80 A32 10 0 0 1 82 80" fill="none" stroke="#22305A" stroke-width="2" stroke-dasharray="4 4" opacity=".6"/>`,
+  pyramid: c => `<path d="M12 78 L50 10 L62 90 Z" fill="${c}" stroke="#22305A" stroke-width="3" stroke-linejoin="round"/><path d="M62 90 L50 10 L90 70 Z" fill="${c}"/><path d="M62 90 L50 10 L90 70 Z" fill="#000" opacity=".2"/><path d="M62 90 L50 10 L90 70 Z" fill="none" stroke="#22305A" stroke-width="3" stroke-linejoin="round"/><path d="M12 78 L52 62 L90 70 M52 62 L50 10" fill="none" stroke="#22305A" stroke-width="1.5" stroke-dasharray="4 4" opacity=".55"/>`
+};
+const solid = (n, c) => `<svg class="m2solid" viewBox="0 0 100 100" role="img" aria-label="${n}">${SOLID[n](c)}</svg>`;
+const SOL = { sphere: ['sphere', 'a ball', 0, true], cube: ['cube', 'a dice', 6, false], cuboid: ['cuboid', 'a box', 6, false], cylinder: ['cylinder', 'a tin can', 2, true], cone: ['cone', 'an ice cream cone', 1, true], pyramid: ['pyramid', 'a pointy tent', 5, false] };
+const FACES = { sphere: 'A sphere is curved all over. It has no flat faces: 0.', cube: 'A cube has 6 flat faces: top, bottom, front, back and 2 sides.', cylinder: 'A cylinder has a flat circle on the top and one on the bottom: 2.', cone: 'Only the round bottom of a cone is flat: 1.', pyramid: 'This pyramid has a square bottom and 4 triangle sides: 5.' };
+const REAL = [['⚽', 'football', 'sphere'], ['🏀', 'basketball', 'sphere'], ['🌍', 'globe', 'sphere'], ['🍊', 'orange', 'sphere'], ['🎲', 'dice', 'cube'], ['🧊', 'ice cube', 'cube'], ['🧱', 'brick', 'cuboid'], ['📦', 'parcel box', 'cuboid'], ['🥫', 'tin can', 'cylinder'], ['🔋', 'battery', 'cylinder'], ['🥁', 'drum', 'cylinder'], ['🍦', 'ice cream cone', 'cone']];
+S('solids', 0, '3D shapes', '📦', [
+  ['Some shapes are flat, like a drawing. 3D shapes are solid. You can pick them up!', () => ROW(mini('square', '#2E8BE6'), solid('cube', '#2E8BE6'))],
+  ['A sphere is like a ball. A cube is like a dice. A cylinder is like a tin can. A cone is like an ice cream cone.', () => ROW(solid('sphere', '#F2604F'), solid('cube', '#FFC23D'), solid('cylinder', '#2FA36B'), solid('cone', '#6D55D1'))],
+  ['Round shapes can roll. Shapes with flat faces and corners can stack.', () => '<span class="m2emo">⚽ 🥫 🎲 📦</span>']
+], L => {
+  const cols = shuffle(COLORS), pc = (n, i) => C(n, solid(n, cols[i][0]), `the ${cols[i][1]} one`);
+  const sibling = t => t === 'cube' ? 'cuboid' : t === 'cuboid' ? 'cube' : null;
+  if (L === 1) {
+    const pool = ['sphere', 'cube', 'cylinder', 'cone'], t = pick(pool), ch = [t, ...shuffle(pool.filter(x => x !== t)).slice(0, 2)];
+    return Q({ prompt: `Find the ${SOL[t][0]}. It is shaped like ${SOL[t][1]}.`, choices: shuffle(ch.map(pc)), answer: t, explain: P(solid(t, '#FFC23D'), 'sm'), explainText: `This is a ${SOL[t][0]}. It looks like ${SOL[t][1]}.` });
+  }
+  if (L === 2) {
+    const t = pick(Object.keys(SOL));
+    return Q({ prompt: 'What is this 3D shape called?', visual: P(solid(t, pick(COLORS)[0]), 'sm'), choices: opts(t, Object.keys(SOL), 3, v => v), answer: t, explainText: `It is a ${t}. It looks like ${SOL[t][1]}.` });
+  }
+  if (L === 3) {
+    const [e, nm, t] = pick(REAL), pool = Object.keys(SOL).filter(x => x !== t && x !== sibling(t) && x !== 'pyramid'), ch = [t, ...shuffle(pool).slice(0, 2)];
+    return Q({ prompt: `What shape is a ${nm}?`, speak: `What 3D shape is a ${nm} like?`, visual: `<span class="m2emo big">${e}</span>`, choices: shuffle(ch.map(pc)), answer: t, explain: P(solid(t, '#FFC23D'), 'sm'), explainText: `A ${nm} is shaped like a ${t}.` });
+  }
+  if (L === 4) {
+    const FLAT = { circle: ['sphere', 'cylinder'], square: ['cube', 'cuboid'], triangle: ['cone', 'pyramid'] }, flatAsk = Math.random() < 0.5;
+    if (flatAsk) {
+      const f = pick(Object.keys(FLAT)), sols = shuffle([...FLAT[f], ...shuffle(Object.keys(SOL).filter(x => !FLAT[f].includes(x))).slice(0, 1)]).slice(0, 2);
+      const ch = [C(f, mini(f, cols[0][0]), `the ${cols[0][1]} one`), ...sols.map((s, i) => pc(s, i + 1))];
+      return Q({ prompt: 'Which one is flat?', speak: 'Which one is flat, like a drawing on paper?', choices: shuffle(ch), answer: f, explain: P(mini(f, '#FFC23D'), 'sm'), explainText: `The ${f} is flat. The others are solid 3D shapes you could hold.` });
+    }
+    const s = pick(Object.keys(SOL)), flats = shuffle(Object.keys(FLAT)).slice(0, 2);
+    const ch = [pc(s, 0), ...flats.map((f, i) => C(f, mini(f, cols[i + 1][0]), `the ${cols[i + 1][1]} one`))];
+    return Q({ prompt: 'Which one is a solid 3D shape?', speak: 'Which one is solid, so you could pick it up?', choices: shuffle(ch), answer: s, explain: P(solid(s, '#FFC23D'), 'sm'), explainText: `The ${s} is solid. The others are flat shapes.` });
+  }
+  if (Math.random() < 0.5) {
+    const t = pick(['sphere', 'cube', 'cylinder', 'cone', 'pyramid']), f = SOL[t][2];
+    return Q({ prompt: `How many flat faces does a ${t} have?`, visual: P(solid(t, pick(COLORS)[0]), 'sm'), choices: nOpts(f, 0, 8, 4, [f + 1, f + 2]), answer: f, explainText: FACES[t] });
+  }
+  const roll = Math.random() < 0.5, yes = ['sphere', 'cylinder', 'cone'], no = ['cube', 'cuboid', 'pyramid'];
+  const t = pick(roll ? yes : no), rest = shuffle(roll ? no : yes).slice(0, 2), ch = [t, ...rest].map(pc);
+  return Q({ prompt: `Which one can${roll ? '' : 'not'} roll?`, speak: `Which one can${roll ? '' : ' not'} roll?`, choices: shuffle(ch), answer: t, explain: P(solid(t, '#FFC23D'), 'sm'),
+    explainText: roll ? `The ${t} has a curved side, so it can roll.` : `The ${t} has only flat faces and corners, so it cannot roll. The others have curved sides.` });
+});
+
+const NW = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty'];
+const TENSW = { 13: 'thirty', 14: 'forty', 15: 'fifty', 16: 'sixty', 17: 'seventy', 18: 'eighty', 19: 'ninety' };
+const spell = w => w.toUpperCase().split('').join(' ');
+S('numwords', 0, 'Number words', '🔤', [
+  ['Numbers can be written as words too. 3 is written three.', () => `<span class="bignum">3</span><span class="m2word">three</span>`],
+  ['Look at the first letter for a clue: t for two, three and ten. f for four and five. s for six and seven.', () => '<span class="m2word">two · three · ten</span>'],
+  ['Teen numbers end in teen: thirteen is 13, fifteen is 15.', () => '<span class="m2word">fifteen = 15</span>']
+], L => {
+  const hi = [3, 6, 10, 10, 20][L - 1], n = rnd(L === 5 ? 11 : 1, hi), e = pick(THINGS)[0];
+  const nums = [...near(n), ...(L >= 4 ? [n > 10 ? n - 10 : n + 10] : [])].filter(v => v >= 1 && v <= (L >= 4 ? 20 : Math.max(hi + 2, 5)) && v !== n);
+  if (L === 4 || (L === 5 && Math.random() < 0.5)) {
+    return Q({ prompt: 'Which number is this word?', speak: 'Read the word. Which number is it?', visual: `<span class="m2word big">${NW[n]}</span>`, choices: opts(n, TENSW[n] ? [(n - 10) * 10, ...nums] : nums, 4), answer: n,
+      explain: `<span class="bignum">${n}</span>${n <= 10 ? objs(n, e) : ''}`, explainText: `The word ${NW[n]} means ${n}.${n > 12 ? ` It ends in teen, so it is a teen number between 10 and 20.` : ''}` });
+  }
+  const words = nums.map(v => NW[v]).concat(TENSW[n] ? [TENSW[n]] : []);
+  return Q({ prompt: `Which word says ${n}?`, visual: `<span class="bignum">${n}</span>${L <= 2 ? objs(n, e) : ''}`, choices: opts(NW[n], words, L <= 2 ? 3 : 4, v => v, spell), answer: NW[n],
+    explain: `<span class="m2word">${NW[n]}</span>`, explainText: `${n} is written ${NW[n]}. You spell it ${NW[n].split('').join(', ')}.` });
+});
+
+/* Mirror patterns on a little grid, with a dashed fold line. */
+const PAL = ['#F2604F', '#2E8BE6', '#FFC23D', '#2FA36B', '#6D55D1'];
+function symGrid(g, { line = true, marks = [], blankRight = false } = {}) {
+  const rows = g.length, cols = g[0].length, z = 22, W = cols * z + 4, H = rows * z + 4; let s = '';
+  g.forEach((r, y) => r.forEach((c, x) => {
+    const blank = blankRight && x >= cols / 2;
+    s += `<rect x="${x * z + 2}" y="${y * z + 2}" width="${z}" height="${z}" fill="${blank ? '#EEF3F7' : c || '#fff'}" stroke="#9FB3C8" stroke-width="1"/>`;
+  }));
+  if (blankRight) s += `<text x="${W * 0.75}" y="${H / 2 + 9}" font-size="26" font-weight="800" text-anchor="middle" fill="#5A678C">?</text>`;
+  marks.forEach(([y, x]) => { s += `<rect x="${x * z + 3.5}" y="${y * z + 3.5}" width="${z - 3}" height="${z - 3}" fill="none" stroke="#22305A" stroke-width="3.5"/>`; });
+  if (line) s += `<line x1="${W / 2}" y1="0" x2="${W / 2}" y2="${H}" stroke="#22305A" stroke-width="3" stroke-dasharray="6 4"/>`;
+  return `<svg class="m2sym" viewBox="0 0 ${W} ${H}" role="img" aria-label="colour pattern">${s}</svg>`;
+}
+function mkHalf(rows, hc, k) { for (;;) { const h = Array.from({ length: rows }, () => Array.from({ length: hc }, () => Math.random() < 0.55 ? PAL[rnd(0, k - 1)] : null)); if (h.flat().filter(Boolean).length >= 2) return h; } }
+const mirror = h => h.map(r => [...r, ...[...r].reverse()]);
+const isSym = g => g.every(r => r.every((c, i) => c === r[r.length - 1 - i]));
+const misses = g => { const out = []; g.forEach((r, y) => r.forEach((c, x) => { if (x >= r.length / 2 && c !== r[r.length - 1 - x]) out.push([y, x]); })); return out; };
+function breakIt(g, k) {
+  for (;;) {
+    const h = g.map(r => r.slice()), cols = h[0].length;
+    for (let i = 0; i < k; i++) { const y = rnd(0, h.length - 1), x = rnd(cols / 2, cols - 1); h[y][x] = pick([null, ...PAL.slice(0, 3)].filter(c => c !== h[y][x])); }
+    if (!isSym(h)) return h;
+  }
+}
+const YESNO = () => [C('yes', '👍 yes', 'yes', true), C('no', '👎 no', 'no', true)];
+S('symmetry', 0, 'Mirror halves', '🦋', [
+  ['Something is symmetrical when both sides match, like a butterfly.', () => '<span class="m2emo big">🦋</span>'],
+  ['Fold it on the dashed line. If the two halves match like a mirror, it is the same on both sides.', () => P(symGrid(mirror([['#F2604F', null], [null, '#2E8BE6'], ['#FFC23D', '#FFC23D']])), 'sm')],
+  ['Check each square on the left with the square the same distance away on the right.', () => '']
+], L => {
+  if (L === 3) {
+    const half = mkHalf(3, 2, 3), good = mirror(half), cols = shuffle(COLORS);
+    const ch = [good, breakIt(good, 1), breakIt(good, 2)].map((g, i) => C(i ? 'x' + i : 'ok', symGrid(g), `the ${cols[i][1]} one`));
+    // colour the button edge so the spoken colour names point somewhere
+    ch.forEach((c, i) => { c.html = `<span class="m2tag" style="--c:${cols[i][0]}">${c.html}</span>`; });
+    return Q({ prompt: 'Which one is the same on both sides?', speak: 'Which pattern is the same on both sides of the dashed line?', choices: shuffle(ch), answer: 'ok', explain: P(symGrid(good), 'sm'), explainText: 'In this one every square on the left has a matching square on the right, like a mirror.' });
+  }
+  if (L === 4) {
+    let half; do half = mkHalf(3, 2, 3); while (half.every(r => r[0] === r[1]));
+    const right = half.map(r => [...r].reverse()), copy = half.map(r => r.slice()), full = mirror(half);
+    const wrong2 = breakIt(full, 1).map(r => r.slice(2));
+    const halfSVG = h => symGrid(h, { line: false });
+    const cands = [['ok', right], ['copy', copy], ['odd', wrong2]].filter(([k, h], i, a) => i === 0 || JSON.stringify(h) !== JSON.stringify(right));
+    const cols = shuffle(COLORS);
+    const ch = cands.map(([k, h], i) => C(k, `<span class="m2tag" style="--c:${cols[i][0]}">${halfSVG(h)}</span>`, `the ${cols[i][1]} one`));
+    return Q({ prompt: 'Which half finishes the mirror picture?', speak: 'Which half makes the picture the same on both sides?', visual: P(symGrid(full, { blankRight: true }), 'sm'), choices: shuffle(ch), answer: 'ok',
+      explain: P(symGrid(full), 'sm'), explainText: 'A mirror flips the picture. The square next to the line on the left matches the square next to the line on the right.' });
+  }
+  const [rows, hc, k, br] = [[3, 2, 2, 2], [4, 2, 3, pick([1, 2])], null, null, [5, 3, 4, 1]][L - 1];
+  const good = mirror(mkHalf(rows, hc, k)), same = Math.random() < 0.5, g = same ? good : breakIt(good, br), m = misses(g);
+  return Q({ prompt: 'Is it the same on both sides of the line?', speak: 'Look at the dashed line. Is the pattern the same on both sides, like a mirror?', visual: P(symGrid(g), L === 5 ? '' : 'sm'), choices: YESNO(), answer: same ? 'yes' : 'no',
+    explain: P(symGrid(g, { marks: m }), 'sm'), explainText: same ? 'Yes! Every square on one side has a matching square on the other side.' : `No. ${m.length === 1 ? 'The square with the dark box does' : `The ${m.length} squares with dark boxes do`} not match the other side.` });
+});
+
+/* Balance scales: the heavier side goes down. */
+function scaleSVG(left, right, t) {
+  const ly = 44 - 16 * t, ry = 44 + 16 * t;
+  const pan = (x, y, c) => `<line x1="${x}" y1="${y}" x2="${x - 30}" y2="${y + 34}" stroke="#5A678C" stroke-width="2"/><line x1="${x}" y1="${y}" x2="${x + 30}" y2="${y + 34}" stroke="#5A678C" stroke-width="2"/>${c(x, y + 33)}<path d="M${x - 37} ${y + 34} Q${x} ${y + 56} ${x + 37} ${y + 34} Z" fill="#FFC23D" stroke="#22305A" stroke-width="2.5"/>`;
+  return `<svg class="m2scale" viewBox="0 0 240 150" role="img" aria-label="balance scale"><path d="M120 44 L100 140 L140 140 Z" fill="#B07A4A" stroke="#22305A" stroke-width="2.5" stroke-linejoin="round"/><rect x="80" y="136" width="80" height="10" rx="4" fill="#5A678C"/><line x1="40" y1="${ly}" x2="200" y2="${ry}" stroke="#22305A" stroke-width="6" stroke-linecap="round"/><circle cx="120" cy="44" r="6" fill="#F2604F" stroke="#22305A" stroke-width="2"/>${pan(40, ly, left)}${pan(200, ry, right)}</svg>`;
+}
+const emo = (s, n = 1) => (x, b) => `<text x="${x}" y="${b}" font-size="${n === 1 ? 32 : n === 2 ? 25 : 19}" text-anchor="middle">${s.repeat(n)}</text>`;
+const cubes = k => (x, b) => { let s = ''; for (let i = 0; i < k; i++) { const r = Math.floor(i / 4), c = i % 4, inRow = Math.min(4, k - r * 4); s += `<rect x="${x - inRow * 7 + c * 14}" y="${b - 13 - r * 14}" width="13" height="13" rx="2" fill="#2E8BE6" stroke="#22305A" stroke-width="1.5"/>`; } return s; };
+const HEAVY = [[['🐘', 'elephant'], ['🐭', 'mouse']], [['🚗', 'car'], ['🚲', 'bike']], [['🍉', 'watermelon'], ['🍒', 'cherry']], [['🐻', 'bear'], ['🐦', 'bird']], [['🏠', 'house'], ['🧸', 'teddy bear']], [['🎃', 'pumpkin'], ['🍃', 'leaf']], [['🐄', 'cow'], ['🐈', 'cat']], [['📚', 'pile of books'], ['🎈', 'balloon']]];
+const TOYS = [['🧸', 'teddy'], ['⚽', 'ball'], ['🎁', 'present'], ['🍍', 'pineapple'], ['🥥', 'coconut'], ['🚂', 'toy train'], ['🍎', 'apple'], ['🍌', 'banana'], ['🥕', 'carrot'], ['🍞', 'bread']];
+S('weigh', 0, 'Heavy and light', '⚖️', [
+  ['Heavy things are hard to lift. Light things are easy to lift.', () => '<span class="m2emo">🐘 🍃</span>'],
+  ['On a balance scale, the heavier side goes down. The lighter side goes up.', () => P(scaleSVG(emo('🍉'), emo('🍒'), -1), 'sm')],
+  ['If the scale is level, both sides weigh the same.', () => P(scaleSVG(emo('🍎'), cubes(3), 0), 'sm')]
+], L => {
+  const tc = t => C(t[1], t[0], t[1]);
+  if (L === 1) {
+    const [big, small] = pick(HEAVY), heavy = Math.random() < 0.7, t = heavy ? big : small;
+    return Q({ prompt: `Which is ${heavy ? 'heavier' : 'lighter'}?`, speak: `Which is ${heavy ? 'heavier' : 'lighter'}, the ${big[1]} or the ${small[1]}?`, choices: shuffle([big, small]).map(tc), answer: t[1], explainText: `A ${big[1]} is much heavier than a ${small[1]}. So the ${t[1]} is ${heavy ? 'heavier' : 'lighter'}.` });
+  }
+  if (L <= 3) {
+    const [a, b] = shuffle(TOYS).slice(0, 2), level = L === 3 && Math.random() < 0.3, t = level ? 0 : pick([-1, 1]), heavy = Math.random() < 0.6;
+    const down = t === -1 ? a : b, up = t === -1 ? b : a, ans = level ? 'same' : heavy ? down[1] : up[1];
+    const ch = [tc(a), tc(b)]; if (L === 3) ch.push(C('same', 'same', 'the same', true));
+    return Q({ prompt: `Which is ${heavy ? 'heavier' : 'lighter'}?`, speak: `Look at the scale. Which is ${heavy ? 'heavier' : 'lighter'}, the ${a[1]} or the ${b[1]}?${L === 3 ? ' Or do they weigh the same?' : ''}`, visual: P(scaleSVG(emo(a[0]), emo(b[0]), t)), choices: ch, answer: ans,
+      explainText: level ? 'The scale is level, so they weigh the same.' : `The ${down[1]} side went down, so the ${down[1]} is heavier and the ${up[1]} is lighter.` });
+  }
+  if (L === 4) {
+    const [a, b, c] = shuffle(TOYS).slice(0, 3), heavy = Math.random() < 0.5, s1 = Math.random() < 0.5, s2 = Math.random() < 0.5;
+    const sc = (h, l, flip) => flip ? scaleSVG(emo(l[0]), emo(h[0]), 1) : scaleSVG(emo(h[0]), emo(l[0]), -1);
+    const t = heavy ? a : c;
+    return Q({ prompt: `Which is the ${heavy ? 'heaviest' : 'lightest'}?`, speak: `Look at both scales. Which is the ${heavy ? 'heaviest' : 'lightest'}: the ${a[1]}, the ${b[1]} or the ${c[1]}?`, visual: ROW(P(sc(a, b, s1), 'sm'), P(sc(b, c, s2), 'sm')), choices: shuffle([a, b, c]).map(tc), answer: t[1],
+      explainText: `The ${a[1]} is heavier than the ${b[1]}, and the ${b[1]} is heavier than the ${c[1]}. So the ${a[1]} is heaviest and the ${c[1]} is lightest.` });
+  }
+  const [e, nm] = pick([['🍎', 'apple'], ['🍐', 'pear'], ['🍊', 'orange'], ['🥕', 'carrot'], ['🍋', 'lemon']]), k = rnd(1, 3);
+  if (Math.random() < 0.5) {
+    const n = rnd(2, 3), kk = Math.min(k, Math.floor(9 / n));
+    return Q({ prompt: `How many cubes weigh the same as one ${e}?`, speak: `The scale is level. ${n} ${nm}s weigh the same as ${n * kk} cubes. How many cubes weigh the same as one ${nm}?`, visual: P(scaleSVG(emo(e, n), cubes(n * kk), 0)), choices: nOpts(kk, 1, 9, 4, [n * kk, n]), answer: kk,
+      steps: [`${n} ${nm}s balance ${n * kk} cubes.`, `Share the ${n * kk} cubes into ${n} equal groups: ${kk} in each.`], explainText: `One ${nm} weighs the same as ${kk} cube${kk > 1 ? 's' : ''}.` });
+  }
+  const kk = rnd(2, 4), m = rnd(2, 3);
+  return Q({ prompt: `How many cubes for ${m} ${e}?`, speak: `One ${nm} weighs the same as ${kk} cubes. How many cubes weigh the same as ${m} ${nm}s?`, visual: P(scaleSVG(emo(e), cubes(kk), 0)), choices: nOpts(kk * m, 1, 14, 4, [kk + m, kk, kk * m + 1]), answer: kk * m,
+    explainText: `Each ${nm} needs ${kk} cubes. ${Array(m).fill(kk).join(' + ')} = ${kk * m} cubes.` });
+});
+
+/* Glasses with water in them. */
+function glass(f, col = '#22305A') {
+  const y = 112 - f * 94, t = (112 - y) / 100, xl = 26 - 12 * t, xr = 74 + 12 * t;
+  const water = f > 0 ? `<path d="M26 112 L74 112 L${xr.toFixed(1)} ${y.toFixed(1)} L${xl.toFixed(1)} ${y.toFixed(1)} Z" fill="#8EC5F5"/><line x1="${xl.toFixed(1)}" y1="${y.toFixed(1)}" x2="${xr.toFixed(1)}" y2="${y.toFixed(1)}" stroke="#2E8BE6" stroke-width="3"/>` : '';
+  return `<svg class="m2glass" viewBox="0 0 100 120" role="img" aria-label="glass of water"><path d="M14 10 L26 112 L74 112 L86 10 Z" fill="#fff"/>${water}<path d="M14 10 L26 112 L74 112 L86 10" fill="none" stroke="${col}" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/></svg>`;
+}
+const CONTAIN = [['🥄', 'spoon'], ['☕', 'cup'], ['🫖', 'teapot'], ['🪣', 'bucket'], ['🛁', 'bathtub'], ['🏊', 'swimming pool']];
+S('capacity', 0, 'Full and empty', '🥛', [
+  ['Full means it cannot hold any more. Empty means nothing is inside.', () => ROW(P(glass(1), 'xs'), P(glass(0), 'xs'))],
+  ['Half full is in the middle.', () => P(glass(0.5), 'xs')],
+  ['When the glasses are the same, the higher the water, the more there is.', () => ROW(P(glass(0.3), 'xs'), P(glass(0.8), 'xs'))]
+], L => {
+  const cols = shuffle(COLORS), gc = (val, f, i) => C(val, glass(f, cols[i][0]), `the ${cols[i][1]} glass`);
+  if (L <= 2) {
+    const ask = L === 1 ? 'full' : pick(['empty', 'half full', 'full']), lv = { full: 1, 'half full': 0.5, empty: 0 };
+    const ch = shuffle(Object.keys(lv)).map((k, i) => gc(k, lv[k], i));
+    return Q({ prompt: `Which glass is ${ask}?`, choices: ch, answer: ask, explain: P(glass(lv[ask]), 'xs'),
+      explainText: { full: 'The full glass has water right up to the top.', 'half full': 'The half full glass has water up to the middle.', empty: 'The empty glass has no water at all.' }[ask] });
+  }
+  if (L === 3) {
+    const n = pick([3, 4]), lv = shuffle([0.15, 0.35, 0.55, 0.75, 0.95]).slice(0, n), most = Math.random() < 0.5, t = most ? Math.max(...lv) : Math.min(...lv);
+    return Q({ prompt: `Which glass has the ${most ? 'most' : 'least'} water?`, choices: lv.map((f, i) => gc('g' + Math.round(f * 100), f, i)), answer: 'g' + Math.round(t * 100),
+      explain: P(glass(t), 'xs'), explainText: `The glasses are all the same size, so look for the ${most ? 'highest' : 'lowest'} water.` });
+  }
+  if (L === 4) {
+    const idx = shuffle([0, 1, 2, 3, 4, 5]).slice(0, 3), most = Math.random() < 0.5, t = most ? Math.max(...idx) : Math.min(...idx);
+    return Q({ prompt: `Which can hold the ${most ? 'most' : 'least'} water?`, speak: `Which can hold the ${most ? 'most' : 'least'} water: ${idx.map(i => 'a ' + CONTAIN[i][1]).join(', ')}?`, choices: idx.map(i => C(CONTAIN[i][1], CONTAIN[i][0], 'a ' + CONTAIN[i][1])), answer: CONTAIN[t][1],
+      explainText: `From least to most: ${idx.slice().sort((a, b) => a - b).map(i => CONTAIN[i][1]).join(', ')}. The ${CONTAIN[t][1]} holds the ${most ? 'most' : 'least'}.` });
+  }
+  const cup = c => `<span class="m2cups">${Array.from({ length: c }, () => glass(1)).join('')}</span>`;
+  if (Math.random() < 0.5) {
+    const k = rnd(2, 5), m = 2;
+    return Q({ prompt: `1 jug fills ${k} cups. How many cups do 2 jugs fill?`, speak: `One jug of water fills ${k} cups. How many cups do 2 jugs fill?`, visual: ROW(P(glass(1), 'xs'), '<span class="op">=</span>', cup(k)), choices: nOpts(k * m, 1, 12, 4, [k, k + 2, k * m + 1]), answer: k * m,
+      explainText: `Each jug fills ${k} cups. ${k} + ${k} = ${k * m} cups.` });
+  }
+  const n = rnd(4, 9), m = rnd(1, n - 1);
+  return Q({ prompt: `A jug holds ${n} cups. You pour out ${m}. How many cups are left in the jug?`, speak: `A jug holds ${n} cups of water. You pour out ${m} cups. How many cups of water are left in the jug?`, visual: P(glass((n - m) / n), 'xs'), choices: nOpts(n - m, 0, 10, 4, [n, m, n + m]), answer: n - m,
+    explainText: `${n} cups take away ${m} cups leaves ${n - m} cup${n - m > 1 ? 's' : ''}.` });
+});
+
+const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+const DCOL = ['#F2604F', '#FF8A2B', '#FFC23D', '#2FA36B', '#2E8BE6', '#6D55D1', '#F49AC1'];
+const week = (hide = -1, hi = -1) => `<div class="m2week">${DAYS.map((d, i) => `<span style="--c:${DCOL[i]}" class="${i === hide ? 'q' : i === hi ? 'hi' : ''}">${i === hide ? '?' : d.slice(0, 3)}</span>`).join('')}</div>`;
+const dayOpts = (i, n = 3) => opts(DAYS[i], [1, 6, 2, 5].map(d => DAYS[(i + d) % 7]), n, v => v);
+S('days', 0, 'Days of the week', '📅', [
+  ['There are 7 days in a week. They always come in the same order.', () => week()],
+  ['Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday. Then Monday again!', () => ''],
+  ['Saturday and Sunday are the weekend.', () => week(-1, 5)]
+], L => {
+  if (L === 1) {
+    const i = rnd(0, 6);
+    return Q({ prompt: 'Which day is missing?', speak: 'One day of the week is hiding. Which day is missing?', visual: week(i), choices: dayOpts(i), answer: DAYS[i], explain: week(-1, i), explainText: `${i ? DAYS[i - 1] : 'The week starts with Monday'}${i ? `, then ${DAYS[i]}` : ''}${i < 6 ? `, then ${DAYS[i + 1]}` : ''}. The missing day is ${DAYS[i]}.` });
+  }
+  if (L <= 3) {
+    const i = rnd(0, 6), after = L === 2, j = (i + (after ? 1 : 6)) % 7;
+    return Q({ prompt: `What day comes ${after ? 'after' : 'before'} ${DAYS[i]}?`, visual: week(-1, i), choices: dayOpts(j, L === 2 ? 3 : 4), answer: DAYS[j], explain: week(-1, j),
+      explainText: `${after ? `${DAYS[i]}, then ${DAYS[j]}.` : `${DAYS[j]}, then ${DAYS[i]}.`}${after && i === 6 ? ' After Sunday, the week starts again with Monday.' : !after && i === 0 ? ' Before Monday comes Sunday, from the week before.' : ''}` });
+  }
+  if (L === 4) {
+    const i = rnd(0, 6), tom = Math.random() < 0.5, j = (i + (tom ? 1 : 6)) % 7;
+    return Q({ prompt: `Today is ${DAYS[i]}. What day ${tom ? 'will it be tomorrow' : 'was it yesterday'}?`, choices: dayOpts(j, 4), answer: DAYS[j], explain: week(-1, i),
+      explainText: tom ? `Tomorrow is the next day. After ${DAYS[i]} comes ${DAYS[j]}.` : `Yesterday was the day before. Before ${DAYS[i]} comes ${DAYS[j]}.` });
+  }
+  const k = pick(['jump', 'jump', 'count', 'weekend']);
+  if (k === 'count') return Q({ prompt: 'How many days are in a week?', choices: opts(7, [5, 6, 10, 12, 30], 4), answer: 7, explain: week(), explainText: 'Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday. That is 7 days.' });
+  if (k === 'weekend') {
+    const ans = 'Saturday and Sunday';
+    return Q({ prompt: 'Which days are the weekend?', choices: opts(ans, ['Monday and Tuesday', 'Friday and Monday', 'Sunday and Monday', 'Thursday and Friday'], 3, v => v), answer: ans, explain: week(-1, 5), explainText: 'Saturday and Sunday are the weekend. The other five days are weekdays.' });
+  }
+  const i = rnd(0, 6), d = rnd(2, 3), j = (i + d) % 7;
+  return Q({ prompt: `What day is ${d} days after ${DAYS[i]}?`, choices: opts(DAYS[j], [DAYS[(j + 6) % 7], DAYS[(j + 1) % 7], DAYS[(i + 1) % 7], DAYS[(i + 6) % 7]], 4, v => v), answer: DAYS[j], explain: week(-1, i),
+    explainText: `Start at ${DAYS[i]} and count on ${d}: ${Array.from({ length: d }, (_, s) => DAYS[(i + s + 1) % 7]).join(', ')}. It is ${DAYS[j]}.` });
+});
+
+/* ===================== World 1: Sprout Valley ===================== */
+
+S('tenframe', 1, 'Ten frames', '🔟', [
+  ['A ten frame has 10 boxes: 5 on top and 5 below.', () => P(fr(0), 'sm')],
+  ['Fill the top row first. 7 is a full row of 5 and 2 more.', () => P(fr(7), 'sm')],
+  ['Empty boxes show how many more to make 10. 7 and 3 make 10.', () => P(fr(7, '#F2604F', 3), 'sm')]
+], L => {
+  if (L === 1) {
+    const n = rnd(1, 10);
+    return Q({ prompt: 'How many dots?', speak: 'How many dots are in the ten frame?', visual: P(fr(n)), choices: nOpts(n, 0, 10, 3, [10 - n]), answer: n, explain: P(fr(n)), explainText: n >= 5 ? `The top row is 5${n > 5 ? `, and there are ${n - 5} below` : ''}. That makes ${n}.` : `Count the dots on the top row: ${n}.` });
+  }
+  if (L === 2) {
+    const n = rnd(1, 9);
+    return Q({ prompt: 'How many more to make 10?', speak: 'How many more dots would fill the ten frame to make 10?', visual: P(fr(n)), choices: nOpts(10 - n, 0, 10, 4, [n]), answer: 10 - n, explain: P(fr(n, '#F2604F', 10 - n)), explainText: `Count the empty boxes: ${10 - n}. ${n} and ${10 - n} make 10.` });
+  }
+  if (L === 3) {
+    const k = rnd(1, 10);
+    return Q({ prompt: 'How many dots?', speak: 'Count the dots in both ten frames. How many?', visual: `<div class="m2stack">${fr(10)}${fr(k)}</div>`, choices: nOpts(10 + k, 1, 20, 4, [k, 10 + k + 10]), answer: 10 + k, explain: `<div class="m2stack">${fr(10)}${fr(k, '#2E8BE6')}</div>`, explainText: `One full frame is 10. Then ${k} more makes ${10 + k}.` });
+  }
+  if (L === 4) {
+    const n = rnd(3, 10), vals = shuffle([n, ...shuffle([n - 1, n + 1, n - 2, n + 2].filter(v => v >= 1 && v <= 10)).slice(0, 2)]), cols = shuffle(COLORS);
+    return Q({ prompt: `Which ten frame shows ${n}?`, choices: vals.map((v, i) => C(v, fr(v, cols[i][0]), `the ${cols[i][1]} frame`)), answer: n, explain: P(fr(n), 'sm'), explainText: n >= 5 ? `${n} is a full top row of 5${n > 5 ? ` and ${n - 5} more` : ''}.` : `${n} is ${n} dots on the top row.` });
+  }
+  const a = rnd(6, 9), b = rnd(11 - a, 9), fill = 10 - a, rest = b - fill;
+  return Q({ prompt: `${a} + ${b} = ?`, speak: `What is ${a} plus ${b}? Fill up the ten frame first.`, visual: `<div class="m2stack">${fr(a, '#F2604F', fill)}${fr(0, '#F2604F', rest)}</div>`, choices: nOpts(a + b, 1, 20, 4, [a + b - 10, 10 + b]), answer: a + b,
+    steps: [`Move ${fill} of the ${b} to fill the first frame: ${a} + ${fill} = 10.`, `There are ${rest} left over.`, `10 + ${rest} = ${a + b}.`], explainText: `So ${a} + ${b} = ${a + b}.` });
+});
+
+const SPOT = [[32, 40], [20, 60], [38, 58], [26, 78], [42, 78], [34, 95]];
+function bug(l, r) {
+  const sp = (x, y) => `<circle cx="${x}" cy="${y}" r="6.5" fill="#22305A"/>`;
+  return `<svg class="m2bug" viewBox="0 0 100 112" role="img" aria-label="ladybug with ${l} spots and ${r} spots"><circle cx="50" cy="18" r="14" fill="#22305A"/><circle cx="44" cy="14" r="3" fill="#fff"/><circle cx="56" cy="14" r="3" fill="#fff"/><ellipse cx="50" cy="64" rx="40" ry="44" fill="#F2604F" stroke="#22305A" stroke-width="3"/><line x1="50" y1="22" x2="50" y2="108" stroke="#22305A" stroke-width="3"/>${SPOT.slice(0, l).map(([x, y]) => sp(x, y)).join('')}${SPOT.slice(0, r).map(([x, y]) => sp(100 - x, y)).join('')}</svg>`;
+}
+S('doubles', 1, 'Doubles', '🐞', [
+  ['A double is a number added to itself. This ladybug has 3 spots on each side: 3 + 3 = 6.', () => P(bug(3, 3), 'xs')],
+  ['Near doubles are one more: 3 + 4 is double 3 plus 1, so 7.', () => P(bug(3, 4), 'xs')],
+  ['Halving undoes doubling. Half of 6 is 3.', () => `<span class="bignum">6 → 3</span>`]
+], L => {
+  if (L <= 2) {
+    const n = rnd(1, L === 1 ? 5 : 10), pic = n <= 6;
+    return Q({ prompt: L === 1 ? `${n} spots on each wing. How many spots altogether?` : `${n} + ${n} = ?`, speak: L === 1 ? `This ladybug has ${n} spots on each wing. How many spots altogether?` : `What is double ${n}? ${n} plus ${n}?`, visual: pic ? P(bug(n, n), 'sm') : '',
+      choices: nOpts(2 * n, 1, 22, L === 1 ? 3 : 4, [n, 2 * n + 1, 2 * n - 1]), answer: 2 * n, explain: pic ? P(bug(n, n), 'xs') : '', explainText: `Double ${n} is ${n} + ${n} = ${2 * n}.` });
+  }
+  if (L === 3) {
+    const n = rnd(2, 9), [a, b] = Math.random() < 0.5 ? [n, n + 1] : [n + 1, n];
+    return Q({ prompt: `${a} + ${b} = ?`, speak: `What is ${a} plus ${b}? Use a double!`, visual: n + 1 <= 6 ? P(bug(a, b), 'sm') : '', choices: nOpts(2 * n + 1, 1, 20, 4, [2 * n, 2 * n + 2]), answer: 2 * n + 1,
+      steps: [`${n} + ${n} = ${2 * n} is a double you know.`, `${n + 1} is one more than ${n}, so add 1: ${2 * n + 1}.`], explainText: `${a} + ${b} = ${2 * n + 1}.` });
+  }
+  if (L === 4) {
+    const n = rnd(1, 10), [e, nm] = pick(THINGS);
+    return Q({ prompt: `Half of ${2 * n} is?`, speak: `Share ${2 * n} ${nm} into 2 equal groups. What is half of ${2 * n}?`, visual: objs(2 * n, e), choices: nOpts(n, 1, 20, 4, [2 * n, n + 2]), answer: n,
+      explain: ROW(objs(n, e), objs(n, e)), explainText: `Split ${2 * n} into 2 equal groups of ${n}. Check: ${n} + ${n} = ${2 * n}.` });
+  }
+  if (Math.random() < 0.5) {
+    const n = pick([11, 12, 13, 14, 15, 20, 25, 30, 35, 40, 50]);
+    return Q({ prompt: `Double ${n} = ?`, speak: `What is double ${n}?`, choices: nOpts(2 * n, 1, 110, 4, [n + 2, 2 * n + 10, 2 * n - 10]), answer: 2 * n,
+      explainText: n % 10 ? `Double the tens and the ones: double ${n - n % 10} is ${2 * (n - n % 10)}, double ${n % 10} is ${2 * (n % 10)}. Together ${2 * n}.` : `Double ${n / 10} tens is ${n / 5} tens: ${2 * n}.` });
+  }
+  const h = pick([12, 15, 20, 25, 30, 40, 50]);
+  return Q({ prompt: `Half of ${2 * h} = ?`, speak: `What is half of ${2 * h}?`, choices: nOpts(h, 1, 110, 4, [2 * h, h + 10, h - 5]), answer: h, explainText: `Half of ${2 * h} is ${h}, because ${h} + ${h} = ${2 * h}.` });
+});
+
+/* Number line with frog jumps. */
+function nline(min, max, start, jumps, { step = 1, labelEvery = 1, end = null, qLabel = false } = {}) {
+  const W = 340, x0 = 18, sp = (W - 2 * x0) / (max - min), X = v => +(x0 + (v - min) * sp).toFixed(1), y = 96;
+  let s = `<line x1="${x0 - 8}" y1="${y}" x2="${W - x0 + 8}" y2="${y}" stroke="#22305A" stroke-width="3" stroke-linecap="round"/>`;
+  for (let v = min; v <= max; v += step) {
+    const lab = (v - min) % labelEvery === 0;
+    s += `<line x1="${X(v)}" y1="${y - (lab ? 7 : 4)}" x2="${X(v)}" y2="${y + (lab ? 7 : 4)}" stroke="#22305A" stroke-width="2"/>`;
+    if (lab) s += `<text x="${X(v)}" y="${y + 22}" font-size="${max - min > 12 && step === 1 ? 10 : 13}" font-weight="800" text-anchor="middle" fill="#22305A">${v}</text>`;
+  }
+  let at = start;
+  for (const j of jumps) {
+    const to = at + j, x1 = X(at), x2 = X(to), h = Math.min(46, 10 + Math.abs(x2 - x1) * 0.45), col = j > 0 ? '#F2604F' : '#2E8BE6', mx = (x1 + x2) / 2;
+    s += `<path d="M${x1} ${y - 4} Q${mx} ${y - 4 - 2 * h} ${x2} ${y - 6}" fill="none" stroke="${col}" stroke-width="2.5"/><path d="M${x2 - 4} ${y - 12} L${x2 + 4} ${y - 12} L${x2} ${y - 4} Z" fill="${col}"/>`;
+    if (qLabel) s += `<text x="${mx}" y="${y - 10 - h}" font-size="20" font-weight="800" text-anchor="middle" fill="${col}">?</text>`;
+    at = to;
+  }
+  if (end != null) s += `<circle cx="${X(end)}" cy="${y}" r="6" fill="#FFC23D" stroke="#22305A" stroke-width="2"/>`;
+  s += `<text x="${X(start)}" y="${y - 6}" font-size="22" text-anchor="middle">🐸</text>`;
+  return `<svg class="m2nl" viewBox="0 0 ${W} 124" role="img" aria-label="number line from ${min} to ${max}">${s}</svg>`;
+}
+const unit = (n, sgn) => Array(n).fill(sgn);
+S('numline', 1, 'Number line jumps', '🐸', [
+  ['A number line has the numbers in order. Bigger numbers are further right.', () => P(nline(0, 10, 2, []))],
+  ['Adding jumps forward to the right. 2 + 3: start at 2, jump 3 times, land on 5.', () => P(nline(0, 10, 2, unit(3, 1)))],
+  ['Taking away jumps back to the left. 7 − 2: jump back 2, land on 5.', () => P(nline(0, 10, 7, unit(2, -1)))]
+], L => {
+  if (L <= 3) {
+    const max = L === 3 ? 20 : 10, fwd = L === 1 || (L === 3 && Math.random() < 0.5), b = rnd(L === 3 ? 2 : 1, L === 3 ? 6 : 4), a = fwd ? rnd(0, max - b) : rnd(b, max), ans = fwd ? a + b : a - b;
+    return Q({ prompt: `${a} ${fwd ? '+' : '−'} ${b} = ?`, speak: `The frog starts on ${a} and jumps ${fwd ? 'forward' : 'back'} ${b}. Where does it land?`, visual: P(nline(0, max, a, unit(b, fwd ? 1 : -1))), choices: nOpts(ans, 0, max, 4, [a, fwd ? ans + 1 : ans - 1]), answer: ans,
+      explainText: `Start on ${a}. Jump ${fwd ? 'forward' : 'back'}: ${Array.from({ length: b }, (_, i) => fwd ? a + i + 1 : a - i - 1).join(', ')}. The frog lands on ${ans}.` });
+  }
+  if (L === 4) {
+    const d = rnd(2, 8), fwd = Math.random() < 0.5, a = fwd ? rnd(0, 20 - d) : rnd(d, 20), c = fwd ? a + d : a - d, ans = (fwd ? '+' : '−') + d;
+    const say = v => `jump ${v[0] === '+' ? 'forward' : 'back'} ${v.slice(1)}`;
+    return Q({ prompt: `The frog jumps from ${a} to ${c}. What was the jump?`, speak: `The frog jumps from ${a} to ${c}. What was the jump?`, visual: P(nline(0, 20, a, [c - a], { end: c, qLabel: true })),
+      choices: opts(ans, [(fwd ? '−' : '+') + d, (fwd ? '+' : '−') + (d + 1), (fwd ? '+' : '−') + (d - 1), (fwd ? '+' : '−') + (d + 2)], 4, v => v, say), answer: ans,
+      explainText: `It went ${fwd ? 'forward to a bigger' : 'back to a smaller'} number. From ${a} to ${c} is ${d} steps, so the jump is ${ans}.` });
+  }
+  const m = rnd(2, 4), fwd = Math.random() < 0.5, a = fwd ? rnd(0, 10 - m) * 10 : rnd(m, 10) * 10, ans = fwd ? a + 10 * m : a - 10 * m;
+  return Q({ prompt: `${a} ${fwd ? '+' : '−'} ${10 * m} = ?`, speak: `The frog starts on ${a} and makes ${m} jumps of 10 ${fwd ? 'forward' : 'back'}. Where does it land?`, visual: P(nline(0, 100, a, unit(m, fwd ? 10 : -10), { step: 10, labelEvery: 10 })), choices: nOpts(ans, 0, 100, 4, [fwd ? ans - 10 : ans + 10, a + (fwd ? m : -m)]), answer: ans,
+    explainText: `${10 * m} is ${m} jumps of 10. ${a}, ${Array.from({ length: m }, (_, i) => fwd ? a + 10 * (i + 1) : a - 10 * (i + 1)).join(', ')}. The frog lands on ${ans}.` });
+});
+
+function tallySVG(n, col = '#22305A') {
+  const g = Math.max(1, Math.ceil(n / 5)); let s = '', x = 8;
+  for (let i = 0; i < g; i++) {
+    const k = Math.min(5, n - i * 5);
+    for (let j = 0; j < Math.min(k, 4); j++) s += `<line x1="${x + j * 9}" y1="6" x2="${x + j * 9}" y2="46" stroke="${col}" stroke-width="4" stroke-linecap="round"/>`;
+    if (k === 5) s += `<line x1="${x - 6}" y1="38" x2="${x + 33}" y2="14" stroke="${col}" stroke-width="4" stroke-linecap="round"/>`;
+    x += 50;
+  }
+  return `<svg class="m2tally" viewBox="0 0 ${x - 4} 52" role="img" aria-label="tally marks">${s}</svg>`;
+}
+S('tally', 1, 'Tally marks', '🖍️', [
+  ['A tally mark is one line for each thing you count.', () => P(tallySVG(3), 'xs')],
+  ['The 5th line goes across the other four. That makes a bundle of 5.', () => P(tallySVG(5), 'xs')],
+  ['Count bundles in 5s, then the ones: 5, 10, 11, 12.', () => P(tallySVG(12))]
+], L => {
+  if (L <= 3) {
+    const n = L === 1 ? rnd(1, 5) : L === 2 ? rnd(3, 10) : rnd(8, 20), b = Math.floor(n / 5), r = n % 5;
+    return Q({ prompt: 'How many tally marks?', speak: 'Count the tally marks. How many?', visual: P(tallySVG(n), n > 10 ? '' : 'sm'), choices: nOpts(n, 1, 25, L === 1 ? 3 : 4, [b * 4 + r, n + 5, n - 5]), answer: n,
+      explainText: b ? `Count the bundles by 5s: ${Array.from({ length: b }, (_, i) => 5 * (i + 1)).join(', ')}.${r ? ` Then count on ${r}: ${Array.from({ length: r }, (_, i) => b * 5 + i + 1).join(', ')}.` : ''} That is ${n}.` : `Count each line: ${Array.from({ length: n }, (_, i) => i + 1).join(', ')}.` });
+  }
+  if (L === 4) {
+    const n = rnd(4, 15), vals = shuffle([n, ...shuffle([n - 1, n + 1, n + 5, n - 5, n + 2].filter(v => v >= 1 && v <= 20)).slice(0, 2)]), cols = shuffle(COLORS);
+    return Q({ prompt: `Which tally shows ${n}?`, choices: vals.map((v, i) => C(v, tallySVG(v, cols[i][0]), `the ${cols[i][1]} tally`)), answer: n, explain: P(tallySVG(n), 'sm'),
+      explainText: `${n} is ${Math.floor(n / 5)} bundle${Math.floor(n / 5) === 1 ? '' : 's'} of 5${n % 5 ? ` and ${n % 5} more line${n % 5 > 1 ? 's' : ''}` : ''}.` });
+  }
+  const set = pick([[['🍎', 'apples'], ['🍌', 'bananas'], ['🍇', 'grapes']], [['🐶', 'dogs'], ['🐱', 'cats'], ['🐟', 'fish']], [['⚽', 'football'], ['🏊', 'swimming'], ['🚲', 'cycling']]]);
+  const vals = shuffle([3, 4, 5, 6, 7, 8, 9, 10, 11, 12]).slice(0, 3), chart = `<div class="m2tchart">${set.map((s, i) => `<span>${s[0]}</span>${tallySVG(vals[i])}`).join('')}</div>`;
+  if (Math.random() < 0.5) {
+    const [i, j] = shuffle([0, 1, 2]).slice(0, 2), [h, l] = vals[i] > vals[j] ? [i, j] : [j, i], d = vals[h] - vals[l];
+    return Q({ prompt: `How many more ${set[h][0]} than ${set[l][0]}?`, speak: `Read the tally chart. How many more for ${set[h][1]} than ${set[l][1]}?`, visual: chart, choices: nOpts(d, 1, 12, 4, [vals[h], vals[l], d + 1]), answer: d,
+      explainText: `${set[h][1]} has ${vals[h]}. ${set[l][1]} has ${vals[l]}. ${vals[h]} − ${vals[l]} = ${d}.` });
+  }
+  const tot = vals[0] + vals[1] + vals[2];
+  return Q({ prompt: 'How many altogether?', speak: 'Read the tally chart. How many tally marks altogether?', visual: chart, choices: nOpts(tot, 1, 40, 4, [tot + 5, tot - 5]), answer: tot, explainText: `${vals.join(' + ')} = ${tot}.` });
+});
+
+/* Shapes cut into parts. */
+const strips = (x, y, w, h, fr, vert = true) => { const out = []; let a = 0; for (const f of fr) { out.push(vert ? `M${+(x + a * w).toFixed(1)} ${y} h${+(f * w).toFixed(1)} v${h} h${-(f * w).toFixed(1)} Z` : `M${x} ${+(y + a * h).toFixed(1)} h${w} v${+(f * h).toFixed(1)} h${-w} Z`); a += f; } return out; };
+const quad = (x, y, w, h, fx, fy) => [[0, 0, fx, fy], [fx, 0, 1 - fx, fy], [0, fy, fx, 1 - fy], [fx, fy, 1 - fx, 1 - fy]].map(([a, b, c, d]) => `M${x + a * w} ${y + b * h} h${+(c * w).toFixed(1)} v${+(d * h).toFixed(1)} h${-(c * w).toFixed(1)} Z`);
+const diag2 = (x, y, s) => [`M${x} ${y} L${x + s} ${y} L${x} ${y + s} Z`, `M${x + s} ${y} L${x + s} ${y + s} L${x} ${y + s} Z`];
+const diag4 = (x, y, s) => { const cx = x + s / 2, cy = y + s / 2; return [[x, y, x + s, y], [x + s, y, x + s, y + s], [x + s, y + s, x, y + s], [x, y + s, x, y]].map(([a, b, c, d]) => `M${a} ${b} L${c} ${d} L${cx} ${cy} Z`); };
+const sectors = (d, rot = 0) => Array.from({ length: d }, (_, i) => { const a0 = (rot - 90 + i * 360 / d) * Math.PI / 180, a1 = (rot - 90 + (i + 1) * 360 / d) * Math.PI / 180, p = a => `${(50 + 44 * Math.cos(a)).toFixed(1)} ${(50 + 44 * Math.sin(a)).toFixed(1)}`; return `M50 50 L${p(a0)} A44 44 0 0 1 ${p(a1)} Z`; });
+function cut(kind, d, sh, col, equal = true, orient = 0) {
+  let Ps, vb = '0 0 100 100';
+  if (kind === 'circle') Ps = equal ? sectors(d, orient ? (d === 2 ? 90 : 45) : 0) : ['M30 10.8 A44 44 0 0 0 30 89.2 Z', 'M30 10.8 A44 44 0 1 1 30 89.2 Z'];
+  else if (kind === 'square') {
+    if (!equal) Ps = d === 2 ? strips(6, 6, 88, 88, orient ? [0.7, 0.3] : [0.3, 0.7], orient !== 2) : quad(6, 6, 88, 88, 0.3, 0.62);
+    else if (d === 2) Ps = orient === 2 ? diag2(6, 6, 88) : strips(6, 6, 88, 88, [0.5, 0.5], orient === 0);
+    else if (d === 4) Ps = orient === 2 ? diag4(6, 6, 88) : orient === 1 ? strips(6, 6, 88, 88, [0.25, 0.25, 0.25, 0.25]) : quad(6, 6, 88, 88, 0.5, 0.5);
+    else Ps = strips(6, 6, 88, 88, Array(d).fill(1 / d));
+  } else { vb = '0 0 140 100'; Ps = strips(6, 16, 128, 68, equal ? Array(d).fill(1 / d) : d === 2 ? [0.3, 0.7] : d === 3 ? [0.2, 0.3, 0.5] : [0.15, 0.2, 0.3, 0.35]); }
+  return `<svg class="m2cut" viewBox="${vb}" role="img" aria-label="shape cut into ${d} parts">${Ps.map((p, i) => `<path d="${p}" fill="${i < sh ? col : '#fff'}" stroke="#22305A" stroke-width="3" stroke-linejoin="round"/>`).join('')}</svg>`;
+}
+const PARTW = { 2: 'one half', 3: 'one third', 4: 'one quarter' };
+S('halves', 1, 'Halves and quarters', '🍰', [
+  ['A half is 1 of 2 equal parts. Both parts must be the same size!', () => ROW(P(cut('circle', 2, 1, '#FFC23D'), 'xs'), P(cut('square', 2, 1, '#2FA36B', true, 2), 'xs'))],
+  ['A quarter is 1 of 4 equal parts.', () => ROW(P(cut('square', 4, 1, '#2E8BE6'), 'xs'), P(cut('circle', 4, 1, '#F2604F'), 'xs'))],
+  ['These parts are not equal, so they are not halves.', () => P(cut('bar', 2, 1, '#6D55D1', false), 'xs')]
+], L => {
+  const cols = shuffle(COLORS), kinds = ['circle', 'square', 'bar'];
+  if (L === 1) {
+    const ks = shuffle(kinds), ch = [C('equal', cut(ks[0], 2, 2, cols[0][0], true, rnd(0, ks[0] === 'square' ? 2 : 1)), `the ${cols[0][1]} one`), C('bad1', cut(ks[1], 2, 2, cols[1][0], false, rnd(0, 1)), `the ${cols[1][1]} one`), C('bad2', cut(ks[2], 2, 2, cols[2][0], false, 0), `the ${cols[2][1]} one`)];
+    return Q({ prompt: 'Which one is cut in half?', speak: 'Which one is cut into 2 equal halves?', choices: shuffle(ch), answer: 'equal', explain: P(cut(ks[0], 2, 1, '#FFC23D'), 'xs'), explainText: 'Halves must be the same size. Only one shape has 2 equal parts.' });
+  }
+  if (L === 2) {
+    const want = pick([2, 4]), k = pick(kinds), ds = shuffle([2, 3, 4]);
+    return Q({ prompt: `Which shows ${PARTW[want]} coloured?`, choices: ds.map((d, i) => C('d' + d, cut(k, d, 1, cols[i][0]), `the ${cols[i][1]} one`)), answer: 'd' + want, explain: P(cut(k, want, 1, '#FFC23D'), 'xs'),
+      explainText: `${cap(PARTW[want])} means 1 of ${want} equal parts. Count the parts: this one has ${want}.` });
+  }
+  if (L === 3 && Math.random() < 0.5) {
+    const k = pick(kinds), d = k === 'circle' ? 2 : pick([2, 4]), eq = Math.random() < 0.5;
+    return Q({ prompt: 'Are the parts equal?', speak: 'Look at the parts. Are they all the same size?', visual: P(cut(k, d, 0, '#fff', eq, k === 'square' ? rnd(0, 2) : 0), 'sm'), choices: YESNO(), answer: eq ? 'yes' : 'no',
+      explainText: eq ? `Yes. All ${d} parts are the same size.` : 'No. Some parts are bigger than others.' });
+  }
+  if (L === 3 || (L === 5 && Math.random() < 0.5)) {
+    const opts3 = L === 5 ? [[2, 1], [4, 1], [3, 1], [4, 3]] : [[2, 1], [4, 1], [3, 1]], [d, s] = pick(opts3), k = pick(kinds), name = s === 3 ? 'three quarters' : PARTW[d];
+    const names = L === 5 ? ['one half', 'one quarter', 'one third', 'three quarters'] : ['one half', 'one quarter', 'one third'];
+    return Q({ prompt: 'What part is coloured?', visual: P(cut(k, d, s, '#FFC23D', true, k === 'square' ? rnd(0, 2) : rnd(0, 1)), 'sm'), choices: opts(name, names, L === 5 ? 4 : 3, v => v), answer: name,
+      explainText: `There are ${d} equal parts and ${s} ${s === 1 ? 'is' : 'are'} coloured. That is ${name}.` });
+  }
+  const [e, nm] = pick(THINGS);
+  if (L === 4) {
+    const n = 2 * rnd(1, 6);
+    return Q({ prompt: `What is half of ${n}?`, speak: `Share ${n} ${nm} into 2 equal groups. What is half of ${n}?`, visual: objs(n, e), choices: nOpts(n / 2, 1, 12, 4, [n, n - 2]), answer: n / 2,
+      explain: ROW(objs(n / 2, e), objs(n / 2, e)), explainText: `Share them out one at a time into 2 groups. Each group gets ${n / 2}.` });
+  }
+  const n = 4 * rnd(1, 5);
+  return Q({ prompt: `What is a quarter of ${n}?`, speak: `Share ${n} ${nm} into 4 equal groups. What is one quarter of ${n}?`, visual: objs(n, e), choices: nOpts(n / 4, 1, 20, 4, [n / 2, n - 4]), answer: n / 4,
+    explain: ROW(objs(n / 4, e), objs(n / 4, e), objs(n / 4, e), objs(n / 4, e)), steps: [`Half of ${n} is ${n / 2}.`, `Half of ${n / 2} is ${n / 4}.`], explainText: `A quarter is half of a half. A quarter of ${n} is ${n / 4}.` });
+});
+
+const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+const MDAYS = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+const SEASONS = [['spring', '🌷🐣'], ['summer', '☀️🏖️'], ['autumn', '🍂🍁'], ['winter', '⛄❄️']];
+const monthStrip = (hi = -1) => `<div class="m2months">${MONTHS.map((m, i) => `<span class="${i === hi ? 'hi' : ''}">${m.slice(0, 3)}</span>`).join('')}</div>`;
+function calGrid(mi, start, ask) {
+  let cells = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'].map(d => `<b>${d}</b>`).join('');
+  cells += '<i></i>'.repeat(start);
+  for (let d = 1; d <= MDAYS[mi]; d++) cells += `<span class="${d === ask ? 'hi' : ''}">${d}</span>`;
+  return `<div class="m2cal"><div class="m2calt">${MONTHS[mi]}</div><div class="m2calg">${cells}</div></div>`;
+}
+const mOpts = (i, n = 3) => opts(MONTHS[i], [1, 11, 2, 10, 6].map(d => MONTHS[(i + d) % 12]), n, v => v);
+S('calendar', 1, 'Months and seasons', '🗓️', [
+  ['A year has 12 months. It starts with January and ends with December.', () => monthStrip()],
+  ['There are 4 seasons: spring, summer, autumn and winter. Then spring comes again.', () => `<span class="m2emo">🌷 ☀️ 🍂 ⛄</span>`],
+  ['A calendar shows the days of a month. Each column is a day of the week.', () => calGrid(4, 2, 0)]
+], L => {
+  if (L === 1) {
+    const [nm, pic] = pick(SEASONS);
+    return Q({ prompt: 'Which season is this?', speak: 'Look at the picture. Which season is it?', visual: `<span class="m2emo big">${pic}</span>`, choices: opts(nm, SEASONS.map(s => s[0]), 4, v => v), answer: nm,
+      explainText: { spring: 'Flowers grow and baby animals are born in spring.', summer: 'Summer is the hot, sunny season. Time for the beach!', autumn: 'In autumn the leaves change colour and fall.', winter: 'Winter is the cold season. Sometimes it snows!' }[nm] });
+  }
+  if (L <= 3) {
+    if (L === 3 && Math.random() < 0.35) {
+      const i = rnd(0, 3), j = (i + 1) % 4;
+      return Q({ prompt: `Which season comes after ${SEASONS[i][0]}?`, choices: opts(SEASONS[j][0], SEASONS.map(s => s[0]), 3, v => v), answer: SEASONS[j][0], explain: `<span class="m2emo">${SEASONS.map(s => s[1].slice(0, 2)).join(' ')}</span>`, explainText: `The seasons go spring, summer, autumn, winter, and round again. After ${SEASONS[i][0]} comes ${SEASONS[j][0]}.` });
+    }
+    const i = rnd(0, 11), after = L === 2 || Math.random() < 0.5, j = (i + (after ? 1 : 11)) % 12;
+    return Q({ prompt: `Which month comes ${after ? 'after' : 'before'} ${MONTHS[i]}?`, visual: L === 2 ? monthStrip(i) : '', choices: mOpts(j, L === 2 ? 3 : 4), answer: MONTHS[j], explain: monthStrip(j),
+      explainText: `${after ? `${MONTHS[i]}, then ${MONTHS[j]}.` : `${MONTHS[j]}, then ${MONTHS[i]}.`}${after && i === 11 ? ' After December, a new year starts with January.' : !after && i === 0 ? ' Before January comes December of the year before.' : ''}` });
+  }
+  if (L === 4) {
+    const k = pick(['nth', 'nth', 'count', 'jump']);
+    if (k === 'count') return Q({ prompt: 'How many months are in a year?', choices: opts(12, [10, 7, 4, 52, 30], 4), answer: 12, explain: monthStrip(), explainText: 'January to December is 12 months.' });
+    if (k === 'jump') {
+      const i = rnd(0, 11), d = rnd(2, 3), j = (i + d) % 12;
+      return Q({ prompt: `Which month is ${d} months after ${MONTHS[i]}?`, choices: opts(MONTHS[j], [MONTHS[(j + 11) % 12], MONTHS[(j + 1) % 12], MONTHS[(i + 1) % 12]], 4, v => v), answer: MONTHS[j], explain: monthStrip(i),
+        explainText: `Count on ${d} from ${MONTHS[i]}: ${Array.from({ length: d }, (_, s) => MONTHS[(i + s + 1) % 12]).join(', ')}.` });
+    }
+    const n = rnd(1, 12);
+    return Q({ prompt: `What is month number ${n}?`, speak: `Which month is the ${['', 'first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth', 'tenth', 'eleventh', 'twelfth'][n]} month of the year?`, choices: mOpts(n - 1, 4), answer: MONTHS[n - 1], explain: monthStrip(n - 1),
+      explainText: `Count from January: ${MONTHS.slice(0, n).join(', ')}. Month ${n} is ${MONTHS[n - 1]}.` });
+  }
+  const mi = rnd(0, 11), start = rnd(0, 6);
+  if (Math.random() < 0.6) {
+    const d = rnd(2, MDAYS[mi]), wd = (start + d - 1) % 7;
+    return Q({ prompt: `What day of the week is ${MONTHS[mi]} ${d}?`, speak: `Look at the calendar. What day of the week is the ${d}${d % 10 === 1 && d !== 11 ? 'st' : d % 10 === 2 && d !== 12 ? 'nd' : d % 10 === 3 && d !== 13 ? 'rd' : 'th'} of ${MONTHS[mi]}?`, visual: calGrid(mi, start, d),
+      choices: opts(DAYS[wd], [DAYS[(wd + 1) % 7], DAYS[(wd + 6) % 7], DAYS[(wd + 2) % 7]], 4, v => v), answer: DAYS[wd], explainText: `Find ${d} on the calendar, then look up to the top of its column. It says ${DAYS[wd].slice(0, 2)}, for ${DAYS[wd]}.` });
+  }
+  const wd = rnd(0, 6), cnt = Array.from({ length: MDAYS[mi] }, (_, i) => (start + i) % 7).filter(x => x === wd).length;
+  return Q({ prompt: `How many ${DAYS[wd]}s are in this month?`, speak: `Look at the calendar for ${MONTHS[mi]}. How many ${DAYS[wd]}s are there?`, visual: calGrid(mi, start, 0), choices: opts(cnt, [3, 4, 5, 6, 7], 3), answer: cnt,
+    explainText: `Find the ${DAYS[wd].slice(0, 2)} column and count the dates in it: ${cnt}.` });
+});
+
+S('between', 1, 'Before, after, between', '🔢', [
+  ['After means the next number. After 14 comes 15.', () => track([13, 14, 15], 2)],
+  ['Before means the number just in front. Before 14 comes 13.', () => track([13, 14, 15], 0)],
+  ['Between means in the middle. 14 is between 13 and 15.', () => track([13, 14, 15], 1)]
+], L => {
+  if (L === 5) {
+    const x = rnd(10, 85), y = x + rnd(4, 8), ans = rnd(x + 1, y - 1);
+    return Q({ prompt: `Which number is between ${x} and ${y}?`, choices: opts(ans, [x, y, x - rnd(1, 5), y + rnd(1, 5), y + 10, x - 10].filter(v => v >= 0), 4), answer: ans,
+      explainText: `Between ${x} and ${y} are the numbers ${Array.from({ length: y - x - 1 }, (_, i) => x + i + 1).join(', ')}. ${ans} is one of them.` });
+  }
+  const kind = L === 1 ? 'after' : L === 2 ? 'before' : L === 3 ? 'between' : pick(['after', 'before', 'between']);
+  let n = L <= 2 ? rnd(2, 19) : L === 3 ? rnd(2, 49) : clamp(rnd(1, 9) * 10 + pick([-1, 0, 1]), 2, 98);
+  const ans = kind === 'after' ? n + 1 : kind === 'before' ? n - 1 : n;
+  const seq = kind === 'after' ? [n - 1, n, '?'] : kind === 'before' ? ['?', n, n + 1] : [n - 1, '?', n + 1];
+  const say = kind === 'after' ? `What number comes just after ${n}?` : kind === 'before' ? `What number comes just before ${n}?` : `What number is between ${n - 1} and ${n + 1}?`;
+  const cross = Math.floor((n + 1) / 10) !== Math.floor((n - 1) / 10);
+  return Q({ prompt: say, visual: track(seq), choices: nOpts(ans, 0, 100, L === 1 ? 3 : 4, [kind === 'after' ? n - 1 : n + 1, ans + 10, ans - 10]), answer: ans, explain: track([ans - 1, ans, ans + 1], 1),
+    explainText: `Count: ${ans - 1}, ${ans}, ${ans + 1}. ${kind === 'after' ? `After ${n} comes ${ans}.` : kind === 'before' ? `Just before ${n} is ${ans}.` : `${ans} is in the middle.`}${cross && L >= 4 ? ' The tens digit changes when you go past a 9.' : ''}` });
+});
+
+const house = (a, b, c) => `<svg class="m2house" viewBox="0 0 160 140" role="img" aria-label="number house"><path d="M80 6 L152 62 L8 62 Z" fill="#F2604F" stroke="#22305A" stroke-width="3" stroke-linejoin="round"/><rect x="22" y="62" width="116" height="72" fill="#FFF1CC" stroke="#22305A" stroke-width="3"/><line x1="80" y1="62" x2="80" y2="134" stroke="#22305A" stroke-width="2" stroke-dasharray="5 4"/><text x="80" y="54" font-size="28" font-weight="800" text-anchor="middle" fill="#fff">${c}</text><text x="51" y="110" font-size="30" font-weight="800" text-anchor="middle" fill="#22305A">${a}</text><text x="109" y="110" font-size="30" font-weight="800" text-anchor="middle" fill="#22305A">${b}</text></svg>`;
+const facts = (a, b, c) => [`${a} + ${b} = ${c}`, `${b} + ${a} = ${c}`, `${c} − ${a} = ${b}`, `${c} − ${b} = ${a}`];
+S('factfam', 1, 'Fact families', '🏠', [
+  ['A number house holds a family: two parts downstairs, the whole on the roof.', () => P(house(3, 4, 7), 'xs')],
+  ['The parts add to make the whole: 3 + 4 = 7 and 4 + 3 = 7.', () => `${objs(3, '🔴')}<span class="op">+</span>${objs(4, '🔵')}`],
+  ['Take a part from the whole to get the other part: 7 − 4 = 3 and 7 − 3 = 4.', () => '<span class="m2eq">7 − 4 = 3<br>7 − 3 = 4</span>']
+], L => {
+  const max = L <= 3 ? 10 : 20;
+  let a = rnd(1, max - 2), b; do b = rnd(1, max - a); while (b === a); const c = a + b;
+  if (L === 1) {
+    return Q({ prompt: `${a} + ${b} = ${c}. So ${b} + ${a} = ?`, speak: `${a} plus ${b} equals ${c}. So what is ${b} plus ${a}?`, visual: c <= 10 ? `${objs(a, '🔴')}<span class="op">+</span>${objs(b, '🔵')}` : '', choices: nOpts(c, 0, 20, 3, [a, b, c + 1]), answer: c,
+      explainText: `Adding in any order gives the same total. ${b} + ${a} is still ${c}.` });
+  }
+  if (L === 2) {
+    const takeB = Math.random() < 0.5, ans = takeB ? a : b;
+    return Q({ prompt: `${a} + ${b} = ${c}. So ${c} − ${takeB ? b : a} = ?`, speak: `${a} plus ${b} equals ${c}. So what is ${c} minus ${takeB ? b : a}?`, visual: P(house(a, b, c), 'xs'), choices: nOpts(ans, 0, 20, 3, [c, takeB ? b : a, ans + 1]), answer: ans,
+      explainText: `${c} is the whole. Take away the part ${takeB ? b : a} and the other part is left: ${ans}.` });
+  }
+  if (L === 3) {
+    const right = pick(facts(a, b, c)), wrong = [`${a} − ${b} = ${c}`, `${a} + ${c} = ${b}`, `${b} − ${c} = ${a}`, `${c} + ${a} = ${b}`, `${b} − ${a} = ${c}`];
+    return Q({ prompt: `Which fact is in the family ${a}, ${b}, ${c}?`, visual: P(house(a, b, c), 'xs'), choices: opts(right, wrong, 3, v => v, SPEAK_EQ), answer: right,
+      explainText: `The family facts are ${facts(a, b, c).join(', ')}. The whole, ${c}, is always the biggest number.` });
+  }
+  if (L === 4) {
+    const hide = pick(['a', 'b', 'c']), ans = { a, b, c }[hide];
+    return Q({ prompt: 'What number is missing from the house?', speak: hide === 'c' ? `The parts are ${a} and ${b}. What is the whole?` : `The whole is ${c}. One part is ${hide === 'a' ? b : a}. What is the other part?`,
+      visual: P(house(hide === 'a' ? '?' : a, hide === 'b' ? '?' : b, hide === 'c' ? '?' : c), 'sm'), choices: nOpts(ans, 0, 20, 4, hide === 'c' ? [Math.abs(a - b), c + 1] : [c, c + (hide === 'a' ? b : a)]), answer: ans,
+      explainText: hide === 'c' ? `Add the parts: ${a} + ${b} = ${c}.` : `Take the part from the whole: ${c} − ${hide === 'a' ? b : a} = ${ans}.` });
+  }
+  const ok = shuffle(facts(a, b, c)).slice(0, 3), bad = pick([`${c} − ${a} = ${b + 1}`, `${a} + ${b} = ${c - 1}`, `${b} − ${a} = ${c}`, `${c} + ${b} = ${a}`, `${c} − ${b} = ${a + 2}`]);
+  return Q({ prompt: `Which one is NOT in the family ${a}, ${b}, ${c}?`, speak: `Three of these belong to the family ${a}, ${b}, ${c}. Which one does not belong?`, choices: shuffle([bad, ...ok]).map(v => C(v, v, SPEAK_EQ(v), true)), answer: bad,
+    explainText: `${bad} is not true. The family facts are ${facts(a, b, c).join(', ')}.` });
+});
+
+/* Beanbag target for adding three scores. */
+const RINGS = [[1, 72, '#2E8BE6'], [2, 55, '#fff'], [5, 38, '#F2604F'], [10, 19, '#FFC23D']];
+function target(hits) {
+  let s = RINGS.map(([, r, c]) => `<circle cx="80" cy="80" r="${r}" fill="${c}" stroke="#22305A" stroke-width="2.5"/>`).join('');
+  s += RINGS.map(([v, r], i) => i < 3 ? `<text x="80" y="${80 - r + 13}" font-size="12" font-weight="800" text-anchor="middle" fill="${i === 1 ? '#22305A' : '#fff'}">${v}</text>` : `<text x="80" y="86" font-size="15" font-weight="800" text-anchor="middle" fill="#22305A">10</text>`).join('');
+  const ang = shuffle([25, 90, 155, 200, 340]);
+  hits.forEach((v, k) => { const i = RINGS.findIndex(r => r[0] === v), ro = RINGS[i][1], ri = i < 3 ? RINGS[i + 1][1] : 0, rr = i < 3 ? (ro + ri) / 2 : 12, a = ang[k] * Math.PI / 180; s += `<circle cx="${(80 + rr * Math.cos(a)).toFixed(1)}" cy="${(80 + rr * Math.sin(a)).toFixed(1)}" r="7" fill="#6D55D1" stroke="#fff" stroke-width="2.5"/>`; });
+  return `<svg class="m2target" viewBox="0 0 160 160" role="img" aria-label="target with ${hits.length} beanbags">${s}</svg>`;
+}
+S('add3', 1, 'Adding three numbers', '🎯', [
+  ['To add three numbers, add two first. Then add the third.', () => '<span class="m2eq">2 + 3 + 4<br>5 + 4 = 9</span>'],
+  ['Look for two numbers that make 10. 7 + 5 + 3: 7 + 3 = 10, then 10 + 5 = 15.', () => '<span class="m2eq">7 + 3 = 10</span>'],
+  ['Doubles help too: 4 + 4 + 5 = 8 + 5 = 13.', () => '']
+], L => {
+  let a, b, c, steps, visual = '', speak;
+  if (L === 1) { a = rnd(1, 3); b = rnd(1, 3); c = rnd(1, 3); const [e] = pick(THINGS); visual = `${objs(a, e)}<span class="op">+</span>${objs(b, e)}<span class="op">+</span>${objs(c, e)}`; }
+  else if (L === 2) { const x = rnd(1, 9); [a, b, c] = shuffle([x, 10 - x, rnd(1, 9)]); }
+  else if (L === 3) { a = rnd(1, 6); b = rnd(1, 6); c = rnd(1, 6); visual = dice(a, b, c); speak = 'Add the dots on all three dice. How many altogether?'; }
+  else if (L === 4) { a = rnd(2, 9); b = Math.random() < 0.5 ? a : rnd(2, 9); c = rnd(2, 9); [a, b, c] = shuffle([a, b, c]); }
+  else if (Math.random() < 0.5) {
+    const hits = Array.from({ length: 3 }, () => pick([1, 2, 5, 10])), tot = hits.reduce((x, y) => x + y, 0), sorted = hits.slice().sort((x, y) => y - x);
+    return Q({ prompt: 'Three beanbags hit the target. What is the score?', speak: 'Three beanbags landed on the target. Read the number on each ring. What is the total score?', visual: P(target(hits), 'sm'), choices: nOpts(tot, 3, 30, 4, [tot + 1, tot - 5, tot + 5]), answer: tot,
+      steps: [`The beanbags are on ${hits.join(', ')}.`, `Start with the biggest: ${sorted[0]} + ${sorted[1]} = ${sorted[0] + sorted[1]}.`, `${sorted[0] + sorted[1]} + ${sorted[2]} = ${tot}.`], explainText: `The score is ${tot}.` });
+  } else { a = rnd(1, 4) * 10; b = rnd(1, 4) * 10; c = rnd(1, 9); }
+  const s = a + b + c, pair = [[a, b, c], [a, c, b], [b, c, a]].find(([x, y]) => x + y === 10) || (a === b ? [a, b, c] : null);
+  steps = pair ? [`${pair[0]} + ${pair[1]} = ${pair[0] + pair[1]}${pair[0] + pair[1] === 10 ? ' (a ten!)' : ' (a double!)'}.`, `${pair[0] + pair[1]} + ${pair[2]} = ${s}.`] : [`${a} + ${b} = ${a + b}.`, `${a + b} + ${c} = ${s}.`];
+  return Q({ prompt: `${a} + ${b} + ${c} = ?`, speak: speak || `What is ${a} plus ${b} plus ${c}?`, visual, choices: nOpts(s, 1, 100, L === 1 ? 3 : 4, [a + b, b + c, s + 10]), answer: s, steps, explainText: `So ${a} + ${b} + ${c} = ${s}.` });
+});
+
+const SYM = { lt: ['&lt;', 'less than'], gt: ['&gt;', 'greater than'], eq: ['=', 'equal to'] };
+const symCh = () => ['lt', 'gt', 'eq'].map(k => C(k, `<span class="m2sign">${SYM[k][0]}</span>`, SYM[k][1]));
+const rel = (x, y) => x < y ? 'lt' : x > y ? 'gt' : 'eq';
+S('compsym', 1, 'Greater, less, equal', '🐊', [
+  ['The hungry crocodile always opens its mouth to the bigger number.', () => '<span class="bignum">9 &gt; 4</span>'],
+  ['&gt; means greater than. &lt; means less than. = means equal, the same.', () => '<span class="bignum">3 &lt; 8 &nbsp; 5 = 5</span>'],
+  ['For sums, work out each side first. 4 + 3 = 7, so 4 + 3 &lt; 9.', () => '']
+], L => {
+  let A, B, va, vb, visual = '';
+  if (L === 1) { va = rnd(1, 10); do vb = rnd(1, 10); while (vb === va); A = va; B = vb; const [e] = pick(THINGS); visual = ROW(objs(va, e), objs(vb, e)); }
+  else if (L === 2) { va = rnd(1, 50); vb = Math.random() < 0.2 ? va : rnd(1, 50); A = va; B = vb; }
+  else if (L === 3) { if (Math.random() < 0.4) { const x = rnd(1, 9); let y; do y = rnd(1, 9); while (y === x); va = 10 * x + y; vb = 10 * y + x; } else { va = rnd(10, 99); vb = Math.random() < 0.2 ? va : rnd(10, 99); } A = va; B = vb; }
+  else if (L === 4) { const x = rnd(1, 9), y = rnd(1, 9), sub = Math.random() < 0.3 && x !== y; va = sub ? Math.abs(x - y) : x + y; A = sub ? `${Math.max(x, y)} − ${Math.min(x, y)}` : `${x} + ${y}`; vb = Math.max(0, va + pick([-2, -1, 0, 0, 1, 2])); B = vb; if (Math.random() < 0.5) { [A, B] = [B, A]; [va, vb] = [vb, va]; } }
+  else { const x = rnd(2, 9), y = rnd(2, 9); va = x + y; A = `${x} + ${y}`; if (Math.random() < 0.4) { const k = pick([-1, 1]); const p = x + k, q = y - k; vb = p + q; B = `${p} + ${q}`; } else { const p = rnd(2, 9), q = rnd(2, 9); vb = p + q; B = `${p} + ${q}`; } }
+  const ans = rel(va, vb), word = SYM[ans][1], exprs = typeof A === 'string' || typeof B === 'string';
+  return Q({ prompt: 'Which sign goes in the box?', speak: `Is ${SPEAK_EQ(A)} greater than, less than, or equal to ${SPEAK_EQ(B)}?`, visual: `<div class="m2cmp"><span>${A}</span><span class="m2box"></span><span>${B}</span></div>${visual}`, choices: symCh(), answer: ans,
+    explainText: `${exprs ? `${A} is ${va} and ${B} is ${vb}. ` : ''}${ans === 'eq' ? `Both are ${va}, so they are equal: =.` : `${Math.max(va, vb)} is bigger than ${Math.min(va, vb)}. The crocodile mouth opens to the bigger side, so it is ${word}: ${SYM[ans][0]}.`}` });
+});
+
+function chart100({ q = -1, marks = {}, show = () => true } = {}) {
+  const z = 30; let s = '';
+  for (let i = 1; i <= 100; i++) {
+    const x = ((i - 1) % 10) * z + 2, y = Math.floor((i - 1) / 10) * z + 2;
+    s += `<rect x="${x}" y="${y}" width="${z}" height="${z}" fill="${i === q ? '#FFF1CC' : marks[i] || '#fff'}" stroke="#9FB3C8" stroke-width="1"/>`;
+    if (i === q) s += `<text x="${x + z / 2}" y="${y + 21}" font-size="18" font-weight="800" text-anchor="middle" fill="#F2604F">?</text>`;
+    else if (show(i)) s += `<text x="${x + z / 2}" y="${y + 19}" font-size="11.5" font-weight="700" text-anchor="middle" fill="#22305A">${i}</text>`;
+  }
+  return `<svg class="m2hund" viewBox="0 0 304 304" role="img" aria-label="hundred chart">${s}</svg>`;
+}
+const plusWin = (n, q) => { const cell = (v, k) => `<span class="${k === q ? 'q' : ''}">${k === q ? '?' : v}</span>`; return `<div class="m2win"><i></i>${cell(n - 10, 'up')}<i></i>${cell(n - 1, 'left')}${cell(n, 'mid')}${cell(n + 1, 'right')}<i></i>${cell(n + 10, 'down')}<i></i></div>`; };
+S('hundred', 1, 'Hundred chart', '💯', [
+  ['The hundred chart has 1 to 100 in rows of 10.', () => P(chart100(), 'chart')],
+  ['Going right adds 1. Going down a row adds 10.', () => plusWin(45, '')],
+  ['Going left takes away 1. Going up a row takes away 10.', () => '']
+], L => {
+  if (L === 1) {
+    const s = rnd(1, 46), arr = Array.from({ length: 5 }, (_, i) => s + i), qi = rnd(0, 4), ans = arr[qi];
+    return Q({ prompt: 'What number is missing?', speak: 'This is part of a row on the hundred chart. What number is missing?', visual: track(arr.map((v, i) => i === qi ? '?' : v)), choices: nOpts(ans, 1, 60, 3, [ans + 10, ans + 2]), answer: ans, explain: track(arr, qi), explainText: `Going right adds 1 each time: ${arr.join(', ')}.` });
+  }
+  if (L === 2) {
+    let n; do n = rnd(12, 89); while (n % 10 === 0 || n % 10 === 1);
+    const q = pick(['up', 'down', 'left', 'right', 'mid']), ans = { up: n - 10, down: n + 10, left: n - 1, right: n + 1, mid: n }[q];
+    return Q({ prompt: 'What number is hiding?', speak: 'This is a piece of the hundred chart. What number is hiding under the question mark?', visual: plusWin(n, q), choices: nOpts(ans, 1, 100, 4, [ans + 1, ans - 1, ans + 10, ans - 10].filter(v => v !== ans)), answer: ans, explain: plusWin(n, ''),
+      explainText: q === 'up' ? `Up one row is 10 less: ${n} − 10 = ${ans}.` : q === 'down' ? `Down one row is 10 more: ${n} + 10 = ${ans}.` : q === 'left' ? `Left is 1 less: ${ans}.` : q === 'right' ? `Right is 1 more: ${ans}.` : `It is 1 more than ${n - 1}, and 10 more than ${n - 10}: ${ans}.` });
+  }
+  if (L === 3) {
+    let qn; do qn = rnd(12, 99); while (qn % 10 === 1 || qn <= 10);
+    return Q({ prompt: 'What number goes in the yellow square?', speak: 'Only some numbers are written. What number goes in the square with the question mark?', visual: P(chart100({ q: qn, show: i => i <= 10 || i % 10 === 1 }), 'chart'), choices: nOpts(qn, 1, 100, 4, [qn + 10, qn - 10, qn + 1]), answer: qn,
+      explainText: `Its row starts with ${qn - (qn - 1) % 10}, and it is in the column under ${(qn - 1) % 10 + 1}. So it is ${qn}.` });
+  }
+  if (L === 4) {
+    const by = pick([2, 5, 10]), k = rnd(3, by === 10 ? 6 : by === 5 ? 8 : 12), marks = {};
+    for (let i = 1; i <= k; i++) marks[by * i] = '#BFE5CF';
+    const next = by * (k + 1);
+    return Q({ prompt: `The green squares count by ${by}s. What is the next green number?`, visual: P(chart100({ marks }), 'chart'), choices: nOpts(next, 1, 100, 4, [next - 1, next + 1, next + by, by * k + 1]), answer: next,
+      explainText: `Counting by ${by}s: ${Array.from({ length: Math.min(k, 6) }, (_, i) => by * (k - Math.min(k, 6) + i + 1)).join(', ')}, and next is ${next}.` });
+  }
+  let s, dr, dc;
+  do { s = rnd(1, 100); dr = pick([-2, -1, 1, 2, 3]); dc = pick([-3, -2, -1, 1, 2, 3]); } while (s + 10 * dr < 1 || s + 10 * dr > 100 || (s - 1) % 10 + dc < 0 || (s - 1) % 10 + dc > 9);
+  const ans = s + 10 * dr + dc, mv = `${Math.abs(dr)} row${Math.abs(dr) > 1 ? 's' : ''} ${dr > 0 ? 'down' : 'up'} and ${Math.abs(dc)} ${dc > 0 ? 'right' : 'left'}`;
+  return Q({ prompt: `Start at ${s}. Go ${mv}. Where are you?`, visual: P(chart100({ marks: { [s]: '#FFC23D' } }), 'chart'), choices: nOpts(ans, 1, 100, 4, [s + dr + 10 * dc, s + 10 * dr - dc, s - 10 * dr + dc].filter(v => v !== ans)), answer: ans,
+    steps: [`${Math.abs(dr)} row${Math.abs(dr) > 1 ? 's' : ''} ${dr > 0 ? 'down adds' : 'up takes away'} ${10 * Math.abs(dr)}: ${s + 10 * dr}.`, `${Math.abs(dc)} ${dc > 0 ? 'right adds' : 'left takes away'} ${Math.abs(dc)}: ${ans}.`], explainText: `You end on ${ans}.` });
+});
+})();
 /* ---------- math3 ---------- */
 /* ---------- art school: step-by-step lessons across many kinds of art, 3 levels ---------- */
 // Each step adds new lines (shown in red) on top of the earlier ones. Guide lines are dashed and get erased later.
@@ -2994,7 +3880,461 @@ const lessonById = id => LESSONS.find(l => l.id === id);
   );
 })();
 /* ---------- art6 ---------- */
-/* ---------- art7 ---------- */
+/* ---------- art7: 3 more lessons in each of the 12 newer kinds (vehicles to famous styles) ---------- */
+// Uses the helpers from art.js. Wrapped in a block so the little helpers below never clash with other files.
+(() => {
+  const f1 = n => +n.toFixed(1);
+  // Colour that soaks in like a marker: lines underneath stay visible (multiply blend). ev = holes via even-odd.
+  const T = (c, s, ev) => `<g class="pt" style="fill:${c};mix-blend-mode:multiply${ev ? ';fill-rule:evenodd' : ''}">${s}</g>`;
+  // A thick coloured stroke (a rope of clay, a finger of paint, a fat marker line).
+  const fat = (c, d, w) => `<g class="sk" style="--sk:${c}"><path d="${d}" style="stroke-width:${w}"/></g>`;
+  const rope = (d, w, c = '#E8B48A', e = '#B97A50') => fat(e, d, w + 3) + fat(c, d, w);
+  const clay = (s, c = '#E8B48A', e = '#B97A50') => paint(c, s) + stroke(e, s);
+  const shine = (x, y, rx, ry) => paint('rgba(255,255,255,.6)', ae(x, y, rx, ry));
+  const wide = (s, w) => s.replace(/\/>/g, ` style="stroke-width:${w}"/>`);
+  const ink = (x, y, t, size, c = '#22305A') => paint(c, atext(x, y, t, size));
+  const dark = s => paint('#22305A', s);
+  const mirror = s => `<g transform="matrix(-1 0 0 1 200 0)">${s}</g>`;
+  const circ = (cx, cy, r) => `M${f1(cx - r)} ${cy} a${r} ${r} 0 1 0 ${f1(2 * r)} 0 a${r} ${r} 0 1 0 ${f1(-2 * r)} 0 Z`;
+  const around = (n, R, cx, cy, f, a0 = -Math.PI / 2) => Array.from({ length: n }, (_, i) => { const a = a0 + i * 2 * Math.PI / n; return f(f1(cx + R * Math.cos(a)), f1(cy + R * Math.sin(a)), a); }).join('');
+  const starPts = (cx, cy, R, r, n = 5, rot = 0) => Array.from({ length: n * 2 }, (_, i) => {
+    const a = (i * 180 / n - 90 + rot) * Math.PI / 180, d = i % 2 ? r : R;
+    return `${f1(cx + d * Math.cos(a))},${f1(cy + d * Math.sin(a))}`;
+  }).join(' ');
+  const sparkle = (x, y, s = 6) => apg(starPts(x, y, s, s * 0.3, 4));
+  // A stadium (rounded strip) from one point to another, w wide.
+  const cap = (x1, y1, x2, y2, w) => {
+    const dx = x2 - x1, dy = y2 - y1, L = Math.hypot(dx, dy), nx = -dy / L * w / 2, ny = dx / L * w / 2, r = w / 2;
+    return ap(`M${f1(x1 + nx)} ${f1(y1 + ny)} L${f1(x2 + nx)} ${f1(y2 + ny)} A${r} ${r} 0 0 0 ${f1(x2 - nx)} ${f1(y2 - ny)} L${f1(x1 - nx)} ${f1(y1 - ny)} A${r} ${r} 0 0 0 ${f1(x1 + nx)} ${f1(y1 + ny)} Z`);
+  };
+  // A leaf from its base to its tip, w wide.
+  const leafD = (bx, by, tx, ty, w) => {
+    const mx = (bx + tx) / 2, my = (by + ty) / 2, L = Math.hypot(tx - bx, ty - by), nx = -(ty - by) / L * w, ny = (tx - bx) / L * w;
+    return `M${bx} ${by} Q${f1(mx + nx)} ${f1(my + ny)} ${tx} ${ty} Q${f1(mx - nx)} ${f1(my - ny)} ${bx} ${by} Z`;
+  };
+  const spiral = (cx, cy, R, turns, a0 = 0) => {
+    const n = Math.round(turns * 36), pts = [];
+    for (let i = 0; i <= n; i++) { const t = i / n, a = a0 + t * turns * 2 * Math.PI, r = 2 + t * (R - 2); pts.push(`${f1(cx + r * Math.cos(a))} ${f1(cy + r * Math.sin(a))}`); }
+    return 'M' + pts.join(' L');
+  };
+  const rotE = (x, y, rx, ry, deg) => `<ellipse cx="${x}" cy="${y}" rx="${rx}" ry="${ry}" transform="rotate(${deg} ${x} ${y})"/>`;
+  // A point on a cubic curve, and a little spike standing on it (for dino backs).
+  const bez = (p, t) => { const m = 1 - t; return [0, 1].map(k => m ** 3 * p[0][k] + 3 * m * m * t * p[1][k] + 3 * m * t * t * p[2][k] + t ** 3 * p[3][k]); };
+  const spike = (p, t, h) => {
+    const [x0, y0] = bez(p, t - 0.035), [x1, y1] = bez(p, t + 0.035), [xm, ym] = bez(p, t);
+    const dx = x1 - x0, dy = y1 - y0, L = Math.hypot(dx, dy);
+    return apl(`${f1(x0)},${f1(y0)} ${f1(xm + dy / L * h)},${f1(ym - dx / L * h)} ${f1(x1)},${f1(y1)}`);
+  };
+  const P = 'Paper, a pencil and crayons';
+  const PE = 'Paper, a pencil, an eraser and crayons';
+
+  /* ---------------- Vehicles ---------------- */
+  const ftBody = 'M15 95 H135 V150 H15 Z', ftCab = 'M135 150 V72 H160 L185 104 V150 Z', ftWin = 'M141 79 H157 L176 104 H141 Z';
+  const ftWheels = [42, 100, 160];
+  const subBody = ar(22, 92, 150, 58, 29), subTower = 'M78 92 V70 Q78 62 86 62 H112 Q120 62 120 70 V92', subScope = 'M96 62 V32 H118 V42 H104 V62';
+  const subPorts = [62, 97, 132];
+  const dgBucket = 'M22 122 H43 Q48 144 32 152 H14 Q10 136 22 122 Z';
+  LESSONS.push(
+    { id: 'a7-firetruck', cat: 'vehicles', level: 1, title: 'A fire truck', ico: '🚒', need: P, tip: 'Red is the classic fire truck color, but yellow ones are real too!', steps: [
+      ['Draw a long box for the back of the fire truck.', ar(15, 95, 120, 55, 4)],
+      ['Draw the cab at the front, with a slanted nose and a big window.', ap(ftCab) + ap(ftWin)],
+      ['Draw three wheels under the truck. Put a dot in each one.', ftWheels.map(x => ac(x, 163, 13) + ac(x, 163, 4)).join('')],
+      ['Draw a long ladder on top: two lines, with steps in between.', al(20, 78, 128, 78) + al(20, 88, 128, 88) + [28, 40, 52, 64, 76, 88, 100, 112, 124].map(x => al(x, 78, x, 88)).join('') + al(32, 88, 32, 95) + al(116, 88, 116, 95)],
+      ['Add a siren light on the roof, a round hose and a stripe.', ar(141, 64, 14, 8, 3) + al(138, 58, 134, 52) + al(148, 56, 148, 49) + al(158, 58, 162, 52) + ac(45, 120, 13) + ac(45, 120, 5) + al(66, 132, 185, 132)],
+      ['Draw the road. Color your fire truck red. Nee-naw!', al(0, 177, 200, 177) + T('#F2604F', ap(ftBody + ' ' + ftCab + ' ' + ftWin + ' ' + circ(45, 120, 13)), true) + T('#BFE3F7', ap(ftWin)) + T('#FFD966', ac(45, 120, 13)) + T('#5BC0EB', ar(141, 64, 14, 8, 3)) + T('#8F9BB0', ftWheels.map(x => ac(x, 163, 13)).join('')) + T('#C9D3E0', ar(20, 78, 108, 10))]] },
+    { id: 'a7-sub', cat: 'vehicles', level: 1, title: 'A yellow submarine', ico: '⚓', need: P, tip: 'Round windows on a boat are called portholes.', steps: [
+      ['Draw a long shape with round ends. That is the submarine.', subBody],
+      ['Draw a tower on top, like a little hat.', ap(subTower)],
+      ['Draw a bendy periscope on the tower. It peeks out of the water!', ap(subScope)],
+      ['Draw three round windows. Put a smaller circle inside each one.', subPorts.map(x => ac(x, 121, 10) + ac(x, 121, 6)).join('')],
+      ['Add a propeller at the back to push it along.', al(172, 121, 182, 121) + ae(186, 111, 4, 9) + ae(186, 131, 4, 9)],
+      ['Draw the water on top, bubbles, a fish and seaweed. Color it yellow!', ap('M0 46 q11.5 -7 23 0 t23 0 t23 0 t23 0') + ap('M124 46 q12.7 -7 25.3 0 t25.3 0 t25.3 0') + ac(190, 92, 4) + ac(184, 78, 5) + ac(192, 64, 3) + ae(38, 72, 11, 6) + apg('49,72 57,66 57,78') + ac(33, 70, 1.5) + ap('M18 198 q-8 -12 0 -24 t0 -24') + ap('M150 198 q8 -12 0 -24 t0 -24') + T('#FFD966', subBody + ap(subTower + ' Z') + ap(subScope + ' Z')) + T('#9CCBF5', subPorts.map(x => ac(x, 121, 6)).join('')) + T('#FF9F43', ae(38, 72, 11, 6) + apg('49,72 57,66 57,78')) + T('#6CC08B', ap('M18 198 q-8 -12 0 -24 t0 -24') + ap('M150 198 q8 -12 0 -24 t0 -24'))]] },
+    { id: 'a7-digger', cat: 'vehicles', level: 3, title: 'A big digger', ico: '🚧', need: PE, tip: 'Long arms are made of parts joined by round pins. Machines bend at the pins.', steps: [
+      ['Draw light guides: a ground line, and a big box where the digger goes.', guide(al(0, 180, 200, 180) + ar(60, 74, 124, 104))],
+      ['Draw the tracks: a long shape with round ends. Put wheels inside.', ar(60, 148, 124, 30, 15) + ac(75, 163, 10) + ac(169, 163, 10) + ac(106, 163, 6) + ac(138, 163, 6)],
+      ['Draw the body on the tracks, and a cab with a big window on top.', ar(70, 118, 104, 30, 4) + ar(120, 74, 46, 44, 4) + ar(127, 80, 32, 24, 3)],
+      ['Draw a long arm going up from the body. Put a round pin at the top.', al(63.2, 48.6, 95.8, 118) + al(48.8, 55.4, 78.2, 118) + ac(56, 52, 8)],
+      ['Draw the second arm coming down from the pin.', al(60, 59, 38.4, 122) + al(48.6, 55.1, 25.7, 122)],
+      ['Draw a bucket on the end, with teeth for digging. Scoop!', ap(dgBucket) + apl('14,152 16,159 20,152 24,159 28,152')],
+      ['Add a smoke pipe, a push rod on the arm, and a pile of dirt.', ar(100, 104, 7, 14, 1) + al(108, 118, 90, 98) + al(113, 118, 93, 96) + ap('M0 180 Q16 162 44 180') + ac(14, 174, 2) + ac(30, 172, 2)],
+      ['Erase the guides. Draw the ground and color your digger yellow with dark tracks!', al(44, 180, 200, 180) + T('#FFC23D', ar(70, 118, 104, 30, 4) + ar(120, 74, 46, 44, 4) + apg('63.2,48.6 95.8,118 78.2,118 48.8,55.4') + apg('60,59 38.4,122 25.7,122 48.6,55.1') + ac(56, 52, 8)) + T('#BFE3F7', ar(127, 80, 32, 24, 3)) + T('#7B8494', ar(60, 148, 124, 30, 15) + ap(dgBucket)) + T('#C99A6E', ap('M0 180 Q16 162 44 180 Z')), { clear: true }]] }
+  );
+
+  /* ---------------- Ocean ---------------- */
+  const claw = ap('M58 107.8 Q44 102 40 86') + ap('M40 86 C20 84 16 60 30 52 L36 66 L44 54 C54 62 52 82 40 86 Z');
+  const crabLegs = ap('M56.8 130.3 l-18 4 l-8 14') + ap('M64.8 139.3 l-14 10 l-4 14') + ap('M77 146 l-8 12 l0 12');
+  const fishStar = apg(starPts(70, 105, 48, 22));
+  const armDots = [0.5, 0.78].map(k => around(5, 48 * k, 70, 105, (x, y) => ac(x, y, 2.6))).join('');
+  const scallop = 'M140 176 L118 146 Q120 116 150 112 Q180 116 182 146 L160 176 Z';
+  const shark = 'M14 110 C30 80 100 72 158 96 L188 60 L176 104 L190 144 L158 112 C110 134 40 136 14 110 Z';
+  const sharkTop = 'M14 110 C30 80 100 72 158 96 L188 60 L176 104 L190 144 L158 112 L156 109 C110 124 60 128 30 120 Z';
+  const sharkFin = 'M62 84 Q74 64 92 44 Q90 66 96 82', sharkSide = 'M94 128.3 Q100 150 120 158 Q114 140 110.6 126.2';
+  LESSONS.push(
+    { id: 'a7-crab', cat: 'ocean', level: 1, title: 'A happy crab', ico: '🦀', need: P, tip: 'Crabs walk sideways! Try walking like a crab when you finish.', steps: [
+      ['Draw a wide oval for the body.', ae(100, 120, 46, 30)],
+      ['Draw two eye stalks on top, with round eyes.', al(86, 91.4, 82, 70) + al(114, 91.4, 118, 70) + ac(81, 64, 7) + ac(119, 64, 7) + dark(ac(82, 65, 3) + ac(118, 65, 3))],
+      ['Draw two big claws. Each one looks like a mouth that can pinch!', claw + mirror(claw)],
+      ['Draw 3 skinny, bendy legs on each side.', crabLegs + mirror(crabLegs)],
+      ['Give it a big smile.', ap('M84 126 q16 14 32 0')],
+      ['Draw wavy sand and bubbles. Color your crab red or orange!', ap('M0 182 q25 -6 50 0 t50 0 t50 0 t50 0') + ac(170, 30, 5) + ac(182, 16, 3) + ac(24, 30, 4) + T('#F2604F', ae(100, 120, 46, 30) + ap('M40 86 C20 84 16 60 30 52 L36 66 L44 54 C54 62 52 82 40 86 Z') + mirror(ap('M40 86 C20 84 16 60 30 52 L36 66 L44 54 C54 62 52 82 40 86 Z')) + ac(81, 64, 7) + ac(119, 64, 7)) + T('#F6DFA4', ap('M0 182 q25 -6 50 0 t50 0 t50 0 t50 0 V200 H0 Z'))]] },
+    { id: 'a7-starfish', cat: 'ocean', level: 1, title: 'Starfish and shells', ico: '⭐', need: P, tip: 'Next time you visit a beach, look for shells with lines and swirls.', steps: [
+      ['Draw a big star with 5 fat arms. That is a starfish!', fishStar],
+      ['Give it a happy face in the middle.', ac(62, 100, 3) + ac(78, 100, 3) + ap('M62 109 q8 7 16 0')],
+      ['Draw little dots along every arm.', armDots],
+      ['Draw a shell like a fan: a round top and two lines that meet at the bottom.', ap(scallop)],
+      ['Draw lines on the fan shell, from the bottom up to the top.', al(150, 176, 132, 122) + al(150, 176, 150, 113) + al(150, 176, 168, 122) + al(144, 176, 124, 136) + al(156, 176, 176, 136)],
+      ['Draw a swirly snail shell at the top.', ap(spiral(152, 52, 24, 2.6, 0.5))],
+      ['Draw wavy sand. Color the starfish orange and the shells pink and purple.', ap('M0 186 q25 -6 50 0 t50 0 t50 0 t50 0') + ac(30, 172, 1.5) + ac(96, 176, 1.5) + ac(186, 176, 1.5) + T('#FF9F43', fishStar) + T('#F7A8C4', ap(scallop)) + T('#CFC4F0', ac(152, 52, 24)) + T('#F6DFA4', ap('M0 186 q25 -6 50 0 t50 0 t50 0 t50 0 V200 H0 Z'))]] },
+    { id: 'a7-shark', cat: 'ocean', level: 2, title: 'A friendly shark', ico: '🦈', need: P, tip: 'Sharks are dark on top and white underneath. It helps them hide!', steps: [
+      ['Draw a long body with a pointy nose, and a tail like a big V.', ap(shark)],
+      ['Draw a tall fin on its back.', ap(sharkFin)],
+      ['Add a round eye and a friendly smile.', ac(40, 99, 4.5) + dark(ac(41, 99, 2)) + ap('M18 112 q12 6 26 2')],
+      ['Draw 3 gill lines. Sharks breathe through them!', ap('M64 96 q-4 9 0 18 M72 95 q-4 10 0 20 M80 95 q-4 10 0 20')],
+      ['Draw a fin underneath, and a line for the white tummy.', ap(sharkSide) + ap('M30 120 C60 128 110 124 156 109')],
+      ['Draw two little fish swimming away, and some bubbles.', ae(160, 30, 10, 6) + apg('170,30 178,25 178,35') + ae(40, 170, 10, 6) + apg('50,170 58,165 58,175') + ac(8, 92, 3) + ac(12, 78, 4) + ac(6, 62, 3)],
+      ['Color the top grey-blue and keep the tummy white.', T('#8FA9C9', ap(sharkTop) + ap(sharkFin + ' Z')) + T('#FFD966', ae(160, 30, 10, 6) + apg('170,30 178,25 178,35')) + T('#F78FB3', ae(40, 170, 10, 6) + apg('50,170 58,165 58,175'))]] }
+  );
+
+  /* ---------------- Bugs & birds ---------------- */
+  const cat = [[36, 130], [68, 120], [100, 130], [132, 120]];
+  const catFeet = cat.map(([x, y]) => al(x - 6, y + 15.6, x - 8, y + 24) + al(x + 6, y + 15.6, x + 8, y + 24)).join('');
+  const munchLeaf = 'M18 98 Q24 34 96 24 Q92 48 80 62 A7 7 0 0 0 72 72 A7 7 0 0 0 62 80 Q44 96 18 98 Z';
+  const duckBody = 'M55.9 78.9 C48 96 36 108 38 126 C42 152 78 162 112 160 C150 158 168 140 174 114 L190 100 L162 106 C140 112 118 108 98 104 C90 98 86 90 84.1 78.9';
+  const duckWing = 'M98 124 Q120 108 152 116 Q146 142 112 142 Q96 138 98 124 Z';
+  const flBody = ae(118, 92, 36, 22), flNeck = ap('M82.6 88 C56 76 52 52 70 40 Q76 35 83 34') + ap('M93.3 76 C72 68 66 54 76 46 Q80 42 85.6 40.4');
+  const flWing = 'M100 88 Q126 74 150 88 Q138 102 112 101 Q100 99 100 88 Z';
+  LESSONS.push(
+    { id: 'a7-caterpillar', cat: 'bugs', level: 1, title: 'A hungry caterpillar', ico: '🐛', need: P, tip: 'Make each circle touch the next one, like beads on a string.', steps: [
+      ['Draw 4 circles in a wiggly row. Make them touch.', cat.map(([x, y]) => ac(x, y, 16.7)).join('')],
+      ['Draw a bigger circle at the front for the head.', ac(164, 102, 20)],
+      ['Give it eyes, a big smile and two feelers.', dark(ac(157, 97, 3.5) + ac(172, 97, 3.5)) + ap('M155 108 q9 9 18 0') + al(156, 83.7, 148, 66) + al(172, 83.7, 180, 66) + ac(147, 63, 3.5) + ac(181, 63, 3.5)],
+      ['Draw two little feet under every circle.', catFeet],
+      ['Draw the leaf it is munching, with bites taken out!', ap(munchLeaf) + al(10, 106, 18, 98) + ap('M18 98 Q50 66 90 30')],
+      ['Color it green with yellow spots. One day it will be a butterfly!', T('#8BD17C', cat.map(([x, y]) => ac(x, y, 16.7)).join('') + ac(164, 102, 20)) + T('#FFD966', cat.map(([x, y]) => ac(x, y - 4, 5)).join('')) + T('#F78FB3', ac(150, 110, 4) + ac(178, 110, 4)) + T('#4FB06A', ap(munchLeaf))]] },
+    { id: 'a7-duck', cat: 'bugs', level: 1, title: 'A duck on a pond', ico: '🦆', need: P, tip: 'A duck floats, so you only see the top of it above the water.', steps: [
+      ['Draw a circle for the head.', ac(70, 62, 22)],
+      ['Draw a big round body, with a pointy tail sticking up at the back.', ap(duckBody)],
+      ['Draw a flat, round beak.', ap('M48.8 56 Q28 54 26 64 Q30 72 49.5 70') + ap('M48 63 Q38 64 30 64')],
+      ['Add an eye and a wing on the side.', dark(ac(66, 56, 3.5)) + ap(duckWing)],
+      ['Draw ripples in the water around it.', ap('M0 152 q8 -6 16 0 t16 0') + ap('M176 150 q6 -6 12 0 t12 0') + ap('M30 176 q15 -8 30 0 t30 0 t30 0 t30 0 t30 0')],
+      ['Color your duck yellow with an orange beak, and the pond blue. Quack!', T('#FFD966', ac(70, 62, 22) + ap(duckBody + ' Z')) + T('#FF9F43', ap('M48.8 56 Q28 54 26 64 Q30 72 49.5 70 Z')) + T('#9CCBF5', ap('M0 166 q12.5 -6 25 0 t25 0 t25 0 t25 0 t25 0 t25 0 t25 0 t25 0 V200 H0 Z'))]] },
+    { id: 'a7-flamingo', cat: 'bugs', level: 2, title: 'A flamingo', ico: '🦩', need: P, tip: 'Flamingos rest on one leg. The bent leg looks like the number 4!', steps: [
+      ['Draw an oval for the body.', flBody],
+      ['Draw a long neck that bends like the letter S.', flNeck],
+      ['Draw a small round head, and a beak that bends down.', ac(92, 34, 9) + ap('M101 31 L114 34 Q116 43 110 49 Q109 40 100.5 38')],
+      ['Add an eye, a wing and a little pointy tail.', dark(ac(90, 31, 2)) + ap(flWing) + ap('M154 90 L168 86 L160 98')],
+      ['Draw one long, straight leg and a webbed foot.', al(112, 113.7, 112, 184) + ap('M102 189 L112 183 L122 189') + ac(112, 150, 2.5)],
+      ['Draw the other leg bent back, like the number 4.', ap('M126 113.4 L130 140 L150 128')],
+      ['Draw the water, and color your flamingo pink with a black beak tip.', ap('M28 190 q10 -6 20 0 t20 0 t20 0') + ap('M134 190 q10 -6 20 0 t20 0 t20 0') + T('#F7A8C4', flBody + ap('M82.6 88 C56 76 52 52 70 40 Q76 35 83 34 L85.6 40.4 Q80 42 76 46 C66 54 72 68 93.3 76 Z') + ac(92, 34, 9)) + T('#F2789F', ap(flWing)) + dark(ap('M112 41 Q116 43 110 49 Q109 44 108 42 Z')) + T('#F2789F', ap('M101 31 L114 34 Q116 43 110 49 Q109 40 100.5 38 Z'))]] }
+  );
+
+  /* ---------------- Dinosaurs ---------------- */
+  const eggBot = 'M50 120 Q48 182 100 182 Q152 182 150 120 L140 110 L128 122 L114 108 L100 122 L86 108 L72 122 L60 110 Z';
+  const eggTop = 'M72 62 Q96 14 134 56 L126 50 L118 58 L110 50 L102 58 L94 50 L86 58 L80 52 Z';
+  const dinoHead = 'M66 116 C56 92 60 72 72 62 L80 52 L86 58 L94 50 L102 58 L110 50 L118 58 L126 50 L134 56 C146 70 148 94 134 116 L128 122 L114 108 L100 122 L86 108 L72 122 Z';
+  const ptWing = ap('M88.7 92 L12 70 Q30 88 34 112 Q58 104 88.7 116');
+  const ankBack = [[36, 142], [40, 80], [150, 76], [166, 142]];
+  const ankBody = 'M36 142 C40 80 150 76 166 142 Z';
+  const ankPlates = [[72, 104], [90, 100], [108, 99], [126, 101], [143, 108], [56, 124], [74, 120], [92, 118], [110, 118], [128, 120], [146, 124]];
+  LESSONS.push(
+    { id: 'a7-egg', cat: 'dino', level: 1, title: 'Baby dino in an egg', ico: '🥚', need: P, tip: 'Big eyes and a big head make any animal look like a baby.', steps: [
+      ['Draw the bottom of an egg, with a zig-zag on top. It is cracking!', ap(eggBot)],
+      ['Draw the top piece of the shell up high, like a hat.', ap(eggTop)],
+      ['Join them with two curvy lines. That is the baby dino head!', ap('M66 116 C56 92 60 72 72 62') + ap('M134 116 C146 94 148 70 134 56')],
+      ['Give it big round eyes, a nose and a happy smile.', ac(86, 84, 8) + ac(114, 84, 8) + dark(ac(87, 85, 3.5) + ac(113, 85, 3.5)) + ac(95, 98, 1.5) + ac(105, 98, 1.5) + ap('M86 104 q14 10 28 0')],
+      ['Draw tiny hands holding the edge of the egg.', ap('M54 114 a4 4 0 0 1 6 -6 a4 4 0 0 1 6 2') + ap('M146 114 a4 4 0 0 0 -6 -6 a4 4 0 0 0 -6 2')],
+      ['Add spots on the egg and a nest. Color your baby dino. Hello, world!', ac(70, 150, 6) + ac(120, 160, 8) + ac(98, 140, 4) + ac(134, 138, 5) + ap('M28 184 Q100 198 172 184') + ap('M36 190 l14 -6 M150 190 l14 -6 M90 196 l18 -4') + T('#8BD17C', ap(dinoHead)) + T('#FFF0C9', ap(eggBot) + ap(eggTop)) + T('#B9E2C6', ac(70, 150, 6) + ac(120, 160, 8) + ac(98, 140, 4) + ac(134, 138, 5)) + T('#E0B67E', ap('M28 184 Q100 198 172 184 Q100 206 28 184 Z'))]] },
+    { id: 'a7-ptero', cat: 'dino', level: 1, title: 'A flying pterosaur', ico: '🦅', need: P, tip: 'Pterosaurs were flying reptiles that lived with the dinosaurs.', steps: [
+      ['Draw an oval for the body.', ae(100, 104, 13, 24)],
+      ['Draw a round head on top.', ac(100, 66, 12)],
+      ['Add a long pointy beak, and a crest on the back of the head.', ap('M88.7 62 L52 72 L88.7 70') + ap('M110.9 61 L138 46 L111.3 70')],
+      ['Draw two big wings, wide and pointy, like a kite.', ptWing + mirror(ptWing)],
+      ['Give it an eye and two little feet.', dark(ac(96, 63, 2.5)) + ap('M95 127 L93 138 M105 127 L107 138') + ap('M89 140 l4 -2 l4 2 M103 140 l4 -2 l4 2')],
+      ['Draw a sun and a smoky volcano below. Color your flyer!', ac(172, 24, 12) + ap('M10 196 L40 152 H58 L88 196') + ac(50, 140, 6) + ac(60, 126, 8) + ac(46, 114, 6) + T('#9C8FD6', ae(100, 104, 13, 24) + ac(100, 66, 12) + ptWing.replace('"/>', ' Z"/>') + mirror(ptWing.replace('"/>', ' Z"/>'))) + T('#FFC23D', ac(172, 24, 12) + ap('M88.7 62 L52 72 L88.7 70 Z')) + T('#F2604F', ap('M110.9 61 L138 46 L111.3 70 Z') + ap('M40 152 H58 L62 158 H36 Z')) + T('#B08463', ap('M10 196 L36 158 H62 L88 196 Z'))]] },
+    { id: 'a7-ankylo', cat: 'dino', level: 2, title: 'An armoured ankylosaurus', ico: '🛡️', need: P, tip: 'Its back was covered in hard bony plates, like a turtle shell.', steps: [
+      ['Draw a big low hill for the body, flat on the bottom.', ap(ankBody)],
+      ['Add a small head at the front, near the ground.', ap('M39 127 Q22 116 10 126 Q6 140 22 144 L37 142')],
+      ['Draw a tail with a big round club on the end. Bonk!', ap('M157 122 Q172 120 182.2 112.5') + ap('M166 142 Q182 136 192.6 119.3') + ac(190, 110, 9.6)],
+      ['Draw rows of round plates on its back. This is its armour.', ankPlates.map(([x, y]) => ae(x, y, 6, 4.5)).join('')],
+      ['Add pointy spikes all along the top of its back.', [0.1, 0.22, 0.34, 0.46, 0.58, 0.7, 0.82, 0.92].map(t => spike(ankBack, t, 10)).join('')],
+      ['Draw 4 short, strong legs, an eye and a smile.', ap('M48 142 V162 Q48 166 52 166 H66 Q70 166 70 162 V142') + ap('M78 142 V166 Q78 170 82 170 H96 Q100 170 100 166 V142') + ap('M108 142 V166 Q108 170 112 170 H126 Q130 170 130 166 V142') + ap('M136 142 V162 Q136 166 140 166 H154 Q158 166 158 162 V142') + dark(ac(20, 130, 2.5)) + ap('M10 136 q6 4 12 2')],
+      ['Draw some ferns, then color it. It was like a dinosaur tank!', ap('M178 196 Q176 170 186 150 M181 180 l-8 -6 M182 168 l8 -6 M184 158 l-6 -6') + ap('M14 196 Q16 176 8 160 M14 184 l8 -6 M12 172 l-8 -4') + T('#C9A15A', ap(ankBody) + ap('M39 127 Q22 116 10 126 Q6 140 22 144 L37 142 Z') + ap('M157 122 Q172 120 182.2 112.5 L192.6 119.3 Q182 136 166 142 Z') + ar(48, 142, 22, 24, 4) + ar(78, 142, 22, 28, 4) + ar(108, 142, 22, 28, 4) + ar(136, 142, 22, 24, 4)) + T('#9A6A3A', ac(190, 110, 9.6) + ankPlates.map(([x, y]) => ae(x, y, 6, 4.5)).join('')) + stroke('#2FA36B', ap('M178 196 Q176 170 186 150 M181 180 l-8 -6 M182 168 l8 -6 M184 158 l-6 -6') + ap('M14 196 Q16 176 8 160 M14 184 l8 -6 M12 172 l-8 -4'))]] }
+  );
+
+  /* ---------------- Food ---------------- */
+  const wmSeeds = [[72, 96], [100, 104], [128, 96], [86, 120], [114, 120], [100, 92]].map(([x, y]) => ap(`M${x} ${y - 5} q4 6 0 9 q-4 -3 0 -9`)).join('');
+  const ant = (x, y) => ac(x, y, 3) + ac(x + 6, y, 2.5) + ac(x - 6, y, 3.5) + al(x - 2, y + 2, x - 6, y + 8) + al(x, y + 3, x, y + 9) + al(x + 2, y + 2, x + 6, y + 8) + al(x + 7, y - 2, x + 11, y - 7);
+  const swTomato = 'M34 140 Q34 129 46 129 H154 Q166 129 166 140 Z';
+  const swLettuce = 'M30 140 L22 130 Q28 118 40 124 Q50 116 60 124 Q70 116 80 124 Q90 116 100 124 Q110 116 120 124 Q130 116 140 124 Q150 116 160 124 Q172 118 178 130 L170 140';
+  const swCheese = 'M28 104 L16 120 L28 114 H172 L184 120 L172 104';
+  const swTop = 'M28 104 Q24 60 100 60 Q176 60 172 104 Z';
+  const bowl = 'M24 100 Q28 178 100 178 Q172 178 176 100';
+  const noodles = ap('M80 108 q6 -5 12 0 t12 0 t12 0 t12 0 t12 0 t12 0') + ap('M50 114 q6 -5 12 0 t12 0 t12 0 t12 0 t12 0 t12 0 t12 0 t12 0') + ap('M142 100 q6 -5 12 0 t12 0') + ap('M36 98 q4 -5 8 0') + ap('M112 84 q6 -5 12 0 t12 0 t12 0');
+  const onions = [[120, 96], [130, 90], [140, 95], [76, 84]];
+  LESSONS.push(
+    { id: 'a7-watermelon', cat: 'food', level: 1, title: 'A watermelon slice', ico: '🍉', need: P, tip: 'Count the seeds as you draw them. How many did you make?', steps: [
+      ['Draw a big half circle, with the flat side on top.', ap('M20 76 A80 80 0 0 0 180 76 Z')],
+      ['Draw a curve inside, close to the edge. That is the green skin.', ap('M32 76 A68 68 0 0 0 168 76')],
+      ['Draw one more curve just inside it, for the white part.', ap('M38 76 A62 62 0 0 0 162 76')],
+      ['Draw black seeds shaped like little drops.', wmSeeds],
+      ['Draw three tiny ants coming to share it!', ant(40, 180) + ant(80, 186) + ant(120, 182)],
+      ['Color it red inside with a green skin. Yum, summer!', T('#4FB06A', ap('M20 76 A80 80 0 0 0 180 76 Z M32 76 A68 68 0 0 0 168 76 Z'), true) + T('#F2604F', ap('M38 76 A62 62 0 0 0 162 76 Z')) + dark(wmSeeds.replace(/"\/>/g, ' Z"/>'))]] },
+    { id: 'a7-sandwich', cat: 'food', level: 1, title: 'A tall sandwich', ico: '🥪', need: P, tip: 'Draw from the bottom up, one layer at a time, just like making a real one.', steps: [
+      ['Draw a long, flat box with round corners. That is the bottom bread.', ar(28, 140, 144, 20, 8)],
+      ['Draw a red tomato layer on top: a long, flat bump.', ap(swTomato)],
+      ['Draw a wiggly line for the lettuce.', ap(swLettuce)],
+      ['Draw a cheese slice, with pointy corners sticking out.', ap(swCheese)],
+      ['Draw the top bread like a big round hill.', ap(swTop)],
+      ['Add seeds on the bread and a toothpick with a flag.', al(100, 60, 100, 28) + apg('100,28 122,34 100,40') + [[70, 80], [88, 72], [112, 72], [130, 80], [80, 92], [120, 92], [100, 86]].map(([x, y]) => ae(x, y, 3, 1.6)).join('')],
+      ['Color each layer. What would YOU put in your sandwich?', T('#F2C98B', ar(28, 140, 144, 20, 8) + ap(swTop)) + T('#F2604F', ap(swTomato)) + T('#6CC08B', ap(swLettuce + ' Z ' + swTomato), true) + T('#FFD966', ap(swCheese + ' Z')) + T('#5BC0EB', apg('100,28 122,34 100,40'))]] },
+    { id: 'a7-noodles', cat: 'food', level: 2, title: 'A bowl of noodles', ico: '🍜', need: P, tip: 'Seen from the side, the round top of a bowl looks like an oval.', steps: [
+      ['Draw a wide oval for the top of the bowl.', ae(100, 100, 76, 22)],
+      ['Draw the round bottom of the bowl, and a little foot.', ap(bowl) + ap('M74 175 L70 188 H130 L126 175')],
+      ['Put half a boiled egg and a swirly fish cake on top.', ae(62, 98, 15, 10) + ac(62, 98, 5) + ac(98, 92, 9) + ap(spiral(98, 92, 6, 1.6))],
+      ['Draw wiggly noodles all around them.', noodles],
+      ['Sprinkle little green onion circles.', onions.map(([x, y]) => ac(x, y, 3)).join('')],
+      ['Draw steam rising, and chopsticks beside the bowl.', ap('M70 70 q-6 -8 0 -16 t0 -16 M100 66 q-6 -8 0 -16 t0 -16 M130 70 q-6 -8 0 -16 t0 -16') + al(150, 196, 196, 140) + al(158, 199, 199, 148)],
+      ['Add a pattern on the bowl. Color your soup!', ap('M34 134 l8 8 l8 -8 l8 8 l8 -8 M134 134 l8 8 l8 -8 l8 8 l8 -8') + T('#F2604F', ap(bowl + ' Q100 122 24 100 Z') + ap('M74 175 L70 188 H130 L126 175 Z')) + T('#FFE6A8', ae(100, 100, 76, 22)) + T('#FFC23D', ac(62, 98, 5)) + T('#F7A8C4', ac(98, 92, 9)) + T('#6CC08B', onions.map(([x, y]) => ac(x, y, 3)).join('')) + stroke('#B97A50', al(150, 196, 196, 140) + al(158, 199, 199, 148))]] }
+  );
+
+  /* ---------------- Fairy tales & magic ---------------- */
+  const potWave = 'M56.6 118 q10.85 -7 21.7 0 t21.7 0 t21.7 0 t21.7 0';
+  const gnHat = 'M60 92 Q86 56 100 8 Q114 56 140 92 Z';
+  const gnBeard = 'M64 92 C54 130 76 160 100 172 C124 160 146 130 136 92';
+  const gnBody = 'M63 124 Q50 140 54 176 H146 Q150 140 137 124';
+  const helm = 'M52 160 V88 Q52 28 100 28 Q148 28 148 88 V160 Z';
+  const plume = 'M96 28.2 Q104 6 132 6 Q164 8 176 34 Q156 22 138 24 Q118 26 110 29';
+  const holes = [114, 124, 134].map(x => [108, 118, 128].map(y => ac(x, y, 2.4)).join('')).join('');
+  LESSONS.push(
+    { id: 'a7-potion', cat: 'fantasy', level: 1, title: 'A magic potion', ico: '🧪', need: P, tip: 'Make up a name for your potion, like Giggle Juice!', steps: [
+      ['Draw a big round bottle. Leave a gap at the top.', ap('M90 86.1 A45 45 0 1 0 110 86.1')],
+      ['Draw a neck going up from the gap, and a rim on top.', al(90, 86.1, 90, 56) + al(110, 86.1, 110, 56) + ar(85, 48, 30, 8, 3)],
+      ['Push a cork into the top.', ap('M90 48 V38 Q100 32 110 38 V48')],
+      ['Draw a wavy line for the magic potion inside.', ap(potWave)],
+      ['Add bubbles in the potion and a star on the bottle.', ac(74, 136, 5) + ac(128, 140, 4) + ac(86, 158, 3) + ac(118, 160, 3) + apg(starPts(100, 145, 13, 6))],
+      ['Draw magic swirls and sparkles coming out. What does your potion do?', ap('M100 32 q-14 -8 -2 -16 q12 -8 -2 -14') + sparkle(130, 24, 7) + sparkle(66, 30, 6) + sparkle(160, 70, 6) + sparkle(36, 76, 5) + T('#B98CE8', ap(potWave + ' A45 45 0 1 1 56.6 118 Z')) + T('#FFD966', apg(starPts(100, 145, 13, 6))) + T('#C99A6E', ap('M90 48 V38 Q100 32 110 38 V48 Z')) + T('#D6EAFC', ap('M56.6 118 A45 45 0 0 1 90 86.1 V56 H110 V86.1 A45 45 0 0 1 143.4 118 Z'))]] },
+    { id: 'a7-gnome', cat: 'fantasy', level: 1, title: 'A garden gnome', ico: '🍄', need: P, tip: 'A gnome is mostly hat and beard. Make the hat really tall!', steps: [
+      ['Draw a tall pointy hat, like a big triangle.', ap(gnHat)],
+      ['Draw a round nose just under the hat.', ac(100, 102, 10)],
+      ['Draw a big beard around the nose, coming down to a point.', ap(gnBeard)],
+      ['Add happy closed eyes and a curly mustache.', ap('M76 99 q5 -5 10 0 M114 99 q5 -5 10 0') + ap('M100 112 q-12 10 -24 0 M100 112 q12 10 24 0')],
+      ['Draw the body peeking out from the beard, and two feet.', ap(gnBody) + ap('M56 176 Q46 178 48 186 H86 Q86 178 82 176') + ap('M144 176 Q154 178 152 186 H114 Q114 178 118 176')],
+      ['Draw a mushroom friend and the grass. Color your gnome!', ap('M22 186 V158 H36 V186') + ap('M10 158 Q29 124 48 158 Z') + ac(22, 148, 3) + ac(34, 142, 3) + al(0, 188, 200, 188) + T('#F2604F', ap(gnHat) + ap('M10 158 Q29 124 48 158 Z')) + T('#F5C9A6', ac(100, 102, 10)) + T('#E2E8EF', ap(gnBeard + ' Z')) + `<defs><clipPath id="a7gnome"><path d="${gnBody} Z"/></clipPath></defs><g clip-path="url(#a7gnome)">${T('#5B9BE0', ap(gnBody + ' Z ' + gnBeard + ' Z'), true)}</g>` + T('#8B5E3C', ap('M56 176 Q46 178 48 186 H86 Q86 178 82 176 Z') + ap('M144 176 Q154 178 152 186 H114 Q114 178 118 176 Z')) + T('#B9E2C6', ar(0, 188, 200, 12))]] },
+    { id: 'a7-helmet', cat: 'fantasy', level: 2, title: "A knight's helmet", ico: '⚔️', need: PE, tip: 'Both sides of a helmet match. Use the middle line to check!', steps: [
+      ['Draw a light line down the middle, so both sides will match.', guide(al(100, 6, 100, 194))],
+      ['Draw the helmet: two straight sides and a round top.', ap(helm)],
+      ['Draw the bottom part that spreads out, like a skirt.', ap('M52 160 L40 182 H160 L148 160')],
+      ['Draw two eye slits and a ridge down the middle.', ar(60, 86, 34, 9, 4.5) + ar(106, 86, 34, 9, 4.5) + al(100, 28, 100, 150)],
+      ['Add little breathing holes and a band with round metal dots.', holes + mirror(holes) + al(52, 150, 148, 150) + [62, 76, 90, 110, 124, 138].map(x => ac(x, 155, 1.8)).join('')],
+      ['Put a fluffy feather plume on top!', ap(plume) + ap('M110 18 q14 -6 30 -4 M120 14 q20 -4 40 6')],
+      ['Erase the guide. Color it shiny silver with a red plume.', T('#C9D3E0', ap(helm) + ap('M52 160 L40 182 H160 L148 160 Z')) + paint('rgba(255,255,255,.7)', ar(60, 104, 8, 40, 4)) + T('#F2604F', ap(plume + ' Z')) + dark(ar(60, 86, 34, 9, 4.5) + ar(106, 86, 34, 9, 4.5)), { clear: true }]] }
+  );
+
+  /* ---------------- Comics ---------------- */
+  const cloud = 'M92 60 a14 14 0 0 1 8 -28 a18 18 0 0 1 30 -12 a18 18 0 0 1 32 6 a14 14 0 0 1 14 24 a14 14 0 0 1 -16 20 a18 18 0 0 1 -30 2 a18 18 0 0 1 -28 -6 a10 10 0 0 1 -10 -6 Z';
+  const catHead = ac(56, 148, 30) + ap('M33 128.7 L30 102 L48.2 119') + ap('M63.8 119 L82 102 L79 128.7');
+  const heroArm = ap('M80 58 L54 86 L85 106') + ap('M81.5 72 L66 86 L84.1 98');
+  const heroLeg = ap('M86 116 L74 170') + ap('M100 116 L90 170') + ap('M76.2 160 L74 176 Q62 176 62 184 H94 L91.9 160 Z');
+  const heroCape = ap('M58.6 89 Q46 136 34 172 Q58 162 78.4 150');
+  const panels = [[6, 6], [104, 6], [6, 104], [104, 104]];
+  const cone = (cx, cy) => apg(`${cx - 12},${cy} ${cx + 12},${cy} ${cx},${cy + 30}`);
+  const scoop = (cx, cy) => `M${cx - 12} ${cy} C${cx - 22} ${cy - 26} ${cx + 22} ${cy - 26} ${cx + 12} ${cy} Z`;
+  const happy = (cx, cy) => dark(ac(cx - 5, cy - 9, 1.8) + ac(cx + 5, cy - 9, 1.8)) + ap(`M${cx - 5} ${cy - 4} q5 4 10 0`);
+  LESSONS.push(
+    { id: 'a7-think', cat: 'comics', level: 1, title: 'A thought bubble', ico: '💭', need: P, tip: 'A cloud with little dots means thinking. A pointy tail means talking.', steps: [
+      ['Draw a cat face down in the corner: a circle with two pointy ears.', catHead],
+      ['Give the cat eyes looking up, a nose, a mouth and whiskers.', ac(46, 144, 5) + ac(66, 144, 5) + dark(ac(48, 141, 2.5) + ac(68, 141, 2.5)) + apg('53,154 59,154 56,158') + ap('M56 158 q-4 5 -8 1 M56 158 q4 5 8 1') + al(28, 154, 42, 156) + al(28, 162, 42, 160) + al(84, 154, 70, 156) + al(84, 162, 70, 160)],
+      ['Draw a big puffy cloud up high. That is a thought bubble!', ap(cloud)],
+      ['Draw circles from the cat to the cloud: small, middle, big.', ac(84, 120, 3) + ac(94, 106, 5) + ac(106, 90, 7)],
+      ['Draw what the cat is thinking inside the cloud. A yummy fish!', ae(128, 46, 16, 9) + apg('144,46 156,38 156,54') + dark(ac(120, 44, 2))],
+      ['Color it in. What is YOUR cat dreaming about?', T('#FF9F43', ac(56, 148, 30) + apg('33,128.7 30,102 48.2,119') + apg('63.8,119 82,102 79,128.7')) + T('#D6EAFC', ap(cloud)) + T('#5BC0EB', ae(128, 46, 16, 9) + apg('144,46 156,38 156,54')) + T('#D6EAFC', ac(84, 120, 3) + ac(94, 106, 5) + ac(106, 90, 7))]] },
+    { id: 'a7-hero', cat: 'comics', level: 1, title: 'A superhero', ico: '🦸', need: P, tip: 'Hands on hips and chin up makes anyone look super brave!', steps: [
+      ['Draw a round head and a short neck.', ac(100, 36, 15) + al(95, 50.1, 95, 58) + al(105, 50.1, 105, 58)],
+      ['Draw the body. It is wide at the shoulders and thin at the belt.', ap('M80 58 H120 L114 116 H86 Z') + al(85.2, 108, 114.8, 108)],
+      ['Bend the arms so the hands rest on the hips. A proud hero pose!', heroArm + mirror(heroArm)],
+      ['Draw the legs apart, with big boots.', heroLeg + mirror(heroLeg)],
+      ['Add a cape flying out behind, a mask and a star on the chest.', heroCape + mirror(heroCape) + ap('M86 32 Q100 27 114 32 Q114 42 104 40 Q100 36 96 40 Q86 42 86 32 Z') + dark(ac(93, 35, 2) + ac(107, 35, 2)) + ap('M94 44 q6 4 12 0') + apg(starPts(100, 80, 11, 5))],
+      ['Draw a city behind. Color your hero! What is their super power?', ar(2, 120, 22, 70) + ar(176, 100, 22, 90) + [8, 16].map(x => ar(x, 130, 4, 6) + ar(x, 146, 4, 6) + ar(x, 162, 4, 6)).join('') + [182, 190].map(x => ar(x, 110, 4, 6) + ar(x, 126, 4, 6) + ar(x, 142, 4, 6) + ar(x, 158, 4, 6)).join('') + al(0, 190, 200, 190) + T('#2E8BE6', ap('M80 58 H120 L114 116 H86 Z') + ap('M80 58 L54 86 L85 106 L84.1 98 L66 86 L81.5 72 Z') + mirror(ap('M80 58 L54 86 L85 106 L84.1 98 L66 86 L81.5 72 Z')) + ap('M86 116 L74 170 H90 L100 116 Z') + mirror(ap('M86 116 L74 170 H90 L100 116 Z'))) + T('#F2604F', ap('M58.6 89 Q46 136 34 172 Q58 162 78.4 150 L85 106 L54 86 Z') + mirror(ap('M58.6 89 Q46 136 34 172 Q58 162 78.4 150 L85 106 L54 86 Z')) + ap('M76.2 160 L74 176 Q62 176 62 184 H94 L91.9 160 Z') + mirror(ap('M76.2 160 L74 176 Q62 176 62 184 H94 L91.9 160 Z'))) + T('#FFD966', apg(starPts(100, 80, 11, 5)) + ar(85, 108, 30, 8)) + T('#F5C9A6', ac(100, 36, 15)) + T('#C9D3E0', ar(2, 120, 22, 70) + ar(176, 100, 22, 90))]] },
+    { id: 'a7-four', cat: 'comics', level: 2, title: 'A 4-box comic story', ico: '🎞️', need: 'Paper, a pencil, a ruler and crayons', tip: 'Draw the same character the same way in every box, so readers know it.', steps: [
+      ['Draw 4 boxes, 2 on top and 2 below. Read them like a book: left, right, then down.', panels.map(([x, y]) => ar(x, y, 90, 90, 4)).join('')],
+      ['Box 1: draw an ice cream with a happy face.', cone(51, 50) + ap(scoop(51, 50)) + happy(51, 50)],
+      ['Box 2: draw it again. Uh oh, a big hot sun comes out!', cone(149, 50) + ap(scoop(149, 50)) + happy(149, 50) + ac(178, 24, 7) + around(8, 10, 178, 24, (x, y, a) => al(x, y, f1(178 + 14 * Math.cos(a)), f1(24 + 14 * Math.sin(a))))],
+      ['Box 3: it is melting! Draw drips and a worried face.', cone(51, 148) + ap(`M39 148 C29 122 73 122 63 148 Q62 158 59 150 Q56 156 52 149 Q48 160 44 149 Q41 155 39 148 Z`) + dark(ac(46, 139, 1.8) + ac(56, 139, 1.8)) + ap('M46 145 q5 -3 10 0') + ap('M68 128 q3 5 0 7 q-3 -2 0 -7')],
+      ['Box 4: just an empty cone and a puddle. Oh no!', cone(128, 150) + ae(166, 176, 22, 7) + dark(ac(160, 174, 1.6) + ac(171, 174, 1.6))],
+      ['Write words: YUM! in box 1, and OH NO! in box 4.', ink(51, 30, 'YUM!', 14) + ink(149, 128, 'OH NO!', 14)],
+      ['Color it in. Now make up your own 4-box story!', T('#F7A8C4', ap(scoop(51, 50)) + ap(scoop(149, 50)) + ap('M39 148 C29 122 73 122 63 148 Q62 158 59 150 Q56 156 52 149 Q48 160 44 149 Q41 155 39 148 Z') + ae(166, 176, 22, 7)) + T('#E0B67E', cone(51, 50) + cone(149, 50) + cone(51, 148) + cone(128, 150)) + T('#FFD966', ac(178, 24, 7)) + T('#FFF0B8', ar(104, 6, 90, 90, 4) + ar(6, 104, 90, 90, 4)) + T('#D6EAFC', ar(6, 6, 90, 90, 4) + ar(104, 104, 90, 90, 4))]] }
+  );
+
+  /* ---------------- Draw what you see ---------------- */
+  const tArm = ap('M72.1 112 Q46 114 46 132 Q48 146 66.4 142'), tLeg = ap('M73.3 162 Q50 162 48 178 Q50 192 70 188 Q84 186 89.6 176');
+  const tEar = ap('M77.4 39.4 A12 12 0 1 0 69.9 51.1');
+  const bnOut = 'M34 62 C30 130 100 170 176 140', bnIn = 'M46 60 C50 116 110 140 176 132';
+  const sideLeaves = [[34, 110, 10, 86], [40, 98, 24, 62], [50, 94, 50, 50], [60, 98, 76, 62], [66, 110, 90, 86]];
+  const topLeaves = around(5, 54, 150, 120, (x, y) => ap(leafD(150, 120, x, y, 11)), -Math.PI / 2 + 0.3);
+  const topVeins = around(5, 50, 150, 120, (x, y) => al(150, 120, x, y), -Math.PI / 2 + 0.3);
+  LESSONS.push(
+    { id: 'a7-teddy', cat: 'life', level: 1, title: 'Your teddy bear', ico: '🧸', need: 'A teddy or soft toy, paper, a pencil and crayons', tip: 'Look at your teddy, then your paper, then your teddy again.', steps: [
+      ['Sit your teddy in front of you. What shape is its head? Draw a circle.', ac(100, 62, 32)],
+      ['Look at the ears. Draw two round ears on top.', tEar + mirror(tEar)],
+      ['Draw the face: a round snout, a nose, a mouth and two eyes.', ae(100, 75, 14, 10) + dark(ae(100, 70, 5, 3.5) + ac(87, 54, 3.5) + ac(113, 54, 3.5)) + ap('M100 73.5 V78 M94 80 q6 4 12 0')],
+      ['Draw a big oval tummy under the head.', ae(100, 136, 34, 42)],
+      ['Look how the arms and legs stick out. Draw them.', tArm + mirror(tArm) + tLeg + mirror(tLeg)],
+      ['Add a tummy patch and paw pads. Color it like your real teddy!', ae(100, 140, 18, 22) + ae(60, 179, 6, 5) + ae(140, 179, 6, 5) + T('#C99A6E', ac(100, 62, 32) + ae(100, 136, 34, 42) + ap('M77.4 39.4 A12 12 0 1 0 69.9 51.1 Z') + mirror(ap('M77.4 39.4 A12 12 0 1 0 69.9 51.1 Z')) + ap('M72.1 112 Q46 114 46 132 Q48 146 66.4 142 Z') + mirror(ap('M72.1 112 Q46 114 46 132 Q48 146 66.4 142 Z')) + ap('M73.3 162 Q50 162 48 178 Q50 192 70 188 Q84 186 89.6 176 Z') + mirror(ap('M73.3 162 Q50 162 48 178 Q50 192 70 188 Q84 186 89.6 176 Z'))) + T('#F2D9B8', ae(100, 140, 18, 22) + ae(100, 75, 14, 10) + ae(60, 179, 6, 5) + ae(140, 179, 6, 5))]] },
+    { id: 'a7-banana', cat: 'life', level: 1, title: 'A real banana', ico: '🍌', need: 'A real banana, paper, a pencil and crayons', tip: 'A banana is not a straight line. Look for the bend!', steps: [
+      ['Look at a real banana. It bends! Draw the long bottom curve.', ap(bnOut)],
+      ['Draw the top curve. Make the two lines meet at the end.', ap(bnIn)],
+      ['Draw the stem at the top, and the dark tip at the end.', ap('M34 62 L32 42 H44 L46 60') + ap('M176 132 Q186 134 184 138 Q182 140 176 140')],
+      ['Look closely: a banana has edges! Draw a line along the middle.', ap('M40 64 C42 124 104 152 176 136')],
+      ['Find the little brown spots and draw them.', ae(70, 118, 3, 2) + ae(96, 134, 2.5, 2) + ae(122, 140, 3, 2) + ae(56, 96, 2, 1.5) + ae(146, 144, 2.5, 2)],
+      ['Draw the table and the shadow. Color it yellow, with a green stem.', al(0, 176, 200, 176) + T('#AEB8C8', ae(110, 170, 66, 5)) + T('#FFD966', ap(bnOut + ' L176 132 C110 140 50 116 46 60 Z')) + T('#9BCB6C', ap('M34 62 L32 42 H44 L46 60 Z')) + dark(ap('M176 132 Q186 134 184 138 Q182 140 176 140 Z') + ae(70, 118, 3, 2) + ae(96, 134, 2.5, 2) + ae(122, 140, 3, 2) + ae(56, 96, 2, 1.5) + ae(146, 144, 2.5, 2))]] },
+    { id: 'a7-plant', cat: 'life', level: 2, title: 'A plant from 2 sides', ico: '🪴', need: 'A small potted plant, paper, a pencil and crayons', tip: 'Things look different from different places. Artists walk around to look!', steps: [
+      ['Fold your paper in half. On one side, draw the pot as you see it from the side.', fold(al(100, 8, 100, 192)) + ar(14, 140, 72, 10, 3) + ap('M20 150 L28 190 H72 L80 150') + ink(50, 18, 'SIDE', 13)],
+      ['Draw stems going up and out from the soil.', sideLeaves.map(([x, y]) => al(50, 140, x, y)).join('')],
+      ['Draw a leaf at the end of each stem.', sideLeaves.map(([x, y, tx, ty]) => ap(leafD(x, y, tx, ty, 9))).join('')],
+      ['Now stand up and look DOWN at the plant. The pot is a circle! Draw two circles.', ac(150, 120, 34) + ac(150, 120, 28) + ink(150, 18, 'TOP', 13)],
+      ['From the top, the leaves spread out like a star. Draw them over the circles.', paint('#fff', topLeaves) + topLeaves + ac(150, 120, 4)],
+      ['Draw a line down the middle of every leaf.', sideLeaves.map(([x, y, tx, ty]) => al(x, y, tx, ty)).join('') + topVeins],
+      ['Color both. It is the same plant, but two different pictures!', T('#E07B39', ar(14, 140, 72, 10, 3) + ap('M20 150 L28 190 H72 L80 150 Z') + ap(circ(150, 120, 34) + ' ' + circ(150, 120, 28)), true) + T('#8B5E3C', ac(150, 120, 28)) + T('#7DCB8F', sideLeaves.map(([x, y, tx, ty]) => ap(leafD(x, y, tx, ty, 9))).join('')) + paint('#7DCB8F', topLeaves) + stroke('#2E7D4F', topLeaves + topVeins) + stroke('#2FA36B', sideLeaves.map(([x, y]) => al(50, 140, x, y)).join(''))]] }
+  );
+
+  /* ---------------- Seasons ---------------- */
+  const boot = dx => `M${40 + dx} 70 V150 Q${40 + dx} 160 ${50 + dx} 160 H${100 + dx} Q${108 + dx} 160 ${108 + dx} 150 Q${108 + dx} 134 ${88 + dx} 130 L${74 + dx} 126 V70 Z`;
+  const bootBits = dx => al(40 + dx, 82, 74 + dx, 82) + al(40 + dx, 150, 108 + dx, 150) + ap(`M${48 + dx} 70 q9 -12 18 0`);
+  const bootDots = dx => [[50, 98], [64, 110], [52, 124], [64, 138], [84, 142], [96, 146]].map(([x, y]) => ac(x + dx, y, 3.5)).join('');
+  const kite = [[130, 18], [162, 58], [130, 106], [98, 58]];
+  const kTail = 'M130 106 Q146 120 130 134 T130 162';
+  const bow = (x, y) => apg(`${x - 7},${y - 4} ${x},${y} ${x - 7},${y + 4}`) + apg(`${x + 7},${y - 4} ${x},${y} ${x + 7},${y + 4}`);
+  const globe = 'M63.3 140 A62 62 0 1 1 136.7 140';
+  const pine = '76,70 86,86 81,86 90,100 84,100 94,113 58,113 68,100 62,100 71,86 66,86';
+  LESSONS.push(
+    { id: 'a7-boots', cat: 'seasons', level: 1, title: 'Rain boots and puddles', ico: '☔', need: P, tip: 'After the rain, put on boots and go jump in a real puddle!', steps: [
+      ['Draw a tall boot: a long box going down, then a round toe.', ap(boot(0))],
+      ['Draw a second boot next to it, the same shape.', ap(boot(72))],
+      ['Add a band at the top, a sole at the bottom and a handle.', bootBits(0) + bootBits(72)],
+      ['Draw a big puddle under the boots. Add splash lines!', ae(100, 176, 94, 12) + al(30, 158, 22, 150) + al(36, 154, 32, 144) + al(186, 158, 194, 150) + al(180, 154, 184, 144)],
+      ['Draw a rain cloud with raindrops.', ap('M128 34 a10 10 0 0 1 8 -16 a14 14 0 0 1 26 -4 a12 12 0 0 1 22 8 a9 9 0 0 1 0 16 Z') + al(136, 42, 132, 50) + al(152, 42, 148, 50) + al(168, 42, 164, 50) + al(184, 42, 180, 50)],
+      ['Add spots on the boots. Color them bright, and the puddle blue!', bootDots(0) + bootDots(72) + T('#FFC23D', ap(boot(0))) + T('#F2604F', ap(boot(72))) + T('#7FC4F0', ae(100, 176, 94, 12)) + T('#C9D3E0', ap('M128 34 a10 10 0 0 1 8 -16 a14 14 0 0 1 26 -4 a12 12 0 0 1 22 8 a9 9 0 0 1 0 16 Z'))]] },
+    { id: 'a7-kite', cat: 'seasons', level: 1, title: 'Kite day', ico: '🪁', need: P, tip: 'Windy days are kite days! Draw the tail wiggly so it looks blown.', steps: [
+      ['Draw a diamond for the kite: tall and pointy.', apg(kite.map(p => p.join(',')).join(' '))],
+      ['Draw a cross inside, from corner to corner.', al(130, 18, 130, 106) + al(98, 58, 162, 58)],
+      ['Draw a long wiggly tail with little bows on it.', ap(kTail) + bow(140, 121) + bow(130, 148)],
+      ['Draw yourself holding the string!', ac(40, 132, 11) + apg('40,143 28,174 52,174') + al(34, 174, 32, 190) + al(46, 174, 48, 190) + al(44, 152, 60, 132) + al(36, 152, 24, 164) + ap('M60 132 Q100 126 130 106')],
+      ['Add clouds and birds in the windy sky.', ap('M18 50 a9 9 0 0 1 12 -12 a12 12 0 0 1 22 0 a9 9 0 0 1 4 14 Z') + ap('M160 140 q5 -5 10 0 q5 -5 10 0 M150 170 q4 -4 8 0 q4 -4 8 0') + al(0, 192, 200, 192)],
+      ['Color each part of the kite a different color. Whoosh!', T('#F2604F', apg('130,18 130,58 98,58')) + T('#FFC23D', apg('130,18 162,58 130,58')) + T('#2E8BE6', apg('98,58 130,58 130,106')) + T('#6CC08B', apg('130,58 162,58 130,106')) + T('#F78FB3', bow(140, 121) + bow(130, 148) + apg('40,143 28,174 52,174')) + T('#F5C9A6', ac(40, 132, 11))]] },
+    { id: 'a7-globe', cat: 'seasons', level: 2, title: 'A snow globe', ico: '🔮', need: P, tip: 'Draw the snowflakes last, so they fall in front of everything.', steps: [
+      ['Draw a big round globe. Leave the bottom open.', ap(globe)],
+      ['Draw the base: wider at the bottom. Add a stripe and a star.', ap('M63.3 140 L40 184 H160 L136.7 140 Z') + al(47.4, 170, 152.6, 170) + apg(starPts(100, 156, 8, 3.5))],
+      ['Draw a snowy hill inside the globe.', ap('M49.5 126 Q100 108 150.5 126')],
+      ['Draw a little pine tree on the hill.', apg(pine) + ar(73, 113, 6, 6)],
+      ['Draw a tiny snowman next to it.', ac(122, 108, 10) + ac(122, 91, 7) + dark(ac(119.5, 89, 1.2) + ac(124.5, 89, 1.2) + ac(122, 104, 1.2) + ac(122, 110, 1.2)) + apg('122,92 122,95 128,93.5')],
+      ['Add falling snow, and a shine on the glass.', [[60, 60], [84, 44], [110, 40], [136, 52], [148, 80], [56, 92], [100, 66], [104, 92], [140, 108], [96, 120]].map(([x, y]) => ac(x, y, 1.8)).join('') + ap('M54 82 Q56 54 76 40')],
+      ['Color it: blue sky inside, a red base. Shake, shake!', T('#D6EAFC', ap(globe + ' Q100 108 49.5 126 Z')) + T('#F2604F', ap('M63.3 140 L40 184 H160 L136.7 140 Z')) + T('#FFD966', apg(starPts(100, 156, 8, 3.5))) + T('#4FB06A', apg(pine)) + T('#E2E8EF', ap('M49.5 126 Q100 108 150.5 126 A62 62 0 0 1 136.7 140 H63.3 A62 62 0 0 1 49.5 126 Z'))]] }
+  );
+
+  /* ---------------- Printing ---------------- */
+  const cob = 'M100 24 C128 24 138 70 134 110 C130 148 116 168 100 168 C84 168 70 148 66 110 C62 70 72 24 100 24 Z';
+  const cobDots = (() => { let s = ''; for (let y = 28, r = 0; y < 170; y += 8.5, r++) for (let x = 60 + (r % 2) * 5; x < 142; x += 10) s += ac(x, f1(y), 3.6); return s; })();
+  const husk = 'M100 184 C62 178 48 132 60 90 C70 126 82 152 104 172 Z';
+  const grapeRows = [[64, 5], [86, 4], [108, 3], [130, 2], [152, 1]];
+  const grapes = grapeRows.map(([y, n]) => Array.from({ length: n }, (_, i) => [100 + (i - (n - 1) / 2) * 24, y]));
+  const grape = ([x, y]) => paint('#7B4FBF', ac(x, y, 11.5)) + paint('rgba(255,255,255,.18)', ac(x, y, 6.5)) + paint('rgba(40,20,80,.35)', ac(x + 4, y + 3, 1.6) + ac(x - 5, y + 2, 1.2));
+  const strA = 'M104 196 V178 C110 150 120 124 146 116 C178 106 186 64 156 54 C126 46 116 88 146 90 C170 92 172 140 144 152 C124 160 124 126 152 128 C172 130 174 164 150 172';
+  const strB = 'M106 196 V186 C122 182 128 168 122 156 M106 100 C120 86 128 60 112 44 C104 36 118 26 128 36';
+  LESSONS.push(
+    { id: 'a7-bubble', cat: 'print', level: 1, title: 'Bubble wrap corn', ico: '🌽', need: 'Bubble wrap, yellow and green paint, a brush, paper; a grown-up cuts', tip: 'Pat the bubble wrap all over with flat hands so every bubble prints.', steps: [
+      ['A grown-up cuts bubble wrap into a long, round shape, like a corn cob.', guide(ap(cob) + ac(90, 60, 4) + ac(110, 60, 4) + ac(100, 76, 4) + ac(90, 92, 4) + ac(110, 92, 4))],
+      ['Brush yellow paint all over the bumpy side.', guide(fat('#FFC23D', 'M84 40 L116 60 L80 80 L120 100 L78 120 L118 140 L90 156', 7))],
+      ['Turn it over and press it on the paper. Pat it, then peel it off. Corn!', paint('#FFE27A', ap(cob)) + `<defs><clipPath id="a7cob"><path d="${cob}"/></clipPath></defs><g clip-path="url(#a7cob)">${paint('#F2B21B', cobDots)}</g>`, { clear: true }],
+      ['Paint two green leaves wrapping around the bottom.', paint('#4FB06A', ap(husk) + mirror(ap(husk))) + paint('#3D8F55', ar(94, 178, 12, 16, 3))],
+      ['When it is dry, draw lines on the leaves with a marker.', stroke('#2E6B42', ap('M98 178 C72 168 62 138 64 104') + mirror(ap('M98 178 C72 168 62 138 64 104')))],
+      ['Add a happy face if you like! Try bubble wrap for fish scales or honeycomb too.', dark(ac(90, 84, 4) + ac(110, 84, 4)) + stroke('#22305A', ap('M88 100 q12 10 24 0'))]] },
+    { id: 'a7-cork', cat: 'print', level: 1, title: 'Cork-stamp grapes', ico: '🍇', need: 'A cork, purple, green and brown paint, paper, a cotton bud', tip: 'Dip, stamp, dip, stamp. Do not slide the cork, just press and lift.', steps: [
+      ['Dip a cork in purple paint. Stamp a row of 5 grapes across the top.', grapes[0].map(grape).join('')],
+      ['Stamp a row of 4 under it. Put each one in a gap.', grapes[1].map(grape).join('')],
+      ['Now stamp a row of 3, then a row of 2.', grapes[2].map(grape).join('') + grapes[3].map(grape).join('')],
+      ['Stamp 1 grape at the bottom. Look: a bunch of grapes!', grapes[4].map(grape).join('')],
+      ['Paint a brown stem on top, and a green leaf with your finger.', fat('#8B5E3C', 'M100 52 Q98 34 110 20', 6) + paint('#4FB06A', ap(leafD(104, 38, 156, 22, 16))) + stroke('#2E6B42', al(104, 38, 156, 22))],
+      ['When it is dry, dab a tiny white dot on each grape with a cotton bud. Shiny!', paint('#fff', grapes.flat().map(([x, y]) => ac(x - 4, y - 4, 2.3)).join(''))]] },
+    { id: 'a7-string', cat: 'print', level: 2, title: 'Pulled string painting', ico: '🧵', need: 'Paper, string or wool, runny paint, a spoon; a grown-up to help', tip: 'Keep pressing on top while you pull. That is what makes the swirls.', steps: [
+      ['Fold your paper in half, then open it flat again.', ar(10, 10, 180, 180, 4) + fold(al(100, 10, 100, 190))],
+      ['Dip a string in red paint. Lay it on one side, in wiggles. Let one end hang off the bottom.', guide(fat('#E8402F', strA, 3))],
+      ['Fold the paper closed over the string. Press on top with one hand.', guide(ap('M60 70 Q100 30 140 70') + apl('130,64 140,70 140,58'))],
+      ['Keep pressing, and pull the string out from the bottom. Slowly!', guide(ap('M104 172 V198') + apl('98,190 104,198 110,190'))],
+      ['Open it up. Wow, the swirls print on both sides, like a mirror!', fat('#F7A39A', strA, 12) + fat('#E8402F', strA, 5) + mirror(fat('#F7A39A', strA, 12) + fat('#E8402F', strA, 5)), { clear: true }],
+      ['Do it again with blue paint and a new string.', fat('#9CCBF5', strB, 11) + fat('#2E5FB8', strB, 4) + mirror(fat('#9CCBF5', strB, 11) + fat('#2E5FB8', strB, 4))],
+      ['What do you see? A butterfly? Add a body and feelers with a pen!', ae(100, 108, 6, 44) + ac(100, 58, 7) + ap('M97 52 q-6 -16 -16 -20 M103 52 q6 -16 16 -20') + T('#FFD966', ae(100, 108, 6, 44) + ac(100, 58, 7))]] }
+  );
+
+  /* ---------------- Clay ---------------- */
+  const dough = (s) => clay(s, '#F2D29B', '#C9995A');
+  const cheese = ['M62 78 l10 5', 'M88 64 l12 -2', 'M118 70 l8 7', 'M136 92 l2 11', 'M70 112 l9 -6', 'M96 100 l10 4', 'M124 118 l-4 10', 'M84 134 l12 2', 'M112 140 l9 -5', 'M58 96 l3 10', 'M140 128 l-9 6', 'M104 82 l-3 9'];
+  const pepperoni = [[80, 84], [122, 86], [100, 120], [70, 128], [134, 130]];
+  const legs = [[66, 68, -45], [134, 68, 45], [66, 134, 45], [134, 134, -45]];
+  const hex = around(6, 18, 100, 100, (x, y) => `${x},${y} `).trim();
+  const hexLines = around(6, 18, 100, 100, (x, y) => { const dx = x - 100, dy = y - 100, t = 1 / Math.hypot(dx / 46, dy / 54); return al(x, y, f1(100 + dx * t * 0.97), f1(100 + dy * t * 0.97)); });
+  const ornStar = apg(starPts(100, 84, 52, 23));
+  LESSONS.push(
+    { id: 'a7-cpizza', cat: 'clay', level: 1, title: 'Clay pizza', ico: '🍕', need: 'Clay or play dough in a few colors, and a plastic knife', tip: 'Use different colored dough for each topping. Pretend to serve it!', steps: [
+      ['Roll a big ball of clay. Press it flat with your hands, into a circle.', dough(ac(100, 100, 72)) + shine(70, 64, 12, 6)],
+      ['Squash red clay on top for the sauce. Leave an edge all around.', clay(ac(100, 100, 58), '#E35A3F', '#B83A2E')],
+      ['Roll a thin snake. Lay it around the edge for the crust.', rope(circ(100, 100, 64), 9, '#F2D29B', '#C9995A')],
+      ['Roll tiny yellow snakes for cheese. Sprinkle them on.', cheese.map(d => rope(d, 4, '#FFE27A', '#E0B53A')).join('')],
+      ['Make flat red circles for pepperoni, and green bits for peppers.', pepperoni.map(([x, y]) => clay(ac(x, y, 9), '#C0392B', '#8E2A20')).join('') + [[96, 72], [112, 104], [82, 106], [126, 108]].map(([x, y]) => clay(ar(x, y, 8, 4, 2), '#6CC08B', '#2E7D4F')).join('')],
+      ['Ask a grown-up to help you cut slices with a plastic knife. Pizza party!', stroke('#8B5E3C', al(100, 36, 100, 164) + al(44.6, 68, 155.4, 132) + al(44.6, 132, 155.4, 68))]] },
+    { id: 'a7-cturtle', cat: 'clay', level: 1, title: 'Clay turtle', ico: '🐢', need: 'Clay or play dough (green), and a pencil', tip: 'Press parts together gently, and smooth the joins with your finger.', steps: [
+      ['Roll 4 small balls and press them flat. These are the legs.', legs.map(([x, y, a]) => clay(rotE(x, y, 16, 10, a), '#9BD4A0', '#4E9A5E')).join('')],
+      ['Roll a ball for the head, and a tiny pointy tail.', clay(ac(100, 40, 15), '#9BD4A0', '#4E9A5E') + clay(apg('93,148 100,170 107,148'), '#9BD4A0', '#4E9A5E')],
+      ['Roll a big ball and press it into a dome. Put it on top: the shell!', clay(ae(100, 100, 46, 54), '#5DAE6E', '#2E6B42') + shine(84, 72, 12, 7)],
+      ['Press lines into the shell with a pencil, like a honeycomb.', stroke('#2E6B42', apg(hex) + hexLines)],
+      ['Poke two eyes with a pencil tip, and draw a smile.', dark(ac(94, 36, 2.4) + ac(106, 36, 2.4)) + stroke('#2E6B42', ap('M94 44 q6 5 12 0'))],
+      ['Let it dry, then paint spots on the shell. Slow and steady!', paint('#FFD966', ac(100, 100, 6) + around(6, 36, 100, 100, (x, y) => ac(x, y, 5), -Math.PI / 2 + Math.PI / 6))]] },
+    { id: 'a7-ornament', cat: 'clay', level: 2, title: 'Salt-dough ornament', ico: '🌟', need: 'Flour, salt, water, a cookie cutter, a straw, paint; a grown-up bakes', tip: 'Salt dough lasts for years. Write the year on the back!', steps: [
+      ['With a grown-up, mix 2 cups of flour, 1 cup of salt and some water. Squish it into a ball.', clay(ac(56, 170, 16), '#F3E3C3', '#C9B28A') + shine(51, 164, 5, 3)],
+      ['Roll it flat with a rolling pin.', clay(ar(12, 152, 96, 38, 8), '#F3E3C3', '#C9B28A') + clay(ar(118, 162, 62, 16, 8), '#E0B67E', '#9A6A3A') + clay(ar(108, 166, 10, 8, 3) + ar(180, 166, 10, 8, 3), '#E0B67E', '#9A6A3A')],
+      ['Press in a star cookie cutter and lift out the star.', paint('#D9C49C', apg(starPts(56, 172, 15, 6.5))) + clay(ornStar, '#F3E3C3', '#C9B28A')],
+      ['Poke a hole near the top with a straw.', paint('#fff', ac(100, 54, 4.5)) + stroke('#C9B28A', ac(100, 54, 4.5))],
+      ['A grown-up bakes it in a low oven until it is hard. Let it cool.', guide(ap('M30 70 q-6 -8 0 -16 t0 -16 M170 70 q-6 -8 0 -16 t0 -16 M40 120 q-6 -8 0 -16 t0 -16 M160 120 q-6 -8 0 -16 t0 -16'))],
+      ['Paint it bright, and add dots or glitter.', T('#F2604F', ap(`M${starPts(100, 84, 52, 23).replace(/ /g, ' L')} Z ${circ(100, 54, 4.5)}`), true) + paint('#FFD966', around(5, 34, 100, 84, (x, y) => ac(x, y, 3.5)) + ac(100, 90, 6)), { clear: true }],
+      ['Thread a ribbon through the hole and hang it up!', fat('#2E8BE6', 'M100 50 Q92 30 100 10', 3) + fat('#2E8BE6', 'M100 10 q-12 -8 -16 2 q8 4 16 -2 q12 -8 16 2 q-8 4 -16 -2', 3)]] }
+  );
+
+  /* ---------------- Famous art styles ---------------- */
+  const figA = ac(56, 40, 14) + cap(56, 62, 60, 110, 24) + cap(50, 68, 22, 40, 11) + cap(64, 68, 94, 48, 11) + cap(54, 108, 34, 166, 12) + cap(64, 108, 88, 146, 12) + cap(88, 146, 84, 182, 12);
+  const figB = ac(146, 52, 14) + cap(146, 74, 140, 122, 24) + cap(140, 82, 112, 64, 11) + cap(152, 80, 180, 104, 11) + cap(138, 118, 120, 176, 12) + cap(146, 118, 166, 148, 12) + cap(166, 148, 186, 166, 12);
+  const moves = ap('M36 22 l-8 -6 M56 18 v-10 M76 22 l8 -6 M14 60 h-10 M100 34 l8 -2') + ap('M126 30 l-6 -8 M146 28 v-10 M166 30 l6 -8 M188 84 l8 -4 M104 50 l-8 -2') + ap('M20 176 q8 -6 16 0 M70 190 q8 -6 16 0 M112 188 q8 -6 16 0 M168 184 q8 -6 16 0');
+  const pumpkin = 'M100 64 C74 50 30 58 26 112 C24 154 62 172 100 166 C138 172 176 154 174 112 C170 58 126 50 100 64 Z';
+  const ribs = ap('M100 64 Q96 115 100 166') + ap('M76 57 Q56 112 74 167') + ap('M124 57 Q144 112 126 167') + ap('M50 66 Q34 112 46 156') + ap('M150 66 Q166 112 154 156');
+  const kDots = (() => { let s = ''; for (let y = 60, r = 0; y < 172; y += 14, r++) for (let x = 24 + (r % 2) * 8; x < 178; x += 16) { const k = 1 - ((x - 100) / 82) ** 2 * 0.7 - ((y - 112) / 60) ** 2 * 0.25; s += ac(x, y, f1(Math.max(2, 6.2 * k))); } return s; })();
+  const waveBack = 'M0 168 C14 120 40 66 92 46 C130 32 160 46 160 66 C160 82 140 86 132 76 C126 68 132 60 140 62';
+  const waveFace = 'M132 76 C110 80 92 112 86 172';
+  const waveFill = 'M0 168 C14 120 40 66 92 46 C130 32 160 46 160 66 C160 82 140 86 132 76 C110 80 92 112 86 172 L86 200 H0 Z';
+  const smallWave = 'M86 186 C100 160 128 146 148 152 C138 154 134 162 144 166 C160 172 178 160 200 158';
+  const claws = [[98, 44], [112, 38], [126, 37], [140, 40], [152, 48]].map(([x, y]) => ap(`M${x} ${y} q2 -9 10 -7 q-6 1 -5 7`)).join('');
+  LESSONS.push(
+    { id: 'a7-haring', cat: 'styles', level: 1, title: 'Keith Haring dancers', ico: '🕺', need: 'Paper, a pencil, a thick black marker and bright crayons', tip: 'No faces needed! Bendy arms and legs show the feeling.', steps: [
+      ['Keith Haring drew happy dancing people. Draw a round head and a bean-shaped body.', ac(56, 40, 14) + cap(56, 62, 60, 110, 24)],
+      ['Add arms and legs, bendy like noodles. Make it dance!', cap(50, 68, 22, 40, 11) + cap(64, 68, 94, 48, 11) + cap(54, 108, 34, 166, 12) + cap(64, 108, 88, 146, 12) + cap(88, 146, 84, 182, 12)],
+      ['Draw a second dancer jumping next to it.', figB],
+      ['Draw little lines around them to show they are moving.', moves],
+      ['Fill each dancer with one bright color, right over the lines.', paint('#F2604F', figA) + paint('#2E8BE6', figB)],
+      ['Go around the outside with a thick black marker. Bold and simple!', stroke('#1B1B1B', wide(figA + figB, 9)) + paint('#F2604F', figA) + paint('#2E8BE6', figB) + stroke('#1B1B1B', wide(moves, 4.5))]] },
+    { id: 'a7-kusama', cat: 'styles', level: 1, title: 'Kusama dotty pumpkin', ico: '🎃', need: 'Paper, a pencil, a yellow crayon and a black marker', tip: 'Make the dots smaller near the edges. It makes the pumpkin look round!', steps: [
+      ['Yayoi Kusama loves dots! She made giant yellow pumpkins. Draw a wide, bumpy pumpkin.', ap(pumpkin)],
+      ['Draw curved lines from top to bottom for the bumps.', ribs],
+      ['Add a short, fat stem on top.', ap('M93 61 L90 36 Q98 28 108 32 L107 61')],
+      ['Color the pumpkin bright yellow.', T('#FFD23D', ap(pumpkin))],
+      ['Now cover it with black dots! Big in the middle, smaller at the sides.', `<defs><clipPath id="a7pump"><path d="${pumpkin}"/></clipPath></defs><g clip-path="url(#a7pump)">${paint('#1B1B1B', kDots)}</g>`],
+      ['Kusama puts dots everywhere. Add colored dots around it too!', T('#6CC08B', ap('M93 61 L90 36 Q98 28 108 32 L107 61 Z')) + paint('#F2604F', ac(20, 24, 6) + ac(178, 30, 8) + ac(186, 184, 6) + ac(14, 186, 8) + ac(46, 16, 3) + ac(150, 14, 4) + ac(190, 60, 3) + ac(10, 60, 3))]] },
+    { id: 'a7-wave', cat: 'styles', level: 2, title: "Hokusai's great wave", ico: '🌊', need: 'Paper, a pencil, and blue and white crayons or paint', tip: 'Make the big wave very big and the mountain small. That shows it is far away.', steps: [
+      ['Hokusai made a famous picture of a giant wave in Japan. First draw a small mountain far away.', ap('M118 146 L150 104 L182 146') + apl('137.3,120.7 143,125 150,118 157,125 162.7,120.7')],
+      ['Draw a huge wave on the left, curling over like a hook.', ap(waveBack)],
+      ['Draw the inside of the wave, coming down from the curl.', ap(waveFace)],
+      ['Draw little claws of foam along the top of the wave.', claws],
+      ['Draw a small wave in front of the mountain, and a long boat.', ap(smallWave) + ap('M126 182 Q160 190 196 178 L192 188 Q160 198 130 190 Z') + ac(146, 180, 2.5) + ac(160, 182, 2.5) + ac(174, 180, 2.5)],
+      ['Draw lines inside the big wave, following its shape. Add flying foam dots.', ap('M18 170 C30 126 52 86 96 64') + ap('M40 176 C50 136 70 100 106 80') + ap('M60 182 C68 146 84 116 114 92') + [[170, 64], [176, 80], [166, 92], [184, 52], [156, 100]].map(([x, y]) => ac(x, y, 2.2)).join('')],
+      ['Color the waves deep blue, the foam white, and the sky pale yellow.', T('#F6E7C1', ar(0, 0, 200, 200)) + T('#2E5FB8', ap(waveFill)) + T('#7FA7E0', ap(smallWave + ' V200 H86 Z')) + T('#A9B4C4', ap('M118 146 L150 104 L182 146 Z')) + paint('#fff', apg('137.3,120.7 143,125 150,118 157,125 162.7,120.7 150,104')) + T('#C99A6E', ap('M126 182 Q160 190 196 178 L192 188 Q160 198 130 190 Z'))]] }
+  );
+})();
 
 /* ---------- state ---------- */
 const STICKERS = ['🦄','🐢','🚀','🌈','🐙','🦖','🍩','🐝','🎨','🦊','🐳','🌻','🏰','🐼','⚽','🎸','🦋','🍉','🐧','👑','🦁','🐬','🍄','🎃','🛸','🐉','🍭','🦒','⛵','🎠'];
@@ -3896,7 +5236,7 @@ function parent() {
       <p class="note">Owl &amp; Crayon works without the internet. Progress, drawings and Owl's answers are saved only in this browser on this device. There are no ads, no tracking and no accounts, and nothing is sent anywhere unless you switch on Online Owl.</p>
       <p class="note">With Online Owl on, only the question your child asks and their age go to your Online Owl server, which asks an AI (Cloudflare's free AI, or Claude by Anthropic) for a short, child-friendly answer. Names and progress are never sent. You can read every answer above, and turn it off at any time.</p>
       <p class="note">The microphone button uses the browser's own speech recognition, which may send the recording to the browser maker (for example Google or Apple) to turn it into text. Typing works without it.</p>
-      <p class="note">Version 2026-10-20 13:00 UTC</p></div>`;
+      <p class="note">Version 2026-10-20 13:04 UTC</p></div>`;
   view.querySelectorAll('[data-teach]').forEach(b => b.onclick = () => {
     const i = +b.dataset.teach, ans = $('#t' + i).value.trim(); if (!ans) return;
     owlForget(st.owlMisses[i].q); st.owlTaught.push({ q: st.owlMisses[i].q, a: ans }); st.owlMisses.splice(i, 1); save(); go(parent);
@@ -4770,7 +6110,8 @@ function mapQ(d) {
     if (lab) grid += `<span class="ax">${mn(y)}</span>`;
     for (let x = lo; x <= hi; x++) {
       const st0 = isStart(x, y), crab = p.mode === 'read' && x === ax && y === ay;
-      grid += `<button class="cell gopt${st0 ? ' start' : ''}${x === 0 && lab ? ' x0' : ''}${y === 0 && lab ? ' y0' : ''}" data-x="${x}" data-y="${y}"${okA(p.mode !== 'read' && x === ax && y === ay)} aria-label="${lab ? `${mn(x)}, ${mn(y)}` : `square ${x + 1}, ${N - y}`}">${crab ? '<span class="crab">🦀</span>' : deco[x + ',' + y] ? `<span class="deco">${deco[x + ',' + y]}</span>` : ''}</button>`;
+      const tagN = p.mode === 'read' ? 'span' : 'button';
+      grid += `<${tagN} class="cell${p.mode === 'read' ? '' : ' gopt'}${st0 ? ' start' : ''}${x === 0 && lab ? ' x0' : ''}${y === 0 && lab ? ' y0' : ''}" data-x="${x}" data-y="${y}"${okA(p.mode !== 'read' && x === ax && y === ay)} aria-label="${lab ? `${mn(x)}, ${mn(y)}` : `square ${x + 1}, ${N - y}`}">${crab ? '<span class="crab">🦀</span>' : deco[x + ',' + y] ? `<span class="deco">${deco[x + ',' + y]}</span>` : ''}</${tagN}>`;
     }
   }
   if (lab) grid += '<span></span>' + range(lo, hi).map(x => `<span class="ax">${mn(x)}</span>`).join('');

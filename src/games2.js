@@ -443,7 +443,8 @@ function mapQ(d) {
     if (lab) grid += `<span class="ax">${mn(y)}</span>`;
     for (let x = lo; x <= hi; x++) {
       const st0 = isStart(x, y), crab = p.mode === 'read' && x === ax && y === ay;
-      grid += `<button class="cell gopt${st0 ? ' start' : ''}${x === 0 && lab ? ' x0' : ''}${y === 0 && lab ? ' y0' : ''}" data-x="${x}" data-y="${y}"${okA(p.mode !== 'read' && x === ax && y === ay)} aria-label="${lab ? `${mn(x)}, ${mn(y)}` : `square ${x + 1}, ${N - y}`}">${crab ? '<span class="crab">🦀</span>' : deco[x + ',' + y] ? `<span class="deco">${deco[x + ',' + y]}</span>` : ''}</button>`;
+      const tagN = p.mode === 'read' ? 'span' : 'button';
+      grid += `<${tagN} class="cell${p.mode === 'read' ? '' : ' gopt'}${st0 ? ' start' : ''}${x === 0 && lab ? ' x0' : ''}${y === 0 && lab ? ' y0' : ''}" data-x="${x}" data-y="${y}"${okA(p.mode !== 'read' && x === ax && y === ay)} aria-label="${lab ? `${mn(x)}, ${mn(y)}` : `square ${x + 1}, ${N - y}`}">${crab ? '<span class="crab">🦀</span>' : deco[x + ',' + y] ? `<span class="deco">${deco[x + ',' + y]}</span>` : ''}</${tagN}>`;
     }
   }
   if (lab) grid += '<span></span>' + range(lo, hi).map(x => `<span class="ax">${mn(x)}</span>`).join('');
