@@ -15,3 +15,4 @@ Serve the app first: `python3 -m http.server 8766` from the repo root. Then run 
 - `t17.js`: Write numbers: a careful trace of 0, 4, 8 and 13 passes and a scribble does not, on a phone and a tablet.
 - `t18.js`: plays all 7 math games to the end at ages 5 and 9 on a phone and a tablet, with wrong taps, stars and best scores.
 - `t19.js`: plays the 7 newer math games (fishing, pizza, feeding, rocket, target, bee hive, treasure map) the same way, and checks 300 questions per level.
+- `t20.js`: plays the third set of 7 math games (snakes & ladders, bakery, parking, hungry monster, bubbles, sticker sort, number detective) the same way.
