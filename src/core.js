@@ -129,6 +129,7 @@ const GEN = {
 //@include math.js
 //@include math2.js
 //@include math3.js
+//@include math4.js
 //@include art.js
 //@include art2.js
 //@include art3.js
@@ -136,6 +137,8 @@ const GEN = {
 //@include art5.js
 //@include art6.js
 //@include art7.js
+//@include art8.js
+//@include art9.js
 
 /* ---------- state ---------- */
 const STICKERS = ['🦄','🐢','🚀','🌈','🐙','🦖','🍩','🐝','🎨','🦊','🐳','🌻','🏰','🐼','⚽','🎸','🦋','🍉','🐧','👑','🦁','🐬','🍄','🎃','🛸','🐉','🍭','🦒','⛵','🎠'];
@@ -357,7 +360,7 @@ function stopCanvas() { if (canvasCleanup) { canvasCleanup(); canvasCleanup = nu
 // Art School groups its many kinds so a child can find things: things to draw, ways to make art, and art skills.
 const ART_GROUPS = [
   { id: 'draw', ico: '✏️', name: 'Things to draw' },
-  { id: 'make', ico: '✂️', name: 'Ways to make art', ids: ['paint', 'craft', 'print', 'clay', 'origami', 'naturalart', 'string', 'silhouette', 'doodle', 'comics', 'styles'] },
+  { id: 'make', ico: '✂️', name: 'Ways to make art', ids: ['paint', 'craft', 'print', 'clay', 'origami', 'naturalart', 'string', 'silhouette', 'doodle', 'comics', 'styles', 'world', 'masks', 'cards', 'mixed', 'chalk', 'mosaic'] },
   { id: 'skill', ico: '🎓', name: 'Art skills', ids: ['perspective', 'shading', 'color', 'pattern', 'letters', 'life'] }
 ];
 const artGroup = id => (ART_GROUPS.find(g => g.ids && g.ids.includes(id)) || ART_GROUPS[0]).id;
@@ -836,6 +839,7 @@ function parent() {
 //@include write.js
 //@include games.js
 //@include games2.js
+//@include games3.js
 
 /* ---------- start ---------- */
 updateTop();
