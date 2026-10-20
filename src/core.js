@@ -128,6 +128,8 @@ const GEN = {
 
 //@include math.js
 //@include art.js
+//@include art2.js
+//@include art3.js
 
 /* ---------- state ---------- */
 const STICKERS = ['🦄','🐢','🚀','🌈','🐙','🦖','🍩','🐝','🎨','🦊','🐳','🌻','🏰','🐼','⚽','🎸','🦋','🍉','🐧','👑','🦁','🐬','🍄','🎃','🛸','🐉','🍭','🦒','⛵','🎠'];
@@ -231,6 +233,7 @@ function mathHome() {
   const due = dueReviews().length;
   view.innerHTML = `${crumbs('Number Garden')}
     <button class="pick" id="wr"><span class="big">✏️</span><span><b>Write numbers</b>Trace 0 to 20 with your finger</span></button>
+    <button class="pick" id="gm" style="background:var(--grape);color:#fff"><span class="big">🎮</span><span><b>Math games</b>Pop, hop, shop and race with numbers</span></button>
     ${due ? `<button class="pick" id="rev"><span class="big">🔁</span><span><b>Practise again</b>${due} question${due > 1 ? 's' : ''} you missed before</span></button>` : ''}
     <div class="worlds">${WORLDS.map((w, i) => { const open = worldOpen(i), m = Math.round(worldMastery(i) * 100);
       return `<button class="world${open ? '' : ' locked'}" data-w="${i}" style="background:${w.color}" ${open ? '' : 'aria-disabled="true"'}>
@@ -240,6 +243,7 @@ function mathHome() {
   sayScreen('Pick a world! ' + WORLDS.filter((w, i) => worldOpen(i)).map(w => w.name).join(', ') + '.');
   if (due) $('#rev').onclick = () => go(play, 'review');
   $('#wr').onclick = () => go(writeHome);
+  $('#gm').onclick = () => go(gamesHome);
   view.querySelectorAll('[data-w]').forEach(b => b.onclick = () => { const w = +b.dataset.w; if (worldOpen(w)) go(worldView, w); else say('Keep playing the world before to open this one!'); });
 }
 function worldView(w) {
@@ -390,7 +394,7 @@ function drawLesson(id) {
   const ls = lessonById(id); let i = 0, trace = false;
   view.innerHTML = `${crumbs(`${ls.ico} ${ls.title}`)}
     <div class="lesson-view">
-      <div class="guide-card"><span class="stepno" id="sn"></span><div id="gsvg"></div><p id="gt"></p>
+      <div class="guide-card"><span class="stepno" id="sn"></span><div id="gsvg"></div><p id="gt"></p><p class="note" id="gx"></p>
         <div class="stepnav"><button class="btn alt" id="prev">◀</button><button class="speak" id="gspk" aria-label="Read it">🔊</button><button class="btn" id="next">Next ▶</button></div></div>
       <div class="studio" id="studio"></div>
     </div>`;
@@ -400,6 +404,7 @@ function drawLesson(id) {
     $('#sn').textContent = `Step ${i + 1} of ${ls.steps.length}`;
     $('#gsvg').innerHTML = lessonSVG(ls, i, 'art-svg');
     $('#gt').textContent = ls.steps[i][0];
+    $('#gx').textContent = i === 0 && ls.need ? `🧰 You need: ${ls.need}` : i === ls.steps.length - 1 && ls.tip ? `💡 Tip: ${ls.tip}` : '';
     $('#prev').disabled = i === 0; $('#prev').style.opacity = i === 0 ? .4 : 1;
     $('#next').textContent = i === ls.steps.length - 1 ? 'I finished! 🎉' : 'Next ▶';
     pad.setTrace(trace ? lessonSVG(ls, i, 'trace-svg') : '');
@@ -771,7 +776,7 @@ function parent() {
       ${st.owlTaught.length ? `<p class="note">Owl has learned ${st.owlTaught.length} answer${st.owlTaught.length > 1 ? 's' : ''} from you.</p>` : ''}</div>
     ${playersPanel()}
     <div class="panel"><h2>Online Owl <span class="tag">optional</span></h2>
-      <p class="note">Owl answers many questions offline. With the Online Owl server (see the server folder in the app's code), Owl can answer any question using Claude. The API key stays on your server, never on this tablet. Every answer is saved here, so it also works offline next time.</p>
+      <p class="note">Owl answers many questions offline. With the Online Owl server (see the server folder in the app's code), Owl can answer any question using AI: Cloudflare's free AI, or Claude if you add a Claude key. The API key stays on your server, never on this tablet. Every answer is saved here, so it also works offline next time.</p>
       <label class="field" for="ou">Server address<input id="ou" value="${esc(onlineCfg().url)}" placeholder="https://owl-crayon-owl.yourname.workers.dev" autocomplete="off" inputmode="url"></label>
       <label class="field" for="oc">Access code<input id="oc" value="${esc(onlineCfg().code)}" autocomplete="off"></label>
       <label class="field" style="flex-direction:row;align-items:center;gap:10px"><input type="checkbox" id="oo" ${onlineCfg().on ? 'checked' : ''} style="width:26px;height:26px"> Use Online Owl when the internet is on</label>
@@ -785,7 +790,7 @@ function parent() {
       <div class="row" style="justify-content:flex-start"><button class="btn" id="saveS">Save settings</button><button class="btn alt" id="reset">Reset all progress</button></div><p class="note" id="sm" aria-live="polite"></p></div>
     <div class="panel"><h2>About and privacy</h2>
       <p class="note">Owl &amp; Crayon works without the internet. Progress, drawings and Owl's answers are saved only in this browser on this device. There are no ads, no tracking and no accounts, and nothing is sent anywhere unless you switch on Online Owl.</p>
-      <p class="note">With Online Owl on, only the question your child asks and their age go to your Online Owl server, which asks Claude (by Anthropic) for a short, child-friendly answer. Names and progress are never sent. You can read every answer above, and turn it off at any time.</p>
+      <p class="note">With Online Owl on, only the question your child asks and their age go to your Online Owl server, which asks an AI (Cloudflare's free AI, or Claude by Anthropic) for a short, child-friendly answer. Names and progress are never sent. You can read every answer above, and turn it off at any time.</p>
       <p class="note">The microphone button uses the browser's own speech recognition, which may send the recording to the browser maker (for example Google or Apple) to turn it into text. Typing works without it.</p>
       <p class="note">Version __BUILD__</p></div>`;
   view.querySelectorAll('[data-teach]').forEach(b => b.onclick = () => {
@@ -816,11 +821,12 @@ function parent() {
 }
 
 //@include write.js
+//@include games.js
 
 /* ---------- start ---------- */
 updateTop();
 go(profiles.length > 1 ? whoView : home);
-if (location.hash === "#selftest") window.__owl = { MATH, LESSONS, lessonSVG, PICS, get st() { return st; }, get profiles() { return profiles; }, quest, questTick, gainXP, petStage, go, home };
+if (location.hash === "#selftest") window.__owl = { MATH, LESSONS, lessonSVG, PICS, get st() { return st; }, get profiles() { return profiles; }, quest, questTick, gainXP, petStage, go, home, mathHome, artHome, catView, drawLesson, gamesHome, ART_CATS };
 if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) {
   try {
     // A new version installs in the background; offer a tap to switch rather than reloading mid-game.
