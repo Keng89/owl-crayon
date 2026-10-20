@@ -1,7 +1,22 @@
-"""Wraps src/app.html into the installable offline web app (index.html + sw.js)."""
-import hashlib, pathlib
+"""Builds the app from src/ into one offline file.
+
+src/shell.html pulls in style.css and core.js, and core.js pulls in math.js and art.js,
+through `/*@include name*/` and `//@include name` lines.
+Outputs: index.html + sw.js (the installable offline app) and dist/page.html (the same page without
+<html>/<head>, for previewing as a Claude artifact).
+"""
+import hashlib, pathlib, re
 root = pathlib.Path(__file__).parent
-body = (root / 'src/app.html').read_text()
+src = root / 'src'
+
+def expand(text):
+    return re.sub(r'^[ \t]*(?:/\*@include ([\w.]+)\*/|//@include ([\w.]+))[ \t]*$',
+                  lambda m: expand((src / (m.group(1) or m.group(2))).read_text()).rstrip('\n'), text, flags=re.M)
+
+body = expand((src / 'shell.html').read_text())
+(root / 'dist').mkdir(exist_ok=True)
+(root / 'dist/page.html').write_text(body)
+
 head = '''<!doctype html>
 <html lang="en"><head>
 <meta charset="utf-8">
@@ -30,4 +45,4 @@ self.addEventListener('fetch', e => {{
   }}).catch(() => caches.match('index.html'))));
 }});
 ''')
-print('built', ver)
+print('built', ver, len(html) // 1024, 'KB')
