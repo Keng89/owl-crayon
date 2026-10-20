@@ -1,0 +1,721 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#2FA36B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg">
+<link rel="apple-touch-icon" href="icon-192.png">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Owl & Crayon</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@500;700;800&display=swap">
+<style>
+/* Layout: one-screen tablet app. Top bar, then one big view at a time. Single bright "classroom wall" look, chosen on purpose for kids. */
+:root{
+  --bg:#E9F3F8; --paper:#FFFFFF; --ink:#22305A; --ink-soft:#5A678C; --line:#CCDBE6;
+  --leaf:#2FA36B; --leaf-soft:#D7F2E3; --sun:#FFC23D; --sun-soft:#FFF1CC;
+  --coral:#F2604F; --coral-soft:#FDE0DB; --grape:#6D55D1; --grape-soft:#E6E0FA; --sky:#2E8BE6; --sky-soft:#D9EBFC;
+  --display:"Baloo 2","Arial Rounded MT Bold",ui-rounded,system-ui,sans-serif;
+  --body:"Nunito",ui-rounded,system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:light;
+}
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:18px;-webkit-tap-highlight-color:transparent;overscroll-behavior:none}
+*{box-sizing:border-box}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:4px solid var(--sky);outline-offset:3px}
+#app{min-height:100%;display:flex;flex-direction:column;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:12px 24px;max-width:1100px;margin:0 auto}
+h1,h2,h3{font-family:var(--display);font-weight:800;margin:0;text-wrap:balance;line-height:1.1}
+.top{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.top .home{width:56px;height:56px;border-radius:18px;background:var(--paper);box-shadow:0 3px 0 var(--line);font-size:28px;display:grid;place-items:center}
+.top .brand{font-family:var(--display);font-weight:800;font-size:24px;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pill{display:inline-flex;align-items:center;gap:6px;background:var(--paper);border-radius:999px;padding:8px 14px;font-weight:800;box-shadow:0 3px 0 var(--line);font-variant-numeric:tabular-nums}
+.view{flex:1;display:flex;flex-direction:column;gap:16px;min-width:0}
+.hello{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.hello h1{font-size:clamp(30px,5vw,46px)}
+.hello p{margin:4px 0 0;color:var(--ink-soft);font-weight:700}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.tile{border-radius:28px;padding:22px;min-height:190px;display:flex;flex-direction:column;justify-content:space-between;text-align:left;box-shadow:0 6px 0 rgba(34,48,90,.15);transition:transform .12s}
+.tile:active{transform:translateY(4px);box-shadow:0 2px 0 rgba(34,48,90,.15)}
+.tile .big{font-size:64px;line-height:1}
+.tile h2{font-size:32px}
+.tile p{margin:2px 0 0;font-weight:700;opacity:.85}
+.t-math{background:var(--leaf);color:#fff}.t-art{background:var(--coral);color:#fff}.t-owl{background:var(--grape);color:#fff}
+.pick{display:flex;align-items:center;gap:14px;background:var(--sun-soft);border:3px dashed var(--sun);border-radius:24px;padding:14px 18px;text-align:left;width:100%}
+.pick .big{font-size:40px}
+.pick b{font-family:var(--display);font-size:22px;display:block}
+.stickers{display:flex;flex-wrap:wrap;gap:8px;font-size:34px;min-height:40px}
+.stickers .empty{font-size:16px;color:var(--ink-soft);font-weight:700}
+.section-title{font-size:22px;display:flex;align-items:center;gap:10px}
+.small-link{font-weight:800;color:var(--ink-soft);text-decoration:underline;padding:8px;align-self:flex-start}
+/* skill picker */
+.skills{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:14px}
+.skill{background:var(--paper);border-radius:24px;padding:16px;display:flex;flex-direction:column;gap:6px;align-items:flex-start;box-shadow:0 5px 0 var(--line);text-align:left}
+.skill .ico{font-size:42px}
+.skill b{font-family:var(--display);font-size:21px;line-height:1.1}
+.lvl{display:flex;gap:3px;font-size:16px;letter-spacing:1px}
+.lvl i{font-style:normal;opacity:.25}.lvl i.on{opacity:1}
+.skill.rec{outline:4px solid var(--sun)}
+.tag{font-size:13px;font-weight:800;background:var(--sun);border-radius:999px;padding:2px 10px}
+/* question */
+.qcard{background:var(--paper);border-radius:32px;padding:clamp(16px,3vw,28px);display:flex;flex-direction:column;gap:18px;align-items:center;box-shadow:0 6px 0 var(--line);position:relative}
+.progress{display:flex;gap:6px;justify-content:center}
+.progress i{width:28px;height:10px;border-radius:9px;background:var(--line)}
+.progress i.done{background:var(--leaf)}.progress i.now{background:var(--sun)}
+.prompt{display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center}
+.prompt h2{font-size:clamp(28px,5vw,44px);text-align:center}
+.speak{width:52px;height:52px;border-radius:50%;background:var(--sky-soft);font-size:26px;flex:none}
+.visual{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;align-items:center;min-height:60px;max-width:100%}
+.objs{display:grid;grid-template-columns:repeat(5,auto);gap:4px 6px;font-size:clamp(30px,5vw,42px);line-height:1.1;padding:8px 10px;border-radius:18px;background:var(--bg)}
+.objs span{position:relative;display:inline-block}
+.objs span.gone{opacity:.25;filter:grayscale(1)}
+.objs span.gone::after{content:"";position:absolute;left:-2px;right:-2px;top:50%;height:4px;background:var(--coral);transform:rotate(-30deg);border-radius:3px}
+.objs span sup{position:absolute;right:-6px;top:-6px;font:800 13px var(--body);background:var(--ink);color:#fff;border-radius:999px;min-width:20px;height:20px;display:grid;place-items:center;padding:0 4px}
+.op{font-family:var(--display);font-size:52px;font-weight:800;color:var(--ink-soft)}
+.bignum{font-family:var(--display);font-size:72px;font-weight:800;line-height:1}
+.shape svg{width:min(180px,40vw);height:auto;display:block}
+.pat{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;align-items:center}
+.dot{width:44px;height:44px;border-radius:50%;display:inline-block;box-shadow:inset 0 -4px 0 rgba(0,0,0,.15)}
+.dot.q{background:var(--bg)!important;border:4px dashed var(--ink-soft);box-shadow:none;display:grid;place-items:center;font:800 24px var(--display);color:var(--ink-soft)}
+.unit{display:inline-flex;gap:8px;padding:6px;border:3px solid var(--sun);border-radius:30px}
+.choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:14px;width:100%;max-width:640px}
+.choice{background:var(--sky-soft);border-radius:24px;min-height:96px;font-family:var(--display);font-weight:800;font-size:44px;display:flex;align-items:center;justify-content:center;gap:6px;box-shadow:0 5px 0 #B5D3F2;padding:8px;transition:transform .1s}
+.choice:active{transform:translateY(3px);box-shadow:0 2px 0 #B5D3F2}
+.choice.right{background:var(--leaf);color:#fff;box-shadow:0 5px 0 #1D7A4E}
+.choice.wrong{background:var(--coral-soft);color:var(--coral);box-shadow:0 5px 0 #F4B3A9;animation:shake .35s}
+.choice.txt{font-size:26px}
+@keyframes shake{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.explain{background:var(--sun-soft);border-radius:24px;padding:16px 18px;width:100%;display:flex;flex-direction:column;gap:12px;align-items:center;text-align:center}
+.explain p{margin:0;font-weight:800;font-size:22px;max-width:36ch}
+.cheer{font-family:var(--display);font-size:36px;color:var(--leaf);height:44px}
+/* done */
+.done{align-items:center;text-align:center;justify-content:center}
+.done .big{font-size:96px}
+.done h1{font-size:48px}
+.row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.btn{background:var(--ink);color:#fff;border-radius:20px;padding:16px 26px;font-family:var(--display);font-weight:800;font-size:24px;box-shadow:0 5px 0 rgba(0,0,0,.25)}
+.btn.alt{background:var(--paper);color:var(--ink);box-shadow:0 5px 0 var(--line)}
+.btn.leaf{background:var(--leaf)}
+/* art */
+.tabs{display:flex;gap:8px;flex-wrap:wrap}
+.tabs button{padding:10px 18px;border-radius:999px;background:var(--paper);font-weight:800;box-shadow:0 3px 0 var(--line)}
+.tabs button[aria-pressed=true]{background:var(--coral);color:#fff;box-shadow:0 3px 0 #B8402F}
+.idea{display:flex;align-items:center;gap:12px;background:var(--paper);border-radius:22px;padding:12px 14px;box-shadow:0 4px 0 var(--line);flex-wrap:wrap}
+.idea p{flex:1;min-width:0;margin:0;font-weight:800;font-size:21px}
+.studio{display:flex;flex-direction:column;gap:12px;flex:1;min-height:0}
+.canvas-wrap{position:relative;flex:1;min-height:340px;background:#fff;border-radius:24px;box-shadow:0 5px 0 var(--line);overflow:hidden}
+.canvas-wrap canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none}
+.mirror-line{position:absolute;top:0;bottom:0;left:50%;border-left:3px dashed var(--grape-soft);pointer-events:none}
+.tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.sw{width:46px;height:46px;border-radius:50%;box-shadow:inset 0 -4px 0 rgba(0,0,0,.15)}
+.sw[aria-pressed=true]{outline:4px solid var(--ink);outline-offset:3px}
+.tool{min-width:52px;height:52px;border-radius:16px;background:var(--paper);box-shadow:0 3px 0 var(--line);font-weight:800;padding:0 12px;display:inline-flex;align-items:center;justify-content:center;gap:6px}
+.tool[aria-pressed=true]{background:var(--grape);color:#fff;box-shadow:0 3px 0 #4B37A6}
+.size i{display:block;border-radius:50%;background:var(--ink)}
+.mix{display:flex;flex-direction:column;align-items:center;gap:16px;background:var(--paper);border-radius:28px;padding:22px;box-shadow:0 5px 0 var(--line)}
+.pot{width:200px;height:200px;border-radius:50%;border:10px solid var(--line);display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:26px;text-align:center;transition:background .4s;padding:20px}
+.paints{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
+.paints button{width:76px;height:76px;border-radius:50%;box-shadow:inset 0 -6px 0 rgba(0,0,0,.15),0 4px 0 var(--line);font-weight:800;font-size:14px;color:#fff}
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.gallery img{width:100%;border-radius:16px;background:#fff;box-shadow:0 4px 0 var(--line);display:block}
+/* owl */
+.owl-head{display:flex;align-items:flex-end;gap:14px}
+.owl-face{font-size:84px;line-height:1;animation:bob 3s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-6px)}}
+.bubble{background:var(--paper);border-radius:26px 26px 26px 6px;padding:18px 20px;font-weight:800;font-size:22px;box-shadow:0 5px 0 var(--line);flex:1;min-width:0;display:flex;flex-direction:column;gap:12px}
+.bubble p{margin:0;line-height:1.35}
+.ask{display:flex;gap:10px;flex-wrap:wrap}
+.ask input{flex:1;min-width:0;font:inherit;font-size:22px;font-weight:700;padding:16px 18px;border-radius:20px;border:3px solid var(--line);background:var(--paper);color:var(--ink)}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chips button{background:var(--grape-soft);color:var(--grape);border-radius:999px;padding:10px 16px;font-weight:800;font-size:17px;text-align:left}
+.helped{display:flex;gap:10px;align-items:center;font-size:16px;color:var(--ink-soft);flex-wrap:wrap}
+.helped button{font-size:26px;background:var(--bg);border-radius:14px;padding:4px 12px}
+/* parent */
+.panel{background:var(--paper);border-radius:24px;padding:18px;box-shadow:0 4px 0 var(--line);display:flex;flex-direction:column;gap:12px;min-width:0}
+.panel h2{font-size:24px}
+.ptable{width:100%;border-collapse:collapse;font-size:16px;font-variant-numeric:tabular-nums}
+.ptable th,.ptable td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line)}
+.ptable th{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft)}
+.bar{height:10px;border-radius:9px;background:var(--bg);min-width:80px;overflow:hidden}.bar i{display:block;height:100%;background:var(--leaf)}
+.miss{display:flex;flex-direction:column;gap:8px;border-top:1px solid var(--line);padding-top:10px}
+.miss textarea{font:inherit;font-size:16px;border:2px solid var(--line);border-radius:12px;padding:10px;min-height:64px;resize:vertical;background:var(--paper);color:var(--ink)}
+.field{display:flex;flex-direction:column;gap:6px;font-weight:800}
+.field input{font:inherit;font-size:20px;padding:12px 14px;border-radius:14px;border:3px solid var(--line);background:var(--paper);color:var(--ink);max-width:320px}
+.note{color:var(--ink-soft);font-size:15px;margin:0;max-width:65ch}
+.wide{overflow-x:auto}
+/* confetti */
+.confetti{position:fixed;top:-20px;width:12px;height:18px;border-radius:3px;pointer-events:none;z-index:50;animation:fall 1.6s ease-in forwards}
+@keyframes fall{to{transform:translateY(105vh) rotate(540deg);opacity:.6}}
+@media (prefers-reduced-motion:reduce){.owl-face,.confetti,.choice.wrong{animation:none}.confetti{display:none}}
+.choices{gap:10px}
+@media (max-width:520px){.top .brand{font-size:20px}.choice.txt{font-size:20px}.tile{min-height:150px}.tile .big{font-size:48px}.choice{font-size:36px;min-height:80px}.objs{grid-template-columns:repeat(5,auto)}}
+</style>
+
+</head><body>
+<div id="app">
+  <div class="top">
+    <button class="home" id="homeBtn" aria-label="Home">🏠</button>
+    <div class="brand">Owl &amp; Crayon</div>
+    <span class="pill" title="Stars">⭐ <span id="starCount">0</span></span>
+    <span class="pill" title="Days in a row">🔥 <span id="streakCount">0</span></span>
+  </div>
+  <main class="view" id="view"></main>
+</div>
+
+<script>
+(() => {
+'use strict';
+/* ---------- storage (works offline, survives without localStorage) ---------- */
+const mem = {};
+const store = {
+  get(k, d) { try { const v = localStorage.getItem('owlcrayon:' + k); if (v != null) return JSON.parse(v); } catch (e) {} return k in mem ? mem[k] : d; },
+  set(k, v) { mem[k] = v; try { localStorage.setItem('owlcrayon:' + k, JSON.stringify(v)); } catch (e) {} }
+};
+
+/* ---------- content: skills scale by age and level ---------- */
+const SKILLS = {
+  count:   { name: 'Counting',          ico: '🍎', minAge: 3 },
+  shapes:  { name: 'Shapes',            ico: '🔺', minAge: 3 },
+  pattern: { name: 'Patterns',          ico: '🔴', minAge: 3 },
+  compare: { name: 'Bigger or smaller', ico: '🐘', minAge: 4 },
+  add:     { name: 'Adding',            ico: '➕', minAge: 4 },
+  sub:     { name: 'Taking away',       ico: '➖', minAge: 5 },
+  times:   { name: 'Times tables',      ico: '✖️', minAge: 7 }
+};
+const today = () => { const d = new Date(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); };
+const dayNum = s => Math.round(new Date(s + 'T12:00:00').getTime() / 864e5);
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const rnd = (a, b) => a + Math.floor(Math.random() * (b - a + 1));
+const pick = a => a[Math.floor(Math.random() * a.length)];
+const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+function startMastery(skill, age) { return clamp((age - SKILLS[skill].minAge) * 0.18 + 0.05, 0, 0.8); }
+function freshState(age = 5) {
+  const skills = {};
+  for (const k in SKILLS) skills[k] = { m: startMastery(k, age), seen: 0, hist: [], ms: 0 };
+  return { v: 1, name: '', age, stars: 0, streak: { n: 0, last: null }, skills, review: [], owlMisses: [], owlTaught: [], plays: { math: 0, art: 0, owl: 0 }, speak: true };
+}
+let st = store.get('state', null) || freshState();
+for (const k in SKILLS) if (!st.skills[k]) st.skills[k] = { m: startMastery(k, st.age), seen: 0, hist: [], ms: 0 };
+let gallery = store.get('gallery', []);
+const save = () => store.set('state', st);
+
+const STICKERS = ['🦄','🐢','🚀','🌈','🐙','🦖','🍩','🐝','🎨','🦊','🐳','🌻','🏰','🐼','⚽','🎸','🦋','🍉','🐧','👑'];
+const level = s => 1 + Math.min(4, Math.floor(st.skills[s].m * 5));
+const unlocked = () => Object.keys(SKILLS).filter(k => SKILLS[k].minAge <= st.age);
+
+/* ---------- sound + voice (both work offline) ---------- */
+let actx = null;
+function tone(freqs, dur = 0.12) {
+  try {
+    actx = actx || new (window.AudioContext || window.webkitAudioContext)();
+    freqs.forEach((f, i) => {
+      const o = actx.createOscillator(), g = actx.createGain(), t = actx.currentTime + i * dur;
+      o.type = 'triangle'; o.frequency.value = f; g.gain.setValueAtTime(0.18, t); g.gain.exponentialRampToValueAtTime(0.001, t + dur * 1.8);
+      o.connect(g).connect(actx.destination); o.start(t); o.stop(t + dur * 2);
+    });
+  } catch (e) {}
+}
+const yay = () => tone([523, 659, 784]);
+const oops = () => tone([330, 262], 0.15);
+function say(text) {
+  if (!st.speak || !('speechSynthesis' in window)) return;
+  try { speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(text.replace(/[^\w\s.,!?'+=-]/g, ' ')); u.rate = 0.9; u.pitch = 1.15; speechSynthesis.speak(u); } catch (e) {}
+}
+function confetti(n = 40) {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const cols = ['#FFC23D', '#F2604F', '#2FA36B', '#6D55D1', '#2E8BE6'];
+  for (let i = 0; i < n; i++) {
+    const d = document.createElement('i'); d.className = 'confetti';
+    d.style.left = Math.random() * 100 + 'vw'; d.style.background = pick(cols); d.style.animationDelay = Math.random() * 0.4 + 's';
+    document.body.appendChild(d); setTimeout(() => d.remove(), 2200);
+  }
+}
+
+/* ---------- visual helpers ---------- */
+const THINGS = [['🍎','apples'],['⭐','stars'],['🐟','fish'],['🌸','flowers'],['🚗','cars'],['🐞','ladybugs'],['🍓','strawberries'],['🎈','balloons'],['🐥','chicks']];
+function objs(n, e, opt = {}) {
+  let h = '';
+  for (let i = 0; i < n; i++) {
+    const gone = opt.gone && i >= n - opt.gone ? ' class="gone"' : '';
+    h += `<span${gone}>${e}${opt.num ? `<sup>${(opt.numFrom || 0) + i + 1}</sup>` : ''}</span>`;
+  }
+  return `<div class="objs" style="grid-template-columns:repeat(${Math.min(5, Math.max(1, n))},auto)">${h || '<span style="opacity:.3">∅</span>'}</div>`;
+}
+const SHAPES = {
+  circle: { sides: 0, svg: c => `<circle cx="50" cy="50" r="40" fill="${c}"/>` },
+  oval: { sides: 0, svg: c => `<ellipse cx="50" cy="50" rx="45" ry="28" fill="${c}"/>` },
+  square: { sides: 4, svg: c => `<rect x="14" y="14" width="72" height="72" rx="3" fill="${c}"/>`, pts: [[14,14],[86,14],[86,86],[14,86]] },
+  rectangle: { sides: 4, svg: c => `<rect x="4" y="26" width="92" height="48" rx="3" fill="${c}"/>`, pts: [[4,26],[96,26],[96,74],[4,74]] },
+  triangle: { sides: 3 }, pentagon: { sides: 5 }, hexagon: { sides: 6 },
+  star: { sides: 10, svg: c => `<polygon points="${starPts()}" fill="${c}"/>` }
+};
+function polyPts(n) { const p = []; for (let i = 0; i < n; i++) { const a = -Math.PI / 2 + i * 2 * Math.PI / n; p.push([50 + 44 * Math.cos(a), 54 + 44 * Math.sin(a)].map(v => +v.toFixed(1))); } return p; }
+function starPts() { const p = []; for (let i = 0; i < 10; i++) { const r = i % 2 ? 19 : 46, a = -Math.PI / 2 + i * Math.PI / 5; p.push((50 + r * Math.cos(a)).toFixed(1) + ',' + (52 + r * Math.sin(a)).toFixed(1)); } return p.join(' '); }
+function shapeSVG(name, color, corners) {
+  const s = SHAPES[name]; let body, pts = s.pts;
+  if (s.svg) body = s.svg(color); else { pts = polyPts(s.sides); body = `<polygon points="${pts.map(p => p.join(',')).join(' ')}" fill="${color}"/>`; }
+  let marks = '';
+  if (corners && pts) marks = pts.map((p, i) => `<circle cx="${p[0]}" cy="${p[1]}" r="7" fill="#22305A"/><text x="${p[0]}" y="${p[1] + 4}" font-size="9" font-weight="800" text-anchor="middle" fill="#fff">${i + 1}</text>`).join('');
+  return `<div class="shape"><svg viewBox="-6 -6 112 112" role="img" aria-label="${name}">${body}${marks}</svg></div>`;
+}
+const COLORS = [['#F2604F','red'],['#2E8BE6','blue'],['#FFC23D','yellow'],['#2FA36B','green'],['#6D55D1','purple'],['#FF8A2B','orange']];
+const dot = c => `<span class="dot" style="background:${c}"></span>`;
+function numChoices(ans, lo, hi, n = 3) {
+  const set = new Set([ans]); let guard = 0;
+  while (set.size < n && guard++ < 50) { const d = ans + pick([-2, -1, 1, 2, 3, -3, 10, -10].filter(x => Math.abs(x) < 10 || hi > 30)); if (d >= lo && d <= hi) set.add(d); }
+  return shuffle([...set]).map(v => ({ html: v, val: v, say: String(v) }));
+}
+
+/* ---------- question generators: L = level 1..5 ---------- */
+const GEN = {
+  count(L) {
+    const max = [5, 8, 10, 15, 20][L - 1], n = rnd(1, max), [e, word] = pick(THINGS);
+    return { prompt: `How many ${word}?`, speak: `How many ${word} can you count?`, visual: objs(n, e), choices: numChoices(n, 0, max + 3), answer: n,
+      explain: objs(n, e, { num: true }), explainText: `Touch each one and count: ${Array.from({ length: Math.min(n, 10) }, (_, i) => i + 1).join(', ')}${n > 10 ? '...' : ''}. There are ${n} ${word}!` };
+  },
+  add(L) {
+    const maxSum = [5, 10, 10, 15, 20][L - 1], a = rnd(1, maxSum - 1), b = rnd(1, maxSum - a), [e] = pick(THINGS), s = a + b;
+    const pics = s <= 20 && L <= 3;
+    return { prompt: `${a} + ${b} = ?`, speak: `What is ${a} plus ${b}?`, visual: pics ? `${objs(a, e)}<span class="op">+</span>${objs(b, e)}` : `<span class="bignum">${a} + ${b}</span>`,
+      choices: numChoices(s, 0, maxSum + 3), answer: s,
+      explain: `${objs(a, e, { num: true })}<span class="op">+</span>${objs(b, e, { num: true, numFrom: a })}`,
+      explainText: `Start at ${a}, then count ${b} more: ${Array.from({ length: Math.min(b, 8) }, (_, i) => a + i + 1).join(', ')}. ${a} plus ${b} makes ${s}!` };
+  },
+  sub(L) {
+    const maxA = [5, 10, 10, 15, 20][L - 1], a = rnd(2, maxA), b = rnd(1, a - 1), [e] = pick(THINGS), r = a - b;
+    return { prompt: `${a} − ${b} = ?`, speak: `What is ${a} take away ${b}?`, visual: L <= 3 ? objs(a, e) : `<span class="bignum">${a} − ${b}</span>`,
+      choices: numChoices(r, 0, maxA), answer: r,
+      explain: objs(a, e, { gone: b }), explainText: `We had ${a}. ${b} went away. Count the ones that are left: ${r}!` };
+  },
+  compare(L) {
+    const max = [10, 20, 50, 100, 1000][L - 1]; let a = rnd(1, max), b = rnd(1, max); while (b === a) b = rnd(1, max);
+    const small = L >= 3 && Math.random() < 0.4, ans = small ? Math.min(a, b) : Math.max(a, b), word = small ? 'smaller' : 'bigger';
+    const [e] = pick(THINGS);
+    const pics = max <= 20;
+    return { prompt: `Which number is ${word}?`, speak: `Which number is ${word}? ${a} or ${b}?`,
+      visual: pics ? `<div class="row">${objs(a, e)}${objs(b, e)}</div>` : '',
+      choices: [a, b].map(v => ({ html: v, val: v, say: String(v) })), answer: ans,
+      explain: pics ? `<div class="row"><div><div class="bignum">${a}</div>${objs(a, e)}</div><div><div class="bignum">${b}</div>${objs(b, e)}</div></div>` : `<span class="bignum">${a} ${a > b ? '>' : '<'} ${b}</span>`,
+      explainText: pics ? `${Math.max(a, b)} has more. ${Math.min(a, b)} has fewer. So ${ans} is ${word}.` : `Look at the first digits and how many digits there are. ${Math.max(a, b)} is more than ${Math.min(a, b)}, so ${ans} is ${word}.` };
+  },
+  shapes(L) {
+    const pool = [['circle', 'square', 'triangle'], ['circle', 'square', 'triangle', 'rectangle', 'star'], ['triangle', 'rectangle', 'oval', 'pentagon', 'star'], ['triangle', 'square', 'pentagon', 'hexagon', 'oval'], ['triangle', 'pentagon', 'hexagon', 'rectangle', 'square']][L - 1];
+    const name = pick(pool), c = pick(COLORS)[0], s = SHAPES[name];
+    if (L >= 2 && s.sides >= 3 && s.sides <= 6 && Math.random() < 0.5) {
+      return { prompt: 'How many sides?', speak: `This is a ${name}. How many straight sides does it have?`, visual: shapeSVG(name, c), choices: numChoices(s.sides, 3, 8), answer: s.sides,
+        explain: shapeSVG(name, c, true), explainText: `Count the corners. A ${name} has ${s.sides} corners and ${s.sides} straight sides.` };
+    }
+    const opts = shuffle([name, ...shuffle(pool.filter(x => x !== name)).slice(0, 2)]);
+    const desc = s.sides === 0 ? `A ${name} is round. It has no corners.` : name === 'star' ? 'A star has 5 pointy tips.' : `A ${name} has ${s.sides} straight sides.`;
+    return { prompt: 'What shape is this?', speak: 'What shape is this?', visual: shapeSVG(name, c),
+      choices: opts.map(o => ({ html: o, val: o, say: o, txt: true })), answer: name, explain: shapeSVG(name, c, true), explainText: `${desc} It is a ${name}!` };
+  },
+  pattern(L) {
+    const units = [['AB'], ['AB', 'AAB'], ['ABC', 'ABB', 'AAB'], ['ABC', 'AABB', 'ABCC'], ['ABCD', 'AABBC', 'ABAC']][L - 1];
+    const u = pick(units), cols = shuffle(COLORS).slice(0, 4), seq = [];
+    const len = u.length * (u.length <= 2 ? 3 : 2);
+    for (let i = 0; i < len; i++) seq.push(u[i % u.length]);
+    const next = u[len % u.length], letters = [...new Set(u)];
+    const col = ch => cols['ABCD'.indexOf(ch)];
+    const optionLetters = shuffle([...letters, ...(letters.length < 3 ? ['ABCD'[letters.length]] : [])]).slice(0, Math.max(3, letters.length));
+    if (!optionLetters.includes(next)) optionLetters[0] = next;
+    return { prompt: 'What comes next?', speak: 'Look at the colors. What comes next?',
+      visual: `<div class="pat">${seq.map(ch => dot(col(ch)[0])).join('')}<span class="dot q">?</span></div>`,
+      choices: shuffle(optionLetters).map(ch => ({ html: dot(col(ch)[0]), val: ch, say: col(ch)[1] })), answer: next,
+      explain: `<div class="pat"><span class="unit">${u.split('').map(ch => dot(col(ch)[0])).join('')}</span><span class="op">again and again</span></div>`,
+      explainText: `The pattern goes ${u.split('').map(ch => col(ch)[1]).join(', ')}, and then it starts again. So next is ${col(next)[1]}.` };
+  },
+  times(L) {
+    const max = [2, 5, 5, 10, 12][L - 1], a = rnd(1, max), b = rnd(1, L <= 2 ? 5 : 10), p = a * b, [e] = pick(THINGS);
+    const pics = p <= 25;
+    const groups = Array.from({ length: a }, () => objs(b, e)).join('');
+    return { prompt: `${a} × ${b} = ?`, speak: `What is ${a} times ${b}?`, visual: pics ? `<div class="row">${groups}</div>` : `<span class="bignum">${a} × ${b}</span>`,
+      choices: numChoices(p, 0, 150), answer: p, explain: pics ? `<div class="row">${groups}</div>` : `<span class="bignum">${Array(Math.min(a, 6)).fill(b).join(' + ')}${a > 6 ? ' ...' : ''}</span>`,
+      explainText: `${a} times ${b} means ${a} groups of ${b}. Add ${b}, ${a} times. That makes ${p}.` };
+  }
+};
+
+/* ---------- adaptive engine: mastery per skill + spaced review ---------- */
+const BOXES = [1, 2, 4, 8, 16]; // days until the next review
+function learn(skill, firstTry, ms) {
+  const s = st.skills[skill];
+  s.seen++; s.hist = (s.hist || []).concat(firstTry ? 1 : 0).slice(-20);
+  s.ms = s.ms ? Math.round(s.ms * 0.8 + ms * 0.2) : ms;
+  s.m = clamp(s.m + (firstTry ? (ms < 8000 ? 0.06 : 0.035) : -0.07), 0, 1);
+}
+function addReview(skill, q) {
+  if (st.review.some(r => r.q.prompt === q.prompt && r.q.answer === q.answer)) return;
+  st.review.push({ skill, q, box: 0, due: dayNum(today()) + 1 });
+  if (st.review.length > 60) st.review.shift();
+}
+const dueReviews = () => st.review.filter(r => r.due <= dayNum(today()));
+function acc(skill) { const h = st.skills[skill].hist || []; return h.length ? h.reduce((a, b) => a + b, 0) / h.length : null; }
+function recommendSkill() {
+  // Pick the skill closest to the "just right" zone: not mastered, not frustrating, least practised.
+  const ks = unlocked();
+  return ks.map(k => { const a = acc(k), s = st.skills[k]; return [k, (s.m >= 0.95 ? 3 : 0) + (a != null && a < 0.5 ? 1 : 0) + s.seen / 40 + Math.random() * 0.3]; })
+    .sort((x, y) => x[1] - y[1])[0][0];
+}
+function todaysPick() {
+  if (dueReviews().length) return { kind: 'review', ico: '🔁', title: 'Quick review', text: `${dueReviews().length} to practise again` };
+  const p = st.plays;
+  if (p.art < p.math - 2) return { kind: 'art', ico: '🖍️', title: 'Draw something!', text: 'Your crayons miss you' };
+  const k = recommendSkill();
+  return { kind: 'skill', skill: k, ico: SKILLS[k].ico, title: SKILLS[k].name, text: 'Good one to play next' };
+}
+function bumpStreak() {
+  const t = today(); if (st.streak.last === t) return;
+  st.streak.n = st.streak.last && dayNum(t) - dayNum(st.streak.last) === 1 ? st.streak.n + 1 : 1; st.streak.last = t;
+}
+function addStars(n) {
+  const before = Math.floor(st.stars / 10); st.stars += n; save(); updateTop();
+  return Math.floor(st.stars / 10) > before ? STICKERS[(Math.floor(st.stars / 10) - 1) % STICKERS.length] : null;
+}
+
+/* ---------- views ---------- */
+const view = document.getElementById('view');
+function updateTop() { document.getElementById('starCount').textContent = st.stars; document.getElementById('streakCount').textContent = st.streak.n; }
+function go(fn, ...a) { try { speechSynthesis.cancel(); } catch (e) {} stopCanvas(); view.innerHTML = ''; window.scrollTo(0, 0); fn(...a); }
+document.getElementById('homeBtn').onclick = () => go(home);
+
+function home() {
+  const p = todaysPick(), stickers = Array.from({ length: Math.floor(st.stars / 10) }, (_, i) => STICKERS[i % STICKERS.length]);
+  view.innerHTML = `
+    <div class="hello"><div class="owl-face" aria-hidden="true">🦉</div><div>
+      <h1>Hi${st.name ? ', ' + esc(st.name) : ''}! What shall we do?</h1>
+      <p>${st.streak.n > 1 ? `You played ${st.streak.n} days in a row!` : 'Pick a big button to start.'}</p></div></div>
+    <button class="pick" id="pick"><span class="big">${p.ico}</span><span><b>${p.title}</b>${p.text}</span></button>
+    <div class="tiles">
+      <button class="tile t-math" id="tMath"><span class="big">🔢</span><span><h2>Number Garden</h2><p>Count, add and find patterns</p></span></button>
+      <button class="tile t-art" id="tArt"><span class="big">🖍️</span><span><h2>Art Studio</h2><p>Draw, mirror and mix colors</p></span></button>
+      <button class="tile t-owl" id="tOwl"><span class="big">🦉</span><span><h2>Ask Owl</h2><p>Ask me anything!</p></span></button>
+    </div>
+    <h3 class="section-title">My stickers <span class="tag">every 10 ⭐</span></h3>
+    <div class="stickers">${stickers.length ? stickers.map(s => `<span>${s}</span>`).join('') : '<span class="empty">Earn 10 stars to get your first sticker.</span>'}</div>
+    <button class="small-link" id="parent">For grown-ups</button>`;
+  say(`Hi${st.name ? ' ' + st.name : ''}! What shall we do today?`);
+  $('#tMath').onclick = () => go(mathHome);
+  $('#tArt').onclick = () => go(art);
+  $('#tOwl').onclick = () => go(owl);
+  $('#parent').onclick = () => go(gate);
+  $('#pick').onclick = () => p.kind === 'review' ? go(play, 'review') : p.kind === 'art' ? go(art) : go(play, p.skill);
+}
+const $ = s => view.querySelector(s);
+
+function mathHome() {
+  const rec = recommendSkill(), due = dueReviews().length;
+  view.innerHTML = `<h1 style="font-size:40px">Number Garden</h1>
+    <div class="skills">
+      <button class="skill" data-s="mix" style="background:var(--leaf);color:#fff"><span class="ico">🎲</span><b>Surprise mix</b><span>A bit of everything</span></button>
+      ${due ? `<button class="skill" data-s="review" style="background:var(--sun-soft)"><span class="ico">🔁</span><b>Practise again</b><span>${due} waiting</span></button>` : ''}
+      ${unlocked().map(k => `<button class="skill${k === rec ? ' rec' : ''}" data-s="${k}"><span class="ico">${SKILLS[k].ico}</span><b>${SKILLS[k].name}</b>
+        <span class="lvl" aria-label="level ${level(k)} of 5">${[1, 2, 3, 4, 5].map(i => `<i class="${i <= level(k) ? 'on' : ''}">⭐</i>`).join('')}</span>${k === rec ? '<span class="tag">Try this</span>' : ''}</button>`).join('')}
+    </div>`;
+  say('Pick a game!');
+  view.querySelectorAll('[data-s]').forEach(b => b.onclick = () => go(play, b.dataset.s));
+}
+
+let sess = null;
+function play(mode) {
+  const plan = [];
+  if (mode === 'review') dueReviews().slice(0, 6).forEach(r => plan.push({ review: r }));
+  else for (let i = 0; i < 6; i++) plan.push({ skill: mode === 'mix' ? pick(unlocked()) : mode });
+  if (!plan.length) return go(mathHome);
+  sess = { mode, plan, i: 0, firstTries: 0, stars: 0 };
+  st.plays.math++; save();
+  question();
+}
+function question() {
+  const item = sess.plan[sess.i];
+  const skill = item.review ? item.review.skill : item.skill;
+  const q = item.review ? { ...item.review.q, choices: shuffle(item.review.q.choices) } : GEN[skill](level(skill));
+  const t0 = Date.now(); let tries = 0;
+  view.innerHTML = `
+    <div class="progress">${sess.plan.map((_, i) => `<i class="${i < sess.i ? 'done' : i === sess.i ? 'now' : ''}"></i>`).join('')}</div>
+    <div class="qcard">
+      <div class="prompt"><h2>${q.prompt}</h2><button class="speak" id="spk" aria-label="Read it to me">🔊</button></div>
+      <div class="visual">${q.visual}</div>
+      <div class="choices" style="grid-template-columns:repeat(${q.choices.length},1fr)">${q.choices.map((c, i) => `<button class="choice${c.txt ? ' txt' : ''}" data-i="${i}">${c.html}</button>`).join('')}</div>
+      <div class="cheer" id="cheer" aria-live="polite"></div>
+      <div id="exp"></div>
+    </div>`;
+  say(q.speak);
+  $('#spk').onclick = () => say(q.speak);
+  view.querySelectorAll('.choice').forEach(b => b.onclick = () => {
+    const c = q.choices[+b.dataset.i];
+    if (b.disabled) return;
+    if (c.val === q.answer) {
+      const first = tries === 0, ms = Date.now() - t0;
+      b.classList.add('right'); view.querySelectorAll('.choice').forEach(x => x.disabled = true);
+      if (first) { learn(skill, true, ms); sess.firstTries++; }
+      if (item.review) { const r = item.review; r.box = first ? Math.min(r.box + 1, BOXES.length - 1) : 0; r.due = dayNum(today()) + BOXES[r.box]; if (first && r.box === BOXES.length - 1) st.review = st.review.filter(x => x !== r); }
+      const earned = first ? 2 : 1; sess.stars += earned; addStars(earned);
+      const words = first ? pick(['Great job!', 'You got it!', 'Super!', 'Yes!']) : 'Now you know it!';
+      $('#cheer').textContent = words + ' ⭐'.repeat(earned); yay(); say(words);
+      save();
+      setTimeout(() => { sess.i++; sess.i < sess.plan.length ? question() : finish(); }, first ? 1300 : 1800);
+    } else {
+      tries++; b.classList.add('wrong'); b.disabled = true; oops();
+      if (tries === 1) { learn(skill, false, Date.now() - t0); if (!item.review) addReview(skill, q); save(); }
+      $('#exp').innerHTML = `<div class="explain"><p>Let's look together.</p><div class="visual">${q.explain}</div><p>${esc(q.explainText)}</p></div>`;
+      say('Let\'s look together. ' + q.explainText);
+    }
+  });
+}
+function finish() {
+  bumpStreak();
+  const sticker = Math.floor(st.stars / 10) > Math.floor((st.stars - sess.stars) / 10) ? STICKERS[(Math.floor(st.stars / 10) - 1) % STICKERS.length] : null;
+  save(); updateTop(); confetti(); yay();
+  view.innerHTML = `<div class="view done">
+    <div class="big">${sticker || '🏆'}</div>
+    <h1>${sess.firstTries >= sess.plan.length - 1 ? 'Amazing!' : 'Well done!'}</h1>
+    <p style="font-weight:800;font-size:22px">You got ${sess.firstTries} of ${sess.plan.length} on the first try and earned ${sess.stars} ⭐</p>
+    ${sticker ? `<p style="font-weight:800;font-size:22px">New sticker for your book!</p>` : ''}
+    <div class="row"><button class="btn leaf" id="again">Play again</button><button class="btn alt" id="back">Home</button></div></div>`;
+  say(`Well done! You earned ${sess.stars} stars.${sticker ? ' And a new sticker!' : ''}`);
+  const mode = sess.mode;
+  $('#again').onclick = () => go(play, mode === 'review' ? 'mix' : mode);
+  $('#back').onclick = () => go(home);
+}
+
+/* ---------- art studio ---------- */
+const IDEAS = [
+  'Draw a house with a square and a triangle roof.', 'Draw 3 circles and turn them into a snowman.', 'Turn on Mirror and draw a butterfly.',
+  'Draw a robot using only rectangles.', 'Draw a fish with a triangle tail.', 'Draw 5 flowers in a row.', 'Draw a rainbow with 7 colors.',
+  'Draw a pattern: circle, square, circle, square.', 'Draw 2 big stars and 4 small stars.', 'Turn on Mirror and draw a face.',
+  'Draw a cat using a circle and two triangle ears.', 'Draw the sun and count its rays.'
+];
+const PAINT = ['#22305A', '#F2604F', '#FF8A2B', '#FFC23D', '#2FA36B', '#2E8BE6', '#6D55D1', '#F49AC1', '#8B5A2B'];
+let canvasCleanup = null;
+function stopCanvas() { if (canvasCleanup) { canvasCleanup(); canvasCleanup = null; } }
+function art(tab = 'draw') {
+  st.plays.art++; save();
+  view.innerHTML = `<div class="tabs" role="group" aria-label="Art studio">
+      <button data-t="draw" aria-pressed="${tab === 'draw'}">🖍️ Draw</button><button data-t="mix" aria-pressed="${tab === 'mix'}">🎨 Mix colors</button><button data-t="gal" aria-pressed="${tab === 'gal'}">🖼️ My pictures</button></div>
+    <div id="artBody" class="studio"></div>`;
+  view.querySelectorAll('[data-t]').forEach(b => b.onclick = () => { stopCanvas(); view.innerHTML = ''; art(b.dataset.t); st.plays.art--; });
+  ({ draw: drawTab, mix: mixTab, gal: galTab })[tab]($('#artBody'));
+}
+function drawTab(el) {
+  let idea = pick(IDEAS);
+  el.innerHTML = `<div class="idea"><span style="font-size:34px">💡</span><p id="idea">${idea}</p><button class="speak" id="ispk" aria-label="Read it">🔊</button><button class="tool" id="inew">New idea</button></div>
+    <div class="canvas-wrap" id="cw"><canvas id="cv"></canvas><div class="mirror-line" id="ml" hidden></div></div>
+    <div class="tools">${PAINT.map((c, i) => `<button class="sw" style="background:${c}" data-c="${c}" aria-label="color" aria-pressed="${i === 0}"></button>`).join('')}
+      <button class="tool size" data-z="6" aria-label="thin"><i style="width:6px;height:6px"></i></button>
+      <button class="tool size" data-z="14" aria-pressed="true" aria-label="medium"><i style="width:14px;height:14px"></i></button>
+      <button class="tool size" data-z="30" aria-label="thick"><i style="width:26px;height:26px"></i></button>
+      <button class="tool" id="er" aria-pressed="false">🧽 Eraser</button>
+      <button class="tool" id="mir" aria-pressed="false">🦋 Mirror</button>
+      <button class="tool" id="und">↩️ Undo</button>
+      <button class="tool" id="clr">🗑️ Clear</button>
+      <button class="tool" id="sav" style="background:var(--leaf);color:#fff">💾 Save</button></div>`;
+  say(idea);
+  const cw = el.querySelector('#cw'), cv = el.querySelector('#cv'), ctx = cv.getContext('2d');
+  let color = PAINT[0], size = 14, eraser = false, mirror = false, drawing = false, last = null; const undo = [];
+  function fit() {
+    const r = cw.getBoundingClientRect(), dpr = window.devicePixelRatio || 1, old = cv.width ? cv.toDataURL() : null;
+    cv.width = Math.max(1, r.width * dpr); cv.height = Math.max(1, r.height * dpr); ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, r.width, r.height);
+    if (old) { const im = new Image(); im.onload = () => ctx.drawImage(im, 0, 0, r.width, r.height); im.src = old; }
+  }
+  fit(); const ro = new ResizeObserver(() => fit()); ro.observe(cw);
+  canvasCleanup = () => ro.disconnect();
+  const pos = e => { const r = cv.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top, r.width]; };
+  function seg(a, b) {
+    ctx.strokeStyle = eraser ? '#fff' : color; ctx.lineWidth = eraser ? size * 2 : size; ctx.lineCap = ctx.lineJoin = 'round';
+    ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.stroke();
+    if (mirror) { ctx.beginPath(); ctx.moveTo(a[2] - a[0], a[1]); ctx.lineTo(b[2] - b[0], b[1]); ctx.stroke(); }
+  }
+  cv.onpointerdown = e => { drawing = true; cv.setPointerCapture(e.pointerId); undo.push(cv.toDataURL()); if (undo.length > 12) undo.shift(); last = pos(e); seg(last, last); };
+  cv.onpointermove = e => { if (!drawing) return; const p = pos(e); seg(last, p); last = p; };
+  cv.onpointerup = cv.onpointercancel = () => { drawing = false; };
+  el.querySelectorAll('.sw').forEach(b => b.onclick = () => { color = b.dataset.c; eraser = false; el.querySelector('#er').setAttribute('aria-pressed', 'false'); el.querySelectorAll('.sw').forEach(x => x.setAttribute('aria-pressed', x === b)); });
+  el.querySelectorAll('[data-z]').forEach(b => b.onclick = () => { size = +b.dataset.z; el.querySelectorAll('[data-z]').forEach(x => x.setAttribute('aria-pressed', x === b)); });
+  el.querySelector('#er').onclick = e => { eraser = !eraser; e.currentTarget.setAttribute('aria-pressed', eraser); };
+  el.querySelector('#mir').onclick = e => { mirror = !mirror; e.currentTarget.setAttribute('aria-pressed', mirror); el.querySelector('#ml').hidden = !mirror; if (mirror) say('Mirror is on. Both sides match, just like a butterfly. That is called symmetry!'); };
+  el.querySelector('#und').onclick = () => { const s = undo.pop(); if (!s) return; const im = new Image(), r = cw.getBoundingClientRect(); im.onload = () => { ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, r.width, r.height); ctx.drawImage(im, 0, 0, r.width, r.height); }; im.src = s; };
+  el.querySelector('#clr').onclick = () => { undo.push(cv.toDataURL()); const r = cw.getBoundingClientRect(); ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, r.width, r.height); };
+  el.querySelector('#sav').onclick = () => {
+    const t = document.createElement('canvas'), w = 360; t.width = w; t.height = Math.round(w * cv.height / cv.width);
+    t.getContext('2d').drawImage(cv, 0, 0, t.width, t.height);
+    gallery.unshift(t.toDataURL('image/jpeg', 0.7)); gallery = gallery.slice(0, 24); store.set('gallery', gallery);
+    addStars(1); bumpStreak(); save(); updateTop(); confetti(20); yay(); say('Saved to your pictures! You earned a star.');
+  };
+  el.querySelector('#ispk').onclick = () => say(idea);
+  el.querySelector('#inew').onclick = () => { idea = pick(IDEAS.filter(x => x !== idea)); el.querySelector('#idea').textContent = idea; say(idea); };
+}
+const MIXES = { 'red+yellow': ['#FF8A2B', 'orange'], 'blue+yellow': ['#2FA36B', 'green'], 'blue+red': ['#6D55D1', 'purple'], 'red+white': ['#F49AC1', 'pink'], 'blue+white': ['#8EC5F5', 'light blue'], 'white+yellow': ['#FFE79A', 'light yellow'] };
+const BASE = { red: '#F2604F', yellow: '#FFC23D', blue: '#2E8BE6', white: '#FFFFFF' };
+function mixTab(el) {
+  const goals = ['orange', 'green', 'purple', 'pink'];
+  let goal = pick(goals), pot = [];
+  el.innerHTML = `<div class="mix"><h2 id="goal" style="font-size:30px;text-align:center"></h2>
+    <div class="pot" id="pot">Tap two paints</div>
+    <div class="paints">${Object.entries(BASE).map(([n, c]) => `<button data-p="${n}" style="background:${c};${n === 'white' ? 'color:#22305A;' : ''}">${n}</button>`).join('')}</div>
+    <div class="row"><button class="btn alt" id="empty">Empty the pot</button></div></div>`;
+  const potEl = el.querySelector('#pot');
+  const setGoal = () => { el.querySelector('#goal').textContent = `Can you make ${goal}?`; say(`Can you make ${goal}? Pick two paints.`); };
+  setGoal();
+  el.querySelectorAll('[data-p]').forEach(b => b.onclick = () => {
+    if (pot.length >= 2) pot = [];
+    pot.push(b.dataset.p); tone([440 + pot.length * 110]);
+    if (pot.length === 1) { potEl.style.background = BASE[pot[0]]; potEl.textContent = pot[0] + ' + ?'; potEl.style.color = pot[0] === 'white' || pot[0] === 'yellow' ? '#22305A' : '#fff'; return; }
+    const key = [...pot].sort().join('+'), res = pot[0] === pot[1] ? [BASE[pot[0]], pot[0]] : MIXES[key] || ['#8B7F72', 'muddy brown'];
+    potEl.style.background = res[0]; potEl.textContent = `${pot[0]} + ${pot[1]} = ${res[1]}`; potEl.style.color = /yellow|light|pink|white/.test(res[1]) ? '#22305A' : '#fff';
+    if (res[1] === goal) { yay(); confetti(25); addStars(1); say(`${pot[0]} and ${pot[1]} make ${res[1]}! You did it!`); goal = pick(goals.filter(g => g !== goal)); setTimeout(setGoal, 2600); }
+    else say(`${pot[0]} and ${pot[1]} make ${res[1]}.`);
+  });
+  el.querySelector('#empty').onclick = () => { pot = []; potEl.style.background = ''; potEl.style.color = ''; potEl.textContent = 'Tap two paints'; };
+}
+function galTab(el) {
+  el.innerHTML = gallery.length ? `<div class="gallery">${gallery.map(g => `<img src="${g}" alt="My drawing">`).join('')}</div>`
+    : `<div class="mix"><span style="font-size:64px">🖼️</span><p style="font-weight:800;font-size:22px;text-align:center">Your saved drawings will show up here.</p></div>`;
+}
+
+/* ---------- Ask Owl: offline answers, grows from what grown-ups teach it ---------- */
+const KB = [
+  { k: ['zero', 'nothing'], q: 'What is zero?', a: 'Zero means none at all. If you have 3 cookies and eat all 3, you have zero left!', v: () => objs(3, '🍪', { gone: 3 }) },
+  { k: ['number'], q: 'What is a number?', a: 'A number tells us how many. Three ducks, three cars, three jumps. It is always 3!', v: () => objs(3, '🦆') },
+  { k: ['plus', 'add', 'adding', 'addition'], q: 'What does plus mean?', a: 'Plus means put together. 2 apples plus 1 apple, push them together and count. 3 apples!', v: () => `${objs(2, '🍎')}<span class="op">+</span>${objs(1, '🍎')}` },
+  { k: ['minus', 'take away', 'subtract'], q: 'What does take away mean?', a: 'Take away means some go away. Then you count what is left.', v: () => objs(5, '🐟', { gone: 2 }) },
+  { k: ['equal', 'equals', 'same'], q: 'What does equals mean?', a: 'Equals means both sides are the same amount, like a seesaw that is perfectly flat.' },
+  { k: ['bigger', 'more', 'biggest', 'larger'], q: 'How do I know which is bigger?', a: 'The bigger number has more things. Line them up and see which line is longer!', v: () => `<div class="row">${objs(5, '⭐')}${objs(2, '⭐')}</div>` },
+  { k: ['biggest number', 'infinity', 'last number', 'end'], q: 'What is the biggest number?', a: 'There is no biggest number! You can always add one more. People call that idea infinity.' },
+  { k: ['even', 'odd'], q: 'What is an even number?', a: 'Even numbers can make pairs with no one left out, like 4 socks. Odd numbers always have one left over, like 5 socks.', v: () => `<div class="row">${objs(4, '🧦')}${objs(5, '🧦')}</div>` },
+  { k: ['half', 'halves'], q: 'What is half?', a: 'Half means two parts that are the same size. Cut a sandwich down the middle and you get two halves.' },
+  { k: ['times', 'multiply', 'multiplication'], q: 'What does times mean?', a: '2 times 3 means 2 groups of 3. Count them all and you get 6.', v: () => `<div class="row">${objs(3, '🍓')}${objs(3, '🍓')}</div>` },
+  { k: ['count to 100', 'count high', 'hundred', '100'], q: 'How do I count to 100?', a: 'Count in tens! 10, 20, 30, 40, 50, 60, 70, 80, 90, 100. Then fill in the numbers between.' },
+  { k: ['shape'], q: 'What is a shape?', a: 'A shape is the outline of something. A ball looks like a circle. A door looks like a rectangle.', v: () => `<div class="row">${shapeSVG('circle', '#F2604F')}${shapeSVG('rectangle', '#2E8BE6')}</div>` },
+  { k: ['circle', 'round'], q: 'What is a circle?', a: 'A circle is perfectly round. It has no corners and no straight sides. Like a pizza!', v: () => shapeSVG('circle', '#FFC23D') },
+  { k: ['triangle'], q: 'What is a triangle?', a: 'A triangle has 3 sides and 3 corners. Tri means three!', v: () => shapeSVG('triangle', '#2FA36B', true) },
+  { k: ['square'], q: 'What is a square?', a: 'A square has 4 sides that are all the same length, and 4 corners.', v: () => shapeSVG('square', '#2E8BE6', true) },
+  { k: ['rectangle'], q: 'What is a rectangle?', a: 'A rectangle has 4 sides and 4 corners. Two sides are long and two are short, like a door.', v: () => shapeSVG('rectangle', '#6D55D1', true) },
+  { k: ['hexagon', 'honeycomb'], q: 'What is a hexagon?', a: 'A hexagon has 6 sides. Bees build their honeycomb out of hexagons!', v: () => shapeSVG('hexagon', '#FFC23D', true) },
+  { k: ['pentagon'], q: 'What is a pentagon?', a: 'A pentagon has 5 sides and 5 corners.', v: () => shapeSVG('pentagon', '#F2604F', true) },
+  { k: ['pattern'], q: 'What is a pattern?', a: 'A pattern is something that repeats. Red, blue, red, blue. Can you guess what comes next?', v: () => `<div class="pat">${dot('#F2604F')}${dot('#2E8BE6')}${dot('#F2604F')}${dot('#2E8BE6')}<span class="dot q">?</span></div>` },
+  { k: ['symmetry', 'mirror', 'butterfly'], q: 'What is symmetry?', a: 'Symmetry means both halves match, like a butterfly. Try Mirror in the Art Studio!' },
+  { k: ['green'], q: 'How do I make green?', a: 'Mix blue and yellow. They make green!', v: () => `<div class="row">${dot('#2E8BE6')}<span class="op">+</span>${dot('#FFC23D')}<span class="op">=</span>${dot('#2FA36B')}</div>` },
+  { k: ['orange'], q: 'How do I make orange?', a: 'Mix red and yellow. They make orange!', v: () => `<div class="row">${dot('#F2604F')}<span class="op">+</span>${dot('#FFC23D')}<span class="op">=</span>${dot('#FF8A2B')}</div>` },
+  { k: ['purple'], q: 'How do I make purple?', a: 'Mix red and blue. They make purple!', v: () => `<div class="row">${dot('#F2604F')}<span class="op">+</span>${dot('#2E8BE6')}<span class="op">=</span>${dot('#6D55D1')}</div>` },
+  { k: ['pink'], q: 'How do I make pink?', a: 'Mix red and white. You get pink!', v: () => `<div class="row">${dot('#F2604F')}<span class="op">+</span>${dot('#FFFFFF')}<span class="op">=</span>${dot('#F49AC1')}</div>` },
+  { k: ['primary', 'main color'], q: 'What are primary colors?', a: 'Red, yellow and blue. You can mix them to make lots of other colors!', v: () => `<div class="row">${dot('#F2604F')}${dot('#FFC23D')}${dot('#2E8BE6')}</div>` },
+  { k: ['rainbow'], q: 'What colors are in a rainbow?', a: 'Red, orange, yellow, green, blue, indigo and violet. That is 7 colors!', v: () => `<div class="pat">${['#F2604F', '#FF8A2B', '#FFC23D', '#2FA36B', '#2E8BE6', '#3F3FA8', '#6D55D1'].map(dot).join('')}</div>` },
+  { k: ['sky', 'blue sky'], q: 'Why is the sky blue?', a: 'Sunlight has all the colors inside it. The air bounces the blue light around the most, so the sky looks blue!' },
+  { k: ['draw a cat', 'draw cat', 'drawing a cat'], q: 'How do I draw a cat?', a: 'Draw a big circle for the head. Add two triangle ears on top. Then two dot eyes, a little nose and whiskers!' },
+  { k: ['draw', 'drawing', 'art'], q: 'What should I draw?', a: 'Try a house! A square for the walls and a triangle for the roof. Then add a door and windows.' },
+  { k: ['clock', 'time'], q: 'How do I tell the time?', a: 'The short hand points to the hour. When the long hand points straight up to 12, it is something o\'clock!' },
+  { k: ['why math', 'why learn'], q: 'Why do we learn math?', a: 'Math helps us share snacks fairly, build things, cook, play games and so much more!' }
+];
+const STOP = new Set('what is a an the how do does i you me my can why are to of it this that there please tell about make with and or'.split(' '));
+const norm = s => ' ' + s.toLowerCase().replace(/[^a-z0-9+×*\-\s]/g, ' ').split(/\s+/).filter(Boolean).map(w => w.length > 3 && w.endsWith('s') && !w.endsWith('ss') ? w.slice(0, -1) : w).join(' ') + ' ';
+const words = s => norm(s).trim().split(' ').filter(w => !STOP.has(w));
+function mathAnswer(text) {
+  const t = text.toLowerCase().replace(/×/g, 'x');
+  let m = t.match(/(\d+)\s*(\+|plus|add|and|-|minus|take away|takeaway|x|times|\*)\s*(\d+)/);
+  if (m) {
+    const a = +m[1], b = +m[3], op = m[2];
+    if (a > 1000 || b > 1000) return null;
+    const [e] = pick(THINGS);
+    if (/\+|plus|add|and/.test(op)) return { a: `${a} plus ${b} is ${a + b}. Put them together and count them all!`, v: a + b <= 20 ? `${objs(a, e)}<span class="op">+</span>${objs(b, e)}` : `<span class="bignum">${a} + ${b} = ${a + b}</span>` };
+    if (/x|times|\*/.test(op)) return { a: `${a} times ${b} is ${a * b}. That is ${a} groups of ${b}.`, v: a * b <= 25 ? `<div class="row">${Array.from({ length: a }, () => objs(b, e)).join('')}</div>` : `<span class="bignum">${a} × ${b} = ${a * b}</span>` };
+    if (b > a) return { a: `If you have ${a} and take away ${b}, you don't have enough! Big kids learn about numbers below zero for this.` };
+    return { a: `${a} take away ${b} is ${a - b}. Cross out ${b} and count what is left.`, v: a <= 20 ? objs(a, e, { gone: b }) : `<span class="bignum">${a} − ${b} = ${a - b}</span>` };
+  }
+  m = t.match(/(after|before)\s+(\d+)/);
+  if (m) { const n = +m[2], r = m[1] === 'after' ? n + 1 : n - 1; return { a: `The number ${m[1]} ${n} is ${r}.`, v: `<span class="bignum">${m[1] === 'after' ? n + ' → ' + r : r + ' ← ' + n}</span>` }; }
+  return null;
+}
+function owlFind(text) {
+  const mth = mathAnswer(text); if (mth) return mth;
+  const n = norm(text), ws = words(text);
+  let best = null, bestScore = 0;
+  for (const e of [...st.owlTaught.map(t => ({ k: words(t.q), a: t.a, taught: true })), ...KB]) {
+    let s = 0;
+    for (const k of e.k) { const nk = norm(k); if (n.includes(nk)) s += nk.trim().split(' ').length; }
+    // A grown-up's answer wins when most of its question's words appear.
+    if (e.taught) s = e.k.length && s / e.k.length >= 0.6 ? 2 + s : 0;
+    if (s > bestScore) { bestScore = s; best = e; }
+  }
+  return best ? { a: best.a, v: best.v ? best.v() : '' } : null;
+}
+function owl() {
+  st.plays.owl++; save();
+  const chips = shuffle(KB).slice(0, 4).map(e => e.q).concat(['What is 3 plus 4?']);
+  view.innerHTML = `<div class="owl-head"><div class="owl-face" aria-hidden="true">🦉</div>
+      <div class="bubble" id="bub" aria-live="polite"><p>Hoo hoo! Ask me about numbers, shapes or colors.</p></div></div>
+    <form class="ask" id="askf"><input id="askq" autocomplete="off" placeholder="Type your question…" aria-label="Your question"><button class="btn" type="submit" style="background:var(--grape)">Ask</button></form>
+    <div class="chips">${chips.map(c => `<button data-q="${esc(c)}">${esc(c)}</button>`).join('')}</div>`;
+  say('Hoo hoo! Ask me about numbers, shapes or colors.');
+  const ask = q => {
+    q = q.trim(); if (!q) return;
+    const r = owlFind(q), bub = $('#bub');
+    if (r) {
+      bub.innerHTML = `<p>${esc(r.a)}</p>${r.v ? `<div class="visual">${r.v}</div>` : ''}<div class="helped">Did that help? <button data-h="1" aria-label="yes">👍</button><button data-h="0" aria-label="no">👎</button></div>`;
+      say(r.a);
+      bub.querySelectorAll('[data-h]').forEach(b => b.onclick = () => {
+        if (b.dataset.h === '0') { logMiss(q, 'did not help'); bub.querySelector('.helped').textContent = 'Thanks! I will ask a grown-up to teach me a better answer.'; say('Thanks! I will ask a grown-up to teach me.'); }
+        else { bub.querySelector('.helped').textContent = 'Yay! 🦉'; yay(); }
+      });
+    } else {
+      logMiss(q, 'no answer');
+      bub.innerHTML = `<p>Ooh, that is a great question! I don't know yet. I saved it so a grown-up can teach me.</p>`;
+      say('Ooh, that is a great question! I do not know yet. I saved it so a grown-up can teach me.');
+    }
+  };
+  $('#askf').onsubmit = e => { e.preventDefault(); ask($('#askq').value); $('#askq').value = ''; };
+  view.querySelectorAll('[data-q]').forEach(b => b.onclick = () => ask(b.dataset.q));
+}
+function logMiss(q, why) { if (!st.owlMisses.some(m => m.q === q)) st.owlMisses.unshift({ q, why, at: today() }); st.owlMisses = st.owlMisses.slice(0, 40); save(); }
+
+/* ---------- grown-ups corner ---------- */
+function gate() {
+  const a = rnd(6, 9), b = rnd(6, 9);
+  view.innerHTML = `<div class="panel" style="max-width:520px"><h2>For grown-ups</h2><p class="note">Answer to continue: what is ${a} × ${b}?</p>
+    <form id="gf" class="ask"><input id="ga" inputmode="numeric" aria-label="Answer" autocomplete="off"><button class="btn" type="submit">Go</button></form><p class="note" id="gm"></p></div>`;
+  $('#gf').onsubmit = e => { e.preventDefault(); +$('#ga').value === a * b ? go(parent) : ($('#gm').textContent = 'Not quite. Try again.'); };
+}
+function parent() {
+  const rows = Object.keys(SKILLS).map(k => { const s = st.skills[k], a = acc(k); return `<tr><td>${SKILLS[k].ico} ${SKILLS[k].name}${SKILLS[k].minAge > st.age ? ' <span class="note">(age ' + SKILLS[k].minAge + '+)</span>' : ''}</td>
+    <td>${level(k)} / 5</td><td><div class="bar"><i style="width:${Math.round(s.m * 100)}%"></i></div></td><td>${a == null ? '–' : Math.round(a * 100) + '%'}</td><td>${s.ms ? (s.ms / 1000).toFixed(1) + 's' : '–'}</td><td>${s.seen}</td></tr>`; }).join('');
+  view.innerHTML = `<h1 style="font-size:36px">Grown-ups corner</h1>
+    <div class="panel"><h2>Progress</h2><p class="note">Each game gets harder as your child gets answers right on the first try, and eases off after mistakes. Missed questions come back for review after 1, 2, 4, 8 and 16 days. ${st.review.length} questions are in review, ${dueReviews().length} due today.</p>
+      <div class="wide"><table class="ptable"><thead><tr><th>Game</th><th>Level</th><th>Mastery</th><th>Right first try (last 20)</th><th>Avg time</th><th>Answered</th></tr></thead><tbody>${rows}</tbody></table></div></div>
+    <div class="panel"><h2>Teach Owl</h2><p class="note">Questions Owl could not answer well. Write a short, simple answer and Owl will use it next time, even offline.</p>
+      <div id="misses">${st.owlMisses.length ? st.owlMisses.map((m, i) => `<div class="miss"><b>“${esc(m.q)}”</b><span class="note">${m.at} · ${m.why}</span>
+        <textarea id="t${i}" placeholder="A simple answer for a 5 year old"></textarea><div class="row" style="justify-content:flex-start"><button class="btn leaf" data-teach="${i}" style="font-size:18px;padding:10px 18px">Teach Owl</button><button class="btn alt" data-skip="${i}" style="font-size:18px;padding:10px 18px">Dismiss</button></div></div>`).join('') : '<p class="note">Nothing waiting. Owl has answered everything so far.</p>'}</div>
+      ${st.owlTaught.length ? `<p class="note">Owl has learned ${st.owlTaught.length} answer${st.owlTaught.length > 1 ? 's' : ''} from you.</p>` : ''}</div>
+    <div class="panel"><h2>Settings</h2>
+      <label class="field" for="nm">Child's name<input id="nm" value="${esc(st.name)}" autocomplete="off"></label>
+      <label class="field" for="ag">Age<input id="ag" type="number" min="3" max="12" value="${st.age}"></label>
+      <label class="field" style="flex-direction:row;align-items:center;gap:10px"><input type="checkbox" id="sp" ${st.speak ? 'checked' : ''} style="width:26px;height:26px"> Read everything aloud</label>
+      <div class="row" style="justify-content:flex-start"><button class="btn" id="saveS">Save settings</button><button class="btn alt" id="reset">Reset all progress</button></div><p class="note" id="sm" aria-live="polite"></p></div>`;
+  view.querySelectorAll('[data-teach]').forEach(b => b.onclick = () => {
+    const i = +b.dataset.teach, ans = $('#t' + i).value.trim(); if (!ans) return;
+    st.owlTaught.push({ q: st.owlMisses[i].q, a: ans }); st.owlMisses.splice(i, 1); save(); go(parent);
+  });
+  view.querySelectorAll('[data-skip]').forEach(b => b.onclick = () => { st.owlMisses.splice(+b.dataset.skip, 1); save(); go(parent); });
+  $('#saveS').onclick = () => {
+    const age = clamp(+$('#ag').value || 5, 3, 12);
+    if (age !== st.age) for (const k in SKILLS) if (st.skills[k].seen === 0) st.skills[k].m = startMastery(k, age);
+    st.name = $('#nm').value.trim().slice(0, 20); st.age = age; st.speak = $('#sp').checked; save(); $('#sm').textContent = 'Saved.';
+  };
+  let armed = false;
+  $('#reset').onclick = e => {
+    if (!armed) { armed = true; e.currentTarget.textContent = 'Tap again to erase everything'; return; }
+    const keep = { name: st.name, age: st.age }; st = freshState(keep.age); st.name = keep.name; gallery = []; store.set('gallery', []); save(); updateTop(); go(parent);
+  };
+}
+
+/* ---------- start ---------- */
+updateTop();
+go(home);
+if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) { try { navigator.serviceWorker.register('sw.js').catch(() => {}); } catch (e) {} }
+})();
+</script>
+
+</body></html>

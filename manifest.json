@@ -1,0 +1,16 @@
+{
+  "name": "Owl & Crayon",
+  "short_name": "Owl & Crayon",
+  "description": "Math and art play for kids, with an owl that answers questions. Works offline.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#E9F3F8",
+  "theme_color": "#2FA36B",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}
