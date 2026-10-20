@@ -1,6 +1,6 @@
 // Runs the worker against a fake Anthropic server (no key, no cost) to check the request and responses.
 import http from 'node:http';
-import worker from './worker.js';
+const worker = (await import(process.env.WORKER || './worker.js')).default;
 
 let seen = null, mode = 'ok';
 const fake = http.createServer((req, res) => {
