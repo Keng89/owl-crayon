@@ -412,6 +412,129 @@ ol.steps{margin:0;padding-left:1.4em;text-align:left;font-weight:700;font-size:1
 @media (max-width:520px){.gtiles{grid-template-columns:1fr 1fr;gap:10px}.gtile{min-height:140px;padding:12px}.gtile b{font-size:20px}.gtile .ico{font-size:42px}
   .pads{grid-template-columns:repeat(auto-fill,minmax(46px,1fr))}.gch.n4{grid-template-columns:1fr 1fr}.counter{gap:18px}.item{font-size:64px}.counter .keeper{font-size:46px}.gstars span{font-size:50px}}
 @media (prefers-reduced-motion:reduce){.gtile .ico,.balloon,.cloud,.train,.hint,.mcard.up,.tw i.fill,.gstars span.on,.item.sold{animation:none!important}.balloon.pop,.item.sold{opacity:0}}
+/* math games 2 */
+/* gone fishing */
+.pond2{position:relative;width:100%;border-radius:24px;padding:40px 8px 12px;background:linear-gradient(#BFE8FA 0 30px,#5BC0EB 30px,#2E8BC9);overflow:hidden;display:flex;flex-direction:column;gap:6px}
+.pond2::before{content:"";position:absolute;left:0;right:0;top:22px;height:14px;background:radial-gradient(circle at 10px -2px,transparent 9px,#5BC0EB 10px) 0 0/20px 14px repeat-x}
+.rod{position:absolute;right:10px;top:-2px;font-size:38px;transform:scaleX(-1)}
+.weed{position:absolute;bottom:-6px;font-size:40px;pointer-events:none;opacity:.85}.weed.w1{left:6px}.weed.w2{right:10px}
+.flane{position:relative;height:64px;--fw:clamp(96px,26vw,128px)}
+.fish{position:absolute;top:2px;left:0;width:var(--fw);height:60px;display:flex;align-items:center;justify-content:center;gap:2px;border-radius:30px;background:rgba(255,255,255,.18);animation:swim var(--s) ease-in-out var(--dl) infinite;z-index:1}
+.fish .fb{font-size:44px;line-height:1;display:inline-block;animation:fflip var(--s) step-end var(--dl) infinite}
+.fish b{min-width:40px;height:40px;padding:0 6px;border-radius:20px;background:#fff;color:var(--ink);font:800 24px/40px var(--display);box-shadow:0 3px 0 rgba(0,0,0,.18);white-space:nowrap}
+.fish.gopt.no{opacity:.4}
+.fish.hint{animation:swim var(--s) ease-in-out var(--dl) infinite!important;animation-play-state:paused!important;background:rgba(255,194,61,.85);box-shadow:0 0 0 6px rgba(255,194,61,.5)}
+.fish.hint .fb{animation-play-state:paused}
+.fish.caught{animation:fcatch 1s ease-in forwards!important;z-index:3}.fish.caught .fb{animation:none}
+@keyframes swim{50%{left:calc(100% - var(--fw))}}
+@keyframes fflip{0%{transform:scaleX(-1)}50%{transform:none}}
+@keyframes fcatch{30%{transform:translateY(-30px) rotate(-15deg) scale(1.2)}to{transform:translateY(-260px) rotate(20deg) scale(.6);opacity:0}}
+/* pizza party */
+.pzrow{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;width:100%}
+.pzwrap{position:relative;width:min(300px,78vw)}.pzwrap.sm{width:min(170px,38vw)}
+.pizza{display:block;width:100%;height:auto;filter:drop-shadow(0 4px 0 rgba(34,48,90,.15))}
+.pizza .pz{cursor:pointer}.pizza .pz.on{animation:pzon .25s ease-out}
+@keyframes pzon{from{opacity:.6}}
+.plates{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;flex:1;min-width:200px;max-width:340px}
+.plate{background:var(--bg);border-radius:50%/40%;border:4px solid #fff;box-shadow:0 0 0 3px var(--line);min-height:84px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:4px}
+.plate .who{font-size:34px;line-height:1}.plate .pile{display:flex;flex-wrap:wrap;justify-content:center;font-size:18px;line-height:1.1;min-height:20px}.plate .pile i{font-style:normal;animation:drop .3s ease-out}
+.pzrow.two{flex-wrap:nowrap;gap:6px}.plus{font:800 40px var(--display)}
+.pzbar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:center;font:800 22px var(--display)}
+.pzbar .serve.right{background:var(--sun);color:var(--ink)}
+.muncher{position:absolute;right:-6px;bottom:-4px;font-size:46px}
+.g-pizza .choice .frac{font-size:.75em}
+/* feed the animals */
+.farm{display:grid;grid-template-columns:repeat(auto-fit,minmax(68px,1fr));gap:8px;width:100%;max-width:640px;background:linear-gradient(#DDF3C9,#BFE3A0);border-radius:22px;padding:10px}
+.farm.big{grid-template-columns:repeat(auto-fit,minmax(min(130px,40vw),1fr))}
+.critter{background:rgba(255,255,255,.7);border-radius:20px;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 4px;min-width:0}
+.critter .ce{font-size:clamp(30px,8vw,40px);line-height:1}
+.farm.big .critter{min-height:150px;box-shadow:0 5px 0 rgba(78,154,47,.35)}.farm.big .critter .ce{font-size:clamp(48px,13vw,64px)}
+.critter.full .ce{animation:bob .9s ease-in-out 2}.critter.full{background:#fff;outline:4px solid var(--leaf);outline-offset:-4px}
+.dish{min-height:30px;width:100%;border-radius:50%/40%;background:#fff;border:3px solid var(--line);display:flex;align-items:center;justify-content:center;padding:2px}
+.fd{display:flex;flex-wrap:wrap;justify-content:center;font-size:15px;line-height:1.05;letter-spacing:-2px}.farm.big .fd{font-size:24px}.fd.n7,.fd.n8,.fd.n9,.fd.n10{font-size:12px}.farm.big .fd.n7,.farm.big .fd.n8,.farm.big .fd.n9{font-size:18px}
+.fd.big{font:800 18px var(--display);letter-spacing:0;gap:2px;align-items:center}
+.fneed{letter-spacing:-4px}
+.feedq{width:100%;display:flex;justify-content:center}
+.pile2{font-size:36px;background:var(--sun-soft);border-radius:999px;padding:6px 20px;box-shadow:0 4px 0 #F0D894;display:flex;align-items:center;gap:6px}.pile2 b{font:800 30px var(--display)}
+.pile2:active{transform:translateY(3px)}
+.g-feed .choice small{font-size:.55em;margin:0 4px;opacity:.7}
+/* rocket countdown */
+.space{position:relative;width:100%;height:clamp(190px,30vh,250px);border-radius:24px;overflow:hidden;background:radial-gradient(circle at 20% 30%,#fff 1px,transparent 2px) 0 0/60px 50px,radial-gradient(circle at 70% 70%,#FFE89A 1.5px,transparent 2.5px) 0 0/90px 70px,linear-gradient(#15193F,#3B2E7E 70%,#6D55D1)}
+.lights{position:absolute;left:10px;right:10px;top:10px;display:grid;grid-template-columns:repeat(var(--n),minmax(0,40px));justify-content:center;gap:5px}
+.lights i{font-style:normal;aspect-ratio:1;border-radius:50%;background:rgba(255,255,255,.14);border:2px solid rgba(255,255,255,.35);display:grid;place-items:center;color:var(--ink);font:800 clamp(13px,3.6vw,17px)/1 var(--display);min-width:0}
+.lights i.lit{background:var(--sun);border-color:#fff;box-shadow:0 0 12px var(--sun);animation:starpop .3s ease-out}
+.rocket{position:absolute;left:50%;bottom:26px;font-size:66px;line-height:1;transform:translateX(-50%) rotate(-45deg);z-index:2}
+.rocket .flame{position:absolute;left:-14px;bottom:-14px;font-size:36px;transform:rotate(225deg);opacity:0}
+.rocket.go{animation:blast 1.8s ease-in forwards}.rocket.go .flame{opacity:1;animation:bob .15s infinite}
+@keyframes blast{0%,20%{transform:translateX(-50%) rotate(-45deg)}8%,16%{transform:translateX(-46%) rotate(-45deg)}12%{transform:translateX(-54%) rotate(-45deg)}to{transform:translate(-50%,-420px) rotate(-45deg)}}
+.pad0{position:absolute;left:50%;bottom:0;width:150px;height:22px;transform:translateX(-50%);background:#8C97B8;border-radius:12px 12px 0 0}
+.space.launch .pad0{animation:shake .2s 4}
+.numpad{display:grid;grid-template-columns:repeat(auto-fit,minmax(74px,1fr));gap:10px;width:100%;max-width:560px}
+.nkey{min-height:70px;border-radius:50%/44%;background:var(--grape-soft);box-shadow:0 5px 0 #B9ABEF;font:800 clamp(26px,7vw,34px)/1 var(--display);color:var(--ink);min-width:0}
+.nkey:active{transform:translateY(3px)}.nkey.used{background:var(--sun);box-shadow:0 5px 0 #D9A021;opacity:.55}
+.space.sub{height:auto;min-height:0;padding:10px 0;display:flex;justify-content:center}
+.ladder{position:relative;display:flex;flex-direction:column;border-left:5px solid #fff;margin-left:-60px}
+.rung{height:24px;display:flex;align-items:center;position:relative;color:#fff;font:800 18px var(--display)}
+.rung::before{content:"";width:16px;height:3px;background:#fff;margin-right:8px}.rung.zero span{color:var(--sun)}
+.rung.land span{background:var(--sun);color:var(--ink);border-radius:9px;padding:0 8px;animation:starpop .4s ease-out}
+.rocket.down{left:calc(50% + 60px);bottom:auto;top:0;font-size:38px;transform:translate(-50%,-50%) rotate(135deg);transition:top .2s ease}
+.moon{position:absolute;right:12px;bottom:6px;font-size:40px;opacity:.9}
+.space.eq{display:flex;align-items:center;justify-content:center;gap:10px;height:150px}
+.space.eq .rocket{position:static;transform:rotate(-45deg);font-size:54px}
+.eqn{color:#fff;font:800 clamp(34px,9vw,52px)/1 var(--display);white-space:nowrap}
+/* target practice */
+.range{position:relative;width:100%;border-radius:24px;padding:18px 8px 54px;background:linear-gradient(#CFEFFF 0 70%,#9CD67F 70%)}
+.targets{display:flex;justify-content:center;gap:clamp(10px,4vw,40px);flex-wrap:nowrap}
+.tgt{--sz:clamp(104px,34vw,180px);width:var(--sz);height:var(--sz);flex:none;border-radius:50%;position:relative;background:radial-gradient(circle,#fff 0 33%,#F2604F 34% 50%,#fff 51% 66%,#F2604F 67% 83%,#fff 84%);box-shadow:0 0 0 4px #22305A,0 7px 0 4px rgba(34,48,90,.3);display:grid;place-items:center}
+.targets.t3 .tgt{--sz:clamp(96px,27vw,170px)}
+.bull{background:#fff;border-radius:999px;min-width:56%;padding:6px;font:800 clamp(24px,7vw,40px)/1 var(--display);color:var(--ink);box-shadow:0 0 0 3px var(--ink)}
+.tgt .bull .frac{font-size:.85em}
+.tgt.dots .bull{padding:8px}.tgt.dots .mdots{gap:2px}.tgt.dots .mdots i{width:clamp(8px,2.4vw,13px)}
+.tgt.right{box-shadow:0 0 0 4px var(--leaf),0 0 0 12px rgba(47,163,107,.35)}
+.dart{position:absolute;right:8%;top:6%;font-size:44px;transform:rotate(-60deg);animation:dart .3s ease-out}
+@keyframes dart{from{transform:translate(120px,140px) rotate(-60deg);opacity:0}}
+.bow{position:absolute;left:50%;bottom:6px;font-size:44px;transform:translateX(-50%) rotate(-45deg)}.bow.shot{animation:bob .3s 2}
+.cmp{display:flex;align-items:center;justify-content:center;gap:clamp(8px,3vw,22px);width:100%;flex-wrap:nowrap}
+.cv{background:var(--sky-soft);border-radius:22px;padding:14px 16px;font:800 clamp(28px,8vw,48px)/1 var(--display);white-space:nowrap;min-width:0}
+.slot{flex:none;width:clamp(62px,17vw,86px);aspect-ratio:1;border-radius:50%;border:4px dashed var(--ink-soft);display:grid;place-items:center;font:800 clamp(34px,9vw,50px)/1 var(--display);color:var(--ink-soft)}
+.slot.got{border:0;background:var(--sun);color:var(--ink);animation:starpop .4s ease-out}
+.gsign{text-align:center}
+/* bee hive */
+.hive{position:relative;padding:8px 0 4px;--hw:clamp(70px,20vw,108px)}
+.hrow{display:flex;justify-content:center;gap:5px}.hrow+.hrow{margin-top:calc(var(--hw) * -.24)}
+.hex{width:var(--hw);height:calc(var(--hw) * 1.12);clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:linear-gradient(#FFE08A,#FFC23D);display:grid;place-items:center;font:800 clamp(22px,6vw,34px)/1 var(--display);color:var(--ink);transition:transform .12s}
+.hex.sel{background:linear-gradient(#FFB443,#F28C1B);transform:scale(1.07);color:#fff}
+.hex.right{background:linear-gradient(#F5A623,#C77700);color:#fff}
+.hex.hint{background:linear-gradient(#FFF6D0,#FFE08A)}
+.bee1{position:absolute;left:4%;top:-8px;font-size:40px;pointer-events:none;animation:buzz 3s ease-in-out infinite;transition:left .6s ease,top .6s ease;z-index:2}
+.bee1.fly{animation:none;transform:translate(-50%,-40%)}
+@keyframes buzz{25%{transform:translate(14px,-8px) rotate(8deg)}50%{transform:translate(4px,6px)}75%{transform:translate(-10px,-4px) rotate(-8deg)}}
+/* treasure map */
+.mapwrap{width:100%;display:flex;justify-content:center}
+.map{position:relative;width:100%;max-width:min(470px,52vh);display:grid;grid-template-columns:repeat(var(--n),minmax(0,1fr));gap:4px;padding:10px;border-radius:20px;background:#F3D9A4;box-shadow:0 0 0 8px #5BC0EB,0 0 0 12px #2E8BC9}
+.map.coord{grid-template-columns:24px repeat(var(--n),minmax(0,1fr));gap:0;padding:8px 12px 4px 4px}
+.cell{aspect-ratio:1;border-radius:10px;background:#F9E8C2;border:2px dashed #D9B46A;display:grid;place-items:center;font-size:clamp(20px,6vw,32px);min-width:0;padding:0;position:relative}
+.cell .deco{opacity:.75;font-size:.8em}
+.cell.right{background:var(--sun);border-style:solid;border-color:#C9921A}
+.chest{animation:starpop .5s ease-out}
+.map.coord .cell{border:0;border-radius:50%;background:none}
+.map.coord .cell::before,.map.coord .cell::after{content:"";position:absolute;background:rgba(139,90,43,.35);z-index:0}
+.map.coord .cell::before{left:0;right:0;top:50%;height:2px;margin-top:-1px}.map.coord .cell::after{top:0;bottom:0;left:50%;width:2px;margin-left:-1px}
+.map.coord .cell.y0::before{background:#8B5A2B;height:4px;margin-top:-2px}.map.coord .cell.x0::after{background:#8B5A2B;width:4px;margin-left:-2px}
+.map.coord .cell>span{position:relative;z-index:1}
+.map.coord .cell.right{background:radial-gradient(circle,var(--sun) 0 55%,transparent 56%)}
+.map.coord .cell.hint{background:radial-gradient(circle,rgba(255,194,61,.8) 0 40%,transparent 41%)}
+.map.coord .cell.no{opacity:1;background:radial-gradient(circle,rgba(242,96,79,.5) 0 22%,transparent 23%)}
+.ax{display:grid;place-items:center;font:800 15px var(--display);color:#8B5A2B;min-width:0}
+.parrot{position:absolute;font-size:clamp(28px,8vw,40px);line-height:1;transform:translate(-50%,-55%);transition:left .26s ease,top .26s ease;pointer-events:none;z-index:2}
+.cell.start{background:#C9F0D6;border-color:var(--leaf)}.map.coord .cell.start{background:radial-gradient(circle,#C9F0D6 0 45%,transparent 46%)}
+.crab.got{display:inline-block;animation:bob .4s 3}
+.mv{display:inline-flex;align-items:center;gap:4px;background:var(--sky-soft);border-radius:14px;padding:2px 10px;margin:2px;white-space:nowrap}.mv i{font-style:normal;font-size:1.3em;color:var(--coral)}.mv small{font-size:.65em;font-weight:800;color:var(--ink-soft)}
+.then{font-size:.75em;color:var(--ink-soft);margin:0 2px}
+.g-map .choice{font-size:clamp(24px,6.5vw,34px);white-space:nowrap}
+.g-map .ptext,.g-pizza .ptext,.g-feed .ptext,.g-fish .ptext{text-align:center;font-size:clamp(20px,5vw,26px);font-weight:700}
+.g-fish .ptext .mdots{display:inline-grid;vertical-align:middle}
+@media (prefers-reduced-motion:reduce){.fish{animation:none!important;left:calc((100% - var(--fw)) * var(--x))}.fish .fb{animation:none!important}.rocket.go,.bee1,.dart{animation:none!important}}
 </style>
 
 </head><body>
@@ -2385,7 +2508,491 @@ const lessonById = id => LESSONS.find(l => l.id === id);
   );
 }
 /* ---------- art4 ---------- */
-/* ---------- art5 ---------- */
+/* ---------- art5: doodles, kawaii, origami, nature art, weaving & string, shadows & silhouettes ---------- */
+// Uses the helpers from art.js (ac, ae, al, ap, ar, apg, apl, guide, fold, stroke, paint, atext, zig).
+// Wrapped in an IIFE so the little helpers below never clash with other files.
+(() => {
+  const f1 = n => +n.toFixed(1);
+  // Colour that soaks in like a marker: lines underneath stay visible. ev = holes via even-odd.
+  const T = (c, s, ev) => `<g class="pt" style="fill:${c};mix-blend-mode:multiply${ev ? ';fill-rule:evenodd' : ''}">${s}</g>`;
+  // A thick coloured stroke (yarn, a stick, a fat marker line).
+  const fat = (c, d, w) => `<g class="sk" style="--sk:${c}"><path d="${d}" style="stroke-width:${w}"/></g>`;
+  // Make every line in a fragment a set width.
+  const wide = (s, w) => s.replace(/\/>/g, ` style="stroke-width:${w}"/>`);
+  // A real object: solid colour with an outline on top.
+  const solid = (c, s) => paint(c, s) + s;
+  const ink = (x, y, t, size, c = '#22305A') => paint(c, atext(x, y, t, size));
+  const DARK = '#1B1B2F';
+  const around = (n, R, cx, cy, f, a0 = -Math.PI / 2) => Array.from({ length: n }, (_, i) => { const a = a0 + i * 2 * Math.PI / n; return f(f1(cx + R * Math.cos(a)), f1(cy + R * Math.sin(a)), a, i); }).join('');
+  const starPts = (cx, cy, R, r, n = 5, rot = 0) => Array.from({ length: n * 2 }, (_, i) => {
+    const a = (i * 180 / n - 90 + rot) * Math.PI / 180, d = i % 2 ? r : R;
+    return `${f1(cx + d * Math.cos(a))},${f1(cy + d * Math.sin(a))}`;
+  }).join(' ');
+  const heartD = (cx, cy, s) => `M${cx} ${f1(cy + s * 0.9)} C${f1(cx - s * 1.4)} ${f1(cy)} ${f1(cx - s * 0.9)} ${f1(cy - s * 1.1)} ${cx} ${f1(cy - s * 0.4)} C${f1(cx + s * 0.9)} ${f1(cy - s * 1.1)} ${f1(cx + s * 1.4)} ${f1(cy)} ${cx} ${f1(cy + s * 0.9)} Z`;
+  // A leaf from its base to its tip; w sets how fat it is.
+  const leafD = (bx, by, tx, ty, w) => {
+    const mx = (bx + tx) / 2, my = (by + ty) / 2, L = Math.hypot(tx - bx, ty - by), nx = -(ty - by) / L * w, ny = (tx - bx) / L * w;
+    return `M${bx} ${by} Q${f1(mx + nx)} ${f1(my + ny)} ${tx} ${ty} Q${f1(mx - nx)} ${f1(my - ny)} ${bx} ${by} Z`;
+  };
+  // A stick or rope: a rounded strip from one point to another.
+  const cap = (x1, y1, x2, y2, w) => {
+    const dx = x2 - x1, dy = y2 - y1, L = Math.hypot(dx, dy), nx = -dy / L * w / 2, ny = dx / L * w / 2, r = w / 2;
+    return ap(`M${f1(x1 + nx)} ${f1(y1 + ny)} L${f1(x2 + nx)} ${f1(y2 + ny)} A${r} ${r} 0 0 0 ${f1(x2 - nx)} ${f1(y2 - ny)} L${f1(x1 - nx)} ${f1(y1 - ny)} A${r} ${r} 0 0 0 ${f1(x1 + nx)} ${f1(y1 + ny)} Z`);
+  };
+  const stick = (x1, y1, x2, y2, w = 8, c = '#A0703F') => solid(c, cap(x1, y1, x2, y2, w));
+  const circ = (cx, cy, r) => `M${f1(cx - r)} ${cy} a${r} ${r} 0 1 0 ${f1(2 * r)} 0 a${r} ${r} 0 1 0 ${f1(-2 * r)} 0 Z`;
+  const spiral = (cx, cy, R, turns) => {
+    const n = Math.round(turns * 30), pts = [];
+    for (let i = 0; i <= n; i++) { const t = i / n, a = t * turns * 2 * Math.PI, r = 1 + t * (R - 1); pts.push(`${f1(cx + r * Math.cos(a))} ${f1(cy + r * Math.sin(a))}`); }
+    return ap('M' + pts.join(' L'));
+  };
+  const clipDef = (id, d, ev) => `<defs><clipPath id="${id}"><path d="${d}"${ev ? ' clip-rule="evenodd"' : ''}/></clipPath></defs>`;
+  const inClip = (ids, s) => ids.reduceRight((acc, id) => `<g clip-path="url(#${id})">${acc}</g>`, s);
+  // Kawaii face bits: shiny eyes, a tiny smile, pink cheeks.
+  const keyes = (cx, cy, s = 1, g = 12) => paint('#2B2B3A', ae(f1(cx - g * s), cy, f1(3.6 * s), f1(4.6 * s)) + ae(f1(cx + g * s), cy, f1(3.6 * s), f1(4.6 * s))) +
+    paint('#fff', ac(f1(cx - g * s + 1.3 * s), f1(cy - 1.8 * s), f1(1.4 * s)) + ac(f1(cx + g * s + 1.3 * s), f1(cy - 1.8 * s), f1(1.4 * s)));
+  const ksmile = (cx, cy, s = 1) => ap(`M${f1(cx - 4 * s)} ${cy} q${f1(4 * s)} ${f1(4.5 * s)} ${f1(8 * s)} 0`);
+  const kblush = (cx, cy, s = 1, g = 20) => paint('#F9A3B5', ae(f1(cx - g * s), cy, f1(5 * s), f1(3 * s)) + ae(f1(cx + g * s), cy, f1(5 * s), f1(3 * s)));
+  // Origami: a sheet of paper, and a coral arrow showing which way to fold.
+  const sheet = (pts, c = '#FFE7A3') => paint(c, apg(pts)) + apg(pts);
+  const arrow = (x1, y1, x2, y2, b = 0.3) => {
+    const dx = x2 - x1, dy = y2 - y1, cx = (x1 + x2) / 2 - dy * b, cy = (y1 + y2) / 2 + dx * b;
+    const tx = x2 - cx, ty = y2 - cy, L = Math.hypot(tx, ty), ux = tx / L, uy = ty / L, h = 8;
+    return stroke('#F2604F', ap(`M${x1} ${y1} Q${f1(cx)} ${f1(cy)} ${x2} ${y2}`) +
+      apl(`${f1(x2 - ux * h - uy * h * 0.6)},${f1(y2 - uy * h + ux * h * 0.6)} ${x2},${y2} ${f1(x2 - ux * h + uy * h * 0.6)},${f1(y2 - uy * h - ux * h * 0.6)}`));
+  };
+
+  ART_CATS.push(
+    { id: 'doodle', name: 'Doodles & Zentangle', ico: '✒️', blurb: 'Zigzags, loops, doodle monsters and pattern tiles' },
+    { id: 'kawaii', name: 'Cute Kawaii', ico: '🍡', blurb: 'Tiny faces that make everything adorable' },
+    { id: 'origami', name: 'Origami', ico: '🦢', blurb: 'Fold a square into dogs, hearts, boats and games' },
+    { id: 'naturalart', name: 'Nature Art', ico: '🍂', blurb: 'Make art with stones, leaves, sticks and flowers' },
+    { id: 'string', name: 'Weaving & String Art', ico: '🧶', blurb: 'Wrap, weave, lace and stitch with yarn' },
+    { id: 'silhouette', name: 'Shadows & Silhouettes', ico: '🌅', blurb: 'Sunsets, shadow puppets and night skies' }
+  );
+
+  /* ================= Doodles & Zentangle ================= */
+  const lnZig = apl(Array.from({ length: 17 }, (_, i) => `${20 + i * 10},${i % 2 ? 50 : 66}`).join(' '));
+  const lnWave = ap('M20 94 q10 -14 20 0' + ' t20 0'.repeat(7));
+  const lnLoop = ap('M' + Array.from({ length: 241 }, (_, i) => { const t = i * 0.2; return `${f1(26 + 3.4 * t - 8 * Math.sin(t))} ${f1(128 + 8 * Math.cos(t))}`; }).join(' L'));
+  const lnBump = ap('M20 168' + ' a10 10 0 0 1 20 0'.repeat(8));
+  const lnDots = Array.from({ length: 11 }, (_, i) => ac(24 + i * 15.2, 188, 2.5)).join('');
+
+  // Cloud of bumps around a name.
+  const nameCloud = (() => {
+    const n = 16, P = Array.from({ length: n }, (_, i) => { const a = i * 2 * Math.PI / n; return [f1(100 + 80 * Math.cos(a)), f1(100 + 50 * Math.sin(a))]; });
+    return `M${P[0][0]} ${P[0][1]}` + P.map((p, i) => { const q = P[(i + 1) % n]; return ` A13 13 0 0 1 ${q[0]} ${q[1]}`; }).join('');
+  })();
+  const nmStars = [[24, 24, 10], [176, 176, 10], [104, 18, 6], [16, 112, 6]].map(([x, y, r]) => apg(starPts(x, y, r, r * 0.45))).join('');
+  const nmHearts = [[176, 24, 10], [24, 176, 10], [186, 98, 6]].map(([x, y, s]) => ap(heartD(x, y, s))).join('');
+
+  // Zentangle tile: a wavy string across and one down make 4 spaces.
+  const zA = 'M30 100 C70 70 130 130 170 95', zB = 'M90 30 C120 70 70 130 110 170';
+  const zDefs = clipDef('a5z-up', zA + ' L170 30 L30 30 Z') + clipDef('a5z-dn', zA + ' L170 170 L30 170 Z') +
+    clipDef('a5z-lf', zB + ' L30 170 L30 30 Z') + clipDef('a5z-rt', zB + ' L170 170 L170 30 Z');
+  let zGrid = '', zOrbs = '', zStripes = '', zZig = '';
+  for (let k = 30; k <= 170; k += 10) zGrid += al(k, 30, k, 110) + al(30, k > 110 ? 110 : k, 110, k > 110 ? 110 : k);
+  for (let y = 38; y < 130; y += 16) for (let x = 90 + ((y - 38) / 16 % 2) * 8; x < 176; x += 16) zOrbs += ac(x, y, 6) + paint('#22305A', ac(x + 1.5, y - 1.5, 1.6));
+  for (let k = -150; k < 120; k += 9) zStripes += al(k, 170, k + 140, 30);
+  for (let y = 80; y < 176; y += 10) zZig += apl(Array.from({ length: 21 }, (_, i) => `${70 + i * 5},${i % 2 ? y : y + 5}`).join(' '));
+  const zRegion = (a, b, s) => inClip([a, b], s);
+  const zTile = ar(30, 30, 140, 140, 4);
+
+  // Doodle monster
+  const mBlob = 'M60 70 Q58 40 90 42 Q110 30 130 44 Q160 46 152 80 Q170 110 150 140 Q150 165 120 160 Q100 172 80 160 Q50 164 52 136 Q36 106 60 70 Z';
+  const mEyes = [[84, 78, 13], [120, 64, 9], [137, 92, 7]];
+  const mMouth = 'M72 118 L138 118 Q105 162 72 118 Z';
+  const mTeeth = 'M80 118 L86 128 L92 118 Z M114 118 L120 128 L126 118 Z';
+  const mSpots = ac(64, 96, 4) + ac(70, 145, 5) + ac(134, 146, 4) + ac(104, 50, 3) + ac(146, 122, 3) + ac(96, 150, 2.5);
+
+  // Doodle-filled cat
+  const dcBody = 'M82 80 C58 100 46 150 58 182 L142 182 C154 150 142 100 118 80';
+  const dcCurves = [115, 140, 162].map(y => ap(`M30 ${y} Q100 ${y + 14} 170 ${y}`)).join('');
+  const band = (yt, yb) => `M30 ${yt} Q100 ${yt + 14} 170 ${yt} L170 ${yb} Q100 ${yb + 14} 30 ${yb} Z`;
+  const dcDefs = clipDef('a5c-body', dcBody + ' Q100 92 82 80 Z') + clipDef('a5c-b1', 'M30 92 L170 92 L170 115 Q100 129 30 115 Z') +
+    clipDef('a5c-b2', band(115, 140)) + clipDef('a5c-b3', band(140, 162)) + clipDef('a5c-b4', 'M30 162 Q100 176 170 162 L170 195 L30 195 Z');
+  let dcDots = '', dcZig = '', dcScale = '', dcStripe = '';
+  for (let y = 96; y < 130; y += 8) for (let x = 44 + (y % 16 ? 4 : 0); x < 160; x += 9) dcDots += ac(x, y, 1.8);
+  for (let y = 118; y < 156; y += 8) dcZig += apl(Array.from({ length: 25 }, (_, i) => `${40 + i * 5},${i % 2 ? y : y + 5}`).join(' '));
+  for (let y = 146, r = 0; y < 180; y += 7, r++) for (let x = 40 + (r % 2) * 6; x < 160; x += 12) dcScale += ap(`M${x} ${y} a6 6 0 0 1 12 0`);
+  for (let x = 42; x < 160; x += 7) dcStripe += al(x, 164, x, 192);
+  const dcIn = (b, s) => inClip(['a5c-body', b], s);
+
+  LESSONS.push(
+    { id: 'a5-lines', cat: 'doodle', level: 1, title: 'A line party', ico: '〰️',
+      need: 'Paper, a pencil or felt-tip pens, and crayons', tip: 'Go slowly. Wobbly lines are fine. They are your lines!', steps: [
+      ['Draw a straight line across the top, from one side to the other.', al(20, 28, 180, 28)],
+      ['Under it, draw a zigzag line: up, down, up, down. Pointy like teeth!', lnZig],
+      ['Next draw a wavy line, like a snake swimming.', lnWave],
+      ['Now a loopy line. Go round in little loops, like a spring.', lnLoop],
+      ['Draw a bumpy line, like the top of a cloud.', lnBump],
+      ['Finish with a dotty line: dot, dot, dot!', lnDots],
+      ['Go over each line with a different colour. Which line is your favourite?', stroke('#F2604F', wide(al(20, 28, 180, 28), 4)) + stroke('#F59E2E', wide(lnZig, 4)) + stroke('#E8B400', wide(lnWave, 4)) + stroke('#3BAA5C', wide(lnLoop, 4)) + stroke('#3D7DD8', wide(lnBump, 4)) + paint('#9B59D0', lnDots.replace(/r="2.5"/g, 'r="3.5"'))]] },
+    { id: 'a5-name', cat: 'doodle', level: 1, title: 'Doodle your name', ico: '📛',
+      need: 'Paper, a pencil, felt-tip pens and crayons', tip: 'Fill every empty space with tiny doodles. No space left!', steps: [
+      ['Write your name big in the middle of the paper.', ink(100, 120, 'SAM', 54)],
+      ['Draw a bumpy cloud all the way around your name.', ap(nameCloud)],
+      ['Outside the cloud, draw some stars.', nmStars],
+      ['Draw some hearts too.', nmHearts],
+      ['Fill the empty spaces with swirls and dots.', spiral(60, 22, 8, 2.2) + spiral(140, 180, 8, 2.2) + spiral(14, 62, 6, 2) + spiral(186, 140, 6, 2) + ac(136, 16, 2.5) + ac(70, 184, 2.5) + ac(24, 144, 2.5) + ac(178, 58, 2.5) + ac(84, 14, 2) + ac(116, 186, 2)],
+      ['Colour the cloud, the stars and the hearts. Hang it on your door!', T('#FFE58A', ap(nameCloud)) + T('#FFC23D', nmStars) + T('#F78FB3', nmHearts)]] },
+    { id: 'a5-tangle', cat: 'doodle', level: 2, title: 'A zentangle tile', ico: '🔳',
+      need: 'A square of paper (a sticky note works), a black pen and a pencil', tip: 'Zentangle is slow and calm. One line at a time, no rubbing out!', steps: [
+      ['Draw a square tile with a pen.', zTile],
+      ['Draw a wavy line across. Then a wavy line down. Now the tile has 4 spaces.', ap(zA) + ap(zB) + zDefs],
+      ['Fill the top-left space with a grid, like a little window.', zRegion('a5z-up', 'a5z-lf', wide(zGrid, 1.8))],
+      ['Fill the top-right space with bubbles. Put a dot in each one.', zRegion('a5z-up', 'a5z-rt', wide(zOrbs, 1.8))],
+      ['Fill the bottom-left space with slanted stripes.', zRegion('a5z-dn', 'a5z-lf', wide(zStripes, 1.8))],
+      ['Fill the last space with rows of zigzags.', zRegion('a5z-dn', 'a5z-rt', wide(zZig, 1.8))],
+      ['Colour each space softly with a different colour. Make another tile and put them side by side!', T('#BFE3F7', zRegion('a5z-up', 'a5z-lf', zTile)) + T('#FFE58A', zRegion('a5z-up', 'a5z-rt', zTile)) + T('#F9C0D0', zRegion('a5z-dn', 'a5z-lf', zTile)) + T('#C8EBC0', zRegion('a5z-dn', 'a5z-rt', zTile))]] },
+    { id: 'a5-monster', cat: 'doodle', level: 2, title: 'Doodle monster', ico: '👹',
+      need: 'Paper, a pencil, a black pen and crayons', tip: 'Monsters can have any number of eyes. Be as silly as you like!', steps: [
+      ['Draw a big wobbly blob. Any shape is fine!', ap(mBlob)],
+      ['Give it 3 eyes, all different sizes, with dark middles.', mEyes.map(([x, y, r]) => ac(x, y, r)).join('') + paint('#22305A', mEyes.map(([x, y, r]) => ac(x + r * 0.2, y + r * 0.15, f1(r * 0.45))).join(''))],
+      ['Draw a big open mouth with two pointy teeth.', ap(mMouth) + ap(mTeeth)],
+      ['Add two horns on top.', apl('62,55 48,24 76,43') + apl('143,47 166,22 152,58')],
+      ['Draw arms with 3 fingers, and two legs with feet.', ap('M46 117 Q30 112 24 96') + al(24, 96, 16, 90) + al(24, 96, 22, 86) + al(24, 96, 14, 99) + ap('M160 116 Q176 112 180 96') + al(180, 96, 188, 90) + al(180, 96, 178, 86) + al(180, 96, 190, 99) + al(86, 163, 84, 183) + al(116, 162, 118, 183) + ae(77, 188, 10, 5) + ae(125, 188, 10, 5)],
+      ['Doodle spots all over its body.', mSpots],
+      ['Colour your monster. Give it a name, like Bobo or Snorkle!', T('#9BE07A', ap(mBlob + ' ' + mEyes.map(([x, y, r]) => circ(x, y, r)).join(' ') + ' ' + mMouth), true) + T('#E8574A', ap(mMouth + ' ' + mTeeth), true) + T('#FFC23D', apg('62,55 48,24 76,43') + apg('143,47 166,22 152,58') + ae(77, 188, 10, 5) + ae(125, 188, 10, 5)) + T('#3BAA5C', mSpots)]] },
+    { id: 'a5-doodlecat', cat: 'doodle', level: 3, title: 'Doodle-filled cat', ico: '🐈',
+      need: 'Paper, a pencil, a fine black pen and colour pens', tip: 'Thin lines and small patterns look best. Turn the paper as you go!', steps: [
+      ['Draw a circle for the head with two pointy ears.', ac(100, 58, 28) + apl('78,41 74,14 94,31') + apl('106,31 126,14 122,41')],
+      ['Draw a big pear-shaped body under the head, and a curly tail.', ap(dcBody) + ap('M144 176 C180 176 186 140 166 128 C158 124 152 132 158 136') + dcDefs],
+      ['Draw 3 curvy lines across the body. Now it has 4 stripes of space.', inClip(['a5c-body'], dcCurves)],
+      ['Fill the top stripe with dots, and the next one with zigzags.', dcIn('a5c-b1', paint('#22305A', dcDots)) + dcIn('a5c-b2', wide(dcZig, 1.8))],
+      ['Fill the next stripe with little bumps, like fish scales.', dcIn('a5c-b3', wide(dcScale, 1.8))],
+      ['Fill the last stripe with straight lines.', dcIn('a5c-b4', wide(dcStripe, 1.8))],
+      ['Draw the face: eyes, a nose, a mouth and whiskers.', paint('#22305A', ae(89, 55, 4, 6) + ae(111, 55, 4, 6)) + apg('96,65 104,65 100,70') + ap('M100 70 q-5 6 -10 2 M100 70 q5 6 10 2') + al(64, 64, 84, 67) + al(64, 73, 84, 71) + al(136, 64, 116, 67) + al(136, 73, 116, 71)],
+      ['Colour each stripe a different colour. Frame it and show your family!', T('#FFB870', ac(100, 58, 28) + apg('78,41 74,14 94,31') + apg('106,31 126,14 122,41')) + T('#FFE58A', dcIn('a5c-b1', ar(30, 80, 140, 120))) + T('#F9C0D0', dcIn('a5c-b2', ar(30, 80, 140, 120))) + T('#BFE3F7', dcIn('a5c-b3', ar(30, 80, 140, 120))) + T('#D7C8F2', dcIn('a5c-b4', ar(30, 80, 140, 120))) + fat('#FFB870', 'M144 176 C180 176 186 140 166 128 C158 124 152 132 158 136', 5)]] }
+  );
+
+  /* ================= Cute Kawaii ================= */
+  const kCloud = 'M55 135 Q25 135 30 110 Q35 88 58 92 Q62 58 98 62 Q125 50 140 80 Q172 82 168 110 Q168 135 145 135 Z';
+  const drop = (x, y) => ap(`M${x} ${y} q-7 10 0 13 q7 -3 0 -13 Z`);
+  const kDrops = drop(70, 150) + drop(100, 160) + drop(130, 150);
+  const toast = 'M55 175 L55 85 Q40 80 42 62 Q46 36 78 40 Q100 30 122 40 Q154 36 158 62 Q160 80 145 85 L145 175 Q145 182 138 182 L62 182 Q55 182 55 175 Z';
+  const toastIn = 'M64 170 L64 79 Q51 75 52 62 Q55 47 80 49 Q100 41 120 49 Q145 47 148 62 Q149 75 136 79 L136 170 Q136 173 133 173 L67 173 Q64 173 64 170 Z';
+  const butter = '<rect x="98" y="58" width="28" height="18" rx="4" transform="rotate(-10 112 67)"/>';
+  const kcEars = ap('M50 73 L48 42 Q48 34 55 38 L67 59') + ap('M150 73 L152 42 Q152 34 145 38 L133 59');
+  const kcBody = 'M76 135 Q66 176 84 176 L116 176 Q134 176 124 135';
+  const kcTail = 'M124 170 Q152 174 152 150 Q152 138 162 140';
+  const cactus = 'M82 110 L82 86 L70 86 Q60 86 60 76 L60 64 Q60 57 66 57 Q72 57 72 64 L72 74 L82 74 L82 60 Q82 38 100 38 Q118 38 118 60 L118 66 L128 66 L128 54 Q128 47 134 47 Q140 47 140 54 L140 68 Q140 78 130 78 L118 78 L118 110';
+  const potBody = 'M60 128 L70 182 Q71 186 76 186 L124 186 Q129 186 130 182 L140 128';
+  const flower = around(5, 7, 100, 34, (x, y, a) => `<ellipse cx="${x}" cy="${y}" rx="4.5" ry="6.5" transform="rotate(${f1(a * 180 / Math.PI + 90)} ${x} ${y})"/>`);
+  // sticker sheet
+  const dango = [[55, 34, '#F9A3B5'], [55, 53, '#FFFFFF'], [55, 72, '#9BD67E']];
+  const onigiri = 'M55 108 Q62 108 88 158 Q92 170 80 170 L30 170 Q18 170 22 158 Q48 108 55 108 Z';
+  const cutLines = 'M36 35 A19 19 0 0 1 74 35 L74 81 A19 19 0 0 1 36 81 Z ' + circ(145, 57, 38) +
+    ' M55 98 Q66 98 98 160 Q104 180 84 180 L26 180 Q6 180 12 160 Q44 98 55 98 Z ' + heartD(145, 148, 36);
+
+  LESSONS.push(
+    { id: 'a5-cloud', cat: 'kawaii', level: 1, title: 'Kawaii cloud', ico: '☁️',
+      need: 'Paper, a pencil, a black pen and crayons', tip: 'The kawaii secret: put the eyes low and far apart!', steps: [
+      ['Draw a big puffy cloud with round bumps on top and a flat bottom.', ap(kCloud)],
+      ['Draw two eyes low down and far apart. Leave a white dot in each one so they shine.', keyes(100, 108, 1.4)],
+      ['Draw a tiny smile between the eyes.', ksmile(100, 112, 1.2)],
+      ['Add pink cheeks under the eyes.', kblush(100, 118, 1.4)],
+      ['Draw raindrops falling down.', kDrops],
+      ['Colour the cloud light blue and the drops blue. Now give it a friend!', T('#CDE7FB', ap(kCloud)) + T('#7FB5F0', kDrops)]] },
+    { id: 'a5-toast', cat: 'kawaii', level: 1, title: 'Happy toast', ico: '🍞',
+      need: 'Paper, a pencil, a black pen and crayons', tip: 'Any food can be kawaii. Try a happy egg or a smiling cupcake next!', steps: [
+      ['Draw a slice of bread: a puffy round top and a square bottom.', ap(toast)],
+      ['Draw a second line inside, close to the edge. That is the crust.', ap(toastIn)],
+      ['Draw two shiny eyes and a little smile in the middle.', keyes(100, 122, 1.5) + ksmile(100, 128, 1.3)],
+      ['Add pink cheeks.', kblush(100, 134, 1.5, 19)],
+      ['Put a square of butter on top. It is melting!', butter + ap('M104 74 q0 10 4 10 q4 0 4 -8')],
+      ['Give it tiny arms and legs.', ap('M55 130 q-14 -2 -18 -14') + ap('M145 130 q14 -2 18 -14') + ap('M82 182 v10 h-6') + ap('M118 182 v10 h6')],
+      ['Colour the crust brown and the bread pale yellow. Yum!', T('#D9A35F', ap(toast + ' ' + toastIn), true) + T('#FBE7B5', ap(toastIn)) + paint('#FFD84D', butter) + butter]] },
+    { id: 'a5-kcat', cat: 'kawaii', level: 2, title: 'Kawaii kitty', ico: '😺',
+      need: 'Paper, a pencil, a black pen and crayons', tip: 'Kawaii heads are big and bodies are tiny. That makes them cute!', steps: [
+      ['Draw a wide, round head, like a bean on its side.', ae(100, 95, 58, 44)],
+      ['Add two small ears on top with rounded tips.', kcEars],
+      ['Draw shiny eyes low down and far apart.', keyes(100, 104, 1.5, 15)],
+      ['Draw a tiny nose and a mouth like a little "w".', paint('#2B2B3A', ae(100, 106, 2.6, 1.8)) + ap('M92 110 q4 5 8 0 q4 5 8 0')],
+      ['Draw a small body under the head with two paws.', ap(kcBody) + ap('M84 176 q6 -9 12 0 M104 176 q6 -9 12 0')],
+      ['Add a curly tail and whiskers.', ap(kcTail) + al(38, 98, 24, 94) + al(38, 106, 22, 106) + al(38, 114, 24, 118) + al(162, 98, 176, 94) + al(162, 106, 178, 106) + al(162, 114, 176, 118)],
+      ['Add pink cheeks and colour your kitty. Draw a bow or a hat on top!', kblush(100, 114, 1.5, 21) + T('#FFD6A8', ae(100, 95, 58, 44) + ap(kcBody + ' Z') + ap('M50 73 L48 42 Q48 34 55 38 L67 59 Z M150 73 L152 42 Q152 34 145 38 L133 59 Z')) + T('#F9A3B5', apg('53,62 52,46 60,58') + apg('147,62 148,46 140,58')) + fat('#FFC48A', kcTail, 4)]] },
+    { id: 'a5-pot', cat: 'kawaii', level: 2, title: 'Kawaii cactus pot', ico: '🌵',
+      need: 'Paper, a pencil, a black pen and crayons', tip: 'A real cactus is spiky, so this one is a friend you can hug in a drawing!', steps: [
+      ['Draw the top of the pot: a long rectangle with round corners.', ar(52, 110, 96, 18, 5)],
+      ['Draw the pot under it, a bit narrower at the bottom.', ap(potBody)],
+      ['Give the pot a happy face with pink cheeks.', keyes(100, 152, 1.3, 14) + ksmile(100, 157, 1.1) + kblush(100, 162, 1.3, 24)],
+      ['Draw a cactus growing out of the pot, with two arms.', ap(cactus)],
+      ['Add tiny lines all over for prickles.', [[92, 52], [108, 52], [92, 76], [108, 72], [96, 96], [106, 90], [66, 70], [134, 60]].map(([x, y]) => al(x, y, x + 3, y - 3)).join('')],
+      ['Put a little flower on the top.', solid('#F78FB3', flower) + solid('#FFD84D', ac(100, 34, 3.5))],
+      ['Colour the pot orange and the cactus green. Draw a whole shelf of plant friends!', T('#F2A07B', ar(52, 110, 96, 18, 5) + ap(potBody + ' Z')) + T('#8FD18B', ap(cactus + ' Z'))]] },
+    { id: 'a5-stickers', cat: 'kawaii', level: 3, title: 'Kawaii sticker sheet', ico: '🍡',
+      need: 'Paper or sticker paper, a black pen, crayons; a grown-up with scissors', tip: 'Leave a white edge round each sticker. It makes it pop!', steps: [
+      ['Draw a big rectangle. This is your sticker sheet.', ar(10, 10, 180, 180, 10)],
+      ['Top left: draw a dango. That is 3 sweet balls on a stick.', dango.map(([x, y]) => ac(x, y, 9)).join('') + al(55, 21, 55, 25) + al(55, 81, 55, 94)],
+      ['Top right: draw a star.', apg(starPts(145, 59, 30, 15))],
+      ['Bottom left: draw a rice ball with a dark seaweed strip.', ap(onigiri) + ar(42, 150, 26, 20, 2)],
+      ['Bottom right: draw a heart.', ap(heartD(145, 145, 26))],
+      ['Give every one a kawaii face: eyes, a smile and pink cheeks.', keyes(55, 53, 0.6, 8) + ksmile(55, 55, 0.5) + keyes(145, 62, 0.7, 9) + ksmile(145, 66, 0.6) + kblush(145, 70, 0.7, 14) + keyes(55, 136, 0.7, 10) + ksmile(55, 140, 0.6) + kblush(55, 143, 0.7, 17) + keyes(145, 140, 0.8, 10) + ksmile(145, 145, 0.7) + kblush(145, 149, 0.8, 16)],
+      ['Draw a cutting line round each one, leaving a white edge.', fold(ap(cutLines))],
+      ['Colour them in. A grown-up can cut them out. Stick them on your book!', dango.map(([x, y, c]) => T(c, ac(x, y, 9))).join('') + T('#FFD84D', apg(starPts(145, 59, 30, 15))) + T('#FFF6E0', ap(onigiri)) + paint('#2E4A3A', ar(42, 150, 26, 20, 2)) + T('#F78FB3', ap(heartD(145, 145, 26))) + T('#DDEFFB', ap('M10 20 Q10 10 20 10 L180 10 Q190 10 190 20 L190 180 Q190 190 180 190 L20 190 Q10 190 10 180 Z ' + cutLines), true)]] }
+  );
+
+  /* ================= Origami (each picture shows the paper after that fold) ================= */
+  const DIA = '100,20 180,100 100,180 20,100';
+  const hk = (pts, k = 1.6, cx = 100, cy = 80) => pts.split(' ').map(p => { const [x, y] = p.split(',').map(Number); return `${f1(cx + (x - cx) * k)},${f1(100 + (y - cy) * k)}`; }).join(' ');
+  const tulipBody = '60,60 140,60 120,110 100,130 80,110';
+  const tulipL = '80,110 60,60 81.8,39.4', tulipR = '120,110 140,60 118.2,39.4';
+  const tulipAt = (dy, c = '#F2604F', c2 = '#D84A3A') => {
+    const sh = p => p.split(' ').map(q => { const [x, y] = q.split(','); return `${x},${f1(+y + dy)}`; }).join(' ');
+    return sheet(sh(tulipBody), c) + sheet(sh(tulipL), c2) + sheet(sh(tulipR), c2);
+  };
+  const heartFlat = '100,164 30,94 30,74 58,46 78,46 100,68 122,46 142,46 170,74 170,94';
+  const tellerNums = around(8, 40, 100, 100, (x, y, a, i) => ink(x, f1(+y + 6), String(i + 1), 17), -Math.PI / 2 + Math.PI / 8);
+  const pocket = (a, c) => { const R = (x, y) => { const ca = Math.cos(a), sa = Math.sin(a); return `${f1(100 + x * ca - y * sa)},${f1(100 + x * sa + y * ca)}`; };
+    return sheet(`${R(0, 0)} ${R(-34, -34)} ${R(0, -80)} ${R(34, -34)}`, c) + al(100, 100, ...R(0, -80).split(',').map(Number)); };
+  const boatHull = '15,95 185,95 150,140 50,140';
+
+  LESSONS.push(
+    { id: 'a5-dog', cat: 'origami', level: 1, title: 'Origami dog face', ico: '🐶', single: true,
+      need: 'A square of paper (brown or orange is great) and a pen', tip: 'Press each fold flat with your fingernail. Sharp folds look best!', steps: [
+      ['Start with a square of paper. Turn it so it looks like a diamond.', sheet(DIA, '#E9B77A')],
+      ['Fold the top corner down to the bottom corner. Now it is a triangle.', fold(apl('20,100 100,20 180,100')) + sheet('20,100 180,100 100,180', '#E9B77A') + arrow(110, 34, 112, 166, -0.25)],
+      ['Fold the two side corners down. These are floppy ears!', sheet('40,50 160,50 100,130', '#E9B77A') + sheet('40,50 68,50 50,118 28,106', '#B98250') + sheet('160,50 132,50 150,118 172,106', '#B98250') + arrow(22, 40, 26, 96, -0.4) + arrow(178, 40, 174, 96, 0.4)],
+      ['Fold the bottom tip up a little bit. That is the nose.', sheet('40,50 160,50 113.5,112 86.5,112', '#E9B77A') + sheet('86.5,112 113.5,112 100,98.5', '#B98250') + sheet('40,50 68,50 50,118 28,106', '#B98250') + sheet('160,50 132,50 150,118 172,106', '#B98250') + arrow(100, 136, 100, 106, 0.6)],
+      ['Draw two eyes. Colour the nose black and draw a smile.', sheet('40,50 160,50 113.5,112 86.5,112', '#E9B77A') + sheet('86.5,112 113.5,112 100,98.5', '#2B2B3A') + sheet('40,50 68,50 50,118 28,106', '#B98250') + sheet('160,50 132,50 150,118 172,106', '#B98250') + paint('#2B2B3A', ac(82, 76, 5) + ac(118, 76, 5)) + paint('#fff', ac(84, 74, 1.6) + ac(120, 74, 1.6)) + ap('M100 112 v4 q-6 5 -10 0 M100 116 q6 5 10 0')],
+      ['Glue it on paper and draw a body and a waggy tail. Woof!', ap('M80 120 Q58 150 64 186 H136 Q142 150 120 120') + ap('M136 170 Q160 168 162 146') + ap('M86 186 v-14 M114 186 v-14') + sheet('40,50 160,50 113.5,112 86.5,112', '#E9B77A') + sheet('86.5,112 113.5,112 100,98.5', '#2B2B3A') + sheet('40,50 68,50 50,118 28,106', '#B98250') + sheet('160,50 132,50 150,118 172,106', '#B98250') + paint('#2B2B3A', ac(82, 76, 5) + ac(118, 76, 5)) + paint('#fff', ac(84, 74, 1.6) + ac(120, 74, 1.6)) + ap('M100 112 v4 q-6 5 -10 0 M100 116 q6 5 10 0')]] },
+    { id: 'a5-tulip', cat: 'origami', level: 1, title: 'Origami tulip', ico: '🌷', single: true,
+      need: 'A square of red or pink paper, green paper or a green crayon, and glue', tip: 'Make 3 tulips in different colours for a bunch of flowers!', steps: [
+      ['Start with a square. Turn it so it looks like a diamond.', sheet(DIA, '#F2604F')],
+      ['Fold the top corner down to the bottom corner. Now it is a triangle.', fold(apl('20,100 100,20 180,100')) + sheet('20,100 180,100 100,180', '#F2604F') + arrow(110, 34, 112, 166, -0.25)],
+      ['Fold the left corner up, so it sticks out past the top.', sheet('60,60 170,60 100,130 80,110', '#F2604F') + sheet(tulipL, '#D84A3A') + fold(apl('60,60 30,60 80,110')) + arrow(32, 70, 72, 40, 0.4)],
+      ['Fold the right corner up the same way. It is a tulip!', tulipAt(0) + fold(apl('140,60 170,60 120,110')) + arrow(168, 70, 128, 40, -0.4)],
+      ['Make a green stem and a leaf. Glue the tulip on top.', stick(100, 128, 100, 190, 8, '#5DB360') + solid('#7CC46B', ap(leafD(100, 178, 140, 140, 16))) + tulipAt(0)],
+      ['Glue it on a card. Add grass and a sun, and give it to someone!', al(10, 190, 190, 190) + ap('M20 190 l4 -10 l4 10 M150 190 l4 -10 l4 10 M170 190 l4 -10 l4 10') + solid('#FFD84D', ac(170, 30, 14)) + stick(100, 128, 100, 190, 8, '#5DB360') + solid('#7CC46B', ap(leafD(100, 178, 140, 140, 16))) + tulipAt(0)]] },
+    { id: 'a5-heart', cat: 'origami', level: 2, title: 'Origami heart', ico: '❤️', single: true,
+      need: 'A square of red or pink paper', tip: 'Line the edges up exactly before you press the fold flat.', steps: [
+      ['Start with a diamond. Fold it in half both ways, then open it again.', sheet(DIA, '#F47A9A') + fold(al(100, 20, 100, 180) + al(20, 100, 180, 100))],
+      ['Fold the top corner down to the middle.', sheet('20,100 60,60 140,60 180,100 100,180', '#F47A9A') + sheet('60,60 140,60 100,100', '#E8557D') + fold(al(100, 100, 100, 180)) + fold(apl('60,60 100,20 140,60')) + arrow(112, 30, 112, 90, -0.4)],
+      ['Fold the bottom corner up to the top edge.', sheet('60,60 140,60 180,100 160,120 40,120 20,100', '#F47A9A') + sheet('60,60 140,60 100,100', '#E8557D') + sheet('40,120 160,120 100,60', '#E8557D') + fold(apl('40,120 100,180 160,120')) + arrow(112, 170, 112, 72, 0.4)],
+      ['Fold the right bottom edge up to the middle line. Then do the left side.', sheet(hk('100,120 50,70 80,40 100,60 120,40 150,70'), '#F47A9A') + sheet(hk('50,70 80,40 100,60 100,120'), '#E8557D') + sheet(hk('150,70 120,40 100,60 100,120'), '#E8557D')],
+      ['Flip it over. Fold the 4 little corners on top to the back, to make it round.', sheet(heartFlat, '#F47A9A') + fold(apl('30,94 20,84 30,74') + apl('58,46 68,36 78,46') + apl('122,46 132,36 142,46') + apl('170,74 180,84 170,94'))],
+      ['Write a love note on it and give it to someone special!', sheet(heartFlat, '#F47A9A') + ink(100, 108, 'LOVE', 26, '#FFFFFF') + paint('#FFFFFF', ap(heartD(68, 72, 6)))]] },
+    { id: 'a5-teller', cat: 'origami', level: 2, title: 'Fortune teller', ico: '🔮', single: true,
+      need: 'A square of paper, a pen, and crayons', tip: 'Write kind fortunes, like "You will laugh today!"', steps: [
+      ['Start with a square. Fold it corner to corner both ways, then open it.', sheet('30,30 170,30 170,170 30,170', '#FFF3C4') + fold(al(30, 30, 170, 170) + al(170, 30, 30, 170))],
+      ['Fold all 4 corners into the middle. Now it is a smaller square.', fold(apl('30,100 30,30 100,30') + apl('100,30 170,30 170,100') + apl('170,100 170,170 100,170') + apl('100,170 30,170 30,100')) + sheet('100,30 170,100 100,170 30,100', '#FFF3C4') + al(100, 30, 100, 170) + al(30, 100, 170, 100)],
+      ['Flip it over. Fold the 4 new corners into the middle again.', sheet('40,40 160,40 160,160 40,160', '#FFF3C4') + al(40, 40, 160, 160) + al(160, 40, 40, 160) + fold(al(100, 40, 100, 160) + al(40, 100, 160, 100))],
+      ['Write a number on each of the 8 little triangles.', sheet('40,40 160,40 160,160 40,160', '#FFF3C4') + al(40, 40, 160, 160) + al(160, 40, 40, 160) + fold(al(100, 40, 100, 160) + al(40, 100, 160, 100)) + tellerNums],
+      ['Lift each flap and write a secret fortune underneath.', sheet('40,70 160,70 160,190 40,190', '#FFF3C4') + al(40, 70, 160, 190) + al(160, 70, 40, 190) + sheet('40,70 160,70 100,10', '#FFFBE6') + fold(al(40, 70, 160, 70)) + ink(100, 54, 'YOU', 13) + ink(100, 66, 'ROCK!', 11) + ink(100, 166, '6', 17) + ink(66, 136, '7', 17) + ink(134, 136, '4', 17)],
+      ['Flip it over. Colour the 4 squares in 4 colours.', sheet('40,40 100,40 100,100 40,100', '#F78FB3') + sheet('100,40 160,40 160,100 100,100', '#7FB5F0') + sheet('40,100 100,100 100,160 40,160', '#9BD67E') + sheet('100,100 160,100 160,160 100,160', '#FFD84D') + fold(al(40, 40, 100, 100) + al(160, 40, 100, 100) + al(40, 160, 100, 100) + al(160, 160, 100, 100))],
+      ['Fold it in half, push your fingers into the 4 pockets, and play with a friend!', pocket(0, '#F78FB3') + pocket(Math.PI / 2, '#7FB5F0') + pocket(Math.PI, '#FFD84D') + pocket(-Math.PI / 2, '#9BD67E')]] },
+    { id: 'a5-boat', cat: 'origami', level: 3, title: 'Paper boat', ico: '⛵', single: true,
+      need: 'A sheet of paper (not square), and crayons', tip: 'Newspaper boats float too! Rub a crayon on the bottom to keep it dry.', steps: [
+      ['Fold a sheet of paper in half, top down to the bottom.', fold(apl('30,60 30,20 170,20 170,60')) + sheet('30,60 170,60 170,160 30,160') + arrow(150, 26, 150, 140, 0.3)],
+      ['Fold the two top corners down so they meet in the middle.', fold(apl('30,130 30,60 100,60') + apl('100,60 170,60 170,130')) + sheet('100,60 170,130 170,160 30,160 30,130') + al(30, 130, 170, 130) + al(100, 60, 100, 130) + arrow(40, 70, 70, 110, -0.3) + arrow(160, 70, 130, 110, 0.3)],
+      ['Fold the bottom strip up. Flip it, and fold the other strip up too. A hat!', sheet('100,60 140,100 60,100') + sheet('30,100 170,100 170,130 30,130') + al(100, 60, 100, 100)],
+      ['Open the hat from the bottom. Squash it flat into a diamond.', sheet('100,30 160,100 100,170 40,100') + al(40, 100, 160, 100) + al(100, 100, 100, 170)],
+      ['Fold the bottom corner up to the top. Flip it and do the same.', fold(apl('40,100 100,170 160,100')) + sheet('40,100 160,100 100,30') + al(100, 30, 100, 100) + arrow(112, 160, 112, 46, 0.4)],
+      ['Open it and squash it flat again, into a smaller diamond.', sheet('100,50 140,100 100,150 60,100') + al(60, 100, 140, 100) + al(100, 100, 100, 150)],
+      ['Gently pull the two top points out to the sides. It is a boat!', sheet(boatHull) + ap('M15 95 L70 112 L130 112 L185 95') + sheet('100,30 132,110 68,110') + arrow(30, 70, 14, 88, -0.4) + arrow(170, 70, 186, 88, 0.4)],
+      ['Colour a flag on it. Float it in the bath or a puddle!', ap('M0 160 q12 -8 25 0 t25 0 t25 0 t25 0 t25 0 t25 0 t25 0 t25 0') + ap('M10 178 q12 -8 25 0 t25 0 t25 0 t25 0 t25 0 t25 0 t25 0') + sheet(boatHull, '#FFE7A3') + ap('M15 95 L70 112 L130 112 L185 95') + sheet('100,30 132,110 68,110', '#FFF6D6') + al(100, 30, 100, 14) + solid('#F2604F', apg('100,14 118,19 100,24')) + T('#7FB5F0', ap('M0 160 q12 -8 25 0 t25 0 t25 0 t25 0 t25 0 t25 0 t25 0 t25 0 V200 H0 Z'))]] }
+  );
+
+  /* ================= Nature Art ================= */
+  const stoneD = 'M28 110 a72 52 0 1 0 144 0 a72 52 0 1 0 -144 0 Z';
+  const lbBody = 'M60 66.8 Q44 110 60 153.2 A72 52 0 1 0 60 66.8 Z';
+  const lbHead = 'M60 66.8 Q44 110 60 153.2 A72 52 0 0 1 60 66.8 Z';
+  const lbSpots = ac(86, 86, 8) + ac(120, 80, 9) + ac(150, 93, 7) + ac(86, 134, 8) + ac(120, 140, 9) + ac(150, 127, 7);
+  const owlBody = 'M100 182 C40 170 44 70 100 52 C156 70 160 170 100 182 Z';
+  const raftX = [60, 76, 92, 108, 124, 140];
+  const raftSticks = raftX.map(x => stick(x, 72, x, 168, 14)).join('');
+  const ties = [[60, 90], [140, 90], [60, 150], [140, 150], [100, 90], [100, 150]].map(([x, y]) => stroke('#F4EBD0', wide(al(x - 6, y - 7, x + 6, y + 7) + al(x + 6, y - 7, x - 6, y + 7), 2.5))).join('');
+  const pflower = (cx, cy, c, r = 9) => solid(c, around(5, r * 0.8, cx, cy, (x, y, a) => `<ellipse cx="${x}" cy="${y}" rx="${f1(r * 0.45)}" ry="${f1(r * 0.7)}" transform="rotate(${f1(a * 180 / Math.PI + 90)} ${x} ${y})"/>`)) + solid('#FFD84D', ac(cx, cy, f1(r * 0.35)));
+  const cardFlowers = al(86, 92, 92, 150) + al(122, 106, 110, 150) + al(100, 128, 100, 150) + solid('#8FCB7A', ap(leafD(92, 140, 70, 122, 8)) + ap(leafD(108, 140, 128, 128, 7))) + pflower(86, 84, '#F78FB3', 13) + pflower(122, 98, '#B48CE0', 11) + pflower(100, 122, '#FFB347', 9);
+  const card = sheet('50,24 150,24 150,184 50,184', '#FFFBEA') + al(50, 24, 50, 184);
+  const mLeaf1 = around(8, 0, 100, 100, (x, y, a) => solid('#7CB65A', ap(leafD(f1(100 + 18 * Math.cos(a)), f1(100 + 18 * Math.sin(a)), f1(100 + 46 * Math.cos(a)), f1(100 + 46 * Math.sin(a)), 12))), 0);
+  const mPeb1 = around(8, 34, 100, 100, (x, y) => solid('#B8B2A7', ac(x, y, 5)), Math.PI / 8);
+  const mSticks = around(8, 0, 100, 100, (x, y, a) => stick(f1(100 + 50 * Math.cos(a)), f1(100 + 50 * Math.sin(a)), f1(100 + 74 * Math.cos(a)), f1(100 + 74 * Math.sin(a)), 5, '#8A5A33'), Math.PI / 8);
+  const mLeaf2 = around(8, 0, 100, 100, (x, y, a, i) => solid(i % 2 ? '#E8574A' : '#F59E2E', ap(leafD(f1(100 + 54 * Math.cos(a)), f1(100 + 54 * Math.sin(a)), f1(100 + 82 * Math.cos(a)), f1(100 + 82 * Math.sin(a)), 18))), 0);
+  const mPeb2 = around(24, 90, 100, 100, (x, y, a, i) => solid(i % 3 === 0 ? '#F9E79F' : '#CFC9BE', ac(x, y, 3.6)), Math.PI / 24);
+
+  LESSONS.push(
+    { id: 'a5-ladybug', cat: 'naturalart', level: 1, title: 'Ladybug stone', ico: '🐞',
+      need: 'A smooth stone, red, black and white paint, a brush and newspaper', tip: 'Let each colour dry before you paint the next one.', steps: [
+      ['Find a smooth, round stone. Wash it and let it dry.', T('#C9C3B8', ap(stoneD)) + ap(stoneD)],
+      ['Paint most of the stone red. Leave one end for the head.', paint('#E8402F', ap(lbBody))],
+      ['Paint the head black.', paint(DARK, ap(lbHead))],
+      ['Paint a black line down the middle of the back.', fat(DARK, 'M52 110 H171', 4)],
+      ['Dab black spots on both sides.', paint(DARK, lbSpots)],
+      ['Dot on two white eyes. Put your ladybug in the garden!', paint('#fff', ac(40, 98, 5) + ac(40, 122, 5)) + paint(DARK, ac(38, 98, 2) + ac(38, 122, 2))]] },
+    { id: 'a5-leafowl', cat: 'naturalart', level: 1, title: 'Leaf owl collage', ico: '🍃',
+      need: 'Leaves and a stick from outside, paper, glue, bottle caps or buttons', tip: 'Press leaves flat in a book for a day first. They stick better!', steps: [
+      ['Glue a big leaf in the middle of your paper for the body.', solid('#E59A3C', ap(owlBody)) + ap('M100 182 V130')],
+      ['Glue two smaller leaves on the sides for wings.', solid('#C9772B', ap(leafD(70, 100, 38, 164, 16)) + ap(leafD(130, 100, 162, 164, 16)))],
+      ['Glue on two big round eyes. Bottle caps or buttons work well!', solid('#fff', ac(82, 92, 15) + ac(118, 92, 15)) + paint(DARK, ac(82, 94, 6) + ac(118, 94, 6))],
+      ['Glue a seed or a tiny leaf for the beak.', solid('#8B5A2B', ap(leafD(100, 104, 100, 126, 7)))],
+      ['Glue two pointy leaves on top for ear tufts.', solid('#C9772B', ap(leafD(84, 64, 66, 30, 9)) + ap(leafD(116, 64, 134, 30, 9)))],
+      ['Glue a stick under it for a branch, and draw feet. Hoo-hoo! Show someone.', stick(18, 186, 182, 186, 9) + ap('M90 178 l-4 12 M94 178 v12 M98 178 l4 12 M102 178 l-4 12 M106 178 v12 M110 178 l4 12')]] },
+    { id: 'a5-raft', cat: 'naturalart', level: 2, title: 'Stick raft', ico: '🛶',
+      need: 'Sticks, string, a bit of clay, a big leaf, and a grown-up to help tie', tip: 'Wrap the string round and round, then pull it tight before you knot.', steps: [
+      ['Find 6 sticks about the same size. Lay them side by side, touching.', raftSticks],
+      ['Lay 2 more sticks across them, one at the top and one at the bottom.', stick(44, 90, 156, 90, 10, '#8A5A33') + stick(44, 150, 156, 150, 10, '#8A5A33')],
+      ['Tie string where the sticks cross. A grown-up can help with the knots.', ties],
+      ['Push a lump of clay in the middle and stand a tall stick in it for a mast.', stick(100, 118, 100, 22, 6, '#8A5A33') + solid('#9DA7A0', ae(100, 120, 12, 7))],
+      ['Poke a big leaf onto the mast for a sail.', solid('#6CC08B', ap('M104 28 Q156 52 104 104 Z')) + ap('M104 32 Q126 64 104 100')],
+      ['Float it in a puddle or a tub of water. Does it sail? Blow on it!', T('#CFE6FA', ar(0, 0, 200, 200)) + ap('M10 186 q10 -7 20 0 t20 0 t20 0 M120 186 q10 -7 20 0 t20 0 t20 0') + ap('M8 120 q8 -6 16 0 t16 0 M164 64 q8 -6 16 0 t16 0 M166 128 q8 -6 16 0')]] },
+    { id: 'a5-pressed', cat: 'naturalart', level: 2, title: 'Pressed flower card', ico: '🌸', single: true,
+      need: 'Small flowers and leaves, a big heavy book, paper, card and glue', tip: 'Thin, flat flowers like pansies and daisies press best.', steps: [
+      ['Pick a few small, flat flowers and leaves. Always ask before you pick!', pflower(50, 70, '#F78FB3', 18) + pflower(140, 60, '#B48CE0', 16) + pflower(95, 120, '#FFB347', 14) + solid('#8FCB7A', ap(leafD(40, 160, 80, 140, 12)) + ap(leafD(150, 160, 120, 130, 10)))],
+      ['Lay them on paper inside a big book. Do not let them touch.', solid('#7FA8D8', ap('M10 48 L100 56 L190 48 L190 178 L100 186 L10 178 Z')) + solid('#FFFBEA', ap('M18 50 Q60 44 100 58 L100 176 Q60 162 18 170 Z') + ap('M182 50 Q140 44 100 58 L100 176 Q140 162 182 170 Z')) + pflower(128, 84, '#F78FB3', 12) + pflower(160, 110, '#B48CE0', 10) + pflower(130, 140, '#FFB347', 9)],
+      ['Close the book. Put more heavy books on top and wait one whole week.', sheet('30,150 170,150 170,184 30,184', '#7FA8D8') + sheet('40,118 160,118 160,150 40,150', '#F2A07B') + sheet('36,90 164,90 164,118 36,118', '#9BD67E') + al(44, 134, 156, 134) + al(42, 104, 158, 104) + ink(100, 62, '7 days', 22) + ap('M60 70 q-14 0 -14 -12 M140 70 q14 0 14 -12')],
+      ['Open the book. The flowers are flat and dry! Fold a card in half.', card + fold(apl('50,24 22,40 22,168 50,184'))],
+      ['Glue the flowers on the front with tiny dots of glue.', card + cardFlowers],
+      ['Write a message, like "For you", and give it to someone you love.', card + cardFlowers + ink(100, 174, 'For you', 18, '#C0392B')]] },
+    { id: 'a5-mandala', cat: 'naturalart', level: 3, title: 'Leaf & stone mandala', ico: '🍂',
+      need: 'Leaves, small stones, sticks and petals from outside', tip: 'Make every ring the same all the way round. That is what a mandala is!', steps: [
+      ['Find a flat spot outside. Put one special stone in the middle.', solid('#9DA7A0', ae(100, 100, 13, 11))],
+      ['Make a ring of green leaves around it, all pointing out.', mLeaf1],
+      ['Put a little stone in each gap between the leaves.', mPeb1],
+      ['Make a ring of sticks, like the spokes of a wheel.', mSticks],
+      ['Put orange and red leaves in the spaces between the sticks.', mLeaf2],
+      ['Finish with a big circle of small stones and petals all round the outside.', mPeb2],
+      ['Take a photo before the wind blows it away! Make a new one tomorrow.', ap('M6 26 V6 H26 M174 6 H194 V26 M194 174 V194 H174 M26 194 H6 V174')]] }
+  );
+
+  /* ================= Weaving & String Art ================= */
+  const dia = r => apg(`100,${100 - r} ${100 + r},100 100,${100 + r} ${100 - r},100`);
+  const yarnBand = (c, r0, r1) => { let s = ''; for (let r = r0; r <= r1; r += 4) s += dia(r); return stroke(c, wide(s, 4.6)); };
+  const tassel = (x, y, dx, dy, c) => stroke(c, wide([-0.45, -0.15, 0.15, 0.45].map(k => al(x, y, f1(x + dx * 16 - dy * 16 * k), f1(y + dy * 16 + dx * 16 * k))).join(''), 2.5));
+  // paper weaving
+  const wvBase = '#7FB5F0', wvCols = ['#FFD24D', '#F78FB3', '#FFD24D', '#F78FB3', '#FFD24D'];
+  const wvSlits = [50, 70, 90, 110, 130, 150].map(x => al(x, 44, x, 156)).join('');
+  const wvStrip = j => { const y = 47 + j * 22; let s = solid(wvCols[j], ar(38, y, 124, 18)), under = '';
+    for (let c = 0; c < 5; c++) if ((c + j) % 2 === 0) under += ar(50 + 20 * c, y - 2, 20, 22);
+    return s + paint(wvBase, under) + [50, 70, 90, 110, 130, 150].map(x => al(x, y - 2, x, y + 20)).join(''); };
+  // lacing card
+  const bez = (p0, p1, p2, p3, t) => { const u = 1 - t; return [0, 1].map(k => u * u * u * p0[k] + 3 * u * u * t * p1[k] + 3 * u * t * t * p2[k] + t * t * t * p3[k]); };
+  const appleSegs = [[[100, 62], [80, 44], [36, 52], [38, 100]], [[38, 100], [40, 150], [78, 178], [100, 164]], [[100, 164], [122, 178], [160, 150], [162, 100]], [[162, 100], [164, 52], [120, 44], [100, 62]]];
+  const appleD = 'M100 62 C80 44 36 52 38 100 C40 150 78 178 100 164 C122 178 160 150 162 100 C164 52 120 44 100 62 Z';
+  const holes = [];
+  appleSegs.forEach(sg => [0.2, 0.5, 0.8].forEach(t => { const [x, y] = bez(...sg, t), dx = 100 - x, dy = 112 - y, L = Math.hypot(dx, dy); holes.push([f1(x + dx / L * 11), f1(y + dy / L * 11)]); }));
+  const holeSVG = solid('#FFFFFF', holes.map(([x, y]) => ac(x, y, 3.5)).join(''));
+  const stitches = (start, c) => fat(c, holes.map((h, i) => (i % 2 === start ? `M${h[0]} ${h[1]} L${holes[(i + 1) % holes.length][0]} ${holes[(i + 1) % holes.length][1]}` : '')).join(' '), 4.5);
+  // string art star
+  const ssOuter = Array.from({ length: 5 }, (_, i) => { const a = -Math.PI / 2 + i * 2 * Math.PI / 5; return [f1(100 + 72 * Math.cos(a)), f1(106 + 72 * Math.sin(a))]; });
+  const ssInner = Array.from({ length: 5 }, (_, i) => { const a = -Math.PI / 2 + Math.PI / 5 + i * 2 * Math.PI / 5; return [f1(100 + 29 * Math.cos(a)), f1(106 + 29 * Math.sin(a))]; });
+  const ssStar = ssOuter.map((p, i) => `${p} ${ssInner[i]}`).join(' ');
+  const ssLines = (pairs, c) => stroke(c, wide(pairs.map(([p, q]) => al(p[0], p[1], q[0], q[1])).join(''), 1.8));
+  // cardboard loom
+  const lmX = Array.from({ length: 9 }, (_, k) => 52 + 12 * k);
+  const lmRows = (from, to, c) => { let s = ''; for (let r = from; r <= to; r++) { const y = 172 - r * 7; s += fat(c, `M46 ${y} H154`, 6.5) + stroke('#6B4E3A', wide(lmX.filter((x, k) => (k + r) % 2 === 0).map(x => al(x, y - 3.5, x, y + 3.5)).join(''), 2)); } return s; };
+
+  LESSONS.push(
+    { id: 'a5-godseye', cat: 'string', level: 1, title: "God's eye weaving", ico: '🧶',
+      need: 'Two sticks (or lolly sticks), yarn in 3 colours, scissors and a grown-up', tip: 'Keep the yarn snug, not too tight, and the rings stay neat.', steps: [
+      ['Cross two sticks to make a plus sign. A grown-up can help hold them.', stick(100, 14, 100, 186, 8) + stick(14, 100, 186, 100, 8)],
+      ['Tie yarn round the middle in an X shape, so the sticks hold together.', stroke('#E8574A', wide(al(92, 92, 108, 108) + al(108, 92, 92, 108), 3.5))],
+      ['Wrap the yarn over a stick and round it, then go to the next stick. Round and round!', yarnBand('#E8574A', 8, 32)],
+      ['Tie on a new colour and keep wrapping.', yarnBand('#FFC23D', 36, 56)],
+      ['Add one more colour.', yarnBand('#3D7DD8', 60, 76)],
+      ['Tie a knot. Add tassels to the tips and hang it on your wall!', tassel(14, 100, -1, 0, '#E8574A') + tassel(186, 100, 1, 0, '#E8574A') + tassel(100, 186, 0, 1, '#3D7DD8') + stroke('#3D7DD8', ap('M100 14 Q86 2 100 2 Q114 2 100 14'))]] },
+    { id: 'a5-weave', cat: 'string', level: 1, title: 'Paper weaving mat', ico: '🟦',
+      need: 'Two colours of paper, a ruler, glue, and a grown-up with scissors', tip: 'Over, under, over, under. Say it out loud as you go!', steps: [
+      ['A grown-up cuts lines down a sheet of paper. Not all the way to the edge!', solid(wvBase, ar(30, 30, 140, 140, 4)) + wvSlits],
+      ['Weave a paper strip across: over, under, over, under.', wvStrip(0)],
+      ['Weave the next strip the other way: under, over, under, over.', wvStrip(1)],
+      ['Weave one more strip, just like the first one.', wvStrip(2)],
+      ['Keep going until the paper is full. Push the strips close together.', wvStrip(3) + wvStrip(4)],
+      ['Glue down the ends of each strip. Use it as a placemat at dinner!', paint('#FFFFFF', [0, 1, 2, 3, 4].map(j => ac(43, 56 + j * 22, 2.5) + ac(157, 56 + j * 22, 2.5)).join(''))]] },
+    { id: 'a5-lacing', cat: 'string', level: 2, title: 'Apple lacing card', ico: '🍎',
+      need: 'Cardboard, a hole punch, yarn, sticky tape, crayons; a grown-up to cut', tip: 'Wrap tape round the yarn end to make a stiff needle. Easy to poke!', steps: [
+      ['Draw a big apple on a piece of cardboard, like a cereal box.', ap(appleD)],
+      ['A grown-up cuts it out and punches holes all the way round.', holeSVG],
+      ['Wrap tape round one end of the yarn. Tie the other end to the top hole.', solid('#7A3FB0', ac(holes[11][0] - 2, holes[11][1] - 6, 4))],
+      ['Sew in and out: up through one hole, down through the next one.', stitches(1, '#7A3FB0')],
+      ['Go round again with a new colour to fill in the gaps.', stitches(0, '#3BAA5C')],
+      ['Tie a bow. Add a stem and a leaf, then colour your apple red!', T('#F47A6A', ap(appleD)) + stick(100, 62, 106, 34, 6, '#8A5A33') + solid('#6CC08B', ap(leafD(106, 44, 140, 30, 9)))]] },
+    { id: 'a5-stringstar', cat: 'string', level: 2, title: 'String art star', ico: '⭐',
+      need: 'A cork board, paper, pins, string; a grown-up pushes the pins in', tip: 'Keep the string pulled tight as you wrap, and the lines stay straight.', steps: [
+      ['Put a paper star on a cork board.', solid('#E8C08A', ar(12, 12, 176, 176, 8)) + guide(apg(ssStar))],
+      ['A grown-up pushes a pin into every point and every corner of the star.', solid(DARK, [...ssOuter, ...ssInner].map(([x, y]) => ac(x, y, 3)).join(''))],
+      ['Tie string to the top pin. Wrap it round the outside, pin to pin.', stroke('#E8402F', wide(apg(ssStar), 2.2))],
+      ['Now cross over: go from one big point to another, skipping one each time.', ssLines([0, 1, 2, 3, 4].map(i => [ssOuter[i], ssOuter[(i + 2) % 5]]), '#F59E2E')],
+      ['Zigzag from each inside pin across to the far points, lots of times.', ssLines(ssInner.flatMap((p, i) => [[p, ssOuter[(i + 3) % 5]], [p, ssOuter[(i + 4) % 5]]]), '#3D7DD8')],
+      ['Tie a knot and tear the paper away. Hang your star up!', stroke('#E8402F', ap('M80 12 Q100 -6 120 12')), { clear: true }]] },
+    { id: 'a5-loom', cat: 'string', level: 3, title: 'Cardboard loom', ico: '🪢',
+      need: 'Strong cardboard, string, yarn in 4 colours, a fork; a grown-up to cut', tip: 'Do not pull the yarn tight at the sides, or your weaving gets thin in the middle.', steps: [
+      ['A grown-up cuts little notches along the top and bottom of the cardboard.', T('#D8B07A', ar(40, 20, 120, 166, 4)) + ap('M40 24 Q40 20 44 20' + lmX.map(x => ` L${x - 3} 20 L${x} 26 L${x + 3} 20`).join('') + ' L156 20 Q160 20 160 24 L160 182 Q160 186 156 186' + lmX.slice().reverse().map(x => ` L${x + 3} 186 L${x} 180 L${x - 3} 186`).join('') + ' L44 186 Q40 186 40 182 Z')],
+      ['Wrap string up and down through the notches, like the strings of a harp.', stroke('#6B4E3A', wide(lmX.map(x => al(x, 26, x, 180)).join(''), 2))],
+      ['Weave yarn across: over one string, under the next. Push it down to the bottom.', lmRows(0, 0, '#E8574A')],
+      ['Come back the other way: under, then over. Weave lots more rows!', lmRows(1, 4, '#E8574A')],
+      ['Tie on a new colour and keep weaving. A fork helps push the rows down.', lmRows(5, 9, '#FFC23D')],
+      ['Add a third colour.', lmRows(10, 14, '#3BAA5C')],
+      ['Weave to the top with one more colour. A grown-up helps tie it off. Hang it up!', lmRows(15, 20, '#9B59D0')]] }
+  );
+
+  /* ================= Shadows & Silhouettes ================= */
+  const ssTree = paint(DARK, ap('M42 158 L48 104 L44 84 L52 84 L54 100 L58 84 L64 86 L58 108 L60 158 Z') + ac(52, 70, 18) + ac(34, 82, 13) + ac(70, 80, 14) + ac(40, 60, 11) + ac(64, 58, 12)) + fat(DARK, 'M50 116 L30 96 M57 112 L76 92', 4);
+  const birdsM = (pts, c = DARK) => stroke(c, pts.map(([x, y, s]) => ap(`M${x - s} ${y} q${s / 2} ${-s / 1.5} ${s} 0 q${s / 2} ${-s / 1.5} ${s} 0`)).join(''));
+  // shadow puppets
+  const spot = 'M10 90 a90 64 0 1 0 180 0 a90 64 0 1 0 -180 0 Z';
+  const bunny = ae(56, 112, 19, 14) + '<ellipse cx="46" cy="82" rx="5.5" ry="18" transform="rotate(-14 46 82)"/>' + '<ellipse cx="60" cy="80" rx="5.5" ry="18" transform="rotate(12 60 80)"/>' + ap('M46 120 L36 200 L72 200 L66 120 Z');
+  const bird = ap('M100 60 Q84 30 56 36 Q72 44 76 52 Q64 52 58 58 Q80 62 94 68 Z M110 60 Q126 30 154 36 Q138 44 134 52 Q146 52 152 58 Q130 62 116 68 Z') + ae(105, 64, 10, 7) + ac(105, 54, 6) + apg('105,50 112,46 109,54');
+  const dog = ap('M172 84 Q150 76 136 86 L116 94 Q110 98 116 102 L134 104 L120 112 Q116 116 122 118 L140 116 Q150 126 172 122 Z M160 84 Q166 68 178 76 Q174 90 164 94 Z M152 118 L160 200 L200 200 L200 100 Z');
+  // skyline
+  const blds = [[0, 30, 110], [30, 28, 80], [58, 36, 120], [94, 26, 60], [120, 34, 100], [154, 22, 132], [176, 24, 92]];
+  let wins = '';
+  blds.forEach(([x, w, top], b) => { for (let y = top + 8; y < 192; y += 12) for (let xx = x + 5, c = 0; xx + 5 <= x + w - 3; xx += 9, c++) if ((b * 7 + c * 3 + y) % 5 < 2) wins += ar(xx, y, 5, 6); });
+  const nightStars = [[20, 24], [60, 14], [92, 34], [120, 12], [30, 60], [186, 70], [140, 50], [76, 60]].map(([x, y], i) => apg(starPts(x, y, i % 2 ? 3 : 4.5, i % 2 ? 1.2 : 1.8, 4))).join('');
+  // black cat
+  const bat = (cx, cy, s) => ap(`M${cx} ${cy} q${-4 * s} ${-6 * s} ${-12 * s} ${-4 * s} q${3 * s} ${2 * s} ${2 * s} ${5 * s} q${3 * s} ${-2 * s} ${5 * s} ${1 * s} q${1 * s} ${-3 * s} ${5 * s} ${-2 * s} q${4 * s} ${-1 * s} ${5 * s} ${2 * s} q${2 * s} ${-3 * s} ${5 * s} ${-1 * s} q${-1 * s} ${-3 * s} ${2 * s} ${-5 * s} q${-8 * s} ${-2 * s} ${-12 * s} ${4 * s} Z`);
+  // toy shadows
+  const rocket = 'M100 60 Q116 78 116 105 L116 145 L128 165 L116 160 L84 160 L72 165 L84 145 L84 105 Q84 78 100 60 Z';
+  const sh1 = 'matrix(1 0 0.75 0.5 -123.75 82.5)', sh2 = 'matrix(1 0 -0.6 0.45 99 90.75)';
+  const shDefs = `<defs><clipPath id="a5s-notoy"><path d="M0 0H200V200H0Z ${rocket}" clip-rule="evenodd"/></clipPath><clipPath id="a5s-sh1"><path d="${rocket}" transform="${sh1}"/></clipPath><clipPath id="a5s-sh2"><path d="${rocket}" transform="${sh2}"/></clipPath></defs>`;
+  let shStripes = '', shDots = '';
+  for (let k = -60; k < 140; k += 6) shStripes += al(k, 170, k + 60, 100);
+  for (let y = 116; y < 172; y += 6) for (let x = 100 + (y % 12 ? 3 : 0); x < 176; x += 6) shDots += ac(x, y, 1.5);
+  const sunIcon = (x, y, c) => solid(c, ac(x, y, 8)) + stroke('#F59E2E', around(8, 0, x, y, (px, py, a) => al(f1(x + 11 * Math.cos(a)), f1(y + 11 * Math.sin(a)), f1(x + 16 * Math.cos(a)), f1(y + 16 * Math.sin(a)))));
+
+  LESSONS.push(
+    { id: 'a5-sunset', cat: 'silhouette', level: 1, title: 'Sunset tree', ico: '🌅',
+      need: 'Paper, crayons or paint, and a black crayon or marker', tip: 'A silhouette is a shape filled all in black, with no details inside.', steps: [
+      ['Colour stripes across the sky: purple at the top, then pink, orange and yellow.', paint('#8E6CC8', ar(0, 0, 200, 50)) + paint('#F28DB2', ar(0, 50, 200, 40)) + paint('#F8A04C', ar(0, 90, 200, 40)) + paint('#FFD966', ar(0, 130, 200, 40))],
+      ['Draw a big sun, low down near the bottom.', paint('#FFF4B8', ac(132, 150, 30))],
+      ['Colour a black hill all along the bottom.', paint(DARK, ap('M0 160 Q60 142 110 152 Q160 162 200 150 V200 H0 Z'))],
+      ['Draw a black tree trunk with branches on the hill.', paint(DARK, ap('M42 158 L48 104 L44 84 L52 84 L54 100 L58 84 L64 86 L58 108 L60 158 Z')) + fat(DARK, 'M50 116 L30 96 M57 112 L76 92', 4)],
+      ['Add big round puffs of leaves. Fill them all in black.', paint(DARK, ac(52, 70, 18) + ac(34, 82, 13) + ac(70, 80, 14) + ac(40, 60, 11) + ac(64, 58, 12) + ac(28, 94, 7) + ac(78, 90, 7))],
+      ['Draw some birds: little black m shapes. Show someone your sunset!', birdsM([[150, 60, 8], [172, 76, 6], [134, 82, 5]])]] },
+    { id: 'a5-puppets', cat: 'silhouette', level: 1, title: 'Hand shadow puppets', ico: '🐰',
+      need: 'A torch (flashlight), a dark room, a plain wall, and your hands', tip: 'Move your hand closer to the torch to make a giant shadow!', steps: [
+      ['In a dark room, shine a torch at a wall. A grown-up can help.', paint('#3A3F5C', ar(0, 0, 200, 200)) + paint('#FFF3B0', ap(spot)) + stroke('#FFF3B0', wide(al(90, 162, 22, 120) + al(110, 162, 178, 120), 1.5)) + solid('#E8574A', ar(91, 170, 18, 28, 3)) + solid('#C9D3E0', apg('84,160 116,160 110,170 90,170')) + clipDef('a5p-spot', spot)],
+      ['Bunny: hold up two fingers in a V shape. Wiggle the ears!', inClip(['a5p-spot'], paint(DARK, bunny)) + paint('#FFF3B0', ac(64, 108, 2))],
+      ['Bird: cross your thumbs and flap your fingers like wings.', paint(DARK, bird)],
+      ['Dog: thumb up for an ear, and move your little finger to open the mouth.', inClip(['a5p-spot'], paint(DARK, dog)) + paint('#FFF3B0', ac(146, 90, 2))],
+      ['Put on a shadow show! Make up a story for your animals.', paint('#FFF3B0', ap('M30 30 l2 5 l5 2 l-5 2 l-2 5 l-2 -5 l-5 -2 l5 -2 Z M172 34 l2 5 l5 2 l-5 2 l-2 5 l-2 -5 l-5 -2 l5 -2 Z'))]] },
+    { id: 'a5-skyline', cat: 'silhouette', level: 2, title: 'City at night', ico: '🌃',
+      need: 'Dark blue or black paper (or crayons), a black marker, yellow crayon', tip: 'Make the buildings different heights. That is what makes a skyline!', steps: [
+      ['Colour the whole sky dark blue. Or use dark paper!', paint('#26305E', ar(0, 0, 200, 200))],
+      ['Draw a round moon high up in the corner.', paint('#FFF1B8', ac(160, 36, 16)) + paint('#F2E3A0', ac(154, 32, 3) + ac(166, 42, 2.5))],
+      ['Add twinkly stars.', paint('#FFE58A', nightStars)],
+      ['Draw buildings side by side along the bottom, tall and short. Colour them black.', paint(DARK, blds.map(([x, w, t]) => ar(x, t, w, 200 - t)).join(''))],
+      ['Add yellow windows. Some lights are on and some are off.', paint('#FFD84D', wins)],
+      ['Add a tall tower with a red light on top. Who lives in your city?', paint(DARK, apg('97,60 107,30 117,60') + ar(105, 12, 4, 20)) + paint('#FF4D4D', ac(107, 11, 3.5)) + stroke('#FF4D4D', wide(ac(107, 11, 7), 1.2))]] },
+    { id: 'a5-blackcat', cat: 'silhouette', level: 2, title: 'Black cat moon', ico: '🐈‍⬛',
+      need: 'Paper, a purple crayon, a yellow crayon and a black marker or paint', tip: 'Turn the light off and look out the window. What shapes can you see?', steps: [
+      ['Colour the whole sky dark purple.', paint('#4B3B7A', ar(0, 0, 200, 200))],
+      ['Draw a giant round moon in the middle.', paint('#FFE9A0', ac(100, 100, 70)) + paint('#F3D987', ac(72, 78, 8) + ac(130, 70, 5) + ac(140, 124, 6))],
+      ['Colour a black rooftop along the bottom, with a chimney.', paint(DARK, ap('M0 180 L60 166 L140 166 L200 180 V200 H0 Z') + ar(156, 140, 18, 32))],
+      ['Draw a cat sitting on the roof: a round head, pointy ears and an oval body. Fill it in black.', paint(DARK, ac(100, 104, 15) + apg('87,99 88,80 98,92') + apg('113,99 112,80 102,92') + ae(100, 140, 22, 27))],
+      ['Give the cat a long curly tail.', fat(DARK, 'M118 158 Q148 162 146 136 Q144 124 154 120', 7)],
+      ['Add bats and stars. Spooky and cute! Show someone.', paint(DARK, bat(34, 40, 1.4) + bat(170, 30, 1.1) + bat(160, 64, 0.8)) + paint('#FFE58A', apg(starPts(26, 120, 5, 2, 4)) + apg(starPts(180, 110, 5, 2, 4)) + apg(starPts(60, 20, 4, 1.6, 4)))]] },
+    { id: 'a5-shadowtrace', cat: 'silhouette', level: 3, title: 'Trace toy shadows', ico: '🔦',
+      need: 'A sunny day, paper, a small toy, a pencil and two colour pens', tip: 'Shadows are long in the morning and evening, and short at lunchtime.', steps: [
+      ['On a sunny morning, put paper on the ground outside. Stand a toy on it.', T('#BFE3A5', ar(0, 0, 200, 200)) + solid('#FFFFFF', ar(8, 40, 184, 146, 4)) + solid('#F47A6A', ap(rocket)) + solid('#BFE3F7', ac(100, 98, 7)) + shDefs],
+      ['See the toy\'s shadow? Trace all round it with a pencil.', inClip(['a5s-notoy'], `<path d="${rocket}" transform="${sh1}"/>`)],
+      ['Come back after lunch. The shadow has moved! Trace it again with a new colour.', inClip(['a5s-notoy'], stroke('#3D7DD8', `<path d="${rocket}" transform="${sh2}"/>`))],
+      ['Fill the morning shadow with stripes.', inClip(['a5s-notoy', 'a5s-sh1'], wide(shStripes, 1.6))],
+      ['Fill the afternoon shadow with dots.', inClip(['a5s-notoy', 'a5s-sh2'], paint('#3D7DD8', shDots))],
+      ['The sun was on the other side of the toy. Draw a sun for each shadow and show someone!', sunIcon(170, 66, '#FFE58A') + sunIcon(30, 66, '#FFC23D')]] }
+  );
+})();
 /* ---------- art6 ---------- */
 /* ---------- art7 ---------- */
 
@@ -3289,7 +3896,7 @@ function parent() {
       <p class="note">Owl &amp; Crayon works without the internet. Progress, drawings and Owl's answers are saved only in this browser on this device. There are no ads, no tracking and no accounts, and nothing is sent anywhere unless you switch on Online Owl.</p>
       <p class="note">With Online Owl on, only the question your child asks and their age go to your Online Owl server, which asks an AI (Cloudflare's free AI, or Claude by Anthropic) for a short, child-friendly answer. Names and progress are never sent. You can read every answer above, and turn it off at any time.</p>
       <p class="note">The microphone button uses the browser's own speech recognition, which may send the recording to the browser maker (for example Google or Apple) to turn it into text. Typing works without it.</p>
-      <p class="note">Version 2026-10-20 12:44 UTC</p></div>`;
+      <p class="note">Version 2026-10-20 13:00 UTC</p></div>`;
   view.querySelectorAll('[data-teach]').forEach(b => b.onclick = () => {
     const i = +b.dataset.teach, ans = $('#t' + i).value.trim(); if (!ans) return;
     owlForget(st.owlMisses[i].q); st.owlTaught.push({ q: st.owlMisses[i].q, a: ans }); st.owlMisses.splice(i, 1); save(); go(parent);
@@ -3718,7 +4325,481 @@ function raceResult() {
 }
 
 if (location.hash === '#selftest') window.__games = { GAMES, gArith, get gm() { return gm; }, set secs(v) { GAME_SECS = v; } };
-/* ---------- games2 ---------- */
+/* ---------- games2: seven more math games, sharing the round engine in games.js ---------- */
+// Gone Fishing, Pizza Party, Feed the Animals, Rocket Countdown, Target Practice, Bee Hive Pairs, Treasure Map.
+// Everything lives inside this function so its names never clash with the rest of the app.
+(() => {
+const FRAC_W = { 2: ['half', 'halves'], 3: ['third', 'thirds'], 4: ['quarter', 'quarters'], 5: ['fifth', 'fifths'], 6: ['sixth', 'sixths'], 8: ['eighth', 'eighths'], 10: ['tenth', 'tenths'], 12: ['twelfth', 'twelfths'] };
+const fw = (n, d) => `${n} ${(FRAC_W[d] || [d + 'th', d + 'ths'])[n === 1 ? 0 : 1]}`;
+const mn = v => (v < 0 ? '−' : '') + Math.abs(v);          // a real minus sign, read aloud as "minus"
+const okA = c => c ? ' data-ok="1"' : '';
+const vals = cs => cs.map(c => c.val);
+const range = (a, b, s = 1) => { const o = []; for (let v = a; v <= b; v += s) o.push(v); return o; };
+
+GAMES.push(
+  { id: 'fish', ico: '🎣', name: 'Gone Fishing', blurb: 'Catch the right fish', bg: '#1E88B8', pe: '🐟', n: 8, q: fishQ },
+  { id: 'pizza', ico: '🍕', name: 'Pizza Party', blurb: () => ageLvl() >= 3 ? 'Slice up fractions' : 'Share it fairly', bg: '#C8553D', pe: '🍕', n: 8, q: pizzaQ },
+  { id: 'feed', ico: '🥕', name: 'Feed the Animals', blurb: () => ageLvl() >= 3 ? 'Groups and times' : 'Give everyone the same', bg: '#4E9A2F', pe: '🥕', n: 8, q: feedQ },
+  { id: 'rocket', ico: '🚀', name: 'Rocket Countdown', blurb: '3, 2, 1... blast off!', bg: '#3B2E7E', pe: '🌟', n: 8, q: rocketQ },
+  { id: 'target', ico: '🎯', name: 'Target Practice', blurb: 'Which is bigger?', bg: '#D94A6A', pe: '🎯', n: 10, q: targetQ },
+  { id: 'bee', ico: '🐝', name: 'Bee Hive Pairs', blurb: 'Two that make the number', bg: 'var(--sun)', ink: 1, pe: '🍯', n: 8, q: beeQ },
+  { id: 'map', ico: '🏝️', name: 'Treasure Map', blurb: () => ageLvl() >= 4 ? 'Find (x, y)' : 'Follow the steps', bg: '#0F8F84', pe: '💰', n: 8, q: mapQ }
+);
+
+/* ---------- 8. Gone Fishing: fish swim back and forth, catch the one that fits ---------- */
+function fishMake(d) {
+  const n = [3, 4, 5, 5, 5, 5, 5][d], r = Math.random();
+  const rule = (q, speak, ok, lo, hi, hint) => {
+    const pool = range(lo, hi), good = shuffle(pool.filter(ok)), bad = shuffle(pool.filter(v => !ok(v)));
+    return { q, speak, ok, hint, ans: good[0], nums: shuffle([good[0], ...bad.slice(0, n - 1)]) };
+  };
+  const find = a => ({ q: `Catch the <b class="gnum">${a}</b>!`, speak: `Catch the fish with the number ${a}!`, ans: a, ok: v => v === a, hint: `Look for the number ${a}.`, nums: vals(nearBy(a, [1, -1, 2, -2, 3], 1, 20, n)) });
+  const sum = a => a.find ? find(a.ans) : { q: `Catch <span class="gnum gexpr">${a.q}</span>`, speak: `What is ${a.q}? Catch the fish with the answer!`, ans: a.ans, ok: v => v === a.ans, hint: a.hint, nums: vals(nearBy(a.ans, [1, -1, 2, -2, 10, -10, 5], 0, 2000, n)) };
+  const big = (k, hi, small) => rule(`Catch a number <b class="gnum">${small ? 'smaller' : 'bigger'} than ${k}</b>`, `Catch the fish with a number ${small ? 'smaller' : 'bigger'} than ${k}!`,
+    small ? v => v < k : v => v > k, 1, hi, small ? `Smaller than ${k} means it comes before ${k} when you count.` : `Bigger than ${k} means it comes after ${k} when you count.`);
+  const evenOdd = (hi, odd) => rule(`Catch an <b class="gnum">${odd ? 'odd' : 'even'}</b> number`, `Catch the fish with an ${odd ? 'odd' : 'even'} number!`, odd ? v => v % 2 === 1 : v => v % 2 === 0, 1, hi,
+    odd ? 'Odd numbers end in 1, 3, 5, 7 or 9.' : 'Even numbers end in 0, 2, 4, 6 or 8. They split into pairs.');
+  if (d === 0) { const a = rnd(1, 5); return r < .5 ? find(a) : { q: `Catch this many! ${mdots(a)}`, speak: 'Count the dots. Then catch the fish with that number!', ans: a, ok: v => v === a, hint: 'Touch each dot and count.', nums: vals(nearBy(a, [1, -1, 2, -2], 1, 6, n)) }; }
+  if (d === 1) return r < .3 ? find(rnd(1, 10)) : r < .55 ? big(rnd(3, 7), 10) : r < .7 ? big(rnd(4, 8), 10, true) : sum(gArith(1));
+  if (d === 2) return r < .6 ? sum(gArith(2)) : r < .8 ? big(rnd(8, 15), 20, Math.random() < .4) : evenOdd(12);
+  if (d === 3) {
+    if (r < .55) return sum(gArith(3));
+    if (r < .75) return evenOdd(20, Math.random() < .5);
+    const lo = rnd(5, 14);
+    return rule(`Catch a number <b class="gnum">between ${lo} and ${lo + 4}</b>`, `Catch the fish with a number between ${lo} and ${lo + 4}!`, v => v > lo && v < lo + 4, lo - 6, lo + 10, `Count from ${lo} to ${lo + 4}. Which numbers are in the middle?`);
+  }
+  if (d === 4) {
+    if (r < .5) return sum(gArith(4));
+    if (r < .75) { const m = pick([2, 5, 10]); return rule(`Catch a number you say <b class="gnum">counting in ${m}s</b>`, `Catch the fish with a number you say when you count in ${m}s!`, v => v % m === 0, 11, 60, `Count in ${m}s: ${m}, ${2 * m}, ${3 * m}, ${4 * m}...`); }
+    const t = rnd(2, 9); return rule(`Catch a number with <b class="gnum">${t} tens</b>`, `Catch the fish with a number that has ${t} tens!`, v => Math.floor(v / 10) === t, 10, 99, `${t} tens means the first digit is ${t}.`);
+  }
+  if (d === 5) {
+    if (r < .5) return sum(gArith(5));
+    if (r < .75) { const m = pick([3, 4, 6, 7, 8, 9]); return rule(`Catch a <b class="gnum">multiple of ${m}</b>`, `Catch the fish with a multiple of ${m}!`, v => v % m === 0, 10, 60, `A multiple of ${m} is in the ${m} times table.`); }
+    const t = rnd(3, 9) * 10; return rule(`Catch a number that rounds to <b class="gnum">${t}</b>`, `Catch the fish with a number that rounds to ${t}, to the nearest ten!`, v => Math.round(v / 10) * 10 === t, t - 25, t + 25, 'Look at the ones digit. 5 or more rounds up, 4 or less rounds down.');
+  }
+  if (r < .45) return sum(gArith(6));
+  if (r < .65) return rule('Catch a <b class="gnum">prime number</b>', 'Catch the fish with a prime number!', v => range(2, v - 1).every(k => v % k), 2, 50, 'A prime number can only be divided by 1 and itself.');
+  if (r < .8) return rule('Catch a <b class="gnum">square number</b>', 'Catch the fish with a square number!', v => Number.isInteger(Math.sqrt(v)), 2, 100, 'A square number is a number times itself, like 7 × 7 = 49.');
+  const N = pick([24, 36, 48, 60, 72]);
+  return rule(`Catch a <b class="gnum">factor of ${N}</b>`, `Catch the fish with a factor of ${N}!`, v => N % v === 0, 2, N - 1, `A factor of ${N} divides it with nothing left over.`);
+}
+function fishQ(d) {
+  const f = fishMake(d), kinds = shuffle(['🐟', '🐠', '🐡', '🐟', '🐠']), lap = [17, 15, 13, 12, 11, 10, 10][d];
+  gFrame(`<div class="pond2"><span class="rod" aria-hidden="true">🎣</span>${f.nums.map((v, i) => { const s = lap + rnd(-2, 2);
+      return `<div class="flane"><button class="fish gopt" data-v="${v}"${okA(f.ok(v))} aria-label="fish ${v}" style="--s:${s}s;--dl:-${(Math.random() * s).toFixed(2)}s;--x:${((i * 37) % 100) / 100}"><span class="fb">${kinds[i]}</span><b>${v}</b></button></div>`; }).join('')}
+      <span class="weed w1" aria-hidden="true">🌿</span><span class="weed w2" aria-hidden="true">🪸</span></div>`, f.q, f.speak);
+  const okF = $('.fish[data-ok]');
+  view.querySelectorAll('.fish').forEach(b => b.onclick = () => {
+    if (gm.lock || b.classList.contains('no')) return;
+    if (f.ok(+b.dataset.v)) { b.style.left = getComputedStyle(b).left; b.classList.add('caught'); tone([660, 990, 1320], .07); gameRight(null, 1300, pick(['Got it! 🐟', 'What a catch!', 'Splash! You got it!'])); return; }
+    b.classList.add('no'); gameMiss(null, `That fish has ${b.dataset.v}. ${f.hint}`);
+    if (gm.tries >= 2) okF.classList.add('hint');
+  });
+}
+
+/* ---------- 9. Pizza Party: share slices fairly, then make and name fractions ---------- */
+function fracOpts(n, den, extra = []) {
+  const ans = [n, den], seen = new Set([n / den]), out = [ans];
+  for (const [a, b] of shuffle([[den - n, den], [n + 1, den], [n - 1, den], [n, den * 2], ...extra]))
+    if (out.length < 4 && a >= 1 && b >= 2 && a <= b && !seen.has(a / b)) { seen.add(a / b); out.push([a, b]); }
+  return shuffle(out).map(([a, b]) => ({ html: frac(a, b), val: `${a}/${b}`, label: fw(a, b) }));
+}
+function pizzaMake(d) {
+  const r = Math.random();
+  const share = (fMax, eMax) => { const f = rnd(2, fMax), e = rnd(1, Math.min(eMax, Math.floor(12 / f))); return { mode: 'share', f, e, den: f * e, ans: e, choices: nearBy(e, [1, -1, 2], 1, 12, 3) }; };
+  const make = (dts, maxMul) => { const dt = pick(dts), n = rnd(1, dt - 1), m = rnd(1, Math.max(1, Math.min(maxMul, Math.floor(12 / dt)))); return { mode: 'make', dt, n, den: dt * m, need: n * m }; };
+  const left = dens => { const den = pick(dens), k = rnd(1, den - 1); return { mode: 'left', den, k, ans: `${den - k}/${den}`, choices: fracOpts(den - k, den) }; };
+  const add = dens => { const den = pick(dens), a = rnd(1, den - 2), b = rnd(1, den - 1 - a); return { mode: 'add', den, a, b, ans: `${a + b}/${den}`, choices: fracOpts(a + b, den, [[a + b, den * 2]]) }; };
+  if (d === 0) return share(2, 3);
+  if (d === 1) return share(3, 3);
+  if (d === 2) return r < .7 ? share(4, 3) : make([2], 2);
+  if (d === 3) return r < .3 ? share(4, 4) : make([2, 3, 4], 1);
+  if (d === 4) return r < .6 ? make([2, 3, 4, 6, 8], 3) : left([4, 6, 8]);
+  if (d === 5) return r < .35 ? left([4, 5, 6, 8, 10, 12]) : r < .65 ? add([4, 5, 6, 8]) : make([3, 4, 5, 6], 2);
+  if (r < .4) { const dt = pick([2, 3, 4, 6]), N = dt * rnd(2, Math.floor(12 / dt)), n = rnd(1, dt - 1), ans = N / dt * n; return { mode: 'of', dt, n, den: N, ans, choices: nearBy(ans, [1, -1, N / dt, -N / dt, 2], 1, N, 4) }; }
+  return r < .7 ? add([5, 6, 8, 10, 12]) : make([2, 3, 4, 6], 4);
+}
+const PIZ = (a, r) => `${(50 + r * Math.cos(a)).toFixed(2)} ${(50 + r * Math.sin(a)).toFixed(2)}`;
+function pizzaInner(den, stt) {
+  let s = '<circle cx="50" cy="50" r="49.5" fill="#fff" stroke="#CCDBE6" stroke-width="1.5"/>';
+  for (let i = 0; i < den; i++) {
+    const a0 = i / den * 2 * Math.PI - Math.PI / 2, a1 = (i + 1) / den * 2 * Math.PI - Math.PI / 2, am = (a0 + a1) / 2, w = a1 - a0;
+    const wedge = rr => `M50 50 L${PIZ(a0, rr)} A${rr} ${rr} 0 0 1 ${PIZ(a1, rr)} Z`;
+    if (stt[i] < 0) { s += `<path class="pz gone" data-i="${i}" d="${wedge(44)}" fill="#F6EBD6" stroke="#E2CFA8" stroke-width="1.2" stroke-dasharray="3 3"/>`; continue; }
+    const spots = den <= 2 ? [[22, am - w / 4], [22, am + w / 4], [33, am]] : den <= 4 ? [[18, am], [32, am - w / 5], [32, am + w / 5]] : den <= 6 ? [[17, am], [31, am]] : [[29, am]];
+    const pep = stt[i] > 0 ? spots.map(([rr, a]) => `<circle cx="${(50 + rr * Math.cos(a)).toFixed(1)}" cy="${(50 + rr * Math.sin(a)).toFixed(1)}" r="${den > 8 ? 4.6 : 6}" fill="#D9442F" stroke="#A82E1F" stroke-width="1"/>`).join('') : '';
+    s += `<g class="pz${stt[i] > 0 ? ' on' : ''}" data-i="${i}"><path d="${wedge(45)}" fill="#E9A23B" stroke="#9C5E14" stroke-width="1.4"/><path d="${wedge(38.5)}" fill="#FFD45C" stroke="#E8B53A" stroke-width=".8"/>${pep}</g>`;
+  }
+  return s;
+}
+const pizzaSVG = (den, stt, id = '') => `<svg class="pizza"${id ? ` id="${id}"` : ''} viewBox="-1 -1 102 102" role="img" aria-label="pizza cut into ${den} slices">${pizzaInner(den, stt)}</svg>`;
+function pizzaQ(d) {
+  const p = pizzaMake(d), FR = shuffle(['🐻', '🐰', '🐱', '🐶', '🦊', '🐼']);
+  let stt, body, prompt, speak, hint;
+  // Tapping slices is a helper everywhere: in "share" they move to the plates, otherwise they toggle pepperoni.
+  if (p.mode === 'share') {
+    stt = Array(p.den).fill(1);
+    body = `<div class="pzrow"><div class="pzwrap">${pizzaSVG(p.den, stt, 'pzz')}</div><div class="plates">${Array.from({ length: p.f }, (_, k) =>
+      `<div class="plate"><span class="who">${FR[k]}</span><span class="pile" id="pl${k}"></span></div>`).join('')}</div></div>${choicesHTML(p.choices, p.ans)}`;
+    prompt = `<b>${p.den}</b> slices, <b>${p.f}</b> friends. How many <b class="gnum">each</b>?`;
+    speak = `There are ${p.den} slices of pizza and ${p.f} hungry friends. Tap the slices to share them out fairly. How many slices does each friend get?`;
+    hint = 'Tap the pizza to give out the slices one at a time. Then count one plate.';
+  } else if (p.mode === 'make') {
+    stt = Array(p.den).fill(0);
+    body = `<div class="pzwrap" data-need="${p.need}">${pizzaSVG(p.den, stt, 'pzz')}</div><div class="pzbar"><b id="pzc">0 of ${p.den} slices</b><button class="btn leaf serve" id="serve">Serve 🍽️</button></div>`;
+    prompt = `Put pepperoni on <span class="gnum">${frac(p.n, p.dt)}</span> of the pizza!`;
+    speak = `This pizza has ${p.den} slices. Put pepperoni on ${fw(p.n, p.dt)} of the pizza. Tap the slices, then tap Serve!`;
+  } else if (p.mode === 'left') {
+    stt = Array(p.den).fill(1); shuffle(range(0, p.den - 1)).slice(0, p.k).forEach(i => stt[i] = -1);
+    body = `<div class="pzwrap">${pizzaSVG(p.den, stt, 'pzz')}<span class="muncher" aria-hidden="true">🦉</span></div>${choicesHTML(p.choices, p.ans)}`;
+    prompt = `Owl ate <b>${p.k}</b> of the ${p.den} slices. What fraction is <b class="gnum">left</b>?`;
+    speak = `The pizza had ${p.den} slices. Owl ate ${p.k}. What fraction of the pizza is left?`;
+    hint = `Count the slices that are left. The bottom number is how many slices the whole pizza had: ${p.den}.`;
+  } else if (p.mode === 'add') {
+    const A = range(0, p.den - 1).map(i => i < p.a ? 1 : 0), B = range(0, p.den - 1).map(i => i < p.b ? 1 : 0);
+    body = `<div class="pzrow two"><div class="pzwrap sm">${pizzaSVG(p.den, A)}</div><b class="plus">+</b><div class="pzwrap sm">${pizzaSVG(p.den, B)}</div></div>${choicesHTML(p.choices, p.ans)}`;
+    prompt = `<span class="gexpr">${frac(p.a, p.den)} + ${frac(p.b, p.den)} = <span class="gnum">?</span></span>`;
+    speak = `What is ${fw(p.a, p.den)} plus ${fw(p.b, p.den)}?`;
+    hint = `The slices are the same size, so add the top numbers: ${p.a} + ${p.b}. The bottom number stays ${p.den}.`;
+  } else {
+    stt = Array(p.den).fill(0);
+    body = `<div class="pzwrap">${pizzaSVG(p.den, stt, 'pzz')}</div>${choicesHTML(p.choices, p.ans)}`;
+    prompt = `What is <span class="gnum">${frac(p.n, p.dt)}</span> of <b>${p.den}</b> slices?`;
+    speak = `What is ${fw(p.n, p.dt)} of ${p.den} slices? You can tap slices to help.`;
+    hint = `Split ${p.den} slices into ${p.dt} equal groups. How many in one group? Then take ${p.n} group${p.n > 1 ? 's' : ''}.`;
+  }
+  gFrame(body, prompt, speak);
+  const svg = $('#pzz'); let dealt = 0;
+  const draw = () => svg.innerHTML = pizzaInner(p.den, stt);
+  const give = i => { stt[i] = -1; const k = dealt++ % p.f; $('#pl' + k).insertAdjacentHTML('beforeend', '<i>🍕</i>'); draw(); };
+  if (svg) svg.onclick = e => {
+    const g = e.target.closest('.pz'); if (!g || gm.lock) return; const i = +g.dataset.i;
+    if (p.mode === 'share') { if (stt[i] > 0) { give(i); tone([500 + dealt * 30], .07); say(String(Math.ceil(dealt / p.f))); } return; }
+    if (stt[i] < 0) return;
+    stt[i] = stt[i] ? 0 : 1; draw(); tone([stt[i] ? 700 : 420], .06);
+    const c = stt.filter(v => v > 0).length, cnt = $('#pzc'); if (cnt) cnt.textContent = `${c} of ${p.den} slices`;
+  };
+  if (p.mode !== 'make') return wireChoices(p.ans, hint, () => { if (p.mode === 'share') stt.forEach((v, i) => { if (v > 0) give(i); }); }, 1500);
+  $('#serve').onclick = () => {
+    if (gm.lock) return;
+    const c = stt.filter(v => v > 0).length;
+    if (c === p.need) return gameRight($('#serve'), 1500, pick(['Yum! Perfect pizza!', 'Order up! 🍕', 'Delicious!']));
+    const per = p.den / p.dt;
+    gameMiss($('.pzbar'), c === 0 ? `Tap some slices to put pepperoni on them first.` :
+      gm.tries >= 1 ? `${frac(p.n, p.dt)}: the pizza is ${p.dt} equal parts${per > 1 ? ` of ${per} slices each` : ''}. Put pepperoni on ${p.need} slices.` :
+      `You have ${c}. The bottom number ${p.dt} means ${p.dt} equal parts. The top number ${p.n} means ${p.n} of them.`, $('#serve'), c > p.need ? 'Too many!' : c ? 'Not enough!' : 'Tap the slices!');
+  };
+}
+
+/* ---------- 10. Feed the Animals: equal groups, then times and sharing ---------- */
+const CRIT = [['🐰', 'bunny', 'bunnies', '🥕', 'carrot', 'carrots'], ['🐴', 'horse', 'horses', '🍎', 'apple', 'apples'], ['🐵', 'monkey', 'monkeys', '🍌', 'banana', 'bananas'],
+  ['🐿️', 'squirrel', 'squirrels', '🌰', 'acorn', 'acorns'], ['🐶', 'puppy', 'puppies', '🦴', 'bone', 'bones'], ['🐔', 'hen', 'hens', '🌽', 'corn cob', 'corn cobs'], ['🐼', 'panda', 'pandas', '🎋', 'bamboo stick', 'bamboo sticks']];
+function feedMake(d) {
+  const c = pick(CRIT), r = Math.random();
+  if (d <= 2) { const g = d === 0 ? rnd(2, 3) : rnd(2, d === 1 ? 3 : 4), e = d === 0 ? rnd(1, 2) : rnd(d === 1 ? 1 : 2, 3); return { mode: 'feed', c, g, e, ans: g * e, total: d === 2, choices: nearBy(g * e, [1, -1, 2, -2, e, -e], 1, 40, 3) }; }
+  const mul = (g, e) => ({ mode: 'mul', c, g, e, ans: g * e, choices: nearBy(g * e, [g, -g, e, -e, 1, -1, 10], 1, 200, 4) });
+  const div = (g, e) => ({ mode: 'div', c, g, e, T: g * e, ans: e, choices: nearBy(e, [1, -1, 2, -2], 1, 20, 4) });
+  if (d === 3) return r < .7 ? mul(rnd(2, 5), pick([2, 3, 4, 5, 10])) : div(rnd(2, 4), rnd(2, 4));
+  if (d === 4) return r < .6 ? mul(rnd(2, 10), pick([2, 3, 4, 5, 10])) : div(rnd(2, 5), rnd(2, 5));
+  if (d === 5) return r < .5 ? mul(rnd(2, 10), rnd(2, 10)) : div(rnd(2, 10), rnd(2, 10));
+  if (r < .35) return mul(rnd(3, 12), rnd(3, 12));
+  if (r < .65) return div(rnd(3, 12), rnd(3, 12));
+  const g = rnd(3, 9), e = rnd(2, 9), L = rnd(1, g - 1), ans = `${e} r ${L}`;
+  const ch = [[e, L], [e + 1, L], [e - 1, L], [e, L === 1 ? 2 : L - 1]];
+  return { mode: 'rem', c, g, e, L, T: g * e + L, ans, choices: shuffle(ch).map(([a, b]) => ({ html: `${a}<small>r</small>${b}`, val: `${a} r ${b}`, label: `${a} each, ${b} left over` })) };
+}
+const plateHTML = (n, food) => n <= 10 ? `<span class="fd n${Math.min(n, 10)}">${food.repeat(n)}</span>` : `<span class="fd big"><b>${n}</b>${food}</span>`;
+function feedQ(d) {
+  const p = feedMake(d), [ce, one, many, food, f1, fN] = p.c, fe = n => n === 1 ? f1 : fN;
+  const farm = (inner, cls = '') => `<div class="farm ${cls}" style="--g:${p.g}">${inner}</div>`;
+  if (p.mode === 'feed') {
+    const fed = Array(p.g).fill(0); let phase2 = false;
+    gFrame(farm(range(0, p.g - 1).map(k => `<button class="critter gopt" data-k="${k}" data-ok="1" aria-label="${one} ${k + 1}"><span class="ce">${ce}</span><span class="dish" id="fp${k}"></span></button>`).join(''), 'big') + '<div id="feedq" class="feedq"></div>',
+      `Give each ${one} <b class="gnum">${p.e}</b> <span class="fneed">${food.repeat(p.e)}</span>`, `Give each ${one} ${p.e} ${fe(p.e)}. Tap an animal to give it one.`);
+    view.querySelectorAll('.critter').forEach(b => b.onclick = () => {
+      if (gm.lock || phase2) return; const k = +b.dataset.k;
+      if (fed[k] >= p.e) { gameMiss(b, `This ${one} already has ${p.e}. Feed a hungry one!`, view.querySelector('.critter[data-ok]'), 'I am full!'); b.classList.remove('no'); return; }
+      fed[k]++; $('#fp' + k).innerHTML = plateHTML(fed[k], food); tone([520 + fed[k] * 90], .07); say(String(fed[k]));
+      if (fed[k] === p.e) { b.removeAttribute('data-ok'); b.classList.remove('hint'); b.classList.add('full'); const nx = view.querySelector('.critter[data-ok]'); if (nx && gm.tries >= 2) nx.classList.add('hint'); }
+      if (fed.some(v => v < p.e)) return;
+      if (!p.total) return gameRight(null, 1400, `Yum! Every ${one} has ${p.e}!`);
+      phase2 = true; $('.ptext').innerHTML = `How many ${fN} <b class="gnum">altogether</b>?`;
+      $('#feedq').innerHTML = choicesHTML(p.choices, p.ans); say(`Yum! Now, how many ${fN} altogether?`);
+      wireChoices(p.ans, `Count all the ${fN}: ${range(1, p.g).map(k => k * p.e).join(', ')}.`, null, 1300);
+    });
+    return;
+  }
+  let body, prompt, speak, hint, deal = null;
+  if (p.mode === 'mul') {
+    body = farm(range(1, p.g).map(() => `<div class="critter"><span class="ce">${ce}</span><span class="dish">${plateHTML(p.e, food)}</span></div>`).join(''));
+    prompt = `${p.g} ${many}, <b>${p.e}</b> ${fe(p.e)} each. How many <b class="gnum">in all</b>?`;
+    speak = `There are ${p.g} ${many}. Each one has ${p.e} ${fe(p.e)}. How many ${fN} in all?`;
+    hint = `${p.g} groups of ${p.e}. Count in ${p.e}s: ${range(1, Math.min(p.g, 3)).map(k => k * p.e).join(', ')}...`;
+  } else {
+    const T = p.T, fedN = Array(p.g).fill(0);
+    body = `<button class="pile2" id="pile" aria-label="${T} ${fN}. Tap to share one out"><b id="pileN">${T}</b>${food}</button>` + farm(range(0, p.g - 1).map(k => `<div class="critter"><span class="ce">${ce}</span><span class="dish" id="fp${k}"></span></div>`).join(''));
+    deal = () => { if (T <= 0) return; const k = fedN.reduce((a, b) => a + b, 0); if (k >= T) return; fedN[k % p.g]++; $('#fp' + (k % p.g)).innerHTML = plateHTML(fedN[k % p.g], food); $('#pileN').textContent = T - k - 1; tone([440 + (k % p.g) * 60], .06); };
+    if (p.mode === 'div') {
+      prompt = `Share <b>${T}</b> ${fN} with ${p.g} ${many}. How many <b class="gnum">each</b>?`;
+      speak = `Share ${T} ${fN} fairly with ${p.g} ${many}. How many does each one get? Tap the pile to share them out.`;
+      hint = `What times ${p.g} makes ${T}? You can tap the pile to share them out.`;
+    } else {
+      prompt = `Share <b>${T}</b> ${fN} with ${p.g} ${many}. How many each, and how many <b class="gnum">left over</b>?`;
+      speak = `Share ${T} ${fN} fairly with ${p.g} ${many}. How many does each get, and how many are left over?`;
+      hint = `Find the biggest number in the ${p.g} times table that fits in ${T}. Then what is left?`;
+    }
+  }
+  gFrame(body + choicesHTML(p.choices, p.ans), prompt, speak);
+  if (deal) $('#pile').onclick = () => { if (!gm.lock) deal(); };
+  wireChoices(p.ans, hint, () => { if (deal) for (let k = 0; k < p.T; k++) deal(); }, 1500);
+}
+
+/* ---------- 11. Rocket Countdown: count back to blast off, or land the rocket on a number line ---------- */
+function rocketMake(d, i = 0) {
+  if (d === 0 || i % 2 === 0) {
+    let step = 1, start, len = 6;
+    if (d === 0) { start = rnd(3, 5); len = start; }
+    else if (d === 1) { start = rnd(5, 10); len = start; }
+    else if (d === 2) start = rnd(9, 20);
+    else if (d === 3) { step = 2; start = rnd(12, 30); }
+    else if (d === 4) { step = pick([5, 10]); start = step * rnd(6, step === 5 ? 20 : 10); }
+    else if (d === 5) { step = pick([3, 4, 25]); start = step === 25 ? 25 * rnd(6, 12) : rnd(20, 50); }
+    else { step = pick([6, 7, 8, 9, 11, 12]); start = rnd(10, 40); }
+    const seq = range(0, len - 1).map(k => start - k * step), given = d >= 2;
+    const dec = [...new Set(shuffle([start + 1, start + 2, start + step, ...seq.map(v => v + 1), ...seq.map(v => v - 1)]))].filter(v => !seq.includes(v) && (d === 6 || v >= 0)).slice(0, d <= 1 ? 2 : 3);
+    return { mode: 'count', step, start, seq, given, pad: shuffle([...(given ? seq.slice(1) : seq), ...dec]) };
+  }
+  let a, b;
+  if (d === 1) { a = rnd(3, 10); b = rnd(1, 3); }
+  else if (d === 2) { a = rnd(4, 10); b = rnd(1, Math.min(6, a)); }
+  else if (d === 3) { a = rnd(10, 20); b = rnd(2, 8); }
+  else if (d === 4) { a = rnd(20, 99); b = rnd(3, 19); }
+  else if (d === 5) { a = rnd(40, 150); b = rnd(11, Math.min(99, a - 5)); }
+  else { a = rnd(-5, 12); b = Math.random() < .6 ? rnd(3, 8) : rnd(9, 15); }
+  const ans = a - b;
+  return { mode: 'sub', a, b, ans, lad: b <= 8, choices: nearBy(ans, [1, -1, 2, -2, 10, -10], d === 6 ? -60 : 0, 999, d <= 2 ? 3 : 4) };
+}
+function rocketQ(d) {
+  const p = rocketMake(d, gm.i);
+  if (p.mode === 'count') {
+    const { seq, step, given } = p; let at = given ? 1 : 0;
+    gFrame(`<div class="space"><div class="lights" style="--n:${seq.length}">${seq.map((v, k) => `<i class="${given && !k ? 'lit' : ''}">${given && !k ? mn(v) : ''}</i>`).join('')}</div>
+        <span class="rocket" id="rk" aria-hidden="true">🚀<span class="flame">🔥</span></span><span class="pad0" aria-hidden="true"></span></div>
+      <div class="numpad">${p.pad.map(v => `<button class="nkey gopt" data-v="${v}"${okA(v === seq[at])}>${mn(v)}</button>`).join('')}</div>`,
+      given ? `Count down${step > 1 ? ` by <b class="gnum">${step}s</b>` : ''} from <b>${mn(p.start)}</b>!` : `Count down from <b class="gnum">${p.start}</b>!`,
+      `Count down from ${mn(p.start)}${step > 1 ? ` by ${step}s` : ''}. Tap the numbers in order!`);
+    const lights = view.querySelectorAll('.lights i');
+    view.querySelectorAll('.nkey').forEach(b => b.onclick = () => {
+      if (gm.lock || b.classList.contains('used') || b.classList.contains('no')) return;
+      const v = +b.dataset.v;
+      if (v !== seq[at]) {
+        const prev = at ? seq[at - 1] : null;
+        gameMiss(b, prev == null ? `Start with ${p.start}!` : step === 1 ? `What number comes just before ${mn(prev)}?` : `Take away ${step} from ${mn(prev)}.`, view.querySelector('.nkey[data-ok]'));
+        if (seq.includes(v)) b.classList.remove('no');
+        return;
+      }
+      b.classList.add('used'); b.classList.remove('hint'); b.removeAttribute('data-ok'); lights[at].classList.add('lit'); lights[at].textContent = mn(v); say(mn(v)); tone([300 + 60 * (seq.length - at)], .1); at++;
+      if (at < seq.length) { const nx = view.querySelector(`.nkey[data-v="${seq[at]}"]`); nx.dataset.ok = '1'; if (gm.tries >= 2) nx.classList.add('hint'); return; }
+      $('#rk').classList.add('go'); $('.space').classList.add('launch'); tone([262, 330, 392, 523, 784], .09);
+      gameRight(null, 2000, 'Blast off! 🚀');
+    });
+    return;
+  }
+  const { a, b, ans } = p;
+  const top = p.lad ? `<div class="space sub"><div class="ladder" id="lad">${range(ans - 1, a + 1).reverse().map(v => `<div class="rung${v === 0 ? ' zero' : ''}" data-v="${v}"><span>${mn(v)}</span></div>`).join('')}</div>
+      <span class="rocket down" id="rk" aria-hidden="true">🚀</span><span class="moon" aria-hidden="true">🌍</span></div>`
+    : `<div class="space eq"><span class="rocket" aria-hidden="true">🚀</span><b class="eqn">${mn(a)} − ${b} = ?</b></div>`;
+  gFrame(top + choicesHTML(p.choices, ans), p.lad ? `🚀 is at <b>${mn(a)}</b>. It flies down <b class="gnum">${b}</b>. Where does it land?` : `<span class="gexpr">${mn(a)} − ${b} = <span class="gnum">?</span></span>`,
+    p.lad ? `The rocket is at ${mn(a)}. It flies down ${b}. Where does it land?` : `What is ${mn(a)} minus ${b}?`);
+  const rk = $('#rk'), rung = v => view.querySelector(`.rung[data-v="${v}"]`);
+  const place = v => { const r = rung(v); if (r && rk) rk.style.top = r.offsetTop + r.offsetHeight / 2 + 'px'; };
+  if (p.lad) { rk.style.transition = 'none'; place(a); void rk.offsetWidth; rk.style.transition = ''; }
+  wireChoices(ans, `Start at ${mn(a)} and count back ${b}.`, () => {
+    if (!p.lad) return;
+    for (let j = 1; j <= b; j++) gLater(() => { place(a - j); tone([700 - j * 40], .06); }, j * 230);
+    gLater(() => { const r = rung(ans); if (r) r.classList.add('land'); }, b * 230 + 150);
+  }, p.lad ? b * 230 + 1100 : 1100);
+}
+
+/* ---------- 12. Target Practice: bigger, smaller, and < = > ---------- */
+function targetMake(d) {
+  const r = Math.random();
+  const N = v => ({ v, h: mn(v), s: mn(v), k: v < 0 ? 'neg' : 'n' });
+  const F = (a, b) => ({ v: a / b, h: frac(a, b), s: fw(a, b), k: 'f' });
+  const D = (n, dp) => ({ v: n / 10 ** dp, h: (n / 10 ** dp).toFixed(dp), s: (n / 10 ** dp).toFixed(dp), k: 'dec' });
+  const apart = it => it.every((x, i) => it.every((y, j) => i === j || Math.abs(x.v - y.v) > 1e-9));
+  const pk = (gen, k, small) => { let it; for (let t = 0; t < 200; t++) { it = range(1, k).map(gen); if (apart(it)) break; } const vs = it.map(x => x.v), ans = vs.indexOf(small ? Math.min(...vs) : Math.max(...vs)); return { mode: 'pick', items: it, small, ans }; };
+  const sg = (A, B) => ({ mode: 'sign', items: [A, B], ans: Math.abs(A.v - B.v) < 1e-9 ? 'eq' : A.v < B.v ? 'lt' : 'gt' });
+  const coin = () => Math.random() < .5;
+  if (d === 0) return pk(() => { const v = rnd(1, 5); return { v, h: mdots(v), s: `${v} dots`, k: 'dots' }; }, 2, false);
+  if (d === 1) return pk(() => N(rnd(1, 10)), 2, r < .35);
+  if (d === 2) { if (r < .6) return pk(() => N(rnd(1, 20)), r < .3 ? 3 : 2, coin()); const a = rnd(1, 20); return sg(N(a), N(Math.random() < .15 ? a : rnd(1, 20))); }
+  if (d === 3) {
+    if (r < .5) return pk(() => N(rnd(10, 100)), 3, coin());
+    const a = rnd(12, 98), sw = a % 10 * 10 + Math.floor(a / 10), b = Math.random() < .3 && a % 10 ? sw : Math.random() < .1 ? a : clamp(a + pick([-1, 1]) * rnd(1, 15), 1, 100);
+    return sg(N(a), N(b));
+  }
+  if (d === 4) {
+    if (r < .4) { const h = rnd(1, 9) * 100; return pk(() => N(h + rnd(0, 99)), 3, coin()); }
+    const x = rnd(2, 10), y = rnd(2, 10), mul = coin(), v = mul ? x * y : x + y, E = { v, h: `${x} ${mul ? '×' : '+'} ${y}`, s: `${x} ${mul ? 'times' : 'plus'} ${y}`, k: 'e' };
+    const c = Math.max(1, v + pick([-2, -1, 0, 0, 1, 2]));
+    return coin() ? sg(E, N(c)) : sg(N(c), E);
+  }
+  if (d === 5) {
+    if (r < .45) return pk(() => coin() ? D(rnd(1, 9), 1) : D(rnd(1, 99), 2), 3, coin());
+    if (r < .9) { const den = pick([3, 4, 5, 6, 8, 10]); if (coin()) return sg(F(rnd(1, den - 1), den), F(rnd(1, den - 1), den)); const n = rnd(1, 3); return sg(F(n, pick([2, 3, 4, 5])), F(n, pick([6, 8, 10]))); }
+    return coin() ? sg(F(1, 2), D(5, 1)) : sg(D(pick([25, 75]), 2), F(pick([25, 75]) / 25, 4));
+  }
+  if (r < .35) return pk(() => N(rnd(-20, 20)), 3, coin());
+  if (r < .7) { const A = pick([2, 3, 4, 5, 6, 8]), B = pick([2, 3, 4, 5, 6, 8]); return sg(F(rnd(1, A - 1), A), F(rnd(1, B - 1), B)); }
+  const dn = pick([2, 4, 5, 10]), n = rnd(1, dn - 1), v = Math.round(n / dn * 100) + pick([-5, 0, 0, 5, 10]);
+  return coin() ? sg(F(n, dn), D(clamp(v, 5, 95), 2)) : sg(D(clamp(v, 5, 95), 2), F(n, dn));
+}
+function targetHint(it, small) {
+  const k = it[0].k;
+  if (k === 'dots') return 'Count the dots on each target.';
+  if (it.some(x => x.k === 'neg')) return 'With minus numbers, the one closer to zero is bigger.';
+  if (it.some(x => x.k === 'dec') && it.some(x => x.k === 'f')) return 'Turn the fraction into a decimal: one half is 0.5, one quarter is 0.25.';
+  if (it.some(x => x.k === 'dec')) return 'Line up the decimal points. Compare the tenths first, then the hundredths.';
+  if (it.some(x => x.k === 'f')) return 'Picture the pizzas. More slices means smaller slices. Compare how much is shaded.';
+  if (it.some(x => x.k === 'e')) return 'Work out the sum or times first, then compare.';
+  return it.some(x => x.v >= 10) ? 'Compare the tens first. If they match, compare the ones.' : `Which comes ${small ? 'first' : 'later'} when you count?`;
+}
+function targetQ(d) {
+  const p = targetMake(d), it = p.items, hint = targetHint(it, p.small);
+  if (p.mode === 'pick') {
+    const w = it[0].k === 'dots' ? 'more' : `${p.small ? 'small' : 'bigg'}${it.length > 2 ? 'est' : 'er'}`;
+    gFrame(`<div class="range"><div class="targets t${it.length}">${it.map((x, i) => `<button class="tgt gopt${x.k === 'dots' ? ' dots' : ''}" data-v="${i}"${okA(i === p.ans)} aria-label="${esc(x.s)}"><span class="bull">${x.h}</span></button>`).join('')}</div>
+        <span class="bow" aria-hidden="true">🏹</span></div>`,
+      it[0].k === 'dots' ? 'Which target has <b class="gnum">more</b> dots?' : `Hit the <b class="gnum">${w}</b> number!`,
+      it[0].k === 'dots' ? 'Which target has more dots? Tap it!' : `Which is ${w}? ${it.map(x => x.s).join(', or ')}? Tap it!`);
+    view.querySelectorAll('.tgt').forEach(b => b.onclick = () => {
+      if (gm.lock || b.classList.contains('no')) return;
+      if (+b.dataset.v === p.ans) { b.insertAdjacentHTML('beforeend', '<span class="dart" aria-hidden="true">🏹</span>'); $('.bow').classList.add('shot'); tone([1200, 900], .05); gameRight(b, 1200, pick(['Bullseye! 🎯', 'Right on target!', 'Great shot!'])); }
+      else gameMiss(b, `${it[+b.dataset.v].s} is ${p.small ? 'not the smallest' : 'not the biggest'}. ${hint}`, $('.tgt[data-ok]'));
+    });
+    return;
+  }
+  const [A, B] = it, SIGN = { lt: '&lt;', eq: '=', gt: '&gt;' };
+  gFrame(`<div class="cmp"><span class="cv">${A.h}</span><span class="slot" id="slot">?</span><span class="cv">${B.h}</span></div>
+    ${choicesHTML([{ html: '&lt;', val: 'lt', label: 'less than' }, { html: '=', val: 'eq', label: 'equals' }, { html: '&gt;', val: 'gt', label: 'greater than' }], p.ans)}
+    <p class="note gsign">🐊 The open mouth eats the bigger number.</p>`,
+    'Which sign goes in the middle?', `${A.s}, and ${B.s}. Is the first one less than, equal to, or greater than the second?`);
+  wireChoices(p.ans, v => v === 'eq' ? `They are not the same. ${hint}` : `${hint} The open mouth points at the bigger one.`, () => { const s = $('#slot'); s.innerHTML = SIGN[p.ans]; s.classList.add('got'); }, 1300);
+}
+
+/* ---------- 13. Bee Hive Pairs: tap two honeycombs that make the number ---------- */
+function beeMake(d) {
+  const r = Math.random(), k = d === 0 ? 4 : d <= 2 ? 7 : d <= 4 ? 8 : 10;
+  let T, op = '+', sc = 1, unit = 1, lo = 1, hi;
+  if (d === 0) { T = rnd(3, 5); hi = T + 2; }
+  else if (d === 1) { T = rnd(5, 7); hi = T + 4; }
+  else if (d === 2) { T = r < .7 ? 10 : rnd(6, 9); hi = T + 5; }
+  else if (d === 3) { T = r < .4 ? 20 : rnd(11, 19); hi = T + 6; }
+  else if (d === 4) { if (r < .5) { T = 100; unit = lo = 10; hi = 150; } else { T = rnd(20, 50); hi = T + 9; } }
+  else if (d === 5) { if (r < .6) { T = 100; hi = 120; } else { T = 10; sc = 10; hi = 15; } }
+  else if (r < .35) { T = 1000; unit = lo = 50; hi = 1200; }
+  else if (r < .7) { op = '×'; T = pick([12, 18, 20, 24, 30, 36, 40, 48, 60]); lo = 2; hi = 15; }
+  else { T = 100; sc = 100; unit = lo = 5; hi = 130; }
+  const comb = (x, y) => op === '+' ? x + y : x * y, all = range(lo, hi, unit);
+  const firsts = all.filter(a => { const b = op === '+' ? T - a : T / a; return b !== a && all.includes(b); });
+  const a = pick(firsts), b = op === '+' ? T - a : T / a, out = [a, b];
+  for (const v of shuffle(all)) if (out.length < k && !out.includes(v) && out.every(x => comb(x, v) !== T)) out.push(v);
+  return { T, op, sc, a, b, nums: shuffle(out) };
+}
+const beeShow = (v, sc) => sc === 1 ? String(v) : (v / sc).toFixed(sc === 10 ? 1 : 2);
+function beeQ(d) {
+  const p = beeMake(d), S = v => beeShow(v, p.sc), rows = { 4: [1, 2, 1], 7: [2, 3, 2], 8: [3, 2, 3], 10: [3, 4, 3] }[p.nums.length];
+  let j = 0;
+  gFrame(`<div class="hive">${rows.map(n => `<div class="hrow">${range(1, n).map(() => { const v = p.nums[j++];
+      return `<button class="hex gopt" data-v="${v}"${okA(v === p.a || v === p.b)}><span>${S(v)}</span></button>`; }).join('')}</div>`).join('')}
+      <span class="bee1" aria-hidden="true">🐝</span></div>`,
+    p.op === '+' ? `Find two that make <b class="gnum">${S(p.T)}</b>` : `Find two that <b>multiply</b> to make <b class="gnum">${p.T}</b>`,
+    p.op === '+' ? `Tap two honeycombs that add up to ${S(p.T)}.` : `Tap two honeycombs that multiply to make ${p.T}.`);
+  let sel = null;
+  view.querySelectorAll('.hex').forEach(h => h.onclick = () => {
+    if (gm.lock) return;
+    if (!sel) { sel = h; h.classList.add('sel'); tone([600], .06); say(S(+h.dataset.v)); return; }
+    if (sel === h) { h.classList.remove('sel'); sel = null; return; }
+    const x = +sel.dataset.v, y = +h.dataset.v, first = sel; sel = null;
+    if ((p.op === '+' ? x + y : x * y) === p.T) {
+      first.classList.add('right'); h.classList.remove('sel'); h.classList.add('right'); first.classList.remove('sel');
+      const bee = $('.bee1'); if (bee) { bee.style.left = h.offsetLeft + h.offsetWidth / 2 + 'px'; bee.style.top = h.offsetTop + 'px'; bee.classList.add('fly'); }
+      return gameRight(null, 1400, `${S(x)} ${p.op} ${S(y)} = ${S(p.T)}! 🍯`);
+    }
+    first.classList.remove('sel');
+    const ok1 = $('.hex[data-ok]');
+    gameMiss(h, p.op === '+' ? `${S(x)} and ${S(y)} make ${S(x + y)}. ${x + y > p.T ? 'Too much!' : 'Not enough!'} Pick one number, then find what adds on to make ${S(p.T)}.` : `${x} times ${y} is ${x * y}. What times ${x} makes ${p.T}?`, ok1);
+    h.classList.remove('no'); first.classList.add('wob');
+    setTimeout(() => first.classList.remove('wob'), 400);
+  });
+}
+
+/* ---------- 14. Treasure Map: steps on a grid, then (x, y) coordinates ---------- */
+const MDIR = { r: [1, 0, '→', 'right'], l: [-1, 0, '←', 'left'], u: [0, 1, '↑', 'up'], d: [0, -1, '↓', 'down'] };
+function walkFrom(N0, N1, nm, mx, sx, sy) {
+  for (let t = 0; t < 500; t++) {
+    let x = sx != null ? sx : rnd(N0, N1), y = sy != null ? sy : rnd(N0, N1), hz = Math.random() < .5; const start = [x, y], moves = [], path = [[x, y]];
+    for (let m = 0; m < nm; m++, hz = !hz) { const dir = hz ? pick(['r', 'l']) : pick(['u', 'd']), n = rnd(1, mx); for (let s = 0; s < n; s++) { x += MDIR[dir][0]; y += MDIR[dir][1]; path.push([x, y]); } moves.push([dir, n]); }
+    if (path.every(([px, py]) => px >= N0 && py >= N0 && px <= N1 && py <= N1)) return { start, moves, path, ans: [x, y] };
+  }
+  return null;
+}
+function mapMake(d) {
+  const r = Math.random();
+  if (d <= 3) { const N = [4, 5, 5, 6][d]; return Object.assign({ mode: 'walk', lo: 0, hi: N - 1 }, walkFrom(0, N - 1, [1, 1, 2, 3][d], [2, 4, 3, 3][d])); }
+  const lo = d === 6 ? -3 : 0, hi = d === 4 ? 5 : d === 5 ? 6 : 3, P = () => [rnd(lo, hi), rnd(lo, hi)];
+  if (d >= 5 && r < .3) {
+    const [x, y] = P(), key = ([a, b]) => a + ',' + b, seen = new Set([key([x, y])]), out = [[x, y]];
+    for (const c of [[y, x], [x + 1, y], [x, y + 1], [x - 1, y], [x, y - 1], [-x, y], [x, -y], [y, -x]])
+      if (out.length < 4 && c.every(v => v >= lo && v <= hi) && !seen.has(key(c))) { seen.add(key(c)); out.push(c); }
+    return { mode: 'read', lo, hi, ans: [x, y], choices: shuffle(out).map(([a, b]) => ({ html: `(${mn(a)}, ${mn(b)})`, val: `${a},${b}`, label: `${mn(a)}, ${mn(b)}` })) };
+  }
+  if (d >= 5 && r < .6) return Object.assign({ mode: 'walkc', lo, hi }, walkFrom(lo, hi, 2, 4));
+  let a; do a = P(); while (a[0] === 0 && a[1] === 0);
+  return { mode: 'tap', lo, hi, ans: a };
+}
+function mapQ(d) {
+  const p = mapMake(d), { lo, hi } = p, N = hi - lo + 1, walk = p.mode === 'walk', lab = !walk, [ax, ay] = p.ans;
+  const isStart = (x, y) => p.start && p.start[0] === x && p.start[1] === y;
+  const deco = {};
+  if (walk) { const onPath = new Set(p.path.map(c => c.join())); shuffle(range(0, N * N - 1).map(k => [k % N, Math.floor(k / N)])).filter(c => !onPath.has(c.join())).slice(0, N - 2).forEach(c => deco[c.join()] = pick(['🌴', '🪨', '🐚', '🌵', '🦀'])); }
+  let grid = '';
+  for (let y = hi; y >= lo; y--) {
+    if (lab) grid += `<span class="ax">${mn(y)}</span>`;
+    for (let x = lo; x <= hi; x++) {
+      const st0 = isStart(x, y), crab = p.mode === 'read' && x === ax && y === ay;
+      grid += `<button class="cell gopt${st0 ? ' start' : ''}${x === 0 && lab ? ' x0' : ''}${y === 0 && lab ? ' y0' : ''}" data-x="${x}" data-y="${y}"${okA(p.mode !== 'read' && x === ax && y === ay)} aria-label="${lab ? `${mn(x)}, ${mn(y)}` : `square ${x + 1}, ${N - y}`}">${crab ? '<span class="crab">🦀</span>' : deco[x + ',' + y] ? `<span class="deco">${deco[x + ',' + y]}</span>` : ''}</button>`;
+    }
+  }
+  if (lab) grid += '<span></span>' + range(lo, hi).map(x => `<span class="ax">${mn(x)}</span>`).join('');
+  const moves = p.moves ? p.moves.map(([dr, n]) => `<span class="mv">${n} <i>${MDIR[dr][2]}</i><small>${MDIR[dr][3]}</small></span>`).join('<span class="then">then</span>') : '';
+  const movesSay = p.moves ? p.moves.map(([dr, n]) => `${n} step${n > 1 ? 's' : ''} ${MDIR[dr][3]}`).join(', then ') : '';
+  const sxy = p.start ? `(${mn(p.start[0])}, ${mn(p.start[1])})` : '';
+  const prompt = walk ? `Start at 🦜. Go ${moves}` : p.mode === 'walkc' ? `Start at <b>${sxy}</b>. Go ${moves}` : p.mode === 'read' ? 'Where is the crab? 🦀' : `Dig at <b class="gnum">(${mn(ax)}, ${mn(ay)})</b>`;
+  const speak = walk ? `Start at the parrot. Go ${movesSay}. Tap where the treasure is!` : p.mode === 'walkc' ? `Start at ${mn(p.start[0])}, ${mn(p.start[1])}. Go ${movesSay}. Tap where you end up!`
+    : p.mode === 'read' ? 'Where is the crab? Go across first, then up. Pick its coordinates.' : `Dig for treasure at ${mn(ax)}, ${mn(ay)}. Go across first, then ${ay < 0 ? 'down' : 'up'}.`;
+  gFrame(`<div class="mapwrap"><div class="map ${lab ? 'coord' : 'walk'}" style="--n:${N}">${grid}${p.start ? '<span class="parrot" id="parrot" aria-hidden="true">🦜</span>' : ''}</div></div>${p.mode === 'read' ? choicesHTML(p.choices, `${ax},${ay}`) : ''}`, prompt, speak);
+  if (p.mode === 'read') return wireChoices(`${ax},${ay}`, `Start at zero. Count across to the crab first, then ${ay < 0 ? 'down' : 'up'}. The across number comes first.`, () => $('.crab').classList.add('got'), 1300);
+  const cells = [...view.querySelectorAll('.cell')], cell = (x, y) => cells.find(c => +c.dataset.x === x && +c.dataset.y === y), parrot = $('#parrot');
+  const place = (x, y) => { const c = cell(x, y); parrot.style.left = c.offsetLeft + c.offsetWidth / 2 + 'px'; parrot.style.top = c.offsetTop + c.offsetHeight / 2 + 'px'; };
+  if (parrot) { parrot.style.transition = 'none'; place(...p.start); void parrot.offsetWidth; parrot.style.transition = ''; }
+  const okC = cell(ax, ay), firstMove = p.moves ? `First go ${p.moves[0][1]} ${MDIR[p.moves[0][0]][3]}.` : '';
+  cells.forEach(c => c.onclick = () => {
+    if (gm.lock || c.classList.contains('no')) return;
+    const x = +c.dataset.x, y = +c.dataset.y;
+    if (isStart(x, y)) { say(`That is where you start. ${firstMove}`); return; }
+    if (c !== okC) return gameMiss(c, p.start ? `Start at ${walk ? 'the parrot' : sxy}. ${firstMove} Count each square.` : `That is ${mn(x)}, ${mn(y)}. Go across to ${mn(ax)} first, then ${ay < 0 ? 'down' : 'up'} to ${mn(ay)}.`, okC);
+    let ms = 0;
+    if (parrot) p.path.slice(1).forEach(([px, py], k) => { ms = (k + 1) * 300; gLater(() => { place(px, py); tone([500 + k * 40], .06); }, ms); });
+    gLater(() => { c.innerHTML = '<span class="chest">💰</span>'; tone([784, 988, 1319], .08); }, ms + 250);
+    gameRight(c, ms + 1300, pick(['Treasure! 💰', 'You found it!', 'X marks the spot!']));
+  });
+}
+
+if (location.hash === '#selftest') window.__games2 = { fishMake, pizzaMake, feedMake, rocketMake, targetMake, beeMake, mapMake };
+})();
 
 /* ---------- start ---------- */
 updateTop();
