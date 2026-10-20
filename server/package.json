@@ -1,0 +1,7 @@
+{
+  "name": "owl-crayon-owl",
+  "private": true,
+  "type": "module",
+  "scripts": { "deploy": "npx wrangler deploy", "test": "node test.mjs" },
+  "dependencies": { "@anthropic-ai/sdk": "^0.135.0" }
+}

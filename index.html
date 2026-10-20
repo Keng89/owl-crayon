@@ -2100,9 +2100,21 @@ function mathAnswer(text) {
   if (m) { const n = +m[2], r = m[1] === 'after' ? n + 1 : n - 1; return { a: `The number ${m[1]} ${n} is ${r}.`, v: `<span class="bignum">${m[1] === 'after' ? n + ' → ' + r : r + ' ← ' + n}</span>` }; }
   return null;
 }
+/* Online Owl (optional): a grown-up connects the family's own server, which keeps the API key off this tablet. */
+const onlineCfg = () => store.get('online', { url: '', code: '', on: false });
+const onlineReady = () => { const c = onlineCfg(); return c.on && c.url && c.code && navigator.onLine !== false; };
+function askOnline(q, path = '/ask') {
+  const c = onlineCfg(), ctl = new AbortController(), t = setTimeout(() => ctl.abort(), 15000);
+  return fetch(c.url.replace(/\/+$/, '') + path, { method: 'POST', signal: ctl.signal, headers: { 'Content-Type': 'application/json', 'X-Owl-Code': c.code }, body: JSON.stringify({ question: q, age: st.age }) })
+    .then(r => r.ok ? r.json() : Promise.reject(new Error(r.status === 401 ? 'code' : 'http ' + r.status))).finally(() => clearTimeout(t));
+}
+// Every online answer is saved, so the same question works offline next time.
+function owlRemember(q, a) { const c = store.get('owlCache', []).filter(x => x.q !== norm(q)); c.unshift({ q: norm(q), text: q, a, at: today() }); store.set('owlCache', c.slice(0, 300)); }
+const owlForget = q => store.set('owlCache', store.get('owlCache', []).filter(x => x.q !== norm(q)));
 function owlFind(text) {
   const mth = mathAnswer(text); if (mth) return mth;
   const n = norm(text);
+  const hit = store.get('owlCache', []).find(x => x.q === n); if (hit) return { a: hit.a, v: '' };
   let best = null, bestScore = 0;
   for (const e of [...st.owlTaught.map(t => ({ k: words(t.q), a: t.a, taught: true })), ...KB]) {
     let s = 0;
@@ -2122,23 +2134,33 @@ function owl() {
     <form class="ask" id="askf">${Rec ? '<button type="button" class="btn mic" id="mic" aria-label="Talk to Owl">🎤</button>' : ''}<input id="askq" autocomplete="off" placeholder="Type your question…" aria-label="Your question"><button class="btn" type="submit" style="background:var(--grape)">Ask</button></form>
     <div class="chips">${chips.map(c => `<button data-q="${esc(c)}">${esc(c)}</button>`).join('')}</div>`;
   sayScreen('Hoo hoo! Ask me about numbers, shapes, colors or drawing.' + (Rec ? ' Tap the microphone to talk to me.' : ''));
+  let lastQ = '';
   const ask = q => {
     q = q.trim(); if (!q) return;
-    questTick('owl');
+    lastQ = q; questTick('owl');
     const r = owlFind(q), bub = $('#bub');
-    if (r) {
-      bub.innerHTML = `<p>${esc(r.a)}</p>${r.v ? `<div class="visual">${r.v}</div>` : ''}<div class="helped">Did that help? <button data-h="1" aria-label="yes">👍</button><button data-h="0" aria-label="no">👎</button></div>`;
+    if (!r && onlineReady()) {
+      bub.innerHTML = '<p>Hmm, let me think… 🤔</p>';
+      askOnline(q).then(d => { if (!d.answer) throw new Error('empty'); owlRemember(q, d.answer); if ($('#bub') === bub) show({ a: d.answer, v: '' }); })
+        .catch(() => { if ($('#bub') === bub) miss(); });
+      return;
+    }
+    r ? show(r) : miss();
+  };
+  function show(r) {
+    const bub = $('#bub');
+    bub.innerHTML = `<p>${esc(r.a)}</p>${r.v ? `<div class="visual">${r.v}</div>` : ''}<div class="helped">Did that help? <button data-h="1" aria-label="yes">👍</button><button data-h="0" aria-label="no">👎</button></div>`;
       say(r.a);
       bub.querySelectorAll('[data-h]').forEach(b => b.onclick = () => {
-        if (b.dataset.h === '0') { logMiss(q, 'did not help'); bub.querySelector('.helped').textContent = 'Thanks! I will ask a grown-up to teach me a better answer.'; say('Thanks! I will ask a grown-up to teach me.'); }
+        if (b.dataset.h === '0') { owlForget(lastQ); logMiss(lastQ, 'did not help'); bub.querySelector('.helped').textContent = 'Thanks! I will ask a grown-up to teach me a better answer.'; say('Thanks! I will ask a grown-up to teach me.'); }
         else { bub.querySelector('.helped').textContent = 'Yay! 🦉'; yay(); }
       });
-    } else {
-      logMiss(q, 'no answer');
-      bub.innerHTML = `<p>Ooh, that is a great question! I don't know yet. I saved it so a grown-up can teach me.</p>`;
-      say('Ooh, that is a great question! I do not know yet. I saved it so a grown-up can teach me.');
-    }
-  };
+  }
+  function miss() {
+    logMiss(lastQ, 'no answer');
+    $('#bub').innerHTML = `<p>Ooh, that is a great question! I don't know yet. I saved it so a grown-up can teach me.</p>`;
+    say('Ooh, that is a great question! I do not know yet. I saved it so a grown-up can teach me.');
+  }
   $('#askf').onsubmit = e => { e.preventDefault(); ask($('#askq').value); $('#askq').value = ''; };
   view.querySelectorAll('[data-q]').forEach(b => b.onclick = () => ask(b.dataset.q));
   if (Rec) $('#mic').onclick = e => {
@@ -2175,6 +2197,13 @@ function parent() {
         <textarea id="t${i}" placeholder="A simple answer a child can understand"></textarea><div class="row" style="justify-content:flex-start"><button class="btn leaf" data-teach="${i}" style="font-size:18px;padding:10px 18px">Teach Owl</button><button class="btn alt" data-skip="${i}" style="font-size:18px;padding:10px 18px">Dismiss</button></div></div>`).join('') : '<p class="note">Nothing waiting. Owl has answered everything so far.</p>'}</div>
       ${st.owlTaught.length ? `<p class="note">Owl has learned ${st.owlTaught.length} answer${st.owlTaught.length > 1 ? 's' : ''} from you.</p>` : ''}</div>
     ${playersPanel()}
+    <div class="panel"><h2>Online Owl <span class="tag">optional</span></h2>
+      <p class="note">Owl answers many questions offline. With the Online Owl server (see the server folder in the app's code), Owl can answer any question using Claude. The API key stays on your server, never on this tablet. Every answer is saved here, so it also works offline next time.</p>
+      <label class="field" for="ou">Server address<input id="ou" value="${esc(onlineCfg().url)}" placeholder="https://owl-crayon-owl.yourname.workers.dev" autocomplete="off" inputmode="url"></label>
+      <label class="field" for="oc">Access code<input id="oc" value="${esc(onlineCfg().code)}" autocomplete="off"></label>
+      <label class="field" style="flex-direction:row;align-items:center;gap:10px"><input type="checkbox" id="oo" ${onlineCfg().on ? 'checked' : ''} style="width:26px;height:26px"> Use Online Owl when the internet is on</label>
+      <div class="row" style="justify-content:flex-start"><button class="btn" id="oSave">Save and test</button></div><p class="note" id="om" aria-live="polite"></p>
+      ${store.get('owlCache', []).length ? `<details><summary class="note">Questions Online Owl answered (${store.get('owlCache', []).length})</summary>${store.get('owlCache', []).slice(0, 20).map(x => `<div class="miss"><b>“${esc(x.text)}”</b><span class="note">${x.at}</span><p>${esc(x.a)}</p></div>`).join('')}</details>` : ''}</div>
     <div class="panel"><h2>Settings</h2>
       <label class="field" for="nm">Child's name<input id="nm" value="${esc(st.name)}" autocomplete="off"></label>
       <label class="field" for="ag">Age<input id="ag" type="number" min="3" max="16" value="${st.age}"></label>
@@ -2183,9 +2212,18 @@ function parent() {
       <div class="row" style="justify-content:flex-start"><button class="btn" id="saveS">Save settings</button><button class="btn alt" id="reset">Reset all progress</button></div><p class="note" id="sm" aria-live="polite"></p></div>`;
   view.querySelectorAll('[data-teach]').forEach(b => b.onclick = () => {
     const i = +b.dataset.teach, ans = $('#t' + i).value.trim(); if (!ans) return;
-    st.owlTaught.push({ q: st.owlMisses[i].q, a: ans }); st.owlMisses.splice(i, 1); save(); go(parent);
+    owlForget(st.owlMisses[i].q); st.owlTaught.push({ q: st.owlMisses[i].q, a: ans }); st.owlMisses.splice(i, 1); save(); go(parent);
   });
   wirePlayers();
+  $('#oSave').onclick = () => {
+    const cfg = { url: $('#ou').value.trim(), code: $('#oc').value.trim(), on: $('#oo').checked }, m = $('#om');
+    if (cfg.url && !/^https:\/\//.test(cfg.url)) { m.textContent = 'The address must start with https://'; return; }
+    store.set('online', cfg);
+    if (!cfg.on || !cfg.url) { m.textContent = 'Saved. Owl is using offline answers only.'; return; }
+    m.textContent = 'Saved. Testing the connection…';
+    askOnline('', '/check').then(() => { m.textContent = 'Connected! Owl can now answer new questions online.'; })
+      .catch(e => { m.textContent = e.message === 'code' ? 'The server says the access code is wrong.' : 'Could not reach the server. Check the address and the internet connection.'; });
+  };
   view.querySelectorAll('[data-skip]').forEach(b => b.onclick = () => { st.owlMisses.splice(+b.dataset.skip, 1); save(); go(parent); });
   $('#saveS').onclick = () => {
     const age = clamp(+$('#ag').value || 5, 3, 16);

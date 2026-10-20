@@ -1,0 +1,38 @@
+import http from 'node:http';
+import { createRequire } from 'node:module';
+import { execSync } from 'node:child_process';
+const require = createRequire(import.meta.url);
+const { chromium } = require(execSync('npm root -g').toString().trim() + '/playwright');
+const worker = (await import(new URL('../server/worker.js', import.meta.url).href)).default;
+let calls = 0;
+const fake = http.createServer((req, res) => { let b = ''; req.on('data', c => b += c); req.on('end', () => { calls++; res.writeHead(200, { 'content-type': 'application/json' }); res.end(JSON.stringify({ id: 'm', type: 'message', role: 'assistant', model: 'x', stop_reason: 'end_turn', content: [{ type: 'text', text: 'The sky looks blue because sunlight bounces around in the air!' }], usage: { input_tokens: 1, output_tokens: 1 } })); }); }).listen(0);
+await new Promise(r => fake.on('listening', r));
+const env = { ANTHROPIC_API_KEY: 'k', ACCESS_CODES: 'FAM', ALLOWED_ORIGINS: 'http://localhost:8766', ANTHROPIC_BASE_URL: `http://127.0.0.1:${fake.address().port}` };
+let up = true;
+const b = await chromium.launch(); const p = await b.newPage({ viewport: { width: 390, height: 844 } }); const errs = [];
+p.on('pageerror', e => errs.push(e.message));
+await p.route('https://owl.test/**', async route => {
+  if (!up) return route.abort();
+  const r = route.request();
+  const resp = await worker.fetch(new Request(r.url(), { method: r.method(), headers: r.headers(), body: r.method() === 'POST' ? r.postData() : undefined }), env);
+  route.fulfill({ status: resp.status, headers: Object.fromEntries(resp.headers), body: await resp.text() });
+});
+await p.goto('http://localhost:8766/index.html?o#selftest'); await p.evaluate(() => localStorage.clear()); await p.reload();
+// grown-up connects it
+await p.click('#parent'); const prob = await p.locator('.panel .note').first().textContent(); const [x, y] = prob.match(/(\d+) × (\d+)/).slice(1).map(Number);
+await p.fill('#ga', String(x * y)); await p.press('#ga', 'Enter');
+await p.fill('#ou', 'https://owl.test'); await p.fill('#oc', 'WRONG'); await p.check('#oo'); await p.click('#oSave'); await p.waitForTimeout(500);
+console.log('wrong code:', await p.textContent('#om'));
+await p.fill('#oc', 'FAM'); await p.click('#oSave'); await p.waitForTimeout(500);
+console.log('good code:', await p.textContent('#om'));
+await p.click('#homeBtn'); await p.click('#tOwl');
+await p.fill('#askq', 'Why do giraffes have long necks?'); await p.press('#askq', 'Enter'); await p.waitForTimeout(800);
+console.log('online answer:', await p.textContent('#bub'), 'calls', calls);
+up = false; await p.click('#homeBtn'); await p.click('#tOwl');
+await p.fill('#askq', 'why do giraffes have long necks'); await p.press('#askq', 'Enter'); await p.waitForTimeout(300);
+console.log('offline repeat:', await p.textContent('#bub'), 'calls', calls);
+await p.fill('#askq', 'Why do cats purr?'); await p.press('#askq', 'Enter'); await p.waitForTimeout(800);
+console.log('server down:', await p.textContent('#bub'));
+console.log('misses', await p.evaluate(() => __owl.st.owlMisses.map(m => m.q)));
+console.log('errors', errs.length ? errs : 'none');
+await b.close(); fake.close();

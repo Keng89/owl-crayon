@@ -1,0 +1,10 @@
+name = "owl-crayon-owl"
+main = "worker.js"
+compatibility_date = "2026-10-01"
+
+[vars]
+# The app's web address, so only your app can call this server.
+ALLOWED_ORIGINS = "https://keng89.github.io"
+# Model used for answers. Change to a cheaper model later if you want lower costs.
+OWL_MODEL = "claude-opus-5-5"
+# Secrets (never put these in this file): ANTHROPIC_API_KEY and ACCESS_CODES, set with `npx wrangler secret put`.

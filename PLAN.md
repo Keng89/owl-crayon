@@ -34,7 +34,7 @@ None of this sends data anywhere. Progress lives in the browser on that device.
 ## Scaling to all ages (subscription path)
 
 - **Age setting** picks the starting world. Content gaps to fill next: simultaneous equations, graphs of lines; in art, painting techniques, collage and digital animation.
-- **Smarter Owl.** Offline: a larger curated answer bank per age band, then a small on-device model for open questions. Online (optional, parent-enabled): Claude through our own server with a child-safe prompt, never a key in the app.
+- **Smarter Owl.** Built: an optional Online Owl server (`server/`, a Cloudflare Worker) that answers any question with Claude using a child-safe prompt. The API key stays on the server; each family gets an access code (the subscription switch); the app saves every answer so it works offline next time, and grown-ups can read every answer. To go live: create an Anthropic API key, deploy the server (steps in `server/README.md`), and enter the address and code in the Grown-ups corner.
 - **Accounts and sync** so siblings get separate profiles and progress survives a new tablet. This is also where the subscription paywall sits (free core games, paid packs and the online Owl).
 - **Parent dashboard** with weekly summaries.
 - **Stores.** Wrap the same web app for the App Store and Google Play (Capacitor) once the content is solid. Kids' apps need COPPA/GDPR-K compliance and no third-party ads or tracking.
