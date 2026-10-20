@@ -1,6 +1,7 @@
 // Owl & Crayon online Owl, copy-paste version for the Cloudflare dashboard (no packages needed).
 // Same behaviour as worker.js, but it calls the Claude API with plain fetch so it fits in one file.
-// Settings to add in the dashboard: ANTHROPIC_API_KEY (secret), ACCESS_CODES (secret), ALLOWED_ORIGINS (text).
+// Settings to add in the dashboard: ACCESS_CODES (secret), ALLOWED_ORIGINS (text), and either
+// a Workers AI binding named AI (free daily allowance) or ANTHROPIC_API_KEY (secret, best answers). The key wins if both are set.
 
 const SYSTEM = `You are Owl, a kind, cheerful teacher inside a math and art learning app for children.
 The child's age is given with each question. Answer so a child of that age understands:
@@ -19,6 +20,18 @@ const cors = origin => ({
   'Vary': 'Origin'
 });
 const json = (body, status, origin) => new Response(JSON.stringify(body), { status, headers: { 'Content-Type': 'application/json', ...cors(origin) } });
+
+// Free option: Cloudflare Workers AI (no Anthropic key needed). Used when ANTHROPIC_API_KEY is not set and an AI binding named AI is added.
+const FREE_MODEL = '@cf/meta/llama-3.3-70b-instruct-fp8-fast';
+async function askFree(env, question, age, origin) {
+  try {
+    const out = await env.AI.run(env.FREE_MODEL || FREE_MODEL, { max_tokens: 300, messages: [{ role: 'system', content: SYSTEM }, { role: 'user', content: `Child's age: ${age}\nQuestion: ${question}` }] });
+    const answer = String((out && (out.response ?? out.result?.response)) || '').replace(/[*#_`]/g, '').trim();
+    return json({ answer: answer || "Hmm, I'm not sure. Let's ask a grown-up!" }, 200, origin);
+  } catch (e) {
+    return json({ error: /limit|quota|429|neuron/i.test(String(e && e.message)) ? 'busy' : 'upstream' }, /limit|quota|429|neuron/i.test(String(e && e.message)) ? 429 : 502, origin);
+  }
+}
 
 export default {
   async fetch(request, env) {
@@ -41,6 +54,7 @@ export default {
     const age = Math.min(16, Math.max(3, parseInt(body.age, 10) || 6));
     if (!question) return json({ error: 'empty' }, 400, origin);
 
+    if (!env.ANTHROPIC_API_KEY && env.AI) return askFree(env, question, age, origin);
     try {
       const res = await fetch((env.ANTHROPIC_BASE_URL || 'https://api.anthropic.com') + '/v1/messages', {
         method: 'POST',

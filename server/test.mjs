@@ -27,3 +27,18 @@ r = await ask('hi', 'WRONG'); check(r.status === 401, 'rejects a wrong access co
 mode = 'refuse'; r = await ask('scary'); j = await r.json(); check(j.answer.includes('grown-up'), 'refusal gets a kind answer');
 mode = 'rate'; r = await worker.fetch(new Request('https://owl.example/ask', { method: 'POST', headers: { 'X-Owl-Code': 'FAMILY2' }, body: '{"question":"x"}' }), { ...env }); check(r.status === 429, 'rate limit passes through as busy');
 fake.close();
+
+// Free path: no Anthropic key, a fake Workers AI binding.
+{
+  const W = (await import(process.env.WORKER || './worker.js')).default;
+  let seen;
+  const freeEnv = { ACCESS_CODES: 'FAMILY1', ALLOWED_ORIGINS: 'https://keng89.github.io', AI: { run: async (m, inp) => { seen = { m, inp }; return { response: '**Two** apples plus one apple makes three apples!' }; } } };
+  const req = () => new Request('https://owl.example/ask', { method: 'POST', headers: { 'X-Owl-Code': 'FAMILY1', Origin: 'https://keng89.github.io' }, body: JSON.stringify({ question: 'what is 2+1', age: 5 }) });
+  let r = await W.fetch(req(), freeEnv), j = await r.json();
+  if (r.status !== 200 || !/three apples/.test(j.answer) || /\*/.test(j.answer) || seen.inp.messages[0].role !== 'system' || !/age: 5/.test(seen.inp.messages[1].content)) { console.log('FAIL free answer', r.status, j); process.exit(1); }
+  console.log('ok free Workers AI answer');
+  freeEnv.AI.run = async () => { throw new Error('daily free allocation of neurons exceeded'); };
+  r = await W.fetch(req(), freeEnv);
+  if (r.status !== 429) { console.log('FAIL free limit', r.status); process.exit(1); }
+  console.log('ok free limit shows busy');
+}

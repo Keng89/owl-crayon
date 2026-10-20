@@ -31,3 +31,7 @@ You pay Anthropic per question. Answers are kept short (effort `low`), and the a
 ## Check it
 
 `npm test` runs the server against a fake Claude, so it costs nothing and needs no key.
+
+## Free option: Cloudflare Workers AI
+
+No Anthropic key needed. In the Worker's **Settings → Bindings → Add → Workers AI**, set the variable name to `AI`, and leave `ANTHROPIC_API_KEY` unset. The Owl then uses Llama 3.3 70B on Cloudflare's free daily allowance (10,000 Neurons a day, roughly a couple of hundred short answers). When the allowance runs out the app says the Owl is busy until it resets at midnight UTC. Answers are a bit less careful than Claude's; add `ANTHROPIC_API_KEY` later to switch to Claude (the key wins when both are set). `FREE_MODEL` (text) changes the free model.

@@ -20,6 +20,18 @@ const cors = origin => ({
 });
 const json = (body, status, origin) => new Response(JSON.stringify(body), { status, headers: { 'Content-Type': 'application/json', ...cors(origin) } });
 
+// Free option: Cloudflare Workers AI (no Anthropic key needed). Used when ANTHROPIC_API_KEY is not set and an AI binding named AI is added.
+const FREE_MODEL = '@cf/meta/llama-3.3-70b-instruct-fp8-fast';
+async function askFree(env, question, age, origin) {
+  try {
+    const out = await env.AI.run(env.FREE_MODEL || FREE_MODEL, { max_tokens: 300, messages: [{ role: 'system', content: SYSTEM }, { role: 'user', content: `Child's age: ${age}\nQuestion: ${question}` }] });
+    const answer = String((out && (out.response ?? out.result?.response)) || '').replace(/[*#_`]/g, '').trim();
+    return json({ answer: answer || "Hmm, I'm not sure. Let's ask a grown-up!" }, 200, origin);
+  } catch (e) {
+    return json({ error: /limit|quota|429|neuron/i.test(String(e && e.message)) ? 'busy' : 'upstream' }, /limit|quota|429|neuron/i.test(String(e && e.message)) ? 429 : 502, origin);
+  }
+}
+
 export default {
   async fetch(request, env) {
     const reqOrigin = request.headers.get('Origin') || '';
@@ -41,6 +53,7 @@ export default {
     const age = Math.min(16, Math.max(3, parseInt(body.age, 10) || 6));
     if (!question) return json({ error: 'empty' }, 400, origin);
 
+    if (!env.ANTHROPIC_API_KEY && env.AI) return askFree(env, question, age, origin);
     const client = new Anthropic({ apiKey: env.ANTHROPIC_API_KEY, ...(env.ANTHROPIC_BASE_URL ? { baseURL: env.ANTHROPIC_BASE_URL } : {}) });
     try {
       const msg = await client.beta.messages.create({
