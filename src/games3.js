@@ -25,8 +25,8 @@ GAMES.push(
 function snakeMake(d) {
   const cfg = [
     { N: 18, faces: 3, dice: 1, step: 1 }, { N: 24, faces: 6, dice: 1, step: 1 }, { N: 30, faces: 6, dice: 1, step: 1 },
-    { N: 36, faces: 6, dice: 2, step: 1 }, { N: 30, faces: 6, dice: 1, step: pick([2, 5, 10]) },
-    { N: 36, faces: 6, dice: 1, step: pick([3, 4, 6, 25]) }, { N: 36, faces: 6, dice: 2, step: pick([7, 8, 9, 12, 15, 25]) }][d];
+    { N: 36, faces: 6, dice: 2, step: 1 }, { N: 24, faces: 6, dice: 1, step: pick([2, 5, 10]) },
+    { N: 30, faces: 6, dice: 1, step: pick([3, 4, 6, 25]) }, { N: 36, faces: 6, dice: 2, step: pick([7, 8, 9, 12, 15, 25]) }][d];
   const N = cfg.N, row = k => Math.floor(k / 6), nl = d === 0 ? 1 : 2, ns = d <= 2 ? 1 : 2;
   for (let t = 0; t < 1000; t++) {
     const used = new Set([0, N - 1]), lad = {}, sn = {};

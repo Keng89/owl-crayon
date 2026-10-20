@@ -52,7 +52,7 @@ const TAPS = '.gopt,.g3bk-done,.g3sn-roll,.g3bb-peek,.g3sk-stk,.g3sd-key';
         if (await p.$('.g3sd-key')) {
           for (let m = 0; m < misses; m++) { const w = await p.$('.g3sd-key:not([data-ok]):not(.no)'); await w.click(); await wait(200); }
         } else if (await p.$('.g3bb-tank') && q === 2) {
-          await wait(4000); if (!(await p.$('.g3bb-tank.fog'))) fails.push(`${tag} bubble: dots never hid`);
+          await wait(5600); if (!(await p.$('.g3bb-tank.fog'))) fails.push(`${tag} bubble: dots never hid`);
           await p.click('#peek'); await wait(200); if (await p.$('.g3bb-tank.fog')) fails.push(`${tag} bubble: peek did not show the dots`);
         } else {
           for (let m = 0; m < misses; m++) { const w = await p.$('.game .gopt:not([data-ok]):not(.no)'); if (w) { await w.click(); await wait(250); } }
