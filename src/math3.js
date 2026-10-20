@@ -3,12 +3,14 @@
 
 const INK = '#22305A';
 const svgBox = (vb, body, label, wide = false) => `<div class="shape${wide ? ' wide-shape' : ''}"><svg viewBox="${vb}" role="img" aria-label="${label}">${body}</svg></div>`;
-const tx = (x, y, s, o = {}) => `<text x="${+(+x).toFixed(1)}" y="${+(+y).toFixed(1)}" font-size="${o.size || 12}" font-weight="800" text-anchor="${o.anchor || 'middle'}" fill="${o.fill || INK}">${s}</text>`;
+const tx = (x, y, s, o = {}) => `<text x="${+(+x).toFixed(1)}" y="${+(+y).toFixed(1)}" font-size="${o.size || 12}" font-weight="800" text-anchor="${o.anchor || 'middle'}" fill="${o.fill || INK}" stroke="#fff" stroke-width="3" stroke-linejoin="round" paint-order="stroke">${s}</text>`;
 const pts2 = p => p.map(q => q.map(v => +(+v).toFixed(1)).join(',')).join(' ');
 const sOpts = (ans, cands, say = v => v, show = v => v, n = 4) => opts(ans, cands, n, show, say);
 const NAMES3 = ['Mia', 'Leo', 'Ava', 'Sam', 'Zoe', 'Kai', 'Noah', 'Lily', 'Omar', 'Ruby'];
 const longTxt = s => `<span class="m3long">${s}</span>`;
-const cap = s => s[0].toUpperCase() + s.slice(1);
+
+// Every topic here goes through S3: if any answer button needs the smaller text size, all of them get it.
+const S3 = (id, w, name, ico, lesson, gen) => S(id, w, name, ico, lesson, L => { const q = gen(L); if (q.choices.some(c => c.txt)) q.choices.forEach(c => { c.txt = true; }); return q; });
 
 /* ---------- pictures ---------- */
 // An "empty number line": hops drawn as arcs, positions roughly to scale but never squashed together.
@@ -55,7 +57,7 @@ function htoSVG(h, t, o) {
 }
 
 /* ===================== Treetop Town (world index 2) ===================== */
-S('mental', 2, 'Mental maths tricks', '🧠', [
+S3('mental', 2, 'Mental maths tricks', '🧠', [
   ['Adding 9 is easy: add 10, then take 1 away. 34 + 9 → 44 → 43.', () => hopLine([34, 44, 43], ['+10', '−1'])],
   ['Adding 19? Add 20, then take 1 away. 57 + 19 → 77 → 76.', () => hopLine([57, 77, 76], ['+20', '−1'])],
   ['Taking away 9? Take away 10, then give 1 back. 52 − 9 → 42 → 43.', () => hopLine([52, 42, 43], ['−10', '+1'])]
@@ -76,7 +78,7 @@ S('mental', 2, 'Mental maths tricks', '🧠', [
   return Q({ prompt: `25 × ${n} = ?`, speak: `What is 25 times ${n}?`, choices: opts(r, [r + 25, r - 25, r + 100, r - 100, n * 20, r / 2]), answer: r, steps: ['Four 25s make 100.', `${n} ÷ 4 = ${n / 4}, so there are ${n / 4} hundreds.`, `${n / 4} × 100 = ${r}.`], explainText: `25 × ${n} = ${r}.` });
 });
 
-S('arrays', 2, 'Arrays and equal groups', '🔲', [
+S3('arrays', 2, 'Arrays and equal groups', '🔲', [
   ['An array is rows that all hold the same number. Here are 3 rows of 5.', () => arraySVG(3, 5)],
   ['Count by the rows: 5, 10, 15. So 3 × 5 = 15.', () => arraySVG(3, 5, { totals: true })],
   ['Turn it on its side: 5 rows of 3. Still 15! So 3 × 5 = 5 × 3.', () => arraySVG(5, 3)]
@@ -93,7 +95,7 @@ S('arrays', 2, 'Arrays and equal groups', '🔲', [
     steps: [`Split the ${R} rows into 5 and ${R - 5}.`, `5 × ${C} = ${5 * C}.`, `${R - 5} × ${C} = ${(R - 5) * C}.`, `Add them: ${5 * C} + ${(R - 5) * C} = ${P}.`], explainText: `${R} × ${C} = ${P}.` });
 });
 
-S('place1000', 2, 'Hundreds, tens and ones', '💯', [
+S3('place1000', 2, 'Hundreds, tens and ones', '💯', [
   ['A flat is 100. A rod is 10. A little cube is 1.', () => htoSVG(1, 1, 1)],
   ['2 flats, 4 rods and 3 cubes make 243: 200 + 40 + 3.', () => htoSVG(2, 4, 3)],
   ['A zero keeps a place empty: 3 hundreds and 5 ones is 305, not 35.', () => htoSVG(3, 0, 5)]
@@ -138,7 +140,7 @@ const durStr = d => d < 60 ? `${d} minutes` : `${Math.floor(d / 60)} hour${d >= 
 const durSay = d => durStr(d).replace('min', 'minutes').replace('minutesutes', 'minutes');
 const clocks = (a, b) => `<div class="row m3clocks">${clockSVG(...clk12(a))}<span class="op">→</span>${clockSVG(...clk12(b))}</div>`;
 const EVENTS = ['The film', 'Swimming class', 'The party', 'The bus ride', 'Football practice', 'The school trip', 'The puppet show'];
-S('elapsed', 2, 'How long does it take?', '⏳', [
+S3('elapsed', 2, 'How long does it take?', '⏳', [
   ['How long from 3:00 to 5:30? Look at the start and the end.', () => clocks(180, 330)],
   ['Count on the whole hours first: 3:00 to 5:00 is 2 hours. Then 5:00 to 5:30 is 30 minutes more.', () => hopLine([3, 5, 5.5], ['2 hours', '30 min']).replace('>5.5<', '>5:30<').replace('>3<', '>3:00<').replace('>5<', '>5:00<')],
   ['Remember: 1 hour = 60 minutes. Half an hour = 30 minutes. A quarter of an hour = 15 minutes.', () => clockSVG(12, 30)]
@@ -205,7 +207,7 @@ function solidSVG(name, dots) {
   if (dots) g += vs.map(p => `<circle cx="${+p[0].toFixed(1)}" cy="${+p[1].toFixed(1)}" r="4.5" fill="#F2604F" stroke="#fff" stroke-width="1.2"/>`).join('');
   return svgBox('-2 0 124 116', g, name);
 }
-S('solids', 2, '3D shapes', '🧊', [
+S3('solids', 2, '3D shapes', '🧊', [
   ['3D shapes are solid. A flat side is a face. Where two faces meet is an edge. A corner is a vertex.', () => solidSVG('cube', true)],
   ['A cube has 6 square faces, 12 edges and 8 vertices (the red dots).', () => `<span class="bignum m3mid">6 · 12 · 8</span>`],
   ['Some shapes are curved: a cylinder, a cone and a sphere can roll!', () => `<div class="row">${solidSVG('cylinder')}${solidSVG('cone')}</div>`]
@@ -273,7 +275,7 @@ function lshapeSVG(W, H, cw, ch, lab) {
   return svgBox(`0 0 ${ox + W * k + 34} ${oy + H * k + 22}`, g, 'L-shaped room', true);
 }
 const rectCells = (x0, y0, w, h) => { const s = new Set(); for (let x = x0; x < x0 + w; x++) for (let y = y0; y < y0 + h; y++) s.add(x + ',' + y); return s; };
-S('perimeter', 2, 'Perimeter: all the way round', '🚧', [
+S3('perimeter', 2, 'Perimeter: all the way round', '🚧', [
   ['Perimeter is the distance all the way around the outside of a shape, like a fence round a field.', () => cellsSVG(rectCells(1, 1, 4, 2), 6, 4)],
   ['On squared paper, count each little edge on the outside: this one is 4 + 2 + 4 + 2 = 12.', () => cellsSVG(rectCells(1, 1, 4, 2), 6, 4)],
   ['With lengths written on, add up every side. Do not miss any!', () => polyLabSVG([[10, 88], [90, 88], [42, 14]], ['8 cm', '6 cm', '5 cm'])]
@@ -305,7 +307,7 @@ S('perimeter', 2, 'Perimeter: all the way round', '🚧', [
   }
   if (Math.random() < 0.4) {
     const l = rnd(4, 15), w = rnd(2, l - 1), p = 2 * (l + w);
-    return Q({ prompt: word(`A rectangle has a perimeter of ${p} cm. It is ${l} cm long. How wide is it?`), visual: rectSVG(l, w, false, false), choices: opts(w, [p - l, p / 2, w + 1, w - 1, p - 2 * l + 1].filter(v => v > 0 && v !== w && Number.isInteger(v)), 4, v => v + ' cm', v => v + ' centimetres'), answer: w,
+    return Q({ prompt: word(`A rectangle has a perimeter of ${p} cm. It is ${l} cm long. How wide is it?`), visual: svgBox(`0 0 240 ${Math.max(36, 180 / l * w) + 40}`, `<rect x="20" y="10" width="180" height="${Math.max(36, 180 / l * w)}" fill="#D9EBFC" stroke="${INK}" stroke-width="2.5"/>${tx(110, Math.max(36, 180 / l * w) + 30, l + ' cm', { size: 14 })}${tx(206, 10 + Math.max(36, 180 / l * w) / 2 + 5, '?', { size: 16, anchor: 'start', fill: '#F2604F' })}`, 'rectangle', true), choices: opts(w, [p - l, p / 2, w + 1, w - 1, p - 2 * l + 1].filter(v => v > 0 && v !== w && Number.isInteger(v)), 4, v => v + ' cm', v => v + ' centimetres'), answer: w,
       steps: [`Long side + short side is half the perimeter: ${p} ÷ 2 = ${l + w}.`, `${l + w} − ${l} = ${w}.`], explainText: `It is ${w} cm wide.` });
   }
   const W = rnd(8, 20), H = rnd(6, 14), cw = rnd(2, W - 4), ch = rnd(2, H - 3), p = 2 * (W + H);
@@ -322,8 +324,8 @@ const romanPlain = n => { let s = ''; for (const [v, r] of ROMAN.filter(x => x[1
 const romanSay = s => s.split('').join(' ');
 const tablet = s => `<span class="roman">${s}</span>`;
 const romanParts = s => { const out = []; for (let i = 0; i < s.length; i++) { const a = RV[s[i]], b = RV[s[i + 1]] || 0; if (a < b) { out.push(`${s[i]}${s[i + 1]} = ${b - a}`); i++; } else out.push(`${s[i]} = ${a}`); } return out; };
-S('roman', 2, 'Roman numerals', '🏛️', [
-  ['Long ago, the Romans wrote numbers with letters: I = 1, V = 5, X = 10, L = 50, C = 100.', () => `<div class="row">${['I', 'V', 'X', 'L', 'C'].map(tablet).join('')}</div>`],
+S3('roman', 2, 'Roman numerals', '🏛️', [
+  ['Long ago, the Romans wrote numbers with letters: I = 1, V = 5, X = 10, L = 50, C = 100, D = 500, M = 1000.', () => `<div class="row">${['I', 'V', 'X', 'L', 'C', 'D', 'M'].map(tablet).join('')}</div>`],
   ['Letters side by side are added: XVI = 10 + 5 + 1 = 16.', () => tablet('XVI')],
   ['A smaller letter BEFORE a bigger one is taken away: IV = 4, IX = 9, XL = 40.', () => `<div class="row">${tablet('IV')}${tablet('IX')}</div>`]
 ], L => {
@@ -348,14 +350,14 @@ function compareModel(rows, total) {
   const max = Math.max(...rows.map(r => r.segs.reduce((a, s) => a + s.w, 0))), k = 196 / max; let g = '';
   rows.forEach((r, i) => {
     const y = 6 + i * 48; let x = 62;
-    g += tx(56, y + 24, r.name, { size: 13, anchor: 'end' });
+    g += tx(56, y + 23, r.name, { size: 15, anchor: 'end' });
     r.segs.forEach((s, j) => { const w = s.w * k; g += `<rect x="${x}" y="${y}" width="${w}" height="34" fill="${s.dash ? 'none' : s.c || BAR_COLS[(i + j) % 4]}" stroke="${s.dash ? '#F2604F' : INK}" stroke-width="2"${s.dash ? ' stroke-dasharray="5 4"' : ''}/>${tx(x + w / 2, y + 23, s.t, { size: 14, fill: s.dash ? '#F2604F' : INK })}`; x += w; });
   });
   const H = rows.length * 48 + 4;
   if (total != null) g += `<path d="M264 6 H270 V${H - 8} H264" fill="none" stroke="${INK}" stroke-width="2"/>${tx(274, H / 2 + 2, total, { size: 14, anchor: 'start' })}`;
   return svgBox(`0 0 300 ${H}`, g, 'bar model comparing amounts', true);
 }
-S('barmodel', 2, 'Bar models', '📦', [
+S3('barmodel', 2, 'Bar models', '📦', [
   ['A bar model is a picture of a story. The whole bar is the total. The pieces are the parts.', () => barModel([{ w: 30, t: '30' }, { w: 20, t: '20' }], '50')],
   ['If a part is missing, take the part you know from the whole: 50 − 30 = 20.', () => barModel([{ w: 30, t: '30' }, { w: 20, t: '?' }], '50')],
   ['To compare, draw one bar under the other. The extra bit is the difference.', () => compareModel([{ name: 'Leo', segs: [{ w: 20, t: '20' }, { w: 12, t: '12 more', dash: 1 }] }, { name: 'Ava', segs: [{ w: 32, t: '32' }] }])]
@@ -387,8 +389,8 @@ S('barmodel', 2, 'Bar models', '📦', [
 const isDiv = (n, k) => n % k === 0;
 const DIV_RULE = { 2: 'it ends in 0, 2, 4, 6 or 8', 5: 'it ends in 0 or 5', 10: 'it ends in 0', 3: 'its digits add up to a number in the 3 times table', 9: 'its digits add up to a number in the 9 times table', 4: 'its last two digits make a number in the 4 times table', 6: 'it is even AND its digits add up to a multiple of 3' };
 const digSum = n => String(n).split('').reduce((a, b) => a + +b, 0);
-S('divis', 3, 'Divisibility tricks', '🔎', [
-  ['Quick checks: a number divides by 2 if it ends in 0, 2, 4, 6 or 8. By 5 if it ends in 0 or 5. By 10 if it ends in 0.', () => '<span class="bignum m3mid">…0 …5</span>'],
+S3('divis', 3, 'Divisibility tricks', '🔎', [
+  ['Quick checks: a number divides by 2 if it ends in 0, 2, 4, 6 or 8. By 5 if it ends in 0 or 5. By 10 if it ends in 0.', () => '<table class="m3tab"><tr><th>÷ 2</th><td>ends in 0, 2, 4, 6, 8</td></tr><tr><th>÷ 5</th><td>ends in 0 or 5</td></tr><tr><th>÷ 10</th><td>ends in 0</td></tr></table>'],
   ['For 3 and 9, add up the digits. 126 → 1 + 2 + 6 = 9, so 126 divides by 3 and by 9.', () => '<span class="expr">126 → 1 + 2 + 6 = 9 ✓</span>'],
   ['Factor pairs are rectangles: 12 = 2 × 6 = 3 × 4.', () => `<div class="row">${arraySVG(2, 6)}${arraySVG(3, 4)}</div>`]
 ], L => {
@@ -443,7 +445,7 @@ function isoSVG(boxes, o = {}) {
 }
 const cubesOf = (l, w, h) => { const out = []; for (let z = 0; z < h; z++) for (let y = 0; y < w; y++) for (let x = 0; x < l; x++) out.push([x, y, z]); return out; };
 const boxPic = (l, w, h, labels) => { const k = Math.max(l, w, h * 1.3); return isoSVG([[0, 0, 0, l / k * 5, w / k * 5, h / k * 5]], { s: 22, labels, label: 'box' }); };
-S('volume', 3, 'Volume with cubes', '🧊', [
+S3('volume', 3, 'Volume with cubes', '🧊', [
   ['Volume is how much space something fills. We measure it in cubes.', () => isoSVG(cubesOf(3, 2, 1))],
   ['Count one layer: 3 × 2 = 6 cubes. There are 2 layers, so 6 × 2 = 12 cubes.', () => isoSVG(cubesOf(3, 2, 2))],
   ['For any box: volume = length × width × height. The answer is in cubic centimetres (cm³).', () => boxPic(5, 3, 2, ['5 cm', '3 cm', '2 cm'])]
@@ -493,12 +495,13 @@ function symSVG(name, lines, col = '#B9A6F2') {
   const s = SYMS[name];
   return svgBox('-8 -8 116 116', `<polygon points="${pts2(s.pts)}" fill="${col}" stroke="${INK}" stroke-width="2.5" stroke-linejoin="round"/>${lines.map(l => `<line x1="${+l[0].toFixed(1)}" y1="${+l[1].toFixed(1)}" x2="${+l[2].toFixed(1)}" y2="${+l[3].toFixed(1)}" stroke="#F2604F" stroke-width="2.5" stroke-dasharray="6 4"/>`).join('')}`, name);
 }
+const bigGrid = (...a) => gridSVG(...a).replace('class="shape"', 'class="shape wide-shape m3grid"');
 const butterfly = () => svgBox('0 0 120 100', `<path d="M60 50 C40 10 5 10 10 40 C14 60 40 60 60 50 C40 62 20 90 40 92 C52 93 58 75 60 50 Z" fill="#F2604F" stroke="${INK}" stroke-width="2"/><path d="M60 50 C80 10 115 10 110 40 C106 60 80 60 60 50 C80 62 100 90 80 92 C68 93 62 75 60 50 Z" fill="#F2604F" stroke="${INK}" stroke-width="2"/><circle cx="35" cy="35" r="7" fill="#FFC23D"/><circle cx="85" cy="35" r="7" fill="#FFC23D"/><line x1="60" y1="2" x2="60" y2="98" stroke="${INK}" stroke-width="2.5" stroke-dasharray="6 4"/>`, 'butterfly with a line of symmetry');
 const V_SYM = 'AHIMOTUVWXY', H_SYM = 'BCDEHIKOX', NO_SYM = 'FGJLNPQRSZ';
-S('symmetry', 3, 'Symmetry and reflection', '🦋', [
+S3('symmetry', 3, 'Symmetry and reflection', '🦋', [
   ['A line of symmetry cuts a shape into two halves that match, like a butterfly’s wings.', butterfly],
   ['Fold along the line and the halves land exactly on top of each other. A square has 4 lines of symmetry!', () => symSVG('square', SYMS.square.lines)],
-  ['When you reflect a point in a mirror line, it lands the same distance away on the other side.', () => gridSVG([[2, 4], [8, 4]], 0, false, `<line x1="50" y1="5" x2="50" y2="95" stroke="#F2604F" stroke-width="1.6" stroke-dasharray="3 2"/>`)]
+  ['When you reflect a point in a mirror line, it lands the same distance away on the other side.', () => bigGrid([[2, 4], [8, 4]], 0, false, `<line x1="50" y1="5" x2="50" y2="95" stroke="#F2604F" stroke-width="1.6" stroke-dasharray="3 2"/>`)]
 ], L => {
   if (L === 1) {
     const [n, li, yes] = pick([['square', 0, 1], ['square', 2, 1], ['rectangle', 0, 1], ['rectangle', 1, 1], ['isosceles triangle', 0, 1], ['kite', 0, 1], ['rhombus', 1, 1], ['regular hexagon', 0, 1], ['equilateral triangle', 0, 1],
@@ -520,15 +523,15 @@ S('symmetry', 3, 'Symmetry and reflection', '🦋', [
   if (L === 4) {
     const vert = Math.random() < 0.5, m = rnd(3, 7), a = rnd(0, 10), b = rnd(1, 9), d = rnd(1, Math.min(m, 10 - m)), p = vert ? [m - d * pick([1, -1]), b] : [a, m - d * pick([1, -1])], r = vert ? [2 * m - p[0], p[1]] : [p[0], 2 * m - p[1]], s = `(${r[0]}, ${r[1]})`;
     const line = vert ? `<line x1="${5 + m * 9}" y1="5" x2="${5 + m * 9}" y2="95" stroke="#F2604F" stroke-width="1.6" stroke-dasharray="3 2"/>` : `<line x1="5" y1="${95 - m * 9}" x2="95" y2="${95 - m * 9}" stroke="#F2604F" stroke-width="1.6" stroke-dasharray="3 2"/>`;
-    return Q({ prompt: `Reflect the red dot (${p[0]}, ${p[1]}) in the dashed line ${vert ? 'x' : 'y'} = ${m}. Where does it land?`, visual: gridSVG(p[0], p[1], false, line), choices: sOpts(s, [`(${p[0]}, ${p[1]})`, vert ? `(${r[0]}, ${10 - r[1]})` : `(${10 - r[0]}, ${r[1]})`, `(${r[1]}, ${r[0]})`, vert ? `(${r[0] + 1}, ${r[1]})` : `(${r[0]}, ${r[1] + 1})`, vert ? `(${m + d * 2}, ${r[1]})` : `(${r[0]}, ${m - d * 2})`].filter(v => !v.includes('-'))), answer: s,
-      explain: gridSVG([p, r], 0, false, line), explainText: `The dot is ${d} square${d > 1 ? 's' : ''} from the line, so its reflection is ${d} square${d > 1 ? 's' : ''} on the other side: ${s}.` });
+    return Q({ prompt: `Reflect the red dot (${p[0]}, ${p[1]}) in the dashed line ${vert ? 'x' : 'y'} = ${m}. Where does it land?`, visual: bigGrid(p[0], p[1], false, line), choices: sOpts(s, [`(${p[0]}, ${p[1]})`, vert ? `(${r[0]}, ${10 - r[1]})` : `(${10 - r[0]}, ${r[1]})`, `(${r[1]}, ${r[0]})`, vert ? `(${r[0] + 1}, ${r[1]})` : `(${r[0]}, ${r[1] + 1})`, vert ? `(${m + d * 2}, ${r[1]})` : `(${r[0]}, ${m - d * 2})`].filter(v => !v.includes('-'))), answer: s,
+      explain: bigGrid([p, r], 0, false, line), explainText: `The dot is ${d} square${d > 1 ? 's' : ''} from the line, so its reflection is ${d} square${d > 1 ? 's' : ''} on the other side: ${s}.` });
   }
   const a = rnd(-5, 5) || 3, b = rnd(-5, 5) || -2, k = pick(['x', 'y', 'yx']);
   if (k === 'yx' && a === b) return MATH.symmetry.gen(L);
   const r = k === 'x' ? [a, -b] : k === 'y' ? [-a, b] : [b, a], s = `(${r[0]}, ${r[1]})`, ln = k === 'x' ? 'the x axis' : k === 'y' ? 'the y axis' : 'the line y = x';
   const extra = k === 'yx' ? `<line x1="5" y1="95" x2="95" y2="5" stroke="#F2604F" stroke-width="1.4" stroke-dasharray="3 2"/>` : k === 'x' ? `<line x1="5" y1="50" x2="95" y2="50" stroke="#F2604F" stroke-width="1.4" stroke-dasharray="3 2"/>` : `<line x1="50" y1="5" x2="50" y2="95" stroke="#F2604F" stroke-width="1.4" stroke-dasharray="3 2"/>`;
-  return Q({ prompt: `Reflect (${a}, ${b}) in ${ln}.`, speak: `Reflect the point ${a}, ${b} in ${ln}. Where does it land?`, visual: gridSVG(a, b, true, extra), choices: sOpts(s, [`(${-a}, ${-b})`, `(${a}, ${-b})`, `(${-a}, ${b})`, `(${b}, ${a})`, `(${-b}, ${-a})`]), answer: s,
-    explain: gridSVG([[a, b], r], 0, true, extra), explainText: k === 'x' ? `Reflecting in the x axis flips up and down: the y number changes sign. ${s}.` : k === 'y' ? `Reflecting in the y axis flips left and right: the x number changes sign. ${s}.` : `Reflecting in y = x swaps the two numbers: ${s}.` });
+  return Q({ prompt: `Reflect (${a}, ${b}) in ${ln}.`, speak: `Reflect the point ${a}, ${b} in ${ln}. Where does it land?`, visual: bigGrid(a, b, true, extra), choices: sOpts(s, [`(${-a}, ${-b})`, `(${a}, ${-b})`, `(${-a}, ${b})`, `(${b}, ${a})`, `(${-b}, ${-a})`]), answer: s,
+    explain: bigGrid([[a, b], r], 0, true, extra), explainText: k === 'x' ? `Reflecting in the x axis flips up and down: the y number changes sign. ${s}.` : k === 'y' ? `Reflecting in the y axis flips left and right: the x number changes sign. ${s}.` : `Reflecting in y = x swaps the two numbers: ${s}.` });
 });
 
 const pad2 = n => String(n).padStart(2, '0');
@@ -537,10 +540,10 @@ const f12 = t => { t = ((t % 1440) + 1440) % 1440; const H = Math.floor(t / 60);
 const digi = s => `<span class="digi">${s}</span>`;
 const hm = d => `${Math.floor(d / 60) ? Math.floor(d / 60) + ' h ' : ''}${d % 60 ? d % 60 + ' min' : ''}`.trim();
 const hmSay = d => hm(d).replace('h', 'hours').replace('min', 'minutes');
-S('clock24', 3, '24-hour clock', '🕰️', [
-  ['The 24-hour clock keeps counting after noon: 1 pm is 13:00, 2 pm is 14:00, all the way to 23:59.', () => `<div class="row">${digi('1:00 pm')}<span class="op">→</span>${digi('13:00')}</div>`],
-  ['For pm times add 12 to the hour: 7:30 pm → 19:30. Morning times keep their hour with a 0 in front: 7:30 am → 07:30.', () => `<div class="row">${digi('7:30 pm')}<span class="op">→</span>${digi('19:30')}</div>`],
-  ['Midnight is 00:00 and noon is 12:00.', () => `<div class="row">${digi('00:00')}${digi('12:00')}</div>`]
+S3('clock24', 3, '24-hour clock', '🕰️', [
+  ['The 24-hour clock keeps counting after noon: 1 pm is 13:00, 2 pm is 14:00, all the way to 23:59.', () => `<div class="m3row">${digi('1:00 pm')}<span class="m3arr">→</span>${digi('13:00')}</div>`],
+  ['For pm times add 12 to the hour: 7:30 pm → 19:30. Morning times keep their hour with a 0 in front: 7:30 am → 07:30.', () => `<div class="m3row">${digi('7:30 pm')}<span class="m3arr">→</span>${digi('19:30')}</div>`],
+  ['Midnight is 00:00 and noon is 12:00.', () => `<div class="m3row">${digi('00:00')}${digi('12:00')}</div>`]
 ], L => {
   if (L <= 3) {
     const t = L === 3 && Math.random() < 0.35 ? pick([0, 12]) * 60 + rnd(0, 11) * 5 : L === 3 ? rnd(0, 287) * 5 : rnd(13, 23) * 60 + (L === 1 ? 0 : rnd(0, 11) * 5), to24 = L === 1 || (L === 3 && Math.random() < 0.5);
@@ -558,7 +561,7 @@ S('clock24', 3, '24-hour clock', '🕰️', [
   }
   if (Math.random() < 0.5) {
     const t = rnd(252, 287) * 5, d = rnd(16, 60) * 5, a = hm(d);
-    return Q({ prompt: word(`A night train leaves at ${f24(t)} and arrives at ${f24(t + d)} the next morning. How long is the trip?`), visual: `<div class="row">${digi(f24(t))}<span class="op">→</span>${digi(f24(t + d))}</div>`, choices: sOpts(a, [d + 60, d - 60, d + 30, d + 15, 1440 - d].filter(v => v > 0 && v < 1440).map(hm), v => v.replace(" h", " hours").replace("min", "minutes")), answer: a,
+    return Q({ prompt: word(`A night train leaves at ${f24(t)} and arrives at ${f24(t + d)} the next morning. How long is the trip?`), visual: `<div class="m3row">${digi(f24(t))}<span class="m3arr">→</span>${digi(f24(t + d))}</div>`, choices: sOpts(a, [d + 60, d - 60, d + 30, d + 15, 1440 - d].filter(v => v > 0 && v < 1440).map(hm), v => v.replace(" h", " hours").replace("min", "minutes")), answer: a,
       steps: [`From ${f24(t)} to midnight (00:00) is ${hmSay(1440 - t)}.`, `From 00:00 to ${f24(t + d)} is ${hmSay((t + d) % 1440) || '0 minutes'}.`, 'Add them together.'], explainText: `The trip takes ${hmSay(d)}.` });
   }
   const [c1, c2, off] = pick([['London', 'New York', -5], ['London', 'Tokyo', 9], ['Paris', 'Dubai', 3], ['Sydney', 'London', -10], ['Los Angeles', 'London', 8], ['Delhi', 'Beijing', 2.5], ['Cairo', 'Rio', -5]]), t = rnd(0, 47) * 30, a = f24(t + off * 60);
@@ -597,7 +600,7 @@ function gridTri(w, h) {
   g += `<rect x="10" y="10" width="${w * s}" height="${h * s}" fill="none" stroke="#9FB3C8" stroke-width="2" stroke-dasharray="5 4"/><polygon points="${pts2([[10, 10], [10, 10 + h * s], [10 + w * s, 10 + h * s]])}" fill="#FFD98A" fill-opacity=".85" stroke="${INK}" stroke-width="2.5" stroke-linejoin="round"/>`;
   return svgBox(`0 0 ${w * s + 20} ${h * s + 20}`, g, 'triangle on squared paper', w > 6);
 }
-S('shapearea', 3, 'Area of triangles and more', '🔺', [
+S3('shapearea', 3, 'Area of triangles and more', '🔺', [
   ['A triangle is exactly half of a rectangle. Area = base × height ÷ 2.', () => triSVG(8, 5, 0.6, 'base 8', 'height 5', { rect: true })],
   ['The height goes straight up from the base, at a right angle (the little square).', () => triSVG(8, 5, 0.3, 'base', 'height')],
   ['A parallelogram is a rectangle with a slice moved across, so area = base × height.', () => paraSVG(8, 4, 3, '8 cm', '4 cm')]
@@ -660,7 +663,7 @@ function quadSVG(name, rot = 0, angles) {
 const QPROPS = [['exactly one pair of parallel sides', 'trapezium', []], ['4 equal sides but no right angles', 'rhombus', ['square']], ['two pairs of equal sides that sit next to each other', 'kite', ['rhombus', 'square']], ['4 right angles, but its sides are not all equal', 'rectangle', []], ['4 equal sides and 4 right angles', 'square', []], ['two pairs of parallel sides, no right angles and not all sides equal', 'parallelogram', []]];
 const QTRUE = ['Every square is a rectangle', 'Every square is a rhombus', 'Every rhombus is a parallelogram', 'Every rectangle is a parallelogram', 'A square has 4 lines of symmetry', 'An equilateral triangle has 3 equal angles'];
 const QFALSE = ['Every rectangle is a square', 'Every rhombus is a square', 'Every parallelogram is a rectangle', 'A trapezium has 2 pairs of parallel sides', 'Every kite is a rhombus', 'A rectangle has 4 lines of symmetry', 'A triangle can have 2 right angles', 'Every quadrilateral has a right angle'];
-S('quads', 3, 'Triangles and quadrilaterals', '🔷', [
+S3('quads', 3, 'Triangles and quadrilaterals', '🔷', [
   ['Little dashes mean equal sides. Equilateral: 3 equal sides. Isosceles: 2 equal. Scalene: none equal.', () => `<div class="row m3three">${quadSVG('equilateral triangle')}${quadSVG('isosceles triangle')}${quadSVG('scalene triangle')}</div>`],
   ['Arrows mean parallel: the sides go the same way and never meet. A parallelogram has 2 pairs; a trapezium has 1.', () => `<div class="row">${quadSVG('parallelogram')}${quadSVG('trapezium')}</div>`],
   ['A little square in a corner means a right angle (90°). Squares and rectangles have 4.', () => `<div class="row">${quadSVG('square')}${quadSVG('rectangle')}</div>`]
@@ -707,7 +710,7 @@ function lineGraphSVG(labels, vals, lo, hi, step, unit, labStep = step) {
   g += `<polyline points="${vals.map((v, i) => `${X(i)},${Y(v)}`).join(' ')}" fill="none" stroke="#F2604F" stroke-width="2.5" stroke-linejoin="round"/>${vals.map((v, i) => `<circle cx="${X(i)}" cy="${Y(v)}" r="3.5" fill="#F2604F"/>`).join('')}${tx(6, 8, unit, { size: 10, anchor: 'start', fill: '#5A678C' })}`;
   return svgBox('0 0 296 174', g, 'line graph', true);
 }
-S('piechart', 3, 'Pie charts and line graphs', '🥧', [
+S3('piechart', 3, 'Pie charts and line graphs', '🥧', [
   ['A pie chart shows the parts of a whole. The bigger the slice, the more people chose it.', () => pieChartSVG([{ deg: 180, col: PIE_COLS[0], lab: '🍕' }, { deg: 90, col: PIE_COLS[1], lab: '🌮' }, { deg: 90, col: PIE_COLS[2], lab: '🍝' }])],
   ['Half the circle is half the people. If 40 children were asked, half of 40 = 20 chose pizza.', () => `<span class="expr">${frac(1, 2)} of 40 = 20</span>`],
   ['A line graph shows how something changes, like the temperature during a day.', () => lineGraphSVG(['9am', '11am', '1pm', '3pm', '5pm'], [8, 14, 18, 16, 10], 0, 20, 4, '°C')]
@@ -744,9 +747,9 @@ function areaModel(cols, rows, cells) {
   const W = 72, H = 40; let g = '';
   cols.forEach((c, i) => g += tx(56 + i * W + W / 2, 16, c, { size: 14 }));
   rows.forEach((r, j) => { g += tx(44, 24 + j * H + H / 2 + 5, r, { size: 14, anchor: 'end' }); cols.forEach((_, i) => g += `<rect x="${56 + i * W}" y="${24 + j * H}" width="${W}" height="${H}" fill="${['#D9EBFC', '#FFF1CC', '#D7F2E3', '#FDE0DB'][(i + j * 2) % 4]}" stroke="${INK}" stroke-width="2"/>${tx(56 + i * W + W / 2, 24 + j * H + H / 2 + 5, cells[j][i], { size: 14 })}`); });
-  return svgBox(`0 0 ${60 + cols.length * W} ${28 + rows.length * H}`, g, 'grid for multiplying brackets');
+  return svgBox(`0 0 ${60 + cols.length * W} ${28 + rows.length * H}`, g, 'grid for multiplying brackets', true);
 }
-S('expand', 4, 'Brackets and like terms', '🧮', [
+S3('expand', 4, 'Brackets and like terms', '🧮', [
   ['Like terms have the same letter part. 3x + 2x = 5x, but 3x + 2y cannot be joined.', () => '<span class="expr">3x + 2x = 5x</span>'],
   ['To expand a bracket, multiply everything inside: 3(x + 4) = 3x + 12.', () => areaModel(['x', '+4'], ['3'], [['3x', '12']])],
   ['Two brackets? Use a grid: (x + 2)(x + 3) = x² + 3x + 2x + 6 = x² + 5x + 6.', () => areaModel(['x', '+3'], ['x', '+2'], [['x²', '3x'], ['2x', '6']])]
@@ -803,7 +806,7 @@ function ineqSVG(lo, hi, a, aIn, b, bIn) {
   return svgBox('0 0 300 66', g, 'number line', true);
 }
 const ineqPic = (op, v) => ineqSVG(v - 5, v + 5, op === '<' || op === '≤' ? null : v, op === '≥', op === '<' || op === '≤' ? v : null, op === '≤');
-S('inequal', 4, 'Inequalities', '↔️', [
+S3('inequal', 4, 'Inequalities', '↔️', [
   ['x > 3 means x is any number bigger than 3. The empty circle means 3 itself is not included.', () => ineqPic('>', 3)],
   ['≤ means "less than or equal to". A filled circle means the number is included: x ≤ 2.', () => ineqPic('≤', 2)],
   ['Solve like an equation: 2x + 1 < 9 → 2x < 8 → x < 4. If you multiply or divide by a negative, flip the sign!', () => `<span class="expr">${ineqH('2x + 1 < 9 → x < 4')}</span>`]
@@ -842,6 +845,7 @@ S('inequal', 4, 'Inequalities', '↔️', [
 
 const supE = e => `<sup>${e < 0 ? '−' + -e : e}</sup>`;
 const sfH = v => { const [m, e] = v.split('e'); return `${m} × 10${supE(+e)}`; };
+const sfB = v => `<span>${sfH(v)}</span>`;
 const sfS = v => { const [m, e] = v.split('e'); return `${m} times 10 to the power ${+e < 0 ? 'minus ' + -e : e}`; };
 function sfPlain(m, e) {
   const [ip, fp = ''] = String(m).split('.'), d = ip + fp, pt = ip.length + e;
@@ -850,7 +854,7 @@ function sfPlain(m, e) {
   return Number(d.slice(0, pt)).toLocaleString('en-US') + '.' + d.slice(pt);
 }
 const mant = () => +(rnd(11, 99) / 10).toFixed(1);
-S('stdform', 4, 'Standard form', '🔭', [
+S3('stdform', 4, 'Standard form', '🔭', [
   ['Huge numbers are written as (a number from 1 to 10) × (a power of 10). 3,000,000 = 3 × 10⁶.', () => `<span class="expr">3,000,000 = 3 × 10<sup>6</sup></span>`],
   ['The power counts how many places the digits move: 45,000 = 4.5 × 10⁴.', () => `<span class="expr">45,000 = 4.5 × 10<sup>4</sup></span>`],
   ['Tiny numbers use negative powers: 0.007 = 7 × 10⁻³.', () => `<span class="expr">0.007 = 7 × 10<sup>−3</sup></span>`]
@@ -862,7 +866,7 @@ S('stdform', 4, 'Standard form', '🔭', [
   }
   if (L === 2 || (L === 4 && Math.random() < 0.5)) {
     const m = mant(), e = L === 2 ? rnd(3, 8) : -rnd(1, 5), n = sfPlain(m, e), a = `${m}e${e}`, mm = +(m * 10).toFixed(1), md = +(m / 10).toFixed(2);
-    return Q({ prompt: `Write ${n} in standard form`, speak: `Write ${n.replace(/,/g, '')} in standard form`, choices: opts(a, [`${m}e${e - 1}`, `${m}e${e + 1}`, `${mm}e${e - 1}`, `${md}e${e + 1}`, `${m}e${-e}`], 4, sfH, sfS), answer: a,
+    return Q({ prompt: `Write ${n} in standard form`, speak: `Write ${n.replace(/,/g, '')} in standard form`, choices: opts(a, [`${m}e${e - 1}`, `${m}e${e + 1}`, `${mm}e${e - 1}`, `${md}e${e + 1}`, `${m}e${-e}`], 4, sfB, sfS), answer: a,
       steps: [`Put the point after the first non-zero digit: ${m}.`, e > 0 ? `${m} must be made ${e} places bigger to reach ${n}.` : `${m} must be made ${-e} places smaller to reach ${n}.`], explainText: `${n} = ${sfH(a)}.` });
   }
   if (L === 3 || L === 4) {
@@ -872,11 +876,11 @@ S('stdform', 4, 'Standard form', '🔭', [
   }
   if (Math.random() < 0.5) {
     const a = rnd(2, 9), b = rnd(2, 9), p = rnd(2, 8), q = rnd(1, 6), ab = a * b, m = ab >= 10 ? +(ab / 10).toFixed(1) : ab, e = p + q + (ab >= 10 ? 1 : 0), ans = `${m}e${e}`;
-    return Q({ prompt: `(${a} × 10${supE(p)}) × (${b} × 10${supE(q)}) = ?`, speak: `${a} times 10 to the ${p}, multiplied by ${b} times 10 to the ${q}`, choices: opts(ans, [`${m}e${p * q}`, `${m}e${e + 1}`, `${m}e${e - 1}`, `${a + b}e${p + q}`, `${m}e${p + q + (ab >= 10 ? 0 : 1)}`], 4, sfH, sfS), answer: ans,
+    return Q({ prompt: `(${a} × 10${supE(p)}) × (${b} × 10${supE(q)}) = ?`, speak: `${a} times 10 to the ${p}, multiplied by ${b} times 10 to the ${q}`, choices: opts(ans, [`${m}e${p * q}`, `${m}e${e + 1}`, `${m}e${e - 1}`, `${a + b}e${p + q}`, `${m}e${p + q + (ab >= 10 ? 0 : 1)}`], 4, sfB, sfS), answer: ans,
       steps: [`Multiply the numbers: ${a} × ${b} = ${ab}.`, `Add the powers: ${p} + ${q} = ${p + q}.`, ...(ab >= 10 ? [`${ab} is not between 1 and 10, so write ${ab} = ${m} × 10 and add 1 to the power.`] : [])], explainText: `= ${sfH(ans)}.` });
   }
   const b = rnd(2, 4), c = rnd(1, Math.floor(9 / b)), a = b * c, p = rnd(5, 9), q = rnd(1, p - 2), ans = `${c}e${p - q}`;
-  return Q({ prompt: `(${a} × 10${supE(p)}) ÷ (${b} × 10${supE(q)}) = ?`, speak: `${a} times 10 to the ${p}, divided by ${b} times 10 to the ${q}`, choices: opts(ans, [`${c}e${p + q}`, `${c}e${p - q + 1}`, `${c}e${Math.round(p / q)}`, `${a - b}e${p - q}`, `${c}e${p - q - 1}`], 4, sfH, sfS), answer: ans,
+  return Q({ prompt: `(${a} × 10${supE(p)}) ÷ (${b} × 10${supE(q)}) = ?`, speak: `${a} times 10 to the ${p}, divided by ${b} times 10 to the ${q}`, choices: opts(ans, [`${c}e${p + q}`, `${c}e${p - q + 1}`, `${c}e${Math.round(p / q)}`, `${a - b}e${p - q}`, `${c}e${p - q - 1}`], 4, sfB, sfS), answer: ans,
     steps: [`Divide the numbers: ${a} ÷ ${b} = ${c}.`, `Subtract the powers: ${p} − ${q} = ${p - q}.`], explainText: `= ${sfH(ans)}.` });
 });
 
@@ -887,7 +891,7 @@ function pctBar(keep, lab1, lab2) {
   const w = keep * 2.8;
   return svgBox('0 0 300 64', `<rect x="10" y="10" width="${w}" height="34" fill="#A8E0C2" stroke="${INK}" stroke-width="2"/><rect x="${10 + w}" y="10" width="${280 - w}" height="34" fill="#F7B9AE" stroke="${INK}" stroke-width="2"/>${tx(10 + w / 2, 32, lab1, { size: 13 })}${tx(10 + w + (280 - w) / 2, 32, lab2, { size: 12 })}${tx(10, 60, '0%', { size: 10, anchor: 'start', fill: '#5A678C' })}${tx(290, 60, '100%', { size: 10, anchor: 'end', fill: '#5A678C' })}`, 'percentage bar', true);
 }
-S('interest', 4, 'Discounts and interest', '💰', [
+S3('interest', 4, 'Discounts and interest', '💰', [
   ['A 20% discount means you pay the other 80%. $50 × 0.8 = $40.', () => pctBar(80, 'you pay 80%', 'save 20%')],
   ['Simple interest is the same every year. $200 at 5% earns $10 a year, so 3 years earns $30.', () => '<span class="expr">$200 × 5% × 3 = $30</span>'],
   ['Compound interest grows on the interest too: multiply by 1.05 every year for 5%.', () => '<span class="expr">$200 → $210 → $220.50</span>']
@@ -933,7 +937,7 @@ function dtGraph(pts, tMax, dMax) {
   g += `<polyline points="${pts.map(([t, d]) => `${X(t)},${Y(d)}`).join(' ')}" fill="none" stroke="#2E8BE6" stroke-width="3" stroke-linejoin="round"/>${tx(160, 170, 'time (hours)', { size: 10, fill: '#5A678C' })}${tx(4, 8, 'km', { size: 10, anchor: 'start', fill: '#5A678C' })}`;
   return svgBox('0 0 292 174', g, 'distance-time graph', true);
 }
-S('speed', 4, 'Speed, distance and time', '🚗', [
+S3('speed', 4, 'Speed, distance and time', '🚗', [
   ['Speed tells you how far you go in each hour. 60 km/h means 60 km every hour.', () => road('120 km', '2 hours at 60 km/h')],
   ['Distance = speed × time. Speed = distance ÷ time. Time = distance ÷ speed.', () => svgBox('0 0 120 100', `<polygon points="60,6 114,94 6,94" fill="#FFF1CC" stroke="${INK}" stroke-width="2.5"/><line x1="30" y1="56" x2="90" y2="56" stroke="${INK}" stroke-width="2"/><line x1="60" y1="56" x2="60" y2="94" stroke="${INK}" stroke-width="2"/>${tx(60, 46, 'D', { size: 20 })}${tx(42, 84, 'S', { size: 20 })}${tx(78, 84, 'T', { size: 20 })}`, 'distance speed time triangle')],
   ['Watch the units! 30 minutes is half an hour, so at 60 km/h you go 30 km.', () => '<span class="expr">60 × ½ = 30 km</span>']
@@ -974,20 +978,20 @@ S('speed', 4, 'Speed, distance and time', '🚗', [
 
 // Right-angled triangle: right angle at A (bottom), B along the bottom, C straight up. θ sits at B or C.
 function rtriSVG(w, h, at, lab, flip) {
-  const k = Math.min(170 / w, 110 / h), W = w * k, H = h * k, ox = 34, oy = 14 + H, fx = x => flip ? 2 * ox + W - x : x;
+  const k = Math.min(190 / w, 120 / h), W = w * k, H = h * k, ox = Math.max(34, 14 + 7 * Math.max(...Object.values(lab).map(v => String(v).length))), oy = 14 + H, fx = x => flip ? 2 * ox + W - x : x;
   const A = [fx(ox), oy], B = [fx(ox + W), oy], C = [fx(ox), oy - H], cx = (A[0] + B[0] + C[0]) / 3, cy = (A[1] + B[1] + C[1]) / 3;
   let g = `<polygon points="${pts2([A, B, C])}" fill="#D9EBFC" stroke="${INK}" stroke-width="2.5" stroke-linejoin="round"/><path d="M${A[0] + (flip ? -12 : 12)} ${oy} V${oy - 12} H${A[0]}" fill="none" stroke="${INK}" stroke-width="1.6"/>`;
-  const side = (P, Q2, t, col) => { if (t == null) return ''; const mx = (P[0] + Q2[0]) / 2, my = (P[1] + Q2[1]) / 2, dx = mx - cx, dy = my - cy, d = Math.hypot(dx, dy); return tx(mx + dx / d * 16, my + dy / d * 16 + 5, t, { size: 14, fill: col || INK }); };
+  const side = (P, Q2, t, col) => { if (t == null) return ''; const mx = (P[0] + Q2[0]) / 2, my = (P[1] + Q2[1]) / 2, dx = mx - cx, dy = my - cy, d = Math.hypot(dx, dy); const o = 14 + String(t).length * 2.2; return tx(mx + dx / d * o, my + dy / d * o + 5, t, { size: 14, fill: col || INK }); };
   g += side(A, B, lab.AB) + side(A, C, lab.AC) + side(B, C, lab.BC);
   if (at) { const V = at === 'B' ? B : C, P1 = A, P2 = at === 'B' ? C : B, u = P => { const L = Math.hypot(P[0] - V[0], P[1] - V[1]); return [(P[0] - V[0]) / L, (P[1] - V[1]) / L]; }, [a1, b1] = u(P1), [a2, b2] = u(P2), r = 22, cr = a1 * b2 - b1 * a2;
     g += `<path d="M${+(V[0] + a1 * r).toFixed(1)} ${+(V[1] + b1 * r).toFixed(1)} A${r} ${r} 0 0 ${cr > 0 ? 1 : 0} ${+(V[0] + a2 * r).toFixed(1)} ${+(V[1] + b2 * r).toFixed(1)}" fill="none" stroke="#F2604F" stroke-width="2.5"/>`;
     const bx = a1 + a2, by = b1 + b2, bl = Math.hypot(bx, by); g += tx(V[0] + bx / bl * 36, V[1] + by / bl * 36 + 5, lab.ang || 'θ', { size: 13, fill: '#F2604F' }); }
-  return svgBox(`0 0 ${W + 76} ${H + 44}`, g, 'right-angled triangle', true);
+  return svgBox(`0 0 ${W + 2 * ox + 8} ${H + 58}`, g, 'right-angled triangle', true);
 }
 // Name sides relative to θ: which of AB / AC / BC is opp, adj, hyp.
 const trigSides = at => at === 'B' ? { opp: 'AC', adj: 'AB', hyp: 'BC' } : { opp: 'AB', adj: 'AC', hyp: 'BC' };
 const TRIG_NAME = { sin: 'sine', cos: 'cosine', tan: 'tangent' };
-S('trig', 4, 'Trigonometry: SOH CAH TOA', '⛺', [
+S3('trig', 4, 'Trigonometry: SOH CAH TOA', '⛺', [
   ['In a right-angled triangle, the longest side, across from the right angle, is the hypotenuse.', () => rtriSVG(4, 3, null, { BC: 'hypotenuse' })],
   ['Look from the angle θ. The side across from it is the opposite. The side next to it (not the hypotenuse) is the adjacent.', () => rtriSVG(4, 3, 'B', { AC: 'opposite', AB: 'adjacent', BC: 'hyp' })],
   ['SOH CAH TOA: sin θ = opp ÷ hyp, cos θ = adj ÷ hyp, tan θ = opp ÷ adj.', () => '<span class="expr">S<sub>O/H</sub> C<sub>A/H</sub> T<sub>O/A</sub></span>']
@@ -1026,7 +1030,7 @@ S('trig', 4, 'Trigonometry: SOH CAH TOA', '⛺', [
 
 const tiles = (list, hi = []) => `<div class="ntiles">${list.map((v, i) => `<span${hi.includes(i) ? ' class="hi"' : ''}>${neg(v)}</span>`).join('')}</div>`;
 const median = s => s.length % 2 ? s[(s.length - 1) / 2] : (s[s.length / 2 - 1] + s[s.length / 2]) / 2;
-S('stats', 4, 'Averages and spread', '📋', [
+S3('stats', 4, 'Averages and spread', '📋', [
   ['Mean: add them all up and share equally. Median: the middle one when they are in order. Mode: the most common.', () => tiles([2, 3, 3, 5, 7], [2])],
   ['Range = biggest − smallest. The interquartile range is the spread of the middle half.', () => '<span class="expr">7 − 2 = 5</span>'],
   ['In a frequency table, multiply each value by how often it happens, add them, then divide by the total count.', () => `<table class="m3tab"><tr><th>Pets</th><td>0</td><td>1</td><td>2</td></tr><tr><th>Children</th><td>3</td><td>5</td><td>2</td></tr></table>`]

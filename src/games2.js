@@ -444,7 +444,7 @@ function mapQ(d) {
     for (let x = lo; x <= hi; x++) {
       const st0 = isStart(x, y), crab = p.mode === 'read' && x === ax && y === ay;
       const tagN = p.mode === 'read' ? 'span' : 'button';
-      grid += `<${tagN} class="tcell${p.mode === 'read' ? '' : ' gopt'}${st0 ? ' start' : ''}${x === 0 && lab ? ' x0' : ''}${y === 0 && lab ? ' y0' : ''}" data-x="${x}" data-y="${y}"${okA(p.mode !== 'read' && x === ax && y === ay)} aria-label="${lab ? `${mn(x)}, ${mn(y)}` : `square ${x + 1}, ${N - y}`}">${crab ? '<span class="mcrab">🦀</span>' : deco[x + ',' + y] ? `<span class="mdeco">${deco[x + ',' + y]}</span>` : ''}</${tagN}>`;
+      grid += `<${tagN} class="tcell${p.mode === 'read' ? '' : ' gopt'}${st0 ? ' start' : ''}${x === 0 && lab ? ' x0' : ''}${y === 0 && lab ? ' y0' : ''}${lab ? (x === lo ? ' xl' : x === hi ? ' xh' : '') + (y === lo ? ' yl' : y === hi ? ' yh' : '') : ''}" data-x="${x}" data-y="${y}"${okA(p.mode !== 'read' && x === ax && y === ay)} aria-label="${lab ? `${mn(x)}, ${mn(y)}` : `square ${x + 1}, ${N - y}`}">${crab ? '<span class="mcrab">🦀</span>' : deco[x + ',' + y] ? `<span class="mdeco">${deco[x + ',' + y]}</span>` : ''}</${tagN}>`;
     }
   }
   if (lab) grid += '<span></span>' + range(lo, hi).map(x => `<span class="mapx">${mn(x)}</span>`).join('');
