@@ -228,6 +228,47 @@ ol.steps{margin:0;padding-left:1.4em;text-align:left;font-weight:700;font-size:1
 .ptarget i{aspect-ratio:1;display:block}
 .pside{display:flex;flex-direction:column;gap:12px;align-items:flex-start}
 .coords-list{background:var(--paper);border-radius:16px;padding:12px 14px 12px 30px;font-weight:800;font-size:16px;max-width:320px;box-shadow:0 4px 0 var(--line);margin:0;display:flex;flex-direction:column;gap:6px}
+/* players, pet, quest */
+#toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom));transform:translate(-50%,140%);background:var(--ink);color:#fff;font-weight:800;padding:14px 20px;border-radius:20px;max-width:calc(100vw - 32px);text-align:center;z-index:50;transition:transform .3s;box-shadow:0 6px 18px rgba(0,0,0,.2)}
+#toast.show{transform:translate(-50%,0)}
+.pet{position:relative;display:inline-block;line-height:1}
+.pet i{position:absolute;right:-.15em;top:-.25em;font-size:.45em;font-style:normal}
+.pet .sparkle{position:absolute;left:-.2em;top:-.1em;font-size:.35em}
+.bounce{animation:bob 2.4s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-6px) rotate(-3deg)}}
+@media (prefers-reduced-motion:reduce){.bounce{animation:none}#toast{transition:none}}
+.pet-btn{background:var(--paper);border-radius:28px;padding:10px 14px;box-shadow:0 4px 0 var(--line)}
+.pet-card{background:var(--paper);border-radius:32px;padding:24px;display:flex;flex-direction:column;align-items:center;gap:12px;box-shadow:0 6px 0 var(--line);text-align:center}
+.pet-card h2{font-size:30px}
+.big-bar{height:22px;width:min(100%,420px)}.big-bar i{background:var(--sun)}
+.wears{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:10px}
+.wear{background:var(--paper);border-radius:20px;min-height:84px;font-size:38px;box-shadow:0 4px 0 var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:6px;font-weight:800}
+.wear:first-child{font-size:18px}
+.wear.on{background:var(--grape-soft);outline:3px solid var(--grape)}
+.wear.locked{font-size:24px;opacity:.75}.wear small{font-size:12px;line-height:1.15;color:var(--ink-soft)}
+.quest{background:var(--sun-soft);border-radius:28px;padding:16px;display:flex;flex-direction:column;gap:8px;box-shadow:0 5px 0 #F0D894}
+.quest-head{display:flex;justify-content:space-between;align-items:center;font-family:var(--display);font-size:22px}
+.quest-head span{font-size:17px;font-family:var(--body);font-weight:800;color:var(--ink-soft)}
+.qtask{display:flex;align-items:center;gap:12px;background:var(--paper);border-radius:18px;padding:10px 14px;text-align:left;font-weight:800;min-height:56px}
+.qtask .ico{font-size:28px}.qtask .qt{flex:1}.qtask .qn{color:var(--ink-soft);font-variant-numeric:tabular-nums}
+.qtask.ok{background:var(--leaf-soft)}.qtask.ok .qt{text-decoration:line-through;text-decoration-thickness:2px;color:var(--ink-soft)}
+.chest{border-radius:18px;padding:14px;font-weight:800;font-size:19px;background:var(--paper);color:var(--ink-soft)}
+.chest.ready{background:var(--coral);color:#fff;box-shadow:0 5px 0 #B8402F;animation:bob 1.6s ease-in-out infinite}
+.who{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;margin:10px 0}
+.who-btn{background:var(--paper);border-radius:28px;padding:20px 10px;display:flex;flex-direction:column;align-items:center;gap:8px;box-shadow:0 5px 0 var(--line);font-family:var(--display);font-size:24px}
+.who-btn span{font-size:72px;line-height:1}.who-btn.on{outline:4px solid var(--sun)}
+.players{display:flex;flex-direction:column;gap:8px;margin:8px 0 14px}
+.player{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:var(--bg);border-radius:16px;padding:8px 12px}
+.player .pa{font-size:34px}.player .note{flex:1;margin:0}
+.btn.sm{font-size:16px;padding:8px 14px}
+.add-player{display:flex;flex-direction:column;gap:10px}
+.avatars{display:flex;flex-wrap:wrap;gap:6px}
+.av{font-size:30px;width:52px;height:52px;border-radius:14px;background:var(--bg)}
+.av.on{background:var(--sun-soft);outline:3px solid var(--sun)}
+.btn.mic{background:var(--coral);padding:0 16px;font-size:24px}
+.btn.mic.on{animation:bob .8s ease-in-out infinite;background:var(--leaf)}
+@media (max-width:520px){.top{gap:6px}.top .home{width:46px;height:46px;font-size:23px;border-radius:15px}.pill{padding:6px 10px;font-size:16px}.who-btn span{font-size:56px}}
+@media (max-width:400px){.top .brand{display:none}}
 </style>
 
 </head><body>
@@ -235,8 +276,10 @@ ol.steps{margin:0;padding-left:1.4em;text-align:left;font-weight:700;font-size:1
   <div class="top">
     <button class="home" id="homeBtn" aria-label="Home">🏠</button>
     <div class="brand">Owl &amp; Crayon</div>
+    <button class="home who-top" id="whoBtn" aria-label="Switch player">🦊</button>
     <span class="pill" title="Stars">⭐ <span id="starCount">0</span></span>
     <span class="pill" title="Days in a row">🔥 <span id="streakCount">0</span></span>
+    <button class="home" id="readBtn" aria-label="Read this screen to me">🔊</button>
   </div>
   <main class="view" id="view"></main>
 </div>
@@ -1268,12 +1311,189 @@ function freshState(age = 5) {
   for (const k in MATH) skills[k] = { m: startMastery(k, age), seen: 0, hist: [], ms: 0 };
   return { v: 2, name: '', age, stars: 0, streak: { n: 0, last: null }, skills, review: [], owlMisses: [], owlTaught: [], plays: { math: 0, art: 0, owl: 0 }, speak: true, unlockAll: false, art: { done: {}, pixel: 1, pixelDone: {} } };
 }
-let st = store.get('state', null) || freshState();
-for (const k in MATH) if (!st.skills[k]) st.skills[k] = { m: startMastery(k, st.age), seen: 0, hist: [], ms: 0 };
-st.art = st.art || { done: {}, pixel: 1, pixelDone: {} };
-st.review = (st.review || []).filter(r => MATH[r.skill]);
-let gallery = store.get('gallery', []);
-const save = () => store.set('state', st);
+/* ---------- players: each child has their own saved progress and pictures ---------- */
+const AVATARS = ['🦊', '🐼', '🐯', '🐸', '🦄', '🐙', '🐵', '🐨', '🐰', '🦁', '🐳', '🐞'];
+function migrate(s) {
+  for (const k in MATH) if (!s.skills[k]) s.skills[k] = { m: startMastery(k, s.age), seen: 0, hist: [], ms: 0 };
+  s.art = s.art || { done: {}, pixel: 1, pixelDone: {} };
+  s.review = (s.review || []).filter(r => MATH[r.skill]);
+  s.pet = s.pet || { xp: Math.min(s.stars || 0, 150), wear: '', name: 'Hoot', seen: null };
+  s.bestStreak = Math.max(s.bestStreak || 0, s.streak.n);
+  s.questsDone = s.questsDone || 0;
+  return s;
+}
+let profiles = store.get('profiles', null);
+if (!profiles) {
+  // First run of this version: the single saved child becomes player 1.
+  const old = store.get('state', null);
+  profiles = [{ id: 'p1', avatar: '🦊' }];
+  if (old) { store.set('state:p1', old); store.set('gallery:p1', store.get('gallery', [])); }
+  store.set('profiles', profiles);
+}
+let pid = store.get('current', profiles[0].id);
+if (!profiles.some(p => p.id === pid)) pid = profiles[0].id;
+let st, gallery;
+function loadProfile(id) { pid = id; store.set('current', id); st = migrate(store.get('state:' + id, null) || freshState()); gallery = store.get('gallery:' + id, []); }
+loadProfile(pid);
+const save = () => store.set('state:' + pid, st);
+const saveGallery = () => store.set('gallery:' + pid, gallery);
+const profileOf = id => profiles.find(p => p.id === id);
+const nameOf = id => (id === pid ? st : store.get('state:' + id, null) || {}).name || 'Player';
+try { if (navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(() => {}); } catch (e) {}
+
+/* ---------- little pop-up messages ---------- */
+function toast(text) {
+  let t = document.getElementById('toast');
+  if (!t) { t = document.createElement('div'); t.id = 'toast'; t.setAttribute('aria-live', 'polite'); document.body.appendChild(t); }
+  t.textContent = text; t.classList.add('show');
+  clearTimeout(toast.timer); toast.timer = setTimeout(() => t.classList.remove('show'), 3200);
+}
+
+/* ---------- read-the-screen button ---------- */
+let screenText = '';
+function sayScreen(text) { screenText = text; say(text); }
+
+/* ---------- the owl pet grows with every star ---------- */
+const PET_STAGES = [[0, '🥚', 'Egg'], [25, '🐣', 'Hatchling'], [80, '🐥', 'Chick'], [200, '🦉', 'Owlet'], [450, '🦉', 'Wise Owl'], [900, '🦉', 'Super Owl']];
+const petStage = xp => PET_STAGES.reduce((s, p, i) => xp >= p[0] ? i : s, 0);
+const WEARS = [
+  { e: '🎀', need: 'stage', v: 2, label: 'Grow into a Chick' },
+  { e: '🕶️', need: 'streak', v: 3, label: 'Play 3 days in a row' },
+  { e: '🎩', need: 'stage', v: 3, label: 'Grow into an Owlet' },
+  { e: '🌟', need: 'quests', v: 5, label: 'Finish 5 daily quests' },
+  { e: '👑', need: 'streak', v: 7, label: 'Play 7 days in a row' },
+  { e: '🎓', need: 'stage', v: 4, label: 'Grow into a Wise Owl' },
+  { e: '🚀', need: 'streak', v: 14, label: 'Play 14 days in a row' },
+  { e: '🌈', need: 'stage', v: 5, label: 'Grow into a Super Owl' },
+  { e: '🏆', need: 'quests', v: 30, label: 'Finish 30 daily quests' }
+];
+const wearOpen = w => w.need === 'stage' ? petStage(st.pet.xp) >= w.v : w.need === 'streak' ? st.bestStreak >= w.v : st.questsDone >= w.v;
+const petHTML = (size, cls = '') => { const s = PET_STAGES[petStage(st.pet.xp)]; return `<span class="pet ${cls}" style="font-size:${size}px">${s[1]}${petStage(st.pet.xp) >= 5 ? '<b class="sparkle">✨</b>' : ''}${st.pet.wear ? `<i>${st.pet.wear}</i>` : ''}</span>`; };
+function gainXP(n) {
+  const before = petStage(st.pet.xp), openBefore = WEARS.filter(wearOpen).length;
+  st.pet.xp += n;
+  const after = petStage(st.pet.xp);
+  if (after > before) { toast(`${st.pet.name} grew into a ${PET_STAGES[after][2]}! ${PET_STAGES[after][1]}`); confetti(30); }
+  if (WEARS.filter(wearOpen).length > openBefore) setTimeout(() => toast('New outfit for your owl! Tap your owl to try it on.'), after > before ? 3400 : 0);
+}
+function petView() {
+  const i = petStage(st.pet.xp), next = PET_STAGES[i + 1];
+  const pct = next ? Math.round((st.pet.xp - PET_STAGES[i][0]) / (next[0] - PET_STAGES[i][0]) * 100) : 100;
+  view.innerHTML = `${crumbs('My owl')}
+    <div class="pet-card">${petHTML(140, 'bounce')}
+      <h2>${esc(st.pet.name)} the ${PET_STAGES[i][2]}</h2>
+      <div class="bar big-bar" aria-label="${pct}% grown"><i style="width:${pct}%"></i></div>
+      <p class="note">${next ? `${next[0] - st.pet.xp} more stars until ${st.pet.name} grows into a ${next[2]}!` : `${st.pet.name} is fully grown. Amazing!`}</p></div>
+    <h3 class="section-title">Dress up</h3>
+    <div class="wears"><button class="wear${st.pet.wear ? '' : ' on'}" data-wear="">None</button>${WEARS.map(w => wearOpen(w)
+      ? `<button class="wear${st.pet.wear === w.e ? ' on' : ''}" data-wear="${w.e}">${w.e}</button>`
+      : `<button class="wear locked" data-lock="${esc(w.label)}" aria-label="Locked: ${esc(w.label)}">🔒<small>${esc(w.label)}</small></button>`).join('')}</div>
+    <h3 class="section-title">Name</h3>
+    <div class="chips">${['Hoot', 'Pip', 'Luna', 'Sky', 'Mochi', 'Ziggy', 'Coco', 'Biscuit'].map(n => `<button data-name="${n}"${st.pet.name === n ? ' style="background:var(--grape);color:#fff"' : ''}>${n}</button>`).join('')}</div>`;
+  wireBack(home);
+  sayScreen(`This is ${st.pet.name} the ${PET_STAGES[i][2]}. ${next ? `Earn ${next[0] - st.pet.xp} more stars to help ${st.pet.name} grow!` : 'Fully grown!'}`);
+  view.querySelectorAll('[data-wear]').forEach(b => b.onclick = () => { st.pet.wear = b.dataset.wear; save(); tone([660, 880]); go(petView); });
+  view.querySelectorAll('[data-lock]').forEach(b => b.onclick = () => say(b.dataset.lock + ' to unlock this.'));
+  view.querySelectorAll('[data-name]').forEach(b => b.onclick = () => { st.pet.name = b.dataset.name; save(); go(petView); });
+}
+
+/* ---------- daily quest: 3 small jobs a day, then a treasure chest ---------- */
+function quest() {
+  const d = today();
+  if (!st.quest || st.quest.day !== d) {
+    const n = dayNum(d), mathN = st.age <= 6 ? 5 : 8;
+    const artJobs = [['art', 1, 'Finish an art lesson or save a drawing', '🖍️'], ['pixel', 1, 'Finish a pixel picture', '👾'], ['mix', 1, 'Make a new color in Mix colors', '🎨'], ['art', 1, 'Finish an art lesson or save a drawing', '🖍️']];
+    const extra = dueReviews().length >= 2 ? ['review', 2, 'Practise 2 old questions', '🔁'] : [['owl', 1, 'Ask Owl a question', '🦉'], ['firsttry', 3, 'Get 3 right on the first try', '🎯']][n % 2];
+    st.quest = { day: d, claimed: false, tasks: [['math', mathN, `Answer ${mathN} math questions`, '🔢'], artJobs[n % artJobs.length], extra].map(([k, need, t, ico]) => ({ k, need, t, ico, have: 0 })) };
+    save();
+  }
+  return st.quest;
+}
+function questTick(k, by = 1) {
+  const q = quest();
+  q.tasks.forEach(t => { if (t.k === k && t.have < t.need) { t.have = Math.min(t.need, t.have + by); if (t.have === t.need) setTimeout(() => toast(`Quest job done: ${t.t}! ✅`), 400); } });
+  save();
+}
+const questDone = q => q.tasks.every(t => t.have >= t.need);
+function questCard() {
+  const q = quest(), done = questDone(q);
+  return `<div class="quest"><div class="quest-head"><b>Today's quest</b><span>${q.tasks.filter(t => t.have >= t.need).length} of 3</span></div>
+    ${q.tasks.map((t, i) => `<button class="qtask${t.have >= t.need ? ' ok' : ''}" data-task="${i}"><span class="ico">${t.have >= t.need ? '✅' : t.ico}</span><span class="qt">${t.t}</span><span class="qn">${Math.min(t.have, t.need)}/${t.need}</span></button>`).join('')}
+    ${q.claimed ? '<p class="note">Treasure opened! Come back tomorrow for a new quest.</p>' : `<button class="chest${done ? ' ready' : ''}" id="chest" ${done ? '' : 'aria-disabled="true"'}>${done ? '🎁 Open the treasure chest!' : '🔒 Finish all 3 to open the treasure chest'}</button>`}</div>`;
+}
+function wireQuest() {
+  const q = quest();
+  view.querySelectorAll('[data-task]').forEach(b => b.onclick = () => {
+    const t = q.tasks[+b.dataset.task];
+    ({ math: () => go(mathHome), firsttry: () => go(mathHome), review: () => go(play, 'review'), art: () => go(artHome), pixel: () => go(pixelHome), mix: () => go(mixTab), owl: () => go(owl) })[t.k]();
+  });
+  const c = document.getElementById('chest');
+  if (c) c.onclick = () => {
+    if (!questDone(q)) { say('Finish all 3 quest jobs to open the treasure chest!'); return; }
+    q.claimed = true; st.questsDone++; addStars(5); gainXP(25); save(); confetti(60); yay();
+    say(`You opened the treasure chest! 5 bonus stars, and ${st.pet.name} loves it!`); toast('Treasure! +5 ⭐');
+    go(home);
+  };
+}
+
+/* ---------- who's playing ---------- */
+function whoView() {
+  view.innerHTML = `<h1 style="font-size:40px;text-align:center">Who's playing?</h1>
+    <div class="who">${profiles.map(p => `<button class="who-btn${p.id === pid ? ' on' : ''}" data-p="${p.id}"><span>${p.avatar}</span><b>${esc(nameOf(p.id))}</b></button>`).join('')}</div>
+    <div class="row"><button class="small-link" id="addP">Grown-ups: add a player</button></div>`;
+  sayScreen("Who's playing? Tap your picture.");
+  view.querySelectorAll('[data-p]').forEach(b => b.onclick = () => { loadProfile(b.dataset.p); updateTop(); go(home); });
+  $('#addP').onclick = () => go(gate);
+}
+function playersPanel() {
+  return `<div class="panel"><h2>Players</h2><p class="note">Each child gets their own progress, owl and pictures. The animal button at the top switches players.</p>
+    <div class="players">${profiles.map(p => `<div class="player"><span class="pa">${p.avatar}</span><b>${esc(nameOf(p.id))}</b><span class="note">age ${(p.id === pid ? st : store.get('state:' + p.id, null) || {}).age || '?'}${p.id === pid ? ' · playing now' : ''}</span>
+      ${p.id === pid ? '' : `<button class="btn alt sm" data-switch="${p.id}">Switch</button>`}${profiles.length > 1 ? `<button class="btn alt sm" data-del="${p.id}">Remove</button>` : ''}</div>`).join('')}</div>
+    <form id="addForm" class="add-player"><label class="field" for="npn">New player's name<input id="npn" autocomplete="off" required></label>
+      <label class="field" for="npa">Age<input id="npa" type="number" min="3" max="16" value="5"></label>
+      <div class="avatars" role="group" aria-label="Picture">${AVATARS.map((a, i) => `<button type="button" class="av${i === profiles.length % AVATARS.length ? ' on' : ''}" data-av="${a}">${a}</button>`).join('')}</div>
+      <button class="btn leaf" type="submit">Add player</button></form></div>
+  <div class="panel"><h2>Backup</h2><p class="note">Progress is saved on this tablet only. Save a backup file now and then (for example to Files or Google Drive), so nothing is lost if the browser is cleared or you get a new tablet.</p>
+    <div class="row" style="justify-content:flex-start"><button class="btn" id="bk">Save a backup file</button><label class="btn alt" for="rs" style="cursor:pointer">Restore from a backup<input id="rs" type="file" accept="application/json,.json" hidden></label></div><p class="note" id="bkm" aria-live="polite"></p></div>`;
+}
+function wirePlayers() {
+  let av = view.querySelector('.av.on')?.dataset.av || AVATARS[0];
+  view.querySelectorAll('[data-av]').forEach(b => b.onclick = () => { av = b.dataset.av; view.querySelectorAll('[data-av]').forEach(x => x.classList.toggle('on', x === b)); });
+  view.querySelectorAll('[data-switch]').forEach(b => b.onclick = () => { loadProfile(b.dataset.switch); updateTop(); go(parent); });
+  view.querySelectorAll('[data-del]').forEach(b => b.onclick = () => {
+    if (b.dataset.armed !== '1') { b.dataset.armed = '1'; b.textContent = 'Tap again to remove'; return; }
+    const id = b.dataset.del; profiles = profiles.filter(p => p.id !== id); store.set('profiles', profiles);
+    try { localStorage.removeItem('owlcrayon:state:' + id); localStorage.removeItem('owlcrayon:gallery:' + id); } catch (e) {}
+    if (id === pid) loadProfile(profiles[0].id); updateTop(); go(parent);
+  });
+  $('#addForm').onsubmit = e => {
+    e.preventDefault();
+    const id = 'p' + Date.now().toString(36), s = freshState(clamp(+$('#npa').value || 5, 3, 16)); s.name = $('#npn').value.trim().slice(0, 20);
+    profiles.push({ id, avatar: av }); store.set('profiles', profiles); store.set('state:' + id, migrate(s)); store.set('gallery:' + id, []);
+    go(parent); toast(`${s.name || 'New player'} added!`);
+  };
+  $('#bk').onclick = () => {
+    const data = { app: 'owl-crayon', v: 1, saved: new Date().toISOString(), profiles, current: pid, states: {}, galleries: {} };
+    save(); saveGallery();
+    profiles.forEach(p => { data.states[p.id] = store.get('state:' + p.id, null); data.galleries[p.id] = store.get('gallery:' + p.id, []); });
+    try {
+      const url = URL.createObjectURL(new Blob([JSON.stringify(data)], { type: 'application/json' })), a = document.createElement('a');
+      a.href = url; a.download = `owl-crayon-backup-${today()}.json`; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 5000);
+      $('#bkm').textContent = 'Backup file saved. Keep it somewhere safe.';
+    } catch (e) { $('#bkm').textContent = 'This browser could not save the file. Try opening the app from the Home Screen icon.'; }
+  };
+  $('#rs').onchange = e => {
+    const f = e.target.files[0]; if (!f) return;
+    f.text().then(txt => {
+      const d = JSON.parse(txt);
+      if (d.app !== 'owl-crayon' || !Array.isArray(d.profiles)) throw new Error('not a backup');
+      profiles = d.profiles; store.set('profiles', profiles);
+      profiles.forEach(p => { if (d.states[p.id]) store.set('state:' + p.id, d.states[p.id]); store.set('gallery:' + p.id, d.galleries[p.id] || []); });
+      loadProfile(profiles.some(p => p.id === d.current) ? d.current : profiles[0].id); updateTop();
+      go(parent); toast('Backup restored!');
+    }).catch(() => { $('#bkm').textContent = 'That file is not an Owl & Crayon backup. Pick the file that starts with owl-crayon-backup.'; });
+  };
+}
 
 /* ---------- adaptive engine: mastery per skill + spaced review ---------- */
 const level = s => 1 + Math.min(4, Math.floor(st.skills[s].m * 5));
@@ -1311,24 +1531,37 @@ function todaysPick() {
 function bumpStreak() {
   const t = today(); if (st.streak.last === t) return;
   st.streak.n = st.streak.last && dayNum(t) - dayNum(st.streak.last) === 1 ? st.streak.n + 1 : 1; st.streak.last = t;
+  st.bestStreak = Math.max(st.bestStreak || 0, st.streak.n);
 }
-function addStars(n) { st.stars += n; bumpStreak(); save(); updateTop(); }
+function addStars(n) { st.stars += n; gainXP(n); bumpStreak(); save(); updateTop(); }
 
 /* ---------- views ---------- */
 const view = document.getElementById('view');
 const $ = s => view.querySelector(s);
-function updateTop() { document.getElementById('starCount').textContent = st.stars; document.getElementById('streakCount').textContent = st.streak.n; }
+function updateTop() { document.getElementById('starCount').textContent = st.stars; document.getElementById('streakCount').textContent = st.streak.n; const w = document.getElementById('whoBtn'); w.textContent = (profileOf(pid) || profiles[0]).avatar; w.setAttribute('aria-label', `Player: ${st.name || 'Player'}. Tap to switch`); }
 function go(fn, ...a) { try { speechSynthesis.cancel(); } catch (e) {} stopCanvas(); view.innerHTML = ''; window.scrollTo(0, 0); fn(...a); }
 document.getElementById('homeBtn').onclick = () => go(home);
+document.getElementById('whoBtn').onclick = () => go(whoView);
+document.getElementById('readBtn').onclick = () => say(screenText || document.getElementById('view').innerText.slice(0, 400));
 const crumbs = (title, back) => `<div class="crumbs"><button class="back" id="backBtn">← Back</button><h1>${title}</h1></div>`;
 const wireBack = fn => { const b = $('#backBtn'); if (b) b.onclick = () => go(fn); };
 
+function petMood() {
+  const n = st.pet.name, gap = st.pet.seen ? dayNum(today()) - dayNum(st.pet.seen) : 0;
+  if (!st.pet.seen) return `Meet ${n}, your owl! Every star you earn helps ${n} grow.`;
+  if (gap >= 3) return `${n} missed you! Let's play together.`;
+  if (questDone(quest()) && !quest().claimed) return `${n} says: the treasure chest is ready!`;
+  return pick([`${n} is happy to see you!`, `${n} wants to learn something new today.`, `${n} says hoo hoo!`, `${n} loves stars. Let's earn some!`]);
+}
 function home() {
   const p = todaysPick(), stickers = Array.from({ length: Math.floor(st.stars / 10) }, (_, i) => STICKERS[i % STICKERS.length]);
+  const mood = petMood(); st.pet.seen = today(); save();
+  const left = quest().tasks.filter(t => t.have < t.need).length;
   view.innerHTML = `
-    <div class="hello"><div class="owl-face" aria-hidden="true">🦉</div><div>
+    <div class="hello"><button class="pet-btn" id="petBtn" aria-label="My owl ${esc(st.pet.name)}">${petHTML(76, 'bounce')}</button><div>
       <h1>Hi${st.name ? ', ' + esc(st.name) : ''}! What shall we do?</h1>
-      <p>${st.streak.n > 1 ? `You played ${st.streak.n} days in a row!` : 'Pick a big button to start.'}</p></div></div>
+      <p>${esc(mood)}${st.streak.n > 1 ? ` You played ${st.streak.n} days in a row!` : ''}</p></div></div>
+    ${questCard()}
     <button class="pick" id="pick"><span class="big">${p.ico}</span><span><b>${p.title}</b>${p.text}</span></button>
     <div class="tiles">
       <button class="tile t-math" id="tMath"><span class="big">🔢</span><span><h2>Number Garden</h2><p>From counting to algebra</p></span></button>
@@ -1338,7 +1571,9 @@ function home() {
     <h3 class="section-title">My stickers <span class="tag">every 10 ⭐</span></h3>
     <div class="stickers">${stickers.length ? stickers.map(s => `<span>${s}</span>`).join('') : '<span class="empty">Earn 10 stars to get your first sticker.</span>'}</div>
     <button class="small-link" id="parent">For grown-ups</button>`;
-  say(`Hi${st.name ? ' ' + st.name : ''}! What shall we do today?`);
+  sayScreen(`Hi${st.name ? ' ' + st.name : ''}! ${mood} ${quest().claimed ? '' : left ? `Your quest has ${left} job${left > 1 ? 's' : ''} left.` : 'Open your treasure chest!'}`);
+  $('#petBtn').onclick = () => go(petView);
+  wireQuest();
   $('#tMath').onclick = () => go(mathHome);
   $('#tArt').onclick = () => go(artHome);
   $('#tOwl').onclick = () => go(owl);
@@ -1356,7 +1591,7 @@ function mathHome() {
         <span class="big">${open ? w.ico : '🔒'}</span><b>${w.name}</b><span>Ages ${w.ages} · ${worldSkills(i).length} topics</span>
         <span class="meter" aria-label="${m}% learned"><i style="width:${m}%"></i></span>${open ? '' : `<span>Unlocks at 50% of ${WORLDS[i - 1].name}</span>`}</button>`; }).join('')}</div>`;
   wireBack(home);
-  say('Pick a world!');
+  sayScreen('Pick a world! ' + WORLDS.filter((w, i) => worldOpen(i)).map(w => w.name).join(', ') + '.');
   if (due) $('#rev').onclick = () => go(play, 'review');
   view.querySelectorAll('[data-w]').forEach(b => b.onclick = () => { const w = +b.dataset.w; if (worldOpen(w)) go(worldView, w); else say('Keep playing the world before to open this one!'); });
 }
@@ -1369,6 +1604,7 @@ function worldView(w) {
         <span class="lvl" aria-label="level ${level(s.id)} of 5">${[1, 2, 3, 4, 5].map(i => `<i class="${i <= level(s.id) ? 'on' : ''}">⭐</i>`).join('')}</span>${s.id === rec ? '<span class="tag">Try this</span>' : ''}</button>`).join('')}
     </div>`;
   wireBack(mathHome);
+  sayScreen(`${W.name}. Pick a topic. Try ${MATH[rec].name}! The topics are: ` + worldSkills(w).map(s => s.name).join(', ') + '.');
   view.querySelectorAll('[data-s]').forEach(b => b.onclick = () => b.dataset.s === 'mix' ? go(play, 'mix', w) : go(startSkill, b.dataset.s));
 }
 function startSkill(id) { if (!st.skills[id].seenLesson) go(lessonView, id, true); else go(play, id); }
@@ -1424,7 +1660,8 @@ function question() {
       b.classList.add('right'); view.querySelectorAll('.choice').forEach(x => x.disabled = true);
       if (first) { learn(skill, true, ms); sess.firstTries++; }
       if (item.review) { const r = item.review; r.box = first ? Math.min(r.box + 1, BOXES.length - 1) : 0; r.due = dayNum(today()) + BOXES[r.box]; if (first && r.box === BOXES.length - 1) st.review = st.review.filter(x => x !== r); }
-      const earned = first ? 2 : 1; sess.stars += earned; st.stars += earned; updateTop();
+      const earned = first ? 2 : 1; sess.stars += earned; st.stars += earned; gainXP(earned); updateTop();
+      questTick('math'); if (item.review) questTick('review'); if (first) questTick('firsttry');
       const words = first ? pick(['Great job!', 'You got it!', 'Super!', 'Yes!', 'Brilliant!']) : 'Now you know it!';
       $('#cheer').textContent = words + ' ⭐'.repeat(earned); yay(); say(words);
       save();
@@ -1474,7 +1711,7 @@ function artHome() {
     <div class="cats">${ART_CATS.map(c => { const ls = LESSONS.filter(l => l.cat === c.id), d = ls.filter(l => st.art.done[l.id]).length;
       return `<button class="cat" data-cat="${c.id}"><span class="ico">${c.ico}</span><b>${c.name}</b><span>${c.blurb}</span><span>${d} of ${ls.length} done</span></button>`; }).join('')}</div>`;
   wireBack(home);
-  say('Welcome to Art School! Pick a lesson or a tool.');
+  sayScreen('Welcome to Art School! Pick a lesson or a tool.');
   if (nl) $('#nextL').onclick = () => go(drawLesson, nl.id);
   view.querySelectorAll('[data-tool]').forEach(b => b.onclick = () => { const t = b.dataset.tool; go(t === 'free' ? freeDraw : t === 'mandala' ? () => freeDraw(8) : t === 'pixel' ? pixelHome : t === 'mix' ? mixTab : galTab); });
   view.querySelectorAll('[data-cat]').forEach(b => b.onclick = () => go(catView, b.dataset.cat));
@@ -1486,6 +1723,7 @@ function catView(cid) {
       return `<button class="lcard${st.art.done[l.id] ? ' done' : ''}${open ? '' : ' locked'}" data-l="${l.id}"><span class="ico">${open ? l.ico : '🔒'}</span><b>${l.title}</b><span class="lvl-tag lv${l.level}">${LEVEL_NAMES[l.level]}</span><span class="note">${l.steps.length} steps</span></button>`; }).join('')}</div>
     <p class="note">Explorer lessons open after 3 Beginner lessons. Master lessons open after 3 Explorer lessons.</p>`;
   wireBack(artHome);
+  sayScreen(`${c.name}. Pick a lesson: ` + ls.filter(l => artLevelOpen(l.level)).map(l => l.title).join(', ') + '.');
   view.querySelectorAll('[data-l]').forEach(b => b.onclick = () => { const l = lessonById(b.dataset.l); if (artLevelOpen(l.level)) go(drawLesson, l.id); else say(`Finish 3 ${LEVEL_NAMES[l.level - 1]} lessons to open this one!`); });
 }
 function lessonSVG(ls, i, cls) {
@@ -1522,7 +1760,7 @@ function drawLesson(id) {
     if (i < ls.steps.length - 1) { i++; render(); tone([600]); return; }
     const first = !st.art.done[ls.id]; st.art.done[ls.id] = today();
     if (pad.drawn()) pad.save(false);
-    addStars(first ? 3 : 1); confetti(); yay();
+    questTick('art'); addStars(first ? 3 : 1); confetti(); yay();
     say(`You finished ${ls.title}! ${first ? 'You earned 3 stars!' : ''}`);
     const nl = nextLesson();
     view.innerHTML = `<div class="view done"><div class="big">${ls.ico}</div><h1>Beautiful work!</h1><p style="font-weight:800;font-size:22px">${first ? 'You earned 3 ⭐' : 'Practice makes perfect!'}${pad.drawn() ? ' Your drawing is saved in My pictures.' : ''}</p>
@@ -1601,8 +1839,8 @@ function makePad(el, { square = false, sym = 0, extra = '' } = {}) {
   function savePic(cheer = true) {
     const t = document.createElement('canvas'), w = 360; t.width = w; t.height = Math.round(w * cv.height / cv.width);
     const tc = t.getContext('2d'); tc.fillStyle = '#fff'; tc.fillRect(0, 0, t.width, t.height); tc.drawImage(cv, 0, 0, t.width, t.height);
-    gallery.unshift(t.toDataURL('image/jpeg', 0.75)); gallery = gallery.slice(0, 30); store.set('gallery', gallery);
-    if (cheer) { addStars(1); confetti(20); yay(); say('Saved to your pictures! You earned a star.'); }
+    gallery.unshift(t.toDataURL('image/jpeg', 0.75)); gallery = gallery.slice(0, 30); saveGallery();
+    if (cheer) { questTick('art'); addStars(1); confetti(20); yay(); say('Saved to your pictures! You earned a star.'); }
   }
   el.querySelector('#sav').onclick = () => savePic(true);
   return { setTrace: svg => { el.querySelector('#tr').innerHTML = svg; }, save: savePic, drawn: () => dirty };
@@ -1626,7 +1864,7 @@ function mixTab() {
     if (pot.length === 1) { potEl.style.background = BASE[pot[0]]; potEl.textContent = pot[0] + ' + ?'; potEl.style.color = pot[0] === 'white' || pot[0] === 'yellow' ? '#22305A' : '#fff'; return; }
     const key = [...pot].sort().join('+'), res = pot[0] === pot[1] ? [BASE[pot[0]], pot[0]] : MIXES[key] || ['#8B7F72', 'muddy brown'];
     potEl.style.background = res[0]; potEl.textContent = `${pot[0]} + ${pot[1]} = ${res[1]}`; potEl.style.color = /yellow|light|pink|white|grey/.test(res[1]) ? '#22305A' : '#fff';
-    if (res[1] === goal) { yay(); confetti(25); addStars(1); say(`${pot[0]} and ${pot[1]} make ${res[1]}! You did it!`); goal = pick(goals.filter(g => g !== goal)); setTimeout(setGoal, 2600); }
+    if (res[1] === goal) { yay(); confetti(25); questTick('mix'); addStars(1); say(`${pot[0]} and ${pot[1]} make ${res[1]}! You did it!`); goal = pick(goals.filter(g => g !== goal)); setTimeout(setGoal, 2600); }
     else say(`${pot[0]} and ${pot[1]} make ${res[1]}.`);
   });
   $('#empty').onclick = () => { pot = []; potEl.style.background = ''; potEl.style.color = ''; potEl.textContent = 'Tap two paints'; };
@@ -1658,7 +1896,7 @@ function pixelHome() {
     <div class="lessons">${PICS.map(p => { const open = st.unlockAll || p.level <= st.art.pixel;
       return `<button class="lcard${st.art.pixelDone[p.id] ? ' done' : ''}${open ? '' : ' locked'}" data-p="${p.id}"><span class="ico">${open ? (p.coord ? '🗺️' : '👾') : '🔒'}</span><b>${p.name}</b><span class="lvl-tag lv${Math.min(3, Math.ceil(p.level / 2))}">Level ${p.level} · ${p.rows[0].length}×${p.rows.length}</span></button>`; }).join('')}</div>`;
   wireBack(artHome);
-  say('Pick a pixel picture to copy!');
+  sayScreen('Pick a pixel picture to copy!');
   view.querySelectorAll('[data-p]').forEach(b => b.onclick = () => { const p = PICS.find(x => x.id === b.dataset.p); if (st.unlockAll || p.level <= st.art.pixel) go(pixelPlay, p.id); else say('Finish a picture on the level before to open this one!'); });
 }
 function pixelPlay(id) {
@@ -1689,7 +1927,7 @@ function pixelPlay(id) {
     const pct = Math.round(right / (H * Wd) * 100);
     if (!bad) {
       const first = !st.art.pixelDone[P.id]; st.art.pixelDone[P.id] = today(); st.art.pixel = Math.max(st.art.pixel, Math.min(5, P.level + 1));
-      addStars(first ? 3 : 1); confetti(); yay(); $('#pmsg').textContent = 'Perfect copy! 🎉'; say(`Perfect! You made the ${P.name}!`);
+      questTick('pixel'); addStars(first ? 3 : 1); confetti(); yay(); $('#pmsg').textContent = 'Perfect copy! 🎉'; say(`Perfect! You made the ${P.name}!`);
     } else { $('#pmsg').textContent = `${pct}% right. The squares with a red border need fixing.`; say(`${pct} percent right. Fix the squares with a red border.`); }
   };
 }
@@ -1783,16 +2021,18 @@ function owlFind(text) {
   }
   return best ? { a: best.a, v: best.v ? best.v() : '' } : null;
 }
+const Rec = window.SpeechRecognition || window.webkitSpeechRecognition;
 function owl() {
   st.plays.owl++; save();
   const chips = shuffle(KB).slice(0, 4).map(e => e.q).concat(['What is 3 plus 4?']);
   view.innerHTML = `<div class="owl-head"><div class="owl-face" aria-hidden="true">🦉</div>
       <div class="bubble" id="bub" aria-live="polite"><p>Hoo hoo! Ask me about numbers, shapes, colors or drawing.</p></div></div>
-    <form class="ask" id="askf"><input id="askq" autocomplete="off" placeholder="Type your question…" aria-label="Your question"><button class="btn" type="submit" style="background:var(--grape)">Ask</button></form>
+    <form class="ask" id="askf">${Rec ? '<button type="button" class="btn mic" id="mic" aria-label="Talk to Owl">🎤</button>' : ''}<input id="askq" autocomplete="off" placeholder="Type your question…" aria-label="Your question"><button class="btn" type="submit" style="background:var(--grape)">Ask</button></form>
     <div class="chips">${chips.map(c => `<button data-q="${esc(c)}">${esc(c)}</button>`).join('')}</div>`;
-  say('Hoo hoo! Ask me about numbers, shapes, colors or drawing.');
+  sayScreen('Hoo hoo! Ask me about numbers, shapes, colors or drawing.' + (Rec ? ' Tap the microphone to talk to me.' : ''));
   const ask = q => {
     q = q.trim(); if (!q) return;
+    questTick('owl');
     const r = owlFind(q), bub = $('#bub');
     if (r) {
       bub.innerHTML = `<p>${esc(r.a)}</p>${r.v ? `<div class="visual">${r.v}</div>` : ''}<div class="helped">Did that help? <button data-h="1" aria-label="yes">👍</button><button data-h="0" aria-label="no">👎</button></div>`;
@@ -1809,6 +2049,17 @@ function owl() {
   };
   $('#askf').onsubmit = e => { e.preventDefault(); ask($('#askq').value); $('#askq').value = ''; };
   view.querySelectorAll('[data-q]').forEach(b => b.onclick = () => ask(b.dataset.q));
+  if (Rec) $('#mic').onclick = e => {
+    const btn = e.currentTarget, bub = $('#bub');
+    let r; try { r = new Rec(); } catch (err) { bub.innerHTML = '<p>My ears are not working here. Can a grown-up type it for you?</p>'; return; }
+    r.lang = 'en-US'; r.interimResults = false; r.maxAlternatives = 1;
+    try { speechSynthesis.cancel(); } catch (err) {}
+    btn.classList.add('on'); bub.innerHTML = '<p>I am listening… 👂</p>';
+    r.onresult = ev => { const t = ev.results[0][0].transcript; $('#askq').value = t; ask(t); $('#askq').value = ''; };
+    r.onerror = ev => { bub.innerHTML = `<p>${navigator.onLine === false || ev.error === 'network' ? 'I can only hear you when the internet is on. You can type, or tap a question below!' : 'I did not hear that. Tap the microphone and try again!'}</p>`; };
+    r.onend = () => btn.classList.remove('on');
+    try { r.start(); } catch (err) { btn.classList.remove('on'); }
+  };
 }
 function logMiss(q, why) { if (!st.owlMisses.some(m => m.q === q)) st.owlMisses.unshift({ q, why, at: today() }); st.owlMisses = st.owlMisses.slice(0, 40); save(); }
 
@@ -1823,7 +2074,7 @@ function parent() {
   const rows = WORLDS.map((w, wi) => `<tr><th colspan="6" style="padding-top:16px">${w.ico} ${w.name} (ages ${w.ages})${worldOpen(wi) ? '' : ' · locked'}</th></tr>` + worldSkills(wi).map(s => { const k = s.id, x = st.skills[k], a = acc(k);
     return `<tr><td>${s.ico} ${s.name}</td><td>${level(k)} / 5</td><td><div class="bar"><i style="width:${Math.round(x.m * 100)}%"></i></div></td><td>${a == null ? '–' : Math.round(a * 100) + '%'}</td><td>${x.ms ? (x.ms / 1000).toFixed(1) + 's' : '–'}</td><td>${x.seen}</td></tr>`; }).join('')).join('');
   const artDone = [1, 2, 3].map(lv => `${LEVEL_NAMES[lv]}: ${LESSONS.filter(l => l.level === lv && st.art.done[l.id]).length} of ${LESSONS.filter(l => l.level === lv).length}`).join(' · ');
-  view.innerHTML = `<h1 style="font-size:36px">Grown-ups corner</h1>
+  view.innerHTML = `<h1 style="font-size:36px">Grown-ups corner</h1><p class="note">Showing ${profileOf(pid).avatar} ${esc(st.name || 'Player')}. Switch players under Players below.</p>
     <div class="panel"><h2>Math progress</h2><p class="note">Each topic has 5 levels. It gets harder after answers that are right on the first try, and easier after mistakes. Missed questions come back for review after 1, 2, 4, 8 and 16 days. ${st.review.length} questions are in review, ${dueReviews().length} due today. A new world opens when your child reaches 50% in the world before it.</p>
       <div class="wide"><table class="ptable"><thead><tr><th>Topic</th><th>Level</th><th>Mastery</th><th>Right first try (last 20)</th><th>Avg time</th><th>Answered</th></tr></thead><tbody>${rows}</tbody></table></div></div>
     <div class="panel"><h2>Art progress</h2><p class="note">${artDone}. Pixel art level ${st.art.pixel} of 5. ${gallery.length} saved pictures.</p></div>
@@ -1831,6 +2082,7 @@ function parent() {
       <div id="misses">${st.owlMisses.length ? st.owlMisses.map((m, i) => `<div class="miss"><b>“${esc(m.q)}”</b><span class="note">${m.at} · ${m.why}</span>
         <textarea id="t${i}" placeholder="A simple answer a child can understand"></textarea><div class="row" style="justify-content:flex-start"><button class="btn leaf" data-teach="${i}" style="font-size:18px;padding:10px 18px">Teach Owl</button><button class="btn alt" data-skip="${i}" style="font-size:18px;padding:10px 18px">Dismiss</button></div></div>`).join('') : '<p class="note">Nothing waiting. Owl has answered everything so far.</p>'}</div>
       ${st.owlTaught.length ? `<p class="note">Owl has learned ${st.owlTaught.length} answer${st.owlTaught.length > 1 ? 's' : ''} from you.</p>` : ''}</div>
+    ${playersPanel()}
     <div class="panel"><h2>Settings</h2>
       <label class="field" for="nm">Child's name<input id="nm" value="${esc(st.name)}" autocomplete="off"></label>
       <label class="field" for="ag">Age<input id="ag" type="number" min="3" max="16" value="${st.age}"></label>
@@ -1841,23 +2093,24 @@ function parent() {
     const i = +b.dataset.teach, ans = $('#t' + i).value.trim(); if (!ans) return;
     st.owlTaught.push({ q: st.owlMisses[i].q, a: ans }); st.owlMisses.splice(i, 1); save(); go(parent);
   });
+  wirePlayers();
   view.querySelectorAll('[data-skip]').forEach(b => b.onclick = () => { st.owlMisses.splice(+b.dataset.skip, 1); save(); go(parent); });
   $('#saveS').onclick = () => {
     const age = clamp(+$('#ag').value || 5, 3, 16);
     if (age !== st.age) for (const k in MATH) if (st.skills[k].seen === 0) st.skills[k].m = startMastery(k, age);
-    st.name = $('#nm').value.trim().slice(0, 20); st.age = age; st.speak = $('#sp').checked; st.unlockAll = $('#ua').checked; save(); $('#sm').textContent = 'Saved.';
+    st.name = $('#nm').value.trim().slice(0, 20); st.age = age; st.speak = $('#sp').checked; st.unlockAll = $('#ua').checked; save(); updateTop(); $('#sm').textContent = 'Saved.';
   };
   let armed = false;
   $('#reset').onclick = e => {
     if (!armed) { armed = true; e.currentTarget.textContent = 'Tap again to erase everything'; return; }
-    const keep = { name: st.name, age: st.age }; st = freshState(keep.age); st.name = keep.name; gallery = []; store.set('gallery', []); save(); updateTop(); go(parent);
+    const keep = { name: st.name, age: st.age }; st = migrate(freshState(keep.age)); st.name = keep.name; gallery = []; saveGallery(); save(); updateTop(); go(parent);
   };
 }
 
 /* ---------- start ---------- */
 updateTop();
-go(home);
-if (location.hash === "#selftest") window.__owl = { MATH, LESSONS, lessonSVG, PICS };
+go(profiles.length > 1 ? whoView : home);
+if (location.hash === "#selftest") window.__owl = { MATH, LESSONS, lessonSVG, PICS, get st() { return st; }, get profiles() { return profiles; }, quest, questTick, gainXP, petStage, go, home };
 if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) { try { navigator.serviceWorker.register('sw.js').catch(() => {}); } catch (e) {} }
 })();
 </script>

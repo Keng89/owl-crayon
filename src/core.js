@@ -137,12 +137,7 @@ function freshState(age = 5) {
   for (const k in MATH) skills[k] = { m: startMastery(k, age), seen: 0, hist: [], ms: 0 };
   return { v: 2, name: '', age, stars: 0, streak: { n: 0, last: null }, skills, review: [], owlMisses: [], owlTaught: [], plays: { math: 0, art: 0, owl: 0 }, speak: true, unlockAll: false, art: { done: {}, pixel: 1, pixelDone: {} } };
 }
-let st = store.get('state', null) || freshState();
-for (const k in MATH) if (!st.skills[k]) st.skills[k] = { m: startMastery(k, st.age), seen: 0, hist: [], ms: 0 };
-st.art = st.art || { done: {}, pixel: 1, pixelDone: {} };
-st.review = (st.review || []).filter(r => MATH[r.skill]);
-let gallery = store.get('gallery', []);
-const save = () => store.set('state', st);
+//@include family.js
 
 /* ---------- adaptive engine: mastery per skill + spaced review ---------- */
 const level = s => 1 + Math.min(4, Math.floor(st.skills[s].m * 5));
@@ -180,24 +175,37 @@ function todaysPick() {
 function bumpStreak() {
   const t = today(); if (st.streak.last === t) return;
   st.streak.n = st.streak.last && dayNum(t) - dayNum(st.streak.last) === 1 ? st.streak.n + 1 : 1; st.streak.last = t;
+  st.bestStreak = Math.max(st.bestStreak || 0, st.streak.n);
 }
-function addStars(n) { st.stars += n; bumpStreak(); save(); updateTop(); }
+function addStars(n) { st.stars += n; gainXP(n); bumpStreak(); save(); updateTop(); }
 
 /* ---------- views ---------- */
 const view = document.getElementById('view');
 const $ = s => view.querySelector(s);
-function updateTop() { document.getElementById('starCount').textContent = st.stars; document.getElementById('streakCount').textContent = st.streak.n; }
+function updateTop() { document.getElementById('starCount').textContent = st.stars; document.getElementById('streakCount').textContent = st.streak.n; const w = document.getElementById('whoBtn'); w.textContent = (profileOf(pid) || profiles[0]).avatar; w.setAttribute('aria-label', `Player: ${st.name || 'Player'}. Tap to switch`); }
 function go(fn, ...a) { try { speechSynthesis.cancel(); } catch (e) {} stopCanvas(); view.innerHTML = ''; window.scrollTo(0, 0); fn(...a); }
 document.getElementById('homeBtn').onclick = () => go(home);
+document.getElementById('whoBtn').onclick = () => go(whoView);
+document.getElementById('readBtn').onclick = () => say(screenText || document.getElementById('view').innerText.slice(0, 400));
 const crumbs = (title, back) => `<div class="crumbs"><button class="back" id="backBtn">← Back</button><h1>${title}</h1></div>`;
 const wireBack = fn => { const b = $('#backBtn'); if (b) b.onclick = () => go(fn); };
 
+function petMood() {
+  const n = st.pet.name, gap = st.pet.seen ? dayNum(today()) - dayNum(st.pet.seen) : 0;
+  if (!st.pet.seen) return `Meet ${n}, your owl! Every star you earn helps ${n} grow.`;
+  if (gap >= 3) return `${n} missed you! Let's play together.`;
+  if (questDone(quest()) && !quest().claimed) return `${n} says: the treasure chest is ready!`;
+  return pick([`${n} is happy to see you!`, `${n} wants to learn something new today.`, `${n} says hoo hoo!`, `${n} loves stars. Let's earn some!`]);
+}
 function home() {
   const p = todaysPick(), stickers = Array.from({ length: Math.floor(st.stars / 10) }, (_, i) => STICKERS[i % STICKERS.length]);
+  const mood = petMood(); st.pet.seen = today(); save();
+  const left = quest().tasks.filter(t => t.have < t.need).length;
   view.innerHTML = `
-    <div class="hello"><div class="owl-face" aria-hidden="true">🦉</div><div>
+    <div class="hello"><button class="pet-btn" id="petBtn" aria-label="My owl ${esc(st.pet.name)}">${petHTML(76, 'bounce')}</button><div>
       <h1>Hi${st.name ? ', ' + esc(st.name) : ''}! What shall we do?</h1>
-      <p>${st.streak.n > 1 ? `You played ${st.streak.n} days in a row!` : 'Pick a big button to start.'}</p></div></div>
+      <p>${esc(mood)}${st.streak.n > 1 ? ` You played ${st.streak.n} days in a row!` : ''}</p></div></div>
+    ${questCard()}
     <button class="pick" id="pick"><span class="big">${p.ico}</span><span><b>${p.title}</b>${p.text}</span></button>
     <div class="tiles">
       <button class="tile t-math" id="tMath"><span class="big">🔢</span><span><h2>Number Garden</h2><p>From counting to algebra</p></span></button>
@@ -207,7 +215,9 @@ function home() {
     <h3 class="section-title">My stickers <span class="tag">every 10 ⭐</span></h3>
     <div class="stickers">${stickers.length ? stickers.map(s => `<span>${s}</span>`).join('') : '<span class="empty">Earn 10 stars to get your first sticker.</span>'}</div>
     <button class="small-link" id="parent">For grown-ups</button>`;
-  say(`Hi${st.name ? ' ' + st.name : ''}! What shall we do today?`);
+  sayScreen(`Hi${st.name ? ' ' + st.name : ''}! ${mood} ${quest().claimed ? '' : left ? `Your quest has ${left} job${left > 1 ? 's' : ''} left.` : 'Open your treasure chest!'}`);
+  $('#petBtn').onclick = () => go(petView);
+  wireQuest();
   $('#tMath').onclick = () => go(mathHome);
   $('#tArt').onclick = () => go(artHome);
   $('#tOwl').onclick = () => go(owl);
@@ -225,7 +235,7 @@ function mathHome() {
         <span class="big">${open ? w.ico : '🔒'}</span><b>${w.name}</b><span>Ages ${w.ages} · ${worldSkills(i).length} topics</span>
         <span class="meter" aria-label="${m}% learned"><i style="width:${m}%"></i></span>${open ? '' : `<span>Unlocks at 50% of ${WORLDS[i - 1].name}</span>`}</button>`; }).join('')}</div>`;
   wireBack(home);
-  say('Pick a world!');
+  sayScreen('Pick a world! ' + WORLDS.filter((w, i) => worldOpen(i)).map(w => w.name).join(', ') + '.');
   if (due) $('#rev').onclick = () => go(play, 'review');
   view.querySelectorAll('[data-w]').forEach(b => b.onclick = () => { const w = +b.dataset.w; if (worldOpen(w)) go(worldView, w); else say('Keep playing the world before to open this one!'); });
 }
@@ -238,6 +248,7 @@ function worldView(w) {
         <span class="lvl" aria-label="level ${level(s.id)} of 5">${[1, 2, 3, 4, 5].map(i => `<i class="${i <= level(s.id) ? 'on' : ''}">⭐</i>`).join('')}</span>${s.id === rec ? '<span class="tag">Try this</span>' : ''}</button>`).join('')}
     </div>`;
   wireBack(mathHome);
+  sayScreen(`${W.name}. Pick a topic. Try ${MATH[rec].name}! The topics are: ` + worldSkills(w).map(s => s.name).join(', ') + '.');
   view.querySelectorAll('[data-s]').forEach(b => b.onclick = () => b.dataset.s === 'mix' ? go(play, 'mix', w) : go(startSkill, b.dataset.s));
 }
 function startSkill(id) { if (!st.skills[id].seenLesson) go(lessonView, id, true); else go(play, id); }
@@ -293,7 +304,8 @@ function question() {
       b.classList.add('right'); view.querySelectorAll('.choice').forEach(x => x.disabled = true);
       if (first) { learn(skill, true, ms); sess.firstTries++; }
       if (item.review) { const r = item.review; r.box = first ? Math.min(r.box + 1, BOXES.length - 1) : 0; r.due = dayNum(today()) + BOXES[r.box]; if (first && r.box === BOXES.length - 1) st.review = st.review.filter(x => x !== r); }
-      const earned = first ? 2 : 1; sess.stars += earned; st.stars += earned; updateTop();
+      const earned = first ? 2 : 1; sess.stars += earned; st.stars += earned; gainXP(earned); updateTop();
+      questTick('math'); if (item.review) questTick('review'); if (first) questTick('firsttry');
       const words = first ? pick(['Great job!', 'You got it!', 'Super!', 'Yes!', 'Brilliant!']) : 'Now you know it!';
       $('#cheer').textContent = words + ' ⭐'.repeat(earned); yay(); say(words);
       save();
@@ -343,7 +355,7 @@ function artHome() {
     <div class="cats">${ART_CATS.map(c => { const ls = LESSONS.filter(l => l.cat === c.id), d = ls.filter(l => st.art.done[l.id]).length;
       return `<button class="cat" data-cat="${c.id}"><span class="ico">${c.ico}</span><b>${c.name}</b><span>${c.blurb}</span><span>${d} of ${ls.length} done</span></button>`; }).join('')}</div>`;
   wireBack(home);
-  say('Welcome to Art School! Pick a lesson or a tool.');
+  sayScreen('Welcome to Art School! Pick a lesson or a tool.');
   if (nl) $('#nextL').onclick = () => go(drawLesson, nl.id);
   view.querySelectorAll('[data-tool]').forEach(b => b.onclick = () => { const t = b.dataset.tool; go(t === 'free' ? freeDraw : t === 'mandala' ? () => freeDraw(8) : t === 'pixel' ? pixelHome : t === 'mix' ? mixTab : galTab); });
   view.querySelectorAll('[data-cat]').forEach(b => b.onclick = () => go(catView, b.dataset.cat));
@@ -355,6 +367,7 @@ function catView(cid) {
       return `<button class="lcard${st.art.done[l.id] ? ' done' : ''}${open ? '' : ' locked'}" data-l="${l.id}"><span class="ico">${open ? l.ico : '🔒'}</span><b>${l.title}</b><span class="lvl-tag lv${l.level}">${LEVEL_NAMES[l.level]}</span><span class="note">${l.steps.length} steps</span></button>`; }).join('')}</div>
     <p class="note">Explorer lessons open after 3 Beginner lessons. Master lessons open after 3 Explorer lessons.</p>`;
   wireBack(artHome);
+  sayScreen(`${c.name}. Pick a lesson: ` + ls.filter(l => artLevelOpen(l.level)).map(l => l.title).join(', ') + '.');
   view.querySelectorAll('[data-l]').forEach(b => b.onclick = () => { const l = lessonById(b.dataset.l); if (artLevelOpen(l.level)) go(drawLesson, l.id); else say(`Finish 3 ${LEVEL_NAMES[l.level - 1]} lessons to open this one!`); });
 }
 function lessonSVG(ls, i, cls) {
@@ -391,7 +404,7 @@ function drawLesson(id) {
     if (i < ls.steps.length - 1) { i++; render(); tone([600]); return; }
     const first = !st.art.done[ls.id]; st.art.done[ls.id] = today();
     if (pad.drawn()) pad.save(false);
-    addStars(first ? 3 : 1); confetti(); yay();
+    questTick('art'); addStars(first ? 3 : 1); confetti(); yay();
     say(`You finished ${ls.title}! ${first ? 'You earned 3 stars!' : ''}`);
     const nl = nextLesson();
     view.innerHTML = `<div class="view done"><div class="big">${ls.ico}</div><h1>Beautiful work!</h1><p style="font-weight:800;font-size:22px">${first ? 'You earned 3 ⭐' : 'Practice makes perfect!'}${pad.drawn() ? ' Your drawing is saved in My pictures.' : ''}</p>
@@ -470,8 +483,8 @@ function makePad(el, { square = false, sym = 0, extra = '' } = {}) {
   function savePic(cheer = true) {
     const t = document.createElement('canvas'), w = 360; t.width = w; t.height = Math.round(w * cv.height / cv.width);
     const tc = t.getContext('2d'); tc.fillStyle = '#fff'; tc.fillRect(0, 0, t.width, t.height); tc.drawImage(cv, 0, 0, t.width, t.height);
-    gallery.unshift(t.toDataURL('image/jpeg', 0.75)); gallery = gallery.slice(0, 30); store.set('gallery', gallery);
-    if (cheer) { addStars(1); confetti(20); yay(); say('Saved to your pictures! You earned a star.'); }
+    gallery.unshift(t.toDataURL('image/jpeg', 0.75)); gallery = gallery.slice(0, 30); saveGallery();
+    if (cheer) { questTick('art'); addStars(1); confetti(20); yay(); say('Saved to your pictures! You earned a star.'); }
   }
   el.querySelector('#sav').onclick = () => savePic(true);
   return { setTrace: svg => { el.querySelector('#tr').innerHTML = svg; }, save: savePic, drawn: () => dirty };
@@ -495,7 +508,7 @@ function mixTab() {
     if (pot.length === 1) { potEl.style.background = BASE[pot[0]]; potEl.textContent = pot[0] + ' + ?'; potEl.style.color = pot[0] === 'white' || pot[0] === 'yellow' ? '#22305A' : '#fff'; return; }
     const key = [...pot].sort().join('+'), res = pot[0] === pot[1] ? [BASE[pot[0]], pot[0]] : MIXES[key] || ['#8B7F72', 'muddy brown'];
     potEl.style.background = res[0]; potEl.textContent = `${pot[0]} + ${pot[1]} = ${res[1]}`; potEl.style.color = /yellow|light|pink|white|grey/.test(res[1]) ? '#22305A' : '#fff';
-    if (res[1] === goal) { yay(); confetti(25); addStars(1); say(`${pot[0]} and ${pot[1]} make ${res[1]}! You did it!`); goal = pick(goals.filter(g => g !== goal)); setTimeout(setGoal, 2600); }
+    if (res[1] === goal) { yay(); confetti(25); questTick('mix'); addStars(1); say(`${pot[0]} and ${pot[1]} make ${res[1]}! You did it!`); goal = pick(goals.filter(g => g !== goal)); setTimeout(setGoal, 2600); }
     else say(`${pot[0]} and ${pot[1]} make ${res[1]}.`);
   });
   $('#empty').onclick = () => { pot = []; potEl.style.background = ''; potEl.style.color = ''; potEl.textContent = 'Tap two paints'; };
@@ -527,7 +540,7 @@ function pixelHome() {
     <div class="lessons">${PICS.map(p => { const open = st.unlockAll || p.level <= st.art.pixel;
       return `<button class="lcard${st.art.pixelDone[p.id] ? ' done' : ''}${open ? '' : ' locked'}" data-p="${p.id}"><span class="ico">${open ? (p.coord ? '🗺️' : '👾') : '🔒'}</span><b>${p.name}</b><span class="lvl-tag lv${Math.min(3, Math.ceil(p.level / 2))}">Level ${p.level} · ${p.rows[0].length}×${p.rows.length}</span></button>`; }).join('')}</div>`;
   wireBack(artHome);
-  say('Pick a pixel picture to copy!');
+  sayScreen('Pick a pixel picture to copy!');
   view.querySelectorAll('[data-p]').forEach(b => b.onclick = () => { const p = PICS.find(x => x.id === b.dataset.p); if (st.unlockAll || p.level <= st.art.pixel) go(pixelPlay, p.id); else say('Finish a picture on the level before to open this one!'); });
 }
 function pixelPlay(id) {
@@ -558,7 +571,7 @@ function pixelPlay(id) {
     const pct = Math.round(right / (H * Wd) * 100);
     if (!bad) {
       const first = !st.art.pixelDone[P.id]; st.art.pixelDone[P.id] = today(); st.art.pixel = Math.max(st.art.pixel, Math.min(5, P.level + 1));
-      addStars(first ? 3 : 1); confetti(); yay(); $('#pmsg').textContent = 'Perfect copy! 🎉'; say(`Perfect! You made the ${P.name}!`);
+      questTick('pixel'); addStars(first ? 3 : 1); confetti(); yay(); $('#pmsg').textContent = 'Perfect copy! 🎉'; say(`Perfect! You made the ${P.name}!`);
     } else { $('#pmsg').textContent = `${pct}% right. The squares with a red border need fixing.`; say(`${pct} percent right. Fix the squares with a red border.`); }
   };
 }
@@ -652,16 +665,18 @@ function owlFind(text) {
   }
   return best ? { a: best.a, v: best.v ? best.v() : '' } : null;
 }
+const Rec = window.SpeechRecognition || window.webkitSpeechRecognition;
 function owl() {
   st.plays.owl++; save();
   const chips = shuffle(KB).slice(0, 4).map(e => e.q).concat(['What is 3 plus 4?']);
   view.innerHTML = `<div class="owl-head"><div class="owl-face" aria-hidden="true">🦉</div>
       <div class="bubble" id="bub" aria-live="polite"><p>Hoo hoo! Ask me about numbers, shapes, colors or drawing.</p></div></div>
-    <form class="ask" id="askf"><input id="askq" autocomplete="off" placeholder="Type your question…" aria-label="Your question"><button class="btn" type="submit" style="background:var(--grape)">Ask</button></form>
+    <form class="ask" id="askf">${Rec ? '<button type="button" class="btn mic" id="mic" aria-label="Talk to Owl">🎤</button>' : ''}<input id="askq" autocomplete="off" placeholder="Type your question…" aria-label="Your question"><button class="btn" type="submit" style="background:var(--grape)">Ask</button></form>
     <div class="chips">${chips.map(c => `<button data-q="${esc(c)}">${esc(c)}</button>`).join('')}</div>`;
-  say('Hoo hoo! Ask me about numbers, shapes, colors or drawing.');
+  sayScreen('Hoo hoo! Ask me about numbers, shapes, colors or drawing.' + (Rec ? ' Tap the microphone to talk to me.' : ''));
   const ask = q => {
     q = q.trim(); if (!q) return;
+    questTick('owl');
     const r = owlFind(q), bub = $('#bub');
     if (r) {
       bub.innerHTML = `<p>${esc(r.a)}</p>${r.v ? `<div class="visual">${r.v}</div>` : ''}<div class="helped">Did that help? <button data-h="1" aria-label="yes">👍</button><button data-h="0" aria-label="no">👎</button></div>`;
@@ -678,6 +693,17 @@ function owl() {
   };
   $('#askf').onsubmit = e => { e.preventDefault(); ask($('#askq').value); $('#askq').value = ''; };
   view.querySelectorAll('[data-q]').forEach(b => b.onclick = () => ask(b.dataset.q));
+  if (Rec) $('#mic').onclick = e => {
+    const btn = e.currentTarget, bub = $('#bub');
+    let r; try { r = new Rec(); } catch (err) { bub.innerHTML = '<p>My ears are not working here. Can a grown-up type it for you?</p>'; return; }
+    r.lang = 'en-US'; r.interimResults = false; r.maxAlternatives = 1;
+    try { speechSynthesis.cancel(); } catch (err) {}
+    btn.classList.add('on'); bub.innerHTML = '<p>I am listening… 👂</p>';
+    r.onresult = ev => { const t = ev.results[0][0].transcript; $('#askq').value = t; ask(t); $('#askq').value = ''; };
+    r.onerror = ev => { bub.innerHTML = `<p>${navigator.onLine === false || ev.error === 'network' ? 'I can only hear you when the internet is on. You can type, or tap a question below!' : 'I did not hear that. Tap the microphone and try again!'}</p>`; };
+    r.onend = () => btn.classList.remove('on');
+    try { r.start(); } catch (err) { btn.classList.remove('on'); }
+  };
 }
 function logMiss(q, why) { if (!st.owlMisses.some(m => m.q === q)) st.owlMisses.unshift({ q, why, at: today() }); st.owlMisses = st.owlMisses.slice(0, 40); save(); }
 
@@ -692,7 +718,7 @@ function parent() {
   const rows = WORLDS.map((w, wi) => `<tr><th colspan="6" style="padding-top:16px">${w.ico} ${w.name} (ages ${w.ages})${worldOpen(wi) ? '' : ' · locked'}</th></tr>` + worldSkills(wi).map(s => { const k = s.id, x = st.skills[k], a = acc(k);
     return `<tr><td>${s.ico} ${s.name}</td><td>${level(k)} / 5</td><td><div class="bar"><i style="width:${Math.round(x.m * 100)}%"></i></div></td><td>${a == null ? '–' : Math.round(a * 100) + '%'}</td><td>${x.ms ? (x.ms / 1000).toFixed(1) + 's' : '–'}</td><td>${x.seen}</td></tr>`; }).join('')).join('');
   const artDone = [1, 2, 3].map(lv => `${LEVEL_NAMES[lv]}: ${LESSONS.filter(l => l.level === lv && st.art.done[l.id]).length} of ${LESSONS.filter(l => l.level === lv).length}`).join(' · ');
-  view.innerHTML = `<h1 style="font-size:36px">Grown-ups corner</h1>
+  view.innerHTML = `<h1 style="font-size:36px">Grown-ups corner</h1><p class="note">Showing ${profileOf(pid).avatar} ${esc(st.name || 'Player')}. Switch players under Players below.</p>
     <div class="panel"><h2>Math progress</h2><p class="note">Each topic has 5 levels. It gets harder after answers that are right on the first try, and easier after mistakes. Missed questions come back for review after 1, 2, 4, 8 and 16 days. ${st.review.length} questions are in review, ${dueReviews().length} due today. A new world opens when your child reaches 50% in the world before it.</p>
       <div class="wide"><table class="ptable"><thead><tr><th>Topic</th><th>Level</th><th>Mastery</th><th>Right first try (last 20)</th><th>Avg time</th><th>Answered</th></tr></thead><tbody>${rows}</tbody></table></div></div>
     <div class="panel"><h2>Art progress</h2><p class="note">${artDone}. Pixel art level ${st.art.pixel} of 5. ${gallery.length} saved pictures.</p></div>
@@ -700,6 +726,7 @@ function parent() {
       <div id="misses">${st.owlMisses.length ? st.owlMisses.map((m, i) => `<div class="miss"><b>“${esc(m.q)}”</b><span class="note">${m.at} · ${m.why}</span>
         <textarea id="t${i}" placeholder="A simple answer a child can understand"></textarea><div class="row" style="justify-content:flex-start"><button class="btn leaf" data-teach="${i}" style="font-size:18px;padding:10px 18px">Teach Owl</button><button class="btn alt" data-skip="${i}" style="font-size:18px;padding:10px 18px">Dismiss</button></div></div>`).join('') : '<p class="note">Nothing waiting. Owl has answered everything so far.</p>'}</div>
       ${st.owlTaught.length ? `<p class="note">Owl has learned ${st.owlTaught.length} answer${st.owlTaught.length > 1 ? 's' : ''} from you.</p>` : ''}</div>
+    ${playersPanel()}
     <div class="panel"><h2>Settings</h2>
       <label class="field" for="nm">Child's name<input id="nm" value="${esc(st.name)}" autocomplete="off"></label>
       <label class="field" for="ag">Age<input id="ag" type="number" min="3" max="16" value="${st.age}"></label>
@@ -710,21 +737,22 @@ function parent() {
     const i = +b.dataset.teach, ans = $('#t' + i).value.trim(); if (!ans) return;
     st.owlTaught.push({ q: st.owlMisses[i].q, a: ans }); st.owlMisses.splice(i, 1); save(); go(parent);
   });
+  wirePlayers();
   view.querySelectorAll('[data-skip]').forEach(b => b.onclick = () => { st.owlMisses.splice(+b.dataset.skip, 1); save(); go(parent); });
   $('#saveS').onclick = () => {
     const age = clamp(+$('#ag').value || 5, 3, 16);
     if (age !== st.age) for (const k in MATH) if (st.skills[k].seen === 0) st.skills[k].m = startMastery(k, age);
-    st.name = $('#nm').value.trim().slice(0, 20); st.age = age; st.speak = $('#sp').checked; st.unlockAll = $('#ua').checked; save(); $('#sm').textContent = 'Saved.';
+    st.name = $('#nm').value.trim().slice(0, 20); st.age = age; st.speak = $('#sp').checked; st.unlockAll = $('#ua').checked; save(); updateTop(); $('#sm').textContent = 'Saved.';
   };
   let armed = false;
   $('#reset').onclick = e => {
     if (!armed) { armed = true; e.currentTarget.textContent = 'Tap again to erase everything'; return; }
-    const keep = { name: st.name, age: st.age }; st = freshState(keep.age); st.name = keep.name; gallery = []; store.set('gallery', []); save(); updateTop(); go(parent);
+    const keep = { name: st.name, age: st.age }; st = migrate(freshState(keep.age)); st.name = keep.name; gallery = []; saveGallery(); save(); updateTop(); go(parent);
   };
 }
 
 /* ---------- start ---------- */
 updateTop();
-go(home);
-if (location.hash === "#selftest") window.__owl = { MATH, LESSONS, lessonSVG, PICS };
+go(profiles.length > 1 ? whoView : home);
+if (location.hash === "#selftest") window.__owl = { MATH, LESSONS, lessonSVG, PICS, get st() { return st; }, get profiles() { return profiles; }, quest, questTick, gainXP, petStage, go, home };
 if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) { try { navigator.serviceWorker.register('sw.js').catch(() => {}); } catch (e) {} }

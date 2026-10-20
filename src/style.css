@@ -213,3 +213,44 @@ ol.steps{margin:0;padding-left:1.4em;text-align:left;font-weight:700;font-size:1
 .ptarget i{aspect-ratio:1;display:block}
 .pside{display:flex;flex-direction:column;gap:12px;align-items:flex-start}
 .coords-list{background:var(--paper);border-radius:16px;padding:12px 14px 12px 30px;font-weight:800;font-size:16px;max-width:320px;box-shadow:0 4px 0 var(--line);margin:0;display:flex;flex-direction:column;gap:6px}
+/* players, pet, quest */
+#toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom));transform:translate(-50%,140%);background:var(--ink);color:#fff;font-weight:800;padding:14px 20px;border-radius:20px;max-width:calc(100vw - 32px);text-align:center;z-index:50;transition:transform .3s;box-shadow:0 6px 18px rgba(0,0,0,.2)}
+#toast.show{transform:translate(-50%,0)}
+.pet{position:relative;display:inline-block;line-height:1}
+.pet i{position:absolute;right:-.15em;top:-.25em;font-size:.45em;font-style:normal}
+.pet .sparkle{position:absolute;left:-.2em;top:-.1em;font-size:.35em}
+.bounce{animation:bob 2.4s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-6px) rotate(-3deg)}}
+@media (prefers-reduced-motion:reduce){.bounce{animation:none}#toast{transition:none}}
+.pet-btn{background:var(--paper);border-radius:28px;padding:10px 14px;box-shadow:0 4px 0 var(--line)}
+.pet-card{background:var(--paper);border-radius:32px;padding:24px;display:flex;flex-direction:column;align-items:center;gap:12px;box-shadow:0 6px 0 var(--line);text-align:center}
+.pet-card h2{font-size:30px}
+.big-bar{height:22px;width:min(100%,420px)}.big-bar i{background:var(--sun)}
+.wears{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:10px}
+.wear{background:var(--paper);border-radius:20px;min-height:84px;font-size:38px;box-shadow:0 4px 0 var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:6px;font-weight:800}
+.wear:first-child{font-size:18px}
+.wear.on{background:var(--grape-soft);outline:3px solid var(--grape)}
+.wear.locked{font-size:24px;opacity:.75}.wear small{font-size:12px;line-height:1.15;color:var(--ink-soft)}
+.quest{background:var(--sun-soft);border-radius:28px;padding:16px;display:flex;flex-direction:column;gap:8px;box-shadow:0 5px 0 #F0D894}
+.quest-head{display:flex;justify-content:space-between;align-items:center;font-family:var(--display);font-size:22px}
+.quest-head span{font-size:17px;font-family:var(--body);font-weight:800;color:var(--ink-soft)}
+.qtask{display:flex;align-items:center;gap:12px;background:var(--paper);border-radius:18px;padding:10px 14px;text-align:left;font-weight:800;min-height:56px}
+.qtask .ico{font-size:28px}.qtask .qt{flex:1}.qtask .qn{color:var(--ink-soft);font-variant-numeric:tabular-nums}
+.qtask.ok{background:var(--leaf-soft)}.qtask.ok .qt{text-decoration:line-through;text-decoration-thickness:2px;color:var(--ink-soft)}
+.chest{border-radius:18px;padding:14px;font-weight:800;font-size:19px;background:var(--paper);color:var(--ink-soft)}
+.chest.ready{background:var(--coral);color:#fff;box-shadow:0 5px 0 #B8402F;animation:bob 1.6s ease-in-out infinite}
+.who{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;margin:10px 0}
+.who-btn{background:var(--paper);border-radius:28px;padding:20px 10px;display:flex;flex-direction:column;align-items:center;gap:8px;box-shadow:0 5px 0 var(--line);font-family:var(--display);font-size:24px}
+.who-btn span{font-size:72px;line-height:1}.who-btn.on{outline:4px solid var(--sun)}
+.players{display:flex;flex-direction:column;gap:8px;margin:8px 0 14px}
+.player{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:var(--bg);border-radius:16px;padding:8px 12px}
+.player .pa{font-size:34px}.player .note{flex:1;margin:0}
+.btn.sm{font-size:16px;padding:8px 14px}
+.add-player{display:flex;flex-direction:column;gap:10px}
+.avatars{display:flex;flex-wrap:wrap;gap:6px}
+.av{font-size:30px;width:52px;height:52px;border-radius:14px;background:var(--bg)}
+.av.on{background:var(--sun-soft);outline:3px solid var(--sun)}
+.btn.mic{background:var(--coral);padding:0 16px;font-size:24px}
+.btn.mic.on{animation:bob .8s ease-in-out infinite;background:var(--leaf)}
+@media (max-width:520px){.top{gap:6px}.top .home{width:46px;height:46px;font-size:23px;border-radius:15px}.pill{padding:6px 10px;font-size:16px}.who-btn span{font-size:56px}}
+@media (max-width:400px){.top .brand{display:none}}
