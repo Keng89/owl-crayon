@@ -52,3 +52,5 @@ None of this sends data anywhere. Progress lives in the browser on that device.
 - `index.html`, `sw.js`, `manifest.json`, icons: the installable offline app.
 - `src/`: the source. `core.js` is the app, `math.js` the math curriculum, `art.js` the art lessons, `style.css` the look. Run `python3 build.py` after editing to rebuild `index.html` and `sw.js`.
 - To try locally: `python3 -m http.server` in this folder, then open `http://localhost:8000` on a device on the same network.
+
+**2026-10-20 content boost.** 60 new art lessons in 12 new kinds (vehicles, ocean, bugs & birds, dinosaurs, food, fairy tales, comics, drawing from life, seasons, printing, clay & 3D, famous art styles); every new lesson lists what you need and ends with a tip. Math games (src/games.js): Balloon Pop, Frog Hop, Owl's Shop, Memory Match, Build the Tower, Pattern Train, Beat the Owl, scaled by age and by how the round goes.
