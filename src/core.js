@@ -127,9 +127,15 @@ const GEN = {
 };
 
 //@include math.js
+//@include math2.js
+//@include math3.js
 //@include art.js
 //@include art2.js
 //@include art3.js
+//@include art4.js
+//@include art5.js
+//@include art6.js
+//@include art7.js
 
 /* ---------- state ---------- */
 const STICKERS = ['🦄','🐢','🚀','🌈','🐙','🦖','🍩','🐝','🎨','🦊','🐳','🌻','🏰','🐼','⚽','🎸','🦋','🍉','🐧','👑','🦁','🐬','🍄','🎃','🛸','🐉','🍭','🦒','⛵','🎠'];
@@ -822,6 +828,7 @@ function parent() {
 
 //@include write.js
 //@include games.js
+//@include games2.js
 
 /* ---------- start ---------- */
 updateTop();

@@ -1282,6 +1282,8 @@ S('simul', 4, 'Two equations together', '🧩', [
 /* --- world helpers used by the app --- */
 const worldSkills = w => Object.values(MATH).filter(s => s.world === w);
 const ageWorld = age => age <= 5 ? 0 : age <= 7 ? 1 : age <= 9 ? 2 : age <= 11 ? 3 : 4;
+/* ---------- math2 ---------- */
+/* ---------- math3 ---------- */
 /* ---------- art school: step-by-step lessons across many kinds of art, 3 levels ---------- */
 // Each step adds new lines (shown in red) on top of the earlier ones. Guide lines are dashed and get erased later.
 // Pictures use a 200 × 200 box.
@@ -2382,6 +2384,10 @@ const lessonById = id => LESSONS.find(l => l.id === id);
       ['Go over every line with a thick black marker. Pop art is bold! Hang it up and show someone.', stroke('#1B1B1B', wide(popC.map(([x, y]) => ae(x, y + 6, 24, 28) + ap(popHair(x, y)) + ap(popLips(x, y))).join(''), 4.5))]] }
   );
 }
+/* ---------- art4 ---------- */
+/* ---------- art5 ---------- */
+/* ---------- art6 ---------- */
+/* ---------- art7 ---------- */
 
 /* ---------- state ---------- */
 const STICKERS = ['🦄','🐢','🚀','🌈','🐙','🦖','🍩','🐝','🎨','🦊','🐳','🌻','🏰','🐼','⚽','🎸','🦋','🍉','🐧','👑','🦁','🐬','🍄','🎃','🛸','🐉','🍭','🦒','⛵','🎠'];
@@ -3283,7 +3289,7 @@ function parent() {
       <p class="note">Owl &amp; Crayon works without the internet. Progress, drawings and Owl's answers are saved only in this browser on this device. There are no ads, no tracking and no accounts, and nothing is sent anywhere unless you switch on Online Owl.</p>
       <p class="note">With Online Owl on, only the question your child asks and their age go to your Online Owl server, which asks an AI (Cloudflare's free AI, or Claude by Anthropic) for a short, child-friendly answer. Names and progress are never sent. You can read every answer above, and turn it off at any time.</p>
       <p class="note">The microphone button uses the browser's own speech recognition, which may send the recording to the browser maker (for example Google or Apple) to turn it into text. Typing works without it.</p>
-      <p class="note">Version 2026-10-20 12:39 UTC</p></div>`;
+      <p class="note">Version 2026-10-20 12:44 UTC</p></div>`;
   view.querySelectorAll('[data-teach]').forEach(b => b.onclick = () => {
     const i = +b.dataset.teach, ans = $('#t' + i).value.trim(); if (!ans) return;
     owlForget(st.owlMisses[i].q); st.owlTaught.push({ q: st.owlMisses[i].q, a: ans }); st.owlMisses.splice(i, 1); save(); go(parent);
@@ -3712,6 +3718,7 @@ function raceResult() {
 }
 
 if (location.hash === '#selftest') window.__games = { GAMES, gArith, get gm() { return gm; }, set secs(v) { GAME_SECS = v; } };
+/* ---------- games2 ---------- */
 
 /* ---------- start ---------- */
 updateTop();
