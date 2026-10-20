@@ -77,6 +77,53 @@ function column(a, b, op, ans) {
   return `<pre class="column">${pad(a)}\n${op}${String(b).padStart(w - 1, ' ')}\n${'─'.repeat(w)}\n${ans == null ? pad('?') : pad(ans)}</pre>`;
 }
 
+/* --- teaching pictures for lessons and wrong-answer help ---
+   (hopLine, arraySVG, barModel and triSVG come from math3.js; they are only called when a question or lesson is shown) */
+const bigEq = s => `<span class="bignum m3mid">${s}</span>`;
+// Ten frames: a red counters, then b blue ones. More than 10 uses two frames side by side.
+function tenFrame(a, b = 0) {
+  const n = a + b, frames = n > 10 ? 2 : 1; let s = '';
+  for (let f = 0; f < frames; f++) for (let i = 0; i < 10; i++) {
+    const k = f * 10 + i, x = 4 + f * 182 + (i % 5) * 34, y = 4 + Math.floor(i / 5) * 34;
+    s += `<rect x="${x}" y="${y}" width="34" height="34" fill="#fff" stroke="#22305A" stroke-width="2.5"/>`;
+    if (k < n) s += `<circle cx="${x + 17}" cy="${y + 17}" r="12" fill="${k < a ? '#F2604F' : '#2E8BE6'}" stroke="#22305A" stroke-width="1.5"/>`;
+  }
+  return `<div class="shape wide-shape"><svg viewBox="0 0 ${frames * 182 - 4} 76" role="img" aria-label="ten frame with ${a} red${b ? ` and ${b} blue` : ''} counters">${s}</svg></div>`;
+}
+// Things lined up in pairs (two per row): an odd number leaves one on its own.
+const pairsPic = (n, e) => objs(n, e).replace(/repeat\(\d+,auto\)/, 'repeat(2,auto)');
+// Two rows lined up so each thing has a partner; the leftovers show which has more.
+const pairRows = (a, ea, b, eb) => { const m = Math.max(a, b), r = (n, e) => `<div class="m2line" style="grid-template-columns:repeat(${m},1fr)">${Array.from({ length: m }, (_, i) => `<span>${i < n ? e : ''}</span>`).join('')}</div>`; return `<div class="m2pairs">${r(a, ea)}${r(b, eb)}</div>`; };
+// Place value chart; the digit at index hi (from the left) is highlighted.
+const PV_NAMES = ['Ones', 'Tens', 'Hundreds', 'Thousands', 'Ten thousands'];
+function pvChart(n, hi = -1) {
+  const s = String(n), names = s.split('').map((_, i) => PV_NAMES[s.length - 1 - i]);
+  const cell = (v, i) => i === hi ? `<td style="background:#FFD98A">${v}</td>` : `<td>${v}</td>`;
+  return `<table class="m3tab"><tr>${names.map(x => `<th>${x}</th>`).join('')}</tr><tr>${s.split('').map(cell).join('')}</tr></table>`;
+}
+// Grid method for multiplying: split the numbers into parts, multiply each pair.
+function gridMul(aParts, bParts) {
+  return `<table class="m3tab"><tr><th>×</th>${aParts.map(p => `<th>${fmt(p)}</th>`).join('')}</tr>${bParts.map(q => `<tr><th>${fmt(q)}</th>${aParts.map(p => `<td>${fmt(p * q)}</td>`).join('')}</tr>`).join('')}</table>`;
+}
+// Short division "bus stop" layout: divisor, the number inside, the answer on top.
+const busStop = (d, n, q) => `<pre class="column">${' '.repeat(String(d).length + 1)}${String(q).padStart(String(n).length, ' ')}\n${d}│${n}</pre>`;
+const placeWord = p => ['ones', 'tens', 'hundreds', 'thousands', 'ten thousands'][p] || 'next';
+// Column taking away, one column at a time, with borrowing explained.
+function subSteps(a, b, names = PV_NAMES) {
+  const out = []; let borrow = 0, i = 0;
+  while (a || b) {
+    const top = a % 10, db = b % 10, nm = names[i] || 'Next';
+    let cur = top - borrow, pre = '';
+    if (borrow) pre = top === 0 ? `The 0 must borrow too, so it becomes 9. ` : `The ${top} lent 1, so it is now ${cur}. `;
+    if (cur < 0) cur += 10;
+    if (cur < db) { out.push(`${nm}: ${pre}${cur} − ${db}? Too small, so borrow 1 from the next column: ${cur + 10} − ${db} = ${cur + 10 - db}.`); borrow = 1; }
+    else { out.push(`${nm}: ${pre}${cur} − ${db} = ${cur - db}.`); borrow = top === 0 && borrow ? 1 : 0; }
+    a = Math.floor(a / 10); b = Math.floor(b / 10); i++;
+    if (!a && !b) break;
+  }
+  return out;
+}
+
 /* --- money, measuring and charts --- */
 const COIN_COL = { 1: '#D98C4A', 2: '#D98C4A', 5: '#B9C3CF', 10: '#B9C3CF', 20: '#E8C24A', 50: '#E8C24A', 100: '#E8C24A' };
 const coin = v => `<svg viewBox="0 0 40 40" width="${v >= 20 ? 62 : 52}" height="${v >= 20 ? 62 : 52}" role="img" aria-label="${v >= 100 ? '1 dollar' : v + ' cents'}"><circle cx="20" cy="20" r="18" fill="${COIN_COL[v]}" stroke="#22305A" stroke-width="2"/><circle cx="20" cy="20" r="13" fill="none" stroke="#22305A" stroke-opacity=".25" stroke-width="1.5"/><text x="20" y="25" font-size="${v >= 100 ? 11 : 13}" font-weight="800" text-anchor="middle" fill="#22305A">${v >= 100 ? '$1' : v + '¢'}</text></svg>`;
