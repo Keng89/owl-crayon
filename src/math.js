@@ -12,7 +12,7 @@ const fmt = n => Number.isInteger(n) ? n.toLocaleString('en-US') : String(+n.toF
 function opts(ans, cands, n = 4, show = v => fmt(v), speak = v => String(v)) {
   const key = v => String(v), seen = new Set([key(ans)]), wrong = [];
   for (const c of shuffle(cands)) { if (c == null || Number.isNaN(c) || seen.has(key(c))) continue; seen.add(key(c)); wrong.push(c); }
-  return shuffle([ans, ...wrong.slice(0, n - 1)]).map(v => ({ html: show(v), val: key(v), say: speak(v), txt: typeof v === 'string' && v.length > 3 }));
+  return shuffle([ans, ...wrong.slice(0, n - 1)]).map(v => ({ html: show(v), val: key(v), say: speak(v), txt: (typeof v === 'string' && v.length > 3) || String(show(v)).replace(/<[^>]+>/g, '').length > 3 }));
 }
 function near(ans, { neg = false, big = false, dec = 0 } = {}) {
   const st = big ? [1, 2, 10, 100, 9, 11, 20] : [1, 2, 3, 10, 5];
@@ -76,6 +76,28 @@ function column(a, b, op, ans) {
   const pad = s => String(s).padStart(w, ' ');
   return `<pre class="column">${pad(a)}\n${op}${String(b).padStart(w - 1, ' ')}\n${'─'.repeat(w)}\n${ans == null ? pad('?') : pad(ans)}</pre>`;
 }
+
+/* --- money, measuring and charts --- */
+const COIN_COL = { 1: '#D98C4A', 2: '#D98C4A', 5: '#B9C3CF', 10: '#B9C3CF', 20: '#E8C24A', 50: '#E8C24A', 100: '#E8C24A' };
+const coin = v => `<svg viewBox="0 0 40 40" width="${v >= 20 ? 62 : 52}" height="${v >= 20 ? 62 : 52}" role="img" aria-label="${v >= 100 ? '1 dollar' : v + ' cents'}"><circle cx="20" cy="20" r="18" fill="${COIN_COL[v]}" stroke="#22305A" stroke-width="2"/><circle cx="20" cy="20" r="13" fill="none" stroke="#22305A" stroke-opacity=".25" stroke-width="1.5"/><text x="20" y="25" font-size="${v >= 100 ? 11 : 13}" font-weight="800" text-anchor="middle" fill="#22305A">${v >= 100 ? '$1' : v + '¢'}</text></svg>`;
+const coins = list => `<div class="coins">${list.map(coin).join('')}</div>`;
+const money = c => c < 100 ? `${c}¢` : `$${(c / 100).toFixed(2)}`;
+const moneySay = c => c < 100 ? `${c} cents` : `${Math.floor(c / 100)} dollar${c >= 200 ? 's' : ''}${c % 100 ? ` and ${c % 100} cents` : ''}`;
+function ruler(len, max) {
+  let t = '';
+  for (let i = 0; i <= max; i++) t += `<line x1="${10 + i * 20}" y1="52" x2="${10 + i * 20}" y2="${i % 5 ? 62 : 66}" stroke="#22305A" stroke-width="1.5"/><text x="${10 + i * 20}" y="78" font-size="10" font-weight="800" text-anchor="middle" fill="#22305A">${i}</text>`;
+  return `<div class="shape wide-shape"><svg viewBox="0 0 ${max * 20 + 20} 84" role="img" aria-label="ruler in centimetres"><rect x="10" y="22" width="${len * 20}" height="22" rx="11" fill="#FFC23D" stroke="#22305A" stroke-width="2"/><rect x="2" y="50" width="${max * 20 + 16}" height="32" fill="#F7F3E8" stroke="#22305A" stroke-width="1.5" rx="4"/>${t}</svg></div>`;
+}
+function chartSVG(data, step = 1) {
+  const top = Math.ceil(Math.max(...data.map(d => d[1])) / step) * step + step, H = 120, k = H / top, bw = 46;
+  let g = '';
+  for (let v = 0; v <= top; v += step) g += `<line x1="30" y1="${140 - v * k}" x2="${36 + data.length * (bw + 12)}" y2="${140 - v * k}" stroke="#CCDBE6" stroke-width="1"/><text x="24" y="${144 - v * k}" font-size="12" font-weight="800" text-anchor="end" fill="#5A678C">${v}</text>`;
+  const cols = ['#F2604F', '#2E8BE6', '#2FA36B', '#FFC23D', '#6D55D1'];
+  data.forEach(([lab, v], i) => { const x = 40 + i * (bw + 12); g += `<rect x="${x}" y="${140 - v * k}" width="${bw}" height="${v * k}" fill="${cols[i % 5]}" stroke="#22305A" stroke-width="1.5"/><text x="${x + bw / 2}" y="${166}" font-size="26" text-anchor="middle">${lab}</text>`; });
+  return `<div class="shape wide-shape"><svg viewBox="0 0 ${46 + data.length * (bw + 12)} 176" role="img" aria-label="bar chart">${g}</svg></div>`;
+}
+const CHART_SETS = [['🍎', 'apples'], ['🍌', 'bananas'], ['🍇', 'grapes'], ['🍓', 'strawberries'], ['🐶', 'dogs'], ['🐱', 'cats'], ['🐟', 'fish'], ['🐰', 'rabbits'], ['⚽', 'football'], ['🏊', 'swimming'], ['🚲', 'cycling'], ['🎨', 'painting']];
+const chartData = (n, max) => { const set = pick([CHART_SETS.slice(0, 4), CHART_SETS.slice(4, 8), CHART_SETS.slice(8)]); const vals = shuffle(Array.from({ length: max }, (_, i) => i + 1)).slice(0, n); return set.slice(0, n).map((s, i) => [s[0], vals[i], s[1]]); };
 
 /* --- worlds --- */
 const WORLDS = [
@@ -217,6 +239,30 @@ S('oddeven', 1, 'Odd and even', '🧦', [
     explainText: `The last digit is ${n % 10}. ${n % 2 ? 'Odd numbers end in 1, 3, 5, 7 or 9.' : 'Even numbers end in 0, 2, 4, 6 or 8.'}` });
 });
 
+S('money', 1, 'Money', '🪙', [
+  ['Coins have different values. Look at the number on each coin.', () => coins([1, 5, 10, 20])],
+  ['To count money, start with the biggest coin and count on: 10... 15, 16.', () => `${coins([10, 5, 1])}<span class="bignum">16¢</span>`]
+], L => {
+  if (L <= 3) {
+    const kinds = [[1, 5], [1, 2, 5, 10], [1, 2, 5, 10, 20, 50]][L - 1], n = rnd(2, [3, 4, 5][L - 1]);
+    const list = Array.from({ length: n }, () => pick(kinds)).sort((a, b) => b - a), tot = list.reduce((a, b) => a + b, 0);
+    const run = []; list.reduce((a, b) => (run.push(a + b), a + b), 0);
+    return Q({ prompt: 'How much money is this?', visual: coins(list), choices: opts(tot, near(tot).filter(v => v > 0).concat([list.length]), 4, v => v + '¢'), answer: tot,
+      explain: coins(list), steps: list.length > 2 ? [`Start with the biggest coin: ${list[0]}¢.`, ...list.slice(1).map((c, i) => `Add ${c}¢ to get ${run[i + 1]}¢.`)] : null, explainText: `${list.join('¢ + ')}¢ = ${tot}¢.` });
+  }
+  if (L === 4) {
+    const price = rnd(1, 19) * 5, pay = 100, ch = pay - price;
+    return Q({ prompt: word(`A toy costs ${price}¢. You pay with $1. How much change do you get?`), speak: `A toy costs ${price} cents. You pay with 1 dollar, which is 100 cents. How much change do you get?`, visual: coins([100]),
+      choices: opts(ch, near(ch).filter(v => v > 0 && v < 100).concat([price]), 4, v => v + '¢'), answer: ch, steps: ['$1 is 100¢.', `Count up from ${price}¢ to 100¢.`], explainText: `100 − ${price} = ${ch}, so your change is ${ch}¢.` });
+  }
+  const a = rnd(105, 495), b = rnd(55, 395), tot = a + b, pay = Math.ceil((tot + 1) / 500) * 500;
+  if (Math.random() < 0.5) return Q({ prompt: word(`A book costs ${money(a)} and a pen costs ${money(b)}. How much altogether?`), speak: `A book costs ${moneySay(a)} and a pen costs ${moneySay(b)}. How much altogether?`,
+    choices: opts(tot, [tot + 10, tot - 10, tot + 100, tot - 100, tot + 1], 4, money, moneySay), answer: tot, steps: [`Add the dollars: ${Math.floor(a / 100)} + ${Math.floor(b / 100)} = ${Math.floor(a / 100) + Math.floor(b / 100)}.`, `Add the cents: ${a % 100} + ${b % 100} = ${a % 100 + b % 100}.`, ...(a % 100 + b % 100 >= 100 ? ['100 cents make 1 more dollar.'] : [])], explainText: `Altogether it costs ${money(tot)}.` });
+  const ch = pay - tot;
+  return Q({ prompt: word(`You buy things costing ${money(tot)} and pay with $${pay / 100}. How much change?`), speak: `You buy things costing ${moneySay(tot)} and pay with ${pay / 100} dollars. How much change?`,
+    choices: opts(ch, [ch + 10, ch - 10, ch + 100, ch - 1, ch + 5].filter(v => v > 0), 4, money, moneySay), answer: ch, steps: [`Change = ${money(pay)} − ${money(tot)}.`, `Count up from ${money(tot)} to ${money(pay)}.`], explainText: `Your change is ${money(ch)}.` });
+});
+
 /* ===== World 3: Treetop Town ===== */
 S('addbig', 2, 'Big adding', '🏗️', [
   ['Line the numbers up in columns: ones under ones, tens under tens.', () => column(47, 25, '+')],
@@ -308,6 +354,51 @@ S('round', 2, 'Rounding', '🎯', [
   const to = [10, 10, 100, 1000][L - 1], n = L === 1 ? rnd(11, 99) : L === 2 ? rnd(101, 999) : L === 3 ? rnd(101, 999) : rnd(1001, 9999);
   const ans = Math.round(n / to) * to, down = Math.floor(n / to) * to;
   return Q({ prompt: `Round ${fmt(n)} to the nearest ${to}`, choices: opts(ans, [down, down + to, down - to, n, down + 2 * to]), answer: ans, explainText: `${fmt(n)} is between ${fmt(down)} and ${fmt(down + to)}. The digit after that place is ${String(n).at(-(String(to).length - 1))}, so round ${ans === down ? 'down' : 'up'} to ${fmt(ans)}.` });
+});
+
+const UNITS = [['the length of a pencil', 'cm'], ['how far to the next town', 'km'], ['the length of a room', 'm'], ['the weight of an apple', 'g'], ['the weight of a dog', 'kg'], ['the water in a bath', 'L'], ['medicine on a spoon', 'mL'], ['the width of a fingernail', 'mm']];
+S('measure', 2, 'Measuring', '📏', [
+  ['Line the thing up with 0 on the ruler. The number at the end is how long it is.', () => ruler(4, 6)],
+  ['Big units hold many small ones: 1 m = 100 cm, 1 kg = 1000 g, 1 L = 1000 mL.', () => '<span class="bignum">1 m = 100 cm</span>']
+], L => {
+  if (L <= 2) {
+    if (L === 2 && Math.random() < 0.5) { const [what, u] = pick(UNITS), others = ['mm', 'cm', 'm', 'km', 'g', 'kg', 'mL', 'L'].filter(x => x !== u); return Q({ prompt: `Which unit would you use for ${what}?`, choices: opts(u, others, 4, v => v), answer: u, explainText: `${what[0].toUpperCase() + what.slice(1)} is measured in ${{ mm: 'millimetres', cm: 'centimetres', m: 'metres', km: 'kilometres', g: 'grams', kg: 'kilograms', mL: 'millilitres', L: 'litres' }[u]} (${u}).` }); }
+    const max = L === 1 ? 8 : 12, len = rnd(2, max - 1);
+    return Q({ prompt: 'How long is the crayon?', speak: 'How many centimetres long is the crayon?', visual: ruler(len, max), choices: opts(len, near(len).filter(v => v > 0 && v <= max), 4, v => v + ' cm'), answer: len, explainText: `The crayon starts at 0 and ends at ${len}, so it is ${len} cm long.` });
+  }
+  const conv = [['m', 'cm', 100], ['kg', 'g', 1000], ['L', 'mL', 1000], ['km', 'm', 1000], ['cm', 'mm', 10]];
+  const [big, small, f] = pick(L === 5 ? conv.slice(0, 4) : conv);
+  if (L === 3) { const n = rnd(2, 9), ans = n * f; return Q({ prompt: `${n} ${big} = ? ${small}`, choices: opts(ans, [n * f / 10, n * f * 10, n + f, (n + 1) * f], 4, v => fmt(v) + ' ' + small), answer: ans, explainText: `1 ${big} = ${fmt(f)} ${small}, so ${n} ${big} = ${n} × ${fmt(f)} = ${fmt(ans)} ${small}.` }); }
+  if (L === 4) {
+    const n = rnd(11, 99) / 10, ans = Math.round(n * f), back = Math.random() < 0.5;
+    if (back) return Q({ prompt: `${fmt(ans)} ${small} = ? ${big}`, choices: opts(n, [n * 10, n / 10, +(n + 1).toFixed(1), ans], 4, v => fmt(v) + ' ' + big), answer: n, explainText: `Divide by ${fmt(f)}: ${fmt(ans)} ÷ ${fmt(f)} = ${fmt(n)} ${big}.` });
+    return Q({ prompt: `${fmt(n)} ${big} = ? ${small}`, choices: opts(ans, [ans * 10, ans / 10, Math.round(n) * f, ans + f], 4, v => fmt(v) + ' ' + small), answer: ans, explainText: `Multiply by ${fmt(f)}: ${fmt(n)} × ${fmt(f)} = ${fmt(ans)} ${small}.` });
+  }
+  const a1 = rnd(1, 4), a2 = rnd(10, f - 1 > 99 ? 900 : 90), b2 = rnd(10, f - 1 > 99 ? 900 : 90), tot = a1 * f + a2 + b2;
+  return Q({ prompt: word(`A ribbon is ${a1} ${big} ${a2} ${small}. Another is ${b2} ${small}. How long are they together, in ${small}?`), speak: `One is ${a1} ${big} and ${a2} ${small}. Another is ${b2} ${small}. How much together, in ${small}?`,
+    choices: opts(tot, [a1 + a2 + b2, tot + f, tot - 10, a1 * 10 + a2 + b2], 4, v => fmt(v) + ' ' + small), answer: tot, steps: [`Change ${a1} ${big} into ${small}: ${a1} × ${fmt(f)} = ${fmt(a1 * f)} ${small}.`, `Add: ${fmt(a1 * f)} + ${a2} + ${b2} = ${fmt(tot)}.`], explainText: `Together they are ${fmt(tot)} ${small}.` });
+});
+S('data', 2, 'Charts and data', '📊', [
+  ['A bar chart shows how many. The taller the bar, the more there are.', () => chartSVG([['🍎', 3], ['🍌', 5], ['🍇', 2]])],
+  ['Read across from the top of a bar to the numbers on the side.', () => '']
+], L => {
+  if (L === 5) {
+    const n = 5, list = Array.from({ length: n }, () => rnd(2, 20));
+    let sum = list.reduce((a, b) => a + b, 0);
+    if (sum % n) { list[0] += n - sum % n; sum = list.reduce((a, b) => a + b, 0); }
+    const sorted = [...list].sort((a, b) => a - b), k = pick(['mean', 'range', 'median']);
+    const ans = k === 'mean' ? sum / n : k === 'range' ? sorted[n - 1] - sorted[0] : sorted[2];
+    const how = { mean: `Add them: ${list.join(' + ')} = ${sum}. Share by ${n}: ${sum} ÷ ${n} = ${ans}.`, range: `Biggest minus smallest: ${sorted[n - 1]} − ${sorted[0]} = ${ans}.`, median: `Put them in order: ${sorted.join(', ')}. The middle one is ${ans}.` }[k];
+    return Q({ prompt: `Find the ${k === 'mean' ? 'mean (average)' : k} of: ${list.join(', ')}`, choices: opts(ans, [sum / n + 1, sorted[n - 1] - sorted[0], sorted[2], sum, list[2]].filter(v => Number.isInteger(v)), 4), answer: ans, explainText: how });
+  }
+  const step = L === 4 ? 2 : 1, data = chartData(L === 1 ? 3 : 4, L === 4 ? 10 : [5, 8, 10][L - 1]).map(d => [d[0], d[1] * step, d[2]]);
+  const vis = chartSVG(data, step), [a, b] = shuffle(data);
+  const k = L === 1 ? pick(['most', 'count']) : L === 2 ? pick(['count', 'least', 'most']) : L === 3 ? pick(['more', 'total']) : pick(['count', 'more', 'total']);
+  if (k === 'most' || k === 'least') { const t = [...data].sort((x, y) => k === 'most' ? y[1] - x[1] : x[1] - y[1])[0]; return Q({ prompt: `Which has the ${k}?`, speak: `Look at the bar chart. Which has the ${k}?`, visual: vis, choices: data.map(d => ({ html: d[0], val: d[0], say: d[2] })), answer: t[0], explainText: `The ${t[2]} bar is the ${k === 'most' ? 'tallest' : 'shortest'}. It shows ${t[1]}.` }); }
+  if (k === 'count') return Q({ prompt: `How many ${a[0]}?`, speak: `How many ${a[2]} are there?`, visual: vis, choices: opts(a[1], near(a[1]).filter(v => v > 0).concat([b[1]])), answer: a[1], explainText: `Go to the top of the ${a[2]} bar and read across to the side: ${a[1]}.` });
+  if (k === 'more') { const [hi, lo] = a[1] > b[1] ? [a, b] : [b, a]; return Q({ prompt: `How many more ${hi[0]} than ${lo[0]}?`, speak: `How many more ${hi[2]} than ${lo[2]}?`, visual: vis, choices: opts(hi[1] - lo[1], near(hi[1] - lo[1]).filter(v => v > 0).concat([hi[1] + lo[1], hi[1]])), answer: hi[1] - lo[1], explainText: `${hi[2]}: ${hi[1]}. ${lo[2]}: ${lo[1]}. ${hi[1]} − ${lo[1]} = ${hi[1] - lo[1]}.` }); }
+  const tot = data.reduce((s, d) => s + d[1], 0);
+  return Q({ prompt: 'How many altogether?', speak: 'Add up all the bars. How many altogether?', visual: vis, choices: opts(tot, near(tot).filter(v => v > 0)), answer: tot, explainText: `${data.map(d => d[1]).join(' + ')} = ${tot}.` });
 });
 
 /* ===== World 4: Deep Forest ===== */

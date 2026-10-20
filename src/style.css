@@ -254,3 +254,4 @@ ol.steps{margin:0;padding-left:1.4em;text-align:left;font-weight:700;font-size:1
 .btn.mic.on{animation:bob .8s ease-in-out infinite;background:var(--leaf)}
 @media (max-width:520px){.top{gap:6px}.top .home{width:46px;height:46px;font-size:23px;border-radius:15px}.pill{padding:6px 10px;font-size:16px}.who-btn span{font-size:56px}}
 @media (max-width:400px){.top .brand{display:none}}
+.coins{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;align-items:center}
