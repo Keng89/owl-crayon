@@ -429,7 +429,7 @@
     const legXs = [[70, 138, 64, 178], [84, 140, 84, 178], [110, 140, 110, 178], [124, 138, 128, 178]];
     const legs = legXs.map(([a, b, c, d]) => bar(a, b, c, d, 9));
     const hooves = legXs.map(([a, b, c, d]) => { const x = a + (c - a) * (172 - b) / (d - b); return al(f1(x - 4.5), 172, f1(x + 4.5), 172); }).join('');
-    const manePts = Array.from({ length: 7 }, (_, i) => { const t = 0.12 + i * 0.12, x = 116 + 20 * t, y = 104 - 38 * t, k = i % 2 ? 7 : 0; return [x - 0.884 * k, y - 0.465 * k]; });
+    const manePts = Array.from({ length: 7 }, (_, i) => { const t = 0.3 + i * 0.1, x = 116 + 20 * t, y = 104 - 38 * t, k = i % 2 ? 7 : 0; return [x - 0.884 * k, y - 0.465 * k]; });
     const mane = poly(manePts, false);
     LESSONS.push({ id: 'a9-knight', cat: 'castles', level: 2, title: 'A knight on a horse', ico: '🐴', need: P, tip: 'Draw the knight first, then the horse around him. Front things come first!', steps: [
       ['Draw a round helmet with a slit for the eyes, and a feather on top.', V(helmet) + V(plume, [helmet]) + ar(88, 48, 16, 5, 2)],
@@ -620,7 +620,7 @@
     const water = pth(wd);
     const spike = (cx, cy, r, a) => { const p = d => [cx + r * Math.cos(d * DEG), cy + r * Math.sin(d * DEG)], b1 = p(a - 8), b2 = p(a + 8), t = [cx + (r + 9) * Math.cos(a * DEG), cy + (r + 9) * Math.sin(a * DEG)]; return apl([b1, t, b2].map(q => f1(q[0]) + ',' + f1(q[1])).join(' ')); };
     const spikes = [235, 270, 305].map(a => spike(112, 140, 20, a)).join('');
-    const spots = ac(46, 96, 3) + ac(52, 116, 4) + ac(58, 84, 2.5) + ac(104, 128, 3.5) + ac(120, 132, 3) + ac(156, 132, 3);
+    const spots = ac(46, 96, 3) + ac(52, 116, 4) + ac(58, 84, 2.5) + ac(104, 134, 3) + ac(120, 134, 3) + ac(156, 132, 3);
     const lowWaves = ap('M10 162 Q20 156 30 162 Q40 168 50 162 M90 170 Q100 164 110 170 Q120 176 130 170 M150 160 Q160 154 170 160 Q180 166 190 160 M30 186 Q40 180 50 186 Q60 192 70 186 M130 188 Q140 182 150 188 Q160 194 170 188');
     LESSONS.push({ id: 'a9-seamonster', cat: 'creatures', level: 3, title: 'A friendly sea monster', ico: '🐉', need: P, tip: 'We only see the humps above the water. The rest is hiding under the waves!', steps: [
       ['Draw an oval head with two little horns. Stop the horns at the head.', V(head) + V(hornA, [head]) + V(hornB, [head])],
