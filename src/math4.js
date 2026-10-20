@@ -146,7 +146,7 @@ const TOYS = [['🧸', 'Teddy'], ['🐰', 'Bunny'], ['🐶', 'Puppy'], ['🦆', 
 const SNACK = [['🍓', 'strawberries'], ['🍪', 'cookies'], ['🥕', 'carrots'], ['🍒', 'cherries'], ['🍌', 'bananas'], ['🍬', 'sweets'], ['🍇', 'grapes'], ['🧁', 'cupcakes']];
 const toy = ([e, name], n, f) => `<div class="m4toy"><span class="t">${e}</span><div class="m4plate">${`<i>${f}</i>`.repeat(n)}</div><small>${name}</small></div>`;
 const pile = (n, f, lab = '') => n ? `<div class="m4pile">${`<i>${f}</i>`.repeat(n)}${lab ? `<small>${lab}</small>` : ''}</div>` : '';
-const party = (toys, counts, f, left = 0, lab = '') => `<div class="m4party">${pile(left, f, lab)}${toys.map((t, i) => toy(t, counts[i], f)).join('')}</div>`;
+const party = (toys, counts, f, left = 0, lab = '') => `<div class="m4party">${pile(left, f, lab)}<div class="m4toys">${toys.map((t, i) => toy(t, counts[i], f)).join('')}</div></div>`;
 S4('fairshare', 0, 'Sharing fairly', '🧸', [
   ['Fair means everyone gets the same.', () => party(TOYS.slice(0, 2), [3, 3], '🍓')],
   ['To share, give one to each toy, then go round again until they are all gone.', () => party(TOYS.slice(2, 4), [0, 0], '🍪', 6, 'to share') + party(TOYS.slice(2, 4), [3, 3], '🍪')],
@@ -175,7 +175,7 @@ S4('fairshare', 0, 'Sharing fairly', '🧸', [
 const BUGS = [['🐞', 'ladybug', '🍃', 'leaf'], ['🐰', 'bunny', '🥕', 'carrot'], ['🐝', 'bee', '🌸', 'flower'], ['🐢', 'turtle', '🍓', 'strawberry'], ['🐭', 'mouse', '🧀', 'cheese'], ['🐶', 'puppy', '🦴', 'bone']];
 const walk = moves => { let c = 0, r = 0; const out = [[0, 0]]; for (const m of moves) { c += m === 'R' ? 1 : m === 'L' ? -1 : 0; r += m === 'D' ? 1 : m === 'U' ? -1 : 0; out.push([c, r]); } return out; };
 function maze(paths, bug, o = {}) {
-  const all = paths.flatMap(p => p.cells), minC = Math.min(...all.map(p => p[0])), maxC = Math.max(...all.map(p => p[0]));
+  const all = paths.flatMap(p => p.cells), minC = Math.min(...all.map(p => p[0])), maxC = Math.max(minC + 4, ...all.map(p => p[0]));
   let minR = Math.min(...all.map(p => p[1])), maxR = Math.max(...all.map(p => p[1]));
   while (maxR - minR < 2) { if ((maxR - minR) % 2) maxR++; else { minR--; maxR++; } }
   const cols = maxC - minC + 1, rows = maxR - minR + 1, s = Math.min(40, 300 / cols), X = c => 4 + (c - minC) * s, Y = r => 4 + (r - minR) * s;
@@ -183,14 +183,14 @@ function maze(paths, bug, o = {}) {
   for (let c = minC; c <= maxC; c++) for (let r = minR; r <= maxR; r++) g += `<rect x="${X(c)}" y="${Y(r)}" width="${s}" height="${s}" fill="#EAF6EC" stroke="#B9DCC3" stroke-width="1.5"/>`;
   if (paths.length === 1) {
     const p = paths[0].cells;
-    p.forEach(([c, r], i) => { g += `<rect x="${X(c) + 2}" y="${Y(r) + 2}" width="${s - 4}" height="${s - 4}" rx="6" fill="#FFE9A8"/>`; if (o.nums && i) g += T(X(c) + s - 9, Y(r) + 14, i, { size: 12, fill: '#F2604F' }); });
+    p.forEach(([c, r], i) => { g += `<rect x="${X(c) + 2}" y="${Y(r) + 2}" width="${s - 4}" height="${s - 4}" rx="6" fill="#FFE9A8"/>`; if (o.nums && i) g += T(X(c) + 10, Y(r) + 14, i, { size: 12, fill: '#F2604F' }); });
   } else paths.forEach(({ cells, col }, j) => {
     const off = (j ? 4 : -4);
     g += `<polyline points="${cells.map(([c, r]) => `${X(c) + s / 2 + off},${Y(r) + s / 2 + off}`).join(' ')}" fill="none" stroke="${col}" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity=".85"/>`;
     if (o.nums) cells.forEach(([c, r], i) => { if (i && i < cells.length - 1) g += `<circle cx="${X(c) + s / 2 + off * 2.4}" cy="${Y(r) + s / 2 + off * 2.4}" r="7" fill="${col}"/>${T(X(c) + s / 2 + off * 2.4, Y(r) + s / 2 + off * 2.4 + 3.5, i, { size: 9, fill: '#fff', halo: false })}`; });
   });
   const st = paths[0].cells[0], en = paths[0].cells.at(-1);
-  g += E(X(st[0]) + s / 2, Y(st[1]) + s / 2 + 1, bug[0], s * 0.62) + E(X(en[0]) + s / 2, Y(en[1]) + s / 2 + 1, bug[2], s * 0.62);
+  g += E(X(st[0]) + s / 2, Y(st[1]) + s / 2 + 1, bug[0], s * 0.62) + E(X(en[0]) + s * 0.58, Y(en[1]) + s * 0.58, bug[2], s * 0.5);
   return box(`0 0 ${cols * s + 8} ${rows * s + 8}`, g, `grid path from the ${bug[1]} to the ${bug[3]}`);
 }
 const mv = (...parts) => parts.map(([d, n]) => d.repeat(n)).join('');
@@ -337,7 +337,7 @@ S4('machine', 1, 'Number machines', '⚙️', [
 // Tokens: {t:'c', c:colour} unit cube, {t:'w', n} numbered weight, {t:'q'} mystery box, {t:'w', n, hi:true} the answer revealed.
 function balance(left, right) {
   const size = t => t.t === 'c' ? 18 : 30, g0 = [];
-  let top = 0;
+  let top = 130;
   const pan = (toks, cx) => {
     const rows = [[]]; let w = 0;
     toks.forEach(t => { const s = size(t) + 4; if (w + s > 116 && rows.at(-1).length) { rows.push([]); w = 0; } rows.at(-1).push(t); w += s; });
@@ -359,7 +359,7 @@ function balance(left, right) {
   const body = pan(left, 75) + pan(right, 225);
   g0.push(`<rect x="11" y="130" width="128" height="7" rx="3" fill="#C9B58F" stroke="${K}" stroke-width="2"/><rect x="161" y="130" width="128" height="7" rx="3" fill="#C9B58F" stroke="${K}" stroke-width="2"/>`);
   g0.push(`<path d="M75 137 V150 M225 137 V150" stroke="${K}" stroke-width="3"/><rect x="18" y="150" width="264" height="8" rx="4" fill="#B5651D" stroke="${K}" stroke-width="2"/><polygon points="150,158 128,194 172,194" fill="#FFC23D" stroke="${K}" stroke-width="2.5" stroke-linejoin="round"/>`);
-  const y0 = Math.min(0, top - 4);
+  const y0 = Math.min(60, top - 6);
   return box(`0 ${y0} 300 ${198 - y0}`, g0.join('') + body, 'a balanced scale');
 }
 const cubes = (n, c = '#F2604F') => Array.from({ length: n }, () => ({ t: 'c', c }));
@@ -464,6 +464,7 @@ const UNIT_SAY = { g: 'grams', ml: 'millilitres' };
 const amtShow = (ing, v) => ing[3] ? `${fmt(v)} ${ing[3]}` : `${fmt(v)} ${ing[0]}`;
 const amtSay = (ing, v) => ing[3] ? `${fmt(v)} ${UNIT_SAY[ing[3]]}` : `${fmt(v)} ${v === 1 ? sing(ing[1]) : ing[1]}`;
 const serves = (r, n = r.s) => r.unit ? `makes ${n} ${r.unit}` : `serves ${n}`;
+const feed = (r, n) => r.unit ? `make ${n} ${r.unit}` : `serve ${n} people`;
 const recipe = (r, hi) => card(`${r.e} ${r.n} (${serves(r)})`, r.ing.map((g, i) => [`${g[0]} ${g[3] ? `${g[2]} ${g[3]} ${g[1]}` : `${g[2]} ${g[1]}`}`, i === hi ? 'hi' : '']), 'recipe');
 const howMuch = g => g[3] ? `How much ${g[1]}` : `How many ${g[1]}`;
 S4('recipes', 2, 'Cooking with recipes', '🧁', [
@@ -477,12 +478,12 @@ S4('recipes', 2, 'Cooking with recipes', '🧁', [
   };
   if (L === 1) { const g = pick(r.ing), x = g[2] * 2; return mk(g, x, `Double the recipe. ${howMuch(g)}?`, `Here is a recipe for ${r.n.toLowerCase()}. You double the recipe. ${howMuch(g)} do you need?`, [g[2], g[2] + 2, x + g[2], g[2] + 10, x - 1], [`Double means × 2.`, `${amtShow(g, g[2])} × 2 = ${amtShow(g, x)}.`]); }
   if (L === 2) { const g = pick(r.ing.filter(g => g[2] % 2 === 0)), x = g[2] / 2; return mk(g, x, `Make half the recipe. ${howMuch(g)}?`, `Here is a recipe for ${r.n.toLowerCase()}. You make half the recipe. ${howMuch(g)} do you need?`, [g[2], g[2] * 2, g[2] - 2, x + 10, x + 1], [`Half means ÷ 2.`, `${amtShow(g, g[2])} ÷ 2 = ${amtShow(g, x)}.`]); }
-  if (L === 3) { const k = rnd(3, 5), g = pick(r.ing), x = g[2] * k, N = r.s * k; return mk(g, x, `You want it to ${serves(r, N)}. ${howMuch(g)}?`, `This recipe ${serves(r)}. You want it to ${serves(r, N)}. ${howMuch(g)} do you need?`, [g[2] * (k - 1), g[2] * (k + 1), g[2] + N, g[2] * 2, x + 1], [`${N} ÷ ${r.s} = ${k}, so make the recipe ${k} times.`, `${amtShow(g, g[2])} × ${k} = ${amtShow(g, x)}.`]); }
+  if (L === 3) { const k = rnd(3, 5), g = pick(r.ing), x = g[2] * k, N = r.s * k; return mk(g, x, `You want it to ${feed(r, N)}. ${howMuch(g)}?`, `This recipe ${serves(r)}. You want it to ${feed(r, N)}. ${howMuch(g)} do you need?`, [g[2] * (k - 1), g[2] * (k + 1), g[2] + N, g[2] * 2, x + 1], [`${N} ÷ ${r.s} = ${k}, so make the recipe ${k} times.`, `${amtShow(g, g[2])} × ${k} = ${amtShow(g, x)}.`]); }
   if (L === 4) {
     const ok = r.s % 2 === 0 ? r.ing.filter(g => g[2] % 2 === 0) : [];
     if (!ok.length) return MATH.recipes.gen(L);
     const g = pick(ok), x = g[2] * 1.5, N = r.s * 1.5;
-    return mk(g, x, `You want it to ${serves(r, N)}. ${howMuch(g)}?`, `This recipe ${serves(r)}. You want it to ${serves(r, N)}. ${howMuch(g)} do you need?`, [g[2] * 2, g[2] + N - r.s, g[2] / 2, x + 10, g[2] * 3],
+    return mk(g, x, `You want it to ${feed(r, N)}. ${howMuch(g)}?`, `This recipe ${serves(r)}. You want it to ${feed(r, N)}. ${howMuch(g)} do you need?`, [g[2] * 2, g[2] + N - r.s, g[2] / 2, x + 10, g[2] * 3],
       [`${N} is ${r.s} and half of ${r.s} more, so make 1½ times the recipe.`, `Half of ${amtShow(g, g[2])} is ${amtShow(g, g[2] / 2)}.`, `${fmt(g[2])} + ${fmt(g[2] / 2)} = ${amtShow(g, x)}.`]);
   }
   if (Math.random() < 0.5) {
@@ -490,10 +491,10 @@ S4('recipes', 2, 'Cooking with recipes', '🧁', [
     return Q({ prompt: `You have ${amtShow(g, have)}${g[3] ? ` of ${g[1]}` : ''}. How many ${people} can you make it for?`, speak: `This recipe ${serves(r)}. You have ${amtSay(g, have)}${g[3] ? ` of ${g[1]}` : ''} and plenty of everything else. How many ${people} can you make it for?`, visual: recipe(r, r.ing.indexOf(g)),
       choices: nOpts(N, 1, 999, 4, [k, N + r.s, N - r.s, have]), answer: N, steps: [`${amtShow(g, have)} ÷ ${amtShow(g, g[2])} = ${k}, so you can make the recipe ${k} times.`, `${k} × ${r.s} = ${N}.`], explainText: `Enough for ${N} ${people}.` });
   }
-  const cands = []; r.ing.forEach(g => { for (let N = 1; N <= 20; N++) if (N !== r.s && N % r.s && (g[2] * N) % r.s === 0) cands.push([g, N]); });
+  const cands = []; r.ing.forEach(g => { for (let N = 1; N <= 12; N++) if (N !== r.s && N % r.s && (g[2] * N) % r.s === 0) cands.push([g, N]); });
   if (!cands.length) return MATH.recipes.gen(L);
   const [g, N] = pick(cands), one = g[2] / r.s, x = g[2] * N / r.s;
-  return mk(g, x, `You want it to ${serves(r, N)}. ${howMuch(g)}?`, `This recipe ${serves(r)}. You want it to ${serves(r, N)}. ${howMuch(g)} do you need?`, [g[2] * N, g[2] + N - r.s, x + one, x - one, g[2] * 2],
+  return mk(g, x, `You want it to ${feed(r, N)}. ${howMuch(g)}?`, `This recipe ${serves(r)}. You want it to ${feed(r, N)}. ${howMuch(g)} do you need?`, [g[2] * N, g[2] + N - r.s, x + one, x - one, g[2] * 2],
     [`First find the amount for 1: ${fmt(g[2])} ÷ ${r.s} = ${fmt(one)}.`, `Then for ${N}: ${fmt(one)} × ${N} = ${amtShow(g, x)}.`]);
 });
 
@@ -778,7 +779,7 @@ const tag = (lab, top, price) => `<div class="m4tag"><b>${lab}</b><span>${top}</
 const tags = (...a) => `<div class="m4tags">${a.join('')}</div>`;
 const wtS = (w, u) => w >= 1000 ? `${fmt(w / 1000)} ${u === 'g' ? 'kg' : 'L'}` : `${w} ${u}`;
 const wtSay = (w, u) => w >= 1000 ? `${fmt(w / 1000)} ${u === 'g' ? 'kilograms' : 'litres'}` : `${w} ${u === 'g' ? 'grams' : 'millilitres'}`;
-const centsTxt = c => Number.isInteger(c) ? `${c}¢` : `${fmt(+c.toFixed(2))}¢`;
+const centsTxt = c => c >= 100 ? usd2(c) : Number.isInteger(c) ? `${c}¢` : `${fmt(+c.toFixed(2))}¢`;
 S4('bestbuy', 4, 'Best buys', '🏷️', [
   ['Bigger packs are not always cheaper! Compare the price for one of each.', () => tags(tag('A', '🧃×4', '$3.00'), tag('B', '🧃×6', '$4.80'))],
   ['A: $3.00 ÷ 4 = 75¢ each. B: $4.80 ÷ 6 = 80¢ each. A is the better buy.', () => '<span class="expr">75¢ &lt; 80¢</span>'],
@@ -824,7 +825,7 @@ S4('bestbuy', 4, 'Best buys', '🏷️', [
 const SALE = [['👟', 'trainers'], ['🧥', 'coat'], ['🎮', 'game'], ['🎒', 'backpack'], ['🚲', 'bike'], ['🎧', 'headphones'], ['👗', 'dress'], ['⌚', 'watch'], ['⛺', 'tent']];
 const saleTag = (e, price, pct) => `<div class="m4sale"><span class="e">${e}</span><b>${usd(price)}</b>${pct ? `<i>${pct}% OFF</i>` : ''}</div>`;
 const receipt = lines => `<div class="m4receipt"><b>🧾 Bill</b>${lines.map(([a, b]) => `<div><span>${a}</span><span>${b}</span></div>`).join('')}</div>`;
-const pctOpts = (ans, c) => opts(ans, c.filter(v => v > 0 && v < 100 && v !== ans), 4, v => v + '%', v => v + ' percent');
+const pctOpts = (ans, c) => opts(ans, c.filter(v => v > 0 && v < 100 && v !== ans), 4, v => v + '%', v => v + ' percent').map(o => ({ ...o, txt: true }));
 S4('salestips', 4, 'Sales and tips', '🛍️', [
   ['"25% off" means you save 25 out of every 100. On $40 you save $10, so you pay $30.', () => saleTag('👟', 4000, 25)],
   ['A tip is extra money for good service. 10% is easy: move the decimal point one place. 10% of $36 = $3.60.', () => receipt([['Meal', '$36.00'], ['Tip 10%', '$3.60']])],

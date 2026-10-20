@@ -751,7 +751,7 @@ ol.steps{margin:0;padding-left:1.4em;text-align:left;font-weight:700;font-size:1
 .g3sk-bar{height:var(--v);background:var(--c);border-radius:8px 8px 0 0;position:relative;z-index:1;animation:g3grow .6s ease-out var(--dl) both;transform-origin:bottom;box-shadow:inset -6px 0 0 rgba(0,0,0,.12)}
 .g3sk-labs{display:grid;grid-template-columns:repeat(var(--k),minmax(0,1fr));gap:12px;padding:0 8px}.bars .g3sk-lab{border-top:0;height:40px}
 /* number detective */
-.g3sd-grid{display:grid;grid-template-columns:repeat(var(--n),minmax(0,1fr));width:min(100%,calc(var(--n) * 76px));border:4px solid var(--ink);border-radius:14px;overflow:hidden;background:var(--line);gap:2px}
+.g3sd-grid{display:grid;grid-template-columns:repeat(var(--n),minmax(0,1fr));width:min(100%,calc(var(--n) * 76px),max(260px,46vh));border:4px solid var(--ink);border-radius:14px;overflow:hidden;background:var(--line);gap:2px}
 .g3sd-cell{aspect-ratio:1;background:#fff;display:grid;place-items:center;font:800 clamp(24px,7vw,36px)/1 var(--display);min-width:0;color:var(--ink)}
 .g3sd-grid.fruit .g3sd-cell{font-size:clamp(28px,8vw,44px)}
 .g3sd-cell.alt{background:#EEF4FF}.g3sd-cell.br{border-right:3px solid var(--ink)}.g3sd-cell.bb{border-bottom:3px solid var(--ink)}
@@ -831,3 +831,5 @@ ol.steps{margin:0;padding-left:1.4em;text-align:left;font-weight:700;font-size:1
 .m4pats figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:4px;max-width:100%}
 .m4pats svg{height:auto;max-width:100%}
 .m4pats figcaption{font-weight:800;font-size:13px;color:var(--ink-soft)}
+.m4party{flex-direction:column}
+.m4toys{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:flex-end}
