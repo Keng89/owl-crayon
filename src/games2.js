@@ -39,7 +39,7 @@ function fishMake(d) {
     if (r < .55) return sum(gArith(3));
     if (r < .75) return evenOdd(20, Math.random() < .5);
     const lo = rnd(5, 14);
-    return rule(`Catch a number <b class="gnum">between ${lo} and ${lo + 4}</b>`, `Catch the fish with a number between ${lo} and ${lo + 4}!`, v => v > lo && v < lo + 4, lo - 6, lo + 10, `Count from ${lo} to ${lo + 4}. Which numbers are in the middle?`);
+    return rule(`Catch a number <b class="gnum">between ${lo} and ${lo + 4}</b>`, `Catch the fish with a number between ${lo} and ${lo + 4}!`, v => v > lo && v < lo + 4, Math.max(1, lo - 6), lo + 10, `Count from ${lo} to ${lo + 4}. Which numbers are in the middle?`);
   }
   if (d === 4) {
     if (r < .5) return sum(gArith(4));
@@ -59,9 +59,9 @@ function fishMake(d) {
 }
 function fishQ(d) {
   const f = fishMake(d), kinds = shuffle(['🐟', '🐠', '🐡', '🐟', '🐠']), lap = [17, 15, 13, 12, 11, 10, 10][d];
-  gFrame(`<div class="pond2"><span class="rod" aria-hidden="true">🎣</span>${f.nums.map((v, i) => { const s = lap + rnd(-2, 2);
+  gFrame(`<div class="pond2"><span class="frod" aria-hidden="true">🎣</span>${f.nums.map((v, i) => { const s = lap + rnd(-2, 2);
       return `<div class="flane"><button class="fish gopt" data-v="${v}"${okA(f.ok(v))} aria-label="fish ${v}" style="--s:${s}s;--dl:-${(Math.random() * s).toFixed(2)}s;--x:${((i * 37) % 100) / 100}"><span class="fb">${kinds[i]}</span><b>${v}</b></button></div>`; }).join('')}
-      <span class="weed w1" aria-hidden="true">🌿</span><span class="weed w2" aria-hidden="true">🪸</span></div>`, f.q, f.speak);
+      <span class="fweed w1" aria-hidden="true">🌿</span><span class="fweed w2" aria-hidden="true">🪸</span></div>`, f.q, f.speak);
   const okF = $('.fish[data-ok]');
   view.querySelectorAll('.fish').forEach(b => b.onclick = () => {
     if (gm.lock || b.classList.contains('no')) return;
@@ -113,8 +113,8 @@ function pizzaQ(d) {
   // Tapping slices is a helper everywhere: in "share" they move to the plates, otherwise they toggle pepperoni.
   if (p.mode === 'share') {
     stt = Array(p.den).fill(1);
-    body = `<div class="pzrow"><div class="pzwrap">${pizzaSVG(p.den, stt, 'pzz')}</div><div class="plates">${Array.from({ length: p.f }, (_, k) =>
-      `<div class="plate"><span class="who">${FR[k]}</span><span class="pile" id="pl${k}"></span></div>`).join('')}</div></div>${choicesHTML(p.choices, p.ans)}`;
+    body = `<div class="pzrow"><div class="pzwrap">${pizzaSVG(p.den, stt, 'pzz')}</div><div class="pplates">${Array.from({ length: p.f }, (_, k) =>
+      `<div class="pplate"><span class="pwho">${FR[k]}</span><span class="ppile" id="pl${k}"></span></div>`).join('')}</div></div>${choicesHTML(p.choices, p.ans)}`;
     prompt = `<b>${p.den}</b> slices, <b>${p.f}</b> friends. How many <b class="gnum">each</b>?`;
     speak = `There are ${p.den} slices of pizza and ${p.f} hungry friends. Tap the slices to share them out fairly. How many slices does each friend get?`;
     hint = 'Tap the pizza to give out the slices one at a time. Then count one plate.';
@@ -131,7 +131,7 @@ function pizzaQ(d) {
     hint = `Count the slices that are left. The bottom number is how many slices the whole pizza had: ${p.den}.`;
   } else if (p.mode === 'add') {
     const A = range(0, p.den - 1).map(i => i < p.a ? 1 : 0), B = range(0, p.den - 1).map(i => i < p.b ? 1 : 0);
-    body = `<div class="pzrow two"><div class="pzwrap sm">${pizzaSVG(p.den, A)}</div><b class="plus">+</b><div class="pzwrap sm">${pizzaSVG(p.den, B)}</div></div>${choicesHTML(p.choices, p.ans)}`;
+    body = `<div class="pzrow two"><div class="pzwrap sm">${pizzaSVG(p.den, A)}</div><b class="pplus">+</b><div class="pzwrap sm">${pizzaSVG(p.den, B)}</div></div>${choicesHTML(p.choices, p.ans)}`;
     prompt = `<span class="gexpr">${frac(p.a, p.den)} + ${frac(p.b, p.den)} = <span class="gnum">?</span></span>`;
     speak = `What is ${fw(p.a, p.den)} plus ${fw(p.b, p.den)}?`;
     hint = `The slices are the same size, so add the top numbers: ${p.a} + ${p.b}. The bottom number stays ${p.den}.`;
@@ -182,19 +182,19 @@ function feedMake(d) {
   const ch = [[e, L], [e + 1, L], [e - 1, L], [e, L === 1 ? 2 : L - 1]];
   return { mode: 'rem', c, g, e, L, T: g * e + L, ans, choices: shuffle(ch).map(([a, b]) => ({ html: `${a}<small>r</small>${b}`, val: `${a} r ${b}`, label: `${a} each, ${b} left over` })) };
 }
-const plateHTML = (n, food) => n <= 10 ? `<span class="fd n${Math.min(n, 10)}">${food.repeat(n)}</span>` : `<span class="fd big"><b>${n}</b>${food}</span>`;
+const plateHTML = (n, food) => n <= 10 ? `<span class="ffd n${Math.min(n, 10)}">${food.repeat(n)}</span>` : `<span class="ffd big"><b>${n}</b>${food}</span>`;
 function feedQ(d) {
   const p = feedMake(d), [ce, one, many, food, f1, fN] = p.c, fe = n => n === 1 ? f1 : fN;
-  const farm = (inner, cls = '') => `<div class="farm ${cls}" style="--g:${p.g}">${inner}</div>`;
+  const farm = (inner, cls = '') => `<div class="ffarm ${cls}" style="--g:${p.g}">${inner}</div>`;
   if (p.mode === 'feed') {
     const fed = Array(p.g).fill(0); let phase2 = false;
-    gFrame(farm(range(0, p.g - 1).map(k => `<button class="critter gopt" data-k="${k}" data-ok="1" aria-label="${one} ${k + 1}"><span class="ce">${ce}</span><span class="dish" id="fp${k}"></span></button>`).join(''), 'big') + '<div id="feedq" class="feedq"></div>',
+    gFrame(farm(range(0, p.g - 1).map(k => `<button class="fcritter gopt" data-k="${k}" data-ok="1" aria-label="${one} ${k + 1}"><span class="fce">${ce}</span><span class="fdish" id="fp${k}"></span></button>`).join(''), 'big') + '<div id="feedq" class="feedq"></div>',
       `Give each ${one} <b class="gnum">${p.e}</b> <span class="fneed">${food.repeat(p.e)}</span>`, `Give each ${one} ${p.e} ${fe(p.e)}. Tap an animal to give it one.`);
-    view.querySelectorAll('.critter').forEach(b => b.onclick = () => {
+    view.querySelectorAll('.fcritter').forEach(b => b.onclick = () => {
       if (gm.lock || phase2) return; const k = +b.dataset.k;
-      if (fed[k] >= p.e) { gameMiss(b, `This ${one} already has ${p.e}. Feed a hungry one!`, view.querySelector('.critter[data-ok]'), 'I am full!'); b.classList.remove('no'); return; }
+      if (fed[k] >= p.e) { gameMiss(b, `This ${one} already has ${p.e}. Feed a hungry one!`, view.querySelector('.fcritter[data-ok]'), 'I am full!'); b.classList.remove('no'); return; }
       fed[k]++; $('#fp' + k).innerHTML = plateHTML(fed[k], food); tone([520 + fed[k] * 90], .07); say(String(fed[k]));
-      if (fed[k] === p.e) { b.removeAttribute('data-ok'); b.classList.remove('hint'); b.classList.add('full'); const nx = view.querySelector('.critter[data-ok]'); if (nx && gm.tries >= 2) nx.classList.add('hint'); }
+      if (fed[k] === p.e) { b.removeAttribute('data-ok'); b.classList.remove('hint'); b.classList.add('full'); const nx = view.querySelector('.fcritter[data-ok]'); if (nx && gm.tries >= 2) nx.classList.add('hint'); }
       if (fed.some(v => v < p.e)) return;
       if (!p.total) return gameRight(null, 1400, `Yum! Every ${one} has ${p.e}!`);
       phase2 = true; $('.ptext').innerHTML = `How many ${fN} <b class="gnum">altogether</b>?`;
@@ -205,13 +205,13 @@ function feedQ(d) {
   }
   let body, prompt, speak, hint, deal = null;
   if (p.mode === 'mul') {
-    body = farm(range(1, p.g).map(() => `<div class="critter"><span class="ce">${ce}</span><span class="dish">${plateHTML(p.e, food)}</span></div>`).join(''));
+    body = farm(range(1, p.g).map(() => `<div class="fcritter"><span class="fce">${ce}</span><span class="fdish">${plateHTML(p.e, food)}</span></div>`).join(''));
     prompt = `${p.g} ${many}, <b>${p.e}</b> ${fe(p.e)} each. How many <b class="gnum">in all</b>?`;
     speak = `There are ${p.g} ${many}. Each one has ${p.e} ${fe(p.e)}. How many ${fN} in all?`;
     hint = `${p.g} groups of ${p.e}. Count in ${p.e}s: ${range(1, Math.min(p.g, 3)).map(k => k * p.e).join(', ')}...`;
   } else {
     const T = p.T, fedN = Array(p.g).fill(0);
-    body = `<button class="pile2" id="pile" aria-label="${T} ${fN}. Tap to share one out"><b id="pileN">${T}</b>${food}</button>` + farm(range(0, p.g - 1).map(k => `<div class="critter"><span class="ce">${ce}</span><span class="dish" id="fp${k}"></span></div>`).join(''));
+    body = `<button class="pile2" id="pile" aria-label="${T} ${fN}. Tap to share one out"><b id="pileN">${T}</b>${food}</button>` + farm(range(0, p.g - 1).map(k => `<div class="fcritter"><span class="fce">${ce}</span><span class="fdish" id="fp${k}"></span></div>`).join(''));
     deal = () => { if (T <= 0) return; const k = fedN.reduce((a, b) => a + b, 0); if (k >= T) return; fedN[k % p.g]++; $('#fp' + (k % p.g)).innerHTML = plateHTML(fedN[k % p.g], food); $('#pileN').textContent = T - k - 1; tone([440 + (k % p.g) * 60], .06); };
     if (p.mode === 'div') {
       prompt = `Share <b>${T}</b> ${fN} with ${p.g} ${many}. How many <b class="gnum">each</b>?`;
@@ -257,12 +257,12 @@ function rocketQ(d) {
   const p = rocketMake(d, gm.i);
   if (p.mode === 'count') {
     const { seq, step, given } = p; let at = given ? 1 : 0;
-    gFrame(`<div class="space"><div class="lights" style="--n:${seq.length}">${seq.map((v, k) => `<i class="${given && !k ? 'lit' : ''}">${given && !k ? mn(v) : ''}</i>`).join('')}</div>
-        <span class="rocket" id="rk" aria-hidden="true">🚀<span class="flame">🔥</span></span><span class="pad0" aria-hidden="true"></span></div>
-      <div class="numpad">${p.pad.map(v => `<button class="nkey gopt" data-v="${v}"${okA(v === seq[at])}>${mn(v)}</button>`).join('')}</div>`,
+    gFrame(`<div class="rspace"><div class="rlights" style="--n:${seq.length}">${seq.map((v, k) => `<i class="${given && !k ? 'lit' : ''}">${given && !k ? mn(v) : ''}</i>`).join('')}</div>
+        <span class="rrocket" id="rk" aria-hidden="true">🚀<span class="rflame">🔥</span></span><span class="pad0" aria-hidden="true"></span></div>
+      <div class="rnumpad">${p.pad.map(v => `<button class="nkey gopt" data-v="${v}"${okA(v === seq[at])}>${mn(v)}</button>`).join('')}</div>`,
       given ? `Count down${step > 1 ? ` by <b class="gnum">${step}s</b>` : ''} from <b>${mn(p.start)}</b>!` : `Count down from <b class="gnum">${p.start}</b>!`,
       `Count down from ${mn(p.start)}${step > 1 ? ` by ${step}s` : ''}. Tap the numbers in order!`);
-    const lights = view.querySelectorAll('.lights i');
+    const lights = view.querySelectorAll('.rlights i');
     view.querySelectorAll('.nkey').forEach(b => b.onclick = () => {
       if (gm.lock || b.classList.contains('used') || b.classList.contains('no')) return;
       const v = +b.dataset.v;
@@ -274,18 +274,18 @@ function rocketQ(d) {
       }
       b.classList.add('used'); b.classList.remove('hint'); b.removeAttribute('data-ok'); lights[at].classList.add('lit'); lights[at].textContent = mn(v); say(mn(v)); tone([300 + 60 * (seq.length - at)], .1); at++;
       if (at < seq.length) { const nx = view.querySelector(`.nkey[data-v="${seq[at]}"]`); nx.dataset.ok = '1'; if (gm.tries >= 2) nx.classList.add('hint'); return; }
-      $('#rk').classList.add('go'); $('.space').classList.add('launch'); tone([262, 330, 392, 523, 784], .09);
+      $('#rk').classList.add('go'); $('.rspace').classList.add('launch'); tone([262, 330, 392, 523, 784], .09);
       gameRight(null, 2000, 'Blast off! 🚀');
     });
     return;
   }
   const { a, b, ans } = p;
-  const top = p.lad ? `<div class="space sub"><div class="ladder" id="lad">${range(ans - 1, a + 1).reverse().map(v => `<div class="rung${v === 0 ? ' zero' : ''}" data-v="${v}"><span>${mn(v)}</span></div>`).join('')}</div>
-      <span class="rocket down" id="rk" aria-hidden="true">🚀</span><span class="moon" aria-hidden="true">🌍</span></div>`
-    : `<div class="space eq"><span class="rocket" aria-hidden="true">🚀</span><b class="eqn">${mn(a)} − ${b} = ?</b></div>`;
+  const top = p.lad ? `<div class="rspace sub"><div class="rladder" id="lad">${range(ans - 1, a + 1).reverse().map(v => `<div class="rrung${v === 0 ? ' zero' : ''}" data-v="${v}"><span>${mn(v)}</span></div>`).join('')}</div>
+      <span class="rrocket down" id="rk" aria-hidden="true">🚀</span><span class="rmoon" aria-hidden="true">🌍</span></div>`
+    : `<div class="rspace eq"><span class="rrocket" aria-hidden="true">🚀</span><b class="reqn">${mn(a)} − ${b} = ?</b></div>`;
   gFrame(top + choicesHTML(p.choices, ans), p.lad ? `🚀 is at <b>${mn(a)}</b>. It flies down <b class="gnum">${b}</b>. Where does it land?` : `<span class="gexpr">${mn(a)} − ${b} = <span class="gnum">?</span></span>`,
     p.lad ? `The rocket is at ${mn(a)}. It flies down ${b}. Where does it land?` : `What is ${mn(a)} minus ${b}?`);
-  const rk = $('#rk'), rung = v => view.querySelector(`.rung[data-v="${v}"]`);
+  const rk = $('#rk'), rung = v => view.querySelector(`.rrung[data-v="${v}"]`);
   const place = v => { const r = rung(v); if (r && rk) rk.style.top = r.offsetTop + r.offsetHeight / 2 + 'px'; };
   if (p.lad) { rk.style.transition = 'none'; place(a); void rk.offsetWidth; rk.style.transition = ''; }
   wireChoices(ans, `Start at ${mn(a)} and count back ${b}.`, () => {
@@ -343,19 +343,19 @@ function targetQ(d) {
   const p = targetMake(d), it = p.items, hint = targetHint(it, p.small);
   if (p.mode === 'pick') {
     const w = it[0].k === 'dots' ? 'more' : `${p.small ? 'small' : 'bigg'}${it.length > 2 ? 'est' : 'er'}`;
-    gFrame(`<div class="range"><div class="targets t${it.length}">${it.map((x, i) => `<button class="tgt gopt${x.k === 'dots' ? ' dots' : ''}" data-v="${i}"${okA(i === p.ans)} aria-label="${esc(x.s)}"><span class="bull">${x.h}</span></button>`).join('')}</div>
-        <span class="bow" aria-hidden="true">🏹</span></div>`,
+    gFrame(`<div class="trange"><div class="ttargets t${it.length}">${it.map((x, i) => `<button class="tgt gopt${x.k === 'dots' ? ' dots' : ''}" data-v="${i}"${okA(i === p.ans)} aria-label="${esc(x.s)}"><span class="tbull">${x.h}</span></button>`).join('')}</div>
+        <span class="tbow" aria-hidden="true">🏹</span></div>`,
       it[0].k === 'dots' ? 'Which target has <b class="gnum">more</b> dots?' : `Hit the <b class="gnum">${w}</b> number!`,
       it[0].k === 'dots' ? 'Which target has more dots? Tap it!' : `Which is ${w}? ${it.map(x => x.s).join(', or ')}? Tap it!`);
     view.querySelectorAll('.tgt').forEach(b => b.onclick = () => {
       if (gm.lock || b.classList.contains('no')) return;
-      if (+b.dataset.v === p.ans) { b.insertAdjacentHTML('beforeend', '<span class="dart" aria-hidden="true">🏹</span>'); $('.bow').classList.add('shot'); tone([1200, 900], .05); gameRight(b, 1200, pick(['Bullseye! 🎯', 'Right on target!', 'Great shot!'])); }
+      if (+b.dataset.v === p.ans) { b.insertAdjacentHTML('beforeend', '<span class="tdart" aria-hidden="true">🏹</span>'); $('.tbow').classList.add('shot'); tone([1200, 900], .05); gameRight(b, 1200, pick(['Bullseye! 🎯', 'Right on target!', 'Great shot!'])); }
       else gameMiss(b, `${it[+b.dataset.v].s} is ${p.small ? 'not the smallest' : 'not the biggest'}. ${hint}`, $('.tgt[data-ok]'));
     });
     return;
   }
   const [A, B] = it, SIGN = { lt: '&lt;', eq: '=', gt: '&gt;' };
-  gFrame(`<div class="cmp"><span class="cv">${A.h}</span><span class="slot" id="slot">?</span><span class="cv">${B.h}</span></div>
+  gFrame(`<div class="tcmp"><span class="tcv">${A.h}</span><span class="tslot" id="slot">?</span><span class="tcv">${B.h}</span></div>
     ${choicesHTML([{ html: '&lt;', val: 'lt', label: 'less than' }, { html: '=', val: 'eq', label: 'equals' }, { html: '&gt;', val: 'gt', label: 'greater than' }], p.ans)}
     <p class="note gsign">🐊 The open mouth eats the bigger number.</p>`,
     'Which sign goes in the middle?', `${A.s}, and ${B.s}. Is the first one less than, equal to, or greater than the second?`);
@@ -375,23 +375,23 @@ function beeMake(d) {
   else if (r < .35) { T = 1000; unit = lo = 50; hi = 1200; }
   else if (r < .7) { op = '×'; T = pick([12, 18, 20, 24, 30, 36, 40, 48, 60]); lo = 2; hi = 15; }
   else { T = 100; sc = 100; unit = lo = 5; hi = 130; }
-  const comb = (x, y) => op === '+' ? x + y : x * y, all = range(lo, hi, unit);
+  const comb = (x, y) => op === '+' ? x + y : x * y, all = range(lo, hi, unit).filter(v => v !== T);
   const firsts = all.filter(a => { const b = op === '+' ? T - a : T / a; return b !== a && all.includes(b); });
   const a = pick(firsts), b = op === '+' ? T - a : T / a, out = [a, b];
   for (const v of shuffle(all)) if (out.length < k && !out.includes(v) && out.every(x => comb(x, v) !== T)) out.push(v);
   return { T, op, sc, a, b, nums: shuffle(out) };
 }
-const beeShow = (v, sc) => sc === 1 ? String(v) : (v / sc).toFixed(sc === 10 ? 1 : 2);
+const beeShow = (v, sc) => String(v / sc);
 function beeQ(d) {
   const p = beeMake(d), S = v => beeShow(v, p.sc), rows = { 4: [1, 2, 1], 7: [2, 3, 2], 8: [3, 2, 3], 10: [3, 4, 3] }[p.nums.length];
   let j = 0;
-  gFrame(`<div class="hive">${rows.map(n => `<div class="hrow">${range(1, n).map(() => { const v = p.nums[j++];
-      return `<button class="hex gopt" data-v="${v}"${okA(v === p.a || v === p.b)}><span>${S(v)}</span></button>`; }).join('')}</div>`).join('')}
+  gFrame(`<div class="bhive">${rows.map(n => `<div class="bhrow">${range(1, n).map(() => { const v = p.nums[j++];
+      return `<button class="bhex gopt" data-v="${v}"${okA(v === p.a || v === p.b)}><span>${S(v)}</span></button>`; }).join('')}</div>`).join('')}
       <span class="bee1" aria-hidden="true">🐝</span></div>`,
     p.op === '+' ? `Find two that make <b class="gnum">${S(p.T)}</b>` : `Find two that <b>multiply</b> to make <b class="gnum">${p.T}</b>`,
     p.op === '+' ? `Tap two honeycombs that add up to ${S(p.T)}.` : `Tap two honeycombs that multiply to make ${p.T}.`);
   let sel = null;
-  view.querySelectorAll('.hex').forEach(h => h.onclick = () => {
+  view.querySelectorAll('.bhex').forEach(h => h.onclick = () => {
     if (gm.lock) return;
     if (!sel) { sel = h; h.classList.add('sel'); tone([600], .06); say(S(+h.dataset.v)); return; }
     if (sel === h) { h.classList.remove('sel'); sel = null; return; }
@@ -402,7 +402,7 @@ function beeQ(d) {
       return gameRight(null, 1400, `${S(x)} ${p.op} ${S(y)} = ${S(p.T)}! 🍯`);
     }
     first.classList.remove('sel');
-    const ok1 = $('.hex[data-ok]');
+    const ok1 = $('.bhex[data-ok]');
     gameMiss(h, p.op === '+' ? `${S(x)} and ${S(y)} make ${S(x + y)}. ${x + y > p.T ? 'Too much!' : 'Not enough!'} Pick one number, then find what adds on to make ${S(p.T)}.` : `${x} times ${y} is ${x * y}. What times ${x} makes ${p.T}?`, ok1);
     h.classList.remove('no'); first.classList.add('wob');
     setTimeout(() => first.classList.remove('wob'), 400);
@@ -440,23 +440,23 @@ function mapQ(d) {
   if (walk) { const onPath = new Set(p.path.map(c => c.join())); shuffle(range(0, N * N - 1).map(k => [k % N, Math.floor(k / N)])).filter(c => !onPath.has(c.join())).slice(0, N - 2).forEach(c => deco[c.join()] = pick(['🌴', '🪨', '🐚', '🌵', '🦀'])); }
   let grid = '';
   for (let y = hi; y >= lo; y--) {
-    if (lab) grid += `<span class="ax">${mn(y)}</span>`;
+    if (lab) grid += `<span class="mapx">${mn(y)}</span>`;
     for (let x = lo; x <= hi; x++) {
       const st0 = isStart(x, y), crab = p.mode === 'read' && x === ax && y === ay;
       const tagN = p.mode === 'read' ? 'span' : 'button';
-      grid += `<${tagN} class="cell${p.mode === 'read' ? '' : ' gopt'}${st0 ? ' start' : ''}${x === 0 && lab ? ' x0' : ''}${y === 0 && lab ? ' y0' : ''}" data-x="${x}" data-y="${y}"${okA(p.mode !== 'read' && x === ax && y === ay)} aria-label="${lab ? `${mn(x)}, ${mn(y)}` : `square ${x + 1}, ${N - y}`}">${crab ? '<span class="crab">🦀</span>' : deco[x + ',' + y] ? `<span class="deco">${deco[x + ',' + y]}</span>` : ''}</${tagN}>`;
+      grid += `<${tagN} class="tcell${p.mode === 'read' ? '' : ' gopt'}${st0 ? ' start' : ''}${x === 0 && lab ? ' x0' : ''}${y === 0 && lab ? ' y0' : ''}" data-x="${x}" data-y="${y}"${okA(p.mode !== 'read' && x === ax && y === ay)} aria-label="${lab ? `${mn(x)}, ${mn(y)}` : `square ${x + 1}, ${N - y}`}">${crab ? '<span class="mcrab">🦀</span>' : deco[x + ',' + y] ? `<span class="mdeco">${deco[x + ',' + y]}</span>` : ''}</${tagN}>`;
     }
   }
-  if (lab) grid += '<span></span>' + range(lo, hi).map(x => `<span class="ax">${mn(x)}</span>`).join('');
-  const moves = p.moves ? p.moves.map(([dr, n]) => `<span class="mv">${n} <i>${MDIR[dr][2]}</i><small>${MDIR[dr][3]}</small></span>`).join('<span class="then">then</span>') : '';
+  if (lab) grid += '<span></span>' + range(lo, hi).map(x => `<span class="mapx">${mn(x)}</span>`).join('');
+  const moves = p.moves ? p.moves.map(([dr, n]) => `<span class="mmv">${n} <i>${MDIR[dr][2]}</i><small>${MDIR[dr][3]}</small></span>`).join('<span class="mthen">then</span>') : '';
   const movesSay = p.moves ? p.moves.map(([dr, n]) => `${n} step${n > 1 ? 's' : ''} ${MDIR[dr][3]}`).join(', then ') : '';
   const sxy = p.start ? `(${mn(p.start[0])}, ${mn(p.start[1])})` : '';
   const prompt = walk ? `Start at 🦜. Go ${moves}` : p.mode === 'walkc' ? `Start at <b>${sxy}</b>. Go ${moves}` : p.mode === 'read' ? 'Where is the crab? 🦀' : `Dig at <b class="gnum">(${mn(ax)}, ${mn(ay)})</b>`;
   const speak = walk ? `Start at the parrot. Go ${movesSay}. Tap where the treasure is!` : p.mode === 'walkc' ? `Start at ${mn(p.start[0])}, ${mn(p.start[1])}. Go ${movesSay}. Tap where you end up!`
     : p.mode === 'read' ? 'Where is the crab? Go across first, then up. Pick its coordinates.' : `Dig for treasure at ${mn(ax)}, ${mn(ay)}. Go across first, then ${ay < 0 ? 'down' : 'up'}.`;
-  gFrame(`<div class="mapwrap"><div class="map ${lab ? 'coord' : 'walk'}" style="--n:${N}">${grid}${p.start ? '<span class="parrot" id="parrot" aria-hidden="true">🦜</span>' : ''}</div></div>${p.mode === 'read' ? choicesHTML(p.choices, `${ax},${ay}`) : ''}`, prompt, speak);
-  if (p.mode === 'read') return wireChoices(`${ax},${ay}`, `Start at zero. Count across to the crab first, then ${ay < 0 ? 'down' : 'up'}. The across number comes first.`, () => $('.crab').classList.add('got'), 1300);
-  const cells = [...view.querySelectorAll('.cell')], cell = (x, y) => cells.find(c => +c.dataset.x === x && +c.dataset.y === y), parrot = $('#parrot');
+  gFrame(`<div class="tmapwrap"><div class="tmap ${lab ? 'coord' : 'walk'}" style="--n:${N}">${grid}${p.start ? '<span class="mparrot" id="parrot" aria-hidden="true">🦜</span>' : ''}</div></div>${p.mode === 'read' ? choicesHTML(p.choices, `${ax},${ay}`) : ''}`, prompt, speak);
+  if (p.mode === 'read') return wireChoices(`${ax},${ay}`, `Start at zero. Count across to the crab first, then ${ay < 0 ? 'down' : 'up'}. The across number comes first.`, () => $('.mcrab').classList.add('got'), 1300);
+  const cells = [...view.querySelectorAll('.tcell')], cell = (x, y) => cells.find(c => +c.dataset.x === x && +c.dataset.y === y), parrot = $('#parrot');
   const place = (x, y) => { const c = cell(x, y); parrot.style.left = c.offsetLeft + c.offsetWidth / 2 + 'px'; parrot.style.top = c.offsetTop + c.offsetHeight / 2 + 'px'; };
   if (parrot) { parrot.style.transition = 'none'; place(...p.start); void parrot.offsetWidth; parrot.style.transition = ''; }
   const okC = cell(ax, ay), firstMove = p.moves ? `First go ${p.moves[0][1]} ${MDIR[p.moves[0][0]][3]}.` : '';
@@ -467,7 +467,7 @@ function mapQ(d) {
     if (c !== okC) return gameMiss(c, p.start ? `Start at ${walk ? 'the parrot' : sxy}. ${firstMove} Count each square.` : `That is ${mn(x)}, ${mn(y)}. Go across to ${mn(ax)} first, then ${ay < 0 ? 'down' : 'up'} to ${mn(ay)}.`, okC);
     let ms = 0;
     if (parrot) p.path.slice(1).forEach(([px, py], k) => { ms = (k + 1) * 300; gLater(() => { place(px, py); tone([500 + k * 40], .06); }, ms); });
-    gLater(() => { c.innerHTML = '<span class="chest">💰</span>'; tone([784, 988, 1319], .08); }, ms + 250);
+    gLater(() => { c.innerHTML = '<span class="mchest">💰</span>'; tone([784, 988, 1319], .08); }, ms + 250);
     gameRight(c, ms + 1300, pick(['Treasure! 💰', 'You found it!', 'X marks the spot!']));
   });
 }

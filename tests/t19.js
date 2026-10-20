@@ -3,7 +3,7 @@
 const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim() + '/playwright');
 const PORT = process.env.PORT || 8766, IDS = ['fish', 'pizza', 'feed', 'rocket', 'target', 'bee', 'map'];
 const wait = ms => new Promise(r => setTimeout(r, ms));
-const TAPS = '.gopt,.cbtn,.mcard,.serve,.pile2,.nkey,.hex,.cell,.tgt,.critter,.fish';
+const TAPS = '.gopt,.cbtn,.mcard,.serve,.pile2,.nkey,.bhex,.tcell,.tgt,.fcritter,.fish';
 (async () => {
   const b = await chromium.launch(), errs = [], fails = [];
   const run = async (vp, age) => {
@@ -28,7 +28,7 @@ const TAPS = '.gopt,.cbtn,.mcard,.serve,.pile2,.nkey,.hex,.cell,.tgt,.critter,.f
         await wait(250);
         if (shots < 2 && (q === 0 || q === 5)) { await p.screenshot({ path: `g2-${tag}-${id}-${q}.png` }); shots++; await noScroll(id); await outside(id); await small(id); }
         const misses = q === 1 ? 1 : q === 3 ? 2 : 0; // a wrong tap on question 2, two on question 4 (the right answer then glows)
-        const kind = await p.evaluate(() => document.querySelector('#serve') ? 'make' : document.querySelector('.hex') ? 'bee' : document.querySelector('.farm.big') && !document.querySelector('.gch') ? 'feed' : 'tap');
+        const kind = await p.evaluate(() => document.querySelector('#serve') ? 'make' : document.querySelector('.bhex') ? 'bee' : document.querySelector('.ffarm.big') && !document.querySelector('.gch') ? 'feed' : 'tap');
         if (kind === 'make') {
           for (let m = 0; m < misses; m++) { await p.click('#serve', { force: true }); await wait(200); }
           const need = +await p.getAttribute('.pzwrap', 'data-need');
@@ -38,12 +38,12 @@ const TAPS = '.gopt,.cbtn,.mcard,.serve,.pile2,.nkey,.hex,.cell,.tgt,.critter,.f
           await p.click('#serve', { force: true }); q++; continue;
         }
         if (kind === 'bee') {
-          for (let m = 0; m < misses; m++) { const w = await p.$$('.hex:not([data-ok])'); await w[0].click(); await w[1].click(); await wait(250); }
+          for (let m = 0; m < misses; m++) { const w = await p.$$('.bhex:not([data-ok])'); await w[0].click(); await w[1].click(); await wait(250); }
           if (misses === 2 && !(await p.$('.hint'))) fails.push(`${tag} ${id}: no hint after two misses`);
-          const ok = await p.$$('.hex[data-ok]'); await ok[0].click({ force: true }); await ok[1].click({ force: true }); q++; continue;
+          const ok = await p.$$('.bhex[data-ok]'); await ok[0].click({ force: true }); await ok[1].click({ force: true }); q++; continue;
         }
         if (kind === 'feed' && misses) {
-          const c = await p.$('.critter[data-ok]'); for (let k = 0; k < 6 && await c.getAttribute('data-ok'); k++) await c.click({ force: true });
+          const c = await p.$('.fcritter[data-ok]'); for (let k = 0; k < 6 && await c.getAttribute('data-ok'); k++) await c.click({ force: true });
           for (let m = 0; m < misses; m++) { await c.click({ force: true }); await wait(250); }
         } else {
           if (await p.$('#pzz .pz:not(.gone)') && q === 2) { await p.click('#pzz .pz:not(.gone)', { force: true }); await wait(100); } // slices are a helper too

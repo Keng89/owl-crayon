@@ -110,14 +110,14 @@ S('onemore', 0, 'One more, one less', '🐥', [
 });
 
 const ORD = ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th'], ORDW = ['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh'];
-const RACERS = [['🐢', 'turtle'], ['🐇', 'rabbit'], ['🐌', 'snail'], ['🦆', 'duck'], ['🐕', 'dog'], ['🐈', 'cat'], ['🐎', 'horse'], ['🐖', 'pig'], ['🦔', 'hedgehog'], ['🐓', 'rooster']];
+const RACERS = [['🐱', 'cat'], ['🐶', 'dog'], ['🐸', 'frog'], ['🐰', 'rabbit'], ['🐻', 'bear'], ['🐷', 'pig'], ['🦊', 'fox'], ['🐵', 'monkey'], ['🐼', 'panda'], ['🐯', 'tiger'], ['🐮', 'cow'], ['🐔', 'chicken']];
 const race = (rs, lab) => `<div class="m2race"><span class="m2flag">🏁</span>${rs.map((r, i) => `<span class="m2run">${r[0]}${lab ? `<small>${ORD[i]}</small>` : ''}</span>`).join('')}</div>`;
 S('ordinal', 0, 'First, second, third', '🏁', [
   ['In a race, the one at the finish flag is 1st. We say first.', () => race(RACERS.slice(0, 3))],
   ['Count from the flag: 1st first, 2nd second, 3rd third, 4th fourth, 5th fifth.', () => race(RACERS.slice(0, 5), true)],
-  ['The one at the very end is last.', () => '']
+  ['The one at the very end, furthest from the flag, is last.', () => race(RACERS.slice(3, 7))]
 ], L => {
-  const n = [3, 4, 5, 5, 7][L - 1], rs = shuffle(RACERS).slice(0, n), rc = r => C(r[1], r[0], r[1]);
+  const n = [3, 4, 5, 5, 6][L - 1], rs = shuffle(RACERS).slice(0, n), rc = r => C(r[1], r[0], r[1]);
   const three = t => shuffle([t, ...shuffle(rs.filter(r => r !== t)).slice(0, 2)]).map(rc);
   if (L === 4 || (L === 5 && Math.random() < 0.5)) {
     const i = rnd(0, n - 1), r = rs[i];
@@ -162,9 +162,9 @@ S('oddone', 0, 'Odd one out', '🧩', [
     items = [o, ...shuffle(KINDS[k1]).slice(0, 3)].map(x => ({ html: `<span class="m2emo">${x[0]}</span>`, say: x[1] }));
     why = `The others are all ${KNAME[k1]}. The ${o[1]} is not.`;
   } else {
-    const n = rnd(2, 5), m = n + pick([-1, 1]), e = pick(THINGS)[0], reps = shuffle(['die', 'num', 'objs', 'frame']);
-    const show = (r, v) => r === 'die' ? die(v) : r === 'num' ? `<span class="m2num">${v}</span>` : r === 'objs' ? `<span class="mini">${objs(v, e)}</span>` : fr(v);
-    items = reps.map((r, i) => ({ html: show(r, i === 0 ? m : n), say: { die: 'the dice', num: 'the number', objs: 'the group of pictures', frame: 'the ten frame' }[r] }));
+    const n = rnd(2, 5), m = n + pick([-1, 1]), e = pick(THINGS)[0], reps = shuffle(['die', 'num', 'objs', 'tally']);
+    const show = (r, v) => r === 'die' ? die(v) : r === 'num' ? `<span class="m2num">${v}</span>` : r === 'objs' ? `<span class="mini">${objs(v, e)}</span>` : tallySVG(v);
+    items = reps.map((r, i) => ({ html: show(r, i === 0 ? m : n), say: { die: 'the dice', num: 'the number', objs: 'the group of pictures', tally: 'the tally marks' }[r] }));
     why = `The others all show ${n}. This one shows ${m}.`; prompt = 'Three show the same number. Which one is different?'; speak = 'Three of these show the same number. Which one shows a different number?';
   }
   const ids = ['a', 'b', 'c', 'd'];
@@ -184,7 +184,7 @@ const solid = (n, c) => `<svg class="m2solid" viewBox="0 0 100 100" role="img" a
 const SOL = { sphere: ['sphere', 'a ball', 0, true], cube: ['cube', 'a dice', 6, false], cuboid: ['cuboid', 'a box', 6, false], cylinder: ['cylinder', 'a tin can', 2, true], cone: ['cone', 'an ice cream cone', 1, true], pyramid: ['pyramid', 'a pointy tent', 5, false] };
 const FACES = { sphere: 'A sphere is curved all over. It has no flat faces: 0.', cube: 'A cube has 6 flat faces: top, bottom, front, back and 2 sides.', cylinder: 'A cylinder has a flat circle on the top and one on the bottom: 2.', cone: 'Only the round bottom of a cone is flat: 1.', pyramid: 'This pyramid has a square bottom and 4 triangle sides: 5.' };
 const REAL = [['⚽', 'football', 'sphere'], ['🏀', 'basketball', 'sphere'], ['🌍', 'globe', 'sphere'], ['🍊', 'orange', 'sphere'], ['🎲', 'dice', 'cube'], ['🧊', 'ice cube', 'cube'], ['🧱', 'brick', 'cuboid'], ['📦', 'parcel box', 'cuboid'], ['🥫', 'tin can', 'cylinder'], ['🔋', 'battery', 'cylinder'], ['🥁', 'drum', 'cylinder'], ['🍦', 'ice cream cone', 'cone']];
-S('solids', 0, '3D shapes', '📦', [
+S('shapes3d', 0, '3D shapes', '📦', [
   ['Some shapes are flat, like a drawing. 3D shapes are solid. You can pick them up!', () => ROW(mini('square', '#2E8BE6'), solid('cube', '#2E8BE6'))],
   ['A sphere is like a ball. A cube is like a dice. A cylinder is like a tin can. A cone is like an ice cream cone.', () => ROW(solid('sphere', '#F2604F'), solid('cube', '#FFC23D'), solid('cylinder', '#2FA36B'), solid('cone', '#6D55D1'))],
   ['Round shapes can roll. Shapes with flat faces and corners can stack.', () => '<span class="m2emo">⚽ 🥫 🎲 📦</span>']
@@ -239,7 +239,7 @@ S('numwords', 0, 'Number words', '🔤', [
       explain: `<span class="bignum">${n}</span>${n <= 10 ? objs(n, e) : ''}`, explainText: `The word ${NW[n]} means ${n}.${n > 12 ? ` It ends in teen, so it is a teen number between 10 and 20.` : ''}` });
   }
   const words = nums.map(v => NW[v]).concat(TENSW[n] ? [TENSW[n]] : []);
-  return Q({ prompt: `Which word says ${n}?`, visual: `<span class="bignum">${n}</span>${L <= 2 ? objs(n, e) : ''}`, choices: opts(NW[n], words, L <= 2 ? 3 : 4, v => v, spell), answer: NW[n],
+  return Q({ prompt: `Which word says ${n}?`, visual: `<span class="bignum">${n}</span>${L <= 2 ? objs(n, e) : ''}`, choices: opts(NW[n], words, 3, v => v, spell).map(c => ({ ...c, txt: true })), answer: NW[n],
     explain: `<span class="m2word">${NW[n]}</span>`, explainText: `${n} is written ${NW[n]}. You spell it ${NW[n].split('').join(', ')}.` });
 });
 
@@ -268,7 +268,7 @@ function breakIt(g, k) {
   }
 }
 const YESNO = () => [C('yes', '👍 yes', 'yes', true), C('no', '👎 no', 'no', true)];
-S('symmetry', 0, 'Mirror halves', '🦋', [
+S('mirror', 0, 'Mirror halves', '🦋', [
   ['Something is symmetrical when both sides match, like a butterfly.', () => '<span class="m2emo big">🦋</span>'],
   ['Fold it on the dashed line. If the two halves match like a mirror, it is the same on both sides.', () => P(symGrid(mirror([['#F2604F', null], [null, '#2E8BE6'], ['#FFC23D', '#FFC23D']])), 'sm')],
   ['Check each square on the left with the square the same distance away on the right.', () => '']
@@ -343,10 +343,11 @@ S('weigh', 0, 'Heavy and light', '⚖️', [
 });
 
 /* Glasses with water in them. */
-function glass(f, col = '#22305A') {
+function glass(f, col = '#22305A', marks = 0) {
   const y = 112 - f * 94, t = (112 - y) / 100, xl = 26 - 12 * t, xr = 74 + 12 * t;
   const water = f > 0 ? `<path d="M26 112 L74 112 L${xr.toFixed(1)} ${y.toFixed(1)} L${xl.toFixed(1)} ${y.toFixed(1)} Z" fill="#8EC5F5"/><line x1="${xl.toFixed(1)}" y1="${y.toFixed(1)}" x2="${xr.toFixed(1)}" y2="${y.toFixed(1)}" stroke="#2E8BE6" stroke-width="3"/>` : '';
-  return `<svg class="m2glass" viewBox="0 0 100 120" role="img" aria-label="glass of water"><path d="M14 10 L26 112 L74 112 L86 10 Z" fill="#fff"/>${water}<path d="M14 10 L26 112 L74 112 L86 10" fill="none" stroke="${col}" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/></svg>`;
+  let tk = ''; for (let i = 1; i < marks; i++) { const yy = 112 - (i / marks) * 94, xx = 74 + 12 * ((112 - yy) / 100); tk += `<line x1="${(xx - 12).toFixed(1)}" y1="${yy.toFixed(1)}" x2="${(xx - 1).toFixed(1)}" y2="${yy.toFixed(1)}" stroke="#22305A" stroke-width="2.5"/>`; }
+  return `<svg class="m2glass" viewBox="0 0 100 120" role="img" aria-label="glass of water"><path d="M14 10 L26 112 L74 112 L86 10 Z" fill="#fff"/>${water}${tk}<path d="M14 10 L26 112 L74 112 L86 10" fill="none" stroke="${col}" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/></svg>`;
 }
 const CONTAIN = [['🥄', 'spoon'], ['☕', 'cup'], ['🫖', 'teapot'], ['🪣', 'bucket'], ['🛁', 'bathtub'], ['🏊', 'swimming pool']];
 S('capacity', 0, 'Full and empty', '🥛', [
@@ -378,8 +379,8 @@ S('capacity', 0, 'Full and empty', '🥛', [
       explainText: `Each jug fills ${k} cups. ${k} + ${k} = ${k * m} cups.` });
   }
   const n = rnd(4, 9), m = rnd(1, n - 1);
-  return Q({ prompt: `A jug holds ${n} cups. You pour out ${m}. How many cups are left in the jug?`, speak: `A jug holds ${n} cups of water. You pour out ${m} cups. How many cups of water are left in the jug?`, visual: P(glass((n - m) / n), 'xs'), choices: nOpts(n - m, 0, 10, 4, [n, m, n + m]), answer: n - m,
-    explainText: `${n} cups take away ${m} cups leaves ${n - m} cup${n - m > 1 ? 's' : ''}.` });
+  return Q({ prompt: `A jug holds ${n} cups. You pour out ${m}. How many cups are left in the jug?`, speak: `A jug holds ${n} cups of water. You pour out ${m} cup${m > 1 ? 's' : ''}. How many cups of water are left in the jug?`, visual: P(glass((n - m) / n, '#22305A', n), 'xs'), choices: nOpts(n - m, 0, 10, 4, [n, m, n + m]), answer: n - m,
+    explainText: `${n} cup${n > 1 ? 's' : ''} take away ${m} cup${m > 1 ? 's' : ''} leaves ${n - m} cup${n - m > 1 ? 's' : ''}. Count the marks on the jug to check.` });
 });
 
 const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
@@ -480,23 +481,23 @@ S('doubles', 1, 'Doubles', '🐞', [
 
 /* Number line with frog jumps. */
 function nline(min, max, start, jumps, { step = 1, labelEvery = 1, end = null, qLabel = false } = {}) {
-  const W = 340, x0 = 18, sp = (W - 2 * x0) / (max - min), X = v => +(x0 + (v - min) * sp).toFixed(1), y = 96;
+  const W = 340, x0 = 18, sp = (W - 2 * x0) / (max - min), X = v => +(x0 + (v - min) * sp).toFixed(1), y = 62;
   let s = `<line x1="${x0 - 8}" y1="${y}" x2="${W - x0 + 8}" y2="${y}" stroke="#22305A" stroke-width="3" stroke-linecap="round"/>`;
   for (let v = min; v <= max; v += step) {
     const lab = (v - min) % labelEvery === 0;
     s += `<line x1="${X(v)}" y1="${y - (lab ? 7 : 4)}" x2="${X(v)}" y2="${y + (lab ? 7 : 4)}" stroke="#22305A" stroke-width="2"/>`;
-    if (lab) s += `<text x="${X(v)}" y="${y + 22}" font-size="${max - min > 12 && step === 1 ? 10 : 13}" font-weight="800" text-anchor="middle" fill="#22305A">${v}</text>`;
+    if (lab) s += `<text x="${X(v)}" y="${y + 22}" font-size="${max - min > 12 && step === 1 ? 11 : 15}" font-weight="800" text-anchor="middle" fill="#22305A">${v}</text>`;
   }
   let at = start;
   for (const j of jumps) {
-    const to = at + j, x1 = X(at), x2 = X(to), h = Math.min(46, 10 + Math.abs(x2 - x1) * 0.45), col = j > 0 ? '#F2604F' : '#2E8BE6', mx = (x1 + x2) / 2;
+    const to = at + j, x1 = X(at), x2 = X(to), h = Math.min(qLabel ? 30 : 40, 10 + Math.abs(x2 - x1) * 0.45), col = j > 0 ? '#F2604F' : '#2E8BE6', mx = (x1 + x2) / 2;
     s += `<path d="M${x1} ${y - 4} Q${mx} ${y - 4 - 2 * h} ${x2} ${y - 6}" fill="none" stroke="${col}" stroke-width="2.5"/><path d="M${x2 - 4} ${y - 12} L${x2 + 4} ${y - 12} L${x2} ${y - 4} Z" fill="${col}"/>`;
     if (qLabel) s += `<text x="${mx}" y="${y - 10 - h}" font-size="20" font-weight="800" text-anchor="middle" fill="${col}">?</text>`;
     at = to;
   }
   if (end != null) s += `<circle cx="${X(end)}" cy="${y}" r="6" fill="#FFC23D" stroke="#22305A" stroke-width="2"/>`;
-  s += `<text x="${X(start)}" y="${y - 6}" font-size="22" text-anchor="middle">🐸</text>`;
-  return `<svg class="m2nl" viewBox="0 0 ${W} 124" role="img" aria-label="number line from ${min} to ${max}">${s}</svg>`;
+  s += `<text x="${X(start)}" y="${y - 5}" font-size="24" text-anchor="middle">🐸</text>`;
+  return `<svg class="m2nl" viewBox="0 0 ${W} 90" role="img" aria-label="number line from ${min} to ${max}">${s}</svg>`;
 }
 const unit = (n, sgn) => Array(n).fill(sgn);
 S('numline', 1, 'Number line jumps', '🐸', [
@@ -582,8 +583,8 @@ S('halves', 1, 'Halves and quarters', '🍰', [
 ], L => {
   const cols = shuffle(COLORS), kinds = ['circle', 'square', 'bar'];
   if (L === 1) {
-    const ks = shuffle(kinds), ch = [C('equal', cut(ks[0], 2, 2, cols[0][0], true, rnd(0, ks[0] === 'square' ? 2 : 1)), `the ${cols[0][1]} one`), C('bad1', cut(ks[1], 2, 2, cols[1][0], false, rnd(0, 1)), `the ${cols[1][1]} one`), C('bad2', cut(ks[2], 2, 2, cols[2][0], false, 0), `the ${cols[2][1]} one`)];
-    return Q({ prompt: 'Which one is cut in half?', speak: 'Which one is cut into 2 equal halves?', choices: shuffle(ch), answer: 'equal', explain: P(cut(ks[0], 2, 1, '#FFC23D'), 'xs'), explainText: 'Halves must be the same size. Only one shape has 2 equal parts.' });
+    const ks = shuffle(kinds), ori = rnd(0, ks[0] === 'square' ? 2 : 1), ch = [C('equal', cut(ks[0], 2, 2, cols[0][0], true, ori), `the ${cols[0][1]} one`), C('bad1', cut(ks[1], 2, 2, cols[1][0], false, rnd(0, 1)), `the ${cols[1][1]} one`), C('bad2', cut(ks[2], 2, 2, cols[2][0], false, 0), `the ${cols[2][1]} one`)];
+    return Q({ prompt: 'Which one is cut in half?', speak: 'Which one is cut into 2 equal halves?', choices: shuffle(ch), answer: 'equal', explain: P(cut(ks[0], 2, 1, '#FFC23D', true, ori), 'xs'), explainText: 'Halves must be the same size. Only one shape has 2 equal parts.' });
   }
   if (L === 2) {
     const want = pick([2, 4]), k = pick(kinds), ds = shuffle([2, 3, 4]);
@@ -630,7 +631,7 @@ S('calendar', 1, 'Months and seasons', '🗓️', [
 ], L => {
   if (L === 1) {
     const [nm, pic] = pick(SEASONS);
-    return Q({ prompt: 'Which season is this?', speak: 'Look at the picture. Which season is it?', visual: `<span class="m2emo big">${pic}</span>`, choices: opts(nm, SEASONS.map(s => s[0]), 4, v => v), answer: nm,
+    return Q({ prompt: 'Which season is this?', speak: 'Look at the picture. Which season is it?', visual: `<span class="m2emo big">${pic}</span>`, choices: opts(nm, SEASONS.map(s => s[0]), 3, v => v), answer: nm,
       explainText: { spring: 'Flowers grow and baby animals are born in spring.', summer: 'Summer is the hot, sunny season. Time for the beach!', autumn: 'In autumn the leaves change colour and fall.', winter: 'Winter is the cold season. Sometimes it snows!' }[nm] });
   }
   if (L <= 3) {
@@ -725,7 +726,7 @@ function target(hits) {
   let s = RINGS.map(([, r, c]) => `<circle cx="80" cy="80" r="${r}" fill="${c}" stroke="#22305A" stroke-width="2.5"/>`).join('');
   s += RINGS.map(([v, r], i) => i < 3 ? `<text x="80" y="${80 - r + 13}" font-size="12" font-weight="800" text-anchor="middle" fill="${i === 1 ? '#22305A' : '#fff'}">${v}</text>` : `<text x="80" y="86" font-size="15" font-weight="800" text-anchor="middle" fill="#22305A">10</text>`).join('');
   const ang = shuffle([25, 90, 155, 200, 340]);
-  hits.forEach((v, k) => { const i = RINGS.findIndex(r => r[0] === v), ro = RINGS[i][1], ri = i < 3 ? RINGS[i + 1][1] : 0, rr = i < 3 ? (ro + ri) / 2 : 12, a = ang[k] * Math.PI / 180; s += `<circle cx="${(80 + rr * Math.cos(a)).toFixed(1)}" cy="${(80 + rr * Math.sin(a)).toFixed(1)}" r="7" fill="#6D55D1" stroke="#fff" stroke-width="2.5"/>`; });
+  hits.forEach((v, k) => { const i = RINGS.findIndex(r => r[0] === v), ro = RINGS[i][1], ri = i < 3 ? RINGS[i + 1][1] : 0, rr = i < 3 ? (ro + ri) / 2 : 14, a = ang[k] * Math.PI / 180; s += `<circle cx="${(80 + rr * Math.cos(a)).toFixed(1)}" cy="${(80 + rr * Math.sin(a)).toFixed(1)}" r="6.5" fill="#6D55D1" stroke="#fff" stroke-width="2.5"/>`; });
   return `<svg class="m2target" viewBox="0 0 160 160" role="img" aria-label="target with ${hits.length} beanbags">${s}</svg>`;
 }
 S('add3', 1, 'Adding three numbers', '🎯', [
