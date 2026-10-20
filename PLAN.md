@@ -54,3 +54,5 @@ None of this sends data anywhere. Progress lives in the browser on that device.
 - To try locally: `python3 -m http.server` in this folder, then open `http://localhost:8000` on a device on the same network.
 
 **2026-10-20 content boost.** 60 new art lessons in 12 new kinds (vehicles, ocean, bugs & birds, dinosaurs, food, fairy tales, comics, drawing from life, seasons, printing, clay & 3D, famous art styles); every new lesson lists what you need and ends with a tip. Math games (src/games.js): Balloon Pop, Frog Hop, Owl's Shop, Memory Match, Build the Tower, Pattern Train, Beat the Owl, scaled by age and by how the round goes.
+
+**2026-10-20 doubling.** Math: 44 new topics (src/math2.js for ages 3–7, src/math3.js for 7+), now 87. Art: 132 new lessons (art4.js farm/jungle/pets/space/sports/cities, art5.js doodles/kawaii/origami/nature art/weaving/silhouettes, art6.js and art7.js add 3 lessons to every earlier kind), now 248 in 36 kinds. Math games: 7 more in src/games2.js (fishing, pizza, feeding, rocket, target, bee hive, treasure map), 14 in all.
