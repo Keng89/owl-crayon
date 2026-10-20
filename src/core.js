@@ -354,6 +354,13 @@ function finish() {
 const PAINT = ['#22305A', '#F2604F', '#FF8A2B', '#FFC23D', '#2FA36B', '#2E8BE6', '#6D55D1', '#F49AC1', '#8B5A2B', '#FFFFFF'];
 let canvasCleanup = null;
 function stopCanvas() { if (canvasCleanup) { canvasCleanup(); canvasCleanup = null; } }
+// Art School groups its many kinds so a child can find things: things to draw, ways to make art, and art skills.
+const ART_GROUPS = [
+  { id: 'draw', ico: '✏️', name: 'Things to draw' },
+  { id: 'make', ico: '✂️', name: 'Ways to make art', ids: ['paint', 'craft', 'print', 'clay', 'origami', 'naturalart', 'string', 'silhouette', 'doodle', 'comics', 'styles'] },
+  { id: 'skill', ico: '🎓', name: 'Art skills', ids: ['perspective', 'shading', 'color', 'pattern', 'letters', 'life'] }
+];
+const artGroup = id => (ART_GROUPS.find(g => g.ids && g.ids.includes(id)) || ART_GROUPS[0]).id;
 function artHome() {
   st.plays.art++; save();
   const nl = nextLesson();
@@ -368,8 +375,8 @@ function artHome() {
       <button class="tool-tile" data-tool="gal" style="background:var(--leaf);box-shadow:0 4px 0 #1D7A4E"><span class="ico">🖼️</span><b>My pictures</b><span>${gallery.length} saved</span></button>
     </div>
     <h3 class="section-title">Lessons <span class="tag">${Object.keys(st.art.done).length} of ${LESSONS.length} done</span></h3>
-    <div class="cats">${ART_CATS.map(c => { const ls = LESSONS.filter(l => l.cat === c.id), d = ls.filter(l => st.art.done[l.id]).length;
-      return `<button class="cat" data-cat="${c.id}"><span class="ico">${c.ico}</span><b>${c.name}</b><span>${c.blurb}</span><span>${d} of ${ls.length} done</span></button>`; }).join('')}</div>`;
+    ${ART_GROUPS.map(g => { const cs = ART_CATS.filter(c => artGroup(c.id) === g.id); return cs.length ? `<h3 class="section-title sub">${g.ico} ${g.name}</h3><div class="cats">${cs.map(c => { const ls = LESSONS.filter(l => l.cat === c.id), d = ls.filter(l => st.art.done[l.id]).length;
+      return `<button class="cat" data-cat="${c.id}"><span class="ico">${c.ico}</span><b>${c.name}</b><span>${c.blurb}</span><span>${d} of ${ls.length} done</span></button>`; }).join('')}</div>` : ''; }).join('')}`;
   wireBack(home);
   sayScreen('Welcome to Art School! Pick a lesson or a tool.');
   if (nl) $('#nextL').onclick = () => go(drawLesson, nl.id);

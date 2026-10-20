@@ -628,6 +628,7 @@ ol.steps{margin:0;padding-left:1.4em;text-align:left;font-weight:700;font-size:1
 .m3row{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap}.m3row .digi{font-size:clamp(22px,6vw,36px)}
 .m3arr{font:800 28px var(--display);color:var(--ink-soft)}
 .m3grid svg{width:min(280px,66vw)}
+.section-title.sub{font-size:20px;margin-top:18px}
 </style>
 
 </head><body>
@@ -7025,6 +7026,13 @@ function finish() {
 const PAINT = ['#22305A', '#F2604F', '#FF8A2B', '#FFC23D', '#2FA36B', '#2E8BE6', '#6D55D1', '#F49AC1', '#8B5A2B', '#FFFFFF'];
 let canvasCleanup = null;
 function stopCanvas() { if (canvasCleanup) { canvasCleanup(); canvasCleanup = null; } }
+// Art School groups its many kinds so a child can find things: things to draw, ways to make art, and art skills.
+const ART_GROUPS = [
+  { id: 'draw', ico: '✏️', name: 'Things to draw' },
+  { id: 'make', ico: '✂️', name: 'Ways to make art', ids: ['paint', 'craft', 'print', 'clay', 'origami', 'naturalart', 'string', 'silhouette', 'doodle', 'comics', 'styles'] },
+  { id: 'skill', ico: '🎓', name: 'Art skills', ids: ['perspective', 'shading', 'color', 'pattern', 'letters', 'life'] }
+];
+const artGroup = id => (ART_GROUPS.find(g => g.ids && g.ids.includes(id)) || ART_GROUPS[0]).id;
 function artHome() {
   st.plays.art++; save();
   const nl = nextLesson();
@@ -7039,8 +7047,8 @@ function artHome() {
       <button class="tool-tile" data-tool="gal" style="background:var(--leaf);box-shadow:0 4px 0 #1D7A4E"><span class="ico">🖼️</span><b>My pictures</b><span>${gallery.length} saved</span></button>
     </div>
     <h3 class="section-title">Lessons <span class="tag">${Object.keys(st.art.done).length} of ${LESSONS.length} done</span></h3>
-    <div class="cats">${ART_CATS.map(c => { const ls = LESSONS.filter(l => l.cat === c.id), d = ls.filter(l => st.art.done[l.id]).length;
-      return `<button class="cat" data-cat="${c.id}"><span class="ico">${c.ico}</span><b>${c.name}</b><span>${c.blurb}</span><span>${d} of ${ls.length} done</span></button>`; }).join('')}</div>`;
+    ${ART_GROUPS.map(g => { const cs = ART_CATS.filter(c => artGroup(c.id) === g.id); return cs.length ? `<h3 class="section-title sub">${g.ico} ${g.name}</h3><div class="cats">${cs.map(c => { const ls = LESSONS.filter(l => l.cat === c.id), d = ls.filter(l => st.art.done[l.id]).length;
+      return `<button class="cat" data-cat="${c.id}"><span class="ico">${c.ico}</span><b>${c.name}</b><span>${c.blurb}</span><span>${d} of ${ls.length} done</span></button>`; }).join('')}</div>` : ''; }).join('')}`;
   wireBack(home);
   sayScreen('Welcome to Art School! Pick a lesson or a tool.');
   if (nl) $('#nextL').onclick = () => go(drawLesson, nl.id);
@@ -7469,7 +7477,7 @@ function parent() {
       <p class="note">Owl &amp; Crayon works without the internet. Progress, drawings and Owl's answers are saved only in this browser on this device. There are no ads, no tracking and no accounts, and nothing is sent anywhere unless you switch on Online Owl.</p>
       <p class="note">With Online Owl on, only the question your child asks and their age go to your Online Owl server, which asks an AI (Cloudflare's free AI, or Claude by Anthropic) for a short, child-friendly answer. Names and progress are never sent. You can read every answer above, and turn it off at any time.</p>
       <p class="note">The microphone button uses the browser's own speech recognition, which may send the recording to the browser maker (for example Google or Apple) to turn it into text. Typing works without it.</p>
-      <p class="note">Version 2026-10-20 13:19 UTC</p></div>`;
+      <p class="note">Version 2026-10-20 13:29 UTC</p></div>`;
   view.querySelectorAll('[data-teach]').forEach(b => b.onclick = () => {
     const i = +b.dataset.teach, ans = $('#t' + i).value.trim(); if (!ans) return;
     owlForget(st.owlMisses[i].q); st.owlTaught.push({ q: st.owlMisses[i].q, a: ans }); st.owlMisses.splice(i, 1); save(); go(parent);
