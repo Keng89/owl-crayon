@@ -291,7 +291,7 @@ ol.steps{margin:0;padding-left:1.4em;text-align:left;font-weight:700;font-size:1
 .gtile b{font-family:var(--display);font-size:24px;line-height:1.05}
 .gtile span{font-weight:700;font-size:15px;opacity:.92}
 .gtile .gbest{margin-top:auto;font-size:17px;letter-spacing:2px}
-.gbest i{font-style:normal;opacity:.3}.gbest i.on{opacity:1}
+.gbest i{font-style:normal;opacity:.35;filter:grayscale(1) brightness(.6)}.gbest i.on{filter:none}.gbest i.on{opacity:1}
 .game{background:var(--paper);border-radius:32px;padding:clamp(14px,3vw,26px);display:flex;flex-direction:column;gap:14px;align-items:center;box-shadow:0 6px 0 var(--line);min-width:0;overflow:hidden}
 .game .prompt b{font-weight:800}
 .gp{display:flex;gap:5px;justify-content:center;flex-wrap:wrap}
