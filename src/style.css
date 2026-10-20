@@ -266,3 +266,8 @@ ol.steps{margin:0;padding-left:1.4em;text-align:left;font-weight:700;font-size:1
 .badge span{font-size:44px;line-height:1.1}.badge b{font-family:var(--display);font-size:18px}.badge small{color:var(--ink-soft);font-weight:700;font-size:13px;line-height:1.2}
 .badge.on{opacity:1;background:var(--sun-soft);box-shadow:0 4px 0 #F0D894}
 #updBar{position:fixed;top:calc(10px + env(safe-area-inset-top));left:50%;transform:translateX(-50%);z-index:60;background:var(--leaf);color:#fff;font-weight:800;padding:12px 18px;border-radius:999px;box-shadow:0 5px 0 #1D7A4E;max-width:calc(100vw - 32px)}
+.shelf{display:grid;gap:6px;background:var(--bg);padding:10px;border-radius:18px;font-size:clamp(34px,8vw,48px);line-height:1.1;text-align:center}
+.shelf span{background:var(--paper);border-radius:12px;padding:0 8px;line-height:1;display:grid;place-items:center;height:1.45em;overflow:hidden}
+.towers{display:flex;gap:14px;align-items:flex-end;justify-content:center;min-height:60px}
+.tower{display:flex;flex-direction:column-reverse;gap:2px}.tower i{display:block;width:30px;height:22px;border-radius:5px;border:2px solid var(--ink)}
+.dot{display:inline-block;width:40px;height:40px;border-radius:50%;border:3px solid var(--ink)}

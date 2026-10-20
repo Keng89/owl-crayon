@@ -4,11 +4,11 @@ A math and art app for kids where an owl answers questions in simple words. Buil
 
 ## What is in the app
 
-**Number Garden: 5 worlds, 41 topics, 5 levels each.** Every topic opens with a short picture lesson, and every wrong answer shows a worked explanation, step by step for the bigger sums.
+**Number Garden: 5 worlds, 43 topics, 5 levels each.** Every topic opens with a short picture lesson, and every wrong answer shows a worked explanation, step by step for the bigger sums.
 
 | World | Ages | Topics |
 |---|---|---|
-| Seedling Hill | 3–5 | Counting, find the number, shapes, patterns, bigger or smaller |
+| Seedling Hill | 3–5 | Counting, find the number, shapes, patterns, bigger or smaller, where is it (above, below, left, right, rows and columns), big, long and tall |
 | Sprout Valley | 5–7 | Adding and taking away to 10 and 20+, number friends, tens and ones, skip counting, telling time, odd and even, money |
 | Treetop Town | 7–9 | Column adding and subtracting, times tables, dividing (with remainders), missing numbers, fractions, story problems, rounding, measuring and converting units, bar charts and averages |
 | Deep Forest | 9–11 | Long multiplication, long division, fraction maths, decimals, percentages, negative numbers, area and perimeter, angles, order of operations |

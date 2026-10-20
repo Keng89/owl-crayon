@@ -139,6 +139,59 @@ S('compare', 0, 'Bigger or smaller', '🐘', [
   ['The crocodile mouth eats the bigger number: 5 > 2.', () => '<span class="bignum">5 > 2</span>']
 ], L => GEN.compare(L));
 
+const CRITTERS = [['🐱', 'cat'], ['🐶', 'dog'], ['🐸', 'frog'], ['🐰', 'rabbit'], ['🐻', 'bear'], ['🐷', 'pig'], ['🦊', 'fox'], ['🐵', 'monkey'], ['🐼', 'panda'], ['🐯', 'tiger'], ['🐨', 'koala'], ['🐮', 'cow']];
+const shelf = (g, cols) => `<div class="shelf" style="grid-template-columns:repeat(${cols},1fr)">${g.map(c => `<span>${c ? c[0] : ''}</span>`).join('')}</div>`;
+const critterChoices = (ans, pool) => shuffle([ans, ...shuffle(pool.filter(c => c && c !== ans)).slice(0, 2)]).map(c => ({ html: c[0], val: c[1], say: c[1] }));
+S('position', 0, 'Where is it?', '🧭', [
+  ['Above means higher up. Below means lower down.', () => shelf([CRITTERS[0], CRITTERS[1]], 1)],
+  ['Left is the side of the hand you hold up like an L. Right is the other side.', () => shelf([CRITTERS[2], CRITTERS[3]], 2)]
+], L => {
+  const cols = L <= 2 ? 3 : L === 3 ? 3 : 4, rows = L <= 2 ? 2 : 3, n = cols * rows, g = shuffle(CRITTERS).slice(0, n);
+  const at = (r, c) => (r >= 0 && r < rows && c >= 0 && c < cols) ? g[r * cols + c] : null;
+  const ri = rnd(0, rows - 1), ci = rnd(0, cols - 1), me = at(ri, ci);
+  const dirs = L === 1 ? [['above', -1, 0], ['below', 1, 0]] : L === 2 ? [['to the left of', 0, -1], ['to the right of', 0, 1]] : [['above', -1, 0], ['below', 1, 0], ['to the left of', 0, -1], ['to the right of', 0, 1]];
+  const ok = dirs.filter(([, dr, dc]) => at(ri + dr, ci + dc));
+  if (!ok.length) return MATH.position.gen(L);
+  if (L === 5) {
+    const r = rnd(1, rows), c = rnd(1, cols), t = at(r - 1, c - 1);
+    return Q({ prompt: `Who is in row ${r}, column ${c}?`, speak: `Row ${r} counts down from the top. Column ${c} counts across from the left. Who is there?`, visual: shelf(g, cols), choices: critterChoices(t, g), answer: t[1], explainText: `Count ${r} row${r > 1 ? 's' : ''} down and ${c} across. The ${t[1]} is there.` });
+  }
+  if (L === 4 && ci + 2 < cols) {
+    const t = at(ri, ci + 2);
+    return Q({ prompt: `Who is 2 places to the right of the ${me[0]}?`, speak: `Who is two places to the right of the ${me[1]}?`, visual: shelf(g, cols), choices: critterChoices(t, g), answer: t[1], explainText: `Start at the ${me[1]} and hop right: one, two. It is the ${t[1]}.` });
+  }
+  const [word, dr, dc] = pick(ok), t = at(ri + dr, ci + dc);
+  return Q({ prompt: `Who is ${word} the ${me[0]}?`, speak: `Who is ${word} the ${me[1]}?`, visual: shelf(g, cols), choices: critterChoices(t, g), answer: t[1],
+    explainText: `Find the ${me[1]}. ${word === 'above' ? 'Look up' : word === 'below' ? 'Look down' : word.includes('left') ? 'Look to the left side' : 'Look to the right side'}: it is the ${t[1]}.` });
+});
+const SIZE_THINGS = [['🐘', 'elephant'], ['🐭', 'mouse'], ['🌳', 'tree'], ['🌷', 'flower'], ['🐳', 'whale'], ['🐟', 'fish'], ['🏠', 'house'], ['🐞', 'ladybug']];
+const snake = (len, col) => `<svg viewBox="0 0 220 24" width="100%" height="24" role="img" aria-label="ribbon ${len} long"><rect x="2" y="4" width="${len * 20}" height="16" rx="8" fill="${col}" stroke="#22305A" stroke-width="2"/></svg>`;
+const tower = (n, col) => `<span class="tower">${Array.from({ length: n }, () => `<i style="background:${col}"></i>`).join('')}</span>`;
+S('sizes', 0, 'Big, long and tall', '📏', [
+  ['Long means it goes a long way from end to end. Short means it does not.', () => snake(9, '#2FA36B') + snake(4, '#F2604F')],
+  ['Tall means it goes high up. Count the blocks to check!', () => `<div class="towers">${tower(5, '#2E8BE6')}${tower(2, '#FFC23D')}</div>`]
+], L => {
+  const COLS = [['#F2604F', 'red'], ['#2E8BE6', 'blue'], ['#2FA36B', 'green'], ['#FFC23D', 'yellow']];
+  if (L === 1) {
+    const pair = pick([[0, 1], [2, 3], [4, 5], [6, 7]]), big = SIZE_THINGS[pair[0]], small = SIZE_THINGS[pair[1]], askBig = Math.random() < 0.5, t = askBig ? big : small;
+    return Q({ prompt: `Which is ${askBig ? 'bigger' : 'smaller'} in real life?`, speak: `Which is ${askBig ? 'bigger' : 'smaller'} in real life, the ${big[1]} or the ${small[1]}?`, choices: shuffle([big, small]).map(c => ({ html: c[0], val: c[1], say: c[1] })), answer: t[1], explainText: `A ${big[1]} is much bigger than a ${small[1]}.` });
+  }
+  const n = L === 2 ? 3 : 4, cols = shuffle(COLS).slice(0, n), lens = shuffle(L === 2 ? [3, 6, 9] : L === 3 ? [2, 4, 5, 7] : [3, 4, 5, 6]).slice(0, n);
+  const ch = cols.map((c, i) => ({ html: `<span class="dot" style="background:${c[0]}"></span>`, val: c[1], say: c[1] }));
+  if (L <= 3) {
+    const kind = L === 2 ? pick(['longest', 'shortest']) : pick(['tallest', 'shortest']), i = kind.includes('short') ? lens.indexOf(Math.min(...lens)) : lens.indexOf(Math.max(...lens));
+    const visual = L === 2 ? cols.map((c, k) => snake(lens[k], c[0])).join('') : `<div class="towers">${cols.map((c, k) => tower(lens[k], c[0])).join('')}</div>`;
+    return Q({ prompt: `Which is the ${kind}?`, visual, choices: ch, answer: cols[i][1], explainText: `The ${cols[i][1]} one ${L === 2 ? 'is' : 'has'} ${lens[i]}${L === 3 ? ' blocks' : ''}. It is the ${kind}.` });
+  }
+  if (L === 4) {
+    const i = lens.indexOf(Math.max(...lens)), j = lens.indexOf(Math.min(...lens));
+    return Q({ prompt: `How many blocks taller is the ${cols[i][1]} tower than the ${cols[j][1]} one?`, visual: `<div class="towers">${cols.map((c, k) => tower(lens[k], c[0])).join('')}</div>`, choices: opts(lens[i] - lens[j], [lens[i], lens[j], lens[i] - lens[j] + 1, lens[i] + lens[j]]), answer: lens[i] - lens[j], explainText: `${lens[i]} blocks take away ${lens[j]} blocks is ${lens[i] - lens[j]}.` });
+  }
+  const pairs = [['1 metre', '90 cm', '1 metre', '1 metre is 100 cm, which is more than 90 cm.'], ['1 kg', '500 g', '1 kg', '1 kg is 1000 g, more than 500 g.'], ['half an hour', '20 minutes', 'half an hour', 'Half an hour is 30 minutes, longer than 20.'], ['2 litres', '1500 mL', '2 litres', '2 litres is 2000 mL, more than 1500.'], ['60 seconds', '2 minutes', '2 minutes', '2 minutes is 120 seconds.']];
+  const [a, b, ans, why] = pick(pairs);
+  return Q({ prompt: `Which is more: ${a} or ${b}?`, choices: shuffle([a, b]).map(v => ({ html: v, val: v, say: v, txt: true })), answer: ans, explainText: why });
+});
+
 /* ===== World 2: Sprout Valley ===== */
 S('add10', 1, 'Adding to 10', '➕', [
   ['Adding means putting groups together.', () => `${objs(2, '🐟')}<span class="op">+</span>${objs(3, '🐟')}`],
