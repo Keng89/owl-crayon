@@ -4,7 +4,7 @@ A math and art app for kids where an owl answers questions in simple words. Buil
 
 ## What is in the app
 
-**Number Garden: 5 worlds, 39 topics, 5 levels each.** Every topic opens with a short picture lesson, and every wrong answer shows a worked explanation, step by step for the bigger sums.
+**Number Garden: 5 worlds, 41 topics, 5 levels each.** Every topic opens with a short picture lesson, and every wrong answer shows a worked explanation, step by step for the bigger sums.
 
 | World | Ages | Topics |
 |---|---|---|
@@ -12,7 +12,7 @@ A math and art app for kids where an owl answers questions in simple words. Buil
 | Sprout Valley | 5–7 | Adding and taking away to 10 and 20+, number friends, tens and ones, skip counting, telling time, odd and even, money |
 | Treetop Town | 7–9 | Column adding and subtracting, times tables, dividing (with remainders), missing numbers, fractions, story problems, rounding, measuring and converting units, bar charts and averages |
 | Deep Forest | 9–11 | Long multiplication, long division, fraction maths, decimals, percentages, negative numbers, area and perimeter, angles, order of operations |
-| Mountain Peak | 11+ | Algebra, powers and roots, factors and primes, ratio, sequences, probability, circles/volume/Pythagoras, coordinates |
+| Mountain Peak | 11+ | Algebra, powers and roots, factors and primes, ratio, sequences, probability, circles/volume/Pythagoras, coordinates, straight-line graphs, simultaneous equations |
 
 **Art School: 50 step-by-step lessons in 11 kinds of art, at 3 levels (Beginner, Explorer, Master).** Each step shows what to draw next in red, read aloud. Trace mode puts the guide faintly under the child's drawing. Kinds: shape pictures, animals, faces and people (including real face and body proportions), nature and landscapes, cartoons, 3D and perspective, light and shading, color theory, patterns and mandalas, lettering, paper crafts (origami).
 
@@ -33,7 +33,7 @@ None of this sends data anywhere. Progress lives in the browser on that device.
 
 ## Scaling to all ages (subscription path)
 
-- **Age setting** picks the starting world. Content gaps to fill next: simultaneous equations, graphs of lines; in art, painting techniques, collage and digital animation.
+- **Age setting** picks the starting world. Content gaps to fill next: in art, painting techniques, collage and digital animation.
 - **Smarter Owl.** Built: an optional Online Owl server (`server/`, a Cloudflare Worker) that answers any question with Claude using a child-safe prompt. The API key stays on the server; each family gets an access code (the subscription switch); the app saves every answer so it works offline next time, and grown-ups can read every answer. To go live: create an Anthropic API key, deploy the server (steps in `server/README.md`), and enter the address and code in the Grown-ups corner.
 - **Accounts and sync** so siblings get separate profiles and progress survives a new tablet. This is also where the subscription paywall sits (free core games, paid packs and the online Owl).
 - **Parent dashboard** with weekly summaries.

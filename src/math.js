@@ -609,6 +609,63 @@ S('coords', 4, 'Coordinates and graphs', '📍', [
   return Q({ prompt: `Distance from (${a[0]}, ${a[1]}) to (${b[0]}, ${b[1]})?`, visual: gridSVG([a, b], 0, true), choices: opts(dd, [dx + dy, dd + 1, Math.abs(dx - dy) || 2]), answer: dd, steps: [`Across ${dx}, up ${dy}.`, `Pythagoras: ${dx}² + ${dy}² = ${dx * dx + dy * dy}.`, `√${dx * dx + dy * dy} = ${dd}.`], explainText: `The distance is ${dd}.` });
 });
 
+// A straight line y = mx + c drawn across the -5..5 grid.
+function lineSVG(m, c, pts = []) {
+  const X = v => 50 + v * 9, Y = v => 50 - v * 9;
+  let x1 = -5, x2 = 5;
+  if (m) { const a = (-5 - c) / m, b = (5 - c) / m; x1 = Math.max(-5, Math.min(a, b)); x2 = Math.min(5, Math.max(a, b)); }
+  const seg = `<line x1="${X(x1)}" y1="${Y(m * x1 + c)}" x2="${X(x2)}" y2="${Y(m * x2 + c)}" stroke="#2E8BE6" stroke-width="2.2" stroke-linecap="round"/>`;
+  return gridSVG(pts.length ? pts : [[0, c]], 0, true, seg);
+}
+const lineEq = (m, c) => `y = ${m === 1 ? '' : m === -1 ? '−' : String(m).replace('-', '−')}x${c ? (c > 0 ? ' + ' + c : ' − ' + -c) : ''}`;
+S('lines', 4, 'Straight-line graphs', '📈', [
+  ['y = 2x + 1 is a rule: take x, double it, add 1. Every point that follows the rule sits on one straight line.', () => lineSVG(2, 1)],
+  ['The gradient is how steep the line is: go 1 across, count how far it goes up. The number on its own is where it crosses the y axis.', () => lineSVG(1, -2)]
+], L => {
+  const m = pick([1, 2, 3, -1, -2, 2, 1]), c = rnd(-3, 3);
+  if (L <= 2) {
+    const mm = L === 1 ? 1 : m, x = rnd(-3, 4), y = mm * x + c;
+    return Q({ prompt: `${lineEq(mm, c)}. When x = ${x}, what is y?`, speak: `The rule is ${lineEq(mm, c)}. When x is ${x}, what is y?`, choices: opts(y, [y + 1, y - 1, mm * x - c, x + c + mm, -y].filter(v => v !== y)), answer: y,
+      steps: [`Put ${x} in place of x.`, `${mm === 1 ? x : `${mm} × ${x} = ${mm * x}`}${c ? `, then ${c > 0 ? 'add ' + c : 'take away ' + -c}` : ''}.`], explainText: `y = ${y}.` });
+  }
+  if (L === 3) {
+    const mg = pick([1, 2, 3, -1, -2, 1, 2]), cc = rnd(-2, 2);
+    return Q({ prompt: 'What is the gradient (steepness) of the blue line?', visual: lineSVG(mg, cc, [[0, cc], [1, mg + cc]]), choices: opts(mg, [-mg, mg + 1, mg - 1, cc, 2 * mg].filter(v => v !== mg)), answer: mg,
+      steps: ['Start at a dot on the line.', `Go 1 square across to the right. The line goes ${mg > 0 ? 'up' : 'down'} ${Math.abs(mg)}.`], explainText: `The gradient is ${mg}${mg < 0 ? ' (negative, because it goes downhill)' : ''}.` });
+  }
+  if (L === 4) {
+    const s = lineEq(m, c);
+    return Q({ prompt: 'Which equation matches the blue line?', visual: lineSVG(m, c, [[0, c], [1, m + c]]), choices: opts(s, [lineEq(m, -c), lineEq(-m, c), lineEq(m, c + 1), lineEq(m + 1, c), lineEq(c || 2, m)].filter(v => v !== s), 4, v => v), answer: s,
+      steps: [`It crosses the y axis at ${c}, so the number on its own is ${c}.`, `1 across, ${m > 0 ? 'up' : 'down'} ${Math.abs(m)}: the gradient is ${m}.`], explainText: `The line is ${s}.` });
+  }
+  const y = rnd(-6, 12), x = (y - c) / m;
+  if (!Number.isInteger(x)) return MATH.lines.gen(5);
+  return Q({ prompt: `${lineEq(m, c)}. For which x is y = ${y}?`, choices: opts(x, [x + 1, x - 1, -x, y - c, y + c].filter(v => v !== x)), answer: x,
+    steps: [`${y} = ${m === 1 ? '' : m}x${c ? (c > 0 ? ' + ' + c : ' − ' + -c) : ''}`, `${c > 0 ? 'Take away ' + c : c < 0 ? 'Add ' + -c : 'Nothing to move'}: ${m === 1 ? '' : m}x = ${y - c}.`, ...(m !== 1 ? [`Divide by ${m}: x = ${x}.`] : [])], explainText: `x = ${x}. Check: ${m} × ${x}${c ? (c > 0 ? ' + ' + c : ' − ' + -c) : ''} = ${y}.` });
+});
+S('simul', 4, 'Two equations together', '🧩', [
+  ['Two mystery numbers need two clues. x + y = 10 and x − y = 2.', () => '<span class="bignum">x + y = 10<br>x − y = 2</span>'],
+  ['Add the clues to make y vanish: 2x = 12, so x = 6. Then 6 + y = 10, so y = 4.', () => '']
+], L => {
+  const x = rnd(L >= 4 ? -4 : 1, 9), y = rnd(L >= 4 ? -4 : 1, 8), ask = L === 2 ? 'y' : 'x', ans = ask === 'x' ? x : y;
+  const term = (k, v) => k === 1 ? v : k === -1 ? '−' + v : k + v, side = (a, b) => `${term(a, 'x')} ${b < 0 ? '−' : '+'} ${term(Math.abs(b), 'y')}`;
+  if (L === 5) {
+    const [f1, f2] = pick([['🍎', '🍐'], ['🍩', '🧃'], ['🎈', '⭐']]), a = rnd(2, 4), b = rnd(1, 3), px = rnd(1, 6), py = rnd(1, 6);
+    if (a === b) return MATH.simul.gen(5);
+    const s = `${f1} = ${px}, ${f2} = ${py}`;
+    return Q({ prompt: word(`${a} ${f1} and 1 ${f2} cost ${a * px + py}. ${b} ${f1} and 1 ${f2} cost ${b * px + py}. How much is each?`), speak: `${a} of the first and 1 of the second cost ${a * px + py}. ${b} of the first and 1 of the second cost ${b * px + py}. How much is each?`,
+      choices: opts(s, [`${f1} = ${py}, ${f2} = ${px}`, `${f1} = ${px + 1}, ${f2} = ${py - a}`, `${f1} = ${px - 1}, ${f2} = ${py + a}`, `${f1} = ${px + 1}, ${f2} = ${py + 1}`, `${f1} = ${px}, ${f2} = ${py + 1}`, `${f1} = ${px + 1}, ${f2} = ${py}`].filter(v => v !== s && !/-|= 0\b/.test(v)), 4, v => v.replace(', ', '<br>')), answer: s,
+      steps: [`The difference is ${Math.abs(a - b)} ${f1}, and the cost difference is ${Math.abs(a - b) * px}.`, `So 1 ${f1} = ${Math.abs(a - b) * px} ÷ ${Math.abs(a - b)} = ${px}.`, `Then 1 ${f2} = ${b * px + py} − ${b * px} = ${py}.`], explainText: `${s}.` });
+  }
+  let e1, e2, how;
+  if (L <= 2) { e1 = `x + y = ${x + y}`; e2 = `x − y = ${x - y}`; how = [`Add the equations: 2x = ${2 * x}, so x = ${x}.`, `Then y = ${x + y} − ${x} = ${y}.`]; }
+  else if (L === 3) { e1 = `x + y = ${x + y}`; e2 = `2x + y = ${2 * x + y}`; how = [`Take the first from the second: x = ${2 * x + y} − ${x + y} = ${x}.`, `Then y = ${x + y} − ${x} = ${y}.`]; }
+  else { const a = rnd(2, 3), b = pick([1, -1]), c = 1, d = pick([2, 3]); e1 = `${side(a, b)} = ${a * x + b * y}`; e2 = `${side(c, d)} = ${c * x + d * y}`;
+    if (a * d - b * c === 0) return MATH.simul.gen(4);
+    how = [`Make the y parts match: multiply the first by ${d} and the second by ${Math.abs(b)}.`, `${b > 0 ? 'Subtract' : 'Add'} to remove y: ${a * d - b * c}x = ${(a * d - b * c) * x}.`, `So x = ${x}, and putting it back in gives y = ${y}.`]; }
+  return Q({ prompt: `${e1}<br>${e2}<br>What is ${ask}?`, speak: `${e1}. ${e2}. What is ${ask}?`.replace(/−/g, ' minus '), choices: opts(ans, [x, y, x + y, ans + 1, ans - 1, -ans].filter(v => v !== ans)), answer: ans, steps: how, explainText: `x = ${x} and y = ${y}. Check them in both equations!` });
+});
+
 /* --- world helpers used by the app --- */
 const worldSkills = w => Object.values(MATH).filter(s => s.world === w);
 const ageWorld = age => age <= 5 ? 0 : age <= 7 ? 1 : age <= 9 ? 2 : age <= 11 ? 3 : 4;

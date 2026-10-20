@@ -288,7 +288,7 @@ function question() {
     <div class="qcard">
       <div class="prompt"><div class="ptext">${q.prompt}</div><button class="speak" id="spk" aria-label="Read it to me">🔊</button></div>
       ${q.visual ? `<div class="visual">${q.visual}</div>` : ''}
-      <div class="choices" style="grid-template-columns:repeat(${q.choices.length > 4 ? 3 : q.choices.length},1fr)">${q.choices.map((c, i) => `<button class="choice${c.txt ? ' txt' : ''}" data-i="${i}">${c.html}</button>`).join('')}</div>
+      <div class="choices" style="grid-template-columns:repeat(${q.choices.some(c => c.html.replace(/<[^>]+>/g, '').length > 6) && q.choices.length > 2 ? 2 : q.choices.length > 4 ? 3 : q.choices.length},1fr)">${q.choices.map((c, i) => `<button class="choice${c.txt ? ' txt' : ''}" data-i="${i}"${c.say && /<svg|<span/.test(c.html) ? ` aria-label="${esc(c.say)}"` : ''}>${c.html}</button>`).join('')}</div>
       <div class="cheer" id="cheer" aria-live="polite"></div>
       <div id="exp" style="width:100%"></div>
       <div class="row"><button class="help" id="how">💡 How does this work?</button></div>

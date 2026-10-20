@@ -8,3 +8,4 @@ Serve the app first: `python3 -m http.server 8766` from the repo root. Then run 
 - `t10.mjs`: Online Owl end to end against a fake Claude (no key, no cost).
 - `server/test.mjs` (`npm test` in `server/`): the Online Owl server on its own.
 - `t11.js`: the grown-ups' weekly summary and Owl's offline answers for money, measuring and time.
+- `t12.js`: long-answer layouts (equation pairs, line equations) fit a phone and buttons have spoken labels.
