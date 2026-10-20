@@ -161,37 +161,49 @@ const S = (id, world, name, ico, lesson, gen) => { MATH[id] = { id, world, name,
 
 /* ===== World 1: Seedling Hill ===== */
 S('count', 0, 'Counting', '🍎', [
-  ['Touch each thing once and say a number.', () => objs(3, '🍎', { num: true })],
-  ['The last number you say is how many there are.', () => '<span class="bignum">3</span>']
-], L => GEN.count(L));
+  ['Touch each one. Say one number for each one.', () => objs(3, '🍎', { num: true })],
+  ['The last number you say is how many. 1, 2, 3. There are 3!', () => '<span class="bignum">3</span>'],
+  ['Count each one only once. Lines make it easy. This is 7.', () => tenFrame(7)],
+  ['Your turn! Touch and count the stars.', () => objs(4, '⭐')]
+], L => { const q = GEN.count(L), n = +q.answer; if (n > 3) q.steps = ['Touch the first one and say 1.', 'Touch the next one and say the next number.', `The last number you say is ${n}.`]; return q; });
 S('numbers', 0, 'Find the number', '🔢', [
   ['Every number has a shape. This is 4.', () => '<span class="bignum">4</span>'],
-  ['4 means this many.', () => objs(4, '⭐')]
+  ['4 means this many. Count them: 1, 2, 3, 4.', () => objs(4, '⭐', { num: true })],
+  ['To find 4, count each group. Stop at the group with 4.', () => `<div class="row">${objs(3, '🐟')}${objs(4, '🐟', { num: true })}</div>`]
 ], L => {
   const max = [5, 8, 10, 15, 20][L - 1], n = rnd(1, max), [e] = pick(THINGS);
   return Q({ prompt: `Which group has ${n}?`, speak: `Find the group with ${n}.`, visual: `<span class="bignum">${n}</span>`,
     choices: opts(n, near(n).filter(v => v > 0 && v <= max + 2), 3, v => `<span class="mini">${objs(v, e)}</span>`), answer: n,
-    explain: objs(n, e, { num: true }), explainText: `Count to ${n}. This group has exactly ${n}.` });
+    explain: objs(n, e, { num: true }), steps: n > 3 ? ['Count each group.', `Stop when a group has ${n}.`] : null, explainText: `Count to ${n}. This group has exactly ${n}.` });
 });
 S('shapes', 0, 'Shapes', '🔺', [
-  ['Shapes have sides and corners.', () => shapeSVG('triangle', '#2FA36B', true)],
-  ['A triangle has 3 sides. A square has 4. A circle has none!', () => `<div class="row">${shapeSVG('square', '#2E8BE6')}${shapeSVG('circle', '#FFC23D')}</div>`]
-], L => GEN.shapes(L));
+  ['Shapes have sides and corners. Count the corners: 1, 2, 3. A triangle has 3.', () => shapeSVG('triangle', '#2FA36B', true)],
+  ['A square has 4 sides, all the same. A rectangle has 4 sides too: 2 long and 2 short.', () => `<div class="row">${shapeSVG('square', '#2E8BE6', true)}${shapeSVG('rectangle', '#F2604F', true)}</div>`],
+  ['A circle is round. It has no corners at all!', () => shapeSVG('circle', '#FFC23D')],
+  ['Your turn! Count the corners of this one. 6 corners: a hexagon.', () => shapeSVG('hexagon', '#6D55D1', true)]
+], L => { const q = GEN.shapes(L); if (q.prompt === 'How many sides?') q.steps = ['Put your finger on one corner. Say 1.', 'Go round the edge and count each corner.', `There are ${q.answer} corners, so ${q.answer} sides.`]; return q; });
 S('pattern', 0, 'Patterns', '🔴', [
-  ['A pattern repeats again and again.', () => `<div class="pat">${dot('#F2604F')}${dot('#2E8BE6')}${dot('#F2604F')}${dot('#2E8BE6')}</div>`],
-  ['Find the part that repeats, then say what comes next.', () => `<div class="pat"><span class="unit">${dot('#F2604F')}${dot('#2E8BE6')}</span></div>`]
-], L => GEN.pattern(L));
+  ['A pattern repeats again and again. Red, blue, red, blue.', () => `<div class="pat">${dot('#F2604F')}${dot('#2E8BE6')}${dot('#F2604F')}${dot('#2E8BE6')}</div>`],
+  ['Find the part that repeats. Here it is red, blue.', () => `<div class="pat"><span class="unit">${dot('#F2604F')}${dot('#2E8BE6')}</span></div>`],
+  ['Say it out loud to find what comes next. Red, blue, red, blue, red... blue!', () => `<div class="pat">${dot('#F2604F')}${dot('#2E8BE6')}${dot('#F2604F')}${dot('#2E8BE6')}${dot('#F2604F')}<span class="dot q">?</span></div>`]
+], L => { const q = GEN.pattern(L); q.steps = ['Find the part that repeats.', 'Say the colors out loud, again and again.', 'The next color in your song is the answer.']; return q; });
 S('compare', 0, 'Bigger or smaller', '🐘', [
   ['Bigger means more. Smaller means fewer.', () => `<div class="row">${objs(5, '🍓')}${objs(2, '🍓')}</div>`],
-  ['The crocodile mouth eats the bigger number: 5 > 2.', () => '<span class="bignum">5 > 2</span>']
-], L => GEN.compare(L));
+  ['Line them up in pairs. The row with some left over has more.', () => pairRows(5, '🍓', 2, '🍓')],
+  ['5 is bigger than 2. The crocodile mouth opens to the bigger number.', () => '<span class="bignum">5 > 2</span>'],
+  ['Big numbers: more digits means bigger. 40 is bigger than 9.', () => '<span class="bignum">40 > 9</span>']
+], L => { const q = GEN.compare(L), [a, b] = q.choices.map(c => +c.val), hi = Math.max(a, b), lo = Math.min(a, b);
+  q.steps = hi <= 10 ? [`Line them up in pairs.`, `${hi} has ${hi - lo} left over, so ${hi} is more.`] : String(hi).length > String(lo).length ? [`${hi} has more digits than ${lo}.`, `More digits means bigger.`] : [`They have the same number of digits.`, `Look at the first digit: ${String(hi)[0]} and ${String(lo)[0]}.`, ...(String(hi)[0] === String(lo)[0] ? ['They match, so look at the next digit.'] : []), `${hi} is bigger, ${lo} is smaller.`];
+  return q; });
 
 const CRITTERS = [['🐱', 'cat'], ['🐶', 'dog'], ['🐸', 'frog'], ['🐰', 'rabbit'], ['🐻', 'bear'], ['🐷', 'pig'], ['🦊', 'fox'], ['🐵', 'monkey'], ['🐼', 'panda'], ['🐯', 'tiger'], ['🐨', 'koala'], ['🐮', 'cow']];
 const shelf = (g, cols) => `<div class="shelf" style="grid-template-columns:repeat(${cols},1fr)">${g.map(c => `<span>${c ? c[0] : ''}</span>`).join('')}</div>`;
 const critterChoices = (ans, pool) => shuffle([ans, ...shuffle(pool.filter(c => c && c !== ans)).slice(0, 2)]).map(c => ({ html: c[0], val: c[1], say: c[1] }));
 S('position', 0, 'Where is it?', '🧭', [
-  ['Above means higher up. Below means lower down.', () => shelf([CRITTERS[0], CRITTERS[1]], 1)],
-  ['Left is the side of the hand you hold up like an L. Right is the other side.', () => shelf([CRITTERS[2], CRITTERS[3]], 2)]
+  ['Above means higher up. The cat is above the dog.', () => shelf([CRITTERS[0], CRITTERS[1]], 1)],
+  ['Below means lower down. The dog is below the cat.', () => shelf([CRITTERS[0], CRITTERS[1]], 1)],
+  ['Hold up your hands. Your left thumb and finger make an L. L is for left! The frog is on the left. The rabbit is on the right.', () => shelf([CRITTERS[2], CRITTERS[3]], 2)],
+  ['Rows go across. Count rows from the top. Columns go up and down. Count them from the left.', () => shelf(CRITTERS.slice(4, 10), 3)]
 ], L => {
   const cols = L <= 2 ? 3 : L === 3 ? 3 : 4, rows = L <= 2 ? 2 : 3, n = cols * rows, g = shuffle(CRITTERS).slice(0, n);
   const at = (r, c) => (r >= 0 && r < rows && c >= 0 && c < cols) ? g[r * cols + c] : null;
@@ -201,22 +213,26 @@ S('position', 0, 'Where is it?', '🧭', [
   if (!ok.length) return MATH.position.gen(L);
   if (L === 5) {
     const r = rnd(1, rows), c = rnd(1, cols), t = at(r - 1, c - 1);
-    return Q({ prompt: `Who is in row ${r}, column ${c}?`, speak: `Row ${r} counts down from the top. Column ${c} counts across from the left. Who is there?`, visual: shelf(g, cols), choices: critterChoices(t, g), answer: t[1], explainText: `Count ${r} row${r > 1 ? 's' : ''} down and ${c} across. The ${t[1]} is there.` });
+    return Q({ prompt: `Who is in row ${r}, column ${c}?`, speak: `Row ${r} counts down from the top. Column ${c} counts across from the left. Who is there?`, visual: shelf(g, cols), choices: critterChoices(t, g), answer: t[1],
+      explain: shelf(g.map(x => x === t ? x : null), cols), steps: [`Start at the top row. Count down to row ${r}.`, `Now count across from the left to column ${c}.`], explainText: `The ${t[1]} is there.` });
   }
   if (L === 4 && ci + 2 < cols) {
     const t = at(ri, ci + 2);
-    return Q({ prompt: `Who is 2 places to the right of the ${me[0]}?`, speak: `Who is two places to the right of the ${me[1]}?`, visual: shelf(g, cols), choices: critterChoices(t, g), answer: t[1], explainText: `Start at the ${me[1]} and hop right: one, two. It is the ${t[1]}.` });
+    return Q({ prompt: `Who is 2 places to the right of the ${me[0]}?`, speak: `Who is two places to the right of the ${me[1]}?`, visual: shelf(g, cols), choices: critterChoices(t, g), answer: t[1],
+      explain: shelf(g.map(x => x === t || x === me ? x : null), cols), steps: [`Find the ${me[1]}.`, 'Hop to the right: one, two.'], explainText: `It is the ${t[1]}.` });
   }
   const [word, dr, dc] = pick(ok), t = at(ri + dr, ci + dc);
   return Q({ prompt: `Who is ${word} the ${me[0]}?`, speak: `Who is ${word} the ${me[1]}?`, visual: shelf(g, cols), choices: critterChoices(t, g), answer: t[1],
-    explainText: `Find the ${me[1]}. ${word === 'above' ? 'Look up' : word === 'below' ? 'Look down' : word.includes('left') ? 'Look to the left side' : 'Look to the right side'}: it is the ${t[1]}.` });
+    explain: shelf(g.map(x => x === t || x === me ? x : null), cols), explainText: `Find the ${me[1]}. ${word === 'above' ? 'Look up' : word === 'below' ? 'Look down' : word.includes('left') ? 'Look to the left side' : 'Look to the right side'}: it is the ${t[1]}.` });
 });
 const SIZE_THINGS = [['🐘', 'elephant'], ['🐭', 'mouse'], ['🌳', 'tree'], ['🌷', 'flower'], ['🐳', 'whale'], ['🐟', 'fish'], ['🏠', 'house'], ['🐞', 'ladybug']];
 const snake = (len, col) => `<svg viewBox="0 0 220 24" width="100%" height="24" role="img" aria-label="ribbon ${len} long"><rect x="2" y="4" width="${len * 20}" height="16" rx="8" fill="${col}" stroke="#22305A" stroke-width="2"/></svg>`;
 const tower = (n, col) => `<span class="tower">${Array.from({ length: n }, () => `<i style="background:${col}"></i>`).join('')}</span>`;
 S('sizes', 0, 'Big, long and tall', '📏', [
   ['Long means it goes a long way from end to end. Short means it does not.', () => snake(9, '#2FA36B') + snake(4, '#F2604F')],
-  ['Tall means it goes high up. Count the blocks to check!', () => `<div class="towers">${tower(5, '#2E8BE6')}${tower(2, '#FFC23D')}</div>`]
+  ['Tall means it goes high up. Count the blocks to check! 5 blocks is taller than 2.', () => `<div class="towers">${tower(5, '#2E8BE6')}${tower(2, '#FFC23D')}</div>`],
+  ['Big things take up lots of space, like an elephant. Small things take up a little, like a mouse.', () => '<div class="row"><span class="bignum">🐘</span><span style="font-size:28px">🐭</span></div>'],
+  ['How many more? Count the extra blocks on top. 5 take away 2 is 3 more.', () => `<div class="towers">${tower(5, '#2E8BE6')}${tower(2, '#FFC23D')}</div>`]
 ], L => {
   const COLS = [['#F2604F', 'red'], ['#2E8BE6', 'blue'], ['#2FA36B', 'green'], ['#FFC23D', 'yellow']];
   if (L === 1) {
@@ -228,11 +244,12 @@ S('sizes', 0, 'Big, long and tall', '📏', [
   if (L <= 3) {
     const kind = L === 2 ? pick(['longest', 'shortest']) : pick(['tallest', 'shortest']), i = kind.includes('short') ? lens.indexOf(Math.min(...lens)) : lens.indexOf(Math.max(...lens));
     const visual = L === 2 ? cols.map((c, k) => snake(lens[k], c[0])).join('') : `<div class="towers">${cols.map((c, k) => tower(lens[k], c[0])).join('')}</div>`;
-    return Q({ prompt: `Which is the ${kind}?`, visual, choices: ch, answer: cols[i][1], explainText: `The ${cols[i][1]} one ${L === 2 ? 'is' : 'has'} ${lens[i]}${L === 3 ? ' blocks' : ''}. It is the ${kind}.` });
+    return Q({ prompt: `Which is the ${kind}?`, visual, choices: ch, answer: cols[i][1], steps: [L === 2 ? 'Look at where each one ends.' : 'Count the blocks in each tower.', `The ${cols[i][1]} one ${L === 2 ? 'goes the ' + (kind === 'longest' ? 'furthest' : 'least far') : `has ${kind === 'tallest' ? 'the most' : 'the fewest'} blocks`}.`], explainText: `The ${cols[i][1]} one ${L === 2 ? 'is' : 'has'} ${lens[i]}${L === 3 ? ' blocks' : ''}. It is the ${kind}.` });
   }
   if (L === 4) {
     const i = lens.indexOf(Math.max(...lens)), j = lens.indexOf(Math.min(...lens));
-    return Q({ prompt: `How many blocks taller is the ${cols[i][1]} tower than the ${cols[j][1]} one?`, visual: `<div class="towers">${cols.map((c, k) => tower(lens[k], c[0])).join('')}</div>`, choices: opts(lens[i] - lens[j], [lens[i], lens[j], lens[i] - lens[j] + 1, lens[i] + lens[j]]), answer: lens[i] - lens[j], explainText: `${lens[i]} blocks take away ${lens[j]} blocks is ${lens[i] - lens[j]}.` });
+    return Q({ prompt: `How many blocks taller is the ${cols[i][1]} tower than the ${cols[j][1]} one?`, visual: `<div class="towers">${cols.map((c, k) => tower(lens[k], c[0])).join('')}</div>`, choices: opts(lens[i] - lens[j], [lens[i], lens[j], lens[i] - lens[j] + 1, lens[i] + lens[j]]), answer: lens[i] - lens[j],
+      explain: `<div class="towers">${tower(lens[i], cols[i][0])}${tower(lens[j], cols[j][0])}</div>`, steps: [`The ${cols[i][1]} tower has ${lens[i]} blocks.`, `The ${cols[j][1]} tower has ${lens[j]} blocks.`, `Count the extra blocks on top: ${lens[i] - lens[j]}.`], explainText: `${lens[i]} blocks take away ${lens[j]} blocks is ${lens[i] - lens[j]}.` });
   }
   const pairs = [['1 metre', '90 cm', '1 metre', '1 metre is 100 cm, which is more than 90 cm.'], ['1 kg', '500 g', '1 kg', '1 kg is 1000 g, more than 500 g.'], ['half an hour', '20 minutes', 'half an hour', 'Half an hour is 30 minutes, longer than 20.'], ['2 litres', '1500 mL', '2 litres', '2 litres is 2000 mL, more than 1500.'], ['60 seconds', '2 minutes', '2 minutes', '2 minutes is 120 seconds.']];
   const [a, b, ans, why] = pick(pairs);
@@ -375,8 +392,8 @@ S('addbig', 2, 'Big adding', '🏗️', [
   return Q({ prompt: `${fmt(a)} + ${fmt(b)} = ?`, speak: `What is ${a} plus ${b}?`, visual: column(a, b, '+'), choices: opts(s, [s + 10, s - 10, s + 1, s - 100, s + 100, s - 9]), answer: s, explain: column(a, b, '+', s),
     steps: colSteps(a, b), explainText: `So ${fmt(a)} + ${fmt(b)} = ${fmt(s)}.` });
 });
-function colSteps(a, b) {
-  const out = []; let carry = 0, place = ['ones', 'tens', 'hundreds', 'thousands', 'ten thousands'], i = 0;
+function colSteps(a, b, place = ['ones', 'tens', 'hundreds', 'thousands', 'ten thousands']) {
+  const out = []; let carry = 0, i = 0;
   while (a || b || carry) { const da = a % 10, db = b % 10, t = da + db + carry; out.push(`${place[i]}: ${da} + ${db}${carry ? ' + 1 carried' : ''} = ${t}${t >= 10 ? `, write ${t % 10} and carry 1` : ''}.`); carry = t >= 10 ? 1 : 0; a = Math.floor(a / 10); b = Math.floor(b / 10); i++; }
   return out.map(s => s[0].toUpperCase() + s.slice(1));
 }
