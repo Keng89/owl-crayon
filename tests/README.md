@@ -12,3 +12,4 @@ Serve the app first: `python3 -m http.server 8766` from the repo root. Then run 
 - `t13.js`: renders the finished Painting & Collage pictures to a screenshot for a visual check.
 - `t14.js`: badges are awarded and listed, and word answers are read aloud for young children.
 - `t16.js`: a new deploy shows the "new version ready" button, and tapping it loads the update.
+- `t17.js`: Write numbers: a careful trace of 0, 4, 8 and 13 passes and a scribble does not, on a phone and a tablet.

@@ -230,6 +230,7 @@ function home() {
 function mathHome() {
   const due = dueReviews().length;
   view.innerHTML = `${crumbs('Number Garden')}
+    <button class="pick" id="wr"><span class="big">✏️</span><span><b>Write numbers</b>Trace 0 to 20 with your finger</span></button>
     ${due ? `<button class="pick" id="rev"><span class="big">🔁</span><span><b>Practise again</b>${due} question${due > 1 ? 's' : ''} you missed before</span></button>` : ''}
     <div class="worlds">${WORLDS.map((w, i) => { const open = worldOpen(i), m = Math.round(worldMastery(i) * 100);
       return `<button class="world${open ? '' : ' locked'}" data-w="${i}" style="background:${w.color}" ${open ? '' : 'aria-disabled="true"'}>
@@ -238,6 +239,7 @@ function mathHome() {
   wireBack(home);
   sayScreen('Pick a world! ' + WORLDS.filter((w, i) => worldOpen(i)).map(w => w.name).join(', ') + '.');
   if (due) $('#rev').onclick = () => go(play, 'review');
+  $('#wr').onclick = () => go(writeHome);
   view.querySelectorAll('[data-w]').forEach(b => b.onclick = () => { const w = +b.dataset.w; if (worldOpen(w)) go(worldView, w); else say('Keep playing the world before to open this one!'); });
 }
 function worldView(w) {
@@ -812,6 +814,8 @@ function parent() {
     const keep = { name: st.name, age: st.age }; st = migrate(freshState(keep.age)); st.name = keep.name; gallery = []; saveGallery(); save(); updateTop(); go(parent);
   };
 }
+
+//@include write.js
 
 /* ---------- start ---------- */
 updateTop();

@@ -271,3 +271,15 @@ ol.steps{margin:0;padding-left:1.4em;text-align:left;font-weight:700;font-size:1
 .towers{display:flex;gap:14px;align-items:flex-end;justify-content:center;min-height:60px}
 .tower{display:flex;flex-direction:column-reverse;gap:2px}.tower i{display:block;width:30px;height:22px;border-radius:5px;border:2px solid var(--ink)}
 .dot{display:inline-block;width:40px;height:40px;border-radius:50%;border:3px solid var(--ink)}
+.numgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(64px,1fr));gap:10px}
+.numbtn{background:var(--paper);border-radius:18px;min-height:70px;font-family:var(--display);font-size:32px;box-shadow:0 4px 0 var(--line)}
+.numbtn.done{background:var(--leaf-soft);box-shadow:0 4px 0 #9ED9B8}.numbtn.locked{opacity:.6;font-size:22px}
+.write-wrap{position:relative;align-self:center;flex:none;background:#fff;border-radius:24px;box-shadow:0 5px 0 var(--line);overflow:hidden}
+.write-wrap canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none}
+.write-guide{position:absolute;inset:0;width:100%;height:100%}
+.write-guide *{fill:none;stroke-linecap:round;stroke-linejoin:round}
+.write-guide .mid{stroke:#E4ECF2;stroke-width:1.5;stroke-dasharray:4 4}
+.write-guide .trk{stroke:#E1E7EE;stroke-width:20}
+.write-guide .dash{stroke:#9FB3C8;stroke-width:2;stroke-dasharray:3 5}
+.write-guide .demo{stroke:var(--coral);stroke-width:6;stroke-dasharray:2000;stroke-dashoffset:2000}
+.write-guide .start{fill:var(--leaf);stroke:#fff;stroke-width:2}

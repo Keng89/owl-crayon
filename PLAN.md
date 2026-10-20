@@ -14,6 +14,8 @@ A math and art app for kids where an owl answers questions in simple words. Buil
 | Deep Forest | 9–11 | Long multiplication, long division, fraction maths, decimals, percentages, negative numbers, area and perimeter, angles, order of operations |
 | Mountain Peak | 11+ | Algebra, powers and roots, factors and primes, ratio, sequences, probability, circles/volume/Pythagoras, coordinates, straight-line graphs, simultaneous equations |
 
+**Write numbers:** children trace 0 to 20 with a finger, starting at a green dot, with a Watch me demo. The app checks the trace covers the number and stays near the line.
+
 **Art School: 56 step-by-step lessons in 12 kinds of art, at 3 levels (Beginner, Explorer, Master).** Each step shows what to draw next in red, read aloud. Trace mode puts the guide faintly under the child's drawing. Kinds: shape pictures, animals, faces and people (including real face and body proportions), nature and landscapes, cartoons, 3D and perspective, light and shading, color theory, patterns and mandalas, lettering, paper crafts (origami), painting and collage (watercolor washes, dot painting, sponge printing, torn-paper collage, crayon resist, Van Gogh brush strokes).
 
 **Studio tools:** free draw with mirror and 4/6/8-way mandala symmetry, pixel art (5 levels, the last one uses grid coordinates), color mixing challenges, and a gallery.

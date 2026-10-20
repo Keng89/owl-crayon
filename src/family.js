@@ -8,6 +8,7 @@ function migrate(s) {
   s.bestStreak = Math.max(s.bestStreak || 0, s.streak.n);
   s.questsDone = s.questsDone || 0;
   s.days = s.days || {};
+  s.write = s.write || { done: {} };
   return s;
 }
 let profiles = store.get('profiles', null);
