@@ -14,6 +14,9 @@ def expand(text):
                   lambda m: expand((src / (m.group(1) or m.group(2))).read_text()).rstrip('\n'), text, flags=re.M)
 
 body = expand((src / 'shell.html').read_text())
+# The grown-ups corner shows the build date, so a family can tell which version they have.
+import datetime
+body = body.replace('__BUILD__', datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%d %H:%M UTC'))
 (root / 'dist').mkdir(exist_ok=True)
 (root / 'dist/page.html').write_text(body)
 
@@ -34,7 +37,7 @@ ver = hashlib.sha1(html.encode()).hexdigest()[:8]
 (root / 'sw.js').write_text(f'''// Caches the whole app on first visit so it runs with no internet.
 const CACHE = 'owl-crayon-{ver}';
 const FILES = ['./', 'index.html', 'manifest.json', 'icon.svg', 'icon-192.png', 'icon-512.png'];
-self.addEventListener('install', e => e.waitUntil(caches.open(CACHE).then(c => c.addAll(FILES)).then(() => self.skipWaiting())));
+self.addEventListener('install', e => e.waitUntil(caches.open(CACHE).then(c => c.addAll(FILES.map(f => new Request(f, {{ cache: 'reload' }})))).then(() => self.skipWaiting())));
 self.addEventListener('activate', e => e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== CACHE).map(k => caches.delete(k)))).then(() => self.clients.claim())));
 self.addEventListener('fetch', e => {{
   if (e.request.method !== 'GET') return;

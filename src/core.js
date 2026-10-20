@@ -780,7 +780,12 @@ function parent() {
       <label class="field" for="ag">Age<input id="ag" type="number" min="3" max="16" value="${st.age}"></label>
       <label class="field" style="flex-direction:row;align-items:center;gap:10px"><input type="checkbox" id="sp" ${st.speak ? 'checked' : ''} style="width:26px;height:26px"> Read everything aloud</label>
       <label class="field" style="flex-direction:row;align-items:center;gap:10px"><input type="checkbox" id="ua" ${st.unlockAll ? 'checked' : ''} style="width:26px;height:26px"> Open every world, lesson and level</label>
-      <div class="row" style="justify-content:flex-start"><button class="btn" id="saveS">Save settings</button><button class="btn alt" id="reset">Reset all progress</button></div><p class="note" id="sm" aria-live="polite"></p></div>`;
+      <div class="row" style="justify-content:flex-start"><button class="btn" id="saveS">Save settings</button><button class="btn alt" id="reset">Reset all progress</button></div><p class="note" id="sm" aria-live="polite"></p></div>
+    <div class="panel"><h2>About and privacy</h2>
+      <p class="note">Owl &amp; Crayon works without the internet. Progress, drawings and Owl's answers are saved only in this browser on this device. There are no ads, no tracking and no accounts, and nothing is sent anywhere unless you switch on Online Owl.</p>
+      <p class="note">With Online Owl on, only the question your child asks and their age go to your Online Owl server, which asks Claude (by Anthropic) for a short, child-friendly answer. Names and progress are never sent. You can read every answer above, and turn it off at any time.</p>
+      <p class="note">The microphone button uses the browser's own speech recognition, which may send the recording to the browser maker (for example Google or Apple) to turn it into text. Typing works without it.</p>
+      <p class="note">Version __BUILD__</p></div>`;
   view.querySelectorAll('[data-teach]').forEach(b => b.onclick = () => {
     const i = +b.dataset.teach, ans = $('#t' + i).value.trim(); if (!ans) return;
     owlForget(st.owlMisses[i].q); st.owlTaught.push({ q: st.owlMisses[i].q, a: ans }); st.owlMisses.splice(i, 1); save(); go(parent);
@@ -812,4 +817,17 @@ function parent() {
 updateTop();
 go(profiles.length > 1 ? whoView : home);
 if (location.hash === "#selftest") window.__owl = { MATH, LESSONS, lessonSVG, PICS, get st() { return st; }, get profiles() { return profiles; }, quest, questTick, gainXP, petStage, go, home };
-if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) { try { navigator.serviceWorker.register('sw.js').catch(() => {}); } catch (e) {} }
+if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) {
+  try {
+    // A new version installs in the background; offer a tap to switch rather than reloading mid-game.
+    const hadController = !!navigator.serviceWorker.controller;
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      if (!hadController || document.getElementById('updBar')) return;
+      const bar = document.createElement('button'); bar.id = 'updBar'; bar.textContent = '✨ A new version is ready. Tap to update!';
+      bar.onclick = () => location.reload(); document.body.appendChild(bar);
+    });
+    navigator.serviceWorker.register('sw.js').then(reg => {
+      document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') reg.update().catch(() => {}); });
+    }).catch(() => {});
+  } catch (e) {}
+}
