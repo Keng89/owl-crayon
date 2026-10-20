@@ -642,6 +642,8 @@ const KB = [
   { k: ['average', 'mean'], q: 'What is an average?', a: 'The average is the fair share. Add all the numbers, then share the total equally. 2, 4 and 6 add to 12. 12 shared by 3 is 4!' },
   { k: ['minute', 'minutes', 'hour', 'hours', 'second', 'seconds'], q: 'How many minutes in an hour?', a: 'There are 60 minutes in an hour, and 60 seconds in a minute. A minute is about how long it takes to wash your hands really well.' },
   { k: ['week', 'days in a week', 'month', 'year', 'calendar'], q: 'How many days are in a week?', a: 'A week has 7 days: Monday, Tuesday, Wednesday, Thursday, Friday, Saturday and Sunday. A year has 12 months and 365 days.' },
+  { k: ['watercolor', 'watercolour', 'paint', 'painting', 'brush'], q: 'How do I paint with watercolors?', a: 'Use lots of water and a little paint. Paint light colors first and dark ones last. Let it dry before painting next to a wet part, or the colors will run together!' },
+  { k: ['collage', 'glue', 'tear'], q: 'What is a collage?', a: 'A collage is a picture made by sticking pieces of paper, cloth or leaves together. Tear or cut shapes, move them around until you like it, then glue!' },
   { k: ['why math', 'why learn'], q: 'Why do we learn math?', a: 'Math helps us share snacks fairly, build things, cook, play games and so much more!' }
 ];
 const STOP = new Set('what is a an the how do does i you me my can why are to of it this that there please tell about make with and or'.split(' '));

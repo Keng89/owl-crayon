@@ -14,7 +14,7 @@ A math and art app for kids where an owl answers questions in simple words. Buil
 | Deep Forest | 9–11 | Long multiplication, long division, fraction maths, decimals, percentages, negative numbers, area and perimeter, angles, order of operations |
 | Mountain Peak | 11+ | Algebra, powers and roots, factors and primes, ratio, sequences, probability, circles/volume/Pythagoras, coordinates, straight-line graphs, simultaneous equations |
 
-**Art School: 50 step-by-step lessons in 11 kinds of art, at 3 levels (Beginner, Explorer, Master).** Each step shows what to draw next in red, read aloud. Trace mode puts the guide faintly under the child's drawing. Kinds: shape pictures, animals, faces and people (including real face and body proportions), nature and landscapes, cartoons, 3D and perspective, light and shading, color theory, patterns and mandalas, lettering, paper crafts (origami).
+**Art School: 56 step-by-step lessons in 12 kinds of art, at 3 levels (Beginner, Explorer, Master).** Each step shows what to draw next in red, read aloud. Trace mode puts the guide faintly under the child's drawing. Kinds: shape pictures, animals, faces and people (including real face and body proportions), nature and landscapes, cartoons, 3D and perspective, light and shading, color theory, patterns and mandalas, lettering, paper crafts (origami), painting and collage (watercolor washes, dot painting, sponge printing, torn-paper collage, crayon resist, Van Gogh brush strokes).
 
 **Studio tools:** free draw with mirror and 4/6/8-way mandala symmetry, pixel art (5 levels, the last one uses grid coordinates), color mixing challenges, and a gallery.
 
@@ -33,7 +33,7 @@ None of this sends data anywhere. Progress lives in the browser on that device.
 
 ## Scaling to all ages (subscription path)
 
-- **Age setting** picks the starting world. Content gaps to fill next: in art, painting techniques, collage and digital animation.
+- **Age setting** picks the starting world. Content gaps to fill next: in art, digital animation and clay/3D crafts.
 - **Smarter Owl.** Built: an optional Online Owl server (`server/`, a Cloudflare Worker) that answers any question with Claude using a child-safe prompt. The API key stays on the server; each family gets an access code (the subscription switch); the app saves every answer so it works offline next time, and grown-ups can read every answer. To go live: create an Anthropic API key, deploy the server (steps in `server/README.md`), and enter the address and code in the Grown-ups corner.
 - **Accounts and sync** so siblings get separate profiles and progress survives a new tablet. This is also where the subscription paywall sits (free core games, paid packs and the online Owl).
 - **Parent dashboard** with weekly summaries.

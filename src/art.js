@@ -11,6 +11,7 @@ const apg = pts => `<polygon points="${pts}"/>`;
 const apl = pts => `<polyline points="${pts}"/>`;
 const guide = s => `<g class="gd">${s}</g>`;
 const fold = s => `<g class="fold">${s}</g>`;
+const stroke = (c, s) => `<g class="sk" style="--sk:${c}">${s}</g>`;
 const paint = (c, s) => `<g class="pt" style="fill:${c}">${s}</g>`;
 const atext = (x, y, t, size = 60, extra = '') => `<text x="${x}" y="${y}" font-size="${size}" text-anchor="middle" ${extra}>${t}</text>`;
 const ring = (n, R, f) => Array.from({ length: n }, (_, i) => { const a = i * 2 * Math.PI / n - Math.PI / 2; return f(100 + R * Math.cos(a), 100 + R * Math.sin(a), a); }).join('');
@@ -28,7 +29,8 @@ const ART_CATS = [
   { id: 'color', name: 'Color Theory', ico: '🎨', blurb: 'How colors mix and work together' },
   { id: 'pattern', name: 'Patterns & Mandalas', ico: '🌀', blurb: 'Repeat, mirror and tile' },
   { id: 'letters', name: 'Lettering', ico: '🔤', blurb: 'Fancy letters and your name' },
-  { id: 'craft', name: 'Paper Crafts', ico: '✂️', blurb: 'Fold planes, cups and animals' }
+  { id: 'craft', name: 'Paper Crafts', ico: '✂️', blurb: 'Fold planes, cups and animals' },
+  { id: 'paint', name: 'Painting & Collage', ico: '🖌️', blurb: 'Washes, dots, sponges, torn paper and more' }
 ];
 const LEVEL_NAMES = ['', 'Beginner', 'Explorer', 'Master'];
 
@@ -358,7 +360,41 @@ const LESSONS = [
     ['Fold the right corner across so it touches the left edge.', apg('20,60 180,60 100,160') + fold(al(60, 110, 140, 100))],
     ['Fold the left corner across to touch the right side.', apg('55,60 145,60 145,105 100,160 55,105') + fold(al(55, 105, 145, 105))],
     ['Fold the top front flap down into the pocket. Turn over and do the same with the back flap.', apg('55,90 145,90 145,105 100,160 55,105') + fold(al(55, 90, 145, 90))],
-    ['Open the top and it is a cup! It can even hold a little water for a while.', apg('55,70 145,70 135,160 65,160') + ae(100, 70, 45, 8)]] }
+    ['Open the top and it is a cup! It can even hold a little water for a while.', apg('55,70 145,70 135,160 65,160') + ae(100, 70, 45, 8)]] },
+  /* ---- Painting & collage ---- */
+  { id: 'wash', cat: 'paint', level: 1, title: 'Watercolor sunset', ico: '🌅', steps: [
+    ['Draw a light pencil line across the paper for the ground. Wet the sky part with clean water and a big brush.', al(15, 140, 185, 140)],
+    ['Paint a stripe of yellow just above the line. Watery paint spreads by itself: that is called a wash!', paint('#FFD966', ar(15, 110, 170, 30))],
+    ['While it is still wet, add orange above the yellow. Let the colors melt into each other.', paint('#FF9F43', ar(15, 75, 170, 38))],
+    ['Add pink and then purple at the top. Do not scrub: just touch and let it flow.', paint('#F78FB3', ar(15, 45, 170, 32)) + paint('#8E7CC3', ar(15, 20, 170, 27))],
+    ['Wait until it is dry. Then paint dark hills and a tree along the bottom. Dark shapes against a bright sky are called silhouettes.', paint('#22305A', ap('M15 140 Q60 112 100 130 T185 122 V185 H15 Z') + ar(140, 95, 5, 32) + ac(142, 92, 13))]] },
+  { id: 'dots', cat: 'paint', level: 1, title: 'Dot painting flower', ico: '🌼', steps: [
+    ['Dip the back of a pencil or a cotton bud in paint. Press it straight down to make one perfect dot.', paint('#F2604F', ac(100, 100, 9))],
+    ['Make a ring of yellow dots around the middle dot. Keep the gaps the same.', ring(8, 22, (x, y) => paint('#FFC23D', ac(x, y, 7)))],
+    ['Make a bigger ring of blue dots around that. Each ring needs more dots!', ring(14, 42, (x, y) => paint('#2E8BE6', ac(x, y, 6)))],
+    ['Add an outside ring of tiny green dots. Pictures made of dots are called pointillism.', ring(22, 62, (x, y) => paint('#2FA36B', ac(x, y, 4)))],
+    ['Fill the background with white dots, or make up your own colors.', ring(30, 82, (x, y) => paint('#6D55D1', ac(x, y, 3)))]] },
+  { id: 'sponge', cat: 'paint', level: 2, title: 'Sponge-print tree', ico: '🌳', steps: [
+    ['Paint a brown trunk with a brush. Make it wider at the bottom, with branches at the top.', paint('#8B5E3C', ap('M90 185 L95 110 L75 80 L82 77 L98 102 L100 70 L106 70 L107 100 L122 78 L128 82 L108 112 L113 185 Z'))],
+    ['Dip a small sponge in dark green. Dab it around the branches: dab, dab, dab, no wiping!', paint('#1F7A4C', ac(80, 70, 18) + ac(105, 55, 20) + ac(130, 72, 18) + ac(95, 85, 16) + ac(120, 92, 15))],
+    ['Now dab light green on the top and one side. That is where the sun shines.', paint('#6CC08B', ac(98, 48, 12) + ac(122, 60, 12) + ac(138, 72, 9) + ac(84, 60, 10))],
+    ['Dab a few red dots for apples, and sponge some green grass at the bottom.', paint('#F2604F', ac(90, 72, 4) + ac(118, 80, 4) + ac(106, 62, 4)) + paint('#6CC08B', ar(20, 178, 160, 10, 5))]] },
+  { id: 'collage', cat: 'paint', level: 2, title: 'Torn-paper fish', ico: '🐠', steps: [
+    ['Tear a big oval from orange paper. Torn edges look soft and fuzzy. Glue it in the middle.', paint('#FF9F43', apg('45,100 60,75 90,62 125,66 150,82 158,100 150,118 125,134 90,138 60,125'))],
+    ['Tear a triangle for the tail and glue it at the back, touching the body.', paint('#F2604F', apg('152,100 188,72 182,100 188,128'))],
+    ['Tear small yellow pieces and stick them on in rows, like scales. Overlap them a little!', paint('#FFD966', ac(88, 90, 8) + ac(108, 86, 8) + ac(128, 92, 8) + ac(96, 108, 8) + ac(118, 110, 8))],
+    ['Cut a white circle and a smaller black circle for the eye. Add blue paper bubbles. You made a collage!', paint('#fff', ac(65, 92, 8)) + paint('#22305A', ac(66, 92, 4)) + paint('#9CCBF5', ac(35, 60, 7) + ac(25, 38, 5) + ac(40, 22, 4))]] },
+  { id: 'resist', cat: 'paint', level: 2, title: 'Crayon resist night sky', ico: '🌙', steps: [
+    ['Press hard with a white or yellow crayon. Draw a moon and some stars. They are hard to see, and that is OK!', ap('M120 40 A28 28 0 1 0 150 80 A22 22 0 1 1 120 40 Z') + atext(50, 60, '✦', 18) + atext(80, 110, '✦', 14) + atext(160, 140, '✦', 16) + atext(40, 150, '✦', 12)],
+    ['Paint over everything with watery dark blue paint.', paint('#22305A', ar(10, 10, 180, 180))],
+    ['Like magic, the crayon pushes the paint away! Wax and water do not mix. That is called resist.', paint('#FFD966', ap('M120 40 A28 28 0 1 0 150 80 A22 22 0 1 1 120 40 Z')) + `<g class="pt" style="fill:#FFF3C4">${atext(50, 60, '✦', 18) + atext(80, 110, '✦', 14) + atext(160, 140, '✦', 16) + atext(40, 150, '✦', 12)}</g>`],
+    ['Try it again with a secret message in white crayon for a friend to paint over.', '']] },
+  { id: 'swirls', cat: 'paint', level: 3, title: 'Swirly starry sky', ico: '🌌', steps: [
+    ['Painters like Vincent van Gogh used short, thick brush strokes you can see. First draw a low line of hills and a tall flame-shaped tree.', ap('M10 150 Q60 130 100 145 T190 140') + ap('M40 185 Q30 120 45 70 Q55 120 60 185')],
+    ['Paint the sky in curly strokes of blue, following big swirls. Every stroke goes the same way as its neighbour.', paint('#9CCBF5', ap('M10 10 H190 V140 Q145 135 100 145 Q60 130 10 150 Z')) + stroke('#2E5FB8', ap('M70 60 q20 -25 45 -5 q15 15 -5 25 q-15 5 -15 -8') + ap('M20 30 q30 -10 50 5') + ap('M130 100 q25 -20 50 0') + ap('M80 110 q20 -15 40 0') + ap('M15 70 q20 -12 40 0'))],
+    ['Add a big glowing moon and stars, each with rings of yellow strokes around it.', paint('#FFD966', ac(160, 40, 14) + ac(30, 90, 6) + ac(110, 30, 5)) + stroke('#FFC23D', ac(160, 40, 22) + ac(30, 90, 12) + ac(110, 30, 10))],
+    ['Paint the tree very dark, with strokes that go up like flames. Dark against light makes it stand out.', paint('#22305A', ap('M40 185 Q30 120 45 70 Q55 120 60 185 Z'))],
+    ['Add tiny houses with yellow windows on the hills. Leave the brush marks showing: that is the style!', ar(100, 150, 18, 14) + apg('98,150 109,141 120,150') + ar(130, 148, 18, 16) + apg('128,148 139,139 150,148') + paint('#FFC23D', ar(106, 155, 5, 5) + ar(136, 153, 5, 5))]] }
 ];
 
 const lessonById = id => LESSONS.find(l => l.id === id);

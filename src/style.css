@@ -259,3 +259,4 @@ ol.steps{margin:0;padding-left:1.4em;text-align:left;font-weight:700;font-size:1
 .wk{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:3px;height:100%;font-size:14px}
 .wk i{display:block;width:70%;min-height:3px;border-radius:6px 6px 0 0;background:var(--sun)}
 .wk span{color:var(--ink-soft);font-weight:700}
+.art-svg .sk *,.trace-svg .sk *{stroke:var(--sk)}
