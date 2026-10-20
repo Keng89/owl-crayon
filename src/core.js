@@ -272,11 +272,31 @@ function lessonView(id, thenPlay) {
   const s = MATH[id]; st.skills[id].seenLesson = true; save();
   view.innerHTML = `${crumbs(`${s.ico} ${s.name}`)}
     <div class="lesson">${s.lesson.map(([t, v], i) => `<div class="lstep"><span class="n">${i + 1}</span><p>${t}</p>${v() ? `<div class="visual">${v()}</div>` : ''}<button class="speak" data-say="${i}" aria-label="Read it">🔊</button></div>`).join('')}</div>
-    <div class="row"><button class="btn leaf" id="go">${thenPlay ? "Let's practise!" : 'Back to practice'}</button></div>`;
+    <div class="row"><button class="btn alt" id="demo">👀 Watch Owl solve one</button><button class="btn leaf" id="go">${thenPlay ? "Let's practise!" : 'Back to practice'}</button></div>
+    <div id="demoBox"></div>`;
   wireBack(() => worldView(s.world));
+  $('#demo').onclick = () => workedExample(id);
   say(`Let's learn ${s.name}. ` + s.lesson.map(x => x[0]).join(' '));
   view.querySelectorAll('[data-say]').forEach(b => b.onclick = () => say(s.lesson[+b.dataset.say][0]));
   $('#go').onclick = () => thenPlay ? go(play, id) : history.back();
+}
+
+// Owl solves an easy question out loud: question, a pause to think, the answer glows, then the method.
+function workedExample(id) {
+  let q; try { q = MATH[id].gen(1); } catch (e) { return; }
+  const box = $('#demoBox'), here = box;
+  box.innerHTML = `<div class="qcard demo"><p class="note">🦉 Owl's turn! Watch how I do it.</p><div class="prompt"><div class="ptext">${q.prompt}</div></div>${q.visual ? `<div class="visual">${q.visual}</div>` : ''}
+    <div class="choices" style="grid-template-columns:repeat(${Math.min(q.choices.length, 2)},1fr)">${q.choices.map(c => `<span class="choice${c.txt ? ' txt' : ''}${String(c.val) === String(q.answer) ? ' ans' : ''}">${c.html}</span>`).join('')}</div><div class="wdemo"></div></div>`;
+  box.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  say(`Owl's turn. ${q.speak || q.prompt} Hmm, let me think.`);
+  setTimeout(() => {
+    if (!here.isConnected) return;
+    const a = box.querySelector('.ans'); if (a) a.classList.add('right');
+    const ans = q.choices.find(c => String(c.val) === String(q.answer));
+    box.querySelector('.wdemo').innerHTML = `<div class="explain">${q.explain ? `<div class="visual">${q.explain}</div>` : ''}${q.steps ? `<ol class="steps">${q.steps.map(x => `<li>${x}</li>`).join('')}</ol>` : ''}<p>${q.explainText}</p></div><div class="row"><button class="btn leaf" id="tryNow">Now you try! ▶</button></div>`;
+    box.querySelector('#tryNow').onclick = () => go(play, id);
+    say(`The answer is ${ans ? ans.say : q.answer}. ` + (q.steps ? q.steps.join(' ') + ' ' : '') + q.explainText + ' Now you try!');
+  }, 3500);
 }
 
 let sess = null;
@@ -298,7 +318,7 @@ function question() {
   let q;
   try { q = item.review ? { ...item.review.q, choices: shuffle(item.review.q.choices) } : MATH[skill].gen(level(skill)); }
   catch (e) { q = MATH.count.gen(1); }
-  const t0 = Date.now(); let tries = 0;
+  const t0 = Date.now(); let tries = 0, hinted = false;
   view.innerHTML = `
     <div class="progress">${sess.plan.map((_, i) => `<i class="${i < sess.i ? 'done' : i === sess.i ? 'now' : ''}"></i>`).join('')}</div>
     <div class="qcard">
@@ -307,19 +327,26 @@ function question() {
       <div class="choices" style="grid-template-columns:repeat(${q.choices.some(c => String(c.html).replace(/<[^>]+>/g, '').length > 6) && q.choices.length > 2 ? 2 : q.choices.length > 4 ? 3 : q.choices.length},1fr)">${q.choices.map((c, i) => `<button class="choice${c.txt ? ' txt' : ''}" data-i="${i}"${c.say && /<svg|<span/.test(String(c.html)) ? ` aria-label="${esc(c.say)}"` : ''}>${c.html}</button>`).join('')}</div>
       <div class="cheer" id="cheer" aria-live="polite"></div>
       <div id="exp" style="width:100%"></div>
-      <div class="row"><button class="help" id="how">💡 How does this work?</button></div>
+      <div class="row"><button class="help" id="hint">🦉 Hint</button><button class="help" id="how">💡 How does this work?</button></div>
     </div>`;
   // Young children may not read word answers yet, so read them out too.
   const words = q.choices.map(c => c.say != null ? String(c.say) : String(c.val));
   const qSay = (q.speak || q.prompt) + (st.age <= 8 && words.some(w => /[a-z]/i.test(w)) && words.every(w => w.length < 40) ? ` Is it ${words.join(', or ')}?` : '');
   say(qSay);
   $('#spk').onclick = () => say(qSay);
+  // A hint takes away one wrong answer (only once, and only when 3 or more are left), so a stuck child can still win.
+  $('#hint').onclick = () => {
+    const wrong = [...view.querySelectorAll('.choice')].filter(b => !b.disabled && String(q.choices[+b.dataset.i].val) !== String(q.answer));
+    if (hinted || wrong.length < 2) { say('Look carefully at the picture and try one!'); return; }
+    hinted = true; const b = pick(wrong); b.disabled = true; b.classList.add('gone'); $('#hint').disabled = true;
+    say('Owl took away one wrong answer. Try again!');
+  };
   $('#how').onclick = () => { const s = MATH[skill]; $('#exp').innerHTML = `<div class="explain">${s.lesson.map(([t, v]) => `<p>${t}</p>${v() ? `<div class="visual">${v()}</div>` : ''}`).join('')}</div>`; say(s.lesson.map(x => x[0]).join(' ')); };
   view.querySelectorAll('.choice').forEach(b => b.onclick = () => {
     const c = q.choices[+b.dataset.i];
     if (b.disabled) return;
     if (String(c.val) === String(q.answer)) {
-      const first = tries === 0, ms = Date.now() - t0;
+      const first = tries === 0 && !hinted, ms = Date.now() - t0;
       b.classList.add('right'); view.querySelectorAll('.choice').forEach(x => x.disabled = true);
       if (first) { learn(skill, true, ms); sess.firstTries++; }
       if (item.review) { const r = item.review; r.box = first ? Math.min(r.box + 1, BOXES.length - 1) : 0; r.due = dayNum(today()) + BOXES[r.box]; if (first && r.box === BOXES.length - 1) st.review = st.review.filter(x => x !== r); }
@@ -406,19 +433,29 @@ function lessonSVG(ls, i, cls) {
   }).join('');
   return `<svg class="${cls}" viewBox="0 0 200 200" aria-hidden="true">${parts}</svg>`;
 }
+// The newest step draws itself line by line, like a teacher's pen, then colour fades in.
+function drawIn(svg) {
+  const g = svg && svg.querySelector('g.new');
+  if (!g || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const els = [...g.querySelectorAll('path,line,circle,ellipse,rect,polygon,polyline')].filter(e => !e.closest('.pt,.gd,.fold') && !e.getAttribute('stroke-dasharray') && !/dasharray/.test(e.getAttribute('style') || '') && e.getTotalLength);
+  const per = Math.max(0.25, Math.min(0.8, 2.4 / Math.max(1, els.length)));
+  let t = 0;
+  for (const e of els) { let L = 0; try { L = e.getTotalLength(); } catch (x) {} if (!L) continue; e.style.strokeDasharray = L + 1; e.style.strokeDashoffset = L + 1; e.style.animation = `drawIn ${per}s ${t.toFixed(2)}s ease-out forwards`; t += per * 0.85; }
+  g.querySelectorAll('.pt, text, .gd, .fold').forEach(e => { e.style.opacity = 0; e.style.animation = `fadeIn .5s ${t.toFixed(2)}s forwards`; });
+}
 function drawLesson(id) {
   const ls = lessonById(id); let i = 0, trace = false;
   view.innerHTML = `${crumbs(`${ls.ico} ${ls.title}`)}
     <div class="lesson-view">
       <div class="guide-card"><span class="stepno" id="sn"></span><div id="gsvg"></div><p id="gt"></p><p class="note" id="gx"></p>
-        <div class="stepnav"><button class="btn alt" id="prev">◀</button><button class="speak" id="gspk" aria-label="Read it">🔊</button><button class="btn" id="next">Next ▶</button></div></div>
+        <div class="stepnav"><button class="btn alt" id="prev">◀</button><button class="speak" id="gspk" aria-label="Read it">🔊</button><button class="speak" id="gplay" aria-label="Show me again">✏️</button><button class="btn" id="next">Next ▶</button></div></div>
       <div class="studio" id="studio"></div>
     </div>`;
   wireBack(() => catView(ls.cat));
   const pad = makePad($('#studio'), { square: true, extra: `<button class="tool" id="trace" aria-pressed="false">👻 Trace</button>${ls.tool === 'mandala' ? '<button class="tool" id="mand">🏵️ Mandala mode</button>' : ''}` });
   const render = () => {
     $('#sn').textContent = `Step ${i + 1} of ${ls.steps.length}`;
-    $('#gsvg').innerHTML = lessonSVG(ls, i, 'art-svg');
+    $('#gsvg').innerHTML = lessonSVG(ls, i, 'art-svg'); drawIn($('#gsvg svg'));
     $('#gt').textContent = ls.steps[i][0];
     $('#gx').textContent = i === 0 && ls.need ? `🧰 You need: ${ls.need}` : i === ls.steps.length - 1 && ls.tip ? `💡 Tip: ${ls.tip}` : '';
     $('#prev').disabled = i === 0; $('#prev').style.opacity = i === 0 ? .4 : 1;
@@ -440,6 +477,7 @@ function drawLesson(id) {
     $('#more').onclick = () => go(catView, ls.cat);
   };
   $('#gspk').onclick = () => say(ls.steps[i][0]);
+  $('#gplay').onclick = () => { $('#gsvg').innerHTML = lessonSVG(ls, i, 'art-svg'); drawIn($('#gsvg svg')); };
   $('#trace').onclick = e => { trace = !trace; e.currentTarget.setAttribute('aria-pressed', trace); render(); if (trace) say('Trace mode! Draw over the light lines.'); };
   if (ls.tool === 'mandala') $('#mand').onclick = () => go(freeDraw, 8);
   render();
@@ -844,7 +882,7 @@ function parent() {
 /* ---------- start ---------- */
 updateTop();
 go(profiles.length > 1 ? whoView : home);
-if (location.hash === "#selftest") window.__owl = { MATH, LESSONS, lessonSVG, PICS, get st() { return st; }, get profiles() { return profiles; }, quest, questTick, gainXP, petStage, go, home, mathHome, artHome, catView, drawLesson, gamesHome, ART_CATS };
+if (location.hash === "#selftest") window.__owl = { MATH, LESSONS, lessonSVG, PICS, get st() { return st; }, get profiles() { return profiles; }, quest, questTick, gainXP, petStage, go, home, mathHome, artHome, catView, drawLesson, gamesHome, ART_CATS, lessonView, play };
 if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) {
   try {
     // A new version installs in the background; offer a tap to switch rather than reloading mid-game.

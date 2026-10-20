@@ -196,7 +196,8 @@ ol.steps{margin:0;padding-left:1.4em;text-align:left;font-weight:700;font-size:1
 .art-svg .pt *{stroke:none;fill:inherit}
 .art-svg text{font-family:var(--display);font-weight:800}
 .art-svg .tx{stroke-width:2.5}
-.stepnav{display:flex;gap:10px;justify-content:space-between;align-items:center;flex-wrap:wrap}
+.stepnav{display:flex;gap:8px;justify-content:space-between;align-items:center}
+.stepnav #next{flex:1;max-width:220px;white-space:nowrap}.stepnav .speak{flex:none}
 .trace-svg{position:absolute;inset:0;width:100%;height:100%;opacity:.22;pointer-events:none}
 .trace-svg *{fill:none;stroke:var(--ink);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
 .trace-svg .pt *{stroke:none;fill:inherit}.trace-svg .gd *{stroke-dasharray:5 5}
@@ -833,3 +834,9 @@ ol.steps{margin:0;padding-left:1.4em;text-align:left;font-weight:700;font-size:1
 .m4pats figcaption{font-weight:800;font-size:13px;color:var(--ink-soft)}
 .m4party{flex-direction:column}
 .m4toys{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:flex-end}
+/* teaching: art steps draw themselves, Owl hints and worked examples */
+@keyframes drawIn{to{stroke-dashoffset:0}}
+@keyframes fadeIn{to{opacity:1}}
+.choice.gone{opacity:.15;transform:scale(.9)}
+.qcard.demo{margin-top:16px;outline:3px dashed var(--sun)}
+.qcard.demo .choice{cursor:default;pointer-events:none}
