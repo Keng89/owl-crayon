@@ -1,5 +1,5 @@
 /* ---------- welcome tour (once per player) and the grown-ups' "What's inside" guide ---------- */
-// The tour shows the first time a player reaches the home screen: 6 big cards, each read aloud and pointing at a real
+// The tour shows the first time a player reaches the home screen: 7 big cards, each read aloud and pointing at a real
 // home-screen tile. It is stored per player as st.tour. Automated runs (#selftest or a webdriver) skip it unless
 // window.__owlTourForce is set, so older tests can click tiles without a card in the way.
 const tour = (() => {
@@ -14,6 +14,7 @@ const tour = (() => {
       { sel: '#petBtn', ico: '🦉', title: `Hi${st.name ? ', ' + esc(st.name) : ''}! I'm Owl.`, text: egg ? `This egg is ${n}. Stars help ${n} hatch and grow!` : `This is ${n}, your owl. Stars help ${n} grow!` },
       { sel: '#tMath', ico: '🔢', title: 'Number Garden', text: 'Tap here for numbers. Count, add and play games!' },
       { sel: '#tArt', ico: '🖍️', title: 'Art School', text: 'Tap here to draw and color. I show you each step.' },
+      { sel: '#tEnglish', ico: '📚', title: 'English & Reading', text: 'Tap here to read. Hear sounds, words and stories!' },
       { sel: '#tQuest', ico: '🗺️', title: "Owl's Quest", text: 'A story trip! Help me find the lost crayons.' },
       { sel: '#tWorld', ico: '🌍', title: 'My World', text: 'Spend your stars here. Buy animals, houses and land!' },
       { sel: '.quest', ico: '🎁', title: "Today's quest", text: 'Do 3 little jobs. Then open the treasure chest!' }
@@ -117,7 +118,7 @@ const tour = (() => {
     const nl = nextLesson(), aw = WORLDS[ageWorld(st.age)];
     view.innerHTML = `${crumbs("What's inside")}
       <div class="panel"><h2>At a glance</h2>
-        <div class="wt-stats">${stat(topics, `math topics in ${WORLDS.length} worlds`)}${stat(GAMES.length, 'math games')}${stat(21, 'numbers to trace (0–20)')}${stat(LESSONS.length, 'step-by-step art lessons')}${stat(ART_CATS.length, 'kinds of art')}${stat(FIXED.coloring, 'coloring pages')}${stat(FIXED.places, 'sticker-scene places')}${stat(FIXED.shapes, 'shape puzzles')}${stat(PICS.length, 'pixel pictures')}${stat(FIXED.chapters, `story chapters of ${FIXED.stops} stops`)}${stat(KB.length, 'offline Owl answers')}${stat(BADGES.length, 'badges')}${stat(worldHome.info().items, 'things to buy in My World')}</div>
+        <div class="wt-stats">${stat(topics, `math topics in ${WORLDS.length} worlds`)}${stat(GAMES.length, 'math games')}${stat(21, 'numbers to trace (0–20)')}${stat(LESSONS.length, 'step-by-step art lessons')}${stat(ART_CATS.length, 'kinds of art')}${stat(FIXED.coloring, 'coloring pages')}${stat(FIXED.places, 'sticker-scene places')}${stat(FIXED.shapes, 'shape puzzles')}${stat(PICS.length, 'pixel pictures')}${stat(FIXED.chapters, `story chapters of ${FIXED.stops} stops`)}${stat(KB.length, 'offline Owl answers')}${stat(BADGES.length, 'badges')}${stat(worldHome.info().items, 'things to buy in My World')}${stat(englishHome.info().words, 'English words in pictures')}${stat(englishHome.info().stories, 'reading stories')}${stat(englishHome.info().games, 'reading and grammar games')}</div>
         <p class="note">Everything works offline, with no ads and no accounts. Each player has their own progress, owl and pictures.</p></div>
       <div class="panel"><h2>🔢 Number Garden (math)</h2>${li([
         `${WORLDS.map((w, i) => `${w.ico} <b>${w.name}</b> (ages ${w.ages}, ${worldSkills(i).length} topics)`).join(' · ')}.`,
@@ -127,6 +128,12 @@ const tour = (() => {
         `${LESSONS.length} drawing lessons in ${ART_CATS.length} kinds (${lv}). Each step draws itself, then your child copies it on the pad; 👻 Trace shows faint lines.`,
         `Studio: free draw, mandala mode, ${PICS.length} pixel pictures, color mixing, a coloring book of ${FIXED.coloring} pages (tap to fill, color by number) sticker scenes in ${FIXED.places} places, ${FIXED.shapes} shape puzzles (drag shapes into a picture, easy to tangram), and a flipbook to make drawings move (8 animation lessons).`,
         'Finished drawings are saved in <b>My pictures</b>.'])}</div>
+      <div class="panel"><h2>📚 English &amp; Reading</h2>${li([
+        `A reading ladder of ${englishHome.info().stages} stages (Sound Seeds 4–5, Word Builders 5–6, Sentence Explorers 6–7, Story Readers 7–8, Word Wizards 9+). Age opens the matching stage; reading stars open the next ones. Every reading star is a normal star too, so it counts for the owl, stickers and My World.`,
+        `<b>Letter sounds</b>: ${englishHome.info().sounds} sound cards (26 letters, letter pairs like sh and ch, magic e, vowel teams), a sound song, and first-sound, magic e and vowel team games. <b>Blend it</b>: ${englishHome.info().blend} words to sound out (c-a-t), each sound lights up, then you pick the picture.`,
+        `<b>Sight words</b>: the ${englishHome.info().sight} Dolch words in 5 sets with flash cards and "find the word". <b>Read</b>: word and sentence matching, silly sentences, and ${englishHome.info().stories} short stories with tap-a-word help and questions after.`,
+        `<b>Sentence builder</b> (${englishHome.info().build} sentences: word order, capital letter, end mark), <b>${englishHome.info().grammar} grammar games</b> (rhymes, opposites, nouns and verbs, plurals, a/an, in/on/under, pronouns, past tense, punctuation, contractions, synonyms, sound-alikes, word parts...), a <b>word book</b> of ${englishHome.info().words} words in ${englishHome.info().topics} topics, and <b>Say it!</b> with ${englishHome.info().sayings} everyday expressions, friendly slang and idioms explained simply.`,
+        `<b>Fun games</b>: bubble pop, Feed Munch the monster, a word treasure hunt and silly sentences. Each finished round brings out a word pal for the reading club (${englishHome.info().pals} to collect).`])}</div>
       <div class="panel"><h2>🗺️ Owl's Quest, My World, daily quest and owl</h2>${li([
         `<b>Owl's Quest</b>: a story map of ${FIXED.chapters} chapters. Each stop is a few math puzzles, a drawing, or a story choice. Finished chapters become a storybook.`,
         "<b>Today's quest</b> on the home screen: 3 small jobs a day, then a treasure chest.",
