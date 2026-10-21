@@ -28,7 +28,9 @@ const yay = () => tone([523, 659, 784]);
 const oops = () => tone([330, 262], 0.15);
 function speakable(text) {
   return String(text).replace(/<sup>(\d+)<\/sup>/g, ' to the power $1 ').replace(/<span class="frac"><i>([^<]*)<\/i><i>([^<]*)<\/i><\/span>/g, ' $1 over $2 ')
-    .replace(/<[^>]+>/g, ' ').replace(/&[a-z]+;/g, ' ').replace(/×/g, ' times ').replace(/÷/g, ' divided by ').replace(/−/g, ' minus ').replace(/²/g, ' squared ').replace(/³/g, ' cubed ')
+    .replace(/<[^>]+>/g, ' ').replace(/&lt;=|≤/g, ' is less than or equal to ').replace(/&gt;=|≥/g, ' is greater than or equal to ').replace(/&lt;/g, ' is less than ').replace(/&gt;/g, ' is greater than ')
+    .replace(/≠/g, ' is not equal to ').replace(/≈/g, ' about ').replace(/\$(\d+)\.(\d\d)\b/g, '$1 dollars and $2 cents').replace(/\$(\d+)/g, '$1 dollars').replace(/(\d)\s*¢/g, '$1 cents')
+    .replace(/(\d) r (\d)/g, '$1 remainder $2').replace(/(\d) : (\d)/g, '$1 to $2').replace(/&[a-z]+;/g, ' ').replace(/×/g, ' times ').replace(/÷/g, ' divided by ').replace(/−/g, ' minus ').replace(/²/g, ' squared ').replace(/³/g, ' cubed ')
     .replace(/√/g, ' square root of ').replace(/%/g, ' percent').replace(/°/g, ' degrees').replace(/(^|[\s=(+-])\?(?=[\s=)]|$)/g, '$1 what ').replace(/[^\w\s.,!?'+=:-]/g, ' ').replace(/\s+/g, ' ');
 }
 function say(text) {
@@ -882,7 +884,7 @@ function parent() {
 /* ---------- start ---------- */
 updateTop();
 go(profiles.length > 1 ? whoView : home);
-if (location.hash === "#selftest") window.__owl = { MATH, LESSONS, lessonSVG, PICS, get st() { return st; }, get profiles() { return profiles; }, quest, questTick, gainXP, petStage, go, home, mathHome, artHome, catView, drawLesson, gamesHome, ART_CATS, lessonView, play };
+if (location.hash === "#selftest") window.__owl = { MATH, LESSONS, lessonSVG, PICS, get st() { return st; }, get profiles() { return profiles; }, quest, questTick, gainXP, petStage, go, home, mathHome, artHome, catView, drawLesson, gamesHome, ART_CATS, lessonView, play, speakable };
 if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) {
   try {
     // A new version installs in the background; offer a tap to switch rather than reloading mid-game.

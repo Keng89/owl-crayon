@@ -17,3 +17,4 @@ Serve the app first: `python3 -m http.server 8766` from the repo root. Then run 
 - `t19.js`: plays the 7 newer math games (fishing, pizza, feeding, rocket, target, bee hive, treasure map) the same way, and checks 300 questions per level.
 - `t20.js`: plays the third set of 7 math games (snakes & ladders, bakery, parking, hungry monster, bubbles, sticker sort, number detective) the same way.
 - `t21.js`: art steps draw themselves and replay, Owl's worked example on math lessons, and the Owl hint removes one wrong answer.
+- `t22.js`: read-aloud text says signs, money, remainders and ratios as words.
