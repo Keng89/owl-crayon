@@ -1075,6 +1075,39 @@ ol.steps{margin:0;padding-left:1.4em;text-align:left;font-weight:700;font-size:1
 @keyframes cbWig{25%{transform:translateX(-3px)}75%{transform:translateX(3px)}}
 @media (prefers-reduced-motion:reduce){.cb-pop,.cb-flash,.cb-wig{animation:none}}
 @media (max-width:520px){.sq-dots{order:5;width:100%;justify-content:center}.sq-task p{font-size:19px}}
+/* welcome tour */
+.wt{position:fixed;inset:0;z-index:70}
+.wt-shade{position:absolute;inset:0;touch-action:none}
+.wt.wt-dim .wt-shade{background:rgba(34,48,90,.62)}
+.wt-spot{position:fixed;border-radius:30px;box-shadow:0 0 0 6px var(--sun),0 0 0 200vmax rgba(34,48,90,.62);pointer-events:none;transition:left .3s ease,top .3s ease,width .3s ease,height .3s ease;animation:wtRing 1.4s ease-in-out infinite}
+.wt-card{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);width:min(580px,calc(100vw - 32px));max-height:calc(100vh - 32px);overflow:auto;background:var(--paper);border-radius:30px;padding:18px 20px;box-shadow:0 8px 0 rgba(0,0,0,.18),0 18px 40px rgba(0,0,0,.25);display:flex;flex-direction:column;gap:12px;animation:wtIn .3s ease-out}
+.wt.wt-top .wt-card{bottom:auto;top:calc(16px + env(safe-area-inset-top,0px))}
+.wt.wt-dim .wt-card{bottom:50%;transform:translate(-50%,50%)}
+.wt-head{display:flex;align-items:center;gap:14px}
+.wt-owl{font-size:62px;line-height:1;flex:none;animation:wtBob 2s ease-in-out infinite}
+.wt-head h2{font-size:clamp(26px,6vw,34px)}
+.wt-text{margin:6px 0 0;font-size:clamp(20px,5vw,24px);font-weight:800;line-height:1.3}
+.wt-dots{display:flex;gap:8px;justify-content:center}
+.wt-dots i{width:14px;height:14px;border-radius:50%;background:var(--line)}
+.wt-dots i.done{background:var(--leaf)}.wt-dots i.on{background:var(--sun);transform:scale(1.25)}
+.wt-nav{display:flex;gap:10px;align-items:stretch}
+.wt-nav button{white-space:nowrap;border-radius:20px;font-family:var(--display);font-weight:800;font-size:24px;min-height:64px;padding:8px 16px}
+.wt-skip{background:var(--bg);color:var(--ink);box-shadow:0 5px 0 var(--line);flex:1}
+.wt-say{background:var(--sky-soft);flex:none;width:64px;font-size:28px!important;padding:0!important}
+.wt-next{background:var(--leaf);color:#fff;box-shadow:0 5px 0 #1D7A4E;flex:1.6}
+.wt-nav button:active{transform:translateY(3px)}
+@keyframes wtRing{50%{box-shadow:0 0 0 12px var(--sun),0 0 0 200vmax rgba(34,48,90,.62)}}
+@keyframes wtIn{from{opacity:0}}
+@keyframes wtBob{50%{transform:translateY(-6px)}}
+@media (max-width:400px){.wt-card{padding:14px}.wt-owl{font-size:48px}.wt-nav button{font-size:21px;padding:8px 10px}}
+@media (prefers-reduced-motion:reduce){.wt-spot,.wt-owl,.wt-card{animation:none}.wt-spot{transition:none}}
+.wt-stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
+.wt-stat{background:var(--bg);border-radius:18px;padding:10px 12px;display:flex;flex-direction:column;min-width:0}
+.wt-stat b{font-family:var(--display);font-size:30px;line-height:1.1;color:var(--leaf)}
+.wt-stat span{font-size:14px;font-weight:700;color:var(--ink-soft)}
+.wt-list{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:8px;font-size:16px;line-height:1.45;max-width:75ch;overflow-wrap:anywhere}
+.wt-tips{background:var(--sun-soft);box-shadow:0 4px 0 var(--sun)}
+.wt-gp{background:var(--sky-soft);box-shadow:0 4px 0 #9CC6EE}
 </style>
 
 </head><body>
@@ -9682,6 +9715,7 @@ function home() {
   $('#tQuest').onclick = () => go(storyHome);
   $('#parent').onclick = () => go(gate);
   $('#pick').onclick = () => p.kind === 'review' ? go(play, 'review') : p.kind === 'lesson' ? go(drawLesson, p.id) : go(startSkill, p.skill);
+  tour.maybe();
 }
 
 /* ---------- Number Garden ---------- */
@@ -10269,6 +10303,7 @@ function parent() {
     return `<tr><td>${s.ico} ${s.name}</td><td>${level(k)} / 5</td><td><div class="bar"><i style="width:${Math.round(x.m * 100)}%"></i></div></td><td>${a == null ? '–' : Math.round(a * 100) + '%'}</td><td>${x.ms ? (x.ms / 1000).toFixed(1) + 's' : '–'}</td><td>${x.seen}</td></tr>`; }).join('')).join('');
   const artDone = [1, 2, 3].map(lv => `${LEVEL_NAMES[lv]}: ${LESSONS.filter(l => l.level === lv && st.art.done[l.id]).length} of ${LESSONS.filter(l => l.level === lv).length}`).join(' · ');
   view.innerHTML = `<h1 style="font-size:36px">Grown-ups corner</h1><p class="note">Showing ${profileOf(pid).avatar} ${esc(st.name || 'Player')}. Switch players under Players below.</p>
+    ${tour.panel()}
     ${weekPanel()}
     <div class="panel"><h2>Math progress</h2><p class="note">Each topic has 5 levels. It gets harder after answers that are right on the first try, and easier after mistakes. Missed questions come back for review after 1, 2, 4, 8 and 16 days. ${st.review.length} questions are in review, ${dueReviews().length} due today. A new world opens when your child reaches 50% in the world before it.</p>
       <div class="wide"><table class="ptable"><thead><tr><th>Topic</th><th>Level</th><th>Mastery</th><th>Right first try (last 20)</th><th>Avg time</th><th>Answered</th></tr></thead><tbody>${rows}</tbody></table></div></div>
@@ -10295,12 +10330,12 @@ function parent() {
       <p class="note">Owl &amp; Crayon works without the internet. Progress, drawings and Owl's answers are saved only in this browser on this device. There are no ads, no tracking and no accounts, and nothing is sent anywhere unless you switch on Online Owl.</p>
       <p class="note">With Online Owl on, only the question your child asks and their age go to your Online Owl server, which asks an AI (Cloudflare's free AI, or Claude by Anthropic) for a short, child-friendly answer. Names and progress are never sent. You can read every answer above, and turn it off at any time.</p>
       <p class="note">The microphone button uses the browser's own speech recognition, which may send the recording to the browser maker (for example Google or Apple) to turn it into text. Typing works without it.</p>
-      <p class="note">Version 2026-10-21 05:40 UTC</p></div>`;
+      <p class="note">Version 2026-10-21 06:42 UTC</p></div>`;
   view.querySelectorAll('[data-teach]').forEach(b => b.onclick = () => {
     const i = +b.dataset.teach, ans = $('#t' + i).value.trim(); if (!ans) return;
     owlForget(st.owlMisses[i].q); st.owlTaught.push({ q: st.owlMisses[i].q, a: ans }); st.owlMisses.splice(i, 1); save(); go(parent);
   });
-  wirePlayers();
+  wirePlayers(); tour.wire();
   $('#oSave').onclick = () => {
     const cfg = { url: $('#ou').value.trim(), code: $('#oc').value.trim(), on: $('#oo').checked }, m = $('#om');
     if (cfg.url && !/^https:\/\//.test(cfg.url)) { m.textContent = 'The address must start with https://'; return; }
@@ -13219,6 +13254,170 @@ const sceneHome = (() => {
     return t.toDataURL('image/jpeg', 0.75);
   }
   return sceneHome;
+})();
+/* ---------- welcome tour (once per player) and the grown-ups' "What's inside" guide ---------- */
+// The tour shows the first time a player reaches the home screen: 5 big cards, each read aloud and pointing at a real
+// home-screen tile. It is stored per player as st.tour. Automated runs (#selftest or a webdriver) skip it unless
+// window.__owlTourForce is set, so older tests can click tiles without a card in the way.
+const tour = (() => {
+  // Data that lives inside other modules' closures; t26.js checks these against the real data.
+  const FIXED = { coloring: 26, places: 15, chapters: 3, stops: 9 };
+  const auto = () => window.__owlTourForce || !(location.hash === '#selftest' || navigator.webdriver);
+  let cur = null; // { root, i, steps, off }
+
+  function steps() {
+    const n = esc(st.pet.name), egg = petStage(st.pet.xp) === 0;
+    return [
+      { sel: '#petBtn', ico: '🦉', title: `Hi${st.name ? ', ' + esc(st.name) : ''}! I'm Owl.`, text: egg ? `This egg is ${n}. Stars help ${n} hatch and grow!` : `This is ${n}, your owl. Stars help ${n} grow!` },
+      { sel: '#tMath', ico: '🔢', title: 'Number Garden', text: 'Tap here for numbers. Count, add and play games!' },
+      { sel: '#tArt', ico: '🖍️', title: 'Art School', text: 'Tap here to draw and color. I show you each step.' },
+      { sel: '#tQuest', ico: '🗺️', title: "Owl's Quest", text: 'A story trip! Help me find the lost crayons.' },
+      { sel: '.quest', ico: '🎁', title: "Today's quest", text: 'Do 3 little jobs. Then open the treasure chest!' }
+    ];
+  }
+
+  function maybe() {
+    if (st.tour || cur || !auto()) return;
+    setTimeout(() => { if (!st.tour && !cur && document.getElementById('tMath')) start(); }, 250);
+  }
+
+  function start() {
+    close();
+    if (!document.getElementById('tMath')) return;
+    const root = document.createElement('div');
+    root.className = 'wt'; root.setAttribute('role', 'dialog'); root.setAttribute('aria-modal', 'true'); root.setAttribute('aria-labelledby', 'wtTitle');
+    root.innerHTML = `<div class="wt-shade"></div><div class="wt-spot" aria-hidden="true"></div>
+      <div class="wt-card"><div class="wt-head"><span class="wt-owl" aria-hidden="true"></span><div><h2 id="wtTitle"></h2><p class="wt-text"></p></div></div>
+        <div class="wt-dots" aria-hidden="true"></div>
+        <div class="wt-nav"><button class="wt-skip" id="wtSkip">Skip</button><button class="wt-say" id="wtSay" aria-label="Say it again">🔊</button><button class="wt-next" id="wtNext">Next ▶</button></div></div>`;
+    document.body.appendChild(root);
+    const onKey = e => { if (e.key === 'Escape') finish('skip'); };
+    const onMove = () => place(false), onSize = () => place(true);
+    addEventListener('keydown', onKey); addEventListener('scroll', onMove, { passive: true }); addEventListener('resize', onSize);
+    cur = { root, i: 0, steps: steps(), off: () => { removeEventListener('keydown', onKey); removeEventListener('scroll', onMove); removeEventListener('resize', onSize); } };
+    root.querySelector('#wtSkip').onclick = () => finish('skip');
+    root.querySelector('#wtSay').onclick = () => speak();
+    root.querySelector('#wtNext').onclick = () => { if (!cur) return; if (cur.i < cur.steps.length - 1) { cur.i++; tone([600]); show(); } else finish('done'); };
+    show();
+  }
+
+  function speak() { if (cur) { const s = cur.steps[cur.i]; say(`${s.title} ${s.text}`); } }
+
+  function show() {
+    const { root, i, steps: ss } = cur, s = ss[i];
+    root.querySelector('.wt-owl').textContent = s.ico;
+    root.querySelector('#wtTitle').innerHTML = s.title;
+    root.querySelector('.wt-text').innerHTML = s.text;
+    root.querySelector('.wt-dots').innerHTML = ss.map((_, k) => `<i class="${k === i ? 'on' : k < i ? 'done' : ''}"></i>`).join('');
+    root.querySelector('#wtNext').textContent = i === ss.length - 1 ? "Let's play! 🎉" : 'Next ▶';
+    root.dataset.step = i;
+    place(true);
+    try { root.querySelector('#wtNext').focus({ preventScroll: true }); } catch (e) {}
+    speak();
+  }
+
+  // Scroll the tile into the part of the screen the card does not cover, then ring it with the spotlight.
+  function place(scroll) {
+    if (!cur) return;
+    const { root } = cur, card = root.querySelector('.wt-card'), spot = root.querySelector('.wt-spot');
+    const t = view.querySelector(cur.steps[cur.i].sel);
+    if (!document.getElementById('tMath')) { close(); return; } // the home screen went away
+    if (!t) { spot.hidden = true; root.classList.add('wt-dim'); root.classList.remove('wt-top'); return; }
+    spot.hidden = false; root.classList.remove('wt-dim');
+    const H = innerHeight, ch = card.offsetHeight + 24;
+    if (scroll) {
+      root.classList.remove('wt-top');
+      const r = t.getBoundingClientRect(), room = H - ch;
+      const y = r.height + 24 > room ? r.top - 12 : r.top + r.height / 2 - room / 2;
+      scrollTo(0, Math.max(0, scrollY + y));
+    }
+    const r = t.getBoundingClientRect(), pad = 8;
+    if (scroll) root.classList.toggle('wt-top', r.bottom + pad > H - ch && r.top - pad > ch);
+    Object.assign(spot.style, { left: r.left - pad + 'px', top: r.top - pad + 'px', width: r.width + pad * 2 + 'px', height: r.height + pad * 2 + 'px' });
+  }
+
+  function close() {
+    if (!cur) return;
+    cur.off(); cur.root.remove(); cur = null;
+    try { speechSynthesis.cancel(); } catch (e) {}
+  }
+  function finish(how) {
+    if (!cur) return;
+    close();
+    st.tour = { at: today(), how }; save();
+    if (how === 'done') { yay(); say("Let's play! Tap a picture to start."); }
+  }
+
+  function replay() { go(home); setTimeout(start, 60); }
+
+  /* --- Grown-ups corner --- */
+  const panel = () => `<div class="panel wt-gp"><h2>📖 New here?</h2><p class="note">A short guide to everything in the app, how levels work, and tips for a first session.</p>
+    <div class="row" style="justify-content:flex-start"><button class="btn" id="wtInside">What's inside</button><button class="btn alt" id="wtReplay">🦉 Replay welcome tour</button></div></div>`;
+  function wire() {
+    const a = $('#wtInside'), b = $('#wtReplay');
+    if (a) a.onclick = () => go(inside);
+    if (b) b.onclick = replay;
+  }
+
+  const stat = (n, label) => `<div class="wt-stat"><b>${n}</b><span>${label}</span></div>`;
+  const li = a => `<ul class="wt-list">${a.map(x => `<li>${x}</li>`).join('')}</ul>`;
+  function ageBands() {
+    const out = [];
+    for (let a = 3; a <= 16; a++) { const w = ageWorld(a), last = out[out.length - 1]; if (last && last.w === w) last.to = a; else out.push({ w, from: a, to: a }); }
+    return out.map(b => `${b.from === b.to ? b.from : b.to === 16 ? b.from + '+' : b.from + '–' + b.to}: ${WORLDS[b.w].ico} ${WORLDS[b.w].name}`);
+  }
+  function inside() {
+    const topics = Object.keys(MATH).length, nm = esc(st.name || 'your child');
+    const lv = [1, 2, 3].map(l => `${LESSONS.filter(x => x.level === l).length} ${LEVEL_NAMES[l]}`).join(', ');
+    const firstGames = GAMES.slice(0, 2).map(g => `${g.ico} ${g.name}`).join(' or ');
+    const nl = nextLesson(), aw = WORLDS[ageWorld(st.age)];
+    view.innerHTML = `${crumbs("What's inside")}
+      <div class="panel"><h2>At a glance</h2>
+        <div class="wt-stats">${stat(topics, `math topics in ${WORLDS.length} worlds`)}${stat(GAMES.length, 'math games')}${stat(21, 'numbers to trace (0–20)')}${stat(LESSONS.length, 'step-by-step art lessons')}${stat(ART_CATS.length, 'kinds of art')}${stat(FIXED.coloring, 'coloring pages')}${stat(FIXED.places, 'sticker-scene places')}${stat(PICS.length, 'pixel pictures')}${stat(FIXED.chapters, `story chapters of ${FIXED.stops} stops`)}${stat(KB.length, 'offline Owl answers')}${stat(BADGES.length, 'badges')}</div>
+        <p class="note">Everything works offline, with no ads and no accounts. Each player has their own progress, owl and pictures.</p></div>
+      <div class="panel"><h2>🔢 Number Garden (math)</h2>${li([
+        `${WORLDS.map((w, i) => `${w.ico} <b>${w.name}</b> (ages ${w.ages}, ${worldSkills(i).length} topics)`).join(' · ')}.`,
+        'Each topic starts with a short lesson Owl reads aloud, then a round of 6–8 questions. 🦉 Hint removes a wrong answer; 💡 shows the method.',
+        `<b>Write numbers</b>: trace 0–20 with a finger. <b>Math games</b>: ${GAMES.map(g => g.name).join(', ')}.`])}</div>
+      <div class="panel"><h2>🖍️ Art School</h2>${li([
+        `${LESSONS.length} drawing lessons in ${ART_CATS.length} kinds (${lv}). Each step draws itself, then your child copies it on the pad; 👻 Trace shows faint lines.`,
+        `Studio: free draw, mandala mode, ${PICS.length} pixel pictures, color mixing, a coloring book of ${FIXED.coloring} pages (tap to fill, color by number) and sticker scenes in ${FIXED.places} places.`,
+        'Finished drawings are saved in <b>My pictures</b>.'])}</div>
+      <div class="panel"><h2>🗺️ Owl's Quest, daily quest and owl</h2>${li([
+        `<b>Owl's Quest</b>: a story map of ${FIXED.chapters} chapters. Each stop is a few math puzzles, a drawing, or a story choice. Finished chapters become a storybook.`,
+        "<b>Today's quest</b> on the home screen: 3 small jobs a day, then a treasure chest.",
+        `<b>Owl pet</b>: stars help ${esc(st.pet.name)} hatch and grow and unlock outfits. Every 10 stars gives a sticker; ${BADGES.length} badges mark milestones.`,
+        '<b>Ask Owl</b>: offline answers to common questions. Questions it can\'t answer appear in Teach Owl. Online Owl is optional and off by default.'])}</div>
+      <div class="panel"><h2>🎚️ Levels and age</h2>${li([
+        `Age sets the starting math world: ${ageBands().join(' · ')}. Earlier worlds count as partly learned, and the next world is open too.`,
+        'Any other world opens when the one before it reaches 50%. Each topic has 5 levels.',
+        'Art: Explorer lessons open after 3 Beginner lessons (or at age 8+), Master after 3 Explorer (or 10+). Games start at your child\'s age and step up after 3 right in a row.',
+        `Change age, name, read-aloud, or "Open every world" under <b>Settings</b> in the Grown-ups corner. ${nm} is set to age ${st.age}, starting in ${aw.ico} ${aw.name}.`])}</div>
+      <div class="panel"><h2>🧠 How Owl learns your child</h2>${li([
+        'Every topic has a mastery score. A right answer on the first try raises it (more when quick); a mistake lowers it. The level follows the score.',
+        'After a mistake Owl explains the answer right away, and the question goes into review.',
+        `Missed questions come back after ${BOXES.join(', ')} days. Answered right each time, they leave the review list.`,
+        'The yellow suggestion on the home screen picks a review, an art lesson, or the topic that is "just right" (not too easy, not too hard).'])}</div>
+      <div class="panel"><h2>📊 Progress and backup</h2>${li([
+        'In the Grown-ups corner: <b>This week</b> (days played, stars, first-try %), <b>Math progress</b> per topic, <b>Art progress</b>, <b>Teach Owl</b>.',
+        'Progress is saved only on this device. Use <b>Backup</b> (under Players) to save a file now and then, and to restore it on a new device.'])}</div>
+      <div class="panel wt-tips"><h2>⏱️ A first 15 minutes with a 5-year-old</h2>
+        <ol class="wt-list">
+          <li><b>0–2 min:</b> Sit together, sound up. Let your child do the tapping. Watch Owl's welcome tour (you can replay it).</li>
+          <li><b>2–6 min:</b> Number Garden → ${WORLDS[0].ico} ${WORLDS[0].name} → the topic marked "Try this". Let mistakes happen; Owl shows how.</li>
+          <li><b>6–9 min:</b> Math games → ${firstGames}.</li>
+          <li><b>9–14 min:</b> Art School → ${nl ? `"Next lesson: ${esc(nl.title)}"` : 'a Beginner lesson'}, drawing along step by step. Coloring book is a good switch if hands get tired.</li>
+          <li><b>14–15 min:</b> Back home: look at the stars and the owl egg. Stop while it is still fun. Tomorrow brings a new daily quest.</li>
+        </ol>
+        <p class="note">Tips: the 🔊 button at the top reads any screen again. No voice? Check the volume and "Read everything aloud" in Settings. Short daily visits work better than long ones.</p></div>
+      <div class="row" style="justify-content:flex-start"><button class="btn" id="wtBack">Back to Grown-ups corner</button><button class="btn alt" id="wtReplay">🦉 Replay welcome tour</button></div>`;
+    wireBack(parent);
+    $('#wtBack').onclick = () => go(parent);
+    $('#wtReplay').onclick = replay;
+  }
+
+  if (location.hash === '#selftest') window.__tour = { FIXED, start, replay, inside, steps, get open() { return !!cur; }, get step() { return cur ? cur.i : -1; } };
+  return { maybe, start, panel, wire, inside };
 })();
 
 /* ---------- start ---------- */

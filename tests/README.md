@@ -21,3 +21,4 @@ Serve the app first: `python3 -m http.server 8766` from the repo root. Then run 
 - `t23.js`: plays all 3 Owl's Quest chapters at ages 5 and 9 (story riddles, map resize) on phone and tablet: math stops, drawing stops, story choices, stars, storybook and saved progress.
 - `t24.js`: fills every shape on all 26 coloring pages, color-by-number right and wrong, Magic help, undo, save and reload.
 - `t25.js`: sticker scenes: all 15 places, dragging by mouse and touch, edit buttons, crayon, story box, save, and every counting game.
+- `t26.js`: welcome tour for new players (steps, skip, once per player, replay) and the "What's inside" page for grown-ups.
