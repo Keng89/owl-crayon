@@ -52,7 +52,7 @@ function writeView(n) {
     if (!inked) { say('Trace the grey number with your finger first!'); return; }
     const res = writeScore(cv, guide, len, W, H);
     if (res.cover >= 0.75 && res.stray <= 0.4) {
-      const first = !st.write.done[n]; st.write.done[n] = today(); save();
+      $('#wdone').disabled = true; const first = !st.write.done[n]; st.write.done[n] = today(); save();
       questTick('math'); addStars(first ? 2 : 1); yay(); confetti(25);
       $('#wmsg').textContent = `Beautiful ${n}! ${first ? '⭐⭐' : '⭐'}`; say(`Beautiful! You wrote ${n}!`);
       const here = $('#wdone'); setTimeout(() => { if ($('#wdone') !== here) return; const next = n < 20 && writeOpen(n + 1) ? n + 1 : null; next != null ? go(writeView, next) : go(writeHome); }, 2200);
