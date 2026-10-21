@@ -143,6 +143,7 @@ const GEN = {
 //@include art9.js
 //@include art10.js
 //@include art11.js
+//@include brushes.js
 
 /* ---------- state ---------- */
 const STICKERS = ['🦄','🐢','🚀','🌈','🐙','🦖','🍩','🐝','🎨','🦊','🐳','🌻','🏰','🐼','⚽','🎸','🦋','🍉','🐧','👑','🦁','🐬','🍄','🎃','🛸','🐉','🍭','🦒','⛵','🎠'];
@@ -404,7 +405,7 @@ function stopCanvas() { if (canvasCleanup) { canvasCleanup(); canvasCleanup = nu
 const ART_GROUPS = [
   { id: 'draw', ico: '✏️', name: 'Things to draw' },
   { id: 'make', ico: '✂️', name: 'Ways to make art', ids: ['paint', 'craft', 'print', 'clay', 'origami', 'naturalart', 'string', 'silhouette', 'doodle', 'comics', 'styles', 'world', 'masks', 'cards', 'mixed', 'chalk', 'mosaic'] },
-  { id: 'skill', ico: '🎓', name: 'Art skills', ids: ['perspective', 'shading', 'color', 'pattern', 'letters', 'life'] }
+  { id: 'skill', ico: '🎓', name: 'Art skills', ids: ['perspective', 'shading', 'color', 'pattern', 'letters', 'life', 'brushes'] }
 ];
 const artGroup = id => (ART_GROUPS.find(g => g.ids && g.ids.includes(id)) || ART_GROUPS[0]).id;
 function artHome() {
@@ -472,7 +473,7 @@ function drawLesson(id) {
       <div class="studio" id="studio"></div>
     </div>`;
   wireBack(() => catView(ls.cat));
-  const pad = makePad($('#studio'), { square: true, extra: `<button class="tool" id="trace" aria-pressed="false">👻 Trace</button>${ls.tool === 'mandala' ? '<button class="tool" id="mand">🏵️ Mandala mode</button>' : ''}` });
+  const pad = makePad($('#studio'), { square: true, brush: ls.brush, paper: ls.paper, extra: `<button class="tool" id="trace" aria-pressed="false">👻 Trace</button>${ls.tool === 'mandala' ? '<button class="tool" id="mand">🏵️ Mandala mode</button>' : ''}` });
   const render = () => {
     $('#sn').textContent = `Step ${i + 1} of ${ls.steps.length}`;
     $('#gsvg').innerHTML = lessonSVG(ls, i, 'art-svg'); drawIn($('#gsvg svg'));
@@ -481,6 +482,7 @@ function drawLesson(id) {
     $('#prev').disabled = i === 0; $('#prev').style.opacity = i === 0 ? .4 : 1;
     $('#next').textContent = i === ls.steps.length - 1 ? 'I finished! 🎉' : 'Next ▶';
     pad.setTrace(trace ? lessonSVG(ls, i, 'trace-svg') : '');
+    const o = ls.steps[i][2]; if (o && o.brush) pad.setBrush(o.brush); // a brush-technique step picks its brush
     say(ls.steps[i][0]);
   };
   $('#prev').onclick = () => { if (i > 0) { i--; render(); } };
@@ -515,9 +517,12 @@ function freeDraw(sym = 0) {
   if (!sym) $('#inew').onclick = () => { idea = pick(IDEAS.filter(x => x !== idea)); $('#idea').textContent = idea; say(idea); };
   void pad;
 }
-// A drawing pad: transparent canvas over a white card, with optional trace layer and symmetry.
-function makePad(el, { square = false, sym = 0, extra = '' } = {}) {
-  el.innerHTML = `<div class="canvas-wrap${square ? ' sq' : ''}" id="cw"><div id="tr"></div><canvas id="cv" role="img" aria-label="Drawing pad: draw here with your finger"></canvas><div class="mirror-line" id="ml" hidden></div></div>
+// A drawing pad: transparent canvas over a paper card, with optional trace layer and symmetry, and real-media brushes
+// (src/brushes.js). brush / paper preselect a brush and paper (art lessons about brush techniques).
+function makePad(el, { square = false, sym = 0, extra = '', brush = 'round', paper = 'plain' } = {}) {
+  el.innerHTML = `<div class="tools brush-row" role="group" aria-label="Brushes">${BRUSHES.LIST.map(b => `<button class="tool br" data-b="${b.id}" aria-label="${b.name}" aria-pressed="false"><span class="bico">${b.ico}</span><span class="bnm">${b.name}</span></button>`).join('')}<button class="tool br paper-b" id="ppr" aria-label="Paper"></button></div>
+    <div class="tools brush-row stamp-row" role="group" aria-label="Stamp shapes" hidden>${BRUSHES.STAMPS.map(([id, ico, nm]) => `<button class="tool" data-st="${id}" aria-label="${nm} stamp" aria-pressed="${id === 'star'}">${ico}</button>`).join('')}</div>
+    <div class="canvas-wrap${square ? ' sq' : ''}" id="cw"><div id="tr"></div><canvas id="cv" role="img" aria-label="Drawing pad: draw here with your finger"></canvas><canvas id="wet" aria-hidden="true"></canvas><div class="mirror-line" id="ml" hidden></div></div>
     <div class="tools">${PAINT.map((c, i) => `<button class="sw" style="background:${c};${c === '#FFFFFF' ? 'box-shadow:inset 0 0 0 2px var(--line)' : ''}" data-c="${c}" aria-label="${PAINT_NAMES[i]}" aria-pressed="${i === 0}"></button>`).join('')}</div>
     <div class="tools">
       <button class="tool size" data-z="5" aria-label="thin"><i style="width:6px;height:6px"></i></button>
@@ -529,16 +534,17 @@ function makePad(el, { square = false, sym = 0, extra = '' } = {}) {
       <button class="tool" id="und">↩️ Undo</button>
       <button class="tool" id="clr">🗑️ Clear</button>
       <button class="tool" id="sav" style="background:var(--leaf-deep);color:#fff">💾 Save</button></div>`;
-  const cw = el.querySelector('#cw'), cv = el.querySelector('#cv'), ctx = cv.getContext('2d');
-  let color = PAINT[0], size = 12, eraser = false, drawing = false, last = null, dirty = false, unsaved = false; const undo = [];
+  const cw = el.querySelector('#cw'), cv = el.querySelector('#cv'), wet = el.querySelector('#wet'), ctx = cv.getContext('2d'), eng = BRUSHES.engine(cv, wet);
+  let color = PAINT[0], size = 12, eraser = false, drawing = false, dirty = false, unsaved = false, paperId = 'plain'; const undo = [];
   const W = () => cw.getBoundingClientRect();
   function fit() {
+    eng.settle();
     const r = W(), dpr = window.devicePixelRatio || 1, old = dirty ? cv.toDataURL() : null;
-    cv.width = Math.max(1, r.width * dpr); cv.height = Math.max(1, r.height * dpr); ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    cv.width = wet.width = Math.max(1, r.width * dpr); cv.height = wet.height = Math.max(1, r.height * dpr); ctx.setTransform(dpr, 0, 0, dpr, 0, 0); wet.getContext('2d').setTransform(dpr, 0, 0, dpr, 0, 0);
     if (old) { const im = new Image(); im.onload = () => ctx.drawImage(im, 0, 0, r.width, r.height); im.src = old; }
   }
   fit(); const ro = new ResizeObserver(() => fit()); ro.observe(cw);
-  canvasCleanup = () => ro.disconnect();
+  canvasCleanup = () => { ro.disconnect(); eng.cancel(); };
   const pos = e => { const r = cv.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; };
   function copies(p) {
     const r = W(), cx = r.width / 2, cy = r.height / 2, out = [p];
@@ -546,36 +552,53 @@ function makePad(el, { square = false, sym = 0, extra = '' } = {}) {
     else if (sym > 2) for (let k = 1; k < sym; k++) { const a = k * 2 * Math.PI / sym, dx = p[0] - cx, dy = p[1] - cy; out.push([cx + dx * Math.cos(a) - dy * Math.sin(a), cy + dx * Math.sin(a) + dy * Math.cos(a)]); }
     return out;
   }
-  function seg(a, b) {
-    ctx.globalCompositeOperation = eraser ? 'destination-out' : 'source-over';
-    ctx.strokeStyle = color; ctx.lineWidth = eraser ? size * 2 : size; ctx.lineCap = ctx.lineJoin = 'round';
-    const A = copies(a), B = copies(b);
-    A.forEach((p, k) => { ctx.beginPath(); ctx.moveTo(p[0], p[1]); ctx.lineTo(B[k][0], B[k][1]); ctx.stroke(); });
-    ctx.globalCompositeOperation = 'source-over';
-  }
+  // How each mirror copy is flipped or turned, so a direction-aware brush (ink nib, stamps) mirrors too.
+  const xforms = () => sym === 2 ? [{ m: 0, a: 0 }, { m: 1, a: 0 }] : Array.from({ length: Math.max(1, sym) }, (_, k) => ({ m: 0, a: k * 2 * Math.PI / Math.max(1, sym) }));
   function restore(src) { const r = W(); ctx.clearRect(0, 0, r.width, r.height); if (!src) return; const im = new Image(); im.onload = () => ctx.drawImage(im, 0, 0, r.width, r.height); im.src = src; }
-  cv.onpointerdown = e => { drawing = true; dirty = unsaved = true; try { cv.setPointerCapture(e.pointerId); } catch (x) {} undo.push(cv.toDataURL()); if (undo.length > 15) undo.shift(); last = pos(e); seg(last, last); };
-  cv.onpointermove = e => { if (!drawing) return; const p = pos(e); seg(last, p); last = p; };
-  cv.onpointerup = cv.onpointercancel = () => { drawing = false; };
+  cv.onpointerdown = e => { eng.settle(); drawing = true; dirty = unsaved = true; try { cv.setPointerCapture(e.pointerId); } catch (x) {} undo.push(cv.toDataURL()); if (undo.length > 15) undo.shift(); eng.down(copies(pos(e)), xforms(), { color, size, eraser }); };
+  cv.onpointermove = e => { if (!drawing) return; const evs = e.getCoalescedEvents ? e.getCoalescedEvents() : []; for (const ev of evs.length ? evs : [e]) eng.move(copies(pos(ev))); };
+  cv.onpointerup = cv.onpointercancel = () => { if (!drawing) return; drawing = false; eng.up(); };
   const setSym = n => { sym = n; el.querySelector('#ml').hidden = sym !== 2; el.querySelectorAll('[data-sym]').forEach(x => x.setAttribute('aria-pressed', +x.dataset.sym === n)); };
   setSym(sym);
-  el.querySelectorAll('.sw').forEach(b => b.onclick = () => { color = b.dataset.c; eraser = false; el.querySelector('#er').setAttribute('aria-pressed', 'false'); el.querySelectorAll('.sw').forEach(x => x.setAttribute('aria-pressed', x === b)); });
+  const pickColor = c => { color = c; eraser = false; el.querySelector('#er').setAttribute('aria-pressed', 'false'); el.querySelectorAll('.sw').forEach(x => x.setAttribute('aria-pressed', x.dataset.c === c)); };
+  el.querySelectorAll('.sw').forEach(b => b.onclick = () => pickColor(b.dataset.c));
   el.querySelectorAll('[data-z]').forEach(b => b.onclick = () => { size = +b.dataset.z; el.querySelectorAll('[data-z]').forEach(x => x.setAttribute('aria-pressed', x === b)); });
   el.querySelector('#er').onclick = e => { eraser = !eraser; e.currentTarget.setAttribute('aria-pressed', eraser); };
+  function setBrush(id, speak) {
+    eng.setBrush(id); const b = BRUSHES.get(eng.getBrush());
+    eraser = false; el.querySelector('#er').setAttribute('aria-pressed', 'false');
+    el.querySelectorAll('[data-b]').forEach(x => x.setAttribute('aria-pressed', x.dataset.b === b.id));
+    const row = el.querySelector('.brush-row'), btn = row.querySelector(`[data-b="${b.id}"]`); // keep the picked brush in sight
+    if (btn.offsetLeft < row.scrollLeft || btn.offsetLeft + btn.offsetWidth > row.scrollLeft + row.clientWidth) row.scrollLeft = btn.offsetLeft - (row.clientWidth - btn.offsetWidth) / 2;
+    el.querySelector('.stamp-row').hidden = b.id !== 'stamps';
+    if (speak) say(`${b.name}. ${b.tip}`);
+  }
+  function setPaper(id, speak) {
+    const p = BRUSHES.paperOf(id); paperId = p.id; BRUSHES.paperCSS(cw, p.id);
+    el.querySelector('#ppr').innerHTML = `<span class="bico">${p.ico}</span><span class="bnm">${p.name}</span>`;
+    el.querySelector('#ppr').setAttribute('aria-label', `Paper: ${p.name}. Tap for another paper.`);
+    if (p.id === 'black' && color === PAINT[0]) pickColor('#FFFFFF'); // dark blue would not show on black paper
+    if (speak) say(p.name + (p.id === 'black' ? '. Try chalk or white paint!' : p.id === 'wc' ? '. Bumpy paper for watercolor.' : p.id === 'canvas' ? '. Woven canvas for thick paint.' : ''));
+  }
+  el.querySelectorAll('[data-b]').forEach(b => b.onclick = () => setBrush(b.dataset.b, true));
+  el.querySelectorAll('[data-st]').forEach(b => b.onclick = () => { eng.setStamp(b.dataset.st); el.querySelectorAll('[data-st]').forEach(x => x.setAttribute('aria-pressed', x === b)); say(b.getAttribute('aria-label')); });
+  el.querySelector('#ppr').onclick = () => { const L = BRUSHES.PAPERS; setPaper(L[(L.findIndex(p => p.id === paperId) + 1) % L.length].id, true); };
+  setBrush(brush); setPaper(paper);
   el.querySelectorAll('[data-sym]').forEach(b => b.onclick = () => { setSym(+b.dataset.sym); if (sym === 2) say('Mirror is on. Both sides match, like a butterfly. That is called symmetry!'); else if (sym) say(`Every line copies ${sym} times around the middle!`); });
-  el.querySelector('#und').onclick = () => { unsaved = true; restore(undo.pop() || null); };
-  el.querySelector('#clr').onclick = () => { unsaved = true; undo.push(cv.toDataURL()); restore(null); };
+  el.querySelector('#und').onclick = () => { eng.cancel(); drawing = false; unsaved = true; restore(undo.pop() || null); };
+  el.querySelector('#clr').onclick = () => { eng.settle(); drawing = false; unsaved = true; undo.push(cv.toDataURL()); eng.cancel(); restore(null); };
   function savePic(cheer = true) {
     // A double tap (or a tap with nothing new drawn) does not save the same picture again.
     if (cheer && !unsaved) { say(dirty ? 'It is saved! Draw some more, then save again.' : 'Draw something first!'); return; }
-    unsaved = false;
+    unsaved = false; eng.settle();
     const t = document.createElement('canvas'), w = 360; t.width = w; t.height = Math.round(w * cv.height / cv.width);
-    const tc = t.getContext('2d'); tc.fillStyle = '#fff'; tc.fillRect(0, 0, t.width, t.height); tc.drawImage(cv, 0, 0, t.width, t.height);
+    const tc = t.getContext('2d'); BRUSHES.paperFill(tc, paperId, t.width, t.height); tc.drawImage(cv, 0, 0, t.width, t.height);
     gallery.unshift(t.toDataURL('image/jpeg', 0.75)); gallery = gallery.slice(0, 30); saveGallery();
     if (cheer) { questTick('art'); dayLog('art'); addStars(1); confetti(20); yay(); say('Saved to your pictures! You earned a star.'); }
   }
   el.querySelector('#sav').onclick = () => savePic(true);
-  return (livePad = { setTrace: svg => { el.querySelector('#tr').innerHTML = svg; }, save: savePic, drawn: () => dirty, cv });
+  return (livePad = { setTrace: svg => { el.querySelector('#tr').innerHTML = svg; }, save: savePic, drawn: () => dirty, cv, wet,
+    setBrush, setPaper, brush: () => eng.getBrush(), paper: () => paperId, busy: () => eng.busy(), settle: () => eng.settle() });
 }
 const MIXES = { 'red+yellow': ['#FF8A2B', 'orange'], 'blue+yellow': ['#2FA36B', 'green'], 'blue+red': ['#6D55D1', 'purple'], 'red+white': ['#F49AC1', 'pink'], 'blue+white': ['#8EC5F5', 'light blue'], 'white+yellow': ['#FFE79A', 'light yellow'], 'black+red': ['#8E2A20', 'dark red'], 'black+blue': ['#123E6E', 'navy blue'], 'black+white': ['#9AA0A8', 'grey'], 'black+yellow': ['#7A7A1E', 'olive'] };
 const BASE = { red: '#F2604F', yellow: '#FFC23D', blue: '#2E8BE6', white: '#FFFFFF', black: '#22252B' };
@@ -919,7 +942,7 @@ function parent() {
 /* ---------- start ---------- */
 updateTop();
 go(profiles.length > 1 ? whoView : home);
-if (location.hash === "#selftest") window.__owl = { MATH, LESSONS, lessonSVG, PICS, get st() { return st; }, get profiles() { return profiles; }, quest, questTick, gainXP, petStage, go, home, mathHome, artHome, catView, drawLesson, gamesHome, ART_CATS, lessonView, play, speakable, storyHome, colorHome, sceneHome, shapeHome, flipHome, galTab, worldHome, englishHome };
+if (location.hash === "#selftest") window.__owl = { MATH, LESSONS, BRUSHES, get livePad() { return livePad; }, lessonSVG, PICS, get st() { return st; }, get profiles() { return profiles; }, quest, questTick, gainXP, petStage, go, home, mathHome, artHome, catView, drawLesson, gamesHome, ART_CATS, lessonView, play, speakable, storyHome, colorHome, sceneHome, shapeHome, flipHome, galTab, worldHome, englishHome };
 if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) {
   try {
     // A new version installs in the background; offer a tap to switch rather than reloading mid-game.
