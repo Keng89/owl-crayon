@@ -1,5 +1,5 @@
 /* ---------- welcome tour (once per player) and the grown-ups' "What's inside" guide ---------- */
-// The tour shows the first time a player reaches the home screen: 5 big cards, each read aloud and pointing at a real
+// The tour shows the first time a player reaches the home screen: 6 big cards, each read aloud and pointing at a real
 // home-screen tile. It is stored per player as st.tour. Automated runs (#selftest or a webdriver) skip it unless
 // window.__owlTourForce is set, so older tests can click tiles without a card in the way.
 const tour = (() => {
@@ -15,6 +15,7 @@ const tour = (() => {
       { sel: '#tMath', ico: '🔢', title: 'Number Garden', text: 'Tap here for numbers. Count, add and play games!' },
       { sel: '#tArt', ico: '🖍️', title: 'Art School', text: 'Tap here to draw and color. I show you each step.' },
       { sel: '#tQuest', ico: '🗺️', title: "Owl's Quest", text: 'A story trip! Help me find the lost crayons.' },
+      { sel: '#tWorld', ico: '🌍', title: 'My World', text: 'Spend your stars here. Buy animals, houses and land!' },
       { sel: '.quest', ico: '🎁', title: "Today's quest", text: 'Do 3 little jobs. Then open the treasure chest!' }
     ];
   }
@@ -116,7 +117,7 @@ const tour = (() => {
     const nl = nextLesson(), aw = WORLDS[ageWorld(st.age)];
     view.innerHTML = `${crumbs("What's inside")}
       <div class="panel"><h2>At a glance</h2>
-        <div class="wt-stats">${stat(topics, `math topics in ${WORLDS.length} worlds`)}${stat(GAMES.length, 'math games')}${stat(21, 'numbers to trace (0–20)')}${stat(LESSONS.length, 'step-by-step art lessons')}${stat(ART_CATS.length, 'kinds of art')}${stat(FIXED.coloring, 'coloring pages')}${stat(FIXED.places, 'sticker-scene places')}${stat(FIXED.shapes, 'shape puzzles')}${stat(PICS.length, 'pixel pictures')}${stat(FIXED.chapters, `story chapters of ${FIXED.stops} stops`)}${stat(KB.length, 'offline Owl answers')}${stat(BADGES.length, 'badges')}</div>
+        <div class="wt-stats">${stat(topics, `math topics in ${WORLDS.length} worlds`)}${stat(GAMES.length, 'math games')}${stat(21, 'numbers to trace (0–20)')}${stat(LESSONS.length, 'step-by-step art lessons')}${stat(ART_CATS.length, 'kinds of art')}${stat(FIXED.coloring, 'coloring pages')}${stat(FIXED.places, 'sticker-scene places')}${stat(FIXED.shapes, 'shape puzzles')}${stat(PICS.length, 'pixel pictures')}${stat(FIXED.chapters, `story chapters of ${FIXED.stops} stops`)}${stat(KB.length, 'offline Owl answers')}${stat(BADGES.length, 'badges')}${stat(worldHome.info().items, 'things to buy in My World')}</div>
         <p class="note">Everything works offline, with no ads and no accounts. Each player has their own progress, owl and pictures.</p></div>
       <div class="panel"><h2>🔢 Number Garden (math)</h2>${li([
         `${WORLDS.map((w, i) => `${w.ico} <b>${w.name}</b> (ages ${w.ages}, ${worldSkills(i).length} topics)`).join(' · ')}.`,
@@ -126,9 +127,10 @@ const tour = (() => {
         `${LESSONS.length} drawing lessons in ${ART_CATS.length} kinds (${lv}). Each step draws itself, then your child copies it on the pad; 👻 Trace shows faint lines.`,
         `Studio: free draw, mandala mode, ${PICS.length} pixel pictures, color mixing, a coloring book of ${FIXED.coloring} pages (tap to fill, color by number) sticker scenes in ${FIXED.places} places, ${FIXED.shapes} shape puzzles (drag shapes into a picture, easy to tangram), and a flipbook to make drawings move (8 animation lessons).`,
         'Finished drawings are saved in <b>My pictures</b>.'])}</div>
-      <div class="panel"><h2>🗺️ Owl's Quest, daily quest and owl</h2>${li([
+      <div class="panel"><h2>🗺️ Owl's Quest, My World, daily quest and owl</h2>${li([
         `<b>Owl's Quest</b>: a story map of ${FIXED.chapters} chapters. Each stop is a few math puzzles, a drawing, or a story choice. Finished chapters become a storybook.`,
         "<b>Today's quest</b> on the home screen: 3 small jobs a day, then a treasure chest.",
+        `<b>🌍 My World</b>: stars buy things for a little map world: ${worldHome.info().items} plants, houses, animals, decorations and sky things (${worldHome.info().minP}–${worldHome.info().maxP} ⭐) and ${worldHome.info().lands} new lands (${worldHome.info().landMin}–${worldHome.info().landMax} ⭐). Animals need feeding once a day (they only get sad, never sick), flowers bloom over 2 days, ripe fruit gives a bonus star (up to 5 a day), and some animals need their habitat (penguins need snow). From age 7 the shop asks the subtraction before buying. Spending never lowers badges, stickers or the owl's growth, and a small gift welcomes each daily visit.`,
         `<b>Owl pet</b>: stars help ${esc(st.pet.name)} hatch and grow and unlock outfits. Every 10 stars gives a sticker; ${BADGES.length} badges mark milestones.`,
         '<b>Ask Owl</b>: offline answers to common questions. Questions it can\'t answer appear in Teach Owl. Online Owl is optional and off by default.'])}</div>
       <div class="panel"><h2>🎚️ Levels and age</h2>${li([

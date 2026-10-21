@@ -26,3 +26,4 @@ Serve the app first: `python3 -m http.server 8766` from the repo root. Then run 
 - `t28.js`: play-time limits and break reminders (fast clock, two players, grown-up gate, chart, reload).
 - `t29.js`: busy-child regressions from the monkey test: leaving a screen right after a tap (mix colors, sticker counting and saving, coloring save, a voice question to Owl), double taps on Done, Check and Save, and a long question in the Grown-ups corner.
 - `t30.js`: flipbook: drawing frames, onion skin, play/stop, lessons, saving, My flipbooks, reload.
+- `t32.js`: My World: gifts, buying lands and things with the wallet math, placing by taps and drags, habitats, feeding, fruit once a day, milestones, backpack, reload, two players.
