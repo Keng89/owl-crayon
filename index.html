@@ -1010,6 +1010,34 @@ ol.steps{margin:0;padding-left:1.4em;text-align:left;font-weight:700;font-size:1
 .sq-bend{display:flex;flex-direction:column;align-items:center;gap:6px;font:800 34px var(--display)}
 .sq-bend .big{height:90px;width:auto;font-size:64px}
 @media (max-width:520px){.sq-stop{width:54px;height:54px}.sq-si{font-size:28px}.sq-ch b{font-size:15px}.sq-chi{font-size:28px}.sq-banner p{font-size:16px}.sq-banner p b{font-size:19px}.sq-oe{font-size:60px}.sq-opt{min-height:150px}}
+/* quest riddles: story math with pictures */
+.sq-riddle .ptext{display:flex;flex-direction:column;align-items:center;gap:6px}
+.sq-rtag{font:800 15px var(--body);background:var(--sun-soft);color:var(--ink);border-radius:999px;padding:4px 12px}
+.sq-riddle .wordq{text-align:center}
+.sq-ask{display:block;font-size:clamp(24px,4.4vw,36px)}
+.sq-pic{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;align-items:center;max-width:100%}
+.sq-op{font:800 34px var(--display);color:var(--ink-soft)}
+.sq-crow{display:flex;flex-wrap:wrap;gap:3px 4px;justify-content:center;max-width:min(300px,82vw);background:var(--bg);padding:8px 10px;border-radius:16px}
+.sq-mc{width:13px;height:35px;display:block}
+.sq-pick{display:flex;justify-content:center;width:100%}
+.choice .sq-crow{background:none;padding:2px;max-width:100%}
+.sq-jar{width:min(110px,28vw);height:auto;display:block}
+.sq-jar.sm{width:min(80px,20vw)}
+.choice .sq-jar{width:min(78px,24vw)}
+.sq-rows{display:grid;gap:2px 5px;font-size:clamp(18px,5vw,28px);line-height:1.15;background:var(--bg);border-radius:16px;padding:8px 10px}
+.sq-groups{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-width:min(440px,88vw)}
+.sq-grp{display:flex;flex-direction:column;align-items:center;background:var(--bg);border-radius:14px;padding:4px 10px;font-size:26px;line-height:1.1;font-style:normal}
+.sq-grp i{font-style:normal}
+.sq-grp b{font:800 22px var(--display)}
+.sq-total{font:800 clamp(28px,7vw,40px) var(--display);background:var(--bg);border-radius:16px;padding:6px 14px;white-space:nowrap}
+.sq-pat{gap:6px}
+.sq-pat > span:not(.dot){font-size:clamp(26px,6.6vw,42px);line-height:1}
+.sq-pat .dot.q{width:clamp(34px,9vw,44px);height:clamp(34px,9vw,44px)}
+.sq-pat > .sq-nb{display:flex;flex-direction:column;align-items:center;font-size:clamp(15px,4vw,20px);background:var(--bg);border-radius:12px;padding:3px 5px}
+.sq-nb b{font:800 clamp(17px,4.6vw,28px) var(--display)}
+.sq-castle svg{height:clamp(130px,40vw,190px);width:auto;max-width:86vw;display:block}
+.sq-unit{display:inline-flex;gap:4px;padding:3px 5px;border:3px dashed var(--grape);border-radius:14px}
+.sq-unit span{font-size:clamp(24px,6.5vw,36px);line-height:1}
 @media (prefers-reduced-motion:reduce){.sq-stop.next,.sq-shoot,.sq-bowl,.sq-rays,.sq-pop{animation:none}}
 /* coloring book */
 .cb-lead{margin:0;font-weight:700;color:var(--ink-soft)}
@@ -10263,7 +10291,7 @@ function parent() {
       <p class="note">Owl &amp; Crayon works without the internet. Progress, drawings and Owl's answers are saved only in this browser on this device. There are no ads, no tracking and no accounts, and nothing is sent anywhere unless you switch on Online Owl.</p>
       <p class="note">With Online Owl on, only the question your child asks and their age go to your Online Owl server, which asks an AI (Cloudflare's free AI, or Claude by Anthropic) for a short, child-friendly answer. Names and progress are never sent. You can read every answer above, and turn it off at any time.</p>
       <p class="note">The microphone button uses the browser's own speech recognition, which may send the recording to the browser maker (for example Google or Apple) to turn it into text. Typing works without it.</p>
-      <p class="note">Version 2026-10-21 04:20 UTC</p></div>`;
+      <p class="note">Version 2026-10-21 04:47 UTC</p></div>`;
   view.querySelectorAll('[data-teach]').forEach(b => b.onclick = () => {
     const i = +b.dataset.teach, ans = $('#t' + i).value.trim(); if (!ans) return;
     owlForget(st.owlMisses[i].q); st.owlTaught.push({ q: st.owlMisses[i].q, a: ans }); st.owlMisses.splice(i, 1); save(); go(parent);
@@ -11908,7 +11936,21 @@ const storyHome = (() => {
       <div class="sq-hoot" id="sqHoot" style="${pct(L.pts[nx < 0 ? n - 1 : nx])}" aria-hidden="true">🦉${st.pet && st.pet.wear ? `<i>${st.pet.wear}</i>` : ''}</div></div>`;
   }
 
-  function mapView(c, from) {
+  // The map picks a phone (3 across) or tablet (5 across) layout. While it is showing, a resize or turn of the
+  // device that crosses the line draws it again. The watcher stops itself as soon as the map leaves the screen.
+  let unwatchMap = null;
+  function watchMap(c, wide) {
+    if (unwatchMap) unwatchMap();
+    const map = view.querySelector('.sq-map'); let timer = 0;
+    const stop = () => { clearTimeout(timer); removeEventListener('resize', onResize); removeEventListener('orientationchange', onResize); mo.disconnect(); if (unwatchMap === stop) unwatchMap = null; };
+    const check = () => { timer = 0; if (!map || !map.isConnected) stop(); else if ((view.clientWidth >= 640) !== wide) mapView(c, null, true); };
+    const onResize = () => { clearTimeout(timer); timer = setTimeout(check, 200); };
+    const mo = new MutationObserver(() => { if (!map || !map.isConnected) stop(); });
+    addEventListener('resize', onResize); addEventListener('orientationchange', onResize); mo.observe(view, { childList: true });
+    unwatchMap = stop;
+  }
+
+  function mapView(c, from, quiet) {
     const s = S();
     if (c == null || !CH[c]) c = s.chapter;
     if (!chOpen(c)) c = 0;
@@ -11929,8 +11971,9 @@ const storyHome = (() => {
       </div>`;
     wireBack(home);
     const intro = `Chapter ${c + 1}: ${ch.title}. ${fill(ch.intro, c)} ${allDone ? (got ? 'You finished this chapter!' : 'Open your prize!') : `Tap the shining stop to go on!`}`;
-    sayScreen(intro);
+    if (quiet) screenText = intro; else sayScreen(intro);
     $('#sqSpk').onclick = () => say(intro);
+    watchMap(c, wide);
     view.querySelectorAll('[data-ch]').forEach(b => b.onclick = () => { const k = +b.dataset.ch; if (chOpen(k)) go(mapView, k); else say(`Finish chapter ${k}, ${CH[k - 1].title}, to open ${CH[k].title}!`); });
     view.querySelectorAll('[data-stop]').forEach(b => b.onclick = () => { const i = +b.dataset.stop; if (stopOpen(c, i)) go(stopView, c, i); else say(`${ch.stops[i].name} is still locked. Finish the stops before it first!`); });
     if ($('#sqGo')) $('#sqGo').onclick = () => go(stopView, c, nx);
@@ -11966,7 +12009,149 @@ const storyHome = (() => {
     return `${crumbs(`${s.ico} ${s.name}`)}<div class="sq-task"><span class="sq-tico" aria-hidden="true">${s.ico}</span><p id="sqTask">${esc(text)}</p>${dots || ''}<button class="speak" id="sqTSpk" aria-label="Read it">🔊</button></div>`;
   }
 
-  // Math: 3 questions from the player's age world. The first one is the topic the engine recommends.
+  /* --- story riddles: math puzzles that belong to each chapter's story, sized by age --- */
+  // tier 0: age 5 and under (count to 10, more or less, one more or one less), 1: ages 6-7 (add and take away to 20),
+  // 2: ages 8-9 (groups, times, sharing, 2-digit numbers), 3: 10+ (the same with bigger numbers).
+  const tierOf = () => { const a = +st.age || 6; return a <= 5 ? 0 : a <= 7 ? 1 : a <= 9 ? 2 : 3; };
+  const nums = (ans, t, extra = []) => opts(ans, [...extra, ...near(ans)].filter(v => Number.isInteger(v) && v >= 0 && v !== ans), t ? 4 : 3);
+  const upTo = (a, b) => { const out = []; for (let v = a; a <= b ? v <= b : v >= b; v += a <= b ? 1 : -1) out.push(v); return out; };
+  const list = vs => vs.length > 10 ? vs.slice(0, 4).join(', ') + ' … ' + vs.slice(-2).join(', ') : vs.join(', ');
+  const pic = (inner, label) => `<div class="sq-pic" role="img" aria-label="${esc(label)}">${inner}</div>`;
+  const OP = s => `<b class="sq-op" aria-hidden="true">${s}</b>`;
+  const CRC = ['red', 'blue', 'green', 'orange', 'purple', 'yellow', 'pink', 'brown'];
+  const miniCrayon = col => `<svg class="sq-mc" viewBox="0 0 30 80" aria-hidden="true"><path d="M8 22 L15 3 L22 22 Z" fill="${col}"/><rect x="5" y="21" width="20" height="56" rx="4" fill="${col}"/><rect x="5" y="32" width="20" height="7" fill="rgba(0,0,0,.2)"/><rect x="5" y="60" width="20" height="7" fill="rgba(0,0,0,.2)"/></svg>`;
+  const crayons = (n, color) => `<div class="sq-crow">${Array.from({ length: n }, (_, i) => miniCrayon(CRAYON[color || CRC[i % CRC.length]])).join('')}</div>`;
+  // A night-time jar with n glowing fireflies lined up in rows, so they are easy to count.
+  function jarSVG(n, cls = 'sq-jar', label = '') {
+    const cols = n > 12 ? 4 : 3, rows = Math.ceil(n / cols), gap = n > 12 ? 15 : 18;
+    let flies = '';
+    for (let k = 0; k < n; k++) { const r = Math.floor(k / cols), cIn = r === rows - 1 ? n - r * cols : cols, x = 45 + (k % cols - (cIn - 1) / 2) * gap, y = 98 - (rows - 1 - r) * gap - 6;
+      flies += `<circle cx="${x}" cy="${y}" r="8" fill="#FFF27A" opacity=".35"/><circle cx="${x}" cy="${y}" r="4.6" fill="#FFE14D"/>`; }
+    return `<svg class="${cls}" viewBox="0 0 90 112" role="img" aria-label="${esc(label || `jar with ${n} firefl${n === 1 ? 'y' : 'ies'}`)}"><rect x="24" y="4" width="42" height="12" rx="4" fill="#8B5A2B"/><path d="M20 16 H70 V24 Q80 30 80 42 V100 Q80 110 70 110 H20 Q10 110 10 100 V42 Q10 30 20 24 Z" fill="#24476A" stroke="#22305A" stroke-width="3"/><path d="M18 46 V92" stroke="#fff" stroke-opacity=".35" stroke-width="5" stroke-linecap="round"/>${flies}</svg>`;
+  }
+  const rowsPic = (r, c, e) => `<div class="sq-rows" style="grid-template-columns:repeat(${c},auto)">${`<span>${e}</span>`.repeat(r * c)}</div>`;
+  const groupsPic = (g, each, e) => `<div class="sq-groups">${`<span class="sq-grp"><i>${e}</i><b>${each}</b></span>`.repeat(g)}</div>`;
+  // A castle made of shapes: each tower is a rectangle with a triangle roof and square windows.
+  function castleSVG(wins, mark) {
+    const T = wins.length, W = T * 70 + 10; let g = '', nt = 0, ns = 0;
+    wins.forEach((w, i) => {
+      const x = 10 + i * 70;
+      g += `<rect x="${x}" y="62" width="56" height="62" fill="#EDE7FF" stroke="#22305A" stroke-width="2.5"/><polygon points="${x - 4},62 ${x + 28},16 ${x + 60},62" fill="#F49AC1" stroke="#22305A" stroke-width="2.5" stroke-linejoin="round"/>`;
+      if (mark === 'tri' || mark === 'both') g += tx(x + 28, 52, ++nt, { size: 15, fill: '#B0306A' });
+      for (let k = 0; k < w; k++) { const wx = x + 9 + (k % 2) * 22, wy = 72 + Math.floor(k / 2) * 22;
+        g += `<rect x="${wx}" y="${wy}" width="16" height="16" fill="#FFC23D" stroke="#22305A" stroke-width="2"/>`;
+        if (mark === 'sq' || mark === 'both') g += tx(wx + 8, wy + 12.5, ++ns, { size: ns > 9 ? 9 : 12 }); }
+    });
+    return `<div class="sq-castle">${svgBox(`0 0 ${W} 130`, g, `castle with ${T} triangle roofs and ${wins.reduce((a, b) => a + b, 0)} square windows`)}</div>`;
+  }
+  const splitWins = (total, T) => { const w = Array(T).fill(1); for (let k = T; k < total; k++) { const open = w.map((v, i) => v < 4 ? i : -1).filter(i => i >= 0); w[pick(open)]++; } return w; };
+  // Wrap a riddle in the normal question shape (Q) and mark it as part of the story.
+  function riddle(o) {
+    const q = Q({ ...o, prompt: `<span class="sq-rtag">${o.tag}</span>${word(esc(o.text))}<span class="sq-ask">${esc(o.ask)}</span>`, speak: `${o.text} ${o.ask}` });
+    q.story = true; q.kind = o.kind; return q;
+  }
+  // Shared teaching for the four operations.
+  const addHelp = (a, b) => { const hi = Math.max(a, b), lo = Math.min(a, b);
+    return a + b <= 20 ? { explain: tenFrame(a, b), steps: [`Start with the bigger number, ${hi}.`, `Count on ${lo} more: ${list(upTo(hi + 1, hi + lo))}.`], explainText: `${a} + ${b} = ${a + b}.` }
+      : { explain: column(a, b, '+', a + b), steps: addSteps(a, b), explainText: `${a} + ${b} = ${a + b}.` }; };
+  function addSteps(a, b) { const out = [], nm = PV_NAMES; let carry = 0, i = 0;
+    while (a || b || carry) { const x = a % 10, y = b % 10, s = x + y + carry; out.push(`${nm[i]}: ${x} + ${y}${carry ? ' + 1 carried' : ''} = ${s}${s > 9 ? `. Write ${s % 10} and carry 1.` : '.'}`); carry = s > 9 ? 1 : 0; a = Math.floor(a / 10); b = Math.floor(b / 10); i++; }
+    return out; }
+  const subHelp = (a, b) => a <= 20 ? { explain: hopLine([a, a - b], [`−${b}`]), steps: [`Start at ${a}.`, `Count back ${b}: ${list(upTo(a - 1, a - b))}.`], explainText: `${a} − ${b} = ${a - b}.` }
+    : { explain: column(a, b, '−', a - b), steps: subSteps(a, b), explainText: `${a} − ${b} = ${a - b}.` };
+  const mulHelp = (r, c, what) => ({ explain: arraySVG(r, c, { totals: true }), steps: [`${r} groups of ${c} is ${r} × ${c}.`, `Count by ${c}s: ${list(Array.from({ length: r }, (_, k) => (k + 1) * c))}.`], explainText: `${r} × ${c} = ${r * c} ${what}.` });
+  const divHelp = (n, g, each, e, what) => ({ explain: groupsPic(g, each, e), steps: [`Share ${n} into ${g} equal groups.`, `Think: ${g} × what = ${n}?`, `${g} × ${each} = ${n}.`], explainText: `So each one gets ${each} ${what}.` });
+  const mulOpts = (r, c, t) => nums(r * c, t, [r * c + c, r * c - c, r * c + r, r * c - r, r + c]);
+  const countHelp = (n, e, what) => ({ explain: objs(n, e, { num: true }), steps: n > 3 ? ['Touch the first one and say 1.', 'Touch each one once and say the next number.'] : null, explainText: `${list(upTo(1, n))}. There ${n === 1 ? 'is' : 'are'} ${n} ${what}!` });
+  // Pick which of two groups has more or fewer, by tapping the group itself.
+  function moreLess(a, b, show, names, more) {
+    const ans = (a > b) === more ? 'a' : 'b', hi = Math.max(a, b), lo = Math.min(a, b);
+    return { ans, choices: [['a', a, names[0]], ['b', b, names[1]]].map(([v, n, nm]) => ({ html: `<span class="sq-pick">${show(n, v)}</span>`, val: v, say: nm, txt: false })),
+      explain: pairRows(a, '🔴', b, '🔵'), steps: [`Line them up in pairs.`, `${hi} has ${hi - lo} left over with no partner.`],
+      explainText: `${names[0][0].toUpperCase() + names[0].slice(1)} has ${a}, ${names[1]} has ${b}. ${hi} is more and ${lo} is fewer, so the answer is ${ans === 'a' ? names[0] : names[1]}.` };
+  }
+  const pair = (lo, hi) => { const a = rnd(lo, hi); let b = rnd(lo, hi); while (b === a) b = rnd(lo, hi); return [a, b]; };
+  const PAT = [['⭐', 'star'], ['🌙', 'moon'], ['☁️', 'cloud'], ['🎈', 'balloon'], ['🌈', 'rainbow']];
+
+  const RIDDLES = [
+    [ // chapter 1: The Lost Crayons
+      t => { const tag = '🐾 Paw print riddle';
+        if (t === 0) { const n = rnd(3, 10); return riddle({ tag, kind: 'count', text: 'The sneaky raccoon left a trail of paw prints.', ask: 'How many paw prints?', visual: pic(objs(n, '🐾'), `${n} paw prints`), choices: nums(n, t), answer: n, ...countHelp(n, '🐾', 'paw prints') }); }
+        if (t === 1) { const a = rnd(4, 12), b = rnd(2, Math.min(9, 20 - a)); return riddle({ tag, kind: 'add', text: `The raccoon left ${a} paw prints on the grass and ${b} more on the path.`, ask: 'How many paw prints in all?', visual: pic(objs(a, '🐾') + OP('+') + objs(b, '🐾'), `${a} and ${b} paw prints`), choices: nums(a + b, t), answer: a + b, ...addHelp(a, b) }); }
+        const r = t === 2 ? rnd(3, 6) : rnd(4, 9), c = t === 2 ? rnd(3, 6) : rnd(6, 12);
+        return riddle({ tag, kind: 'mul', text: `The raccoon did a happy dance! He stamped ${r} rows of paw prints, with ${c} in each row.`, ask: 'How many paw prints?', visual: pic(r * c <= 40 ? rowsPic(r, c, '🐾') : groupsPic(r, c, '🐾'), `${r} rows of ${c} paw prints`), choices: mulOpts(r, c, t), answer: r * c, ...mulHelp(r, c, 'paw prints') }); },
+      t => { const tag = '🖍️ Crayon pile riddle';
+        if (t === 0) { const [a, b] = pair(1, 10), more = Math.random() < 0.6, m = moreLess(a, b, (n, v) => crayons(n, v === 'a' ? 'red' : 'blue'), ['the red pile', 'the blue pile'], more);
+          return riddle({ tag, kind: 'compare', text: 'The raccoon dropped two piles of crayons.', ask: `Which pile has ${more ? 'more' : 'fewer'}?`, choices: m.choices, answer: m.ans, explain: m.explain, steps: m.steps, explainText: m.explainText }); }
+        if (t === 1) { const a = rnd(9, 18), b = rnd(3, a - 2); return riddle({ tag, kind: 'sub', text: `The red pile has ${a} crayons. The blue pile has ${b} crayons.`, ask: 'How many more red crayons are there?', visual: pic(crayons(a, 'red') + crayons(b, 'blue'), `${a} red crayons and ${b} blue crayons`), choices: nums(a - b, t, [a + b]), answer: a - b,
+          explain: hopLine([b, a], [`+${a - b}`]), steps: [`Start at the smaller pile, ${b}.`, `Count up to ${a}: ${list(upTo(b + 1, a))}.`, `That is ${a - b} jumps.`], explainText: `${a} − ${b} = ${a - b}. There are ${a - b} more red crayons.` }); }
+        const g = t === 2 ? rnd(2, 6) : rnd(4, 9), each = t === 2 ? rnd(2, 9) : rnd(6, 12), n = g * each;
+        return riddle({ tag, kind: 'div', text: `The raccoon shares ${n} crayons into ${g} boxes. Every box gets the same.`, ask: 'How many crayons go in each box?', visual: pic(`<span class="sq-total">${n} 🖍️</span>${OP('→')}${groupsPic(g, '?', '📦')}`, `${n} crayons shared into ${g} boxes`), choices: nums(each, t, [each + 1, each - 1, g, n - g]), answer: each, ...divHelp(n, g, each, '📦', 'crayons') }); },
+      t => { const tag = '🦉 Crayon hunt riddle', owl = owlName();
+        if (t === 0) { const n = rnd(1, 9), up = Math.random() < 0.5 || n < 2, ans = up ? n + 1 : n - 1;
+          return riddle({ tag, kind: up ? 'add' : 'sub', text: up ? `${owl} has ${n} crayon${n > 1 ? 's' : ''}. Then ${owl} finds 1 more!` : `${owl} has ${n} crayons. The raccoon takes 1 away!`, ask: 'How many crayons now?', visual: pic(up ? objs(n, '🖍️') + OP('+') + objs(1, '🖍️') : objs(n, '🖍️', { gone: 1 }), up ? `${n} crayons and 1 more` : `${n} crayons, 1 taken away`), choices: nums(ans, t), answer: ans,
+            explain: objs(ans, '🖍️', { num: true }), steps: null, explainText: up ? `One more than ${n} is the next number: ${ans}.` : `One less than ${n} is the number before it: ${ans}.` }); }
+        if (t === 1) { if (Math.random() < 0.5) { const a = rnd(3, 12), b = rnd(2, Math.min(9, 20 - a)); return riddle({ tag, kind: 'add', text: `${owl} finds ${a} crayons by the lake and ${b} crayons in the cave.`, ask: 'How many crayons altogether?', visual: pic(crayons(a) + OP('+') + crayons(b), `${a} and ${b} crayons`), choices: nums(a + b, t), answer: a + b, ...addHelp(a, b) }); }
+          const a = rnd(11, 20), b = rnd(2, 9); return riddle({ tag, kind: 'sub', text: `${owl} has ${a} crayons. Oops! ${b} fall into the river.`, ask: 'How many crayons are left?', visual: pic(crayons(a), `${a} crayons`), choices: nums(a - b, t, [a + b]), answer: a - b, ...subHelp(a, b) }); }
+        const a = t === 2 ? rnd(15, 59) : rnd(120, 480), b = t === 2 ? rnd(12, 39) : rnd(105, 399);
+        return riddle({ tag, kind: 'add', text: `The raccoon kept ${a} grey crayons and ${b} white crayons in his den.`, ask: 'How many crayons is that in all?', visual: pic(`<span class="sq-total">${a} 🖍️</span>${OP('+')}<span class="sq-total">${b} 🖍️</span>`, `${a} crayons and ${b} crayons`), choices: nums(a + b, t, [a + b + 10, a + b - 10, a + b + 100]), answer: a + b, ...addHelp(a, b) }); }
+    ],
+    [ // chapter 2: The Number Forest
+      t => { const tag = '✨ Firefly jar riddle';
+        if (t === 0) { const n = rnd(2, 10); return riddle({ tag, kind: 'count', text: `${owlName()} catches sleepy fireflies in a jar.`, ask: 'How many fireflies are in the jar?', visual: jarSVG(n), choices: nums(n, t), answer: n, ...countHelp(n, '✨', 'fireflies') }); }
+        if (t === 1) { const a = rnd(3, 12), b = rnd(2, Math.min(8, 20 - a)); return riddle({ tag, kind: 'add', text: `One jar has ${a} fireflies. Another jar has ${b}.`, ask: 'How many fireflies in both jars?', visual: pic(jarSVG(a) + OP('+') + jarSVG(b), `jars with ${a} and ${b} fireflies`), choices: nums(a + b, t), answer: a + b, ...addHelp(a, b) }); }
+        const g = t === 2 ? rnd(2, 5) : rnd(4, 8), c = t === 2 ? rnd(3, 9) : rnd(6, 12);
+        return riddle({ tag, kind: 'mul', text: `The beavers fill ${g} jars. Each jar has ${c} fireflies.`, ask: 'How many fireflies in all?', visual: pic(Array.from({ length: g }, () => jarSVG(c, 'sq-jar sm')).join(''), `${g} jars with ${c} fireflies each`), choices: mulOpts(g, c, t), answer: g * c, ...mulHelp(g, c, 'fireflies') }); },
+      t => { const tag = '🐸 Frog riddle';
+        if (t === 0) { const [a, b] = pair(1, 10), more = Math.random() < 0.6, m = moreLess(a, b, n => jarSVG(n, 'sq-jar sm'), ['the first jar', 'the second jar'], more);
+          return riddle({ tag, kind: 'compare', text: 'The frogs hold up two jars of fireflies.', ask: `Which jar has ${more ? 'more' : 'fewer'} fireflies?`, choices: m.choices, answer: m.ans, explain: m.explain, steps: m.steps, explainText: m.explainText }); }
+        if (t === 1) { const a = rnd(9, 18), b = rnd(3, a - 2); return riddle({ tag, kind: 'sub', text: `The big jar has ${a} fireflies. The small jar has ${b}.`, ask: 'How many more are in the big jar?', visual: pic(jarSVG(a) + jarSVG(b), `jars with ${a} and ${b} fireflies`), choices: nums(a - b, t, [a + b]), answer: a - b,
+          explain: hopLine([b, a], [`+${a - b}`]), steps: [`Start at the smaller number, ${b}.`, `Count up to ${a}: ${list(upTo(b + 1, a))}.`, `That is ${a - b} jumps.`], explainText: `${a} − ${b} = ${a - b}. The big jar has ${a - b} more.` }); }
+        const a = t === 2 ? rnd(35, 99) : rnd(210, 950), b = t === 2 ? rnd(12, a - 8) : rnd(105, a - 40);
+        return riddle({ tag, kind: 'sub', text: `The frogs counted ${a} fireflies by the pond and ${b} by the stream.`, ask: 'How many more were by the pond?', visual: pic(`<span class="sq-total">🪷 ${a}</span><span class="sq-total">🌊 ${b}</span>`, `${a} by the pond and ${b} by the stream`), choices: nums(a - b, t, [a + b, a - b + 10, a - b - 10]), answer: a - b, ...subHelp(a, b) }); },
+      t => { const tag = '🦫 Beaver riddle';
+        if (t === 0) { const n = rnd(2, 9), up = Math.random() < 0.5, ans = up ? n + 1 : n - 1;
+          return riddle({ tag, kind: up ? 'add' : 'sub', text: up ? `There are ${n} fireflies. 1 more firefly flies in!` : `There are ${n} fireflies. 1 firefly flies home to sleep.`, ask: 'How many fireflies now?', visual: pic(up ? objs(n, '✨') + OP('+') + objs(1, '✨') : objs(n, '✨', { gone: 1 }), up ? `${n} fireflies and 1 more` : `${n} fireflies, 1 flies away`), choices: nums(ans, t), answer: ans,
+            explain: objs(ans, '✨', { num: true }), steps: null, explainText: up ? `One more than ${n} is ${ans}.` : `One less than ${n} is ${ans}.` }); }
+        if (t === 1) { const a = rnd(11, 20), b = rnd(2, 9); return riddle({ tag, kind: 'sub', text: `${a} fireflies glow over the beaver dam. ${b} of them fly home to sleep.`, ask: 'How many are still glowing?', visual: pic(objs(a, '✨', { gone: b }), `${a} fireflies, ${b} fly away`), choices: nums(a - b, t, [a + b]), answer: a - b, ...subHelp(a, b) }); }
+        const each = t === 2 ? rnd(3, 9) : rnd(6, 12), g = t === 2 ? rnd(2, 6) : rnd(4, 12), n = g * each;
+        return riddle({ tag, kind: 'div', text: `The beavers have ${n} fireflies. Each lantern holds ${each} fireflies.`, ask: 'How many lanterns can they fill?', visual: pic(`<span class="sq-total">${n} ✨</span>${OP('÷')}<span class="sq-total">${each} in each 🏮</span>`, `${n} fireflies, ${each} in each lantern`), choices: nums(g, t, [g + 1, g - 1, each, n - each]), answer: g,
+          explain: groupsPic(g, each, '🏮'), steps: [`Make groups of ${each} until all ${n} are used.`, `Think: what × ${each} = ${n}?`, `${g} × ${each} = ${n}.`], explainText: `They can fill ${g} lanterns.` }); }
+    ],
+    [ // chapter 3: The Sky Castle
+      t => { const tag = '⭐ Star riddle';
+        if (t === 0) { const n = rnd(2, 10); return riddle({ tag, kind: 'count', text: 'The stars tumble out of a bucket!', ask: 'How many stars?', visual: pic(objs(n, '⭐'), `${n} stars`), choices: nums(n, t), answer: n, ...countHelp(n, '⭐', 'stars') }); }
+        if (t === 1) { const k = rnd(1, 9); return riddle({ tag, kind: 'add', text: `A full bucket has 10 stars. ${k} more stars are next to it.`, ask: 'How many stars in all?', visual: pic(objs(10, '⭐') + OP('+') + objs(k, '⭐'), `10 stars and ${k} more`), choices: nums(10 + k, t, [k, 1 + k]), answer: 10 + k,
+          explain: tenFrame(10, k), steps: ['A full ten frame is 10.', `10 and ${k} more is ${10 + k}.`], explainText: `10 + ${k} = ${10 + k}. The 1 means one ten, the ${k} means ${k} ones.` }); }
+        const r = t === 2 ? rnd(3, 6) : rnd(4, 9), c = t === 2 ? rnd(3, 6) : rnd(6, 12);
+        return riddle({ tag, kind: 'mul', text: `${owlName()} lines the stars up in ${r} rows. Each row has ${c} stars.`, ask: 'How many stars are there?', visual: pic(r * c <= 40 ? rowsPic(r, c, '⭐') : groupsPic(r, c, '⭐'), `${r} rows of ${c} stars`), choices: mulOpts(r, c, t), answer: r * c, ...mulHelp(r, c, 'stars') }); },
+      t => { const tag = '🏰 Castle shapes riddle';
+        if (t === 0) { const tri = Math.random() < 0.5, T = tri ? rnd(2, 4) : rnd(2, 3), W = tri ? rnd(T, T * 2) : rnd(Math.max(3, T), Math.min(10, T * 4)), w = splitWins(W, T), n = tri ? T : W, nm = tri ? 'triangle roofs' : 'square windows';
+          return riddle({ tag, kind: 'count', text: 'The Sky Castle is built from shapes.', ask: `How many ${nm}?`, visual: castleSVG(w), choices: nums(n, t), answer: n, explain: castleSVG(w, tri ? 'tri' : 'sq'), steps: tri ? ['A triangle has 3 sides and 3 corners.', 'Count each pointy roof once.'] : ['A square has 4 sides that are all the same.', 'Count each window once.'], explainText: `There are ${n} ${nm}.` }); }
+        if (t === 1) { const T = rnd(2, 4), W = rnd(T + 2, Math.min(16 - T, T * 4)), w = splitWins(W, T);
+          return riddle({ tag, kind: 'add', text: 'The castle has triangle roofs and square windows.', ask: 'How many triangles and squares in all?', visual: castleSVG(w), choices: nums(T + W, t, [T, W]), answer: T + W,
+            explain: castleSVG(w, 'both'), steps: [`Count the triangles: ${T}.`, `Count the squares: ${W}.`, `Add them: ${T} + ${W}.`], explainText: `${T} + ${W} = ${T + W} shapes.` }); }
+        const T = rnd(2, 4), W = rnd(T + 1, T * 4), w = splitWins(W, T);
+        if (t === 2) return riddle({ tag, kind: 'mul', text: 'Every square window has 4 corners.', ask: 'How many corners do all the windows have?', visual: castleSVG(w), choices: mulOpts(W, 4, t), answer: W * 4,
+          explain: castleSVG(w, 'sq'), steps: [`There are ${W} windows.`, `${W} windows with 4 corners each is ${W} × 4.`], explainText: `${W} × 4 = ${W * 4} corners.` });
+        return riddle({ tag, kind: 'mul', text: 'Every triangle has 3 corners and every square has 4 corners.', ask: 'How many corners on all the roofs and windows?', visual: castleSVG(w), choices: nums(3 * T + 4 * W, t, [4 * (T + W), 3 * (T + W), 4 * W, 3 * T + 4 * W + 1]), answer: 3 * T + 4 * W,
+          explain: castleSVG(w, 'both'), steps: [`${T} triangles: ${T} × 3 = ${3 * T}.`, `${W} squares: ${W} × 4 = ${4 * W}.`, `${3 * T} + ${4 * W} = ${3 * T + 4 * W}.`], explainText: `There are ${3 * T + 4 * W} corners in all.` }); },
+      t => { const tag = '🌙 Moon pattern riddle';
+        if (t <= 1) { const set = shuffle(PAT).slice(0, 3), unit = t === 0 ? [set[0], set[1]] : pick([[set[0], set[1], set[2]], [set[0], set[0], set[1]], [set[0], set[1], set[1]]]);
+          const len = t === 0 ? 5 : unit.length * 2 + rnd(0, unit.length - 1), seq = Array.from({ length: len }, (_, k) => unit[k % unit.length]), ans = unit[len % unit.length];
+          const choices = opts(ans[0], set.map(x => x[0]), t ? 3 : 2 + (Math.random() < 0.5 ? 1 : 0), v => v, v => PAT.find(x => x[0] === v)[1]);
+          const unitHTML = `<span class="sq-unit">${unit.map(x => `<span>${x[0]}</span>`).join('')}</span>`;
+          return riddle({ tag, kind: 'pattern', text: 'The Moon hangs lights in a pattern.', ask: 'What comes next?', visual: `<div class="pat sq-pat">${seq.map(x => `<span>${x[0]}</span>`).join('')}<span class="dot q">?</span></div>`, choices, answer: ans[0],
+            explain: `<div class="pat sq-pat">${unitHTML.repeat(Math.ceil((len + 1) / unit.length))}</div>`, steps: [`Find the part that repeats: ${unit.map(x => x[1]).join(', ')}.`, 'Say it again and again, and keep going.'], explainText: `${seq.map(x => x[1]).join(', ')}, … the next one is the ${ans[1]}.` }); }
+        const d = t === 2 ? rnd(2, 10) : rnd(11, 25), s = t === 2 ? d : rnd(3, 60), vals = Array.from({ length: 5 }, (_, k) => s + k * d), ans = s + 5 * d;
+        return riddle({ tag, kind: 'pattern', text: 'Each night the Moon wakes up more stars.', ask: 'How many stars on the next night?', visual: `<div class="pat sq-pat">${vals.map(v => `<span class="sq-nb">⭐<b>${v}</b></span>`).join('')}<span class="dot q">?</span></div>`, choices: nums(ans, t, [ans + d, ans - 1, ans + 1, vals[4] + d + 1]), answer: ans,
+          explain: hopLine([...vals.slice(2), ans], [`+${d}`, `+${d}`, `+${d}`]), steps: [`Find the jump between numbers: ${vals[1]} − ${vals[0]} = ${d}.`, `Every night has ${d} more stars.`], explainText: `${vals[4]} + ${d} = ${ans}.` }); }
+    ]
+  ];
+  const makeRiddle = (c, type, t = tierOf()) => RIDDLES[c][type % 3](t);
+
+  // Math: 3 questions from the player's age world. The first one is the topic the engine recommends,
+  // the second is always a story riddle, and on a chapter's final stop the third one is too.
   function pickSkill(k, used) {
     const w = clamp(ageWorld(st.age), 0, WORLDS.length - 1), ids = worldSkills(w).map(x => x.id);
     if (k === 0) { try { return recommendSkill(w); } catch (e) {} }
@@ -11975,14 +12160,21 @@ const storyHome = (() => {
   }
   function mathStep(c, i, k, used) {
     const ch = CH[c], s = ch.stops[i];
-    let skill = pickSkill(k, used), q;
-    try { q = MATH[skill].gen(level(skill)); } catch (e) { skill = 'count'; q = MATH.count.gen(1); }
-    used.push(skill);
+    let skill = null, q = null;
+    if (k === 1 || (k === 2 && s.final)) { // a riddle from this chapter's story; each math stop starts on a different kind
+      const m = ch.stops.slice(0, i).filter(x => x.kind === 'math').length;
+      try { q = makeRiddle(c, m + k - 1); } catch (e) { q = null; }
+    }
+    if (!q) {
+      skill = pickSkill(k, used);
+      try { q = MATH[skill].gen(level(skill)); } catch (e) { skill = 'count'; q = MATH.count.gen(1); }
+      used.push(skill);
+    }
     const t0 = Date.now(); let tries = 0, hinted = false;
     const dots = `<div class="sq-dots" aria-label="Puzzle ${k + 1} of 3">${[0, 1, 2].map(j => `<i class="${j < k ? 'on' : j === k ? 'now' : ''}">${j < k ? ch.token : ''}</i>`).join('')}</div>`;
     const cols = q.choices.some(x => String(x.html).replace(/<[^>]+>/g, '').length > 6) && q.choices.length > 2 ? 2 : q.choices.length > 4 ? 3 : q.choices.length;
     view.innerHTML = `${taskBar(c, i, fill(s.task, c), dots)}
-      <div class="qcard sq-q">
+      <div class="qcard sq-q${q.story ? ' sq-riddle' : ''}"${q.story ? ` data-story="${q.kind}"` : ''}>
         <div class="prompt"><div class="ptext">${q.prompt}</div><button class="speak" id="spk" aria-label="Read it to me">🔊</button></div>
         ${q.visual ? `<div class="visual">${q.visual}</div>` : ''}
         <div class="choices" style="grid-template-columns:repeat(${cols},1fr)">${q.choices.map((x, j) => `<button class="choice${x.txt ? ' txt' : ''}" data-i="${j}"${String(x.val) === String(q.answer) ? ' data-ok="1"' : ''}${x.say && /<svg|<span/.test(String(x.html)) ? ` aria-label="${esc(x.say)}"` : ''}>${x.html}</button>`).join('')}</div>
@@ -12008,7 +12200,7 @@ const storyHome = (() => {
       if (String(x.val) === String(q.answer)) {
         const first = tries === 0 && !hinted;
         b.classList.add('right'); view.querySelectorAll('.choice').forEach(y => y.disabled = true);
-        if (first) learn(skill, true, Date.now() - t0);
+        if (first && skill) learn(skill, true, Date.now() - t0); // story riddles are not tied to one skill level, so they skip the engine
         dayLog('q'); if (first) dayLog('ok');
         questTick('math'); if (first) questTick('firsttry');
         const cheer = first ? pick(['Great job!', 'You got it!', 'Super!', 'Yes!', 'Brilliant!']) : 'Now you know it!';
@@ -12017,7 +12209,7 @@ const storyHome = (() => {
         later(() => k < 2 ? mathStep(c, i, k + 1, used) : complete(c, i), first ? 1300 : 2200);
       } else {
         tries++; b.classList.add('wrong'); b.disabled = true; oops();
-        if (tries === 1) { learn(skill, false, Date.now() - t0); addReview(skill, q); save(); }
+        if (tries === 1 && skill) { learn(skill, false, Date.now() - t0); addReview(skill, q); save(); }
         $('#exp').innerHTML = `<div class="explain"><p>Let's work it out together.</p>${q.explain ? `<div class="visual">${q.explain}</div>` : ''}${q.steps ? `<ol class="steps">${q.steps.map(y => `<li>${y}</li>`).join('')}</ol>` : ''}<p>${q.explainText}</p></div>`;
         say("Let's work it out together. " + (q.steps ? q.steps.join(' ') + ' ' : '') + q.explainText);
       }
@@ -12130,7 +12322,7 @@ const storyHome = (() => {
     $('#sqMap').onclick = () => go(mapView, c);
   }
 
-  if (location.hash === '#selftest') window.__quest = { CH, get state() { return S(); }, mapView, stopView, bookView, chapterDone, layout, isDone, nextStop };
+  if (location.hash === '#selftest') window.__quest = { CH, get state() { return S(); }, mapView, stopView, bookView, chapterDone, layout, isDone, nextStop, riddle: makeRiddle, tierOf, get watching() { return !!unwatchMap; } };
   return mapView;
 })();
 /* ---------- coloring book: tap a shape to fill it, with colour-by-number and colour-by-sum ---------- */
