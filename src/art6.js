@@ -496,7 +496,7 @@
     { id: 'a6-pt-tape', cat: 'paint', level: 1, title: 'Tape-resist painting', ico: '🟦',
       need: 'Paper, painter\'s tape, paint and a brush. A grown-up helps peel.', tip: 'Wait until the paint is dry before you peel. Then peel slowly!', steps: [
       ['Stick strips of tape across your paper: one across, one down and one slanted.', ar(20, 20, 160, 160) + paint('#E8DCC0', tapes)],
-      ['Rub the tape down hard with your finger so paint cannot sneak under.', ''],
+      ['Rub the tape down hard with your finger so paint cannot sneak under. Rub, rub, rub!', ap('M30 100 l5 -3 l5 6 l5 -6 l5 6 l5 -6 l5 3 M140 100 l5 -3 l5 6 l5 -6 l5 6 l5 -6 l5 3 M100 130 l-3 5 l6 5 l-6 5 l6 5 l-6 5 l3 5 M100 40 l-3 5 l6 5 l-6 5 l6 5 l-3 5')],
       ['Paint every space a different color. Paint right over the tape!', tapeRegions.map(([c, p]) => T(c, apg(p))).join('')],
       ['When it is dry, slowly peel off the tape. Ta-da: white lines!', paint('#fff', tapes)],
       ['It looks like a stained-glass window! Next time, make a house or your first letter out of tape.', '']] },

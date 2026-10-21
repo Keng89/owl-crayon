@@ -424,7 +424,7 @@
   const spot = 'M10 90 a90 64 0 1 0 180 0 a90 64 0 1 0 -180 0 Z';
   const bunny = ae(56, 112, 19, 14) + '<ellipse cx="46" cy="82" rx="5.5" ry="18" transform="rotate(-14 46 82)"/>' + '<ellipse cx="60" cy="80" rx="5.5" ry="18" transform="rotate(12 60 80)"/>' + ap('M46 120 L36 200 L72 200 L66 120 Z');
   const bird = ap('M100 60 Q84 30 56 36 Q72 44 76 52 Q64 52 58 58 Q80 62 94 68 Z M110 60 Q126 30 154 36 Q138 44 134 52 Q146 52 152 58 Q130 62 116 68 Z') + ae(105, 64, 10, 7) + ac(105, 54, 6) + apg('105,50 112,46 109,54');
-  const dog = ap('M172 84 Q150 76 136 86 L116 94 Q110 98 116 102 L134 104 L120 112 Q116 116 122 118 L140 116 Q150 126 172 122 Z M160 84 Q166 68 178 76 Q174 90 164 94 Z M152 118 L160 200 L200 200 L200 100 Z');
+  const dog = ap('M182 74 Q166 62 150 70 L126 78 Q108 82 104 90 L106 96 Q112 100 126 98 L146 98 L118 108 Q112 112 118 116 L148 114 Q160 124 158 146 L156 200 L200 200 L200 104 Q198 84 182 74 Z M156 72 L158 44 L176 70 Z');
   // skyline
   const blds = [[0, 30, 110], [30, 28, 80], [58, 36, 120], [94, 26, 60], [120, 34, 100], [154, 22, 132], [176, 24, 92]];
   let wins = '';
@@ -455,7 +455,7 @@
       ['In a dark room, shine a torch at a wall. A grown-up can help.', paint('#3A3F5C', ar(0, 0, 200, 200)) + paint('#FFF3B0', ap(spot)) + stroke('#FFF3B0', wide(al(90, 162, 22, 120) + al(110, 162, 178, 120), 1.5)) + solid('#E8574A', ar(91, 170, 18, 28, 3)) + solid('#C9D3E0', apg('84,160 116,160 110,170 90,170')) + clipDef('a5p-spot', spot)],
       ['Bunny: hold up two fingers in a V shape. Wiggle the ears!', inClip(['a5p-spot'], paint(DARK, bunny)) + paint('#FFF3B0', ac(64, 108, 2))],
       ['Bird: cross your thumbs and flap your fingers like wings.', paint(DARK, bird)],
-      ['Dog: thumb up for an ear, and move your little finger to open the mouth.', inClip(['a5p-spot'], paint(DARK, dog)) + paint('#FFF3B0', ac(146, 90, 2))],
+      ['Dog: thumb up for an ear, and move your little finger to open the mouth.', inClip(['a5p-spot'], paint(DARK, `<g transform="translate(-10 16)">${dog}</g>`)) + paint('#FFF3B0', ac(132, 98, 3))],
       ['Put on a shadow show! Make up a story for your animals.', paint('#FFF3B0', ap('M30 30 l2 5 l5 2 l-5 2 l-2 5 l-2 -5 l-5 -2 l5 -2 Z M172 34 l2 5 l5 2 l-5 2 l-2 5 l-2 -5 l-5 -2 l5 -2 Z'))]] },
     { id: 'a5-skyline', cat: 'silhouette', level: 2, title: 'City at night', ico: '🌃',
       need: 'Dark blue or black paper (or crayons), a black marker, yellow crayon', tip: 'Make the buildings different heights. That is what makes a skyline!', steps: [

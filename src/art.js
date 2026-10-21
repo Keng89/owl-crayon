@@ -34,6 +34,10 @@ const ART_CATS = [
 ];
 const LEVEL_NAMES = ['', 'Beginner', 'Explorer', 'Master'];
 
+// Tessellation helpers: a flat-topped hexagon, and a square tile with a bump moved from its left side to its right side.
+const hexPts = (cx, cy, r = 17) => Array.from({ length: 6 }, (_, k) => { const t = k * Math.PI / 3; return `${(cx + r * Math.cos(t)).toFixed(1)},${(cy + r * Math.sin(t)).toFixed(1)}`; }).join(' ');
+const tessTile = (x, y, s = 36) => { const r = s * 0.22, m = s / 2; return `M${x} ${y} H${x + s} V${y + m - r} a${r} ${r} 0 0 1 0 ${2 * r} V${y + s} H${x} V${y + m + r} a${r} ${r} 0 0 0 0 ${-2 * r} Z`; };
+
 const LESSONS = [
   /* ---- Shape pictures ---- */
   { id: 'house', cat: 'shapes', level: 1, title: 'A cozy house', ico: '🏠', need: 'Paper, a pencil and crayons', tip: 'A house is just a square with a triangle hat. You can draw shapes!', steps: [
@@ -208,14 +212,14 @@ const LESSONS = [
     ['Draw a straight line across the page, a bit above the middle. This is the horizon, where the land meets the sky.', al(0, 110, 200, 110)],
     ['Draw pointy mountains on the line. They are far, far away, at the back of the picture.', apl('0,110 40,60 75,95 110,50 150,90 200,65')],
     ['Below the line, draw a wavy line for rolling hills. These are closer, in the middle of the picture.', ap('M0 140 Q50 112 100 135 T200 125')],
-    ['Draw a path coming toward you. Make it wide at the bottom and thin where it goes far away.', ap('M80 200 Q100 165 108 136 M140 200 Q118 165 112 136')],
-    ['Draw a big tree at the bottom left. It is close to you, so it is big. Draw two tiny trees far away on the hill. Far things are small and high up!', al(30, 200, 30, 155) + ac(30, 140, 18) + al(150, 132, 150, 125) + ac(150, 121, 5) + al(165, 130, 165, 124) + ac(165, 120, 4)]] },
+    ['Draw a path coming toward you. Make it wide at the bottom and thin where it goes far away.', ap('M70 200 Q98 160 104 128 M150 200 Q116 160 112 128')],
+    ['Draw a big tree at the bottom left. It is close to you, so it is big. Draw two tiny trees far away on the hill. Far things are small and high up!', ap('M26 200 V162 M42 200 V162') + ap('M20 164 a15 15 0 0 1 -2 -28 a18 18 0 0 1 32 -8 a15 15 0 0 1 4 36 Z') + apg('140,141 146,127 152,141') + apg('160,133 165,121 170,133') + apg('176,128 180,118 184,128')]] },
   { id: 'lake', cat: 'nature', level: 3, title: 'Mountain lake reflection', ico: '🏔️', need: 'Paper, a pencil, an eraser and crayons in blue, grey and yellow', tip: 'A reflection is like the picture flipped over. Try it with a tree too!', steps: [
-    ['Draw a line across the middle of the page. This is the edge of the water.', al(0, 120, 200, 120)],
-    ['Draw pointy mountains standing on the line.', apl('10,120 60,40 95,90 130,30 190,120')],
-    ['Under the line, draw the same mountains upside down. This is the reflection, like a mirror. Use dashed lines, because water wiggles.', `<g class="fold">${apl('10,120 60,200 95,150 130,210 190,120')}</g>`],
-    ['Draw a sun in the sky. In the water below it, draw a flat squashed oval for its reflection.', ac(165, 40, 12) + ae(165, 190, 12, 3)],
-    ['Draw short flat lines on the water for ripples. Color the reflection a little darker than the real mountains.', al(30, 135, 50, 135) + al(120, 145, 145, 145) + al(60, 160, 85, 160) + al(140, 175, 160, 175)]] },
+    ['Draw a line across the middle of the page. This is the edge of the water.', al(0, 110, 200, 110)],
+    ['Draw pointy mountains standing on the line. Add a zig-zag of snow near each top.', apl('10,110 60,52 95,86 130,40 190,110') + apl('48,66 60,74 72,66') + apl('116,56 130,64 144,56')],
+    ['Under the line, draw the same mountains upside down. This is the reflection, like a mirror. Use dashed lines, because water wiggles.', `<g class="fold">${apl('10,110 60,168 95,134 130,180 190,110')}</g>`],
+    ['Draw a sun in the sky. In the water below it, draw a flat squashed oval for its reflection.', ac(170, 30, 11) + ae(170, 190, 11, 3)],
+    ['Draw short flat lines on the water for ripples. Color the reflection a little darker than the real mountains.', al(20, 125, 40, 125) + al(150, 130, 175, 130) + al(70, 186, 95, 186) + al(20, 160, 38, 160) + al(160, 160, 185, 160)]] },
   { id: 'sea', cat: 'nature', level: 2, title: 'Waves and a sailboat', ico: '⛵', need: 'Paper, a pencil and crayons in blue, white and yellow', tip: 'Wavy water is a row of little hills. Big waves at the front, small at the back.', steps: [
     ['Draw a row of rolling waves across the page, like big round hills.', ap('M0 125 q25 -30 50 0 t50 0 t50 0 t50 0')],
     ['Draw a second row of smaller waves below the first.', ap('M0 150 q15 -15 30 0 t30 0 t30 0 t30 0 t30 0 t30 0 t30 0')],
@@ -259,7 +263,7 @@ const LESSONS = [
     ['Draw a few lines down the right side to make it look shadowed.', ap('M125 60 v95 M133 58 v94 M140 55 v93')],
     ['Draw a handle on the side. Now it is a cup! You could make a can or a candle instead.', ap('M145 75 q30 0 30 30 q0 30 -30 30'), { clear: true }]] },
   { id: 'road', cat: 'perspective', level: 3, title: 'One-point perspective road', ico: '🛣️', need: 'Paper, a pencil, a ruler, an eraser and crayons', tip: 'Every line going away from you points to the same dot. Use your ruler!', steps: [
-    ['Draw a line across the page for the horizon. Put a dot in the middle of it. This dot is the vanishing point: the place where things get so far away they disappear.', al(0, 80, 200, 80) + ac(100, 80, 3)],
+    ['Draw a line across the page for the horizon. Put a dot in the middle. This is the vanishing point, where far things disappear.', al(0, 80, 200, 80) + ac(100, 80, 3)],
     ['With a ruler, draw a line from each bottom corner of the page to the dot. These are the edges of the road.', al(20, 200, 100, 80) + al(180, 200, 100, 80)],
     ['Draw stripes down the middle of the road. Make them shorter and closer together as they get near the dot.', al(100, 200, 100, 178) + al(100, 162, 100, 146) + al(100, 134, 100, 124) + al(100, 115, 100, 109) + al(100, 103, 100, 99)],
     ['Draw a tall pole at the left. Then draw two light guide lines from its top and bottom to the dot.', guide(al(10, 180, 100, 80) + al(10, 100, 100, 80)) + al(10, 180, 10, 100)],
@@ -338,10 +342,10 @@ const LESSONS = [
     ['In the bottom left part, draw a checkerboard: color every other little box dark.', paint('#22305A', [0, 1, 2].map(r => [0, 1, 2].map(c => (r + c) % 2 ? '' : ar(40 + c * 14, 130 + r * 12, 12, 10)).join('')).join(''))],
     ['Fill the middle with wavy lines, or any pattern you like. There are no mistakes in Zentangle!', ap('M80 120 q10 -10 20 0 t20 0 M80 105 q10 -10 20 0 t20 0')]] },
   { id: 'tessellate', cat: 'pattern', level: 3, title: 'Tessellations', ico: '🐝', need: 'Paper, card, a pencil, tape, crayons and scissors; a grown-up helps cut', tip: 'Look for tessellations at home: floor tiles, bricks and honeycomb!', steps: [
-    ['A tessellation is shapes that fit together with no gaps, like tiles on a floor. Draw a hexagon: a shape with 6 equal sides, like a honeycomb cell.', apg(Array.from({ length: 6 }, (_, k) => { const t = k * Math.PI / 3; return `${(100 + 30 * Math.cos(t)).toFixed(1)},${(100 + 30 * Math.sin(t)).toFixed(1)}`; }).join(' '))],
-    ['Draw more hexagons all around the first one. Each one shares a side with its neighbours, with no gaps.', ring(6, 52, (x, y) => apg(Array.from({ length: 6 }, (_, k) => { const a = k * Math.PI / 3; return `${(x + 30 * Math.cos(a)).toFixed(1)},${(y + 30 * Math.sin(a)).toFixed(1)}`; }).join(' ')))],
-    ['Make your own tile from a square of card. Cut a bump out of one side, slide it straight across, and tape it onto the opposite side.', ''],
-    ['Trace around your tile again and again, fitting each one into the last. Turn each shape into an animal or a monster!', '']] },
+    ['A tessellation is shapes that fit together with no gaps, like tiles on a floor. Draw a hexagon: a shape with 6 equal sides, like a honeycomb cell.', apg(hexPts(56, 58))],
+    ['Draw more hexagons all around the first one. Each one shares a side with its neighbours, with no gaps.', Array.from({ length: 6 }, (_, k) => { const a = k * Math.PI / 3 + Math.PI / 6; return apg(hexPts(56 + 29.44 * Math.cos(a), 58 + 29.44 * Math.sin(a))); }).join('')],
+    ['Make your own tile from a square of card. Cut a bump out of one side, slide it straight across, and tape it onto the opposite side.', guide(ar(128, 20, 44, 44)) + ap(tessTile(128, 20, 44)) + ap('M132 76 q24 14 48 0') + apl('171,73 180,76 174,83')],
+    ['Trace around your tile again and again, fitting each one into the last. Turn each shape into an animal or a monster!', [0, 1, 2, 3].map(c => [0, 1].map(r => { const x = 24 + c * 36, y = 114 + r * 36; return ap(tessTile(x, y)) + ac(x + 12, y + 14, 2.5) + ac(x + 24, y + 14, 2.5) + ap(`M${x + 12} ${y + 24} q6 5 12 0`); }).join('')).join(''), { clear: true }]] },
 
   /* ---- Lettering ---- */
   { id: 'rainbowname', cat: 'letters', level: 1, title: 'Rainbow letters', ico: '🌈', need: 'Paper and crayons in lots of colors', tip: 'Go slowly and stay close to the line. Your letters will glow like a rainbow!', steps: [
@@ -378,7 +382,7 @@ const LESSONS = [
   /* ---- Painting & collage ---- */
   { id: 'wash', cat: 'paint', level: 1, title: 'Watercolor sunset', ico: '🌅', need: 'Watercolor paints, a big brush, water, thick paper; a grown-up helps', tip: 'Let the paint do the work. Just touch the paper and watch the colors flow!', steps: [
     ['Draw a light pencil line across the paper, near the bottom. This is the ground.', al(15, 140, 185, 140)],
-    ['Dip a big brush in clean water. Paint water all over the sky part, above the line.', ''],
+    ['Dip a big brush in clean water. Paint water all over the sky part, above the line. It looks shiny and wet!', paint('#DCEEFB', ar(15, 20, 170, 120)) + stroke('#A9D2F2', ap('M30 40 h40 M90 60 h60 M40 90 h50 M120 115 h45'))],
     ['Paint a stripe of yellow just above the line. Watery paint spreads by itself. That is called a wash!', paint('#FFD966', ar(15, 110, 170, 30))],
     ['While it is still wet, paint orange above the yellow. Let the colors melt into each other.', paint('#FF9F43', ar(15, 75, 170, 38))],
     ['Paint pink above the orange, then purple at the very top. Do not scrub. Just touch and let it flow.', paint('#F78FB3', ar(15, 45, 170, 32)) + paint('#8E7CC3', ar(15, 20, 170, 27))],
@@ -407,7 +411,7 @@ const LESSONS = [
     ['Look! The crayon pushes the paint away, like magic! Wax and water do not mix. That is called resist.', paint('#FFD966', ap('M120 40 A28 28 0 1 0 150 80 A22 22 0 1 1 120 40 Z')) + `<g class="pt" style="fill:#FFF3C4">${atext(50, 60, '✦', 18) + atext(80, 110, '✦', 14) + atext(160, 140, '✦', 16) + atext(40, 150, '✦', 12)}</g>`],
     ['Try it again: write a secret message in white crayon for a friend to paint over.', '']] },
   { id: 'swirls', cat: 'paint', level: 3, title: 'Swirly starry sky', ico: '🌌', need: 'Paints or oil pastels, a brush, a pencil, paper; a grown-up helps with paint', tip: 'Do not smooth the paint. Short, thick strokes you can see make it swirl!', steps: [
-    ['The painter Vincent van Gogh used short, thick brush strokes you can see. Start with a pencil: draw a low wavy line of hills, and a tall tree shaped like a flame on the left.', ap('M10 150 Q60 130 100 145 T190 140') + ap('M40 185 Q30 120 45 70 Q55 120 60 185')],
+    ['Van Gogh painted with short, thick strokes. With a pencil, draw a low wavy line of hills, and a tall flame-shaped tree on the left.', ap('M10 150 Q60 130 100 145 T190 140') + ap('M40 185 Q30 120 45 70 Q55 120 60 185')],
     ['Paint the sky light blue. Then add short curly strokes of dark blue in big swirls. Each stroke goes the same way as the one beside it.', paint('#9CCBF5', ap('M10 10 H190 V140 Q145 135 100 145 Q60 130 10 150 Z')) + stroke('#2E5FB8', ap('M70 60 q20 -25 45 -5 q15 15 -5 25 q-15 5 -15 -8') + ap('M20 30 q30 -10 50 5') + ap('M130 100 q25 -20 50 0') + ap('M80 110 q20 -15 40 0') + ap('M15 70 q20 -12 40 0'))],
     ['Paint a big yellow moon and a few stars. Paint a ring of yellow strokes around each one, so they glow.', paint('#FFD966', ac(160, 40, 14) + ac(30, 90, 6) + ac(110, 30, 5)) + stroke('#FFC23D', ac(160, 40, 22) + ac(30, 90, 12) + ac(110, 30, 10))],
     ['Paint the tree very dark, with strokes that go up like flames. Dark next to light makes it stand out.', paint('#22305A', ap('M40 185 Q30 120 45 70 Q55 120 60 185 Z'))],

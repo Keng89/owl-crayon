@@ -5059,6 +5059,10 @@ const ART_CATS = [
 ];
 const LEVEL_NAMES = ['', 'Beginner', 'Explorer', 'Master'];
 
+// Tessellation helpers: a flat-topped hexagon, and a square tile with a bump moved from its left side to its right side.
+const hexPts = (cx, cy, r = 17) => Array.from({ length: 6 }, (_, k) => { const t = k * Math.PI / 3; return `${(cx + r * Math.cos(t)).toFixed(1)},${(cy + r * Math.sin(t)).toFixed(1)}`; }).join(' ');
+const tessTile = (x, y, s = 36) => { const r = s * 0.22, m = s / 2; return `M${x} ${y} H${x + s} V${y + m - r} a${r} ${r} 0 0 1 0 ${2 * r} V${y + s} H${x} V${y + m + r} a${r} ${r} 0 0 0 0 ${-2 * r} Z`; };
+
 const LESSONS = [
   /* ---- Shape pictures ---- */
   { id: 'house', cat: 'shapes', level: 1, title: 'A cozy house', ico: '🏠', need: 'Paper, a pencil and crayons', tip: 'A house is just a square with a triangle hat. You can draw shapes!', steps: [
@@ -5233,14 +5237,14 @@ const LESSONS = [
     ['Draw a straight line across the page, a bit above the middle. This is the horizon, where the land meets the sky.', al(0, 110, 200, 110)],
     ['Draw pointy mountains on the line. They are far, far away, at the back of the picture.', apl('0,110 40,60 75,95 110,50 150,90 200,65')],
     ['Below the line, draw a wavy line for rolling hills. These are closer, in the middle of the picture.', ap('M0 140 Q50 112 100 135 T200 125')],
-    ['Draw a path coming toward you. Make it wide at the bottom and thin where it goes far away.', ap('M80 200 Q100 165 108 136 M140 200 Q118 165 112 136')],
-    ['Draw a big tree at the bottom left. It is close to you, so it is big. Draw two tiny trees far away on the hill. Far things are small and high up!', al(30, 200, 30, 155) + ac(30, 140, 18) + al(150, 132, 150, 125) + ac(150, 121, 5) + al(165, 130, 165, 124) + ac(165, 120, 4)]] },
+    ['Draw a path coming toward you. Make it wide at the bottom and thin where it goes far away.', ap('M70 200 Q98 160 104 128 M150 200 Q116 160 112 128')],
+    ['Draw a big tree at the bottom left. It is close to you, so it is big. Draw two tiny trees far away on the hill. Far things are small and high up!', ap('M26 200 V162 M42 200 V162') + ap('M20 164 a15 15 0 0 1 -2 -28 a18 18 0 0 1 32 -8 a15 15 0 0 1 4 36 Z') + apg('140,141 146,127 152,141') + apg('160,133 165,121 170,133') + apg('176,128 180,118 184,128')]] },
   { id: 'lake', cat: 'nature', level: 3, title: 'Mountain lake reflection', ico: '🏔️', need: 'Paper, a pencil, an eraser and crayons in blue, grey and yellow', tip: 'A reflection is like the picture flipped over. Try it with a tree too!', steps: [
-    ['Draw a line across the middle of the page. This is the edge of the water.', al(0, 120, 200, 120)],
-    ['Draw pointy mountains standing on the line.', apl('10,120 60,40 95,90 130,30 190,120')],
-    ['Under the line, draw the same mountains upside down. This is the reflection, like a mirror. Use dashed lines, because water wiggles.', `<g class="fold">${apl('10,120 60,200 95,150 130,210 190,120')}</g>`],
-    ['Draw a sun in the sky. In the water below it, draw a flat squashed oval for its reflection.', ac(165, 40, 12) + ae(165, 190, 12, 3)],
-    ['Draw short flat lines on the water for ripples. Color the reflection a little darker than the real mountains.', al(30, 135, 50, 135) + al(120, 145, 145, 145) + al(60, 160, 85, 160) + al(140, 175, 160, 175)]] },
+    ['Draw a line across the middle of the page. This is the edge of the water.', al(0, 110, 200, 110)],
+    ['Draw pointy mountains standing on the line. Add a zig-zag of snow near each top.', apl('10,110 60,52 95,86 130,40 190,110') + apl('48,66 60,74 72,66') + apl('116,56 130,64 144,56')],
+    ['Under the line, draw the same mountains upside down. This is the reflection, like a mirror. Use dashed lines, because water wiggles.', `<g class="fold">${apl('10,110 60,168 95,134 130,180 190,110')}</g>`],
+    ['Draw a sun in the sky. In the water below it, draw a flat squashed oval for its reflection.', ac(170, 30, 11) + ae(170, 190, 11, 3)],
+    ['Draw short flat lines on the water for ripples. Color the reflection a little darker than the real mountains.', al(20, 125, 40, 125) + al(150, 130, 175, 130) + al(70, 186, 95, 186) + al(20, 160, 38, 160) + al(160, 160, 185, 160)]] },
   { id: 'sea', cat: 'nature', level: 2, title: 'Waves and a sailboat', ico: '⛵', need: 'Paper, a pencil and crayons in blue, white and yellow', tip: 'Wavy water is a row of little hills. Big waves at the front, small at the back.', steps: [
     ['Draw a row of rolling waves across the page, like big round hills.', ap('M0 125 q25 -30 50 0 t50 0 t50 0 t50 0')],
     ['Draw a second row of smaller waves below the first.', ap('M0 150 q15 -15 30 0 t30 0 t30 0 t30 0 t30 0 t30 0 t30 0')],
@@ -5284,7 +5288,7 @@ const LESSONS = [
     ['Draw a few lines down the right side to make it look shadowed.', ap('M125 60 v95 M133 58 v94 M140 55 v93')],
     ['Draw a handle on the side. Now it is a cup! You could make a can or a candle instead.', ap('M145 75 q30 0 30 30 q0 30 -30 30'), { clear: true }]] },
   { id: 'road', cat: 'perspective', level: 3, title: 'One-point perspective road', ico: '🛣️', need: 'Paper, a pencil, a ruler, an eraser and crayons', tip: 'Every line going away from you points to the same dot. Use your ruler!', steps: [
-    ['Draw a line across the page for the horizon. Put a dot in the middle of it. This dot is the vanishing point: the place where things get so far away they disappear.', al(0, 80, 200, 80) + ac(100, 80, 3)],
+    ['Draw a line across the page for the horizon. Put a dot in the middle. This is the vanishing point, where far things disappear.', al(0, 80, 200, 80) + ac(100, 80, 3)],
     ['With a ruler, draw a line from each bottom corner of the page to the dot. These are the edges of the road.', al(20, 200, 100, 80) + al(180, 200, 100, 80)],
     ['Draw stripes down the middle of the road. Make them shorter and closer together as they get near the dot.', al(100, 200, 100, 178) + al(100, 162, 100, 146) + al(100, 134, 100, 124) + al(100, 115, 100, 109) + al(100, 103, 100, 99)],
     ['Draw a tall pole at the left. Then draw two light guide lines from its top and bottom to the dot.', guide(al(10, 180, 100, 80) + al(10, 100, 100, 80)) + al(10, 180, 10, 100)],
@@ -5363,10 +5367,10 @@ const LESSONS = [
     ['In the bottom left part, draw a checkerboard: color every other little box dark.', paint('#22305A', [0, 1, 2].map(r => [0, 1, 2].map(c => (r + c) % 2 ? '' : ar(40 + c * 14, 130 + r * 12, 12, 10)).join('')).join(''))],
     ['Fill the middle with wavy lines, or any pattern you like. There are no mistakes in Zentangle!', ap('M80 120 q10 -10 20 0 t20 0 M80 105 q10 -10 20 0 t20 0')]] },
   { id: 'tessellate', cat: 'pattern', level: 3, title: 'Tessellations', ico: '🐝', need: 'Paper, card, a pencil, tape, crayons and scissors; a grown-up helps cut', tip: 'Look for tessellations at home: floor tiles, bricks and honeycomb!', steps: [
-    ['A tessellation is shapes that fit together with no gaps, like tiles on a floor. Draw a hexagon: a shape with 6 equal sides, like a honeycomb cell.', apg(Array.from({ length: 6 }, (_, k) => { const t = k * Math.PI / 3; return `${(100 + 30 * Math.cos(t)).toFixed(1)},${(100 + 30 * Math.sin(t)).toFixed(1)}`; }).join(' '))],
-    ['Draw more hexagons all around the first one. Each one shares a side with its neighbours, with no gaps.', ring(6, 52, (x, y) => apg(Array.from({ length: 6 }, (_, k) => { const a = k * Math.PI / 3; return `${(x + 30 * Math.cos(a)).toFixed(1)},${(y + 30 * Math.sin(a)).toFixed(1)}`; }).join(' ')))],
-    ['Make your own tile from a square of card. Cut a bump out of one side, slide it straight across, and tape it onto the opposite side.', ''],
-    ['Trace around your tile again and again, fitting each one into the last. Turn each shape into an animal or a monster!', '']] },
+    ['A tessellation is shapes that fit together with no gaps, like tiles on a floor. Draw a hexagon: a shape with 6 equal sides, like a honeycomb cell.', apg(hexPts(56, 58))],
+    ['Draw more hexagons all around the first one. Each one shares a side with its neighbours, with no gaps.', Array.from({ length: 6 }, (_, k) => { const a = k * Math.PI / 3 + Math.PI / 6; return apg(hexPts(56 + 29.44 * Math.cos(a), 58 + 29.44 * Math.sin(a))); }).join('')],
+    ['Make your own tile from a square of card. Cut a bump out of one side, slide it straight across, and tape it onto the opposite side.', guide(ar(128, 20, 44, 44)) + ap(tessTile(128, 20, 44)) + ap('M132 76 q24 14 48 0') + apl('171,73 180,76 174,83')],
+    ['Trace around your tile again and again, fitting each one into the last. Turn each shape into an animal or a monster!', [0, 1, 2, 3].map(c => [0, 1].map(r => { const x = 24 + c * 36, y = 114 + r * 36; return ap(tessTile(x, y)) + ac(x + 12, y + 14, 2.5) + ac(x + 24, y + 14, 2.5) + ap(`M${x + 12} ${y + 24} q6 5 12 0`); }).join('')).join(''), { clear: true }]] },
 
   /* ---- Lettering ---- */
   { id: 'rainbowname', cat: 'letters', level: 1, title: 'Rainbow letters', ico: '🌈', need: 'Paper and crayons in lots of colors', tip: 'Go slowly and stay close to the line. Your letters will glow like a rainbow!', steps: [
@@ -5403,7 +5407,7 @@ const LESSONS = [
   /* ---- Painting & collage ---- */
   { id: 'wash', cat: 'paint', level: 1, title: 'Watercolor sunset', ico: '🌅', need: 'Watercolor paints, a big brush, water, thick paper; a grown-up helps', tip: 'Let the paint do the work. Just touch the paper and watch the colors flow!', steps: [
     ['Draw a light pencil line across the paper, near the bottom. This is the ground.', al(15, 140, 185, 140)],
-    ['Dip a big brush in clean water. Paint water all over the sky part, above the line.', ''],
+    ['Dip a big brush in clean water. Paint water all over the sky part, above the line. It looks shiny and wet!', paint('#DCEEFB', ar(15, 20, 170, 120)) + stroke('#A9D2F2', ap('M30 40 h40 M90 60 h60 M40 90 h50 M120 115 h45'))],
     ['Paint a stripe of yellow just above the line. Watery paint spreads by itself. That is called a wash!', paint('#FFD966', ar(15, 110, 170, 30))],
     ['While it is still wet, paint orange above the yellow. Let the colors melt into each other.', paint('#FF9F43', ar(15, 75, 170, 38))],
     ['Paint pink above the orange, then purple at the very top. Do not scrub. Just touch and let it flow.', paint('#F78FB3', ar(15, 45, 170, 32)) + paint('#8E7CC3', ar(15, 20, 170, 27))],
@@ -5432,7 +5436,7 @@ const LESSONS = [
     ['Look! The crayon pushes the paint away, like magic! Wax and water do not mix. That is called resist.', paint('#FFD966', ap('M120 40 A28 28 0 1 0 150 80 A22 22 0 1 1 120 40 Z')) + `<g class="pt" style="fill:#FFF3C4">${atext(50, 60, '✦', 18) + atext(80, 110, '✦', 14) + atext(160, 140, '✦', 16) + atext(40, 150, '✦', 12)}</g>`],
     ['Try it again: write a secret message in white crayon for a friend to paint over.', '']] },
   { id: 'swirls', cat: 'paint', level: 3, title: 'Swirly starry sky', ico: '🌌', need: 'Paints or oil pastels, a brush, a pencil, paper; a grown-up helps with paint', tip: 'Do not smooth the paint. Short, thick strokes you can see make it swirl!', steps: [
-    ['The painter Vincent van Gogh used short, thick brush strokes you can see. Start with a pencil: draw a low wavy line of hills, and a tall tree shaped like a flame on the left.', ap('M10 150 Q60 130 100 145 T190 140') + ap('M40 185 Q30 120 45 70 Q55 120 60 185')],
+    ['Van Gogh painted with short, thick strokes. With a pencil, draw a low wavy line of hills, and a tall flame-shaped tree on the left.', ap('M10 150 Q60 130 100 145 T190 140') + ap('M40 185 Q30 120 45 70 Q55 120 60 185')],
     ['Paint the sky light blue. Then add short curly strokes of dark blue in big swirls. Each stroke goes the same way as the one beside it.', paint('#9CCBF5', ap('M10 10 H190 V140 Q145 135 100 145 Q60 130 10 150 Z')) + stroke('#2E5FB8', ap('M70 60 q20 -25 45 -5 q15 15 -5 25 q-15 5 -15 -8') + ap('M20 30 q30 -10 50 5') + ap('M130 100 q25 -20 50 0') + ap('M80 110 q20 -15 40 0') + ap('M15 70 q20 -12 40 0'))],
     ['Paint a big yellow moon and a few stars. Paint a ring of yellow strokes around each one, so they glow.', paint('#FFD966', ac(160, 40, 14) + ac(30, 90, 6) + ac(110, 30, 5)) + stroke('#FFC23D', ac(160, 40, 22) + ac(30, 90, 12) + ac(110, 30, 10))],
     ['Paint the tree very dark, with strokes that go up like flames. Dark next to light makes it stand out.', paint('#22305A', ap('M40 185 Q30 120 45 70 Q55 120 60 185 Z'))],
@@ -5625,22 +5629,22 @@ const lessonById = id => LESSONS.find(l => l.id === id);
       ['Draw 4 short, thick legs.', ap('M70 149 V182 H84 V157') + ap('M88 159 V184 H102 V162') + ap('M122 161 V184 H136 V157') + ap('M140 156 V180 H152 V147')],
       ['Give it an eye, a smile and spots on its back.', ac(50, 34, 3) + ap('M36 42 q8 5 16 1') + ac(100, 112, 6) + ac(122, 108, 5) + ac(138, 124, 6) + ac(112, 128, 4)],
       ['Draw grass and color your dino! Green, blue or purple?', ap('M5 192 l5 -10 l5 10 l5 -10 l5 10 M60 194 l5 -10 l5 10 l5 -10 l5 10 M165 194 l5 -10 l5 10 l5 -10 l5 10')]] },
-    { id: 'd-trex', cat: 'dino', level: 1, title: 'A T-rex', ico: '🦖', need: P, tip: 'Big head, tiny arms. That is what makes it a T-rex!', steps: [
-      ['Draw a big box with round corners for the head.', ar(92, 36, 70, 42, 18)],
-      ['Draw a big oval under it for the body.', ae(85, 115, 45, 40)],
-      ['Draw a long tail going down to a point.', ap('M45 97 Q20 115 5 165 Q30 145 46 133')],
-      ['Draw a mouth line with zig-zag teeth.', al(116, 64, 160, 64) + apl('120,64 124,70 128,64 132,70 136,64 140,70 144,64 148,70 152,64')],
-      ['Add an eye and a nose hole.', ac(124, 50, 5) + ac(125, 50, 2) + ac(152, 46, 2)],
-      ['Draw two tiny arms!', ap('M124 100 q12 0 16 8 M140 108 l5 -3 M140 108 l4 4')],
-      ['Draw two big strong legs.', ap('M65 151 L62 185 H82 L82 155') + ap('M100 153 L100 185 H120 L113 146')],
-      ['Draw the ground and a sun. Color your T-rex. ROAR!', al(0, 186, 200, 186) + ac(30, 30, 12) + ring(8, 20, (x, y) => al(f1(30 + (x - 100) * 0.85), f1(30 + (y - 100) * 0.85), f1(30 + (x - 100) * 1.15), f1(30 + (y - 100) * 1.15)))]] },
+    { id: 'd-trex', cat: 'dino', level: 1, title: 'A T-rex', ico: '🦖', need: P, tip: 'Big head, big legs, tiny arms. That is what makes it a T-rex!', steps: [
+      ['Draw a big head near the top right: a long box with round corners.', ap('M118 64 C112 38 126 22 152 22 L176 24 Q192 28 191 44 L190 62 Q188 76 172 77 L140 79 C128 80 120 74 118 64 Z')],
+      ['Draw a big round body under the head, like a hill leaning up to the head.', ap('M124 74 C104 80 72 84 60 104 C48 126 60 152 90 152 C118 152 140 132 148 110 C152 96 152 88 150 79')],
+      ['Draw a long tail sticking out the back, ending in a point.', ap('M60 104 Q30 106 4 120 Q34 130 54 136')],
+      ['Draw a long mouth line. Add zig-zag teeth on the top and the bottom.', al(146, 60, 190, 60) + apl('152,60 156,68 160,60 164,68 168,60 172,68 176,60 180,68 184,60')],
+      ['Add an eye with a cross eyebrow, and a nose hole.', ac(150, 40, 5) + ac(151, 40, 2) + al(142, 31, 160, 35) + ac(182, 36, 2)],
+      ['Draw two tiny arms! Each one has two little claws.', ap('M146 104 q10 2 12 10 M158 114 l5 -1 M158 114 l3 4') + ap('M140 116 q8 4 8 12 M148 128 l5 0 M148 128 l2 4')],
+      ['Draw two big strong legs, with three toes on each foot.', ap('M76 146 L74 168 L62 182 H98 L94 168 L98 151') + ap('M116 146 L120 170 L108 182 H140 L134 170 L138 126') + ap('M74 182 v-6 M86 182 v-6 M116 182 v-6 M128 182 v-6')],
+      ['Draw the ground and a sun. Color your T-rex. ROAR!', al(0, 184, 200, 184) + ac(30, 30, 12) + ring(8, 20, (x, y) => al(f1(30 + (x - 100) * 0.85), f1(30 + (y - 100) * 0.85), f1(30 + (x - 100) * 1.15), f1(30 + (y - 100) * 1.15)))]] },
     { id: 'd-tricera', cat: 'dino', level: 2, title: 'A triceratops', ico: '🦏', need: P, tip: 'Draw the front shapes first. Then stop your lines when they bump into them.', steps: [
-      ['Draw the head: a long shape with a pointy beak at the front.', ap('M82 94 C64 86 46 88 34 98 L14 118 Q26 130 44 128 C60 128 74 124 84 116 Z')],
-      ['Draw a big round frill behind the head, like a fan.', ap('M42 92 C30 52 72 36 92 50 C114 64 108 106 84 116')],
-      ['Draw the big round body behind the frill. Stop when you reach the head.', ap('M105 68 C126 60 172 72 180 108 C186 138 160 150 130 150 C110 150 94 144 84 124')],
-      ['Draw two long horns over the eye and a small one on the nose.', apl('50,92 30,62 60,90') + apl('64,88 54,56 72,88') + apl('22,110 16,96 30,102')],
-      ['Add an eye, a smile and bumps along the frill.', ac(56, 104, 3.5) + ap('M18 120 q10 5 20 0') + ac(42, 67, 3) + ac(62, 47, 3) + ac(92, 50, 3) + ac(105, 68, 3) + ac(105, 89, 3)],
-      ['Draw 4 thick legs and a short pointy tail.', ap('M96 145 V180 H110 V149') + ap('M116 150 V184 H130 V150') + ap('M148 148 V182 H162 V143') + ap('M168 137 V176 H180 V122') + ap('M182 104 Q194 108 199 122 Q190 122 183 120')],
+      ['Draw the head on the left: a long shape with a pointy beak at the front.', ap('M84 104 C70 96 50 96 36 104 L14 124 Q26 136 46 134 C62 134 76 130 88 122 Z')],
+      ['Draw a big round frill behind the head, like a fan or a shield.', ap('M50 100 C38 60 72 36 100 50 C126 64 120 106 94 120')],
+      ['Draw the big round body behind the frill. Stop when you reach the frill.', ap('M116 70 C142 62 180 76 186 108 C190 136 166 150 136 150 C116 150 104 146 96 134')],
+      ['Draw two long horns over the eye, and a small horn on the nose.', apl('44,99 10,80 54,97') + apl('62,96 30,70 72,98') + apl('25,114 20,100 31,108')],
+      ['Add an eye and a smile. Draw little bumps along the edge of the frill.', ac(56, 112, 4) + ac(57, 112, 1.5) + ap('M20 126 q10 6 22 2') + ac(46, 74, 3.5) + ac(58, 54, 3.5) + ac(78, 44, 3.5) + ac(100, 48, 3.5) + ac(114, 64, 3.5) + ac(116, 86, 3.5)],
+      ['Draw 4 thick legs and a short pointy tail.', ap('M100 140 V180 H116 V146') + ap('M122 150 V184 H138 V150') + ap('M150 150 V182 H166 V146') + ap('M170 140 V176 H184 V124') + ap('M186 104 Q196 110 199 124 Q190 122 187 120')],
       ['Color your triceratops and draw some plants to munch!', ap('M8 192 l5 -12 l5 12 l5 -12 l5 12 M40 192 l5 -12 l5 12 l5 -12 l5 12 M170 192 l5 -12 l5 12 l5 -12 l5 12')]] },
     { id: 'd-stego', cat: 'dino', level: 2, title: 'A stegosaurus', ico: '🦕', need: P, tip: 'Big plates in the middle, small ones at the ends.', steps: [
       ['Draw a big hill shape for the body, flat on the bottom.', ap('M45 140 C55 75 145 75 165 140 Z')],
@@ -5654,8 +5658,8 @@ const lessonById = id => LESSONS.find(l => l.id === id);
       ['Draw light guides: a circle for the head and a big circle for the body.', guide(ac(132, 55, 24) + ac(95, 128, 44))],
       ['Draw the head over the small guide, with a long nose sticking out.', ap('M112 66 C104 38 132 26 150 40 L176 48 Q186 58 174 68 L142 76 C128 82 116 76 112 66 Z')],
       ['Draw a round tummy over the big guide. Join it to the head with a neck.', ap('M138 77 C150 100 145 140 132 158 C118 178 70 176 56 155 C44 135 58 100 82 92 C95 86 104 78 112 66')],
-      ['Draw belly stripes: curved lines across the tummy.', ap('M108 100 q14 6 28 4 M104 116 q20 8 38 4 M100 132 q20 8 42 2 M98 148 q18 8 36 0')],
-      ['Draw a big bat wing on the back: a zig-zag with long points.', ap('M80 94 L40 30 L58 66 L22 58 L46 88 L14 96 L60 108')],
+      ['Draw a long belly patch on the front of the tummy. Add short lines across it, like a ladder.', ap('M132 88 C120 110 112 140 118 164') + ap('M124 102 l12 4 M118 118 l20 3 M115 134 l24 1 M115 150 l22 -2')],
+      ['Draw a bat wing on the back: a long top edge out to a point, then a bumpy edge back to the body.', ap('M84 92 L34 26 Q40 50 22 58 Q38 70 18 84 Q40 92 62 110') + ap('M84 92 L22 58 M84 92 L18 84')],
       ['Add horns, an eye, a nose hole and a long tail with a pointy tip.', apg('126,34 120,14 136,30') + apg('140,34 144,16 150,36') + ac(140, 50, 4) + ac(141, 50, 1.5) + ac(172, 54, 2) + ap('M132 158 Q168 176 184 152 Q192 138 180 130') + apg('180,130 172,114 192,122')],
       ['Draw bumpy spikes down the back and little legs.', apl('112,66 104,72 108,78 96,84 100,90 86,92') + ap('M80 170 V188 H100 V174 M120 170 V188 H140 V160')],
       ['Erase the guides. Add a puff of smoke and color your dragon!', ac(186, 64, 4) + ac(193, 54, 3) + ac(190, 44, 2), { clear: true }]] },
@@ -7195,7 +7199,7 @@ const lessonById = id => LESSONS.find(l => l.id === id);
   const spot = 'M10 90 a90 64 0 1 0 180 0 a90 64 0 1 0 -180 0 Z';
   const bunny = ae(56, 112, 19, 14) + '<ellipse cx="46" cy="82" rx="5.5" ry="18" transform="rotate(-14 46 82)"/>' + '<ellipse cx="60" cy="80" rx="5.5" ry="18" transform="rotate(12 60 80)"/>' + ap('M46 120 L36 200 L72 200 L66 120 Z');
   const bird = ap('M100 60 Q84 30 56 36 Q72 44 76 52 Q64 52 58 58 Q80 62 94 68 Z M110 60 Q126 30 154 36 Q138 44 134 52 Q146 52 152 58 Q130 62 116 68 Z') + ae(105, 64, 10, 7) + ac(105, 54, 6) + apg('105,50 112,46 109,54');
-  const dog = ap('M172 84 Q150 76 136 86 L116 94 Q110 98 116 102 L134 104 L120 112 Q116 116 122 118 L140 116 Q150 126 172 122 Z M160 84 Q166 68 178 76 Q174 90 164 94 Z M152 118 L160 200 L200 200 L200 100 Z');
+  const dog = ap('M182 74 Q166 62 150 70 L126 78 Q108 82 104 90 L106 96 Q112 100 126 98 L146 98 L118 108 Q112 112 118 116 L148 114 Q160 124 158 146 L156 200 L200 200 L200 104 Q198 84 182 74 Z M156 72 L158 44 L176 70 Z');
   // skyline
   const blds = [[0, 30, 110], [30, 28, 80], [58, 36, 120], [94, 26, 60], [120, 34, 100], [154, 22, 132], [176, 24, 92]];
   let wins = '';
@@ -7226,7 +7230,7 @@ const lessonById = id => LESSONS.find(l => l.id === id);
       ['In a dark room, shine a torch at a wall. A grown-up can help.', paint('#3A3F5C', ar(0, 0, 200, 200)) + paint('#FFF3B0', ap(spot)) + stroke('#FFF3B0', wide(al(90, 162, 22, 120) + al(110, 162, 178, 120), 1.5)) + solid('#E8574A', ar(91, 170, 18, 28, 3)) + solid('#C9D3E0', apg('84,160 116,160 110,170 90,170')) + clipDef('a5p-spot', spot)],
       ['Bunny: hold up two fingers in a V shape. Wiggle the ears!', inClip(['a5p-spot'], paint(DARK, bunny)) + paint('#FFF3B0', ac(64, 108, 2))],
       ['Bird: cross your thumbs and flap your fingers like wings.', paint(DARK, bird)],
-      ['Dog: thumb up for an ear, and move your little finger to open the mouth.', inClip(['a5p-spot'], paint(DARK, dog)) + paint('#FFF3B0', ac(146, 90, 2))],
+      ['Dog: thumb up for an ear, and move your little finger to open the mouth.', inClip(['a5p-spot'], paint(DARK, `<g transform="translate(-10 16)">${dog}</g>`)) + paint('#FFF3B0', ac(132, 98, 3))],
       ['Put on a shadow show! Make up a story for your animals.', paint('#FFF3B0', ap('M30 30 l2 5 l5 2 l-5 2 l-2 5 l-2 -5 l-5 -2 l5 -2 Z M172 34 l2 5 l5 2 l-5 2 l-2 5 l-2 -5 l-5 -2 l5 -2 Z'))]] },
     { id: 'a5-skyline', cat: 'silhouette', level: 2, title: 'City at night', ico: '🌃',
       need: 'Dark blue or black paper (or crayons), a black marker, yellow crayon', tip: 'Make the buildings different heights. That is what makes a skyline!', steps: [
@@ -7752,7 +7756,7 @@ const lessonById = id => LESSONS.find(l => l.id === id);
     { id: 'a6-pt-tape', cat: 'paint', level: 1, title: 'Tape-resist painting', ico: '🟦',
       need: 'Paper, painter\'s tape, paint and a brush. A grown-up helps peel.', tip: 'Wait until the paint is dry before you peel. Then peel slowly!', steps: [
       ['Stick strips of tape across your paper: one across, one down and one slanted.', ar(20, 20, 160, 160) + paint('#E8DCC0', tapes)],
-      ['Rub the tape down hard with your finger so paint cannot sneak under.', ''],
+      ['Rub the tape down hard with your finger so paint cannot sneak under. Rub, rub, rub!', ap('M30 100 l5 -3 l5 6 l5 -6 l5 6 l5 -6 l5 3 M140 100 l5 -3 l5 6 l5 -6 l5 6 l5 -6 l5 3 M100 130 l-3 5 l6 5 l-6 5 l6 5 l-6 5 l3 5 M100 40 l-3 5 l6 5 l-6 5 l6 5 l-3 5')],
       ['Paint every space a different color. Paint right over the tape!', tapeRegions.map(([c, p]) => T(c, apg(p))).join('')],
       ['When it is dry, slowly peel off the tape. Ta-da: white lines!', paint('#fff', tapes)],
       ['It looks like a stained-glass window! Next time, make a house or your first letter out of tape.', '']] },
@@ -10291,7 +10295,7 @@ function parent() {
       <p class="note">Owl &amp; Crayon works without the internet. Progress, drawings and Owl's answers are saved only in this browser on this device. There are no ads, no tracking and no accounts, and nothing is sent anywhere unless you switch on Online Owl.</p>
       <p class="note">With Online Owl on, only the question your child asks and their age go to your Online Owl server, which asks an AI (Cloudflare's free AI, or Claude by Anthropic) for a short, child-friendly answer. Names and progress are never sent. You can read every answer above, and turn it off at any time.</p>
       <p class="note">The microphone button uses the browser's own speech recognition, which may send the recording to the browser maker (for example Google or Apple) to turn it into text. Typing works without it.</p>
-      <p class="note">Version 2026-10-21 04:47 UTC</p></div>`;
+      <p class="note">Version 2026-10-21 05:40 UTC</p></div>`;
   view.querySelectorAll('[data-teach]').forEach(b => b.onclick = () => {
     const i = +b.dataset.teach, ans = $('#t' + i).value.trim(); if (!ans) return;
     owlForget(st.owlMisses[i].q); st.owlTaught.push({ q: st.owlMisses[i].q, a: ans }); st.owlMisses.splice(i, 1); save(); go(parent);
