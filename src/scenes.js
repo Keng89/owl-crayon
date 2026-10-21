@@ -279,7 +279,7 @@ const sceneHome = (() => {
       if (d.moved) { tone([480]); changed(); } else say(kidName(d.s.e));
     };
     window.addEventListener('pointermove', move); window.addEventListener('pointerup', up); window.addEventListener('pointercancel', up);
-    canvasCleanup = () => { ro.disconnect(); window.removeEventListener('pointermove', move); window.removeEventListener('pointerup', up); window.removeEventListener('pointercancel', up); clearTimeout(saveT); store.set(draftKey(), S); };
+    canvasCleanup = () => { ro.disconnect(); window.removeEventListener('pointermove', move); window.removeEventListener('pointerup', up); window.removeEventListener('pointercancel', up); clearTimeout(saveT); clearTimeout(clearNums.t); store.set(draftKey(), S); };
     function stroke(x1, y1, x2, y2) {
       ctx.globalCompositeOperation = crayon.er ? 'destination-out' : 'source-over';
       ctx.strokeStyle = crayon.c; ctx.lineWidth = (crayon.er ? crayon.z * 3 : crayon.z) * 2; ctx.lineCap = ctx.lineJoin = 'round';
@@ -405,7 +405,7 @@ const sceneHome = (() => {
         const first = st.sceneDay !== today(); st.sceneDay = today(); save();
         if (first) addStars(2);
         confetti(25); yay(); say(first ? 'Saved to your pictures! You earned 2 stars!' : 'Saved to your pictures!');
-        $('#ssSaved').hidden = false;
+        if ($('#ssSaved')) $('#ssSaved').hidden = false;
       } catch (x) { say('Oops, that did not save. Try again.'); }
       if (b.isConnected) b.disabled = false;
     };

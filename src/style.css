@@ -128,7 +128,7 @@ h1,h2,h3{font-family:var(--display);font-weight:800;margin:0;text-wrap:balance;l
 .ptable th,.ptable td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line)}
 .ptable th{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft)}
 .bar{height:10px;border-radius:9px;background:var(--bg);min-width:80px;overflow:hidden}.bar i{display:block;height:100%;background:var(--leaf)}
-.miss{display:flex;flex-direction:column;gap:8px;border-top:1px solid var(--line);padding-top:10px}
+.miss{display:flex;flex-direction:column;gap:8px;border-top:1px solid var(--line);padding-top:10px;overflow-wrap:anywhere}
 .miss textarea{font:inherit;font-size:16px;border:2px solid var(--line);border-radius:12px;padding:10px;min-height:64px;resize:vertical;background:var(--paper);color:var(--ink)}
 .field{display:flex;flex-direction:column;gap:6px;font-weight:800;min-height:44px}
 .field input{font:inherit;font-size:20px;padding:12px 14px;border-radius:14px;border:3px solid var(--line);background:var(--paper);color:var(--ink);max-width:320px}

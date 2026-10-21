@@ -523,7 +523,7 @@ function makePad(el, { square = false, sym = 0, extra = '' } = {}) {
       <button class="tool" id="clr">🗑️ Clear</button>
       <button class="tool" id="sav" style="background:var(--leaf-deep);color:#fff">💾 Save</button></div>`;
   const cw = el.querySelector('#cw'), cv = el.querySelector('#cv'), ctx = cv.getContext('2d');
-  let color = PAINT[0], size = 12, eraser = false, drawing = false, last = null, dirty = false; const undo = [];
+  let color = PAINT[0], size = 12, eraser = false, drawing = false, last = null, dirty = false, unsaved = false; const undo = [];
   const W = () => cw.getBoundingClientRect();
   function fit() {
     const r = W(), dpr = window.devicePixelRatio || 1, old = dirty ? cv.toDataURL() : null;
@@ -547,7 +547,7 @@ function makePad(el, { square = false, sym = 0, extra = '' } = {}) {
     ctx.globalCompositeOperation = 'source-over';
   }
   function restore(src) { const r = W(); ctx.clearRect(0, 0, r.width, r.height); if (!src) return; const im = new Image(); im.onload = () => ctx.drawImage(im, 0, 0, r.width, r.height); im.src = src; }
-  cv.onpointerdown = e => { drawing = true; dirty = true; try { cv.setPointerCapture(e.pointerId); } catch (x) {} undo.push(cv.toDataURL()); if (undo.length > 15) undo.shift(); last = pos(e); seg(last, last); };
+  cv.onpointerdown = e => { drawing = true; dirty = unsaved = true; try { cv.setPointerCapture(e.pointerId); } catch (x) {} undo.push(cv.toDataURL()); if (undo.length > 15) undo.shift(); last = pos(e); seg(last, last); };
   cv.onpointermove = e => { if (!drawing) return; const p = pos(e); seg(last, p); last = p; };
   cv.onpointerup = cv.onpointercancel = () => { drawing = false; };
   const setSym = n => { sym = n; el.querySelector('#ml').hidden = sym !== 2; el.querySelectorAll('[data-sym]').forEach(x => x.setAttribute('aria-pressed', +x.dataset.sym === n)); };
@@ -556,9 +556,12 @@ function makePad(el, { square = false, sym = 0, extra = '' } = {}) {
   el.querySelectorAll('[data-z]').forEach(b => b.onclick = () => { size = +b.dataset.z; el.querySelectorAll('[data-z]').forEach(x => x.setAttribute('aria-pressed', x === b)); });
   el.querySelector('#er').onclick = e => { eraser = !eraser; e.currentTarget.setAttribute('aria-pressed', eraser); };
   el.querySelectorAll('[data-sym]').forEach(b => b.onclick = () => { setSym(+b.dataset.sym); if (sym === 2) say('Mirror is on. Both sides match, like a butterfly. That is called symmetry!'); else if (sym) say(`Every line copies ${sym} times around the middle!`); });
-  el.querySelector('#und').onclick = () => { restore(undo.pop() || null); };
-  el.querySelector('#clr').onclick = () => { undo.push(cv.toDataURL()); restore(null); };
+  el.querySelector('#und').onclick = () => { unsaved = true; restore(undo.pop() || null); };
+  el.querySelector('#clr').onclick = () => { unsaved = true; undo.push(cv.toDataURL()); restore(null); };
   function savePic(cheer = true) {
+    // A double tap (or a tap with nothing new drawn) does not save the same picture again.
+    if (cheer && !unsaved) { say(dirty ? 'It is saved! Draw some more, then save again.' : 'Draw something first!'); return; }
+    unsaved = false;
     const t = document.createElement('canvas'), w = 360; t.width = w; t.height = Math.round(w * cv.height / cv.width);
     const tc = t.getContext('2d'); tc.fillStyle = '#fff'; tc.fillRect(0, 0, t.width, t.height); tc.drawImage(cv, 0, 0, t.width, t.height);
     gallery.unshift(t.toDataURL('image/jpeg', 0.75)); gallery = gallery.slice(0, 30); saveGallery();
@@ -586,7 +589,7 @@ function mixTab() {
     if (pot.length === 1) { potEl.style.background = BASE[pot[0]]; potEl.textContent = pot[0] + ' + ?'; potEl.style.color = pot[0] === 'white' || pot[0] === 'yellow' ? '#22305A' : '#fff'; return; }
     const key = [...pot].sort().join('+'), res = pot[0] === pot[1] ? [BASE[pot[0]], pot[0]] : MIXES[key] || ['#8B7F72', 'muddy brown'];
     potEl.style.background = res[0]; potEl.textContent = `${pot[0]} + ${pot[1]} = ${res[1]}`; potEl.style.color = /yellow|light|pink|white|grey/.test(res[1]) ? '#22305A' : '#fff';
-    if (res[1] === goal) { yay(); confetti(25); questTick('mix'); addStars(1); say(`${pot[0]} and ${pot[1]} make ${res[1]}! You did it!`); goal = pick(goals.filter(g => g !== goal)); setTimeout(setGoal, 2600); }
+    if (res[1] === goal) { yay(); confetti(25); questTick('mix'); addStars(1); say(`${pot[0]} and ${pot[1]} make ${res[1]}! You did it!`); goal = pick(goals.filter(g => g !== goal)); const nav = navId; setTimeout(() => { if (nav === navId) setGoal(); }, 2600); }
     else say(`${pot[0]} and ${pot[1]} make ${res[1]}.`);
   });
   $('#empty').onclick = () => { pot = []; potEl.style.background = ''; potEl.style.color = ''; potEl.textContent = 'Tap two paints'; };
@@ -623,7 +626,7 @@ function pixelHome() {
 }
 function pixelPlay(id) {
   const P = PICS.find(x => x.id === id), H = P.rows.length, Wd = P.rows[0].length, used = [...new Set(P.rows.join('').replace(/\./g, ''))];
-  const grid = Array.from({ length: H }, () => Array(Wd).fill('.')); let cur = used[0], painting = false;
+  const grid = Array.from({ length: H }, () => Array(Wd).fill('.')); let cur = used[0], painting = false, solved = false;
   const lab = !!P.coord, cols = Wd + (lab ? 1 : 0);
   const instr = P.rows.map((r, y) => { const byC = {}; r.split('').forEach((ch, x) => { if (ch !== '.') (byC[ch] = byC[ch] || []).push(COLS[x]); }); const parts = Object.entries(byC).map(([ch, xs]) => `${xs.join(', ')} ${PXNAME[ch]}`); return parts.length ? `Row ${y + 1}: ${parts.join(' · ')}` : ''; }).filter(Boolean);
   view.innerHTML = `${crumbs(P.name)}
@@ -638,7 +641,7 @@ function pixelPlay(id) {
   if (lab) { html += '<b class="lab"></b>' + Array.from({ length: Wd }, (_, x) => `<b class="lab">${COLS[x]}</b>`).join(''); }
   for (let y = 0; y < H; y++) { if (lab) html += `<b class="lab">${y + 1}</b>`; for (let x = 0; x < Wd; x++) html += `<b data-x="${x}" data-y="${y}"></b>`; }
   pg.innerHTML = html;
-  const paintCell = el => { if (!el || el.dataset.x == null) return; const x = +el.dataset.x, y = +el.dataset.y; grid[y][x] = cur; el.style.background = cur === '.' ? '#fff' : PX[cur]; el.classList.remove('bad'); };
+  const paintCell = el => { if (!el || el.dataset.x == null) return; const x = +el.dataset.x, y = +el.dataset.y; if (grid[y][x] !== cur) solved = false; grid[y][x] = cur; el.style.background = cur === '.' ? '#fff' : PX[cur]; el.classList.remove('bad'); };
   pg.onpointerdown = e => { painting = true; try { pg.setPointerCapture(e.pointerId); } catch (x) {} paintCell(document.elementFromPoint(e.clientX, e.clientY)); };
   pg.onpointermove = e => { if (painting) paintCell(document.elementFromPoint(e.clientX, e.clientY)); };
   pg.onpointerup = pg.onpointercancel = () => { painting = false; };
@@ -647,8 +650,9 @@ function pixelPlay(id) {
     let right = 0, bad = 0;
     pg.querySelectorAll('[data-x]').forEach(el => { const x = +el.dataset.x, y = +el.dataset.y, ok = grid[y][x] === P.rows[y][x]; if (ok) right++; else { bad++; el.classList.add('bad'); } });
     const pct = Math.round(right / (H * Wd) * 100);
+    if (!bad && solved) { say(`Perfect! You made the ${P.name}!`); return; }
     if (!bad) {
-      const first = !st.art.pixelDone[P.id]; st.art.pixelDone[P.id] = today(); st.art.pixel = Math.max(st.art.pixel, Math.min(5, P.level + 1));
+      solved = true; const first = !st.art.pixelDone[P.id]; st.art.pixelDone[P.id] = today(); st.art.pixel = Math.max(st.art.pixel, Math.min(5, P.level + 1));
       questTick('pixel'); addStars(first ? 3 : 1); confetti(); yay(); $('#pmsg').textContent = 'Perfect copy! 🎉'; say(`Perfect! You made the ${P.name}!`);
     } else { $('#pmsg').textContent = `${pct}% right. The squares with a red border need fixing.`; say(`${pct} percent right. Fix the squares with a red border.`); }
   };
@@ -813,7 +817,7 @@ function owl() {
     r.lang = 'en-US'; r.interimResults = false; r.maxAlternatives = 1;
     try { speechSynthesis.cancel(); } catch (err) {}
     btn.classList.add('on'); bub.innerHTML = '<p>I am listening… 👂</p>';
-    r.onresult = ev => { const t = ev.results[0][0].transcript; $('#askq').value = t; ask(t); $('#askq').value = ''; };
+    r.onresult = ev => { if (!btn.isConnected) return; const t = ev.results[0][0].transcript; $('#askq').value = t; ask(t); $('#askq').value = ''; };
     r.onerror = ev => { bub.innerHTML = `<p>${navigator.onLine === false || ev.error === 'network' ? 'I can only hear you when the internet is on. You can type, or tap a question below!' : 'I did not hear that. Tap the microphone and try again!'}</p>`; };
     r.onend = () => btn.classList.remove('on');
     try { r.start(); } catch (err) { btn.classList.remove('on'); }

@@ -345,7 +345,7 @@ const colorHome = (function () {
         </div>
       </div>`;
     wireBack(colorHomeView);
-    const svg = $('.cb-svg'), msg = t => { $('#cbMsg').textContent = t; };
+    const svg = $('.cb-svg'), msg = t => { const m = $('#cbMsg'); if (m) m.textContent = t; };
     const el = rid => svg.querySelector(`[data-r="${rid}"]`);
     const anim = (e, cls) => { e.classList.remove('cb-pop', 'cb-flash', 'cb-wig'); void e.getBBox(); e.classList.add(cls); setTimeout(() => e.classList.remove(cls), 1100); };
     function paint(rid, c) { const e = el(rid); if (c) fills[rid] = c; else delete fills[rid]; e.setAttribute('fill', c || '#FFFFFF'); updLabel(rid); return e; }
