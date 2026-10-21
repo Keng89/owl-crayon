@@ -1,8 +1,9 @@
-// Owl's Quest: play all of chapter 1 at age 5 and age 9 on a phone and a tablet, and chapters 2 and 3 on the phone.
+// Owl's Quest: play all of chapter 1 at age 5 and age 9 on a phone and a tablet, and chapters 2 to 5 on the phone.
 // Answers math (one wrong first), draws on the art pad, makes story choices, then checks stars, the prize,
 // the storybook, no sideways scroll, and that progress survives a reload. Every math stop must have a story riddle
 // with exactly one right answer, and a wrong riddle answer must teach. On the tablet, shrinking the window to a phone
-// redraws the map in the phone layout. Screenshots go to SHOTS (default: current folder).
+// redraws the map in the phone layout. The quest ending comes after chapter 5, and an old save that finished
+// chapters 1-3 (from before chapters 4 and 5 existed) opens chapter 4. Screenshots go to SHOTS (default: current folder).
 const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim() + '/playwright');
 const PORT = process.env.PORT || 8766, SHOTS = process.env.SHOTS || '.';
 const URL = `http://localhost:${PORT}/index.html#selftest`;
@@ -64,6 +65,15 @@ async function run(b, age, vp, errs) {
         if (riddles < (ch[i][1] ? 2 : 1)) errs.push(`${tag}: ch${c + 1} stop ${i + 1} had ${riddles} story riddles`);
       } else if (ch[i][0] === 'art') {
         await p.waitForSelector('#cv');
+        if (c >= 3) { // the new chapters' idea pictures, plain and as trace lines on the pad
+          const idea = await p.evaluate(() => document.querySelectorAll('.sq-idea svg .old *').length);
+          if (idea < 3) errs.push(`${tag}: ch${c + 1} stop ${i + 1} idea picture is empty`);
+          await noScroll(`ch${c + 1} art`); await shot(`art${c + 1}-${i + 1}`);
+          await p.click('#sqTrace'); await sleep(100);
+          if (!await p.$('#tr svg *')) errs.push(`${tag}: ch${c + 1} trace lines missing`);
+          if (i === 2) await shot(`art${c + 1}-trace`);
+          await p.click('#sqTrace');
+        }
         await p.click('#sqDone'); // nothing drawn yet: should stay
         if (await p.$('.sq-win')) errs.push(`${tag}: art accepted an empty pad`);
         const box = await (await p.$('#cv')).boundingBox();
@@ -160,13 +170,49 @@ async function run(b, age, vp, errs) {
     const s4 = await p.evaluate(() => window.__owl.st.stars);
     if (s4 - s3 !== 20) errs.push(`${tag}: expected 20 stars for chapter 3, got ${s4 - s3}`);
     const fin = await p.textContent('.sq-final');
-    if (!/Star Crown/.test(fin) || !/whole quest/.test(fin)) errs.push(`${tag}: chapter 3 prize or quest ending missing`);
+    if (!/Star Crown/.test(fin) || /whole quest/.test(fin)) errs.push(`${tag}: chapter 3 prize missing, or the quest ended too soon`);
+    if (!/Under the Sea/.test(await p.textContent('#sqNext'))) errs.push(`${tag}: chapter 3 does not lead to Under the Sea`);
+    // chapters 4 and 5
+    const PRIZES = { 3: 'Rainbow Pearl', 4: 'Golden Dino Egg' }; let sPrev = s4;
+    for (const c of [3, 4]) {
+      await p.click('#sqNext'); await p.waitForSelector(`.sq-ch[data-ch="${c}"].on`);
+      if (await p.$('.sq-stop[data-stop="0"].locked')) errs.push(`${tag}: chapter ${c + 1} locked after chapter ${c}`);
+      await noScroll(`chapter ${c + 1} map`); await shot(`map${c + 1}`);
+      await playChapter(c);
+      await noScroll(`chapter ${c + 1} prize`); await shot(`celebration${c + 1}`);
+      const sNow = await p.evaluate(() => window.__owl.st.stars);
+      if (sNow - sPrev !== 20) errs.push(`${tag}: expected 20 stars for chapter ${c + 1}, got ${sNow - sPrev}`);
+      sPrev = sNow;
+      const f = await p.textContent('.sq-final');
+      if (!f.includes(PRIZES[c])) errs.push(`${tag}: chapter ${c + 1} prize missing`);
+      if (!await p.$('.sq-final .sq-prize svg')) errs.push(`${tag}: chapter ${c + 1} prize picture missing`);
+      if (c === 3 && (/whole quest/.test(f) || !await p.$('#sqNext'))) errs.push(`${tag}: chapter 4 should lead on to chapter 5`);
+      if (c === 4 && (!/whole quest/.test(f) || await p.$('#sqNext'))) errs.push(`${tag}: quest ending missing after chapter 5`);
+    }
     const got = await p.evaluate(() => Object.keys(window.__quest.state.got).length);
-    if (got !== 3) errs.push(`${tag}: ${got} chapter prizes saved`);
-    for (const c of [1, 2]) if (!Object.keys(kinds).some(k => k.startsWith(c + ':'))) errs.push(`${tag}: no story riddles in chapter ${c + 1}`);
-    more = ', chapters 2 and 3 done';
+    if (got !== 5) errs.push(`${tag}: ${got} chapter prizes saved`);
+    // the finished worlds: the sea is bright and the volcano is calm
+    await p.click('#sqMap'); await p.waitForSelector('.sq-ch[data-ch="4"].on'); await shot('map5-done');
+    await p.click('#sqBook'); await p.waitForSelector('.sq-book');
+    if (await p.$$eval('.sq-bpage', x => x.length) !== 9 || !await p.$('.sq-bend svg')) errs.push(`${tag}: chapter 5 storybook incomplete`);
+    await noScroll('chapter 5 book'); await shot('book5');
+    await p.evaluate(() => window.__owl.go(window.__quest.mapView, 3)); await p.waitForSelector('.sq-ch[data-ch="3"].on'); await shot('map4-done');
+    for (const c of [1, 2, 3, 4]) if (!Object.keys(kinds).some(k => k.startsWith(c + ':'))) errs.push(`${tag}: no story riddles in chapter ${c + 1}`);
+    more = ', chapters 2 to 5 done';
   }
   if (!Object.keys(kinds).some(k => k.startsWith('0:'))) errs.push(`${tag}: no story riddles in chapter 1`);
+  // an old save from when the quest had 3 chapters: chapters 1-3 done, so chapter 4 is open and chapter 5 is not
+  await p.evaluate(() => { const st = window.__owl.st, done = {}, d = '2026-01-01'; st.unlockAll = false;
+    for (let c = 0; c < 3; c++) for (let i = 0; i < 9; i++) done[c + '-' + i] = d;
+    st.story = { chapter: 2, stop: 0, done, picks: { '0-1': 1 }, got: { 0: d, 1: d, 2: d } }; window.__owl.go(window.__owl.storyHome); });
+  await p.waitForSelector('.sq-ch[data-ch="2"].on');
+  if (await p.$('.sq-ch[data-ch="3"].locked') || !await p.$('.sq-ch[data-ch="4"].locked')) errs.push(`${tag}: old save does not open chapter 4 (and only chapter 4)`);
+  if (!/Under the Sea/.test((await p.textContent('#sqNextCh').catch(() => '')) || '')) errs.push(`${tag}: old save has no button to chapter 4`);
+  else { await p.click('#sqNextCh'); await p.waitForSelector('.sq-ch[data-ch="3"].on');
+    if (await p.$('.sq-stop[data-stop="0"].locked') || !await p.$('.sq-stop[data-stop="0"].next')) errs.push(`${tag}: old save: chapter 4 first stop not ready`); }
+  await p.click('.sq-ch[data-ch="4"]'); await sleep(150);
+  if (!await p.$('.sq-ch[data-ch="3"].on')) errs.push(`${tag}: old save opened the locked chapter 5`);
+  await noScroll('old save map'); more += ', old save ok';
   console.log(`${tag}: chapter 1 done, +${stars1 - stars0} stars, ${pages} storybook pages${more}; riddles ${JSON.stringify(kinds)}`);
   await ctx.close();
 }

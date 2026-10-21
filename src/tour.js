@@ -4,7 +4,7 @@
 // window.__owlTourForce is set, so older tests can click tiles without a card in the way.
 const tour = (() => {
   // Data that lives inside other modules' closures; t26.js checks these against the real data.
-  const FIXED = { coloring: 26, places: 15, chapters: 3, stops: 9 };
+  const FIXED = { coloring: 26, places: 15, chapters: 5, stops: 9 };
   const auto = () => window.__owlTourForce || !(location.hash === '#selftest' || navigator.webdriver);
   let cur = null; // { root, i, steps, off }
 

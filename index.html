@@ -909,7 +909,10 @@ ol.steps{margin:0;padding-left:1.4em;text-align:left;font-weight:700;font-size:1
 .ss-saved{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--leaf-soft);border-radius:18px;padding:10px 14px;font-weight:800;font-size:19px}
 @media (max-width:500px){.ss-grid{max-height:200px}.ss-grid.ss-bgs{max-height:260px;grid-template-columns:repeat(3,minmax(0,1fr))}.ss-actions{grid-template-columns:1fr 1fr}.ss-idea p{font-size:18px}}
 /* owl's quest */
-.sq-chs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.sq-chs{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px}
+.sq-chs > .sq-ch{grid-column:span 2}
+.sq-chs > .sq-ch:nth-child(4){grid-column:2 / span 2}
+@media (min-width:700px){.sq-chs{grid-template-columns:repeat(5,minmax(0,1fr))}.sq-chs > .sq-ch,.sq-chs > .sq-ch:nth-child(4){grid-column:auto}}
 .sq-ch{background:var(--paper);border-radius:20px;padding:10px 8px;display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center;box-shadow:0 4px 0 var(--line);border:3px solid transparent;min-width:0}
 .sq-ch.on{border-color:var(--chc);box-shadow:0 4px 0 var(--chc)}
 .sq-ch.locked{opacity:.6}
@@ -917,6 +920,8 @@ ol.steps{margin:0;padding-left:1.4em;text-align:left;font-weight:700;font-size:1
 .sq-ch b{font-family:var(--display);font-size:17px;line-height:1.1}
 .sq-chn{font-size:13px;font-weight:800;color:var(--ink-soft);display:flex;align-items:center;gap:4px}
 .sq-chn .sq-crayon,.sq-chn .sq-ge{height:20px;width:auto;font-size:16px}
+.sq-psvg{display:block;aspect-ratio:1;height:auto}
+.sq-chn .sq-psvg{height:20px;width:20px}
 .sq-banner{display:flex;align-items:center;gap:12px;background:var(--sun-soft);border-radius:22px;padding:10px 14px}
 .sq-banner p{margin:0;flex:1;min-width:0;font-weight:700;font-size:18px}
 .sq-banner p b{display:block;font-family:var(--display);font-size:22px}
@@ -991,6 +996,7 @@ ol.steps{margin:0;padding-left:1.4em;text-align:left;font-weight:700;font-size:1
 .sq-prize .sq-ge.big{font-size:72px;background:#fff;border-radius:50%;width:104px;height:104px;display:grid;place-items:center;box-shadow:0 5px 0 var(--line)}
 .sq-prize .sq-crayon.big{background:#fff;border-radius:50%;padding:10px 30px;height:110px;box-shadow:0 5px 0 var(--line)}
 .sq-prize .huge{font-size:120px;height:170px;width:auto}
+.sq-prize .sq-psvg.huge{width:170px;filter:drop-shadow(0 5px 0 rgba(0,0,0,.15))}
 .sq-pop{animation:sqPop .7s cubic-bezier(.3,1.6,.5,1) both}
 @keyframes sqPop{from{transform:scale(0) rotate(-20deg)}to{transform:scale(1) rotate(0)}}
 .sq-final{padding-top:18px;overflow:hidden}
@@ -1011,6 +1017,7 @@ ol.steps{margin:0;padding-left:1.4em;text-align:left;font-weight:700;font-size:1
 .sq-pno{position:absolute;right:12px;bottom:8px;font:800 14px var(--display);color:var(--ink-soft);z-index:1}
 .sq-bend{display:flex;flex-direction:column;align-items:center;gap:6px;font:800 34px var(--display)}
 .sq-bend .big{height:90px;width:auto;font-size:64px}
+.sq-bend .sq-psvg.big{width:90px}
 @media (max-width:520px){.sq-stop{width:54px;height:54px}.sq-si{font-size:28px}.sq-ch b{font-size:15px}.sq-chi{font-size:28px}.sq-banner p{font-size:16px}.sq-banner p b{font-size:19px}.sq-oe{font-size:60px}.sq-opt{min-height:150px}}
 /* quest riddles: story math with pictures */
 .sq-riddle .ptext{display:flex;flex-direction:column;align-items:center;gap:6px}
@@ -1040,6 +1047,13 @@ ol.steps{margin:0;padding-left:1.4em;text-align:left;font-weight:700;font-size:1
 .sq-castle svg{height:clamp(130px,40vw,190px);width:auto;max-width:86vw;display:block}
 .sq-unit{display:inline-flex;gap:4px;padding:3px 5px;border:3px dashed var(--grape);border-radius:14px}
 .sq-unit span{font-size:clamp(24px,6.5vw,36px);line-height:1}
+.sq-bub,.sq-nest{width:min(140px,36vw);height:auto;display:block}
+.sq-nest.sm{width:min(84px,21vw)}
+.sq-ms{width:24px;height:23px;display:block}
+.sq-pearl{width:1em;height:1em;display:inline-block;vertical-align:-.12em}
+.sq-clam{width:min(120px,32vw);height:auto;display:block}
+.sq-pick .shape{max-width:100%}
+.sq-pick .shape svg{width:min(240px,100%)}
 @media (prefers-reduced-motion:reduce){.sq-stop.next,.sq-shoot,.sq-bowl,.sq-rays,.sq-pop{animation:none}}
 /* coloring book */
 .cb-lead{margin:0;font-weight:700;color:var(--ink-soft)}
@@ -10335,7 +10349,7 @@ function parent() {
       <p class="note">Owl &amp; Crayon works without the internet. Progress, drawings and Owl's answers are saved only in this browser on this device. There are no ads, no tracking and no accounts, and nothing is sent anywhere unless you switch on Online Owl.</p>
       <p class="note">With Online Owl on, only the question your child asks and their age go to your Online Owl server, which asks an AI (Cloudflare's free AI, or Claude by Anthropic) for a short, child-friendly answer. Names and progress are never sent. You can read every answer above, and turn it off at any time.</p>
       <p class="note">The microphone button uses the browser's own speech recognition, which may send the recording to the browser maker (for example Google or Apple) to turn it into text. Typing works without it.</p>
-      <p class="note">Version 2026-10-21 08:42 UTC</p></div>`;
+      <p class="note">Version 2026-10-21 09:57 UTC</p></div>`;
   view.querySelectorAll('[data-teach]').forEach(b => b.onclick = () => {
     const i = +b.dataset.teach, ans = $('#t' + i).value.trim(); if (!ans) return;
     owlForget(st.owlMisses[i].q); st.owlTaught.push({ q: st.owlMisses[i].q, a: ans }); st.owlMisses.splice(i, 1); save(); go(parent);
@@ -11776,7 +11790,7 @@ function sdkQ(d) {
 if (location.hash === '#selftest') window.__games3 = { scatterDots, snakeMake, snakeRoll, bakeMake, parkMake, monMake, bubMake, stkMake, sdkMake, sdkSolution, sdkSolvable, riddleMake };
 })();
 /* ---------- Owl's Quest: a story adventure with math puzzles, drawing and choices ---------- */
-// Three chapters of nine stops on a winding storybook map. Each stop tells a short story, then asks for
+// Five chapters of nine stops on a winding storybook map. Each stop tells a short story, then asks for
 // 3 math puzzles (from the player's age world, so the adaptive engine learns from them), a drawing, or a story choice
 // that changes a later line. Progress lives in st.story = { chapter, stop, done, picks, got }.
 const storyHome = (() => {
@@ -11790,8 +11804,34 @@ const storyHome = (() => {
       '<path d="M8 160 q0 -18 18 -16 q6 -14 22 -8 q14 0 12 24 z M140 160 q0 -18 18 -16 q6 -14 22 -8 q14 0 12 24 z"/>',
     web: (() => { let s = ''; for (let k = 0; k < 8; k++) { const a = k * Math.PI / 4; s += `<path d="M100 100 L${(100 + 86 * Math.cos(a)).toFixed(1)} ${(100 + 86 * Math.sin(a)).toFixed(1)}"/>`; }
       [24, 46, 68].forEach(r => { s += '<path d="' + Array.from({ length: 9 }, (_, k) => { const a = k * Math.PI / 4; return (k ? 'L' : 'M') + (100 + r * Math.cos(a)).toFixed(1) + ' ' + (100 + r * Math.sin(a)).toFixed(1); }).join(' ') + '"/>'; });
-      return s + '<circle cx="132" cy="52" r="8"/><path d="M124 46 l-8 -6 M124 52 h-10 M124 58 l-8 6 M140 46 l8 -6 M140 52 h10 M140 58 l8 6 M132 44 V28"/>'; })()
+      return s + '<circle cx="132" cy="52" r="8"/><path d="M124 46 l-8 -6 M124 52 h-10 M124 58 l-8 6 M140 46 l8 -6 M140 52 h10 M140 58 l8 6 M132 44 V28"/>'; })(),
+    // a fish: oval body, tail, eye and smile, fin, stripes, then bubbles and seaweed
+    fish: '<path d="M30 100 Q82 44 136 100 Q82 156 30 100 Z"/><path d="M134 100 L178 66 Q166 100 178 134 Z"/><circle cx="60" cy="92" r="7"/><path d="M40 112 q8 6 16 0"/>' +
+      '<path d="M74 75 Q94 44 120 80"/><path d="M90 84 q8 16 0 32 M106 82 q9 18 0 36" style="stroke:#FF8A2B"/>' +
+      '<g style="stroke:#2E8BE6"><circle cx="24" cy="62" r="6"/><circle cx="16" cy="40" r="4"/><circle cx="28" cy="22" r="3"/></g><path d="M150 196 q-10 -14 0 -28 q10 -14 0 -28" style="stroke:#2FA36B"/>',
+    // a fan shell: a bumpy fan, lines from the bottom to each bump, a little foot
+    shell: (() => { const P = (a, r) => [(100 + r * Math.cos(a * Math.PI / 180)).toFixed(1), (156 + r * Math.sin(a * Math.PI / 180)).toFixed(1)].join(' ');
+      let d = `M100 156 L${P(205, 100)}`, lines = '';
+      for (let k = 0; k < 6; k++) { const a = 205 + k * 26; d += ` Q${P(a + 13, 122)} ${P(a + 26, 100)}`; if (k) lines += `M100 156 L${P(a, 92)} `; }
+      return `<path d="${d} Z"/><path d="${lines}"/><path d="M84 156 L80 176 H120 L116 156"/><circle cx="158" cy="44" r="10" style="stroke:#F49AC1"/><path d="M152 40 q3 -4 7 -4" style="stroke:#F49AC1"/>`; })(),
+    // a dinosaur footprint: a round pad, three long toes, sharp claws, then a little trail
+    foot: '<path d="M64 148 Q58 112 100 106 Q142 112 136 148 Q130 174 100 174 Q70 174 64 148 Z"/><path d="M82 110 Q78 72 100 42 Q122 72 118 110"/><path d="M70 122 Q38 110 26 72 Q62 76 88 108"/><path d="M130 122 Q162 110 174 72 Q138 76 112 108"/>' +
+      '<path d="M100 42 V28 M26 72 l-9 -7 M174 72 l9 -7" style="stroke:#F2604F"/><path d="M28 196 l-7 -10 M28 196 v-13 M28 196 l7 -10 M172 196 l-7 -10 M172 196 v-13 M172 196 l7 -10" style="stroke:#8B5A2B"/>',
+    // a calm volcano: a big mountain with a flat top, a happy face, one little puff of smoke
+    volcano: '<path d="M18 176 L78 66 H122 L182 176 Z"/><path d="M78 66 Q100 80 122 66"/><path d="M84 70 q4 14 -2 24 M116 70 q-2 10 4 18" style="stroke:#F2604F"/>' +
+      '<circle cx="86" cy="118" r="5"/><circle cx="114" cy="118" r="5"/><path d="M84 136 q16 14 32 0"/><path d="M92 54 q-12 -10 2 -18 q6 -12 20 -4 q14 -2 10 12 q-2 10 -16 8" style="stroke:#9A9AA8"/>' +
+      '<path d="M6 176 H194"/><path d="M164 176 V130 M164 132 q-14 -6 -22 2 M164 132 q14 -8 22 2 M164 132 q-4 -14 -14 -16 M164 132 q6 -14 16 -14" style="stroke:#2FA36B"/>'
   };
+  // Chapter prizes drawn as pictures (100 x 100). u keeps gradient ids apart when one shows up twice on a page.
+  const PRIZE = {
+    pearl: u => `<defs><radialGradient id="sqPg${u}" cx=".38" cy=".35" r=".7"><stop offset="0" stop-color="#fff"/><stop offset=".5" stop-color="#F6E9F7"/><stop offset=".8" stop-color="#D6C8F2"/><stop offset="1" stop-color="#B7E3F5"/></radialGradient></defs>
+      <path d="M10.0 44.0 Q4.6 31.8 15.4 24.0 Q16.8 10.8 30.0 9.4 Q37.8 -1.4 50.0 4.0 Q62.2 -1.4 70.0 9.4 Q83.2 10.8 84.6 24.0 Q95.4 31.8 90.0 44.0 Z" fill="#F7B8D2" stroke="#22305A" stroke-width="2.5" stroke-linejoin="round"/><path d="M50 44 L20.6 27.0 M50 44 L33.0 14.6 M50 44 L50.0 10.0 M50 44 L67.0 14.6 M50 44 L79.4 27.0" stroke="#E07AA6" stroke-width="2" stroke-linecap="round"/>
+      <path d="M6 62 H94 Q88 96 50 96 Q12 96 6 62 Z" fill="#F49AC1" stroke="#22305A" stroke-width="2.5" stroke-linejoin="round"/><path d="M20 70 Q50 88 80 70" stroke="#E07AA6" stroke-width="2" fill="none"/><circle cx="50" cy="56" r="17" fill="url(#sqPg${u})" stroke="#9E8BC7" stroke-width="2"/><ellipse cx="44" cy="50" rx="5.5" ry="3.8" fill="#fff"/>`,
+    egg: u => `<defs><linearGradient id="sqEg${u}" x1="0" x2="1"><stop offset="0" stop-color="#C98B12"/><stop offset=".45" stop-color="#FFE48A"/><stop offset="1" stop-color="#D99A1C"/></linearGradient></defs>
+      <path d="M50 5 C78 5 90 52 88 66 C85 88 70 96 50 96 C30 96 15 88 12 66 C10 52 22 5 50 5 Z" fill="url(#sqEg${u})" stroke="#8A5A00" stroke-width="2.5"/>
+      <g fill="#E0A41F"><circle cx="36" cy="40" r="5"/><circle cx="62" cy="30" r="4"/><circle cx="66" cy="62" r="6"/><circle cx="40" cy="74" r="4"/></g><ellipse cx="34" cy="26" rx="5" ry="10" fill="#fff" opacity=".6" transform="rotate(20 34 26)"/>`
+  };
+  let uid = 0;
   const CH = [
     { id: 'crayons', title: 'The Lost Crayons', ico: '🖍️', color: 'var(--coral)', token: '🖍️', prize: { name: 'Golden Crayon', golden: true },
       intro: 'A sneaky raccoon took all the colours! Help {owl} find the crayons.', decor: ['🌷', '🌳', '🌼', '🍄', '🌻', '🐞', '🌸', '🦋', '🌳', '🐌'],
@@ -11876,6 +11916,62 @@ const storyHome = (() => {
             { e: '😂', t: 'Tell a funny joke', line: '"Why did the cloud stay home? It felt under the weather!" The Moon giggles awake and gives {owl} a moonbeam.', echo: 'The Moon was awake now, still giggling at the joke.' }], gift: g('🌙', 'a moonbeam') },
         { ico: '👸', name: 'Throne Room', kind: 'math', final: true, story: ['{echo7}', 'The Cloud Queen smiles. "You did it! One last test, and the stars will shine all over the world."'],
           scene: [['👸', 222, 110, 54], ['🏰', 290, 96, 40]], task: 'Solve the Queen\'s 3 puzzles!', win: 'Twinkle, twinkle! The stars pop out one by one. The Cloud Queen gives {owl} the Star Crown!', gift: g('🌟', 'the night stars') }
+      ] },
+    { id: 'sea', title: 'Under the Sea', ico: '🐙', color: 'var(--sky-deep)', token: '🐚', prize: { name: 'Rainbow Pearl', e: '🦪', svg: PRIZE.pearl },
+      intro: 'Little Inky the octopus lost her magic pearl, and the sea is getting dark! Help {owl} find it.', decor: ['🐠', '🐚', '🦀', '🌿', '🐡', '🐢', '🐟', '🦑', '⭐', '🪨'],
+      stops: [
+        { ico: '🏖️', name: 'Seashell Beach', kind: 'math', story: ['{owl} lands on a sunny beach. In a rock pool sits a sad little octopus.', '"I am Inky. My magic pearl rolled away into the deep sea, and now the sea is getting dark!"'],
+          scene: [['🐙', 206, 140, 42], ['🪨', 256, 156, 30], ['🐚', 292, 162, 22]], task: 'Solve 3 puzzles to get ready to dive!', win: 'Inky gives {owl} a diving mask. Now {owl} can swim under the sea!', gift: g('🤿', 'a diving mask') },
+        { ico: '🌊', name: 'Down, Down, Down', kind: 'choice', story: ['The sea is big and deep. The pearl is far down at the bottom.', 'Two friends swim up to help.'],
+          scene: [['🐢', 200, 120, 40], ['🐬', 268, 96, 42]], ask: 'Who should {owl} ride down to the bottom?',
+          opts: [{ e: '🐢', t: 'A sea turtle', line: '{owl} holds on to a friendly sea turtle. Down they glide, slow and gentle. The turtle gives {owl} a spiral shell.', echo: '{owl} waved goodbye to the gentle sea turtle.' },
+            { e: '🐬', t: 'A dolphin', line: 'Whoosh! A dolphin zooms {owl} down, down, down. Squeak, squeak! The dolphin gives {owl} a spiral shell.', echo: 'The dolphin squeaked goodbye and zoomed away.' }], gift: g('🐚', 'a spiral shell') },
+        { ico: '🐠', name: 'Fish School', kind: 'art', story: ['{echo1}', 'A little fish swims all alone. "I lost my school of friends!" it says.', '"Can you draw me a fish friend?"'],
+          scene: [['🐠', 214, 112, 40], ['🌿', 290, 150, 34]], draw: 'Draw a fish friend!', idea: { svg: IDEA.fish }, win: 'Your fish swims next to the little fish. Now they are a school! They give {owl} a shiny scale.', gift: g('✨', 'a shiny scale') },
+        { ico: '🦀', name: 'Crab Rock', kind: 'math', story: ['Snap, snap! Two crabs are arguing over a pile of shells.', '"Help us count fairly," they say, "and we will tell you where the pearl went."'],
+          scene: [['🦀', 190, 146, 36], ['🦀', 276, 146, 36], ['🐚', 232, 160, 24], ['🪨', 232, 112, 44]], task: 'Solve 3 puzzles for the crabs!', win: 'The crabs stop arguing and wave their claws. "The pearl rolled into the seaweed!" They give {owl} a pink shell.', gift: g('🐚', 'a pink shell') },
+        { ico: '🌿', name: 'Seaweed Forest', kind: 'choice', story: ['Tall seaweed sways back and forth, like a forest under the sea.', 'Something peeks out. It is a shy little seahorse!'],
+          scene: [['🌿', 180, 120, 52], ['🌿', 290, 116, 56], ['🐴', 236, 118, 28]], ask: 'How should {owl} say hello to the seahorse?',
+          opts: [{ e: '🎶', t: 'Hum a soft song', line: '{owl} hums a soft song. The seahorse dances out and points the way with its curly tail. It gives {owl} a sea flower.', echo: 'The seahorse was still dancing to {owl}\'s song.' },
+            { e: '👋', t: 'Wave hello', line: '{owl} gives a big wave. The seahorse waves back with its curly tail and points the way. It gives {owl} a sea flower.', echo: 'The seahorse swam beside {owl}, waving its curly tail.' }], gift: g('🌺', 'a sea flower') },
+        { ico: '🧜', name: 'Mermaid Rock', kind: 'art', story: ['{echo4}', 'On a big rock sits a mermaid with a shell collection.', '"I have every shell in the sea, except a fan shell. Can you draw one for me?"'],
+          scene: [['🧜', 226, 104, 50], ['🪨', 226, 150, 54]], draw: 'Draw a fan shell for the mermaid!', idea: { svg: IDEA.shell }, win: 'The mermaid puts your shell in her collection and sings a happy song. She gives {owl} a lucky coin.', gift: g('🪙', 'a lucky coin') },
+        { ico: '🦪', name: 'Clam Garden', kind: 'math', story: ['A row of clams opens and shuts. Clap, clap, clap!', '"We saw the pearl!" they giggle. "Solve our puzzles, and we will tell you where."'],
+          scene: [['🦪', 180, 150, 32], ['🦪', 232, 156, 34], ['🦪', 284, 150, 32]], task: 'Solve 3 puzzles with the clams!', win: 'The biggest clam opens wide. Inside is a treasure map to the Shark Cave!', gift: g('🗺️', 'a treasure map') },
+        { ico: '🦈', name: 'Shark Cave', kind: 'choice', story: ['The map leads to a dark cave. Inside, something big is snoring.', 'It is a sleepy shark, and the magic pearl is right under its nose!'],
+          scene: [['🦈', 226, 116, 56], ['💤', 284, 72, 22], ['⚪', 196, 150, 16]], ask: 'How should {owl} get the pearl?',
+          opts: [{ e: '🤫', t: 'Tiptoe very quietly', line: 'Shh! {owl} swims in so quietly that the shark keeps snoring. {owl} rolls the pearl out gently. Got it!', echo: 'The pearl glowed in {owl}\'s wings. Behind them, the shark was still snoring.' },
+            { e: '😊', t: 'Wake the shark kindly', line: '"Excuse me, Mr. Shark?" The shark opens one eye and smiles. "Oh! Is this yours? I was keeping it safe." Got it!', echo: 'The friendly shark swam behind {owl} to say goodbye.' }], gift: g('🦪', 'the magic pearl') },
+        { ico: '🐙', name: 'Pearl Palace', kind: 'math', final: true, story: ['{echo7}', 'At the Pearl Palace, Inky\'s mama, the Octopus Queen, waits by a giant shell.', '"Solve my last riddles to open the shell, and the pearl can go home!"'],
+          scene: [['🐙', 222, 112, 54], ['🏰', 290, 100, 40]], task: 'Solve the Octopus Queen\'s 3 riddles!', win: 'The giant shell opens. In goes the pearl, and WHOOSH! The whole sea fills with bright, sparkly light. The Octopus Queen gives {owl} a Rainbow Pearl of its own!', gift: g('🌊', 'the sparkling sea') }
+      ] },
+    { id: 'dino', title: 'Dino Valley', ico: '🦕', color: 'var(--orange-deep)', token: '🥚', prize: { name: 'Golden Dino Egg', e: '🥚', svg: PRIZE.egg },
+      intro: 'Baby dinosaur Pip is lost, and the volcano is rumbling! Help {owl} get Pip home before it puffs.', decor: ['🌴', '🌿', '🦴', '🪨', '🦖', '🌴', '🍃', '🦕', '🌾', '🐢'],
+      stops: [
+        { ico: '🥚', name: 'Crack!', kind: 'math', story: ['Crack! In a field of ferns, a little egg breaks open.', 'Out pops a baby dinosaur named Pip. "Where is my mama?" Far away, the volcano goes rumble, rumble.'],
+          scene: [['🦕', 206, 140, 42], ['🥚', 256, 160, 26], ['🌿', 296, 150, 30]], task: 'Solve 3 puzzles to find the first clue!', win: 'Look! Big footprints lead away from the nest. They must be Mama\'s! Pip gives {owl} a piece of eggshell.', gift: g('🥚', 'a piece of eggshell') },
+        { ico: '👣', name: 'Muddy Tracks', kind: 'choice', story: ['The footprints go two ways around a big rock.', 'One way goes through a muddy swamp. The other goes over a hill of tall ferns.'],
+          scene: [['🪨', 222, 128, 50], ['👣', 278, 158, 22], ['🌿', 172, 150, 30]], ask: 'Which way should {owl} and Pip go?',
+          opts: [{ e: '💦', t: 'Through the swamp', line: 'Squish, squash! {owl} and Pip splash through the mud. In the mud, Pip finds a smooth stone.', echo: 'Pip\'s little feet were still muddy from the swamp.' },
+            { e: '🌿', t: 'Over the fern hill', line: 'Up and over the fern hill they go! At the top, {owl} spots a smooth stone.', echo: 'Pip still had a fern leaf stuck on its nose.' }], gift: g('🪨', 'a smooth stone') },
+        { ico: '🐾', name: 'Flat Rock', kind: 'art', story: ['{echo1}', 'The footprints stop at a wide, flat rock. Where did Mama go?', 'A wise old turtle says: "Draw me a footprint, and I will tell you whose it is."'],
+          scene: [['🪨', 230, 150, 50], ['🐢', 280, 140, 34]], draw: 'Draw a big dinosaur footprint!', idea: { svg: IDEA.foot }, win: 'The turtle nods. "That is a Long-Neck footprint. Go to the river!" She gives {owl} a fossil shell.', gift: g('🐚', 'a fossil shell') },
+        { ico: '🏞️', name: 'Long-Neck River', kind: 'math', story: ['At the river, Long-Neck dinosaurs are drinking. Slurp, slurp!', '"Have you seen Pip\'s mama?" asks {owl}. "Solve our puzzles first," they say.'],
+          scene: [['🦕', 200, 116, 50], ['🦕', 270, 124, 40], ['💧', 236, 162, 20]], task: 'Solve 3 puzzles for the Long-Necks!', win: 'The Long-Necks stretch up high. "We can see her, past the Egg Hills!" They give {owl} a giant leaf.', gift: g('🍃', 'a giant leaf') },
+        { ico: '🧗', name: 'Tall Cliff', kind: 'choice', story: ['A tall cliff blocks the path. The volcano rumbles louder. Rumble, RUMBLE!', 'A friendly flying dinosaur lands next to them.'],
+          scene: [['🪨', 250, 110, 70], ['🦅', 190, 70, 34]], ask: 'How should they get over the cliff?',
+          opts: [{ e: '🦅', t: 'Fly with the flying dino', line: 'Flap, flap! The flying dinosaur carries {owl} and Pip over the cliff. It drops a soft feather for {owl}.', echo: 'Pip was still giggling about the flying ride.' },
+            { e: '🪜', t: 'Climb the rocky steps', line: 'Step, step, step! {owl} helps Pip climb the rocky steps. At the top is a soft feather.', echo: 'Pip was puffing and panting after the big climb.' }], gift: g('🪶', 'a soft feather') },
+        { ico: '🌋', name: 'Grumpy Volcano', kind: 'art', story: ['{echo4}', 'The volcano is puffing grey smoke. It looks very grumpy!', '{owl} has an idea: "Let\'s draw the volcano feeling calm and happy."'],
+          scene: [['🌋', 236, 100, 64]], draw: 'Draw a calm, happy volcano!', idea: { svg: IDEA.volcano }, win: 'The volcano sees your picture and lets out a long, slow sigh. Ahhh. The smoke gets smaller! A warm lava rock rolls out for {owl}.', gift: g('🔥', 'a warm lava rock') },
+        { ico: '⛰️', name: 'Egg Hills', kind: 'math', story: ['Over the Egg Hills there are nests everywhere, full of eggs!', '"Help us count our eggs before the volcano puffs," say the dino mamas.'],
+          scene: [['🌿', 186, 150, 34], ['🥚', 240, 150, 26], ['🥚', 268, 158, 22], ['🦖', 296, 120, 38]], task: 'Solve 3 puzzles for the dino mamas!', win: 'Every egg is counted and safe. A dino mama gives {owl} a bunch of sweet berries.', gift: g('🍓', 'sweet berries') },
+        { ico: '🦖', name: 'Big T-Rex', kind: 'choice', story: ['A big T-rex stands in the path. ROAR! Pip hides behind {owl}.', 'But wait... the T-rex is crying. "Boo hoo! My tooth is wobbly and sore!"'],
+          scene: [['🦖', 236, 112, 60], ['💧', 262, 88, 16]], ask: 'What should {owl} do?',
+          opts: [{ e: '🦷', t: 'Help with the tooth', line: '{owl} gently wiggles out the wobbly tooth. "Thank you!" smiles the T-rex, and he gives {owl} the tooth to keep.', echo: 'The T-rex waved goodbye with his tiny arms.' },
+            { e: '🤗', t: 'Give a big hug', line: '{owl} gives the T-rex a big, soft hug. He stops crying, and out pops the wobbly tooth! He gives it to {owl} to keep.', echo: 'The T-rex was still smiling after the big hug.' }], gift: g('🦷', 'a dino tooth') },
+        { ico: '🏡', name: 'Home Nest', kind: 'math', final: true, story: ['{echo7}', 'There is Pip\'s mama! But the volcano is about to puff. RUMBLE!', '"Solve the last riddles," says Mama, "and we can all hide in the safe cave together!"'],
+          scene: [['🦕', 230, 108, 60], ['🦕', 282, 140, 30]], task: 'Solve Mama\'s 3 riddles!', win: 'Everyone is safe in the cave. PUFF! The volcano lets out one tiny, sleepy cloud, and then it is quiet. Pip is home at last! Mama gives {owl} the Golden Dino Egg.', gift: g('💛', 'a big dino hug') }
       ] }
   ];
 
@@ -11907,10 +12003,29 @@ const storyHome = (() => {
       <rect x="5" y="30" width="20" height="7" fill="rgba(0,0,0,.18)"/><rect x="5" y="62" width="20" height="7" fill="rgba(0,0,0,.18)"/><rect x="8" y="40" width="4" height="18" rx="2" fill="rgba(255,255,255,.45)"/></svg>`;
   }
   const giftHTML = (gf, cls = '') => gf.crayon ? crayonSVG(gf.crayon, cls, gf.name) : `<span class="sq-ge ${cls}" role="img" aria-label="${esc(gf.name)}">${gf.e}</span>`;
-  const prizeHTML = (c, cls = '') => CH[c].prize.golden ? crayonSVG('gold', cls, CH[c].prize.name) : `<span class="sq-ge ${cls}" role="img" aria-label="${esc(CH[c].prize.name)}">${CH[c].prize.e}</span>`;
+  const prizeHTML = (c, cls = '') => { const pz = CH[c].prize;
+    return pz.golden ? crayonSVG('gold', cls, pz.name) : pz.svg ? `<svg class="sq-psvg ${cls}" viewBox="0 0 100 100" role="img" aria-label="${esc(pz.name)}">${pz.svg(++uid)}</svg>`
+      : `<span class="sq-ge ${cls}" role="img" aria-label="${esc(pz.name)}">${pz.e}</span>`; };
   // Seeded random numbers, so the map looks the same every visit.
   const seeded = seed => () => (seed = (seed * 9301 + 49297) % 233280) / 233280;
+  // Dino Valley's volcano: the lava glow and the smoke shrink as the chapter goes on, down to one sleepy puff.
+  function volcanoG(x, by, h, prog) {
+    const w = h * 0.95, top = by - h, cw = h * 0.2, f = n => n.toFixed(1), puffs = 1 + Math.round((1 - prog) * 4);
+    let g = `<path d="M${f(x - w)} ${by} L${f(x - cw)} ${f(top)} H${f(x + cw)} L${f(x + w)} ${by} Z" fill="#8A6A55"/><path d="M${f(x - w * 0.45)} ${by} L${f(x - cw * 0.6)} ${f(top + h * 0.1)} H${f(x + cw * 0.2)} L${f(x - w * 0.05)} ${by} Z" fill="#9C7B63"/>`;
+    g += `<ellipse cx="${f(x)}" cy="${f(top)}" rx="${f(cw)}" ry="${f(h * 0.06)}" fill="#F2604F" opacity="${(0.25 + 0.75 * (1 - prog)).toFixed(2)}"/>`;
+    g += `<path d="M${f(x - cw * 0.5)} ${f(top)} q${f(-h * 0.04)} ${f(h * 0.18)} ${f(-h * 0.12)} ${f(h * 0.3)} M${f(x + cw * 0.4)} ${f(top)} q${f(h * 0.02)} ${f(h * 0.14)} ${f(h * 0.1)} ${f(h * 0.22)}" stroke="#FF8A2B" stroke-width="${f(h * 0.05)}" fill="none" stroke-linecap="round" opacity="${(1 - prog).toFixed(2)}"/>`;
+    for (let k = 0; k < puffs; k++) g += `<circle cx="${f(x + k * h * 0.13)}" cy="${f(top - h * 0.14 - k * h * 0.17)}" r="${f(h * (0.09 + k * 0.03))}" fill="${prog > 0.99 ? '#FFFFFF' : '#8E8E9C'}" opacity=".85"/>`;
+    return g;
+  }
   function sceneBG(c, prog) {
+    if (c === 3) { const r = seeded(13); let bub = '';
+      for (let k = 0; k < 9; k++) bub += `<circle cx="${(r() * 320).toFixed(0)}" cy="${(16 + r() * 120).toFixed(0)}" r="${(2 + r() * 4).toFixed(1)}" fill="none" stroke="#fff" stroke-width="1.5" opacity=".7"/>`;
+      return `<defs><linearGradient id="sqS3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6FD0EE"/><stop offset="1" stop-color="#15588A"/></linearGradient></defs>
+      <rect width="320" height="180" fill="url(#sqS3)"/><g fill="#fff" opacity="${(0.08 + prog * 0.3).toFixed(2)}"><path d="M40 0 H76 L130 180 H96Z"/><path d="M150 0 H176 L214 180 H186Z"/><path d="M240 0 H262 L300 180 H276Z"/></g>${bub}
+      <path d="M0 152 Q90 136 170 150 T320 144 V180 H0Z" fill="#F2D79A"/><g stroke="#2FA36B" stroke-width="5" fill="none" stroke-linecap="round"><path d="M18 160 q-8 -14 0 -28 q8 -14 0 -28"/><path d="M304 156 q8 -12 0 -24 q-8 -12 0 -24"/></g>`; }
+    if (c === 4) return `<defs><linearGradient id="sqS4" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8FD3FF"/><stop offset="1" stop-color="#FFEBC2"/></linearGradient></defs>
+      <rect width="320" height="180" fill="url(#sqS4)"/><rect width="320" height="180" fill="#B07A55" opacity="${(0.4 * (1 - prog)).toFixed(2)}"/>${volcanoG(120, 136, 84, prog)}
+      <path d="M0 134 Q100 116 200 132 T320 126 V180 H0Z" fill="#9BCB6A"/><path d="M0 158 Q120 144 220 156 T320 152 V180 H0Z" fill="#7DB653"/>`;
     if (c === 0) return `<defs><linearGradient id="sqS0" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8FD3FF"/><stop offset="1" stop-color="#E4F6FF"/></linearGradient></defs>
       <rect width="320" height="180" fill="url(#sqS0)"/><circle cx="276" cy="36" r="20" fill="#FFD447"/>
       <g fill="#fff"><ellipse cx="70" cy="36" rx="26" ry="10"/><ellipse cx="88" cy="29" rx="17" ry="10"/><ellipse cx="190" cy="48" rx="22" ry="8"/></g>
@@ -11926,7 +12041,8 @@ const storyHome = (() => {
       <rect width="320" height="180" fill="url(#sqS2)"/>${stars}
       <g fill="#fff">${[[30, 172, 50, 20], [110, 178, 60, 22], [200, 174, 56, 22], [292, 176, 52, 20], [70, 160, 30, 16], [250, 158, 34, 16]].map(([x, y, a, b]) => `<ellipse cx="${x}" cy="${y}" rx="${a}" ry="${b}"/>`).join('')}</g>`;
   }
-  const bgFilter = (c, prog) => c === 0 ? `filter:grayscale(${(0.85 * (1 - prog)).toFixed(2)})` : c === 1 ? `filter:brightness(${(0.7 + 0.3 * prog).toFixed(2)})` : '';
+  const bgFilter = (c, prog) => c === 0 ? `filter:grayscale(${(0.85 * (1 - prog)).toFixed(2)})` : c === 1 ? `filter:brightness(${(0.7 + 0.3 * prog).toFixed(2)})`
+    : c === 3 ? `filter:brightness(${(0.6 + 0.4 * prog).toFixed(2)}) saturate(${(0.7 + 0.3 * prog).toFixed(2)})` : c === 4 ? `filter:saturate(${(0.65 + 0.35 * prog).toFixed(2)})` : '';
   function sceneHTML(c, i, extra = []) {
     const s = CH[c].stops[i], prog = doneN(c) / CH[c].stops.length;
     const hoot = s.hoot || [86, 134], wear = st.pet && st.pet.wear;
@@ -11952,22 +12068,26 @@ const storyHome = (() => {
   }
   function mapHTML(c, L) {
     const ch = CH[c], n = ch.stops.length, prog = doneN(c) / n, r = seeded(31 + c * 17);
-    const base = ['#CFEFB4', '#3F7D52', null][c], blob = [['#BDE59C', '#DDF5C6'], ['#4C8F60', '#356B45'], ['rgba(255,255,255,.55)', 'rgba(255,255,255,.35)']][c];
-    let bg = c === 2 ? `<defs><linearGradient id="sqM2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#B9A7F5"/><stop offset="1" stop-color="#FFD9EC"/></linearGradient></defs><rect width="${L.W}" height="${L.H}" fill="url(#sqM2)"/>` : `<rect width="${L.W}" height="${L.H}" fill="${base}"/>`;
+    const base = ['#CFEFB4', '#3F7D52', null, null, '#BFE08A'][c], blob = [['#BDE59C', '#DDF5C6'], ['#4C8F60', '#356B45'], ['rgba(255,255,255,.55)', 'rgba(255,255,255,.35)'], ['rgba(255,255,255,.14)', 'rgba(10,60,100,.14)'], ['#AAD472', '#D5EBA6']][c];
+    const grad = { 2: ['#B9A7F5', '#FFD9EC'], 3: ['#7AD6EF', '#1B6A9C'] }[c];
+    let bg = grad ? `<defs><linearGradient id="sqM${c}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${grad[0]}"/><stop offset="1" stop-color="${grad[1]}"/></linearGradient></defs><rect width="${L.W}" height="${L.H}" fill="url(#sqM${c})"/>` : `<rect width="${L.W}" height="${L.H}" fill="${base}"/>`;
     for (let k = 0; k < 14; k++) bg += `<ellipse cx="${(r() * L.W).toFixed(0)}" cy="${(r() * L.H).toFixed(0)}" rx="${(30 + r() * 60).toFixed(0)}" ry="${(14 + r() * 24).toFixed(0)}" fill="${blob[k % 2]}"/>`;
+    if (c === 3) { // sunbeams reach further down as the sea lights up again, and bubbles rise
+      for (let k = 0; k < 4; k++) { const x = L.W * (0.1 + k * 0.26); bg += `<path d="M${x.toFixed(0)} 0 h${(L.W * 0.08).toFixed(0)} L${(x + L.W * 0.2).toFixed(0)} ${L.H} h-${(L.W * 0.1).toFixed(0)}Z" fill="#fff" opacity="${(0.05 + prog * 0.2).toFixed(2)}"/>`; }
+      for (let k = 0; k < 18; k++) bg += `<circle cx="${(r() * L.W).toFixed(0)}" cy="${(r() * L.H).toFixed(0)}" r="${(3 + r() * 5).toFixed(1)}" fill="none" stroke="#fff" stroke-width="2" opacity=".55"/>`; }
     if (c === 0) bg += `<path d="M${L.W * 0.72} 0 C${L.W * 0.6} ${L.H * 0.3} ${L.W * 0.95} ${L.H * 0.55} ${L.W * 0.82} ${L.H}" stroke="#9ED8F5" stroke-width="18" fill="none" opacity=".8"/>`;
     // decorations sit in the gaps between rows, away from the trail
     let dec = '', di = 0;
     for (let row = 0; row < L.rows - 1; row++) {
       const turn = row % 2 === 0 ? L.cols - 1 : 0, y = L.top + row * L.rowH + L.rowH / 2 + 4;
-      for (let col = 0; col < L.cols; col++) if (col !== turn) dec += `<text x="${(L.cw * (col + 0.5) + (r() - 0.5) * L.cw * 0.5).toFixed(0)}" y="${y.toFixed(0)}" font-size="${L.W > 500 ? 34 : 26}" text-anchor="middle" dominant-baseline="central">${ch.decor[di++ % ch.decor.length]}</text>`;
+      for (let col = 0; col < L.cols; col++) if (col !== turn) if (c === 4 && row === 0 && col === 0) bg += volcanoG(L.cw * 0.5, y + 34, L.W > 500 ? 92 : 70, prog); else dec += `<text x="${(L.cw * (col + 0.5) + (r() - 0.5) * L.cw * 0.5).toFixed(0)}" y="${y.toFixed(0)}" font-size="${L.W > 500 ? 34 : 26}" text-anchor="middle" dominant-baseline="central">${ch.decor[di++ % ch.decor.length]}</text>`;
     }
     for (let col = 0; col < L.cols - 1; col++) dec += `<text x="${(L.cw * (col + 1)).toFixed(0)}" y="${(L.top - 52).toFixed(0)}" font-size="${L.W > 500 ? 28 : 22}" text-anchor="middle" dominant-baseline="central">${ch.decor[di++ % ch.decor.length]}</text>`;
     const lastRow = L.rows - 1, filled = n - lastRow * L.cols;
     if (filled < L.cols) { const col = lastRow % 2 ? L.cols - 1 - filled : filled; dec += `<text x="${(L.cw * (col + 0.5)).toFixed(0)}" y="${(L.top + lastRow * L.rowH).toFixed(0)}" font-size="44" text-anchor="middle" dominant-baseline="central" opacity="${S().got[c] ? 1 : 0.35}">${ch.prize.golden ? '🖍️' : ch.prize.e}</text>`; }
     const nx = nextStop(c), upto = nx < 0 ? n - 1 : nx;
     const path = trail(L.pts, n), donePath = trail(L.pts, upto);
-    const trailCol = ['#F3DDA8', '#8C6A43', '#FFFFFF'][c], dashCol = ['#C9A35F', '#5E452A', '#C9B8F5'][c];
+    const trailCol = ['#F3DDA8', '#8C6A43', '#FFFFFF', '#F6E3B0', '#E2C08C'][c], dashCol = ['#C9A35F', '#5E452A', '#C9B8F5', '#C9A35F', '#8B5A2B'][c];
     const pct = p => `left:${(p[0] / L.W * 100).toFixed(2)}%;top:${(p[1] / L.H * 100).toFixed(2)}%`;
     return `<div class="sq-map${L.W > 500 ? ' wide' : ''}" style="aspect-ratio:${L.W}/${L.H}">
       <svg class="sq-mapbg" viewBox="0 0 ${L.W} ${L.H}" style="${bgFilter(c, prog)}" aria-hidden="true">${bg}
@@ -12116,6 +12236,52 @@ const storyHome = (() => {
   }
   const pair = (lo, hi) => { const a = rnd(lo, hi); let b = rnd(lo, hi); while (b === a) b = rnd(lo, hi); return [a, b]; };
   const PAT = [['⭐', 'star'], ['🌙', 'moon'], ['☁️', 'cloud'], ['🎈', 'balloon'], ['🌈', 'rainbow']];
+  // Under the Sea pictures: bubbles in the water, little fan shells, pearls, an open clam.
+  function bubblesSVG(n, num) {
+    const cols = n > 9 ? 4 : 3, rows = Math.ceil(n / cols), gap = n > 9 ? 19 : 22, H = 16 + rows * gap;
+    let b = '';
+    for (let k = 0; k < n; k++) { const r = Math.floor(k / cols), cIn = r === rows - 1 ? n - r * cols : cols, x = 50 + (k % cols - (cIn - 1) / 2) * gap, y = 18 + r * gap + (k % 2 ? 3 : 0);
+      b += `<circle cx="${x}" cy="${y}" r="8" fill="rgba(255,255,255,.3)" stroke="#fff" stroke-width="2.2"/>${num ? tx(x, y + 4, k + 1, { size: 10 }) : `<path d="M${x - 4} ${y - 1} q1 -4 4 -5" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/>`}`; }
+    return `<svg class="sq-bub" viewBox="0 0 100 ${H + 22}" role="img" aria-label="${n} bubble${n === 1 ? '' : 's'}"><rect x="3" y="3" width="94" height="${H + 16}" rx="16" fill="#2E8BE6" stroke="#22305A" stroke-width="3"/><path d="M5 ${H + 8} q22 -6 45 0 t45 0 V${H + 12} q0 7 -8 7 H13 q-8 0 -8 -7Z" fill="#F2D79A"/>${b}</svg>`;
+  }
+  const miniShell = col => `<svg class="sq-ms" viewBox="0 0 30 28" aria-hidden="true"><path d="M15 24 L3 12 Q3 4 9 4 Q11 1 15 1.5 Q19 1 21 4 Q27 4 27 12 Z" fill="${col}" stroke="#22305A" stroke-width="1.5" stroke-linejoin="round"/><path d="M15 24 L9 5 M15 24 V2.5 M15 24 L21 5" stroke="rgba(0,0,0,.25)" stroke-width="1.4"/><rect x="11.5" y="23" width="7" height="4" rx="1.5" fill="${col}" stroke="#22305A" stroke-width="1.2"/></svg>`;
+  const shells = (n, col) => `<div class="sq-crow">${Array.from({ length: n }, () => miniShell(col)).join('')}</div>`;
+  const PEARL = '<svg class="sq-pearl" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.5" fill="#F7F0FA" stroke="#A996C9" stroke-width="1.5"/><circle cx="7.2" cy="7" r="2.6" fill="#fff"/></svg>';
+  function clamSVG(n, cls = 'sq-clam') {
+    const per = n > 5 ? Math.ceil(n / 2) : n, rows = n > 5 ? 2 : 1, gap = 13;
+    let p = '';
+    for (let k = 0; k < n; k++) { const r = Math.floor(k / per), cIn = r === rows - 1 ? n - r * per : per, x = 50 + (k % per - (cIn - 1) / 2) * gap, y = 52 + r * 12 - (rows - 1) * 6;
+      p += `<circle cx="${x}" cy="${y}" r="5.6" fill="#F7F0FA" stroke="#A996C9" stroke-width="1.3"/><circle cx="${x - 1.8}" cy="${y - 1.8}" r="1.6" fill="#fff"/>`; }
+    return `<svg class="${cls}" viewBox="0 0 100 78" role="img" aria-label="clam with ${n} pearl${n === 1 ? '' : 's'}"><path d="M10 44 Q50 -4 90 44 Z" fill="#F7B8D2" stroke="#22305A" stroke-width="2.5" stroke-linejoin="round"/><path d="M4 48 Q50 98 96 48 Z" fill="#F49AC1" stroke="#22305A" stroke-width="2.5" stroke-linejoin="round"/>${p}</svg>`;
+  }
+  // Dino Valley pictures: a nest of eggs, and dinosaurs measured in blocks.
+  function nestSVG(n, num, cls = 'sq-nest') {
+    const cols = n > 9 ? 4 : 3, rows = Math.ceil(n / cols), gap = n > 9 ? 18 : 22, H = rows * 22 - 3;
+    let e = '';
+    for (let k = 0; k < n; k++) { const r = Math.floor(k / cols), cIn = r === rows - 1 ? n - r * cols : cols, x = 50 + (k % cols - (cIn - 1) / 2) * gap, y = 18 + r * 22;
+      e += `<ellipse cx="${x}" cy="${y}" rx="${n > 9 ? 7.5 : 8.5}" ry="10" fill="#F6EEDC" stroke="#22305A" stroke-width="1.8"/>${num ? tx(x, y, k + 1, { size: 10 }) : `<circle cx="${x - 3}" cy="${y - 3}" r="1.6" fill="#7DB653"/><circle cx="${x + 3}" cy="${y + 3}" r="1.3" fill="#7DB653"/>`}`; }
+    return `<svg class="${cls}" viewBox="0 0 100 ${H + 34}" role="img" aria-label="nest with ${n} egg${n === 1 ? '' : 's'}"><path d="M8 ${H + 4} Q50 ${H - 10} 92 ${H + 4}" stroke="#7A4E25" stroke-width="3" fill="none"/>${e}<path d="M4 ${H + 4} Q50 ${H + 44} 96 ${H + 4} Z" fill="#B07A45" stroke="#22305A" stroke-width="2.5" stroke-linejoin="round"/><path d="M14 ${H + 12} l18 6 M40 ${H + 20} l22 -4 M70 ${H + 12} l16 8" stroke="#7A4E25" stroke-width="2" stroke-linecap="round"/></svg>`;
+  }
+  // Each row is a dinosaur and its length in blocks. mark: colour the extra blocks of the longest one.
+  function lenSVG(rows, mark) {
+    const most = Math.max(...rows.map(x => x[1])), least = Math.min(...rows.map(x => x[1])), s = most > 12 ? 11 : 14, W = 40 + most * s + 30;
+    let g = '';
+    rows.forEach(([e, n, col], i) => { const y = 6 + i * 34;
+      g += `<text x="18" y="${y + 14}" font-size="24" text-anchor="middle" dominant-baseline="central">${e}</text>`;
+      for (let k = 0; k < n; k++) g += `<rect x="${40 + k * s}" y="${y + 5}" width="${s - 2}" height="18" rx="3" fill="${mark && n === most && k >= least ? '#F2604F' : col}" stroke="#22305A" stroke-width="1.2"/>`;
+      g += tx(40 + n * s + 14, y + 19, n, { size: 14 }); });
+    return svgBox(`0 0 ${W} ${rows.length * 34 + 8}`, g, rows.map(x => `${x[1]} blocks`).join(' and '), true);
+  }
+  // One dinosaur as a tap choice: both choices share one scale (most blocks), so the longer bar really looks longer.
+  const dinoBar = (e, n, col, most) => svgBox(`0 0 ${most * 15 + 6} 58`, `<text x="16" y="16" font-size="26" text-anchor="middle" dominant-baseline="central">${e}</text>` +
+    Array.from({ length: n }, (_, k) => `<rect x="${3 + k * 15}" y="34" width="13" height="20" rx="3" fill="${col}" stroke="#22305A" stroke-width="1.2"/>`).join(''), `${n} blocks long`);
+  const PAT5 = [['🦕', 'long-neck'], ['🦖', 'T-rex'], ['🥚', 'egg'], ['🌴', 'palm tree'], ['🌋', 'volcano']];
+  const ORDER = [{ text: 'A tiny sprout grows into a tall tree.', s: [['🌱', 'tiny sprout'], ['🌿', 'fern'], ['🌴', 'tall tree']] },
+    { text: 'Pip plays all day long, from morning to night.', s: [['🌅', 'morning'], ['☀️', 'sunny afternoon'], ['🌙', 'night']] },
+    { text: 'Pip is hungry. Pip picks a leaf, eats it, then has a nap.', s: [['🍃', 'pick a leaf'], ['😋', 'eat it'], ['😴', 'have a nap']] }];
+  const clk = t => { t = ((t % 720) + 720) % 720; return [Math.floor(t / 60) || 12, t % 60]; };
+  const tm = t => timeStr(...clk(t));
+  const twoClocks = (a, b) => `<div class="row m3clocks">${clockSVG(...clk(a))}<span class="op">→</span>${clockSVG(...clk(b))}</div>`;
 
   const RIDDLES = [
     [ // chapter 1: The Lost Crayons
@@ -12190,8 +12356,77 @@ const storyHome = (() => {
         const d = t === 2 ? rnd(2, 10) : rnd(11, 25), s = t === 2 ? d : rnd(3, 60), vals = Array.from({ length: 5 }, (_, k) => s + k * d), ans = s + 5 * d;
         return riddle({ tag, kind: 'pattern', text: 'Each night the Moon wakes up more stars.', ask: 'How many stars on the next night?', visual: `<div class="pat sq-pat">${vals.map(v => `<span class="sq-nb">⭐<b>${v}</b></span>`).join('')}<span class="dot q">?</span></div>`, choices: nums(ans, t, [ans + d, ans - 1, ans + 1, vals[4] + d + 1]), answer: ans,
           explain: hopLine([...vals.slice(2), ans], [`+${d}`, `+${d}`, `+${d}`]), steps: [`Find the jump between numbers: ${vals[1]} − ${vals[0]} = ${d}.`, `Every night has ${d} more stars.`], explainText: `${vals[4]} + ${d} = ${ans}.` }); }
+    ],
+    [ // chapter 4: Under the Sea
+      t => { const tag = t === 0 ? '🐙 Bubble riddle' : '🐟 Fish school riddle';
+        if (t === 0) { const n = rnd(2, 10); return riddle({ tag, kind: 'count', text: 'Inky the octopus blows bubbles. Blub, blub!', ask: 'How many bubbles?', visual: bubblesSVG(n), choices: nums(n, t), answer: n,
+          explain: bubblesSVG(n, true), steps: n > 3 ? ['Touch the first bubble and say 1.', 'Touch each bubble once and say the next number.'] : null, explainText: `${list(upTo(1, n))}. There ${n === 1 ? 'is' : 'are'} ${n} bubble${n === 1 ? '' : 's'}!` }); }
+        if (t === 1) { const a = rnd(3, 12), b = rnd(2, Math.min(8, 20 - a)); return riddle({ tag, kind: 'add', text: `A school of ${a} fish swims by. Then ${b} more fish join them.`, ask: 'How many fish in all?', visual: pic(objs(a, '🐟') + OP('+') + objs(b, '🐠'), `${a} fish and ${b} more fish`), choices: nums(a + b, t), answer: a + b, ...addHelp(a, b) }); }
+        const r = t === 2 ? rnd(3, 6) : rnd(4, 9), c = t === 2 ? rnd(3, 6) : rnd(6, 12);
+        return riddle({ tag, kind: 'mul', text: `A big school of fish swims in ${r} rows. Each row has ${c} fish.`, ask: 'How many fish are in the school?', visual: pic(r * c <= 40 ? rowsPic(r, c, '🐟') : groupsPic(r, c, '🐟'), `${r} rows of ${c} fish`), choices: mulOpts(r, c, t), answer: r * c, ...mulHelp(r, c, 'fish') }); },
+      t => { const tag = '🐚 Shell riddle';
+        if (t === 0) { const [a, b] = pair(1, 10), more = Math.random() < 0.6, m = moreLess(a, b, (n, v) => shells(n, v === 'a' ? '#F49AC1' : '#FFC23D'), ['the pink pile', 'the yellow pile'], more);
+          return riddle({ tag, kind: 'compare', text: 'The two crabs each have a pile of shells.', ask: `Which pile has ${more ? 'more' : 'fewer'} shells?`, choices: m.choices, answer: m.ans, explain: m.explain, steps: m.steps, explainText: m.explainText }); }
+        if (t === 1) { const a = rnd(9, 18), b = rnd(3, a - 2); return riddle({ tag, kind: 'sub', text: `The big crab has ${a} shells. The little crab has ${b} shells.`, ask: 'How many more shells does the big crab have?', visual: pic(shells(a, '#F49AC1') + shells(b, '#FFC23D'), `${a} pink shells and ${b} yellow shells`), choices: nums(a - b, t, [a + b]), answer: a - b,
+          explain: hopLine([b, a], [`+${a - b}`]), steps: [`Start at the smaller pile, ${b}.`, `Count up to ${a}: ${list(upTo(b + 1, a))}.`, `That is ${a - b} jumps.`], explainText: `${a} − ${b} = ${a - b}. The big crab has ${a - b} more shells.` }); }
+        const a = t === 2 ? rnd(35, 99) : rnd(210, 950), b = t === 2 ? rnd(12, a - 8) : rnd(105, a - 40);
+        return riddle({ tag, kind: 'sub', text: `The mermaid has ${a} shells. Inky has ${b} shells.`, ask: 'How many more shells does the mermaid have?', visual: pic(`<span class="sq-total">🧜 ${a}</span><span class="sq-total">🐙 ${b}</span>`, `the mermaid has ${a} and Inky has ${b}`), choices: nums(a - b, t, [a + b, a - b + 10, a - b - 10]), answer: a - b, ...subHelp(a, b) }); },
+      t => { const tag = '🦪 Pearl riddle';
+        if (t === 0) { const n = rnd(1, 9), up = Math.random() < 0.5 || n < 2, ans = up ? n + 1 : n - 1;
+          return riddle({ tag, kind: up ? 'add' : 'sub', text: up ? `Inky has ${n} pearl${n > 1 ? 's' : ''}. She finds 1 more!` : `Inky has ${n} pearls. A crab borrows 1.`, ask: 'How many pearls now?', visual: pic(up ? objs(n, PEARL) + OP('+') + objs(1, PEARL) : objs(n, PEARL, { gone: 1 }), up ? `${n} pearls and 1 more` : `${n} pearls, 1 taken away`), choices: nums(ans, t), answer: ans,
+            explain: objs(ans, PEARL, { num: true }), steps: null, explainText: up ? `One more than ${n} is the next number: ${ans}.` : `One less than ${n} is the number before it: ${ans}.` }); }
+        if (t === 1) { const n = rnd(2, 10), h = addHelp(n, n); return riddle({ tag, kind: 'add', text: `Two clams are open. Each clam has ${n} pearls.`, ask: 'How many pearls in both clams?', visual: pic(clamSVG(n) + OP('+') + clamSVG(n), `two clams with ${n} pearls each`), choices: nums(2 * n, t, [n, n + 1, 2 * n + 2]), answer: 2 * n,
+          explain: h.explain, steps: [`The same number twice is called a double.`, ...h.steps], explainText: `Double ${n}: ${n} + ${n} = ${2 * n}.` }); }
+        if (t === 2) { const g = rnd(2, 5), each = rnd(2, 6), n = g * each;
+          return riddle({ tag, kind: 'div', text: `The Octopus Queen shares ${n} pearls into ${g} clams. Every clam gets the same.`, ask: 'How many pearls go in each clam?', visual: pic(`<span class="sq-total">${n} ${PEARL}</span>${OP('→')}${groupsPic(g, '?', '🦪')}`, `${n} pearls shared into ${g} clams`), choices: nums(each, t, [each + 1, each - 1, g, n - g]), answer: each, ...divHelp(n, g, each, '🦪', 'pearls') }); }
+        const each = rnd(6, 12), g = rnd(4, 12), n = g * each;
+        return riddle({ tag, kind: 'div', text: `The palace has ${n} pearls. Each clam can hold ${each} pearls.`, ask: 'How many clams do they need?', visual: pic(`<span class="sq-total">${n} ${PEARL}</span>${OP('÷')}<span class="sq-total">${each} in each 🦪</span>`, `${n} pearls, ${each} in each clam`), choices: nums(g, t, [g + 1, g - 1, each, n - each]), answer: g,
+          explain: groupsPic(g, each, '🦪'), steps: [`Make groups of ${each} until all ${n} are used.`, `Think: what × ${each} = ${n}?`, `${g} × ${each} = ${n}.`], explainText: `They need ${g} clams.` }); }
+    ],
+    [ // chapter 5: Dino Valley
+      t => { const tag = '🥚 Dino egg riddle';
+        if (t === 0) { const n = rnd(2, 10); return riddle({ tag, kind: 'count', text: 'A dino mama has a nest full of eggs.', ask: 'How many eggs are in the nest?', visual: nestSVG(n), choices: nums(n, t), answer: n,
+          explain: nestSVG(n, true), steps: n > 3 ? ['Touch the first egg and say 1.', 'Touch each egg once and say the next number.'] : null, explainText: `${list(upTo(1, n))}. There ${n === 1 ? 'is' : 'are'} ${n} egg${n === 1 ? '' : 's'}!` }); }
+        if (t === 1) { const a = rnd(3, 10), b = rnd(2, Math.min(8, 20 - a)); return riddle({ tag, kind: 'add', text: `One nest has ${a} eggs. The nest next to it has ${b} eggs.`, ask: 'How many eggs in both nests?', visual: pic(nestSVG(a) + OP('+') + nestSVG(b), `nests with ${a} and ${b} eggs`), choices: nums(a + b, t), answer: a + b, ...addHelp(a, b) }); }
+        const g = t === 2 ? rnd(2, 5) : rnd(4, 9), c = t === 2 ? rnd(3, 9) : rnd(6, 12);
+        return riddle({ tag, kind: 'mul', text: `There are ${g} nests on the Egg Hills. Each nest has ${c} eggs.`, ask: 'How many eggs in all?', visual: pic(t === 2 ? Array.from({ length: g }, () => nestSVG(c, false, 'sq-nest sm')).join('') : groupsPic(g, c, '🥚'), `${g} nests with ${c} eggs each`), choices: mulOpts(g, c, t), answer: g * c, ...mulHelp(g, c, 'eggs') }); },
+      t => { const tag = '📏 Dino size riddle';
+        if (t === 0) { const [a, b] = pair(2, 10), longer = Math.random() < 0.6, ans = (a > b) === longer ? 'a' : 'b', hi = Math.max(a, b), lo = Math.min(a, b);
+          const nm = ['the green dino', 'the orange dino'], rows = [['🦕', a, '#7DB653'], ['🦖', b, '#FF8A2B']];
+          return riddle({ tag, kind: 'compare', text: 'Two dinosaurs lie down next to a row of blocks to measure how long they are.', ask: `Which dino is ${longer ? 'longer' : 'shorter'}?`,
+            choices: [['a', 0], ['b', 1]].map(([v, k]) => ({ html: `<span class="sq-pick">${dinoBar(rows[k][0], rows[k][1], rows[k][2], hi)}</span>`, val: v, say: nm[k], txt: false })), answer: ans,
+            explain: lenSVG(rows, true), steps: ['Line them up at the same start.', `${hi} blocks is ${hi - lo} more than ${lo} blocks.`], explainText: `The green dino is ${a} blocks, the orange dino is ${b} blocks. ${hi} is longer and ${lo} is shorter, so the answer is ${nm[ans === 'a' ? 0 : 1]}.` }); }
+        if (t === 1) { const a = rnd(9, 18), b = rnd(3, a - 2), rows = [['🦕', a, '#7DB653'], ['🦖', b, '#FF8A2B']];
+          return riddle({ tag, kind: 'sub', text: `The Long-Neck is ${a} blocks long. The little T-rex is ${b} blocks long.`, ask: 'How many blocks longer is the Long-Neck?', visual: lenSVG(rows), choices: nums(a - b, t, [a + b]), answer: a - b,
+            explain: lenSVG(rows, true), steps: [`Line them up at the same start.`, `Count the extra red blocks: start at ${b} and count up to ${a}.`], explainText: `${a} − ${b} = ${a - b}. The Long-Neck is ${a - b} blocks longer.` }); }
+        if (t === 2) { const a = rnd(21, 39), b = rnd(11, a - 6);
+          return riddle({ tag, kind: 'sub', text: `A Long-Neck is ${a} metres long. A T-rex is ${b} metres long.`, ask: 'How many metres longer is the Long-Neck?', visual: pic(`<span class="sq-total">🦕 ${a} m</span><span class="sq-total">🦖 ${b} m</span>`, `${a} metres and ${b} metres`), choices: nums(a - b, t, [a + b, a - b + 10, a - b - 10]), answer: a - b, ...subHelp(a, b) }); }
+        const g = rnd(4, 9), L = pick([12, 13, 14, 15, 16, 17, 18, 19, 21, 22, 23, 24, 25, 26, 27, 28]), tens = L - L % 10, ones = L % 10, ans = g * L;
+        return riddle({ tag, kind: 'mul', text: `${g} Long-Necks stand nose to tail in a line. Each one is ${L} metres long.`, ask: 'How long is the whole line?', visual: pic(`<span class="sq-total">${g} × 🦕</span><span class="sq-total">${L} m each</span>`, `${g} dinosaurs, ${L} metres each`), choices: nums(ans, t, [ans + g, ans - g, ans + 10, ans - 10, g + L]), answer: ans,
+          explain: groupsPic(g, `${L} m`, '🦕'), steps: [`${g} × ${L}: split ${L} into ${tens} and ${ones}.`, `${g} × ${tens} = ${g * tens}.`, `${g} × ${ones} = ${g * ones}.`, `${g * tens} + ${g * ones} = ${ans}.`], explainText: `The line is ${ans} metres long.` }); },
+      t => {
+        if (t === 0 && Math.random() < 0.5) { const tag = '🌴 Dino pattern riddle', set = shuffle(PAT5).slice(0, 2), len = 5, seq = Array.from({ length: len }, (_, k) => set[k % 2]), ans = set[len % 2];
+          const choices = opts(ans[0], shuffle(PAT5).map(x => x[0]), 2 + (Math.random() < 0.5 ? 1 : 0), v => v, v => PAT5.find(x => x[0] === v)[1]);
+          return riddle({ tag, kind: 'pattern', text: 'Pip lines up toys in a pattern.', ask: 'What comes next?', visual: `<div class="pat sq-pat">${seq.map(x => `<span>${x[0]}</span>`).join('')}<span class="dot q">?</span></div>`, choices, answer: ans[0],
+            explain: `<div class="pat sq-pat">${`<span class="sq-unit">${set.map(x => `<span>${x[0]}</span>`).join('')}</span>`.repeat(3)}</div>`, steps: [`Find the part that repeats: ${set.map(x => x[1]).join(', ')}.`, 'Say it again and again, and keep going.'], explainText: `${seq.map(x => x[1]).join(', ')}, … the next one is the ${ans[1]}.` }); }
+        if (t === 0) { const tag = '🔢 First and last riddle', o = pick(ORDER), first = Math.random() < 0.5, ans = first ? o.s[0] : o.s[2];
+          return riddle({ tag, kind: 'order', text: o.text, ask: `What happens ${first ? 'first' : 'last'}?`, choices: opts(ans[0], o.s.map(x => x[0]), 3, v => v, v => o.s.find(x => x[0] === v)[1]), answer: ans[0],
+            explain: `<div class="pat sq-pat">${o.s.map((x, k) => `<span class="sq-nb">${x[0]}<b>${k + 1}</b></span>`).join(OP('→'))}</div>`, steps: [`First: ${o.s[0][1]}.`, `Next: ${o.s[1][1]}.`, `Last: ${o.s[2][1]}.`], explainText: `${first ? 'First' : 'Last'} is the ${ans[1]}.` }); }
+        if (t === 1 && Math.random() < 0.5) { const tag = '👣 Footprint riddle', a = rnd(11, 20), b = rnd(2, 9);
+          return riddle({ tag, kind: 'sub', text: `The path to Mama has ${a} footprints. Pip has hopped on ${b} of them.`, ask: 'How many footprints are left to hop on?', visual: pic(objs(a, '👣', { gone: b }), `${a} footprints, ${b} hopped on`), choices: nums(a - b, t, [a + b]), answer: a - b, ...subHelp(a, b) }); }
+        const tag = '⏰ Volcano clock riddle';
+        if (t === 1) { const h = rnd(1, 12), d = rnd(1, 4), e = (h + d - 1) % 12 + 1, at = x => timeStr((x + 11) % 12 + 1, 0);
+          return riddle({ tag, kind: 'time', text: `It is ${h} o'clock. The volcano will puff in ${d} hour${d > 1 ? 's' : ''}.`, ask: 'What time will it puff?', visual: clockSVG(h, 0), choices: opts(at(e), [at(e + 1), at(e - 1), at(h), at(h - d), at(e + 2)], 4, v => v), answer: at(e),
+            explain: twoClocks(h * 60, e * 60), steps: [`Start at ${h} o'clock.`, `Move the short hand on ${d}: ${list(Array.from({ length: d }, (_, k) => (h + k) % 12 + 1))}.`], explainText: `${d} hour${d > 1 ? 's' : ''} after ${h} o'clock is ${e} o'clock.` }); }
+        if (t === 2) { const st0 = rnd(1, 11) * 60 + rnd(0, 11) * 5, d = pick([15, 20, 25, 30, 35, 40, 45]), end = st0 + d, toHr = 60 - st0 % 60;
+          return riddle({ tag, kind: 'time', text: `Pip starts walking home at ${tm(st0)}. The walk takes ${d} minutes.`, ask: 'What time does Pip get home?', visual: clockSVG(...clk(st0)), choices: opts(tm(end), [tm(end + 5), tm(end - 5), tm(end + 10), tm(end - 10), tm(end + 60), tm(st0 - d)], 4, v => v), answer: tm(end),
+            explain: twoClocks(st0, end), steps: d < toHr ? [`Start at ${tm(st0)}.`, `Count on ${d} minutes: ${st0 % 60} + ${d} = ${st0 % 60 + d}.`] : [`From ${tm(st0)} to the next o'clock is ${toHr} minutes.`, `${d} − ${toHr} = ${d - toHr} more minutes after that.`], explainText: `${d} minutes after ${tm(st0)} is ${tm(end)}.` }); }
+        const now = rnd(1, 10) * 60 + rnd(0, 11) * 5, d = rnd(7, 22) * 5, puff = now + d, toHr = 60 - now % 60;
+        return riddle({ tag, kind: 'time', text: `It is ${tm(now)}. The volcano will puff at ${tm(puff)}.`, ask: 'How many minutes until it puffs?', visual: twoClocks(now, puff), choices: nums(d, t, [d + 5, d - 5, d + 10, d - 10, d + 60, d - 60, d + 40]), answer: d,
+          explain: twoClocks(now, puff), steps: d <= toHr ? [`Count on from ${tm(now)} to ${tm(puff)} in fives.`] : [`From ${tm(now)} to the next o'clock: ${toHr} minutes.`, `Then on to ${tm(puff)}: ${d - toHr} minutes.`, `${toHr} + ${d - toHr} = ${d}.`], explainText: `It puffs in ${d} minutes${d >= 60 ? `, which is 1 hour${d > 60 ? ` and ${d - 60} minutes` : ''}` : ''}.` }); }
     ]
   ];
+
   const makeRiddle = (c, type, t = tierOf()) => RIDDLES[c][type % 3](t);
 
   // Math: 3 questions from the player's age world. The first one is the topic the engine recommends,
@@ -13266,7 +13501,7 @@ const sceneHome = (() => {
 // window.__owlTourForce is set, so older tests can click tiles without a card in the way.
 const tour = (() => {
   // Data that lives inside other modules' closures; t26.js checks these against the real data.
-  const FIXED = { coloring: 26, places: 15, chapters: 3, stops: 9 };
+  const FIXED = { coloring: 26, places: 15, chapters: 5, stops: 9 };
   const auto = () => window.__owlTourForce || !(location.hash === '#selftest' || navigator.webdriver);
   let cur = null; // { root, i, steps, off }
 

@@ -894,7 +894,10 @@ ol.steps{margin:0;padding-left:1.4em;text-align:left;font-weight:700;font-size:1
 .ss-saved{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--leaf-soft);border-radius:18px;padding:10px 14px;font-weight:800;font-size:19px}
 @media (max-width:500px){.ss-grid{max-height:200px}.ss-grid.ss-bgs{max-height:260px;grid-template-columns:repeat(3,minmax(0,1fr))}.ss-actions{grid-template-columns:1fr 1fr}.ss-idea p{font-size:18px}}
 /* owl's quest */
-.sq-chs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.sq-chs{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px}
+.sq-chs > .sq-ch{grid-column:span 2}
+.sq-chs > .sq-ch:nth-child(4){grid-column:2 / span 2}
+@media (min-width:700px){.sq-chs{grid-template-columns:repeat(5,minmax(0,1fr))}.sq-chs > .sq-ch,.sq-chs > .sq-ch:nth-child(4){grid-column:auto}}
 .sq-ch{background:var(--paper);border-radius:20px;padding:10px 8px;display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center;box-shadow:0 4px 0 var(--line);border:3px solid transparent;min-width:0}
 .sq-ch.on{border-color:var(--chc);box-shadow:0 4px 0 var(--chc)}
 .sq-ch.locked{opacity:.6}
@@ -902,6 +905,8 @@ ol.steps{margin:0;padding-left:1.4em;text-align:left;font-weight:700;font-size:1
 .sq-ch b{font-family:var(--display);font-size:17px;line-height:1.1}
 .sq-chn{font-size:13px;font-weight:800;color:var(--ink-soft);display:flex;align-items:center;gap:4px}
 .sq-chn .sq-crayon,.sq-chn .sq-ge{height:20px;width:auto;font-size:16px}
+.sq-psvg{display:block;aspect-ratio:1;height:auto}
+.sq-chn .sq-psvg{height:20px;width:20px}
 .sq-banner{display:flex;align-items:center;gap:12px;background:var(--sun-soft);border-radius:22px;padding:10px 14px}
 .sq-banner p{margin:0;flex:1;min-width:0;font-weight:700;font-size:18px}
 .sq-banner p b{display:block;font-family:var(--display);font-size:22px}
@@ -976,6 +981,7 @@ ol.steps{margin:0;padding-left:1.4em;text-align:left;font-weight:700;font-size:1
 .sq-prize .sq-ge.big{font-size:72px;background:#fff;border-radius:50%;width:104px;height:104px;display:grid;place-items:center;box-shadow:0 5px 0 var(--line)}
 .sq-prize .sq-crayon.big{background:#fff;border-radius:50%;padding:10px 30px;height:110px;box-shadow:0 5px 0 var(--line)}
 .sq-prize .huge{font-size:120px;height:170px;width:auto}
+.sq-prize .sq-psvg.huge{width:170px;filter:drop-shadow(0 5px 0 rgba(0,0,0,.15))}
 .sq-pop{animation:sqPop .7s cubic-bezier(.3,1.6,.5,1) both}
 @keyframes sqPop{from{transform:scale(0) rotate(-20deg)}to{transform:scale(1) rotate(0)}}
 .sq-final{padding-top:18px;overflow:hidden}
@@ -996,6 +1002,7 @@ ol.steps{margin:0;padding-left:1.4em;text-align:left;font-weight:700;font-size:1
 .sq-pno{position:absolute;right:12px;bottom:8px;font:800 14px var(--display);color:var(--ink-soft);z-index:1}
 .sq-bend{display:flex;flex-direction:column;align-items:center;gap:6px;font:800 34px var(--display)}
 .sq-bend .big{height:90px;width:auto;font-size:64px}
+.sq-bend .sq-psvg.big{width:90px}
 @media (max-width:520px){.sq-stop{width:54px;height:54px}.sq-si{font-size:28px}.sq-ch b{font-size:15px}.sq-chi{font-size:28px}.sq-banner p{font-size:16px}.sq-banner p b{font-size:19px}.sq-oe{font-size:60px}.sq-opt{min-height:150px}}
 /* quest riddles: story math with pictures */
 .sq-riddle .ptext{display:flex;flex-direction:column;align-items:center;gap:6px}
@@ -1025,6 +1032,13 @@ ol.steps{margin:0;padding-left:1.4em;text-align:left;font-weight:700;font-size:1
 .sq-castle svg{height:clamp(130px,40vw,190px);width:auto;max-width:86vw;display:block}
 .sq-unit{display:inline-flex;gap:4px;padding:3px 5px;border:3px dashed var(--grape);border-radius:14px}
 .sq-unit span{font-size:clamp(24px,6.5vw,36px);line-height:1}
+.sq-bub,.sq-nest{width:min(140px,36vw);height:auto;display:block}
+.sq-nest.sm{width:min(84px,21vw)}
+.sq-ms{width:24px;height:23px;display:block}
+.sq-pearl{width:1em;height:1em;display:inline-block;vertical-align:-.12em}
+.sq-clam{width:min(120px,32vw);height:auto;display:block}
+.sq-pick .shape{max-width:100%}
+.sq-pick .shape svg{width:min(240px,100%)}
 @media (prefers-reduced-motion:reduce){.sq-stop.next,.sq-shoot,.sq-bowl,.sq-rays,.sq-pop{animation:none}}
 /* coloring book */
 .cb-lead{margin:0;font-weight:700;color:var(--ink-soft)}
