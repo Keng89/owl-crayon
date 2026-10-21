@@ -1556,6 +1556,80 @@ body:has(.sp-svg) #toast{pointer-events:none}
 .en-rnew{font-weight:800;font-size:19px;background:var(--grape-soft);border-radius:16px;padding:10px 14px}
 @media (prefers-reduced-motion:reduce){.en-lico,.en-owl,.te-deco,.en-mface,.en-bubbles .choice,.en-rpal,.en-magic b{animation:none}}
 @media (max-width:520px){.en-secs{grid-template-columns:repeat(2,1fr)}.en-sec{min-height:120px;padding:12px}.en-sec b{font-size:18px}.en-ph{grid-template-columns:repeat(auto-fill,minmax(80px,1fr))}.en-pt b{font-size:28px}.en-snd{font-size:40px;padding:4px 12px}.en-q .choice.txt{font-size:19px}}
+/* English round 2: word play, word of the day, review, album (english5.js) */
+.en-ptip{font-size:15px;color:var(--ink-soft);background:var(--paper);border-left:5px solid var(--leaf);border-radius:12px;padding:10px 14px;margin:6px 0 0;max-width:70ch}
+.en-tiers .en-tab{min-height:44px;padding:8px 14px;font-size:15px}
+.en-vc small{font-size:12px;color:var(--ink-soft);line-height:1.2;text-align:center}.en-vc.t3{background:linear-gradient(160deg,var(--paper),var(--grape-soft))}
+.en-today{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px}
+.en-wotdc,.en-revc{display:flex;align-items:center;gap:12px;border-radius:22px;padding:12px 16px;text-align:left;min-height:72px;box-shadow:0 4px 0 rgba(34,48,90,.2)}
+.en-wotdc{background:linear-gradient(120deg,#FFE7A3,var(--sun))}.en-wotdc.done{background:var(--leaf-soft)}
+.en-wotdc>span:nth-child(2),.en-revc>span:last-child{display:flex;flex-direction:column;flex:1;font-weight:800}.en-wotdc b,.en-revc b{font-family:var(--display);font-size:20px}
+.en-revc{background:var(--sky-soft);border:3px solid var(--sky);animation:enpulse 1.8s ease-in-out infinite}
+@keyframes enpulse{50%{box-shadow:0 4px 0 rgba(34,48,90,.2),0 0 0 6px rgba(46,139,230,.25)}}
+.en-wsun{font-size:40px;display:inline-block;animation:enspin 8s linear infinite}
+@keyframes enspin{to{transform:rotate(360deg)}}
+.en-fire{font-weight:800;font-size:20px;background:var(--paper);border-radius:999px;padding:4px 10px}
+.en-wotd{position:relative;background:var(--paper);border-radius:28px;padding:18px;box-shadow:0 5px 0 var(--line);display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;animation:drop .4s}
+.en-wotd .en-wsun{position:absolute;top:10px;right:14px}
+.en-wpic{font-size:100px;line-height:1.1;animation:enhop 1.6s ease-in-out infinite}
+@keyframes enhop{0%,100%{transform:translateY(0)}40%{transform:translateY(-14px) rotate(-4deg)}60%{transform:translateY(-14px) rotate(4deg)}}
+.en-wmean{font-weight:800;font-size:20px;margin:0;background:var(--grape-soft);border-radius:14px;padding:6px 12px}
+.en-claps{display:flex;gap:8px;justify-content:center;align-items:center;font-size:40px;min-height:50px}.en-claps b{font-size:20px}
+.en-clap{animation:starpop .35s}
+.en-streak{display:flex;flex-direction:column;align-items:center;gap:6px;background:#FFF4E6;border-radius:20px;padding:12px}
+.en-streak b{font-family:var(--display);font-size:22px;color:var(--coral-deep)}
+.en-days{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
+.en-day{display:flex;flex-direction:column;align-items:center;min-width:38px;background:var(--paper);border-radius:12px;padding:4px;font-size:20px;opacity:.7}
+.en-day small{font-size:12px;font-weight:800}.en-day.on{opacity:1;background:var(--sun-soft)}.en-day.now{outline:3px solid var(--sun)}
+.en-use{font-weight:800;font-size:19px;text-align:center;margin:0}
+.en-wdone{font-weight:800;font-size:19px;background:var(--leaf-soft);border-radius:16px;padding:12px;text-align:center;margin:0}
+.en-gt.en-mw{background:var(--sun-soft)}.en-gt.en-wp{background:#FFE8DA}
+.en-revlist{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:15px}
+.en-rv{background:var(--paper);border-radius:999px;padding:4px 10px;font-weight:800;box-shadow:0 2px 0 var(--line)}.en-rv small{color:var(--ink-soft);font-weight:700}.en-rv.due{background:var(--sky-soft)}
+.en-ameter{display:block;height:14px;border-radius:9px;background:var(--line);overflow:hidden}.en-ameter i{display:block;height:100%;background:linear-gradient(90deg,var(--sun),var(--coral))}
+.en-badges{display:flex;gap:8px;flex-wrap:wrap}
+.en-badge{display:flex;flex-direction:column;align-items:center;font-size:26px;background:var(--paper);border-radius:14px;padding:4px 8px;opacity:.5;min-width:46px}.en-badge small{font-size:12px;font-weight:800}.en-badge.on{opacity:1;background:var(--sun-soft)}
+.en-album{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:10px}
+.en-stk{background:var(--paper);border:3px dashed var(--line);border-radius:18px;min-height:96px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:6px}
+.en-stk .en-pe{filter:grayscale(1);opacity:.25}.en-stk b{font-size:14px;overflow-wrap:anywhere;color:var(--ink-soft)}
+.en-stk.got{border:3px solid var(--sun);background:radial-gradient(circle at 30% 20%,#fff,var(--sun-soft));transform:rotate(-2deg);box-shadow:0 4px 0 #E8B53A}
+.en-stk.got:nth-child(even){transform:rotate(2deg)}.en-stk.got .en-pe{filter:none;opacity:1}.en-stk.got b{color:var(--ink)}.en-stk.wig{animation:enwiggle .5s}
+.en-spell{display:flex;align-items:center;justify-content:center;gap:12px}.en-spell.ok .en-spic{animation:enhop .8s 2}
+.en-slots{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.en-slot{width:52px;height:62px;border-radius:14px;background:var(--paper);border-bottom:5px solid var(--line);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:800;font-size:40px}
+.en-slot i{font-style:normal;opacity:.22}.en-slot.on{background:var(--leaf-soft);border-color:var(--leaf);animation:starpop .3s}.en-slot.next{border-color:var(--sun);animation:enpulse 1.4s infinite}
+.en-tiles{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.en-tile{width:62px;height:62px;border-radius:16px;background:linear-gradient(160deg,#FFE7A3,var(--sun));box-shadow:0 5px 0 #C9921A;font-family:var(--display);font-weight:800;font-size:36px;animation:drop .3s}
+.en-tile.wrong{animation:shake .35s;background:var(--coral-soft)}
+.en-recipe{display:flex;align-items:center;justify-content:center;gap:10px;background:var(--paper);border-radius:24px;padding:12px;box-shadow:0 4px 0 var(--line)}
+.en-recipe b{font-size:26px;color:var(--ink-soft)}.en-rslot{font-size:52px;min-width:70px;text-align:center;opacity:.5}.en-rslot.on{opacity:1;animation:starpop .35s}
+.en-recipe.spin .en-rslot{animation:enroll .6s ease-out}
+@keyframes enroll{0%{transform:translateY(-40px) rotate(-30deg);opacity:0}60%{transform:translateY(8px) rotate(8deg)}}
+.en-mk{display:grid;grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:8px}
+.en-mko{background:var(--paper);border-radius:18px;padding:8px;min-height:96px;display:flex;flex-direction:column;align-items:center;gap:2px;box-shadow:0 4px 0 var(--line);text-align:center}
+.en-mko span{font-size:38px;line-height:1.1}.en-mko small{font-weight:700;font-size:13px;line-height:1.2}.en-mko.on{background:var(--grape);color:#fff;box-shadow:0 4px 0 #4B37A6;transform:translateY(-3px)}
+.en-tale .en-ttl{font-family:var(--display);font-size:26px;color:var(--grape-ink);text-align:center}
+.en-note{animation:enhop 1.2s ease-in-out infinite}
+.en-song .en-notes{animation:enhop 1.4s ease-in-out infinite}
+.en-songl{display:flex;flex-direction:column;gap:4px;text-align:center;font-weight:800;font-size:clamp(18px,4.6vw,24px)}
+.en-songl p{margin:0;padding:4px 10px;border-radius:12px;transition:all .25s}.en-songl p:nth-child(even){margin-bottom:10px;color:var(--grape-ink)}
+.en-songl p.lit{background:var(--sun);transform:scale(1.05)}
+.en-desc{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;min-height:110px}
+.en-dwho{line-height:1.1;letter-spacing:2px}.en-dact{font-size:56px}
+.en-ear{font-size:84px;animation:enpulse2 1.2s ease-in-out infinite;text-align:center}
+@keyframes enpulse2{50%{transform:scale(1.12)}}
+.en-cam{text-align:center;font-size:26px}
+.en-sfl{font-family:var(--display);font-size:36px;color:var(--coral-deep)}
+.en-jungle{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;background:linear-gradient(180deg,#CFEFD9,#9FD8B0);border-radius:26px;padding:12px}
+.en-hid{background:rgba(255,255,255,.55);border-radius:20px;min-height:96px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:46px;animation:enpeek 2.6s ease-in-out infinite;box-shadow:0 4px 0 rgba(38,132,87,.35)}
+.en-hid small{font-size:14px;font-weight:800}
+@keyframes enpeek{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px) rotate(-3deg)}}
+.en-hid.snap{background:#fff;outline:4px solid var(--sun);animation:ensnap .5s}.en-hid.wrong{animation:shake .35s}
+@keyframes ensnap{0%{filter:brightness(3)}100%{filter:none}}
+.en-twc .en-twe.wob{animation:enwiggle .5s 3}
+.en-tries{font-size:28px;letter-spacing:4px}
+@media (prefers-reduced-motion:reduce){.en-wsun,.en-wpic,.en-revc,.en-hid,.en-ear,.en-note,.en-song .en-notes{animation:none}}
+@media (max-width:520px){.en-slot{width:42px;height:54px;font-size:32px}.en-tile{width:54px;height:54px;font-size:30px}.en-mk{grid-template-columns:repeat(2,1fr)}.en-album{grid-template-columns:repeat(auto-fill,minmax(78px,1fr))}.en-rslot{font-size:40px;min-width:52px}.en-wpic{font-size:80px}}
 </style>
 
 </head><body>
@@ -13300,7 +13374,7 @@ function parent() {
       <p class="note">Owl &amp; Crayon works without the internet. Progress, drawings and Owl's answers are saved only in this browser on this device. There are no ads, no tracking and no accounts, and nothing is sent anywhere unless you switch on Online Owl.</p>
       <p class="note">With Online Owl on, only the question your child asks and their age go to your Online Owl server, which asks an AI (Cloudflare's free AI, or Claude by Anthropic) for a short, child-friendly answer. Names and progress are never sent. You can read every answer above, and turn it off at any time.</p>
       <p class="note">The microphone button uses the browser's own speech recognition, which may send the recording to the browser maker (for example Google or Apple) to turn it into text. Typing works without it.</p>
-      <p class="note">Version 2026-10-21 22:52 UTC</p></div>`;
+      <p class="note">Version 2026-10-21 23:16 UTC</p></div>`;
   view.querySelectorAll('[data-teach]').forEach(b => b.onclick = () => {
     const i = +b.dataset.teach, ans = $('#t' + i).value.trim(); if (!ans) return;
     owlForget(st.owlMisses[i].q); st.owlTaught.push({ q: st.owlMisses[i].q, a: ans }); st.owlMisses.splice(i, 1); save(); go(parent);
@@ -18398,16 +18472,26 @@ const englishHome = (() => {
   }
 
   const SECTIONS = [
-    { id: 'phonics', ico: '🔤', name: 'Letter sounds', sub: 'Tap a letter to hear its sound', fn: () => phonics('letters'), c: '#C44E40' },
-    { id: 'blend', ico: '🧩', name: 'Blend it', sub: 'c-a-t makes cat!', fn: () => blendGame(), c: '#B05F1E' },
-    { id: 'sight', ico: '👀', name: 'Sight words', sub: 'Words to know at a glance', fn: () => sightHome(), c: '#2776C3' },
-    { id: 'read', ico: '📖', name: 'Read', sub: 'Words, sentences and stories', fn: () => readHome(), c: '#268457' },
-    { id: 'build', ico: '🏗️', name: 'Sentence builder', sub: 'Put the words in order', fn: () => buildGame(), c: '#5B44C0' },
-    { id: 'grammar', ico: '📐', name: 'Grammar games', sub: `${EN_GAMES.length} word games`, fn: () => grammarHome(), c: '#1D7C82' },
-    { id: 'vocab', ico: '🗂️', name: 'Word book', sub: `${EN_VOCAB.reduce((a, t) => a + t.words.length, 0)} words in ${EN_VOCAB.length} topics`, fn: () => vocab(), c: '#A23E78' },
-    { id: 'say', ico: '💬', name: 'Say it!', sub: 'Everyday words, fun talk, funny sayings', fn: () => sayings(), c: '#22305A' },
-    { id: 'fun', ico: '🎪', name: 'Fun games', sub: 'Pop bubbles, feed the monster, dig for treasure', fn: () => funHome(), c: '#7A3FB8' }
+    { id: 'phonics', ico: '🔤', name: 'Letter sounds', sub: 'Tap a letter to hear its sound', fn: () => phonics('letters'), c: '#C44E40',
+      tip: 'Say the sound, not the letter name: "sss", not "ess". Keep it short and crisp ("buh", not "buhhh").' },
+    { id: 'blend', ico: '🧩', name: 'Blend it', sub: 'c-a-t makes cat!', fn: () => blendGame(), c: '#B05F1E',
+      tip: 'Stretch the sounds like a rubber band, then snap them together: "mmm-aaa-p... map!"' },
+    { id: 'sight', ico: '👀', name: 'Sight words', sub: 'Words to know at a glance', fn: () => sightHome(), c: '#2776C3',
+      tip: 'Two or three new sight words a day is plenty. Point them out in picture books and on signs.' },
+    { id: 'read', ico: '📖', name: 'Read', sub: 'Words, sentences and stories', fn: () => readHome(), c: '#268457',
+      tip: 'Let your child try a word first. After the story, ask "What was your favorite part? Why?"' },
+    { id: 'build', ico: '🏗️', name: 'Sentence builder', sub: 'Put the words in order', fn: () => buildGame(), c: '#5B44C0',
+      tip: 'Read the finished sentence aloud together. Ask: does it sound right? Does it start with a capital?' },
+    { id: 'grammar', ico: '📐', name: 'Grammar games', get sub() { return `${EN_GAMES.length} word games`; }, fn: () => grammarHome(), c: '#1D7C82',
+      tip: 'Grammar sticks best in talk: play "opposites" or "one cat, two cats" in the car or at dinner.' },
+    { id: 'vocab', ico: '🗂️', name: 'Word book', get sub() { return `${EN_VOCAB.reduce((a, t) => a + t.words.length, 0)} words in ${EN_VOCAB.length} topics`; }, fn: () => vocab(), c: '#A23E78',
+      tip: 'Pick one topic a week and hunt for those things around the house. Big words (✨) are for older readers.' },
+    { id: 'say', ico: '💬', name: 'Say it!', sub: 'Everyday words, fun talk, funny sayings', fn: () => sayings(), c: '#22305A',
+      tip: 'Use one saying on purpose today ("It\'s raining cats and dogs!") and see if your child spots it.' },
+    { id: 'fun', ico: '🎪', name: 'Fun games', sub: 'Pop bubbles, feed the monster, dig for treasure', fn: () => funHome(), c: '#7A3FB8',
+      tip: 'Short and happy beats long and tired: stop while it is still fun.' }
   ];
+  const ptip = id => { const x = SECTIONS.find(s => s.id === id); return x && x.tip ? `<p class="en-ptip"><span aria-hidden="true">👪</span> <b>Grown-ups:</b> ${esc(x.tip)}</p>` : ''; };
   // Word pals: a little friend pops out of the book after every finished round, and joins the reading club.
   const PALS = [['🦄', 'Sparkle the unicorn'], ['🐲', 'Puff the dragon'], ['🦖', 'Rexy the dinosaur'], ['🐙', 'Inky the octopus'], ['🐼', 'Bao the panda'], ['🦊', 'Rusty the fox'],
     ['🐧', 'Pip the penguin'], ['🐸', 'Hopper the frog'], ['🐝', 'Buzz the bee'], ['🦋', 'Flutter the butterfly'], ['🐳', 'Splash the whale'], ['🐯', 'Stripes the tiger'], ['🐨', 'Cuddles the koala'],
@@ -18426,7 +18510,6 @@ const englishHome = (() => {
     say(`${title} ${line.replace(/⭐/g, 'stars')} ${isNew ? `${pal[1]} pops out of the book and joins your reading club!` : `${pal[1]} came back to cheer!`}`);
     $('#enAgain').onclick = again; $('#enBack').onclick = back;
   }
-  const SEC = Object.fromEntries(SECTIONS.map(s => [s.id, s]));
 
   // The "next up" card: what a reader at this stage should try next.
   function nextUp() {
@@ -18457,11 +18540,14 @@ const englishHome = (() => {
     wireBack(home);
     sayScreen(`English and reading. You are at stage ${s}, ${S.name}. Try ${nx.title}!`);
     $('#enNext').onclick = nx.go;
-    view.querySelectorAll('[data-sec]').forEach(b => b.onclick = () => go(SEC[b.dataset.sec].fn));
+    view.querySelectorAll('[data-sec]').forEach(b => b.onclick = () => go(SECTIONS.find(x => x.id === b.dataset.sec).fn));
+    if (enHome.after) enHome.after(view);
   }
 
   /* --- a round of questions (used by every game) --- */
   let Q = null;
+  // Words the child gets wrong go to a review queue (english5.js fills these in); q.rv names the word a question is about.
+  const hooks = { miss() {}, hit() {} };
   function quiz(spec) { Q = { ...spec, spec, n: spec.list ? spec.list.length : spec.n || 6, i: 0, first: 0, stars: 0, used: new Set() }; ask(); }
   function ask() {
     const nav = navId; let q;
@@ -18476,7 +18562,7 @@ const englishHome = (() => {
         ${q.visual ? `<div class="visual">${q.visual}</div>` : ''}
         <div class="choices en-ch${Q.cls ? ' ' + Q.cls : ''}" style="grid-template-columns:repeat(${cols},1fr)">${q.choices.map((c, i) => `<button class="choice${c.txt ? ' txt' : ''}" data-i="${i}" aria-label="${esc(c.say != null ? c.say : plain(c.html))}">${c.html}</button>`).join('')}</div>
         <div class="cheer" id="cheer" aria-live="polite"></div><div id="exp" style="width:100%"></div>
-      </div>`;
+      </div>${Q.tip ? ptip(Q.tip) : ''}`;
     wireBack(Q.back);
     const speak = () => q.onShow ? q.onShow(nav) : say(q.say || plain(q.prompt));
     $('#spk').onclick = speak;
@@ -18489,12 +18575,14 @@ const englishHome = (() => {
         b.classList.add('right'); view.querySelectorAll('.choice').forEach(x => x.disabled = true);
         Q.stars += earned; if (first) { Q.first++; questTick('firsttry'); }
         if (Q.onRight) Q.onRight(q, first, b);
+        if (q.rv) hooks.hit(q.rv, first, !!Q.review);
         give(earned);
         const w = first ? pick(['Great reading!', 'You got it!', 'Super!', 'Yes!', 'Brilliant!']) : 'Now you know it!';
         $('#cheer').textContent = w + ' ⭐'.repeat(earned); yay(); say(w);
         setTimeout(() => { if (nav !== navId) return; Q.i++; Q.i < Q.n ? ask() : finish(); }, first ? 1300 : 2100);
       } else {
         tries++; b.classList.add('wrong'); b.disabled = true; oops();
+        if (q.rv && tries === 1) hooks.miss(q.rv);
         $('#exp').innerHTML = `<div class="explain"><p>${esc(q.explain || 'Try another one!')}</p></div>`;
         say(q.explain || 'Try another one!');
       }
@@ -18505,6 +18593,7 @@ const englishHome = (() => {
     e.rounds[id] = (e.rounds[id] || 0) + 1; e.best[id] = Math.max(e.best[id] || 0, Q.first);
     if (Q.done) Q.done(Q);
     save();
+    if (Q.end) return Q.end(Q, () => reward(Q.first >= Q.n - 1 ? 'Amazing reading!' : 'Well done!', `You got ${Q.first} of ${Q.n} on the first try and earned ${Q.stars} ⭐`, () => go(quiz, spec), spec.back));
     reward(Q.first >= Q.n - 1 ? 'Amazing reading!' : 'Well done!', `You got ${Q.first} of ${Q.n} on the first try and earned ${Q.stars} ⭐`, () => go(quiz, spec), spec.back);
   }
 
@@ -18525,7 +18614,7 @@ const englishHome = (() => {
         <button class="en-gbtn${open(3) ? '' : ' locked'}" id="enMagic">✨ Magic e game${open(3) ? '' : ' 🔒'}</button>
         <button class="en-gbtn${open(3) ? '' : ' locked'}" id="enTeams">🧪 Vowel team game${open(3) ? '' : ' 🔒'}</button></div>
       <p class="note">${open(T.stage) ? 'Tap a card to hear its sound.' : lockText(T.stage)}</p>
-      <div class="en-ph${open(T.stage) ? '' : ' dim'}">${items.map((x, i) => `<button class="en-pt${e.heard[x.k] ? ' heard' : ''}" data-ph="${i}" aria-label="${esc(x.big)}, ${esc(x.w)}"><b>${x.big}</b><span class="en-pe">${x.e}</span><small>${x.w}</small></button>`).join('')}</div>`;
+      <div class="en-ph${open(T.stage) ? '' : ' dim'}">${items.map((x, i) => `<button class="en-pt${e.heard[x.k] ? ' heard' : ''}" data-ph="${i}" aria-label="${esc(x.big)}, ${esc(x.w)}"><b>${x.big}</b><span class="en-pe">${x.e}</span><small>${x.w}</small></button>`).join('')}</div>${ptip('phonics')}`;
     wireBack(enHome);
     sayScreen(`${T.name}. Tap a card to hear its sound.`);
     view.querySelectorAll('[data-tab]').forEach(b => b.onclick = () => go(phonics, b.dataset.tab));
@@ -18548,7 +18637,7 @@ const englishHome = (() => {
       const others = shuffle(pool.filter(o => GROUP(o[0]) !== GROUP(L[0]))).slice(0, 2);
       const opts = shuffle([L, ...others]);
       return { prompt: `Which picture starts with <b>${L[0]}</b>?`, say: `Which picture starts with ${L[1]}? ${L[1]}.`, visual: `<div class="en-letter">${L[0].toUpperCase()}${L[0]}</div>`,
-        choices: opts.map(o => ({ html: o[3], val: o[2], say: o[2] })), answer: L[2], explain: `${L[2]} starts with ${L[1]}. ${L[1]}, ${L[2]}!` };
+        rv: { w: L[2], e: L[3] }, choices: opts.map(o => ({ html: o[3], val: o[2], say: o[2] })), answer: L[2], explain: `${L[2]} starts with ${L[1]}. ${L[1]}, ${L[2]}!` };
     } };
   }
   function magicSpec() {
@@ -18570,12 +18659,12 @@ const englishHome = (() => {
   /* --- blending --- */
   function blendGame() { go(quiz, blendSpec()); }
   function blendSpec() {
-    return { id: 'blend', title: '🧩 Blend it', back: () => go(enHome), gen() {
+    return { id: 'blend', title: '🧩 Blend it', back: () => go(enHome), tip: 'blend', gen() {
       const s = stage(), pool = EN_BLEND.filter(b => b.stage <= Math.min(2, s)), B = pick(pool);
       const others = shuffle(pool.filter(x => x.w !== B.w)).slice(0, 2);
       return { prompt: 'Blend the sounds. Which picture is it?', word: B.w, parts: B.parts,
         visual: `<div class="en-blend" id="enBlend">${B.parts.map((p, i) => `<span class="en-snd" data-sn="${i}">${p}</span>`).join('')}<span class="en-bw">${B.w}</span></div>`,
-        choices: shuffle([B, ...others]).map(o => ({ html: o.e, val: o.w, say: o.w })), answer: B.w,
+        rv: { w: B.w, e: B.e }, choices: shuffle([B, ...others]).map(o => ({ html: o.e, val: o.w, say: o.w })), answer: B.w,
         explain: `${B.parts.map(p => EN_SND[p]).join(', ')}... ${B.w}! Say the sounds faster and faster.`,
         onShow(nav) {
           const box = document.getElementById('enBlend'); if (!box) return;
@@ -18593,7 +18682,7 @@ const englishHome = (() => {
     view.innerHTML = `${crumbs('👀 Sight words')}
       <p class="note">These words show up in almost every book. Many can't be sounded out, so we learn them by heart.</p>
       <div class="en-list">${EN_SIGHT.map(x => { const k = x.words.filter(w => e.sight[w]).length;
-        return `<button class="en-row${open(x.stage) ? '' : ' locked'}" data-set="${x.id}"><span class="en-rico">${open(x.stage) ? x.ico : '🔒'}</span><span><b>${x.name}</b><small>${x.words.length} words · ${k} known</small></span>${open(x.stage) ? `<span class="meter"><i style="width:${Math.round(k / x.words.length * 100)}%"></i></span>` : lockTag(x.stage)}</button>`; }).join('')}</div>`;
+        return `<button class="en-row${open(x.stage) ? '' : ' locked'}" data-set="${x.id}"><span class="en-rico">${open(x.stage) ? x.ico : '🔒'}</span><span><b>${x.name}</b><small>${x.words.length} words · ${k} known</small></span>${open(x.stage) ? `<span class="meter"><i style="width:${Math.round(k / x.words.length * 100)}%"></i></span>` : lockTag(x.stage)}</button>`; }).join('')}</div>${ptip('sight')}`;
     wireBack(enHome);
     sayScreen('Sight words. Pick a set.');
     view.querySelectorAll('[data-set]').forEach(b => b.onclick = () => { const x = EN_SIGHT.find(s => s.id === b.dataset.set); open(x.stage) ? go(sightSet, x.id) : say(lockText(x.stage)); });
@@ -18636,7 +18725,7 @@ const englishHome = (() => {
     quiz({ id: 'sight-' + id, title: `🔎 Find the word`, back: () => go(sightSet, id),
       gen() { const e = E(), fresh = x.words.filter(w => !e.sight[w]), w = pick(fresh.length && Math.random() < 0.75 ? fresh : x.words);
         const near = shuffle(x.words.filter(o => o !== w)).sort((a, b) => Math.abs(a.length - w.length) - Math.abs(b.length - w.length) || (a[0] === w[0] ? -1 : 1)).slice(0, 3);
-        return { prompt: 'Tap the word you hear.', say: `Find the word: ${w}. ${w}.`, visual: '<div class="en-pic">👂</div>', choices: enTxt([w, ...near]), answer: w, explain: `This one says ${w}. Look for it again!` }; },
+        return { prompt: 'Tap the word you hear.', say: `Find the word: ${w}. ${w}.`, visual: '<div class="en-pic">👂</div>', rv: { w, k: 'sight' }, choices: enTxt([w, ...near]), answer: w, explain: `This one says ${w}. Look for it again!` }; },
       onRight(q, first) { if (first) E().sight[q.answer] = 1; } });
   }
 
@@ -18646,7 +18735,7 @@ const englishHome = (() => {
     view.innerHTML = `${crumbs('📖 Read')}
       <div class="en-games"><button class="en-gbtn" id="enRW">🔤 Read &amp; match words</button><button class="en-gbtn" id="enRS">📝 Read sentences</button><button class="en-gbtn" id="enSilly">🤪 Silly sentences</button></div>
       <h3 class="section-title">Stories <span class="tag">${Object.keys(e.stories).length}/${EN_STORIES.length} read</span></h3>
-      <div class="en-stories">${EN_STORIES.map(x => `<button class="en-story${open(x.stage) ? '' : ' locked'}" data-story="${x.id}"><span class="en-sico">${open(x.stage) ? x.ico : '🔒'}</span><b>${esc(x.title)}</b><small>Stage ${x.stage}${e.stories[x.id] ? ' · ✅ read' : ''}</small></button>`).join('')}</div>`;
+      <div class="en-stories">${EN_STORIES.map(x => `<button class="en-story${open(x.stage) ? '' : ' locked'}" data-story="${x.id}"><span class="en-sico">${open(x.stage) ? x.ico : '🔒'}</span><b>${esc(x.title)}</b><small>Stage ${x.stage}${e.stories[x.id] ? ' · ✅ read' : ''}</small></button>`).join('')}</div>${ptip('read')}`;
     wireBack(enHome);
     sayScreen('Read! Pick a word game, a sentence game or a story.');
     $('#enRW').onclick = () => go(quiz, readWordSpec());
@@ -18657,9 +18746,9 @@ const englishHome = (() => {
   function readWordSpec() {
     return { id: 'readword', title: '🔤 Read & match', back: () => go(readHome), gen() {
       const s = stage(); let pool = EN_BLEND.filter(b => b.stage <= Math.min(2, s)).map(b => ({ w: b.w, e: b.e }));
-      if (s >= 3) pool = pool.concat(EN_VOCAB.flatMap(t => t.words).filter(x => !/ /.test(x.w) && x.w.length <= 8));
+      if (s >= 3) pool = pool.concat(EN_VOCAB.flatMap(t => t.words).filter(x => !/ /.test(x.w) && x.w.length <= 8 && tierOf(x) <= maxTier()));
       const W = pick(pool), others = shuffle(pool.filter(x => x.w !== W.w && x.e !== W.e)).slice(0, 2);
-      return { prompt: 'Read the word. Which picture is it?', say: 'Read the word. Then tap its picture.', visual: `<div class="en-word">${esc(W.w)}</div>`,
+      return { prompt: 'Read the word. Which picture is it?', say: 'Read the word. Then tap its picture.', visual: `<div class="en-word">${esc(W.w)}</div>`, rv: { w: W.w, e: W.e },
         choices: shuffle([W, ...others]).map(o => ({ html: o.e, val: o.w, say: o.w })), answer: W.w, explain: `This word says ${W.w}.` };
     } };
   }
@@ -18729,7 +18818,7 @@ const englishHome = (() => {
         <button class="en-tool" id="enUndo" aria-label="Undo">↩️</button>
       </div>
       <div class="row"><button class="btn leaf" id="enCheck">✔ Check</button><button class="btn alt" id="enHearS">🔊 Hear it</button></div>
-      <div class="cheer" id="cheer" aria-live="polite">${msg || ''}</div>`;
+      <div class="cheer" id="cheer" aria-live="polite">${msg || ''}</div>${ptip('build')}`;
     wireBack(enHome);
     view.querySelectorAll('[data-t]').forEach(b => b.onclick = () => { if (B.done) return; B.placed.push(+b.dataset.t); tone([520 + B.placed.length * 40], .06); drawBuild(); say(S.toks[+b.dataset.t].low.replace(/,$/, '')); });
     view.querySelectorAll('[data-p]').forEach(b => b.onclick = () => { if (B.done) return; const p = +b.dataset.p; B.placed.splice(p, 1); if (p === 0) B.cap = false; drawBuild(); });
@@ -18775,7 +18864,7 @@ const englishHome = (() => {
   function grammarHome() {
     const e = E();
     view.innerHTML = `${crumbs('📐 Grammar games')}
-      <div class="en-gg">${EN_GAMES.map(g => `<button class="en-gt${open(g.stage) ? '' : ' locked'}" data-g="${g.id}"><span class="en-sico">${open(g.stage) ? g.ico : '🔒'}</span><b>${g.name}</b><small>Stage ${g.stage}${e.best['g-' + g.id] != null ? ` · best ${e.best['g-' + g.id]}/6` : ''}</small></button>`).join('')}</div>`;
+      <div class="en-gg">${EN_GAMES.map(g => `<button class="en-gt${open(g.stage) ? '' : ' locked'}" data-g="${g.id}"><span class="en-sico">${open(g.stage) ? g.ico : '🔒'}</span><b>${g.name}</b><small>Stage ${g.stage}${e.best['g-' + g.id] != null ? ` · best ${e.best['g-' + g.id]}/6` : ''}</small></button>`).join('')}</div>${ptip('grammar')}`;
     wireBack(enHome);
     sayScreen('Grammar games. Pick one!');
     view.querySelectorAll('[data-g]').forEach(b => b.onclick = () => { const g = EN_GAMES.find(x => x.id === b.dataset.g); open(g.stage) ? go(grammarGame, g.id) : say(lockText(g.stage)); });
@@ -18793,25 +18882,34 @@ const englishHome = (() => {
   const grammarSpec = id => { const g = EN_GAMES.find(x => x.id === id); return { id: 'g-' + id, title: `${g.ico} ${g.name}`, back: () => go(grammarHome), gen: () => g.gen(stage()) }; };
 
   /* --- word book --- */
-  function vocab(tid) {
+  // Word tiers: 1 first words, 2 more words, 3 big words with meanings. The quizzes use the tiers that fit the reading stage.
+  const TIERS = [[1, '🌱', 'First words'], [2, '🌿', 'More words'], [3, '✨', 'Big words']];
+  const maxTier = () => { const s = stage(); return s <= 2 ? 1 : s === 3 ? 2 : 3; };
+  const tierOf = x => x.t || 1;
+  function vocab(tid, tier) {
     const T = EN_VOCAB.find(t => t.id === (tid || E().vt)) || EN_VOCAB[0]; E().vt = T.id;
+    const tf = tier != null ? tier : E().vtier || 0; E().vtier = tf;
+    const list = T.words.map((x, i) => [x, i]).filter(([x]) => !tf || tierOf(x) === tf);
     view.innerHTML = `${crumbs('🗂️ Word book')}
       <div class="en-tabs scroll">${EN_VOCAB.map(t => `<button class="en-tab${t.id === T.id ? ' on' : ''}" data-topic="${t.id}">${t.ico} ${t.name}</button>`).join('')}</div>
+      <div class="en-tabs en-tiers"><button class="en-tab${tf ? '' : ' on'}" data-tier="0">All ${T.words.length}</button>${TIERS.map(([n, ico, name]) => `<button class="en-tab${tf === n ? ' on' : ''}" data-tier="${n}">${ico} ${name} ${T.words.filter(x => tierOf(x) === n).length}</button>`).join('')}</div>
       <div class="en-games"><button class="en-gbtn" id="enVQ">🎯 ${esc(T.name)} quiz</button></div>
-      <div class="en-vg">${T.words.map((x, i) => `<button class="en-vc" data-v="${i}"><span class="en-pe">${x.e}</span><b>${esc(x.w)}</b></button>`).join('')}</div>`;
+      <div class="en-vg">${list.map(([x, i]) => `<button class="en-vc${tierOf(x) === 3 ? ' t3' : ''}" data-v="${i}"><span class="en-pe">${x.e}</span><b>${esc(x.w)}</b>${x.m ? `<small>${esc(x.m)}</small>` : ''}</button>`).join('') || '<p class="note">No words of this kind in this topic. Try another!</p>'}</div>${ptip('vocab')}`;
     wireBack(enHome);
     sayScreen(`${T.name}. Tap a picture to hear the word.`);
     view.querySelectorAll('[data-topic]').forEach(b => b.onclick = () => go(vocab, b.dataset.topic));
-    view.querySelectorAll('[data-v]').forEach(b => b.onclick = () => { const x = T.words[+b.dataset.v]; view.querySelectorAll('.en-vc.lit').forEach(o => o.classList.remove('lit')); b.classList.add('lit'); say(x.w); });
+    view.querySelectorAll('[data-tier]').forEach(b => b.onclick = () => go(vocab, T.id, +b.dataset.tier));
+    view.querySelectorAll('[data-v]').forEach(b => b.onclick = () => { const x = T.words[+b.dataset.v]; view.querySelectorAll('.en-vc.lit').forEach(o => o.classList.remove('lit')); b.classList.add('lit'); say(x.m ? `${x.w}. ${x.w} means ${x.m}` : x.w); });
     $('#enVQ').onclick = () => go(quiz, vocabSpec(T.id));
   }
   function vocabSpec(tid) {
     const T = EN_VOCAB.find(t => t.id === tid);
     return { id: 'v-' + tid, title: `🎯 ${T.name}`, back: () => go(vocab, tid), gen() {
-      const W = pick(T.words), others = shuffle(T.words.filter(x => x.w !== W.w && x.e !== W.e)).slice(0, 3), opts = shuffle([W, ...others]);
+      const mt = maxTier(), fit = T.words.filter(x => tierOf(x) <= mt), pool = fit.length >= 6 ? fit : T.words;
+      const W = pick(pool), others = shuffle(pool.filter(x => x.w !== W.w && x.e !== W.e)).slice(0, 3), opts = shuffle([W, ...others]);
       if (stage() >= 3 && Math.random() < 0.5)
-        return { prompt: 'What is this?', say: 'What is this? Read the words.', visual: `<div class="en-pic">${W.e}</div>`, choices: enTxt(opts.map(o => o.w)), answer: W.w, explain: `This is: ${W.w}.` };
-      return { prompt: `Which one is <b>${esc(W.w)}</b>?`, say: `Which one is ${W.w}?`, visual: '', choices: opts.map(o => ({ html: o.e, val: o.w, say: o.w })), answer: W.w, explain: `${W.e} This one is ${W.w}.` };
+        return { prompt: 'What is this?', say: 'What is this? Read the words.', visual: `<div class="en-pic">${W.e}</div>`, rv: { w: W.w, e: W.e }, choices: enTxt(opts.map(o => o.w)), answer: W.w, explain: `This is: ${W.w}.` };
+      return { prompt: `Which one is <b>${esc(W.w)}</b>?`, say: `Which one is ${W.w}?`, visual: '', rv: { w: W.w, e: W.e }, choices: opts.map(o => ({ html: o.e, val: o.w, say: o.w })), answer: W.w, explain: `${W.e} This one is ${W.w}.` };
     } };
   }
 
@@ -18821,7 +18919,7 @@ const englishHome = (() => {
     view.innerHTML = `${crumbs('💬 Say it!')}
       <div class="en-tabs">${EN_SAYINGS.map(g => `<button class="en-tab${g.id === G.id ? ' on' : ''}" data-grp="${g.id}">${open(g.stage) ? g.ico : '🔒'} ${g.name}</button>`).join('')}</div>
       ${ok ? `<div class="en-games"><button class="en-gbtn" id="enSQ">🎯 What does it mean?</button></div>` : `<p class="note">${lockText(G.stage)}</p>`}
-      <div class="en-says${ok ? '' : ' dim'}">${G.items.map(([p, e, m, ex], i) => `<button class="en-say" data-s="${i}"><span class="en-pe">${e}</span><span><b>${esc(p)}</b><span>${esc(m)}</span><i>“${esc(ex)}”</i></span></button>`).join('')}</div>`;
+      <div class="en-says${ok ? '' : ' dim'}">${G.items.map(([p, e, m, ex], i) => `<button class="en-say" data-s="${i}"><span class="en-pe">${e}</span><span><b>${esc(p)}</b><span>${esc(m)}</span><i>“${esc(ex)}”</i></span></button>`).join('')}</div>${ptip('say')}`;
     wireBack(enHome);
     sayScreen(`${G.name}. Tap one to hear it.`);
     view.querySelectorAll('[data-grp]').forEach(b => b.onclick = () => go(sayings, b.dataset.grp));
@@ -18866,7 +18964,7 @@ const englishHome = (() => {
         <button class="en-gt en-fun" data-fun="monster"><span class="en-sico">👾</span><b>Feed Munch</b><small>Munch the monster only eats the right word</small></button>
         <button class="en-gt en-fun" data-fun="hunt"><span class="en-sico">💎</span><b>Word treasure hunt</b><small>Dig up the words Owl calls out</small></button>
         <button class="en-gt en-fun" data-fun="silly"><span class="en-sico">🤪</span><b>Silly sentences</b><small>Read a silly sentence, find its silly picture</small></button>
-      </div>`;
+      </div>${ptip('fun')}`;
     wireBack(enHome);
     sayScreen('Fun games! Pop bubbles, feed Munch the monster, dig for treasure, or read silly sentences.');
     view.querySelectorAll('[data-fun]').forEach(b => b.onclick = () => { const f = b.dataset.fun; f === 'hunt' ? go(hunt) : go(quiz, f === 'bubbles' ? bubbleSpec() : f === 'monster' ? monsterSpec() : sillySpec()); });
@@ -18886,7 +18984,7 @@ const englishHome = (() => {
       while (near.length < 3) near.push(pick(words.filter(o => o !== w && !near.includes(o))));
       return { prompt: 'Munch is hungry! Feed him the word he asks for.', say: `Munch says: I want to eat the word ${w}! Yum yum, ${w}!`,
         visual: '<div class="en-mon" id="enMon"><span class="en-mface">👾</span><span class="en-mbub">🍪 Yum yum! 🔊</span></div>',
-        choices: enTxt([w, ...near]), answer: w, explain: `Bleh! Munch does not want that word. He wants ${w}. ${w}!` };
+        rv: { w, k: 'sight' }, choices: enTxt([w, ...near]), answer: w, explain: `Bleh! Munch does not want that word. He wants ${w}. ${w}!` };
     }, onRight(q, first, b) { const m = document.getElementById('enMon'); if (m) { m.classList.add('chomp'); m.querySelector('.en-mbub').textContent = 'CHOMP! Yummy!'; } b.classList.add('eaten'); } };
   }
   const SILLY = { who: [['pig', '🐷'], ['cat', '🐱'], ['dog', '🐶'], ['frog', '🐸'], ['cow', '🐮'], ['duck', '🦆'], ['bear', '🐻'], ['fox', '🦊']],
@@ -18935,11 +19033,11 @@ const englishHome = (() => {
     });
   }
 
-  const info = () => ({
+  const info = () => { const b = {
     words: EN_VOCAB.reduce((a, t) => a + t.words.length, 0), topics: EN_VOCAB.length, sounds: EN_LETTERS.length + EN_DIGRAPHS.length + EN_MAGIC.length + EN_TEAMS.length,
     blend: EN_BLEND.length, sight: EN_SIGHT.reduce((a, s) => a + s.words.length, 0), stories: EN_STORIES.length, sentences: EN_SENTENCES.length, build: EN_BUILD.length,
     grammar: EN_GAMES.length, games: EN_GAMES.length + 15, pals: PALS.length, sayings: EN_SAYINGS.reduce((a, g) => a + g.items.length, 0), stages: STAGES.length
-  });
+  }; return enHome.more ? enHome.more(b) : b; };
   const VIEWS = { home: enHome, phonics, blend: blendGame, sight: sightHome, sightSet, flash, sightFind, read: readHome, story: storyRead, build: buildGame, grammar: grammarHome, game: grammarGame, vocab, say: sayings,
     fun: funHome, hunt, bubbles: () => quiz(bubbleSpec()), monster: () => quiz(monsterSpec()), silly: () => quiz(sillySpec()),
     first: () => quiz(firstSoundSpec()), magic: () => quiz(magicSpec()), teams: () => quiz(teamSpec()), readword: () => quiz(readWordSpec()), readsent: () => quiz(readSentSpec()),
@@ -18950,7 +19048,690 @@ const englishHome = (() => {
     data: { EN_LETTERS, EN_DIGRAPHS, EN_TEAMS, EN_BLEND, EN_SIGHT, EN_VOCAB, EN_SAYINGS, EN_STORIES, EN_SENTENCES, EN_BUILD, EN_GAMES }
   };
   enHome.info = info;
+  // The rest of the English area (english5.js) builds on these.
+  enHome.api = { quiz, give, reward, E, stage, open, talk, tapWords, wireTapWords, lockText, plain, ptip, hooks, maxTier, tierOf, SECTIONS, VIEWS, STAGES, PALS, vocab, enHome };
   return enHome;
+})();
+/* ---------- English & Reading, part 4: a bigger word book (age tiers), more stories, word-play data ---------- */
+// Word tiers: 1 = first words (age 4–6), 2 = more words (6–8), 3 = big words (8+), each big word with a child-friendly meaning.
+// Tier 1 and 2 lists are "word:emoji" joined by commas; tier 3 lists are "word:emoji:meaning" joined by "|".
+// New topics are added to EN_VOCAB, and extra words are added to the first 16 topics. A word already in the book is skipped.
+const EN_TOPICS2 = [
+  { id: 'ocean', ico: '🌊', name: 'Ocean',
+    w1: 'shark:🦈,seal:🦭,starfish:⭐,lobster:🦞,shrimp:🦐,squid:🦑,sand:🏖️,bubble:🫧,anchor:⚓,sail:⛵,pirate:🏴‍☠️,treasure:💰,diver:🤿,surfboard:🏄,sandcastle:🏰,clownfish:🐠,pufferfish:🐡',
+    w2: 'coral:🪸,seaweed:🌿,pearl:🦪,snorkel:🤿,orca:🐋,walrus:🦭,seahorse:🐴,sea turtle:🐢,coast:🏖️,ferry:⛴️,life jacket:🦺,net:🥅,tide:🌊,seagull:🐦',
+    w3: 'tentacle:🐙:a long bendy arm, like the eight arms of an octopus|shipwreck:🚢:a ship that sank to the bottom of the sea|marine:🐠:to do with the sea|voyage:⛵:a long trip across the sea|horizon:🌅:the line far away where the sky meets the sea|barnacle:🐚:a tiny shell animal that sticks to rocks and boats|plankton:🦠:tiny living things that float in the sea|current:🌊:water moving along in one direction' },
+  { id: 'space', ico: '🚀', name: 'Space',
+    w1: 'planet:🪐,alien:👽,UFO:🛸,comet:☄️,telescope:🔭,sky:🌌,night:🌃,space:🌌,spaceship:🚀,moon buggy:🚙',
+    w2: 'satellite:🛰️,Mars:🔴,Saturn:🪐,Jupiter:🟠,galaxy:🌌,meteor:☄️,crater:🕳️,launch:🚀,spacesuit:🧑‍🚀,moonlight:🌙,sunrise:🌅,sunset:🌇,shooting star:🌠,countdown:🔟,space station:🛰️',
+    w3: 'gravity:🍎:the pull that makes things fall down to the ground|universe:🌌:everything there is, all the stars and planets|constellation:✨:a group of stars that makes a picture in the sky|asteroid:🪨:a big space rock that goes around the sun|eclipse:🌑:when the moon hides the sun for a little while|orbit:🔄:the path something takes going around and around a planet or star|astronomer:🔭:a scientist who studies the stars and planets|weightless:🎈:floating with no weight, like astronauts in space' },
+  { id: 'farm', ico: '🚜', name: 'Farm',
+    w1: 'barn:🛖,hen:🐔,rooster:🐓,chick:🐤,lamb:🐑,calf:🐄,piglet:🐖,pony:🐎,donkey:🐴,goose:🦢,turkey:🦃,hay:🌾,fence:🚧,mud:🟤,egg basket:🧺',
+    w2: 'scarecrow:🧑‍🌾,sheepdog:🐕,wool:🧶,saddle:🏇,haystack:🌾,pumpkin:🎃,beehive:🍯,stable:🐴,pond:🦆,ox:🐂,buffalo:🐃,llama:🦙,bull:🐂,ram:🐏,wheat:🌾',
+    w3: 'harvest:🧺:picking the crops when they are ready|livestock:🐄:the animals kept on a farm|orchard:🍎:a field full of fruit trees|graze:🐑:to eat grass in a field|shear:✂️:to cut the wool off a sheep|plow:🚜:to dig up the soil before planting|crop:🌽:plants a farmer grows to eat or to sell' },
+  { id: 'bugs', ico: '🐞', name: 'Insects & bugs',
+    w1: 'ant:🐜,ladybug:🐞,bug:🐛,worm:🪱,snail:🐌,fly:🪰,beetle:🪲,cricket:🦗,mosquito:🦟,caterpillar:🐛,cockroach:🪳,web:🕸️,wing:🕊️',
+    w2: 'grasshopper:🦗,firefly:✨,moth:🦋,scorpion:🦂,centipede:🐛,anthill:🐜,hive:🐝,cocoon:🐛,stinger:🐝,buzz:🐝,dragonfly:🪰,ladybird:🐞',
+    w3: 'insect:🐜:a small animal with six legs|antennae:🐜:the two feelers on a bug\'s head|metamorphosis:🦋:a big change, like a caterpillar turning into a butterfly|colony:🐜:a big group of insects living together|camouflage:🦗:colors and shapes that help an animal hide|nectar:🌸:the sweet juice inside flowers that bees drink|pollen:🌼:yellow dust inside flowers|larva:🐛:a baby insect that looks like a little worm' },
+  { id: 'music', ico: '🎵', name: 'Music',
+    w1: 'song:🎶,violin:🎻,trumpet:🎺,flute:🎶,band:🎸,radio:📻,microphone:🎤,notes:🎵,loud:📢,quiet:🤫,banjo:🪕,headphones:🎧,saxophone:🎷,accordion:🪗',
+    w2: 'concert:🎫,drummer:🥁,beat:🥁,tune:🎶,lullaby:🌙,music box:🎼,disco ball:🪩,cello:🎻,choir:🎤,keyboard:🎹,whistle:😗,hum:🎵',
+    w3: 'rhythm:🥁:the beat in music that you can clap to|melody:🎶:the tune of a song|orchestra:🎻:a big group of musicians playing together|composer:🎼:a person who writes music|conductor:🪄:the leader who waves a little stick to guide the musicians|instrument:🎺:a thing you play to make music|tempo:⏱️:how fast or slow music goes|chorus:🎤:the part of a song that comes again and again' },
+  { id: 'sports', ico: '⚽', name: 'Sports',
+    w1: 'soccer:⚽,basketball:🏀,baseball:⚾,tennis:🎾,football:🏈,golf:⛳,goal:🥅,team:👥,race:🏁,win:🏆,medal:🏅,skate:⛸️,ski:🎿,kick:🦵,jump:🤸,catch:🧤,throw:🥏,bowling:🎳,volleyball:🏐,hockey:🏒,karate:🥋',
+    w2: 'coach:📋,player:🏃,score:🔢,cheer:📣,gym:🏋️,yoga:🧘,rowing:🚣,fishing:🎣,archery:🏹,badminton:🏸,ping-pong:🏓,gymnastics:🤸,rugby:🏉,boxing:🥊,cricket bat:🏏',
+    w3: 'athlete:🏃:a person who trains hard and is good at sport|champion:🏆:the winner of a contest|tournament:🏅:a big contest with lots of games|opponent:🤼:the person or team you play against|stamina:🔋:the energy to keep going for a long time|teamwork:🤝:working well together as a team|sportsmanship:🤝:being kind and fair when you win or lose|marathon:🏃:a very, very long running race' },
+  { id: 'kitchen', ico: '🍳', name: 'Kitchen',
+    w1: 'fridge:🧊,pot:🍲,kettle:🫖,glass:🥛,bottle:🍼,jar:🫙,napkin:🧻,table:🍽️,salt:🧂,sugar:🍬,butter:🧈,chopsticks:🥢,stove:🔥,sink:🚰,mug:☕,straw:🥤',
+    w2: 'toaster:🍞,whisk:🥄,ladle:🥄,rolling pin:🥖,cutting board:🔪,recipe:📜,lunchbox:🍱,tray:🍽️,mixing bowl:🥣,oven mitt:🧤,oven:🔥,apron:🧑‍🍳,teapot:🫖,blender:🥤',
+    w3: 'ingredient:🥚:one of the things you mix together to make a food|delicious:😋:tastes very, very good|simmer:🍲:cook slowly, just below boiling|measure:🥄:find out how much there is|utensil:🍴:a tool for cooking or eating|appetite:😋:the feeling of wanting to eat|sizzle:🍳:the hissing sound of food frying in a pan|crispy:🥓:hard and crunchy in a yummy way' },
+  { id: 'garden', ico: '🌻', name: 'Garden',
+    w1: 'seed:🌱,rose:🌹,tulip:🌷,sunflower:🌻,daisy:🌼,plant:🪴,bush:🌳,hose:🚿,bench:🪑,garden:🏡,vegetable:🥕,weed:🌿,petal:🌸,stem:🌱,soil:🟤,fruit:🍓,watering can:🚿,bird bath:🐦',
+    w2: 'greenhouse:🏡,wheelbarrow:🛒,compost:🍂,bud:🌷,blossom:🌸,hedge:🌳,vine:🍇,fountain:⛲,sprout:🌱,lawn mower:🚜,root:🥕,birdhouse:🏠,pot plant:🪴',
+    w3: 'bloom:🌸:when a flower opens up|wilt:🥀:droop and go floppy without water|fertilizer:🧪:plant food that helps things grow|photosynthesis:☀️:how plants make their food from sunlight|seedling:🌱:a very young plant|prune:✂️:cut bits off a plant to help it grow better|germinate:🌱:when a seed starts to grow|fragrant:🌹:smelling sweet and nice' },
+  { id: 'city', ico: '🏙️', name: 'In the city',
+    w1: 'street:🛣️,road:🛣️,traffic light:🚦,sign:🪧,tower:🗼,building:🏢,apartment:🏢,crosswalk:🚸,bus stop:🚏,cafe:☕,statue:🗽,crowd:👥,zoo:🦁,playground:🛝,office:🏢,elevator:🛗,stairs:🪜,sidewalk:🚶,map:🗺️,fire hydrant:🧯',
+    w2: 'skyscraper:🏙️,downtown:🌆,neighborhood:🏘️,mall:🛍️,cinema:🎬,theater:🎭,gas station:⛽,parking lot:🅿️,police station:🚓,fire station:🚒,train station:🚉,highway:🛣️,tunnel:🚇,ferris wheel:🎡',
+    w3: 'pedestrian:🚶:a person walking on the street|traffic:🚗:all the cars and buses moving on the roads|citizen:🧑:a person who belongs to a town or country|skyline:🌆:the shape of the tall buildings against the sky|mayor:🧑‍💼:the leader of a town or city|landmark:🗽:a famous building or place that is easy to spot|population:👥:how many people live in a place|urban:🏙️:to do with towns and cities' },
+  { id: 'holidays', ico: '🎉', name: 'Holidays & parties',
+    w1: 'birthday:🎂,present:🎁,gift:🎁,card:💌,Christmas:🎄,Santa:🎅,Halloween:🎃,costume:🦸,mask:🎭,fireworks:🎆,parade:🎊,egg hunt:🥚,bunny:🐰,valentine:💝,lantern:🏮,sparkler:🎇,gingerbread:🍪,stocking:🧦,candy:🍬,piñata:🪅,holiday:🏖️,vacation:✈️,picnic:🧺',
+    w2: 'decorations:🎊,celebrate:🥳,invitation:💌,guest:🙋,festival:🎪,carnival:🎡,Diwali:🪔,Hanukkah:🕎,Thanksgiving:🦃,Lunar New Year:🧧,Eid:🌙,New Year:🎆,wrapping paper:🎁',
+    w3: 'tradition:🕯️:something a family does the same way every year|celebration:🎉:a happy party for a special day|anniversary:💐:the same date each year that something special happened|festive:🎊:bright and happy, ready to celebrate|generous:🎁:happy to give and share|custom:🧧:the usual way people do something' },
+  { id: 'shapes', ico: '🔷', name: 'Shapes',
+    w1: 'circle:⚪,square:🟥,triangle:🔺,rectangle:🚪,oval:🥚,diamond:🔷,line:➖,dot:⚫,cross:✖️,arrow:➡️,crescent:🌙,spiral:🌀,cube:🧊,cone:🍦,cylinder:🥫,sphere:🌐',
+    w2: 'octagon:🛑,curve:〰️,corner:📐,side:📏,zigzag:⚡,straight:📏,round:⭕,pyramid:🔺,heart shape:❤️,star shape:⭐',
+    w3: 'symmetry:🦋:when both halves match, like in a mirror|parallel:🛤️:lines that never meet, like train tracks|angle:📐:the corner where two lines meet|diagonal:↘️:a slanting line from corner to corner|semicircle:🌗:half of a circle|solid:🧊:a shape you can hold, with length, width and height' },
+  { id: 'numbers', ico: '🔢', name: 'Number words',
+    w1: 'zero:0️⃣,one:1️⃣,two:2️⃣,three:3️⃣,four:4️⃣,five:5️⃣,six:6️⃣,seven:7️⃣,eight:8️⃣,nine:9️⃣,ten:🔟,eleven:1️⃣1️⃣,twelve:1️⃣2️⃣,first:🥇,second:🥈,third:🥉,hundred:💯,half:🌗',
+    w2: 'thirteen:1️⃣3️⃣,fourteen:1️⃣4️⃣,fifteen:1️⃣5️⃣,sixteen:1️⃣6️⃣,seventeen:1️⃣7️⃣,eighteen:1️⃣8️⃣,nineteen:1️⃣9️⃣,twenty:2️⃣0️⃣,thirty:3️⃣0️⃣,fifty:5️⃣0️⃣,thousand:🔢,dozen:🥚,pair:🧦,double:✌️,last:🏁,quarter:🍕',
+    w3: 'million:🌌:a thousand thousands. A huge number!|estimate:🤔:a clever guess about how many|equal:⚖️:the same amount|odd:🧦:a number like 1, 3 or 5 that cannot make pairs|even:👟:a number like 2, 4 or 6 that makes pairs|total:➕:all of them added together' },
+  { id: 'time', ico: '📅', name: 'Time, days & months',
+    w1: 'day:🌞,morning:🌅,afternoon:🌤️,evening:🌆,today:📅,tomorrow:➡️,yesterday:⬅️,week:🗓️,Monday:📅,Tuesday:📅,Wednesday:📅,Thursday:📅,Friday:🎉,Saturday:🛝,Sunday:☀️,bedtime:🛏️,breakfast:🥞,lunch:🥪,dinner:🍝',
+    w2: 'January:❄️,February:💝,March:🌬️,April:🌧️,May:🌷,June:☀️,July:🏖️,August:🍉,September:🍎,October:🎃,November:🍂,December:🎄,month:🗓️,year:📆,hour:🕐,minute:⏱️,weekend:🛋️,calendar:📅,noon:🕛,midnight:🕛,season:🍂,watch:⌚,early:🐓,late:🌙',
+    w3: 'century:💯:one hundred years|decade:🔟:ten years|schedule:📋:a plan of what happens at what time|punctual:⏰:right on time, not late|fortnight:🗓️:two weeks|ancient:🏛️:very, very old|future:🚀:the time that has not come yet|past:🦖:the time that has already happened' },
+  { id: 'describe', ico: '✨', name: 'Describing words',
+    w1: 'big:🐘,small:🐭,tall:🦒,short:📏,fast:🐆,slow:🐢,soft:🧸,hard:🪨,wet:💧,dry:🏜️,clean:🧼,dirty:🐷,new:✨,old:👴,empty:🫙,long:🐍,funny:🤡,pretty:🌸,heavy:🏋️,light:🪶,dark:🌑,bright:🔆,sweet:🍭,sour:🍋,fluffy:🐑,spiky:🦔,shiny:💎,sticky:🍯,tiny:🐜,huge:🐋,noisy:🥁,little:🐣',
+    w2: 'gentle:🕊️,strong:💪,kind:🤗,clever:🦉,colorful:🌈,sparkly:✨,smelly:🧦,crunchy:🥕,fuzzy:🧸,squishy:🧽,cozy:🛋️,stripy:🦓,wobbly:🍮,thin:📏,thick:📚,deep:🌊,warm:🧣,busy:🐝,lucky:🍀,bumpy:🐊,smooth:🥚,giant:🦕',
+    w3: 'enormous:🐋:very, very big|curious:🧐:wanting to know and find out things|minuscule:🐜:so small you can hardly see it|magnificent:🦚:very beautiful and grand|fragile:🥚:easy to break, so be gentle|gigantic:🦕:huge, as big as a giant|delightful:🌈:very lovely and pleasing|mysterious:🕵️:strange and hard to explain|peculiar:🦄:strange and unusual|fierce:🐯:wild and strong and a bit scary|graceful:🦢:moving in a smooth, beautiful way|ferocious:🦖:very fierce and wild|timid:🐭:shy and easily scared|vivid:🎨:very bright and strong, like bold colors|dazzling:💎:so bright and sparkly it almost hurts your eyes|marvelous:🌟:wonderful|ordinary:🥔:normal, nothing special|exhausted:🥱:very, very tired|furious:😡:very, very angry|gleeful:😁:full of happy joy|enchanting:🧚:magical and charming|splendid:🏰:very good and grand|ridiculous:🤪:very silly and funny' },
+  { id: 'verbs', ico: '🤸', name: 'More action words',
+    w1: 'hop:🐇,sit:🪑,stand:🧍,push:👐,pull:💪,open:📂,close:📁,give:🎁,take:🤲,look:👀,listen:👂,talk:🗣️,smile:😊,wash:🧼,brush:🪥,play:🎮,build:🧱,help:🤝,hide:🙈,find:🔍,carry:🎒,fall:🍂,shout:📢,whisper:🤫,sneeze:🤧,yawn:🥱,splash:💦,dig:⛏️,bake:🧁,share:🍪',
+    w2: 'tiptoe:🩰,stretch:🧘,wiggle:🐛,giggle:🤭,march:🥁,crawl:👶,juggle:🤹,chase:🐕,gallop:🐎,scribble:🖍️,bounce:🏀,float:🛟,spin:🌀,pour:🫗,squeeze:🍋,sprinkle:🧂,explore:🧭,shiver:🥶,sniff:👃,wink:😉',
+    w3: 'investigate:🔍:look carefully to find out the truth|imagine:💭:make a picture in your mind|discover:🗺️:find something for the very first time|create:🎨:make something new|tumble:🤸:fall over and roll|scurry:🐭:run with quick little steps|soar:🦅:fly high up in the sky|clamber:🧗:climb using your hands and feet|devour:😋:eat something hungrily and fast|wander:🚶:walk slowly with no special place to go|whimper:🐶:make small, sad crying sounds|gaze:👀:look at something for a long time|stumble:🤕:trip and nearly fall|persevere:💪:keep trying even when it is hard' },
+  { id: 'fantasy', ico: '🐉', name: 'Dinosaurs & magic',
+    w1: 'dinosaur:🦖,dragon:🐉,unicorn:🦄,fairy:🧚,mermaid:🧜‍♀️,wizard:🧙,witch:🧙‍♀️,ghost:👻,monster:👾,princess:👸,prince:🤴,king:🤴,queen:👸,knight:🛡️,magic:✨,wand:🪄,T-rex:🦖,troll:🧌',
+    w2: 'superhero:🦸,villain:🦹,genie:🧞,elf:🧝,vampire:🧛,potion:🧪,spell:✨,cave:🪨,fossil:🦴,claw:🦅,horn:🦏,giant egg:🥚,treasure map:🗺️',
+    w3: 'legend:📜:an old, old story that people tell again and again|quest:🗺️:a long search for something important|extinct:🦴:gone forever, none left alive anywhere|enchanted:🪄:under a magic spell|paleontologist:🦴:a scientist who digs up dinosaur fossils|triceratops:🦕:a plant-eating dinosaur with three horns|pterodactyl:🦅:a flying reptile from dinosaur times|mythical:🐉:from old stories, not real' },
+  { id: 'camping', ico: '⛺', name: 'Camping & outdoors',
+    w1: 'tent:⛺,campfire:🔥,flashlight:🔦,compass:🧭,marshmallow:🍡,sleeping bag:🛌,hike:🥾,lake:🏞️,waterfall:🏞️,log:🪵,stick:🪵,deer:🦌,squirrel:🐿️,hedgehog:🦔,raccoon:🦝,wolf:🐺,cabin:🛖,rope:🪢',
+    w2: 'trail:🥾,binoculars:🔭,canteen:🧴,bug spray:🦟,hammock:🌴,firewood:🪵,boots:🥾,campsite:🏕️,tracks:🐾',
+    w3: 'wilderness:🏕️:wild land where very few people live|shelter:⛺:a safe place out of the rain and wind|adventure:🧭:an exciting trip full of surprises|navigate:🧭:find the way to go|nocturnal:🦉:awake at night and asleep in the day|habitat:🌲:the home where an animal or plant lives|summit:🏔️:the very top of a mountain|trek:🥾:a long, hard walk' }
+];
+// Extra words for the first 16 topics.
+const EN_MORE = {
+  animals: { w2: 'hamster:🐹,parrot:🦜,peacock:🦚,flamingo:🦩,swan:🦢,eagle:🦅,gorilla:🦍,hippo:🦛,rhino:🦏,crocodile:🐊,koala:🐨,panda:🐼,sloth:🦥,otter:🦦,skunk:🦨,bat:🦇,leopard:🐆,polar bear:🐻‍❄️,puppy:🐶,kitten:🐱,lizard:🦎,beaver:🦫',
+    w3: 'chameleon:🦎:a lizard that can change its color|hibernate:🐻:sleep through the whole winter|predator:🦈:an animal that hunts other animals|herbivore:🦒:an animal that eats only plants|carnivore:🦁:an animal that eats meat|mammal:🐋:an animal that feeds its babies milk, like dogs, whales and people|reptile:🐊:a cold-blooded animal with scales, like a snake|amphibian:🐸:an animal that lives in water and on land, like a frog' },
+  food: { w2: 'avocado:🥑,coconut:🥥,blueberry:🫐,kiwi:🥝,mango:🥭,cucumber:🥒,pepper:🫑,onion:🧅,garlic:🧄,pancake:🥞,waffle:🧇,popcorn:🍿,pretzel:🥨,taco:🌮,burrito:🌯,dumpling:🥟,sushi:🍣,spaghetti:🍝,hot dog:🌭,burger:🍔,fries:🍟,cupcake:🧁,donut:🍩,chocolate:🍫,lollipop:🍭,cereal:🥣,salad:🥗,beans:🫘,peanut:🥜,bacon:🥓,drumstick:🍗,croissant:🥐',
+    w3: 'nutritious:🥦:full of the good things your body needs|vegetarian:🥗:a person who does not eat meat|beverage:🧃:a drink|savory:🧀:salty and tasty, not sweet|ripe:🍌:ready to eat' },
+  clothes: { w2: 'jacket:🧥,pajamas:🛌,sweater:🧶,mittens:🧤,sandals:🩴,slippers:🥿,skirt:👗,necklace:📿,helmet:⛑️,sneakers:👟,button:🔘,zipper:🤐,pocket:👖,sunglasses:🕶️,bow tie:🎀,ribbon:🎀,kimono:👘,sari:🥻,lab coat:🥼,goggles:🥽,raincoat:🧥',
+    w3: 'wardrobe:🚪:a big cupboard where you hang clothes|outfit:👗:a set of clothes worn together|fabric:🧵:cloth that clothes are made from|waterproof:☔:keeps water out, so you stay dry' },
+  toys: { w1: 'marbles:🔮,jump rope:🪢,slide:🛝,swing:🎠,bubbles:🫧,sandbox:🏖️,toy car:🚗,train set:🚂,board game:🎲,cards:🃏,jigsaw:🧩,frisbee:🥏,hula hoop:⭕,toy box:🧸,pinwheel:🎐',
+    w2: 'carousel:🎠,action figure:🦸,spinning top:🌀,rocking horse:🐴,trampoline:🤸,puppet:🧦,building set:🧱',
+    w3: 'kaleidoscope:🔮:a tube with colored bits inside that make pretty patterns when you turn it|imagination:💭:making up pictures and stories in your head' },
+  body: { w1: 'knee:🦵,toe:🦶,chin:🧔,cheek:☺️,neck:🦒,tummy:😋,elbow:💪',
+    w2: 'shoulder:🤷,eyebrow:🤨,wrist:⌚,skin:✋,muscle:💪,blood:🩸,lungs:🫁,ankle:🦶,palm:🤚,heel:🦶,belly button:🔘',
+    w3: 'skeleton:💀:all the bones inside your body joined together|digestion:🍽️:how your body breaks down the food you eat|senses:👀:seeing, hearing, smelling, tasting and touching|pulse:❤️:the beat of your heart that you can feel in your wrist' },
+  weather: { w1: 'sunny:☀️,cloudy:☁️,rainy:🌧️,windy:🌬️,snowy:❄️,rainbow:🌈',
+    w2: 'hail:🧊,breeze:🍃,foggy:🌫️,icicle:🧊,frost:❄️,flood:🌊,thunder:⛈️,raindrop:💧,snowflake:❄️,sunshine:🌞',
+    w3: 'forecast:📺:what the weather will probably be like|temperature:🌡️:how hot or cold something is|humid:💦:warm, damp and sticky air|blizzard:🌨️:a big snowstorm with strong wind|hurricane:🌀:a huge storm with very strong winds|drizzle:🌦️:very light rain|climate:🌍:the usual weather of a place' },
+  feelings: { w2: 'sleepy:😪,cheeky:😜,giggly:🤭,shocked:😱,upset:😣,thankful:🙏,cranky:😾,lucky:🍀',
+    w3: 'jealous:😒:wanting what someone else has|embarrassed:😳:feeling silly when everyone is looking|frustrated:😤:upset because something is hard|grateful:🙏:thankful|nervous:😬:a bit worried about what will happen|lonely:😔:sad because you are on your own|cheerful:😄:happy and bright|confident:😎:sure that you can do it|disappointed:😞:sad because something did not go the way you hoped|anxious:😰:very worried|delighted:😃:very pleased|patient:⏳:able to wait calmly' },
+  school: { w1: 'classroom:🏫,desk:🪑,glue:🧴,chalk:🖍️,student:🧑‍🎓,alphabet:🔤,marker:🖊️,eraser:🧽,lunch:🥪',
+    w2: 'whiteboard:📋,homework:📝,principal:🧑‍💼,recess:🛝,calculator:🧮,stapler:📎,paper clip:📎,sharpener:✏️,folder:📁,lesson:📖',
+    w3: 'dictionary:📖:a book that tells you what words mean|encyclopedia:📚:a book full of facts about everything|experiment:🧪:a test to find out how something works|knowledge:🧠:all the things you know' },
+  transport: { w1: 'van:🚐,digger:🚜,school bus:🚌,race car:🏎️,wagon:🛒,jet:✈️',
+    w2: 'crane:🏗️,cable car:🚡,hot air balloon:🎈,sailboat:⛵,speedboat:🚤,yacht:🛥️,tram:🚋,garbage truck:🚛,parachute:🪂,monorail:🚝',
+    w3: 'vehicle:🚗:a thing that carries people or things, like a car or a bus|passenger:🧳:a person riding in a car, bus, train or plane|journey:🗺️:a trip from one place to another|engine:⚙️:the machine that makes a vehicle go' },
+  nature: { w1: 'hill:⛰️,pond:🦆,pebble:🪨,acorn:🌰,feather:🪶,jungle:🌴,palm tree:🌴,stream:🏞️',
+    w2: 'valley:🏞️,pine cone:🌲,rainforest:🌴,iceberg:🧊,canyon:🏜️,coral reef:🪸,lava:🌋',
+    w3: 'glacier:🧊:a giant, slow river of ice|erupt:🌋:burst out, like lava from a volcano|environment:🌍:the world around us: air, water, land and living things|recycle:♻️:use old things again to make new things|ecosystem:🌳:living things and their home, all working together|meadow:🌼:a field full of grass and wildflowers|boulder:🪨:a very big rock' },
+  jobs: { w2: 'librarian:📚,plumber:🔧,cashier:🛒,zookeeper:🦓,gardener:🧑‍🌾,lifeguard:🛟,photographer:📷,dancer:💃,writer:✍️,carpenter:🪚,bus driver:🚌,magician:🎩,clown:🤡,waiter:🍽️',
+    w3: 'architect:📐:a person who designs buildings|engineer:⚙️:a person who designs and builds machines, roads and bridges|veterinarian:🐾:an animal doctor|journalist:📰:a person who writes the news|inventor:💡:a person who makes something new that nobody made before|pharmacist:💊:a person who gives out medicine' },
+  home: { w1: 'pillow:🛏️,blanket:🛌,rug:🟫,shelf:📚,roof:🏠,kitchen:🍳,bedroom:🛏️,bathroom:🛁,toothbrush:🪥,sponge:🧽,doorbell:🔔,fan:🌀',
+    w2: 'curtain:🪟,garage:🚗,vacuum:🧹,washing machine:🫧,fireplace:🔥,attic:🏠,cupboard:🚪,drawer:🗄️,light switch:💡,remote:📺,mailbox:📫',
+    w3: 'furniture:🛋️:tables, chairs, beds and sofas|appliance:🔌:a machine at home, like a fridge or a toaster|chore:🧹:a small job at home, like tidying up|tidy:🧹:neat, with everything put away' },
+  family: { w2: 'grandparents:👴,daughter:👧,son:👦,niece:👧,nephew:👦,husband:🤵,wife:👰,toddler:🧒,teenager:🧑,adult:🧑,kid:🧒',
+    w3: 'relative:👪:someone in your family|ancestor:📜:a family member who lived long, long ago|sibling:👫:a brother or a sister|generation:👴:all the people born at about the same time' },
+  colors: { w2: 'navy:🔵,violet:🟣,cream:🍦,golden:🌟,rosy:🌹,beige:🏜️',
+    w3: 'scarlet:🟥:a bright red|turquoise:🌊:a blue-green color, like a tropical sea|crimson:🍒:a deep, dark red|lavender:💜:a soft, light purple|emerald:💚:a bright green, like the jewel' },
+  places: { w1: 'aquarium:🐠,bakery:🥐,swimming pool:🏊,supermarket:🛒,village:🏘️,town:🏘️,palace:🏯',
+    w2: 'pharmacy:💊,church:⛪,mosque:🕌,temple:🛕,synagogue:🕍,theme park:🎢,barber shop:💈,country:🗺️,lighthouse:🗼',
+    w3: 'continent:🌍:one of the seven huge pieces of land on Earth|capital:🏛️:the main city of a country|destination:📍:the place you are going to|border:🗺️:the line where one country ends and another begins' },
+  actions: { w1: 'skip:🤸,kick:⚽,laugh:😂',
+    w2: 'paddle:🛶,skate:⛸️,whistle:😗,knit:🧶,paint:🎨,fix:🔧' }
+};
+// Some first-book words are better for older readers.
+const EN_TIER2 = 'microscope,thermometer,abacus,lightning,tornado,volcano,helicopter,scientist,mechanic,astronaut,museum,restaurant,factory,stadium,confused,worried,surprised,excited,neighbor,judge,mail carrier,post office,motorbike,subway,desert,island,cousin,parents,grumpy,proud,calm'.split(',');
+
+(() => {
+  const have = new Set(EN_VOCAB.flatMap(t => t.words.map(x => x.w.toLowerCase())));
+  EN_VOCAB.forEach(t => t.words.forEach(x => { x.t = EN_TIER2.includes(x.w) ? 2 : 1; x.m = ''; }));
+  const parse = (s, t) => !s ? [] : s.split(t === 3 ? '|' : ',').map(x => {
+    const a = x.indexOf(':'), b = t === 3 ? x.indexOf(':', a + 1) : -1;
+    return { w: x.slice(0, a).trim(), e: (b < 0 ? x.slice(a + 1) : x.slice(a + 1, b)).trim(), t, m: b < 0 ? '' : x.slice(b + 1).trim() };
+  });
+  const add = (topic, d) => { for (const x of [...parse(d.w1, 1), ...parse(d.w2, 2), ...parse(d.w3, 3)]) { const k = x.w.toLowerCase(); if (!x.w || !x.e || have.has(k)) continue; have.add(k); topic.words.push(x); } };
+  for (const [id, d] of Object.entries(EN_MORE)) { const t = EN_VOCAB.find(v => v.id === id); if (t) add(t, d); }
+  for (const d of EN_TOPICS2) { const t = { id: d.id, ico: d.ico, name: d.name, words: [] }; add(t, d); EN_VOCAB.push(t); }
+})();
+// Every word in the book, with its topic, for the word-play games, the review queue and the word album.
+const EN_ALLWORDS = EN_VOCAB.flatMap(t => t.words.map(x => Object.assign(x, { topic: t.id })));
+const EN_WORD = Object.fromEntries(EN_ALLWORDS.map(x => [x.w.toLowerCase(), x]));
+
+// More stories (2 or 3 for every stage).
+EN_STORIES.push(
+  { id: 'bigbug', stage: 1, ico: '🐛', title: 'The Big Bug', pages: [
+    ['🐛', 'Bud is a bug.'], ['🌿', 'Bud sits on a leaf.'], ['🐜', 'An ant can see Bud.'], ['🤝', 'The ant and Bud nod.'], ['🍃', 'Now Bud has a pal on the leaf.']],
+    qs: [['Who is Bud?', 'a bug', 'a cat', 'a dog'], ['Where does Bud sit?', 'on a leaf', 'on a bed', 'on a bus'], ['Who sees Bud?', 'an ant', 'a hen', 'a fox']] },
+  { id: 'samsun', stage: 1, ico: '☀️', title: 'Sam in the Sun', pages: [
+    ['☀️', 'The sun is up. It is hot.'], ['🧒', 'Sam has a red cap.'], ['🏖️', 'Sam digs in the sand.'], ['🦀', 'A crab runs past Sam!'], ['😄', 'Sam and the crab have fun.']],
+    qs: [['What color is the cap?', 'red', 'blue', 'green'], ['What does Sam dig in?', 'the sand', 'the mud', 'a box'], ['What runs past Sam?', 'a crab', 'a dog', 'a bus']] },
+  { id: 'mumtrain', stage: 2, ico: '🚂', title: 'The Snack Train', pages: [
+    ['🚂', 'Chug, chug! The little train went up the track.'], ['🍎', 'It had apples, milk and fresh bread for the town.'], ['⛰️', 'The hill was steep. The train went slow.'], ['💪', '"I can do it," said the train. "I can! I can!"'], ['🎉', 'At the top, the kids got their snacks and gave a big cheer.']],
+    qs: [['What did the train carry?', 'snacks for the town', 'toys', 'sand'], ['Why did the train go slow?', 'the hill was steep', 'it was sleepy', 'it was lost'], ['What did the kids do at the end?', 'gave a cheer', 'went to bed', 'cried']] },
+  { id: 'chickegg', stage: 2, ico: '🐣', title: 'Chick Pops Out', pages: [
+    ['🥚', 'Hen sat on her egg all day.'], ['🔊', 'Tap, tap, tap! The egg went crack.'], ['🐣', 'Out came a wet little chick.'], ['🌞', 'The chick sat in the sun to get dry.'], ['🐥', 'Now it was a soft, fluffy chick that said cheep!']],
+    qs: [['Who sat on the egg?', 'Hen', 'Duck', 'Frog'], ['What came out of the egg?', 'a chick', 'a snake', 'a fish'], ['What does the chick say?', 'cheep', 'moo', 'quack']] },
+  { id: 'shellshop', stage: 2, ico: '🐚', title: 'The Shell Shop', pages: [
+    ['🐚', 'Beth found ten shells on the beach.'], ['🧺', 'She put them on a rug to make a shop.'], ['🐕', 'Her dog Chip came to look.'], ['👃', 'Chip sniffed a shell and it went "pop"! A tiny crab ran out!'], ['😂', 'Beth and Chip laughed. Not every shell is for sale!']],
+    qs: [['How many shells did Beth find?', 'ten', 'six', 'two'], ['What is the dog\'s name?', 'Chip', 'Max', 'Rex'], ['What was in the shell?', 'a tiny crab', 'a pearl', 'sand']] },
+  { id: 'snowday', stage: 3, ico: '⛄', title: 'Snow Day', pages: [
+    ['❄️', 'When Kate woke up, the whole street was white with snow.'], ['🧥', 'She put on her coat, her scarf and her blue mittens.'], ['⛄', 'Kate rolled three snowballs to make a snowman.'], ['🥕', 'She gave him a carrot nose and a hat that was too big.'], ['☕', 'Then she went inside for hot cocoa by the fire.']],
+    qs: [['What color were the mittens?', 'blue', 'red', 'green'], ['How many snowballs did Kate roll?', 'three', 'one', 'ten'], ['What did Kate drink?', 'hot cocoa', 'cold milk', 'orange juice']] },
+  { id: 'bakesale', stage: 3, ico: '🧁', title: 'The Bake Sale', pages: [
+    ['🧁', 'Our class made cupcakes for the school bake sale.'], ['🥣', 'We mixed flour, eggs, sugar and a pinch of salt.'], ['🎂', 'Owen put pink frosting and sprinkles on top.'], ['💰', 'People came and paid one coin for each cupcake.'], ['📚', 'We used the money to buy new books for our library.']],
+    qs: [['What did the class make?', 'cupcakes', 'cookies', 'pizza'], ['What went on top?', 'pink frosting', 'cheese', 'nothing'], ['What did they buy with the money?', 'new books', 'a bike', 'more cake']] },
+  { id: 'moonbunny', stage: 3, ico: '🐰', title: 'Bunny and the Moon', pages: [
+    ['🐰', 'Every night, Bunny looked up at the bright moon.'], ['🌙', 'She wanted to hop all the way up and say hello.'], ['🪜', 'She tried a tall ladder, but it was not tall enough.'], ['🌊', 'Then she saw the moon shining in the still lake.'], ['💤', '"Hello, Moon!" she whispered, and went home to sleep.']],
+    qs: [['What did Bunny want to do?', 'say hello to the moon', 'eat a carrot', 'swim'], ['What did she try first?', 'a ladder', 'a rocket', 'a kite'], ['Where did she see the moon at the end?', 'in the lake', 'in a box', 'in her bed']] },
+  { id: 'lostpup', stage: 4, ico: '🐕', title: 'The Curious Puppy', pages: [
+    ['🐕', 'Biscuit was a curious puppy who wanted to sniff everything.'], ['🦋', 'One afternoon, he followed a butterfly out of the garden gate.'], ['🌳', 'Soon he was in the park, and he could not see his house anymore.'], ['👃', 'Biscuit remembered the smell of fresh pancakes from his kitchen and followed his nose.'], ['🏠', 'He got home just in time for dinner, and Dad fixed the gate.']],
+    qs: [['What does "curious" mean?', 'wanting to find things out', 'very sleepy', 'very angry'], ['What did Biscuit follow?', 'a butterfly', 'a ball', 'a cat'], ['How did he find his way home?', 'he followed a smell', 'he took a bus', 'a bird showed him'], ['What did Dad fix?', 'the gate', 'the car', 'the roof']] },
+  { id: 'volcano', stage: 4, ico: '🌋', title: 'The Science Fair Volcano', pages: [
+    ['🌋', 'For the science fair, Priya built an enormous volcano out of paper and glue.'], ['🧪', 'Inside, she hid a cup with baking soda in it.'], ['🍋', 'When she poured in vinegar, red foam bubbled up and spilled down the sides.'], ['😲', 'Everyone gasped, and the foam even splashed the judge\'s shoes!'], ['🥈', 'Priya won second prize and promised to use a bigger tray next time.']],
+    qs: [['What did Priya build?', 'a volcano', 'a rocket', 'a bridge'], ['What made the foam bubble up?', 'vinegar and baking soda', 'water and sugar', 'milk and juice'], ['What does "enormous" mean?', 'very big', 'very small', 'very wet'], ['What prize did Priya win?', 'second prize', 'first prize', 'no prize']] },
+  { id: 'lighthouse', stage: 5, ico: '🗼', title: 'The Lighthouse Keeper', pages: [
+    ['🗼', 'Old Mr. Finn had looked after the lighthouse on the rocky island for forty years.'], ['🌩️', 'One stormy night, the electricity failed and the great lamp went dark.'], ['⛵', 'Far out at sea, a small fishing boat was heading straight for the rocks.'], ['🏮', 'Mr. Finn climbed the spiral stairs with an old oil lantern and a mirror, and flashed the light across the waves.'], ['⚓', 'The fishermen saw the signal just in time, steered away, and brought him a basket of fish the next morning to say thank you.']],
+    qs: [['Why did the lamp go dark?', 'the electricity failed', 'Mr. Finn was asleep', 'a bird broke it'], ['How did Mr. Finn make a light?', 'a lantern and a mirror', 'a campfire', 'a flashlight'], ['How did the fishermen say thank you?', 'with a basket of fish', 'with a letter', 'with a song'], ['What does "signal" mean here?', 'a sign that sends a message', 'a kind of fish', 'a loud storm']] },
+  { id: 'inventor', stage: 5, ico: '💡', title: 'Zara\'s Invention', pages: [
+    ['💡', 'Zara wanted to invent something that would help her grandmother, who often lost her glasses.'], ['📝', 'She sketched dozens of ideas, but none of them seemed quite right.'], ['🔔', 'Finally, she attached a tiny bell to the glasses and a clip to Grandma\'s favorite cardigan.'], ['😕', 'The first version jingled so loudly that the cat hid under the sofa for an hour!'], ['😊', 'After a few improvements, the bell became a gentle tinkle, and Grandma never lost her glasses again.']],
+    qs: [['What did Grandma often lose?', 'her glasses', 'her keys', 'her cat'], ['What did Zara attach to the glasses?', 'a tiny bell', 'a magnet', 'a light'], ['Why did the cat hide?', 'the bell was too loud', 'it was cold', 'it was hungry'], ['What does "improvements" mean?', 'changes that make it better', 'mistakes', 'presents']] }
+);
+
+// Word-play data: story maker parts, rhyme songs, tongue twisters and "describe it" scenes.
+const EN_TALE = {
+  heroes: [['a brave little mouse', '🐭', 'mouse'], ['a dragon who loves cake', '🐉', 'dragon'], ['a robot named Bolt', '🤖', 'robot'], ['a princess with muddy boots', '👸', 'princess'],
+    ['a wobbly penguin', '🐧', 'penguin'], ['a tiny dinosaur', '🦖', 'dinosaur'], ['a silly monkey', '🐵', 'monkey'], ['a superhero cat', '🐱', 'cat'], ['a sleepy bear', '🐻', 'bear'], ['a giggling unicorn', '🦄', 'unicorn']],
+  places: [['on the moon', '🌙'], ['in a candy castle', '🏰'], ['under the sea', '🌊'], ['in a spooky forest', '🌲'], ['in a busy city', '🏙️'], ['on a pirate ship', '🏴‍☠️'], ['in a jungle', '🌴'], ['at the snowy North Pole', '❄️'], ['inside a giant cake', '🎂'], ['in a hot desert', '🏜️']],
+  problems: [
+    ['lost shoe', '👟', h => `${h} lost a favorite shoe`, h => `They looked high and low, and found the shoe on top of a sleepy whale`],
+    ['hiccups', '😵', h => `${h} got the hiccups and could not stop`, h => `They told the funniest joke ever, and the hiccups jumped right out`],
+    ['rain', '🌧️', h => `it rained jelly beans all day long`, h => `They used a giant umbrella and saved the jelly beans for a party`],
+    ['stuck', '🌳', h => `${h} got stuck up a tall tree`, h => `They made a ladder out of noodles, and ${h} climbed down`],
+    ['dark', '🌑', h => `the sun forgot to come up`, h => `They sang a wake-up song so loud that the sun popped up and smiled`],
+    ['hungry', '😋', h => `${h} was so hungry the tummy rumbled like thunder`, h => `They baked a pancake as big as a trampoline and shared it`],
+    ['sneeze', '🤧', h => `a big sneeze blew away all the toys`, h => `They followed the trail of toys and brought every one back`],
+    ['bored', '😑', h => `${h} was very, very bored`, h => `They invented a brand new game called Wiggle Ball`],
+    ['monster', '👾', h => `a grumpy monster blocked the road`, h => `They gave the monster a hug, and it turned out it just needed a friend`],
+    ['balloon', '🎈', h => `${h} floated away holding a balloon`, h => `A friendly bird popped the balloon very gently, and they floated down like a feather`]
+  ],
+  helpers: [['a wise old owl', '🦉', 'owl'], ['a kind giant', '🧌', 'giant'], ['a chatty parrot', '🦜', 'parrot'], ['a helpful fairy', '🧚', 'fairy'], ['a speedy cheetah', '🐆', 'cheetah'], ['a clever octopus', '🐙', 'octopus']],
+  likes: ['dance', 'sing songs', 'eat snacks', 'play hide and seek', 'read books', 'jump in puddles', 'build towers', 'paint pictures'],
+  // [simple, big-word] pairs so older readers get richer words in their stories.
+  words: { start: ['But one day,', 'Suddenly, without any warning,'], big: ['big', 'enormous'], happy: ['happy', 'delighted'], said: ['said', 'exclaimed'], good: ['good', 'marvelous'] },
+  ends: ['Then everyone had a big party with cake. The end!', 'And they all lived happily ever after. The end!', 'Then they all went home for a cozy nap. The end!', 'And it was the best day ever. The end!']
+};
+// Rhyme time: [first line, second line start, rhyming word, emoji, rhyme sound]
+const EN_RHYMES = [
+  ['I saw a cat 🐱', 'wearing a', 'hat', '🎩', 'at'], ['A dog on a log 🐶', 'sang to a', 'frog', '🐸', 'og'], ['A bee in a tree 🐝', 'waved hello to', 'me', '🙋', 'ee'],
+  ['The fox in socks 🦊', 'jumped into a', 'box', '📦', 'ox'], ['A bug on a rug 🐛', 'gave me a', 'hug', '🤗', 'ug'], ['The goat in a coat 🐐', 'sailed away in a', 'boat', '⛵', 'oat'],
+  ['A king with a ring 🤴', 'started to', 'sing', '🎤', 'ing'], ['A cake by the lake 🎂', 'was eaten by a', 'snake', '🐍', 'ake'], ['The moon in June 🌙', 'hummed a happy', 'tune', '🎶', 'une'],
+  ['A bear on a chair 🐻', 'brushed his long', 'hair', '💇', 'air'], ['A pig in a wig 🐷', 'danced a funny', 'jig', '💃', 'ig'], ['A star in a car ⭐', 'drove very', 'far', '🛣️', 'ar'],
+  ['A whale with a pail 🐳', 'went out for a', 'sail', '⛵', 'ail'], ['A hen with a pen 🐔', 'counted to', 'ten', '🔟', 'en'], ['A duck in a truck 🦆', 'wished me good', 'luck', '🍀', 'uck'],
+  ['A cow said "Wow!" 🐮', 'and took a', 'bow', '🙇', 'ow'], ['The sun had fun ☀️', 'eating a', 'bun', '🍞', 'un'], ['My kite took flight 🪁', 'and flew out of', 'sight', '👀', 'ight'],
+  ['A fish made a wish 🐟', 'for a yummy', 'dish', '🍽️', 'ish'], ['The clock said tick-tock ⏰', 'to a big gray', 'rock', '🪨', 'ock'], ['A queen in green 👸', 'ate a jelly', 'bean', '🫘', 'een'],
+  ['A mouse in a house 🐭', 'wore a pretty', 'blouse', '👚', 'ouse'], ['A snake by the lake 🐍', 'baked a chocolate', 'cake', '🍰', 'ake'], ['A frog in the fog 🐸', 'went out for a', 'jog', '🏃', 'og'],
+  ['The rain on the train 🌧️', 'went down the', 'drain', '🕳️', 'ain'], ['A mole in a hole 🕳️', 'ate a big', 'bowl', '🥣', 'ole']
+];
+// Tongue twisters: [text, emoji, stage]
+const EN_TWISTERS = [
+  ['Toy boat, toy boat, toy boat.', '⛵', 1], ['Red truck, yellow truck.', '🚚', 1], ['Fresh French fries.', '🍟', 1], ['Busy buzzing bumblebees.', '🐝', 1],
+  ['A big black bug bit a big black bear.', '🐛', 2], ['Fuzzy Wuzzy was a bear. Fuzzy Wuzzy had no hair.', '🐻', 2], ['I scream, you scream, we all scream for ice cream!', '🍦', 2],
+  ['Four fine fresh fish for you.', '🐟', 2], ['Kitty caught the kitten in the kitchen.', '🐱', 2], ['She sells seashells by the seashore.', '🐚', 3],
+  ['Six slippery snails slid slowly seaward.', '🐌', 3], ['Fred fed Ted bread, and Ted fed Fred bread.', '🍞', 3], ['Silly Sally swiftly shooed seven silly sheep.', '🐑', 3],
+  ['Peter Piper picked a peck of pickled peppers.', '🌶️', 4], ['How much wood would a woodchuck chuck if a woodchuck could chuck wood?', '🪵', 4], ['Green glass globes glow greenly.', '🟢', 4],
+  ['Betty Botter bought some butter, but she said the butter\'s bitter.', '🧈', 5], ['Can you can a can as a canner can can a can?', '🥫', 5], ['Wayne went to Wales to watch walruses.', '🦭', 5], ['Unique New York, you know you need unique New York.', '🗽', 5]
+];
+// Describe it: animals [singular, plural, emoji], what they do [singular verb phrase, plural verb phrase, emoji], sizes [word, big word, scale].
+const EN_DESC = {
+  who: [['dog', 'dogs', '🐶'], ['cat', 'cats', '🐱'], ['frog', 'frogs', '🐸'], ['duck', 'ducks', '🦆'], ['pig', 'pigs', '🐷'], ['bear', 'bears', '🐻'], ['fox', 'foxes', '🦊'], ['bunny', 'bunnies', '🐰'], ['mouse', 'mice', '🐭'], ['penguin', 'penguins', '🐧']],
+  act: [['eats cake', 'eat cake', '🍰'], ['plays with a ball', 'play with a ball', '⚽'], ['reads a book', 'read a book', '📖'], ['sits in a boat', 'sit in a boat', '⛵'], ['looks at the moon', 'look at the moon', '🌙'],
+    ['rides a bike', 'ride a bike', '🚲'], ['sings a song', 'sing a song', '🎤'], ['holds a balloon', 'hold a balloon', '🎈'], ['eats pizza', 'eat pizza', '🍕'], ['plays the drum', 'play the drum', '🥁']],
+  size: [['big', 'enormous', 1.5], ['little', 'tiny', 0.65]],
+  count: ['a', 'two', 'three', 'four']
+};
+/* ---------- English & Reading, part 5: Word play, Word of the day, Owl's review and the word album ---------- */
+// Builds on the screens in english3.js through englishHome.api. Two new sections join the English home:
+// "Word play" (7 games) and "My words" (word of the day with a daily streak, a spaced review of missed words, and an
+// album that collects every word the child gets right twice). All progress stays in st.english.
+(() => {
+  const A = englishHome.api, { quiz, give, reward, E, stage, open, talk, tapWords, wireTapWords, ptip, hooks, maxTier, tierOf, SECTIONS, VIEWS } = A;
+  const voice = () => !!(st.speak && 'speechSynthesis' in window && typeof SpeechSynthesisUtterance !== 'undefined');
+  const W = () => {
+    const e = E(); e.got = e.got || {}; e.review = e.review || {}; e.tw = e.tw || {}; e.tales = e.tales || {}; e.miles = e.miles || {};
+    e.wotd = e.wotd || { last: '', streak: 0, best: 0, n: 0, days: [] }; return e;
+  };
+  const dn = () => dayNum(today());
+  const lw = w => String(w).toLowerCase();
+
+  /* --- the word album and the review queue --- */
+  // A word is collected after 2 first-try answers, or when it leaves the review queue, or as the word of the day.
+  const MILES = [10, 25, 50, 100, 200, 400, 800];
+  const collected = () => Object.keys(W().got).filter(k => W().got[k] >= 2 && EN_WORD[k]);
+  function collect(w, n = 2) {
+    const e = W(), k = lw(w); e.got[k] = Math.max(e.got[k] || 0, n);
+    const c = collected().length, m = MILES.find(x => c >= x && !e.miles[x]);
+    if (m) { e.miles[m] = 1; setTimeout(() => toast(`📒 ${m} words in your word album!`), 500); }
+  }
+  // Leitner boxes: a missed word comes back today, then after 1 day, then 3 days; the third right answer clears it.
+  const GAPS = [0, 1, 3];
+  hooks.miss = rv => {
+    if (!rv || !rv.w) return;
+    const e = W(), k = lw(rv.w), r = e.review[k];
+    e.review[k] = { w: rv.w, e: rv.e || (r && r.e) || '', k: rv.k || (rv.e ? 'pic' : 'sight'), box: 0, due: dn(), n: ((r && r.n) || 0) + 1 };
+    const keys = Object.keys(e.review);
+    if (keys.length > 60) delete e.review[keys.filter(x => x !== k).sort((a, b) => e.review[b].due - e.review[a].due)[0]];
+    save();
+  };
+  hooks.hit = (rv, first, inReview) => {
+    if (!rv || !rv.w || !first) return;
+    const e = W(), k = lw(rv.w), r = e.review[k];
+    e.got[k] = (e.got[k] || 0) + 1;
+    if (e.got[k] === 2) collect(k);
+    if (r && (inReview || r.due <= dn())) {
+      r.box++;
+      if (r.box >= GAPS.length) { delete e.review[k]; collect(k, 3); } else r.due = dn() + GAPS[r.box];
+    }
+  };
+  const dueList = () => Object.values(W().review).filter(r => r.due <= dn()).sort((a, b) => a.due - b.due || b.n - a.n);
+  const when = d => { const g = d - dn(); return g <= 0 ? 'today' : g === 1 ? 'tomorrow' : `in ${g} days`; };
+
+  // Three or four picture choices with different pictures, from the same topic when it can.
+  function picChoices(x, n) {
+    const out = [x], seen = new Set([x.e]);
+    const pools = [EN_ALLWORDS.filter(o => o.topic === x.topic && tierOf(o) <= Math.max(maxTier(), tierOf(x))), EN_ALLWORDS.filter(o => tierOf(o) === 1)];
+    for (const p of pools) for (const o of shuffle(p)) { if (out.length > n) break; if (!seen.has(o.e) && lw(o.w) !== lw(x.w)) { seen.add(o.e); out.push(o); } }
+    return shuffle(out);
+  }
+
+  function reviewQ(r) {
+    const x = EN_WORD[lw(r.w)];
+    if (r.k === 'pic' && (x || r.e)) {
+      const it = x || { w: r.w, e: r.e, topic: 'animals', t: 1 };
+      const listen = voice() && Math.random() < 0.5;
+      return { prompt: listen ? 'Listen! Tap the picture you hear.' : `Which one is <b>${esc(it.w)}</b>?`, say: listen ? `Listen: ${it.w}. ${it.w}.` : `Which one is ${it.w}?`,
+        visual: listen ? '<div class="en-ear" aria-hidden="true">👂</div>' : '', rv: { w: it.w, e: it.e },
+        choices: picChoices(it, 2).map(o => ({ html: o.e, val: o.w, say: o.w })), answer: it.w, explain: `${it.e} This one is ${it.w}. It will come back again soon!` };
+    }
+    const all = [...new Set(EN_SIGHT.flatMap(s => s.words))].filter(o => o !== r.w);
+    const near = shuffle(all).sort((a, b) => Math.abs(a.length - r.w.length) - Math.abs(b.length - r.w.length)).slice(0, 2);
+    return { prompt: voice() ? 'Tap the word you hear.' : `Find the word <b>${esc(r.w)}</b>.`, say: `Find the word: ${r.w}. ${r.w}.`, visual: '<div class="en-pic">👀</div>', rv: { w: r.w, k: 'sight' },
+      choices: enTxt([r.w, ...near]), answer: r.w, explain: `This one says ${r.w}. Look for it again!` };
+  }
+  function startReview() {
+    const due = dueList().slice(0, 6);
+    if (!due.length) { go(myWords); say('No words to practice right now. Great job!'); return; }
+    quiz({ id: 'review', title: "🔁 Owl's review", back: () => go(myWords), review: true, tip: 'mywords', list: due.map(reviewQ) });
+  }
+
+  /* --- word of the day --- */
+  function wotdWord() {
+    // Young readers get first words; the oldest get the "more" and "big" words.
+    const mt = maxTier(), pool = EN_ALLWORDS.filter(x => tierOf(x) <= mt && (mt < 3 || tierOf(x) >= 2) && /^[a-zA-Z -]+$/.test(x.w));
+    let h = 7; for (const c of today() + ':' + mt) h = (h * 31 + c.charCodeAt(0)) >>> 0;
+    return pool[h % pool.length];
+  }
+  const streakNow = () => { const o = W().wotd; return o.last && dn() - dayNum(o.last) <= 1 ? o.streak : 0; };
+  // Rough syllable count for the clapping game (vowel groups, minus a silent e).
+  function syllables(word) {
+    return word.toLowerCase().split(/[\s-]+/).filter(Boolean).reduce((a, w) => {
+      let n = (w.match(/[aeiouy]+/g) || []).length;
+      if (n > 1 && /[^l]e$/.test(w) && !/[aeiouy]e$/.test(w)) n--;
+      if (/[^aeiou]le$/.test(w) && n < 2) n = 2;
+      return a + Math.max(1, n);
+    }, 0);
+  }
+  const USE = [w => `Can you say a sentence with the word "${w}"?`, w => `Can you find something at home that goes with "${w}"?`, w => `Can you act out "${w}" without talking?`,
+    w => `Can you tell a grown-up what "${w}" means?`, w => `Can you draw a picture of "${w}"?`];
+  function wotd() {
+    const e = W(), x = wotdWord(), o = e.wotd, done = o.last === today(), nav = navId, s = streakNow();
+    const days = Array.from({ length: 7 }, (_, i) => { const d = new Date(); d.setDate(d.getDate() - 6 + i); const k = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+      return `<span class="en-day${o.days.includes(k) ? ' on' : ''}${i === 6 ? ' now' : ''}"><small>${'SMTWTFS'[d.getDay()]}</small>${o.days.includes(k) ? '⭐' : '·'}</span>`; }).join('');
+    const use = USE[dayNum(today()) % USE.length](x.w);
+    view.innerHTML = `${crumbs('☀️ Word of the day')}
+      <div class="en-wotd"><span class="en-wsun" aria-hidden="true">☀️</span><div class="en-wpic">${x.e}</div><div class="en-word">${esc(x.w)}</div>
+        ${x.m ? `<p class="en-wmean">${esc(x.m)}</p>` : ''}<span class="note">From the ${esc((EN_VOCAB.find(t => t.id === x.topic) || {}).name || 'word book')} page${tierOf(x) === 3 ? ' · ✨ a big word' : ''}</span></div>
+      <div class="row"><button class="btn alt" id="wHear">🔊 Hear it</button><button class="btn alt" id="wClap">👏 Clap it</button></div>
+      <div class="en-claps" id="wClaps" aria-live="polite"></div>
+      <div class="en-streak"><b>🔥 ${s} day${s === 1 ? '' : 's'} in a row</b><span class="note">Best: ${o.best || 0} · ${o.n || 0} words of the day</span><div class="en-days">${days}</div></div>
+      <p class="en-use">💭 ${esc(use)}</p>
+      <div id="wPlay">${done ? `<p class="en-wdone">✅ You found today's word! Come back tomorrow for a new one.</p>` : `<button class="btn leaf" id="wGo">🎯 Find today's word!</button>`}</div>
+      <div class="cheer" id="cheer" aria-live="polite"></div>${ptip('mywords')}`;
+    wireBack(myWords);
+    sayScreen(`The word of the day is ${x.w}. ${x.m ? `${x.w} means ${x.m}.` : ''} ${use}`);
+    const hear = () => talk([x.w, x.m ? `${x.w} means ${x.m}` : x.w], 0.8);
+    $('#wHear').onclick = hear;
+    $('#wClap').onclick = () => {
+      const n = syllables(x.w), box = $('#wClaps'); box.innerHTML = ''; talk([x.w], 0.6);
+      for (let i = 0; i < n; i++) setTimeout(() => { if (nav !== navId || !box.isConnected) return; box.insertAdjacentHTML('beforeend', '<span class="en-clap">👏</span>'); tone([700 + i * 80], .08); }, 300 + i * 450);
+      setTimeout(() => { if (nav === navId && box.isConnected) box.insertAdjacentHTML('beforeend', `<b>${n} clap${n > 1 ? 's' : ''}!</b>`); }, 300 + n * 450);
+    };
+    const g = $('#wGo'); if (!g) return;
+    g.onclick = () => {
+      const opts = picChoices(x, 2), useTxt = stage() >= 3;
+      $('#wPlay').innerHTML = `<div class="choices en-ch" style="grid-template-columns:repeat(3,1fr)">${opts.map((o, i) => `<button class="choice${useTxt ? ' txt' : ''}" data-wi="${i}" aria-label="${esc(o.w)}">${useTxt ? `<span class="en-ce">${o.e}</span><small>${esc(o.w)}</small>` : o.e}</button>`).join('')}</div>`;
+      say(`Which one is ${x.w}?`);
+      let tries = 0, fin = false;
+      view.querySelectorAll('[data-wi]').forEach(b => b.onclick = () => {
+        if (fin || b.disabled || nav !== navId) return;
+        const o = opts[+b.dataset.wi];
+        if (o.w !== x.w) { tries++; b.classList.add('wrong'); b.disabled = true; oops(); say(`That is ${o.w}. Find ${x.w}!`); return; }
+        fin = true; b.classList.add('right');
+        const ev = W(), w = ev.wotd;
+        if (w.last !== today()) {
+          w.streak = streakNow() + 1; w.best = Math.max(w.best || 0, w.streak); w.n = (w.n || 0) + 1; w.last = today();
+          w.days = [...(w.days || []).filter(d => dn() - dayNum(d) < 30), today()];
+          collect(x.w); give(3); confetti(60); yay();
+          $('#cheer').textContent = `🔥 ${w.streak} day${w.streak > 1 ? 's' : ''} in a row! ⭐⭐⭐`;
+          say(`Yes! ${x.w}! You have a ${w.streak} day streak!`);
+        }
+        save();
+        setTimeout(() => { if (nav === navId) go(wotd); }, 1800);
+      });
+    };
+  }
+
+  /* --- My words: word of the day, review, album --- */
+  function myWords(tid) {
+    const e = W(), x = wotdWord(), due = dueList(), all = Object.values(e.review).sort((a, b) => a.due - b.due), got = collected();
+    const T = EN_VOCAB.find(t => t.id === (tid || e.at || (got[0] && EN_WORD[got[0]].topic))) || EN_VOCAB[0]; e.at = T.id;
+    const hasT = w => (e.got[lw(w)] || 0) >= 2;
+    view.innerHTML = `${crumbs('🏅 My words')}
+      <div class="en-gg">
+        <button class="en-gt en-mw" id="mwWotd"><span class="en-sico">☀️</span><b>Word of the day</b><small>${e.wotd.last === today() ? '✅ done today' : `${x.e} new word waiting`} · 🔥 ${streakNow()}</small></button>
+        <button class="en-gt en-mw" id="mwRev"><span class="en-sico">🔁</span><b>Owl's review</b><small>${due.length ? `${due.length} word${due.length > 1 ? 's' : ''} to practice now` : all.length ? `next one ${when(all[0].due)}` : 'nothing to review. Hooray!'}</small></button>
+      </div>
+      ${all.length ? `<div class="en-revlist"><b>Words coming back:</b> ${all.slice(0, 12).map(r => `<span class="en-rv${r.due <= dn() ? ' due' : ''}">${r.e || '🔤'} ${esc(r.w)} <small>${when(r.due)}</small></span>`).join('')}</div>` : ''}
+      <h3 class="section-title">📒 Word album <span class="tag">${got.length}/${EN_ALLWORDS.length}</span></h3>
+      <span class="meter en-ameter"><i style="width:${Math.max(1, Math.round(got.length / EN_ALLWORDS.length * 100))}%"></i></span>
+      <div class="en-badges">${MILES.map(m => `<span class="en-badge${e.miles[m] ? ' on' : ''}" title="${m} words">${e.miles[m] ? '🏅' : '🔒'}<small>${m}</small></span>`).join('')}</div>
+      <p class="note">Get a word right on the first try twice and its sticker goes in your album.</p>
+      <div class="en-tabs scroll">${EN_VOCAB.map(t => { const n = t.words.filter(w => hasT(w.w)).length; return `<button class="en-tab${t.id === T.id ? ' on' : ''}" data-at="${t.id}">${t.ico} ${n}/${t.words.length}${n === t.words.length ? ' 🏆' : ''}</button>`; }).join('')}</div>
+      <div class="en-album">${T.words.map((w, i) => `<button class="en-stk${hasT(w.w) ? ' got' : ''}" data-sk="${i}" aria-label="${hasT(w.w) ? esc(w.w) : 'Not collected yet'}"><span class="en-pe">${w.e}</span><b>${hasT(w.w) ? esc(w.w) : '?'}</b></button>`).join('')}</div>${ptip('mywords')}`;
+    wireBack(englishHome);
+    sayScreen(`My words. You have ${got.length} words in your album.${due.length ? ` Owl has ${due.length} words for you to practice.` : ''}`);
+    $('#mwWotd').onclick = () => go(wotd);
+    $('#mwRev').onclick = () => due.length ? go(startReview) : say(all.length ? `The next word comes back ${when(all[0].due)}.` : 'Nothing to review. Hooray!');
+    view.querySelectorAll('[data-at]').forEach(b => b.onclick = () => go(myWords, b.dataset.at));
+    view.querySelectorAll('[data-sk]').forEach(b => b.onclick = () => { const w = T.words[+b.dataset.sk]; if (hasT(w.w)) { b.classList.remove('wig'); void b.offsetWidth; b.classList.add('wig'); say(w.w); } else say('Not collected yet. Get it right two times to win this sticker!'); });
+  }
+
+  /* --- Word play hub --- */
+  const PLAY = [
+    ['spell', '🐝', 'Spelling bee', 'Spell the picture with letter tiles'], ['maker', '📚', 'Story maker', 'Pick a hero, a place and a problem'],
+    ['rhyme', '🎵', 'Rhyme time', 'Finish the rhymes and sing your song'], ['describe', '🔍', 'Describe it', 'Which sentence matches the picture?'],
+    ['safari', '🔭', 'Sound safari', 'Hunt for things that start with a sound'], ['twisters', '👅', 'Tongue twisters', 'Say them slow, then super fast'],
+    ['listen', '👂', 'Listen & tap', 'Hear a word, tap its picture']
+  ];
+  function playHome() {
+    view.innerHTML = `${crumbs('🎨 Word play')}
+      <div class="en-gg">${PLAY.map(([id, ico, name, sub]) => `<button class="en-gt en-wp" data-wp="${id}"><span class="en-sico">${ico}</span><b>${name}</b><small>${sub}</small></button>`).join('')}</div>${ptip('play')}`;
+    wireBack(englishHome);
+    sayScreen('Word play! Spelling bee, story maker, rhyme time, describe it, sound safari, tongue twisters, or listen and tap.');
+    view.querySelectorAll('[data-wp]').forEach(b => b.onclick = () => go(VIEWS[b.dataset.wp]));
+  }
+
+  /* --- Spelling bee: tap letter tiles in order to spell the picture --- */
+  let SP = null;
+  function spellPool() {
+    const s = stage(), [lo, hi] = [[3, 3], [3, 4], [3, 5], [4, 6], [4, 8]][s - 1], mt = maxTier(), seen = new Set(), out = [];
+    for (const x of [...EN_BLEND.filter(b => b.stage <= 2), ...EN_ALLWORDS.filter(x => tierOf(x) <= mt)])
+      if (/^[a-z]+$/.test(x.w) && x.w.length >= lo && x.w.length <= hi && !seen.has(x.w)) { seen.add(x.w); out.push({ w: x.w, e: x.e }); }
+    return out;
+  }
+  function spell() { SP = { list: shuffle(spellPool()).slice(0, 5), i: 0, stars: 0, first: 0 }; spellRound(); }
+  function spellRound() {
+    const x = SP.list[SP.i], s = stage(), n = s >= 3 ? 2 : s === 2 ? 1 : 0;
+    const extra = shuffle('abcdefghijklmnoprstuvwy'.split('').filter(c => !x.w.includes(c))).slice(0, n);
+    let tiles = shuffle([...x.w.split(''), ...extra]);
+    if (tiles.join('') === x.w && tiles.length > 1) tiles = tiles.reverse();
+    Object.assign(SP, { cur: x, tiles: tiles.map(c => ({ c, used: false })), got: 0, miss: 0, done: false, ghost: s === 1 });
+    drawSpell(); say(`Spell ${x.w}. ${x.w}.`);
+  }
+  function drawSpell(msg) {
+    const x = SP.cur, nav = navId;
+    view.innerHTML = `${crumbs('🐝 Spelling bee')}
+      <div class="progress">${SP.list.map((_, k) => `<i class="${k < SP.i ? 'done' : k === SP.i ? 'now' : ''}"></i>`).join('')}</div>
+      <div class="en-spell${SP.done ? ' ok' : ''}"><div class="en-pic big en-spic">${x.e}</div><button class="speak" id="spk" aria-label="Hear the word">🔊</button></div>
+      <div class="en-slots" aria-label="Your word">${x.w.split('').map((c, i) => `<span class="en-slot${i < SP.got ? ' on' : ''}${i === SP.got && !SP.done ? ' next' : ''}">${i < SP.got ? c : SP.ghost ? `<i>${c}</i>` : ''}</span>`).join('')}</div>
+      <div class="en-tiles">${SP.tiles.map((t, i) => t.used ? '' : `<button class="en-tile" data-tl="${i}" aria-label="letter ${t.c}">${t.c}</button>`).join('')}</div>
+      <div class="cheer" id="cheer" aria-live="polite">${msg || ''}</div>${ptip('play')}`;
+    wireBack(playHome);
+    $('#spk').onclick = () => talk([x.w, x.w.split('').map(c => EN_SND[c] || c).join(', '), x.w], 0.75);
+    view.querySelectorAll('[data-tl]').forEach(b => b.onclick = () => {
+      if (SP.done || nav !== navId) return;
+      const t = SP.tiles[+b.dataset.tl], want = x.w[SP.got];
+      if (t.c !== want) {
+        SP.miss++; oops(); b.classList.add('wrong'); setTimeout(() => b.classList.remove('wrong'), 400);
+        if (SP.miss === 1) hooks.miss({ w: x.w, e: x.e });
+        say(`Not ${t.c}. Listen: ${x.w}. What sound comes next? ${EN_SND[want] || want}.`); return;
+      }
+      t.used = true; SP.got++; tone([520 + SP.got * 60], .07);
+      if (SP.got < x.w.length) { drawSpell(); say(EN_SND[t.c] || t.c); return; }
+      SP.done = true; const first = SP.miss === 0, earned = first ? 2 : 1;
+      SP.stars += earned; if (first) { SP.first++; questTick('firsttry'); }
+      hooks.hit({ w: x.w, e: x.e }, first); give(earned); yay();
+      drawSpell(`${first ? 'Perfect spelling!' : 'You spelled it!'} ${'⭐'.repeat(earned)}`);
+      say(`${x.w}! ${x.w.split('').join(', ')}. ${x.w}!`);
+      setTimeout(() => {
+        if (nav !== navId) return; SP.i++;
+        if (SP.i < SP.list.length) { spellRound(); return; }
+        const e = E(); e.rounds.spell = (e.rounds.spell || 0) + 1; e.best.spell = Math.max(e.best.spell || 0, SP.first); save();
+        reward('Spelling star!', `You spelled ${SP.list.length} words and earned ${SP.stars} ⭐`, () => go(spell), () => go(playHome));
+      }, 1900);
+    });
+  }
+
+  /* --- Story maker: pick a hero, a place and a problem; Owl writes and reads the story --- */
+  let TM = null;
+  const heroes = () => [...EN_TALE.heroes.map(h => ({ phr: h[0], e: h[1], ref: 'the ' + h[2] })), { phr: st.name || 'You', e: (profileOf(pid) || {}).avatar || '🧒', ref: st.name || 'you', me: true }];
+  function storyMaker() { TM = { hero: null, place: null, prob: null }; drawMaker(); say('Story maker! Pick a hero, a place, and a problem.'); }
+  function drawMaker(spin) {
+    const H = heroes(), steps = [['hero', '🦸 Who is the hero?', H.map(h => [h.e, h.me ? `${h.phr} (me!)` : h.phr])], ['place', '🗺️ Where are they?', EN_TALE.places.map(p => [p[1], p[0]])], ['prob', '⚡ What goes wrong?', EN_TALE.problems.map(p => [p[1], p[2]('the hero')])]];
+    const ready = TM.hero != null && TM.place != null && TM.prob != null;
+    view.innerHTML = `${crumbs('📚 Story maker')}
+      <div class="en-recipe${spin ? ' spin' : ''}">${steps.map(([k, , opts]) => `<span class="en-rslot${TM[k] != null ? ' on' : ''}">${TM[k] != null ? opts[TM[k]][0] : '❔'}</span>`).join('<b>+</b>')}</div>
+      <div class="row"><button class="btn alt" id="tmDice">🎲 Surprise me!</button><button class="btn leaf" id="tmGo"${ready ? '' : ' disabled'}>📖 Make my story!</button></div>
+      ${steps.map(([k, q, opts]) => `<h3 class="section-title">${q}</h3><div class="en-mk">${opts.map(([e, t], i) => `<button class="en-mko${TM[k] === i ? ' on' : ''}" data-mk="${k}:${i}" aria-label="${esc(t)}"><span>${e}</span><small>${esc(t)}</small></button>`).join('')}</div>`).join('')}
+      ${ptip('play')}`;
+    wireBack(playHome);
+    view.querySelectorAll('[data-mk]').forEach(b => b.onclick = () => { const [k, i] = b.dataset.mk.split(':'); TM[k] = +i; tone([600 + (+i) * 30], .06); say(b.getAttribute('aria-label')); drawMaker(); });
+    $('#tmDice').onclick = () => { TM.hero = rnd(0, H.length - 1); TM.place = rnd(0, EN_TALE.places.length - 1); TM.prob = rnd(0, EN_TALE.problems.length - 1); tone([523, 659, 784, 988], .07); drawMaker(true); };
+    $('#tmGo').onclick = () => { if (TM.hero != null && TM.place != null && TM.prob != null) go(tale, makeTale(H[TM.hero], EN_TALE.places[TM.place], EN_TALE.problems[TM.prob], stage() >= 4), 0); };
+  }
+  function makeTale(H, place, prob, big) {
+    const w = k => EN_TALE.words[k][big ? 1 : 0], helper = pick(EN_TALE.helpers), like = pick(EN_TALE.likes), Ref = enCap(H.ref);
+    return { key: `${H.me ? 'me' : H.e}|${place[1]}|${prob[0]}`, title: `${Ref} and the ${prob[0]}`, pages: [
+      [H.e + place[1], H.me ? `Once upon a time, ${H.phr} lived ${place[0]}.` : `Once upon a time, there was ${H.phr} who lived ${place[0]}.`],
+      ['😊', `Every day, ${H.ref} liked to ${like}. Life was ${w('good')}!`],
+      [prob[1], `${w('start')} ${prob[2](H.ref)}!`],
+      [helper[1], `"Oh no!" ${H.ref} ${w('said')}. Just then, ${helper[0]} came by to help.`],
+      ['💡', `${prob[3](H.ref)}.`],
+      ['🎉', `${Ref} gave the ${helper[2]} a ${w('big')} hug and felt very ${w('happy')}. ${pick(EN_TALE.ends)}`]
+    ] };
+  }
+  function tale(T, p) {
+    const pg = T.pages[p], last = p === T.pages.length - 1, nav = navId;
+    view.innerHTML = `${crumbs('📚 My story')}
+      <div class="progress">${T.pages.map((_, k) => `<i class="${k < p ? 'done' : k === p ? 'now' : ''}"></i>`).join('')}</div>
+      <div class="en-page en-tale">${p === 0 ? `<b class="en-ttl">${esc(T.title)}</b>` : ''}<div class="en-pic big">${pg[0]}</div><p class="en-sent" id="tmText">${tapWords(pg[1])}</p></div>
+      <div class="row"><button class="btn alt" id="enPrev"${p ? '' : ' disabled'}>◀ Back</button><button class="btn alt" id="enRead">🔊 Read to me</button><button class="btn leaf" id="enNextP">${last ? '⭐ The end!' : 'Next ▶'}</button></div>`;
+    wireBack(storyMaker);
+    screenText = pg[1]; wireTapWords(view);
+    const read = () => { talk([pg[1]], 0.85); glow('#tmText', 0.85, nav); };
+    $('#enRead').onclick = read; read();
+    $('#enPrev').onclick = () => { if (p) go(tale, T, p - 1); };
+    $('#enNextP').onclick = () => {
+      if (!last) { go(tale, T, p + 1); return; }
+      const e = W(), fresh = !e.tales[T.key]; e.tales[T.key] = 1; e.rounds.tale = (e.rounds.tale || 0) + 1;
+      if (fresh) give(2); save();
+      const n = Object.keys(e.tales).length;
+      reward('What a story!', `You have made ${n} different stor${n === 1 ? 'y' : 'ies'}${fresh ? ' and earned 2 ⭐' : '. Try a new mix for more stars!'}`, () => go(storyMaker), () => go(playHome));
+    };
+  }
+  // Light the words of a line one after another, at about the speed the voice reads them.
+  function glow(sel, rate, nav) {
+    const ws = [...view.querySelectorAll(`${sel} .en-tw`)], ms = Math.round(330 / rate);
+    ws.forEach((b, i) => setTimeout(() => { if (nav !== navId || !b.isConnected) return; ws.forEach(o => o.classList.remove('lit')); b.classList.add('lit'); }, 300 + i * ms));
+    setTimeout(() => { if (nav === navId) ws.forEach(o => o.classList.remove('lit')); }, 400 + ws.length * ms);
+  }
+
+  /* --- Rhyme time: pick the rhyming word for each line, then sing the song --- */
+  const lastWord = l => l.replace(/[^\w\s'-]/g, '').trim().split(/\s+/).pop();
+  function rhymeSpec() {
+    const list = shuffle(EN_RHYMES).slice(0, 4), many = stage() >= 3 ? 3 : 2;
+    return { id: 'rhyme', title: '🎵 Rhyme time', back: () => go(playHome), tip: 'play',
+      list: list.map(c => {
+        const wrong = shuffle(EN_RHYMES.filter(o => o[4] !== c[4] && o[2] !== c[2])).filter((o, i, a) => a.findIndex(z => z[2] === o[2]) === i).slice(0, many);
+        return { c, prompt: `${esc(c[0])}<br>${esc(c[1])} <span class="en-blank">&nbsp;?&nbsp;</span>`, say: `${c[0].replace(/[^\w\s"'!,.-]/g, '')}, ${c[1]}... what rhymes with ${lastWord(c[0])}?`,
+          visual: '<div class="en-pic en-note" aria-hidden="true">🎵</div>', choices: shuffle([c, ...wrong]).map(o => ({ html: `<span class="en-ce">${o[3]}</span><small>${o[2]}</small>`, val: o[2], say: o[2] })), answer: c[2],
+          explain: `Listen to the end sound: ${lastWord(c[0])}... ${c[2]}! They rhyme because they both end in "${c[4]}".` };
+      }),
+      end(R, rw) { song(R.list.map(q => q.c), rw); } };
+  }
+  function song(cs, rw) {
+    const nav = navId, lines = cs.flatMap(c => [c[0], `${c[1]} ${c[2]}! ${c[3]}`]);
+    view.innerHTML = `<div class="view done en-song"><div class="big en-notes" aria-hidden="true">🎶🦉🎶</div><h1>My rhyme song</h1>
+      <div class="en-songl">${lines.map((l, i) => `<p data-sl="${i}">${esc(l)}</p>`).join('')}</div>
+      <div class="row"><button class="btn alt" id="enSing">🎤 Sing it again</button><button class="btn leaf" id="enDone">Done ⭐</button></div></div>`;
+    const light = i => { if (nav !== navId) return; view.querySelectorAll('[data-sl]').forEach(p => p.classList.toggle('lit', +p.dataset.sl === i)); };
+    const sing = () => {
+      tone([523, 587, 659, 784], .1);
+      if (voice()) { try { speechSynthesis.cancel(); lines.forEach((l, i) => { const u = new SpeechSynthesisUtterance(speakable(l)); u.rate = 0.95; u.pitch = 1.4; u.onstart = () => light(i); speechSynthesis.speak(u); }); light(0); return; } catch (e) {} }
+      lines.forEach((_, i) => setTimeout(() => light(i), i * 900));
+    };
+    $('#enSing').onclick = sing; $('#enDone').onclick = rw; sing();
+  }
+
+  /* --- Describe it: read the sentences, pick the one that matches the picture --- */
+  function describeSpec() {
+    return { id: 'describe', title: '🔍 Describe it', back: () => go(playHome), tip: 'play', gen() {
+      const s = stage(), big = s >= 4, D = EN_DESC;
+      const mk = (who, act, n, size) => {
+        const sz = size ? size[big ? 1 : 0] + ' ' : '', noun = n === 1 ? who[0] : who[1], first = n === 1 ? (/^[aeiou]/.test(sz || noun) ? 'An' : 'A') : enCap(D.count[n - 1]);
+        return `${first} ${sz}${noun} ${n === 1 ? act[0] : act[1]}.`;
+      };
+      const who = pick(D.who), act = pick(D.act), n = s === 1 ? rnd(1, 2) : rnd(1, 4), size = s >= 2 && Math.random() < 0.6 ? pick(D.size) : null;
+      const right = mk(who, act, n, size), wrong = new Set();
+      const tweaks = shuffle([() => mk(pick(D.who.filter(x => x !== who)), act, n, size), () => mk(who, pick(D.act.filter(x => x !== act)), n, size), () => mk(who, act, pick([1, 2, 3, 4].filter(x => x !== n && (s > 1 || x <= 3))), size),
+        () => size ? mk(who, act, n, D.size.find(x => x !== size)) : mk(pick(D.who.filter(x => x !== who)), pick(D.act.filter(x => x !== act)), n, size)]);
+      for (const t of tweaks) { if (wrong.size >= (s >= 3 ? 3 : 2)) break; const v = t(); if (v !== right) wrong.add(v); }
+      const sc = size ? size[2] : 1;
+      return { prompt: 'Which sentence tells about the picture?', say: 'Look at the picture. Which sentence tells about it?',
+        visual: `<div class="en-desc"><span class="en-dwho" style="font-size:${Math.round(48 * sc)}px">${who[2].repeat(n)}</span><span class="en-dact">${act[2]}</span></div>`,
+        choices: enTxt([right, ...wrong]), answer: right, explain: `Look closely: count the animals, check their size and what they are doing. It says: ${right}` };
+    } };
+  }
+
+  /* --- Sound safari: find the hidden things that start with a sound --- */
+  let SF = null;
+  const SAFARI = 'bdfhjlmnprstvwz'.split('');
+  function safariPool() {
+    const by = {}, skip = /^(sh|ch|th|wh|ph|kn|wr)/;
+    for (const x of EN_ALLWORDS) if (tierOf(x) <= 2 && /^[a-z]+$/.test(x.w) && !skip.test(x.w) && !['sugar', 'hour', 'sure'].includes(x.w) && SAFARI.includes(x.w[0])) (by[x.w[0]] = by[x.w[0]] || []).push(x);
+    return by;
+  }
+  function safari() {
+    const by = safariPool(), letters = shuffle(Object.keys(by).filter(l => new Set(by[l].map(x => x.e)).size >= 3)).slice(0, 3);
+    SF = { by, letters, i: 0, stars: 0, first: 0 }; safariRound();
+  }
+  function safariRound() {
+    const l = SF.letters[SF.i], seen = new Set(), pickU = (arr, n) => { const out = []; for (const x of shuffle(arr)) { if (out.length >= n) break; if (!seen.has(x.e)) { seen.add(x.e); out.push(x); } } return out; };
+    const targets = pickU(SF.by[l], 3), others = pickU(Object.keys(SF.by).filter(k => k !== l).flatMap(k => SF.by[k]), 6);
+    Object.assign(SF, { l, grid: shuffle([...targets, ...others]), found: {}, miss: 0, lock: false });
+    drawSafari(); say(`Sound safari! Find 3 things that start with ${EN_SND[l]}. ${EN_SND[l]}!`);
+  }
+  function drawSafari(msg) {
+    const nav = navId, l = SF.l, n = Object.keys(SF.found).length;
+    view.innerHTML = `${crumbs('🔭 Sound safari')}
+      <div class="progress">${SF.letters.map((_, k) => `<i class="${k < SF.i ? 'done' : k === SF.i ? 'now' : ''}"></i>`).join('')}</div>
+      <div class="prompt"><div class="ptext">Find 3 things that start with <b class="en-sfl">${l}</b> (${EN_SND[l]})</div><button class="speak" id="spk" aria-label="Hear the sound">🔊</button></div>
+      <div class="en-cam">📸 ${'🟢'.repeat(n)}${'⚪'.repeat(3 - n)}</div>
+      <div class="en-jungle">${SF.grid.map((x, i) => `<button class="en-hid${SF.found[i] ? ' snap' : ''}" data-sf="${i}" style="animation-delay:${(i % 5) * 0.15}s" aria-label="${esc(x.w)}"><span>${x.e}</span>${SF.found[i] ? `<small>${esc(x.w)}</small>` : ''}</button>`).join('')}</div>
+      <div class="cheer" id="cheer" aria-live="polite">${msg || ''}</div>${ptip('play')}`;
+    wireBack(playHome);
+    $('#spk').onclick = () => say(`Find things that start with ${EN_SND[l]}. ${EN_SND[l]}!`);
+    view.querySelectorAll('[data-sf]').forEach(b => b.onclick = () => {
+      if (SF.lock || nav !== navId) return;
+      const i = +b.dataset.sf, x = SF.grid[i];
+      if (SF.found[i]) { say(x.w); return; }
+      if (x.w[0] !== l) { SF.miss++; oops(); b.classList.add('wrong'); setTimeout(() => b.classList.remove('wrong'), 400); say(`That is ${x.w}. ${x.w} starts with ${EN_SND[x.w[0]] || x.w[0]}.`); return; }
+      SF.found[i] = 1; tone([880, 1175], .06);
+      if (Object.keys(SF.found).length < 3) { drawSafari(); say(`${x.w}! ${EN_SND[l]}, ${x.w}!`); return; }
+      SF.lock = true; const first = SF.miss === 0, earned = first ? 2 : 1;
+      SF.stars += earned; if (first) { SF.first++; questTick('firsttry'); }
+      give(earned); yay(); drawSafari(`Snap! You found all 3! ${'⭐'.repeat(earned)}`); say(`${x.w}! You found all three ${EN_SND[l]} things!`);
+      setTimeout(() => {
+        if (nav !== navId) return; SF.i++;
+        if (SF.i < SF.letters.length) { safariRound(); return; }
+        const e = E(); e.rounds.safari = (e.rounds.safari || 0) + 1; e.best.safari = Math.max(e.best.safari || 0, SF.first); save();
+        reward('Safari explorer!', `You found ${SF.letters.length * 3} things and earned ${SF.stars} ⭐`, () => go(safari), () => go(playHome));
+      }, 1600);
+    });
+  }
+
+  /* --- Tongue twisters: hear them slow, fast and super fast; say it 3 times for stars --- */
+  function twisterHome() {
+    const e = W();
+    view.innerHTML = `${crumbs('👅 Tongue twisters')}
+      <p class="note">Listen slowly first. Then say it 3 times, faster and faster!</p>
+      <div class="en-list">${EN_TWISTERS.map(([t, ico, s], i) => `<button class="en-row${open(s) ? '' : ' locked'}" data-tt="${i}"><span class="en-rico">${open(s) ? ico : '🔒'}</span><span><b>${esc(t)}</b><small>Stage ${s}${e.tw[i] ? ' · ✅ said it' : ''}</small></span></button>`).join('')}</div>${ptip('play')}`;
+    wireBack(playHome);
+    sayScreen('Tongue twisters! Pick one.');
+    view.querySelectorAll('[data-tt]').forEach(b => b.onclick = () => { const i = +b.dataset.tt, s = EN_TWISTERS[i][2]; open(s) ? go(twister, i) : say(A.lockText(s)); });
+  }
+  function twister(i) {
+    const [t, ico, s] = EN_TWISTERS[i], nav = navId; let said = 0;
+    view.innerHTML = `${crumbs('👅 Tongue twister')}
+      <div class="en-page en-twc"><div class="en-pic big en-twe">${ico}</div><p class="en-sent" id="twText">${tapWords(t)}</p></div>
+      <div class="row"><button class="btn alt" data-sp="0.6">🐢 Slow</button><button class="btn alt" data-sp="1">🐇 Fast</button><button class="btn alt" data-sp="1.4">🚀 Super fast</button></div>
+      <div class="row"><button class="btn leaf" id="twSaid">🎤 I said it!</button><span class="en-tries" id="twDots">⚪⚪⚪</span></div>
+      <div class="cheer" id="cheer" aria-live="polite"></div>
+      <div class="row" id="twNext"></div>${ptip('play')}`;
+    wireBack(twisterHome);
+    wireTapWords(view);
+    sayScreen(t);
+    view.querySelectorAll('[data-sp]').forEach(b => b.onclick = () => { const r = +b.dataset.sp; talk([t], r); glow('#twText', r, nav); $('.en-twe').classList.remove('wob'); void $('.en-twe').offsetWidth; $('.en-twe').classList.add('wob'); });
+    $('#twSaid').onclick = () => {
+      if (said >= 3) return;
+      said++; tone([500 + said * 120], .08); $('#twDots').textContent = '🟢'.repeat(said) + '⚪'.repeat(3 - said);
+      if (said < 3) { say(said === 1 ? 'Good! Now a bit faster!' : 'Faster! One more time!'); return; }
+      const e = W(), fresh = !e.tw[i]; e.tw[i] = 1; save();
+      if (fresh) { give(2); confetti(50); }
+      yay(); $('#cheer').textContent = fresh ? 'Twister champion! ⭐⭐' : 'Great tongue workout!';
+      say(fresh ? 'Twister champion! Your tongue is super strong!' : 'Great tongue workout!');
+      const nx = EN_TWISTERS.findIndex((x, k) => k > i && open(x[2]));
+      $('#twNext').innerHTML = `${nx >= 0 ? '<button class="btn leaf" id="twGo">Next twister ▶</button>' : ''}<button class="btn alt" id="twAll">All twisters</button>`;
+      if (nx >= 0) $('#twGo').onclick = () => go(twister, nx);
+      $('#twAll').onclick = () => go(twisterHome);
+    };
+  }
+
+  /* --- Listen & tap --- */
+  function listenSpec() {
+    return { id: 'listen', title: '👂 Listen & tap', back: () => go(playHome), tip: 'play', gen() {
+      const mt = maxTier(), pool = EN_ALLWORDS.filter(x => tierOf(x) <= mt), x = pick(pool), opts = picChoices(x, stage() >= 3 ? 3 : 2), v = voice();
+      return { prompt: v ? 'Listen! Tap the picture you hear.' : `Tap the picture: <b>${esc(x.w)}</b>`, say: `Listen: ${x.w}. Tap ${x.w}.`, visual: '<div class="en-ear" aria-hidden="true">👂</div>', rv: { w: x.w, e: x.e },
+        choices: opts.map(o => ({ html: o.e, val: o.w, say: o.w })), answer: x.w, explain: `Listen again: ${x.w}. ${x.e} is ${x.w}.` };
+    } };
+  }
+
+  /* --- wiring into the English area --- */
+  SECTIONS.push(
+    { id: 'play', ico: '🎨', name: 'Word play', sub: 'Spell, rhyme, make stories, tongue twisters', fn: () => playHome(), c: '#C2410C',
+      tip: 'Play along: take turns in Story maker, or race each other on a tongue twister. Laughing together builds readers.' },
+    { id: 'mywords', ico: '🏅', name: 'My words', get sub() { return `Word of the day, review, ${collected().length} words collected`; }, fn: () => myWords(), c: '#8A5A00',
+      tip: 'Words your child misses come back today, then in 1 and 3 days. A few minutes of review each day helps words stick for good.' }
+  );
+  Object.assign(VIEWS, { wordplay: playHome, mywords: myWords, wotd, review: startReview, spell, maker: storyMaker, tale, rhyme: () => quiz(rhymeSpec()), describe: () => quiz(describeSpec()),
+    safari, twisters: twisterHome, twister, listen: () => quiz(listenSpec()) });
+  // The home page gets a "word of the day" strip and, when words are due, an "Owl's review" strip.
+  englishHome.after = v => {
+    const nx = v.querySelector('#enNext'); if (!nx) return;
+    const e = W(), x = wotdWord(), done = e.wotd.last === today(), due = dueList().length, box = document.createElement('div');
+    box.className = 'en-today';
+    box.innerHTML = `<button class="en-wotdc${done ? ' done' : ''}" id="enWotd"><span class="en-wsun" aria-hidden="true">☀️</span><span><b>Word of the day</b>${done ? `✅ ${x.e} ${esc(x.w)}` : 'A new word is waiting!'}</span><span class="en-fire">🔥 ${streakNow()}</span></button>
+      ${due ? `<button class="en-revc" id="enRev"><span class="en-sico">🔁</span><span><b>Owl's review</b>${due} word${due > 1 ? 's' : ''} to practice</span></button>` : ''}`;
+    nx.parentNode.insertBefore(box, nx);
+    box.querySelector('#enWotd').onclick = () => go(wotd);
+    const r = box.querySelector('#enRev'); if (r) r.onclick = () => go(startReview);
+  };
+  englishHome.more = b => ({ ...b, games: b.games + PLAY.length + 2, wordplay: PLAY.length, twisters: EN_TWISTERS.length, rhymes: EN_RHYMES.length,
+    tales: EN_TALE.heroes.length * EN_TALE.places.length * EN_TALE.problems.length, bigwords: EN_ALLWORDS.filter(x => x.t === 3).length });
+  if (location.hash === '#selftest' && window.__english) Object.defineProperties(window.__english, Object.getOwnPropertyDescriptors({
+    W, wotdWord, dueList, collected, syllables, makeTale, spellPool, safariPool, heroes, streakNow, picChoices, describeSpec, rhymeSpec, listenSpec, PLAY,
+    get SP() { return SP; }, get SF() { return SF; }, get TM() { return TM; }
+  }));
+  Object.assign(window.__english ? window.__english.data : {}, { EN_ALLWORDS, EN_TWISTERS, EN_RHYMES, EN_TALE, EN_DESC });
 })();
 /* ---------- welcome tour (once per player) and the grown-ups' "What's inside" guide ---------- */
 // The tour shows the first time a player reaches the home screen: 7 big cards, each read aloud and pointing at a real
@@ -19087,7 +19868,9 @@ const tour = (() => {
         `<b>Letter sounds</b>: ${englishHome.info().sounds} sound cards (26 letters, letter pairs like sh and ch, magic e, vowel teams), a sound song, and first-sound, magic e and vowel team games. <b>Blend it</b>: ${englishHome.info().blend} words to sound out (c-a-t), each sound lights up, then you pick the picture.`,
         `<b>Sight words</b>: the ${englishHome.info().sight} Dolch words in 5 sets with flash cards and "find the word". <b>Read</b>: word and sentence matching, silly sentences, and ${englishHome.info().stories} short stories with tap-a-word help and questions after.`,
         `<b>Sentence builder</b> (${englishHome.info().build} sentences: word order, capital letter, end mark), <b>${englishHome.info().grammar} grammar games</b> (rhymes, opposites, nouns and verbs, plurals, a/an, in/on/under, pronouns, past tense, punctuation, contractions, synonyms, sound-alikes, word parts...), a <b>word book</b> of ${englishHome.info().words} words in ${englishHome.info().topics} topics, and <b>Say it!</b> with ${englishHome.info().sayings} everyday expressions, friendly slang and idioms explained simply.`,
-        `<b>Fun games</b>: bubble pop, Feed Munch the monster, a word treasure hunt and silly sentences. Each finished round brings out a word pal for the reading club (${englishHome.info().pals} to collect).`])}</div>
+        `<b>Fun games</b>: bubble pop, Feed Munch the monster, a word treasure hunt and silly sentences. Each finished round brings out a word pal for the reading club (${englishHome.info().pals} to collect).`,
+        `<b>Word play</b>: a spelling bee with letter tiles, a story maker (hero, place and problem: ${englishHome.info().tales} stories, read aloud), rhyme time that turns into a song (${englishHome.info().rhymes} rhymes), describe it, a sound safari, ${englishHome.info().twisters} tongue twisters, and listen &amp; tap. The word book has age tiers: first words, more words, and ${englishHome.info().bigwords} big words with meanings.`,
+        `<b>My words</b>: a word of the day with a daily streak, Owl's review (missed words come back the same day, then after 1 and 3 days, until learned), and a word album that collects a sticker for each word got right twice. Each section ends with a one-line tip for grown-ups.`])}</div>
       <div class="panel"><h2>🗺️ Owl's Quest, My World, daily quest and owl</h2>${li([
         `<b>Owl's Quest</b>: a story map of ${FIXED.chapters} chapters. Each stop is a few math puzzles, a drawing, or a story choice. Finished chapters become a storybook.`,
         "<b>Today's quest</b> on the home screen: 3 small jobs a day, then a treasure chest.",
