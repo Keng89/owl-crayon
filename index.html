@@ -107,7 +107,8 @@ h1,h2,h3{font-family:var(--display);font-weight:800;margin:0;text-wrap:balance;l
 .tabs button{padding:10px 18px;border-radius:999px;background:var(--paper);font-weight:800;box-shadow:0 3px 0 var(--line)}
 .tabs button[aria-pressed=true]{background:var(--coral-deep);color:#fff;box-shadow:0 3px 0 #B8402F}
 .idea{display:flex;align-items:center;gap:12px;background:var(--paper);border-radius:22px;padding:12px 14px;box-shadow:0 4px 0 var(--line);flex-wrap:wrap}
-.idea p{flex:1;min-width:0;margin:0;font-weight:800;font-size:21px}
+.idea p{flex:1 1 170px;min-width:0;margin:0;font-weight:800;font-size:21px;overflow-wrap:break-word}
+.idea #inew{margin-left:auto} /* on a phone it wraps under the idea instead of squeezing long words like "underwater" */
 .studio{display:flex;flex-direction:column;gap:12px;flex:1;min-height:0}
 .canvas-wrap{position:relative;flex:1;min-height:340px;background:#fff;border-radius:24px;box-shadow:0 5px 0 var(--line);overflow:hidden}
 .canvas-wrap canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none}
@@ -1328,7 +1329,7 @@ body:has(.sp-svg) #toast{pointer-events:none}
 .mw-sale{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:3;display:flex;flex-direction:column;align-items:center;gap:2px;background:var(--paper);border-radius:20px;padding:10px 14px;box-shadow:0 5px 0 rgba(34,48,90,.25);min-width:120px;max-width:calc(5 * var(--cs))}
 .mw-sale .mw-se{font-size:calc(var(--cs) * .8);line-height:1}
 .mw-sale b{font-family:var(--display);font-size:18px;line-height:1.1;text-align:center}
-.mw-sale i{font-style:normal;font-weight:800;background:var(--sun);border-radius:999px;padding:2px 10px}
+.mw-sale i{font-style:normal;font-weight:800;background:var(--sun-soft);box-shadow:inset 0 0 0 2px var(--sun);border-radius:999px;padding:2px 10px}
 .mw-it,.mw-hoot,.mw-volc,.mw-ok,.mw-glow,.mw-pop{position:absolute;left:calc(var(--x) * var(--cs));top:calc(var(--y) * var(--cs));width:var(--cs);height:var(--cs)}
 .mw-it{display:flex;align-items:flex-end;justify-content:center;padding:0 0 2px;touch-action:none;transform:translate(calc(var(--dx,0) * var(--cs)),calc(var(--dy,0) * var(--cs)));transition:transform 2.2s ease-in-out;border-radius:12px}
 .mw-g{position:relative;display:block;font-size:calc(var(--cs) * .72 * var(--s,1));line-height:1;pointer-events:none;filter:drop-shadow(0 3px 0 rgba(20,40,40,.22));transform:scaleX(var(--fx,1));transition:transform .4s}
@@ -1390,8 +1391,8 @@ body:has(.sp-svg) #toast{pointer-events:none}
 .mw-card{position:relative;display:flex;flex-direction:column;align-items:center;gap:4px;background:var(--paper);border-radius:22px;padding:12px 8px;box-shadow:0 5px 0 var(--line);text-align:center;--cs:72px}
 .mw-card b{font-family:var(--display);font-size:20px;line-height:1.1}
 .mw-cg{height:76px;display:grid;place-items:end center}.mw-cg .mw-g{font-size:58px}.mw-cg .mw-svg{width:70px;height:70px}
-.mw-price{background:var(--sun);border-radius:999px;padding:3px 12px;font-weight:800;font-size:18px}
-.mw-poor .mw-price{background:#E4E9F0;color:var(--ink-soft)}
+.mw-price{background:var(--sun-soft);box-shadow:inset 0 0 0 2px var(--sun);border-radius:999px;padding:3px 12px;font-weight:800;font-size:18px} /* the star emoji vanished on solid yellow */
+.mw-poor .mw-price{background:#E4E9F0;box-shadow:none;color:var(--ink-soft)}
 .mw-poor .mw-cg{opacity:.75}
 .mw-hab{font-size:14px;font-weight:800;color:var(--leaf-deep);line-height:1.2}
 .mw-hab.no{color:var(--coral-deep)}
@@ -13374,7 +13375,7 @@ function parent() {
       <p class="note">Owl &amp; Crayon works without the internet. Progress, drawings and Owl's answers are saved only in this browser on this device. There are no ads, no tracking and no accounts, and nothing is sent anywhere unless you switch on Online Owl.</p>
       <p class="note">With Online Owl on, only the question your child asks and their age go to your Online Owl server, which asks an AI (Cloudflare's free AI, or Claude by Anthropic) for a short, child-friendly answer. Names and progress are never sent. You can read every answer above, and turn it off at any time.</p>
       <p class="note">The microphone button uses the browser's own speech recognition, which may send the recording to the browser maker (for example Google or Apple) to turn it into text. Typing works without it.</p>
-      <p class="note">Version 2026-10-21 23:16 UTC</p></div>`;
+      <p class="note">Version 2026-10-21 23:38 UTC</p></div>`;
   view.querySelectorAll('[data-teach]').forEach(b => b.onclick = () => {
     const i = +b.dataset.teach, ans = $('#t' + i).value.trim(); if (!ans) return;
     owlForget(st.owlMisses[i].q); st.owlTaught.push({ q: st.owlMisses[i].q, a: ans }); st.owlMisses.splice(i, 1); save(); go(parent);
@@ -19528,9 +19529,11 @@ const EN_DESC = {
     $('#tmDice').onclick = () => { TM.hero = rnd(0, H.length - 1); TM.place = rnd(0, EN_TALE.places.length - 1); TM.prob = rnd(0, EN_TALE.problems.length - 1); tone([523, 659, 784, 988], .07); drawMaker(true); };
     $('#tmGo').onclick = () => { if (TM.hero != null && TM.place != null && TM.prob != null) go(tale, makeTale(H[TM.hero], EN_TALE.places[TM.place], EN_TALE.problems[TM.prob], stage() >= 4), 0); };
   }
+  // Problem ids read badly in a title ("The mouse and the bored"), so titles use a noun.
+  const TALE_TITLE = { hiccups: 'hiccups', rain: 'jelly bean rain', stuck: 'tall tree', dark: 'missing sun', hungry: 'rumbly tummy', sneeze: 'big sneeze', bored: 'boring day', monster: 'grumpy monster', balloon: 'runaway balloon' };
   function makeTale(H, place, prob, big) {
     const w = k => EN_TALE.words[k][big ? 1 : 0], helper = pick(EN_TALE.helpers), like = pick(EN_TALE.likes), Ref = enCap(H.ref);
-    return { key: `${H.me ? 'me' : H.e}|${place[1]}|${prob[0]}`, title: `${Ref} and the ${prob[0]}`, pages: [
+    return { key: `${H.me ? 'me' : H.e}|${place[1]}|${prob[0]}`, title: `${Ref} and the ${TALE_TITLE[prob[0]] || prob[0]}`, pages: [
       [H.e + place[1], H.me ? `Once upon a time, ${H.phr} lived ${place[0]}.` : `Once upon a time, there was ${H.phr} who lived ${place[0]}.`],
       ['😊', `Every day, ${H.ref} liked to ${like}. Life was ${w('good')}!`],
       [prob[1], `${w('start')} ${prob[2](H.ref)}!`],

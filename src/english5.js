@@ -247,9 +247,11 @@
     $('#tmDice').onclick = () => { TM.hero = rnd(0, H.length - 1); TM.place = rnd(0, EN_TALE.places.length - 1); TM.prob = rnd(0, EN_TALE.problems.length - 1); tone([523, 659, 784, 988], .07); drawMaker(true); };
     $('#tmGo').onclick = () => { if (TM.hero != null && TM.place != null && TM.prob != null) go(tale, makeTale(H[TM.hero], EN_TALE.places[TM.place], EN_TALE.problems[TM.prob], stage() >= 4), 0); };
   }
+  // Problem ids read badly in a title ("The mouse and the bored"), so titles use a noun.
+  const TALE_TITLE = { hiccups: 'hiccups', rain: 'jelly bean rain', stuck: 'tall tree', dark: 'missing sun', hungry: 'rumbly tummy', sneeze: 'big sneeze', bored: 'boring day', monster: 'grumpy monster', balloon: 'runaway balloon' };
   function makeTale(H, place, prob, big) {
     const w = k => EN_TALE.words[k][big ? 1 : 0], helper = pick(EN_TALE.helpers), like = pick(EN_TALE.likes), Ref = enCap(H.ref);
-    return { key: `${H.me ? 'me' : H.e}|${place[1]}|${prob[0]}`, title: `${Ref} and the ${prob[0]}`, pages: [
+    return { key: `${H.me ? 'me' : H.e}|${place[1]}|${prob[0]}`, title: `${Ref} and the ${TALE_TITLE[prob[0]] || prob[0]}`, pages: [
       [H.e + place[1], H.me ? `Once upon a time, ${H.phr} lived ${place[0]}.` : `Once upon a time, there was ${H.phr} who lived ${place[0]}.`],
       ['😊', `Every day, ${H.ref} liked to ${like}. Life was ${w('good')}!`],
       [prob[1], `${w('start')} ${prob[2](H.ref)}!`],
