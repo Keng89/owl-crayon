@@ -37,7 +37,8 @@ const { chromium } = require(require('child_process').execSync('npm root -g').to
   await p.fill('#ga', String(a * bb)); await p.press('#ga', 'Enter');
   await p.fill('#npn', 'Leo'); await p.fill('#npa', '8'); await p.locator('[data-av="🐯"]').click(); await p.click('#addForm button[type=submit]');
   console.log('profiles', await p.evaluate(() => __owl.profiles.length));
-  // backup
+  // backup (flipbook frames ride along)
+  await p.evaluate(() => localStorage.setItem('owlcrayon:flip:' + __owl.profiles[0].id, JSON.stringify([{ id: 'x1', frames: ['data:x'] }])));
   const [dl] = await Promise.all([p.waitForEvent('download'), p.click('#bk')]);
   const path = await dl.path(); const data = JSON.parse(require('fs').readFileSync(path, 'utf8'));
   console.log('backup', data.profiles.length, Object.keys(data.states).length, data.states[data.profiles[0].id].name);
@@ -50,8 +51,12 @@ const { chromium } = require(require('child_process').execSync('npm root -g').to
   // restore backup wipes Leo's later changes
   await p.click('#parent'); const prob2 = await p.locator('.panel .note').first().textContent(); const [a2, b2] = prob2.match(/(\d+) × (\d+)/).slice(1).map(Number);
   await p.fill('#ga', String(a2 * b2)); await p.press('#ga', 'Enter');
+  await p.evaluate(() => localStorage.removeItem('owlcrayon:flip:' + __owl.profiles[0].id));
   await p.setInputFiles('#rs', path); await p.waitForTimeout(400);
   console.log('restored', await p.evaluate(() => [__owl.profiles.length, __owl.st.name]));
+  if (!data.extra || !data.extra.flip) errs.push('backup has no flipbooks');
+  const flipBack = await p.evaluate(() => { const k = 'owlcrayon:flip:' + __owl.profiles[0].id; return (JSON.parse(localStorage.getItem(k) || '[]')[0] || {}).id; });
+  if (flipBack !== 'x1') errs.push('flipbook not restored: ' + flipBack);
   await p.screenshot({ path: 'f-parent.png', fullPage: true });
   // owl tick + mic absence ok
   await p.click('#homeBtn'); await p.click('#tOwl'); await p.click('[data-q] >> nth=0');
