@@ -909,10 +909,8 @@ ol.steps{margin:0;padding-left:1.4em;text-align:left;font-weight:700;font-size:1
 .ss-saved{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--leaf-soft);border-radius:18px;padding:10px 14px;font-weight:800;font-size:19px}
 @media (max-width:500px){.ss-grid{max-height:200px}.ss-grid.ss-bgs{max-height:260px;grid-template-columns:repeat(3,minmax(0,1fr))}.ss-actions{grid-template-columns:1fr 1fr}.ss-idea p{font-size:18px}}
 /* owl's quest */
-.sq-chs{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px}
-.sq-chs > .sq-ch{grid-column:span 2}
-.sq-chs > .sq-ch:nth-child(4){grid-column:2 / span 2}
-@media (min-width:700px){.sq-chs{grid-template-columns:repeat(5,minmax(0,1fr))}.sq-chs > .sq-ch,.sq-chs > .sq-ch:nth-child(4){grid-column:auto}}
+.sq-chs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+.sq-chbar{display:none}
 .sq-ch{background:var(--paper);border-radius:20px;padding:10px 8px;display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center;box-shadow:0 4px 0 var(--line);border:3px solid transparent;min-width:0}
 .sq-ch.on{border-color:var(--chc);box-shadow:0 4px 0 var(--chc)}
 .sq-ch.locked{opacity:.6}
@@ -922,6 +920,10 @@ ol.steps{margin:0;padding-left:1.4em;text-align:left;font-weight:700;font-size:1
 .sq-chn .sq-crayon,.sq-chn .sq-ge{height:20px;width:auto;font-size:16px}
 .sq-psvg{display:block;aspect-ratio:1;height:auto}
 .sq-chn .sq-psvg{height:20px;width:20px}
+/* phones: one row of 5 icon tabs with a progress bar; the chapter's name is in the banner just below */
+@media (max-width:699px){.sq-chs{gap:6px}.sq-ch{padding:6px 2px 8px;border-radius:16px;gap:5px;min-height:56px;justify-content:center}.sq-ch b,.sq-chn{display:none}
+  .sq-chbar{display:block;width:76%;max-width:44px;height:7px;border-radius:4px;background:var(--line) linear-gradient(var(--sun),var(--sun)) no-repeat;background-size:var(--chp) 100%}
+  .sq-ch.got .sq-chbar{background:var(--leaf)}.sq-ch.locked .sq-chbar{visibility:hidden}}
 .sq-banner{display:flex;align-items:center;gap:12px;background:var(--sun-soft);border-radius:22px;padding:10px 14px}
 .sq-banner p{margin:0;flex:1;min-width:0;font-weight:700;font-size:18px}
 .sq-banner p b{display:block;font-family:var(--display);font-size:22px}
@@ -10349,7 +10351,7 @@ function parent() {
       <p class="note">Owl &amp; Crayon works without the internet. Progress, drawings and Owl's answers are saved only in this browser on this device. There are no ads, no tracking and no accounts, and nothing is sent anywhere unless you switch on Online Owl.</p>
       <p class="note">With Online Owl on, only the question your child asks and their age go to your Online Owl server, which asks an AI (Cloudflare's free AI, or Claude by Anthropic) for a short, child-friendly answer. Names and progress are never sent. You can read every answer above, and turn it off at any time.</p>
       <p class="note">The microphone button uses the browser's own speech recognition, which may send the recording to the browser maker (for example Google or Apple) to turn it into text. Typing works without it.</p>
-      <p class="note">Version 2026-10-21 09:57 UTC</p></div>`;
+      <p class="note">Version 2026-10-21 10:49 UTC</p></div>`;
   view.querySelectorAll('[data-teach]').forEach(b => b.onclick = () => {
     const i = +b.dataset.teach, ans = $('#t' + i).value.trim(); if (!ans) return;
     owlForget(st.owlMisses[i].q); st.owlTaught.push({ q: st.owlMisses[i].q, a: ans }); st.owlMisses.splice(i, 1); save(); go(parent);
@@ -11814,9 +11816,10 @@ const storyHome = (() => {
       let d = `M100 156 L${P(205, 100)}`, lines = '';
       for (let k = 0; k < 6; k++) { const a = 205 + k * 26; d += ` Q${P(a + 13, 122)} ${P(a + 26, 100)}`; if (k) lines += `M100 156 L${P(a, 92)} `; }
       return `<path d="${d} Z"/><path d="${lines}"/><path d="M84 156 L80 176 H120 L116 156"/><circle cx="158" cy="44" r="10" style="stroke:#F49AC1"/><path d="M152 40 q3 -4 7 -4" style="stroke:#F49AC1"/>`; })(),
-    // a dinosaur footprint: a round pad, three long toes, sharp claws, then a little trail
-    foot: '<path d="M64 148 Q58 112 100 106 Q142 112 136 148 Q130 174 100 174 Q70 174 64 148 Z"/><path d="M82 110 Q78 72 100 42 Q122 72 118 110"/><path d="M70 122 Q38 110 26 72 Q62 76 88 108"/><path d="M130 122 Q162 110 174 72 Q138 76 112 108"/>' +
-      '<path d="M100 42 V28 M26 72 l-9 -7 M174 72 l9 -7" style="stroke:#F2604F"/><path d="M28 196 l-7 -10 M28 196 v-13 M28 196 l7 -10 M172 196 l-7 -10 M172 196 v-13 M172 196 l7 -10" style="stroke:#8B5A2B"/>',
+    // a dinosaur footprint: one outline, a broad round heel pad with three thick toes that end in points, then a sharp
+    // claw on the tip of each toe
+    foot: '<path d="M100 182 C74 182 60 160 58 138 Q32 112 28 66 Q66 66 82 108 Q74 52 100 26 Q126 52 118 108 Q134 66 172 66 Q168 112 142 138 C140 160 126 182 100 182 Z"/>' +
+      '<g style="stroke:#F2604F"><path d="M93 37 L100 10 L107 37 Z"/><path d="M37 66 L17 52 L25 74 Z"/><path d="M163 66 L183 52 L175 74 Z"/></g>',
     // a calm volcano: a big mountain with a flat top, a happy face, one little puff of smoke
     volcano: '<path d="M18 176 L78 66 H122 L182 176 Z"/><path d="M78 66 Q100 80 122 66"/><path d="M84 70 q4 14 -2 24 M116 70 q-2 10 4 18" style="stroke:#F2604F"/>' +
       '<circle cx="86" cy="118" r="5"/><circle cx="114" cy="118" r="5"/><path d="M84 136 q16 14 32 0"/><path d="M92 54 q-12 -10 2 -18 q6 -12 20 -4 q14 -2 10 12 q-2 10 -16 8" style="stroke:#9A9AA8"/>' +
@@ -12009,12 +12012,14 @@ const storyHome = (() => {
   // Seeded random numbers, so the map looks the same every visit.
   const seeded = seed => () => (seed = (seed * 9301 + 49297) % 233280) / 233280;
   // Dino Valley's volcano: the lava glow and the smoke shrink as the chapter goes on, down to one sleepy puff.
-  function volcanoG(x, by, h, prog) {
+  // drift: on the map the smoke drifts off to the right, into the gap between stops, instead of straight up.
+  function volcanoG(x, by, h, prog, drift) {
     const w = h * 0.95, top = by - h, cw = h * 0.2, f = n => n.toFixed(1), puffs = 1 + Math.round((1 - prog) * 4);
+    const [x0, dx, y0, dy] = drift ? [0.2, 0.25, 0.08, 0.11] : [0, 0.13, 0.14, 0.17];
     let g = `<path d="M${f(x - w)} ${by} L${f(x - cw)} ${f(top)} H${f(x + cw)} L${f(x + w)} ${by} Z" fill="#8A6A55"/><path d="M${f(x - w * 0.45)} ${by} L${f(x - cw * 0.6)} ${f(top + h * 0.1)} H${f(x + cw * 0.2)} L${f(x - w * 0.05)} ${by} Z" fill="#9C7B63"/>`;
     g += `<ellipse cx="${f(x)}" cy="${f(top)}" rx="${f(cw)}" ry="${f(h * 0.06)}" fill="#F2604F" opacity="${(0.25 + 0.75 * (1 - prog)).toFixed(2)}"/>`;
     g += `<path d="M${f(x - cw * 0.5)} ${f(top)} q${f(-h * 0.04)} ${f(h * 0.18)} ${f(-h * 0.12)} ${f(h * 0.3)} M${f(x + cw * 0.4)} ${f(top)} q${f(h * 0.02)} ${f(h * 0.14)} ${f(h * 0.1)} ${f(h * 0.22)}" stroke="#FF8A2B" stroke-width="${f(h * 0.05)}" fill="none" stroke-linecap="round" opacity="${(1 - prog).toFixed(2)}"/>`;
-    for (let k = 0; k < puffs; k++) g += `<circle cx="${f(x + k * h * 0.13)}" cy="${f(top - h * 0.14 - k * h * 0.17)}" r="${f(h * (0.09 + k * 0.03))}" fill="${prog > 0.99 ? '#FFFFFF' : '#8E8E9C'}" opacity=".85"/>`;
+    for (let k = 0; k < puffs; k++) g += `<circle cx="${f(x + h * (x0 + k * dx))}" cy="${f(top - h * (y0 + k * dy))}" r="${f(h * (0.09 + k * 0.03))}" fill="${prog > 0.99 ? '#FFFFFF' : '#8E8E9C'}" opacity=".85"/>`;
     return g;
   }
   function sceneBG(c, prog) {
@@ -12076,15 +12081,15 @@ const storyHome = (() => {
       for (let k = 0; k < 4; k++) { const x = L.W * (0.1 + k * 0.26); bg += `<path d="M${x.toFixed(0)} 0 h${(L.W * 0.08).toFixed(0)} L${(x + L.W * 0.2).toFixed(0)} ${L.H} h-${(L.W * 0.1).toFixed(0)}Z" fill="#fff" opacity="${(0.05 + prog * 0.2).toFixed(2)}"/>`; }
       for (let k = 0; k < 18; k++) bg += `<circle cx="${(r() * L.W).toFixed(0)}" cy="${(r() * L.H).toFixed(0)}" r="${(3 + r() * 5).toFixed(1)}" fill="none" stroke="#fff" stroke-width="2" opacity=".55"/>`; }
     if (c === 0) bg += `<path d="M${L.W * 0.72} 0 C${L.W * 0.6} ${L.H * 0.3} ${L.W * 0.95} ${L.H * 0.55} ${L.W * 0.82} ${L.H}" stroke="#9ED8F5" stroke-width="18" fill="none" opacity=".8"/>`;
-    // decorations sit in the gaps between rows, away from the trail
+    // decorations sit in the gaps between rows, away from the trail and the stops (class sq-dec, so a test can check)
     let dec = '', di = 0;
     for (let row = 0; row < L.rows - 1; row++) {
       const turn = row % 2 === 0 ? L.cols - 1 : 0, y = L.top + row * L.rowH + L.rowH / 2 + 4;
-      for (let col = 0; col < L.cols; col++) if (col !== turn) if (c === 4 && row === 0 && col === 0) bg += volcanoG(L.cw * 0.5, y + 34, L.W > 500 ? 92 : 70, prog); else dec += `<text x="${(L.cw * (col + 0.5) + (r() - 0.5) * L.cw * 0.5).toFixed(0)}" y="${y.toFixed(0)}" font-size="${L.W > 500 ? 34 : 26}" text-anchor="middle" dominant-baseline="central">${ch.decor[di++ % ch.decor.length]}</text>`;
+      for (let col = 0; col < L.cols; col++) if (col !== turn) if (c === 4 && row === 0 && col === 0) bg += `<g class="sq-dec">${L.W > 500 ? volcanoG(L.cw * 0.5, y + 54, 78, prog, true) : volcanoG(L.cw * 0.5, y + 22, 54, prog, true)}</g>`; else dec += `<text class="sq-dec" x="${(L.cw * (col + 0.5) + (r() - 0.5) * L.cw * 0.5).toFixed(0)}" y="${y.toFixed(0)}" font-size="${L.W > 500 ? 34 : 26}" text-anchor="middle" dominant-baseline="central">${ch.decor[di++ % ch.decor.length]}</text>`;
     }
-    for (let col = 0; col < L.cols - 1; col++) dec += `<text x="${(L.cw * (col + 1)).toFixed(0)}" y="${(L.top - 52).toFixed(0)}" font-size="${L.W > 500 ? 28 : 22}" text-anchor="middle" dominant-baseline="central">${ch.decor[di++ % ch.decor.length]}</text>`;
+    for (let col = 0; col < L.cols - 1; col++) dec += `<text class="sq-dec" x="${(L.cw * (col + 1)).toFixed(0)}" y="${(L.top - 52).toFixed(0)}" font-size="${L.W > 500 ? 28 : 22}" text-anchor="middle" dominant-baseline="central">${ch.decor[di++ % ch.decor.length]}</text>`;
     const lastRow = L.rows - 1, filled = n - lastRow * L.cols;
-    if (filled < L.cols) { const col = lastRow % 2 ? L.cols - 1 - filled : filled; dec += `<text x="${(L.cw * (col + 0.5)).toFixed(0)}" y="${(L.top + lastRow * L.rowH).toFixed(0)}" font-size="44" text-anchor="middle" dominant-baseline="central" opacity="${S().got[c] ? 1 : 0.35}">${ch.prize.golden ? '🖍️' : ch.prize.e}</text>`; }
+    if (filled < L.cols) { const col = lastRow % 2 ? L.cols - 1 - filled : filled; dec += `<text class="sq-dec" x="${(L.cw * (col + 0.5)).toFixed(0)}" y="${(L.top + lastRow * L.rowH).toFixed(0)}" font-size="44" text-anchor="middle" dominant-baseline="central" opacity="${S().got[c] ? 1 : 0.35}">${ch.prize.golden ? '🖍️' : ch.prize.e}</text>`; }
     const nx = nextStop(c), upto = nx < 0 ? n - 1 : nx;
     const path = trail(L.pts, n), donePath = trail(L.pts, upto);
     const trailCol = ['#F3DDA8', '#8C6A43', '#FFFFFF', '#F6E3B0', '#E2C08C'][c], dashCol = ['#C9A35F', '#5E452A', '#C9B8F5', '#C9A35F', '#8B5A2B'][c];
@@ -12123,8 +12128,9 @@ const storyHome = (() => {
     const allDone = nx < 0, got = !!s.got[c];
     view.innerHTML = `${crumbs("🗺️ Owl's Quest")}
       <div class="sq-chs" role="tablist">${CH.map((x, k) => { const open = chOpen(k);
-        return `<button class="sq-ch${k === c ? ' on' : ''}${open ? '' : ' locked'}" data-ch="${k}" role="tab" aria-selected="${k === c}" style="--chc:${x.color}">
-          <span class="sq-chi">${open ? x.ico : '🔒'}</span><b>${x.title}</b><span class="sq-chn">${s.got[k] ? `${prizeHTML(k, 'mini')} Done!` : open ? `${doneN(k)} of ${x.stops.length} ⭐` : `Finish chapter ${k}`}</span></button>`; }).join('')}</div>
+        const state = s.got[k] ? 'done' : open ? `${doneN(k)} of ${x.stops.length} stops` : `locked, finish chapter ${k} first`;
+        return `<button class="sq-ch${k === c ? ' on' : ''}${open ? '' : ' locked'}${s.got[k] ? ' got' : ''}" data-ch="${k}" role="tab" aria-selected="${k === c}" aria-label="Chapter ${k + 1}: ${esc(x.title)}, ${state}" style="--chc:${x.color};--chp:${(doneN(k) / x.stops.length * 100).toFixed(0)}%">
+          <span class="sq-chi" aria-hidden="true">${open ? x.ico : '🔒'}</span><b>${x.title}</b><span class="sq-chn">${s.got[k] ? `${prizeHTML(k, 'mini')} Done!` : open ? `${doneN(k)} of ${x.stops.length} ⭐` : `Finish chapter ${k}`}</span><i class="sq-chbar" aria-hidden="true"></i></button>`; }).join('')}</div>
       <div class="sq-banner"><span class="sq-bowl" aria-hidden="true">🦉</span><p><b>Chapter ${c + 1}: ${ch.title}</b>${esc(fill(ch.intro, c))}</p><button class="speak" id="sqSpk" aria-label="Read it">🔊</button></div>
       ${mapHTML(c, L)}
       <div class="sq-under">
@@ -12212,8 +12218,12 @@ const storyHome = (() => {
   // Wrap a riddle in the normal question shape (Q) and mark it as part of the story.
   function riddle(o) {
     const q = Q({ ...o, prompt: `<span class="sq-rtag">${o.tag}</span>${word(esc(o.text))}<span class="sq-ask">${esc(o.ask)}</span>`, speak: `${o.text} ${o.ask}` });
-    q.story = true; q.kind = o.kind; return q;
+    q.story = true; q.kind = o.kind; if (o.topic) q.topic = o.topic; return q;
   }
+  // The app's math topic each riddle kind practises, so a riddle answer counts toward that topic's mastery.
+  // Riddles can't be rebuilt outside the quest, so they feed learn() only, never the spaced review.
+  const topicOf = (kind, t) => ({ count: 'count', compare: 'moreless', add: ['onemore', 'add20', 'addbig', 'addbig'][t], sub: ['onemore', 'sub20', 'subbig', 'subbig'][t],
+    mul: 'times', div: 'divide', pattern: 'pattern', order: 'ordinal', time: 'time' })[kind];
   // Shared teaching for the four operations.
   const addHelp = (a, b) => { const hi = Math.max(a, b), lo = Math.min(a, b);
     return a + b <= 20 ? { explain: tenFrame(a, b), steps: [`Start with the bigger number, ${hi}.`, `Count on ${lo} more: ${list(upTo(hi + 1, hi + lo))}.`], explainText: `${a} + ${b} = ${a + b}.` }
@@ -12354,7 +12364,7 @@ const storyHome = (() => {
           return riddle({ tag, kind: 'pattern', text: 'The Moon hangs lights in a pattern.', ask: 'What comes next?', visual: `<div class="pat sq-pat">${seq.map(x => `<span>${x[0]}</span>`).join('')}<span class="dot q">?</span></div>`, choices, answer: ans[0],
             explain: `<div class="pat sq-pat">${unitHTML.repeat(Math.ceil((len + 1) / unit.length))}</div>`, steps: [`Find the part that repeats: ${unit.map(x => x[1]).join(', ')}.`, 'Say it again and again, and keep going.'], explainText: `${seq.map(x => x[1]).join(', ')}, … the next one is the ${ans[1]}.` }); }
         const d = t === 2 ? rnd(2, 10) : rnd(11, 25), s = t === 2 ? d : rnd(3, 60), vals = Array.from({ length: 5 }, (_, k) => s + k * d), ans = s + 5 * d;
-        return riddle({ tag, kind: 'pattern', text: 'Each night the Moon wakes up more stars.', ask: 'How many stars on the next night?', visual: `<div class="pat sq-pat">${vals.map(v => `<span class="sq-nb">⭐<b>${v}</b></span>`).join('')}<span class="dot q">?</span></div>`, choices: nums(ans, t, [ans + d, ans - 1, ans + 1, vals[4] + d + 1]), answer: ans,
+        return riddle({ tag, kind: 'pattern', topic: t === 2 ? 'skip' : 'sequences', text: 'Each night the Moon wakes up more stars.', ask: 'How many stars on the next night?', visual: `<div class="pat sq-pat">${vals.map(v => `<span class="sq-nb">⭐<b>${v}</b></span>`).join('')}<span class="dot q">?</span></div>`, choices: nums(ans, t, [ans + d, ans - 1, ans + 1, vals[4] + d + 1]), answer: ans,
           explain: hopLine([...vals.slice(2), ans], [`+${d}`, `+${d}`, `+${d}`]), steps: [`Find the jump between numbers: ${vals[1]} − ${vals[0]} = ${d}.`, `Every night has ${d} more stars.`], explainText: `${vals[4]} + ${d} = ${ans}.` }); }
     ],
     [ // chapter 4: Under the Sea
@@ -12375,7 +12385,7 @@ const storyHome = (() => {
         if (t === 0) { const n = rnd(1, 9), up = Math.random() < 0.5 || n < 2, ans = up ? n + 1 : n - 1;
           return riddle({ tag, kind: up ? 'add' : 'sub', text: up ? `Inky has ${n} pearl${n > 1 ? 's' : ''}. She finds 1 more!` : `Inky has ${n} pearls. A crab borrows 1.`, ask: 'How many pearls now?', visual: pic(up ? objs(n, PEARL) + OP('+') + objs(1, PEARL) : objs(n, PEARL, { gone: 1 }), up ? `${n} pearls and 1 more` : `${n} pearls, 1 taken away`), choices: nums(ans, t), answer: ans,
             explain: objs(ans, PEARL, { num: true }), steps: null, explainText: up ? `One more than ${n} is the next number: ${ans}.` : `One less than ${n} is the number before it: ${ans}.` }); }
-        if (t === 1) { const n = rnd(2, 10), h = addHelp(n, n); return riddle({ tag, kind: 'add', text: `Two clams are open. Each clam has ${n} pearls.`, ask: 'How many pearls in both clams?', visual: pic(clamSVG(n) + OP('+') + clamSVG(n), `two clams with ${n} pearls each`), choices: nums(2 * n, t, [n, n + 1, 2 * n + 2]), answer: 2 * n,
+        if (t === 1) { const n = rnd(2, 10), h = addHelp(n, n); return riddle({ tag, kind: 'add', topic: 'doubles', text: `Two clams are open. Each clam has ${n} pearls.`, ask: 'How many pearls in both clams?', visual: pic(clamSVG(n) + OP('+') + clamSVG(n), `two clams with ${n} pearls each`), choices: nums(2 * n, t, [n, n + 1, 2 * n + 2]), answer: 2 * n,
           explain: h.explain, steps: [`The same number twice is called a double.`, ...h.steps], explainText: `Double ${n}: ${n} + ${n} = ${2 * n}.` }); }
         if (t === 2) { const g = rnd(2, 5), each = rnd(2, 6), n = g * each;
           return riddle({ tag, kind: 'div', text: `The Octopus Queen shares ${n} pearls into ${g} clams. Every clam gets the same.`, ask: 'How many pearls go in each clam?', visual: pic(`<span class="sq-total">${n} ${PEARL}</span>${OP('→')}${groupsPic(g, '?', '🦪')}`, `${n} pearls shared into ${g} clams`), choices: nums(each, t, [each + 1, each - 1, g, n - g]), answer: each, ...divHelp(n, g, each, '🦪', 'pearls') }); }
@@ -12393,7 +12403,7 @@ const storyHome = (() => {
       t => { const tag = '📏 Dino size riddle';
         if (t === 0) { const [a, b] = pair(2, 10), longer = Math.random() < 0.6, ans = (a > b) === longer ? 'a' : 'b', hi = Math.max(a, b), lo = Math.min(a, b);
           const nm = ['the green dino', 'the orange dino'], rows = [['🦕', a, '#7DB653'], ['🦖', b, '#FF8A2B']];
-          return riddle({ tag, kind: 'compare', text: 'Two dinosaurs lie down next to a row of blocks to measure how long they are.', ask: `Which dino is ${longer ? 'longer' : 'shorter'}?`,
+          return riddle({ tag, kind: 'compare', topic: 'sizes', text: 'Two dinosaurs lie down next to a row of blocks to measure how long they are.', ask: `Which dino is ${longer ? 'longer' : 'shorter'}?`,
             choices: [['a', 0], ['b', 1]].map(([v, k]) => ({ html: `<span class="sq-pick">${dinoBar(rows[k][0], rows[k][1], rows[k][2], hi)}</span>`, val: v, say: nm[k], txt: false })), answer: ans,
             explain: lenSVG(rows, true), steps: ['Line them up at the same start.', `${hi} blocks is ${hi - lo} more than ${lo} blocks.`], explainText: `The green dino is ${a} blocks, the orange dino is ${b} blocks. ${hi} is longer and ${lo} is shorter, so the answer is ${nm[ans === 'a' ? 0 : 1]}.` }); }
         if (t === 1) { const a = rnd(9, 18), b = rnd(3, a - 2), rows = [['🦕', a, '#7DB653'], ['🦖', b, '#FF8A2B']];
@@ -12402,7 +12412,7 @@ const storyHome = (() => {
         if (t === 2) { const a = rnd(21, 39), b = rnd(11, a - 6);
           return riddle({ tag, kind: 'sub', text: `A Long-Neck is ${a} metres long. A T-rex is ${b} metres long.`, ask: 'How many metres longer is the Long-Neck?', visual: pic(`<span class="sq-total">🦕 ${a} m</span><span class="sq-total">🦖 ${b} m</span>`, `${a} metres and ${b} metres`), choices: nums(a - b, t, [a + b, a - b + 10, a - b - 10]), answer: a - b, ...subHelp(a, b) }); }
         const g = rnd(4, 9), L = pick([12, 13, 14, 15, 16, 17, 18, 19, 21, 22, 23, 24, 25, 26, 27, 28]), tens = L - L % 10, ones = L % 10, ans = g * L;
-        return riddle({ tag, kind: 'mul', text: `${g} Long-Necks stand nose to tail in a line. Each one is ${L} metres long.`, ask: 'How long is the whole line?', visual: pic(`<span class="sq-total">${g} × 🦕</span><span class="sq-total">${L} m each</span>`, `${g} dinosaurs, ${L} metres each`), choices: nums(ans, t, [ans + g, ans - g, ans + 10, ans - 10, g + L]), answer: ans,
+        return riddle({ tag, kind: 'mul', topic: 'longmul', text: `${g} Long-Necks stand nose to tail in a line. Each one is ${L} metres long.`, ask: 'How long is the whole line?', visual: pic(`<span class="sq-total">${g} × 🦕</span><span class="sq-total">${L} m each</span>`, `${g} dinosaurs, ${L} metres each`), choices: nums(ans, t, [ans + g, ans - g, ans + 10, ans - 10, g + L]), answer: ans,
           explain: groupsPic(g, `${L} m`, '🦕'), steps: [`${g} × ${L}: split ${L} into ${tens} and ${ones}.`, `${g} × ${tens} = ${g * tens}.`, `${g} × ${ones} = ${g * ones}.`, `${g * tens} + ${g * ones} = ${ans}.`], explainText: `The line is ${ans} metres long.` }); },
       t => {
         if (t === 0 && Math.random() < 0.5) { const tag = '🌴 Dino pattern riddle', set = shuffle(PAT5).slice(0, 2), len = 5, seq = Array.from({ length: len }, (_, k) => set[k % 2]), ans = set[len % 2];
@@ -12427,7 +12437,7 @@ const storyHome = (() => {
     ]
   ];
 
-  const makeRiddle = (c, type, t = tierOf()) => RIDDLES[c][type % 3](t);
+  const makeRiddle = (c, type, t = tierOf()) => { const q = RIDDLES[c][type % 3](t); if (!q.topic) q.topic = topicOf(q.kind, t); return q; };
 
   // Math: 3 questions from the player's age world. The first one is the topic the engine recommends,
   // the second is always a story riddle, and on a chapter's final stop the third one is too.
@@ -12449,6 +12459,8 @@ const storyHome = (() => {
       try { q = MATH[skill].gen(level(skill)); } catch (e) { skill = 'count'; q = MATH.count.gen(1); }
       used.push(skill);
     }
+    // what the engine learns from: the generic question's skill, or the topic a story riddle practises
+    const topic = skill || (q.story && q.topic && MATH[q.topic] && st.skills[q.topic] ? q.topic : null);
     const t0 = Date.now(); let tries = 0, hinted = false;
     const dots = `<div class="sq-dots" aria-label="Puzzle ${k + 1} of 3">${[0, 1, 2].map(j => `<i class="${j < k ? 'on' : j === k ? 'now' : ''}">${j < k ? ch.token : ''}</i>`).join('')}</div>`;
     const cols = q.choices.some(x => String(x.html).replace(/<[^>]+>/g, '').length > 6) && q.choices.length > 2 ? 2 : q.choices.length > 4 ? 3 : q.choices.length;
@@ -12479,7 +12491,7 @@ const storyHome = (() => {
       if (String(x.val) === String(q.answer)) {
         const first = tries === 0 && !hinted;
         b.classList.add('right'); view.querySelectorAll('.choice').forEach(y => y.disabled = true);
-        if (first && skill) learn(skill, true, Date.now() - t0); // story riddles are not tied to one skill level, so they skip the engine
+        if (first && topic) learn(topic, true, Date.now() - t0);
         dayLog('q'); if (first) dayLog('ok');
         questTick('math'); if (first) questTick('firsttry');
         const cheer = first ? pick(['Great job!', 'You got it!', 'Super!', 'Yes!', 'Brilliant!']) : 'Now you know it!';
@@ -12488,7 +12500,7 @@ const storyHome = (() => {
         later(() => k < 2 ? mathStep(c, i, k + 1, used) : complete(c, i), first ? 1300 : 2200);
       } else {
         tries++; b.classList.add('wrong'); b.disabled = true; oops();
-        if (tries === 1 && skill) { learn(skill, false, Date.now() - t0); addReview(skill, q); save(); }
+        if (tries === 1 && topic) { learn(topic, false, Date.now() - t0); if (skill) addReview(skill, q); save(); } // riddles stay out of review
         $('#exp').innerHTML = `<div class="explain"><p>Let's work it out together.</p>${q.explain ? `<div class="visual">${q.explain}</div>` : ''}${q.steps ? `<ol class="steps">${q.steps.map(y => `<li>${y}</li>`).join('')}</ol>` : ''}<p>${q.explainText}</p></div>`;
         say("Let's work it out together. " + (q.steps ? q.steps.join(' ') + ' ' : '') + q.explainText);
       }
@@ -12601,7 +12613,7 @@ const storyHome = (() => {
     $('#sqMap').onclick = () => go(mapView, c);
   }
 
-  if (location.hash === '#selftest') window.__quest = { CH, get state() { return S(); }, mapView, stopView, bookView, chapterDone, layout, isDone, nextStop, riddle: makeRiddle, tierOf, get watching() { return !!unwatchMap; } };
+  if (location.hash === '#selftest') window.__quest = { CH, get state() { return S(); }, mapView, stopView, bookView, chapterDone, layout, isDone, nextStop, riddle: makeRiddle, topicOf, tierOf, get watching() { return !!unwatchMap; } };
   return mapView;
 })();
 /* ---------- coloring book: tap a shape to fill it, with colour-by-number and colour-by-sum ---------- */

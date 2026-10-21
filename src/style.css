@@ -894,10 +894,8 @@ ol.steps{margin:0;padding-left:1.4em;text-align:left;font-weight:700;font-size:1
 .ss-saved{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--leaf-soft);border-radius:18px;padding:10px 14px;font-weight:800;font-size:19px}
 @media (max-width:500px){.ss-grid{max-height:200px}.ss-grid.ss-bgs{max-height:260px;grid-template-columns:repeat(3,minmax(0,1fr))}.ss-actions{grid-template-columns:1fr 1fr}.ss-idea p{font-size:18px}}
 /* owl's quest */
-.sq-chs{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px}
-.sq-chs > .sq-ch{grid-column:span 2}
-.sq-chs > .sq-ch:nth-child(4){grid-column:2 / span 2}
-@media (min-width:700px){.sq-chs{grid-template-columns:repeat(5,minmax(0,1fr))}.sq-chs > .sq-ch,.sq-chs > .sq-ch:nth-child(4){grid-column:auto}}
+.sq-chs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+.sq-chbar{display:none}
 .sq-ch{background:var(--paper);border-radius:20px;padding:10px 8px;display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center;box-shadow:0 4px 0 var(--line);border:3px solid transparent;min-width:0}
 .sq-ch.on{border-color:var(--chc);box-shadow:0 4px 0 var(--chc)}
 .sq-ch.locked{opacity:.6}
@@ -907,6 +905,10 @@ ol.steps{margin:0;padding-left:1.4em;text-align:left;font-weight:700;font-size:1
 .sq-chn .sq-crayon,.sq-chn .sq-ge{height:20px;width:auto;font-size:16px}
 .sq-psvg{display:block;aspect-ratio:1;height:auto}
 .sq-chn .sq-psvg{height:20px;width:20px}
+/* phones: one row of 5 icon tabs with a progress bar; the chapter's name is in the banner just below */
+@media (max-width:699px){.sq-chs{gap:6px}.sq-ch{padding:6px 2px 8px;border-radius:16px;gap:5px;min-height:56px;justify-content:center}.sq-ch b,.sq-chn{display:none}
+  .sq-chbar{display:block;width:76%;max-width:44px;height:7px;border-radius:4px;background:var(--line) linear-gradient(var(--sun),var(--sun)) no-repeat;background-size:var(--chp) 100%}
+  .sq-ch.got .sq-chbar{background:var(--leaf)}.sq-ch.locked .sq-chbar{visibility:hidden}}
 .sq-banner{display:flex;align-items:center;gap:12px;background:var(--sun-soft);border-radius:22px;padding:10px 14px}
 .sq-banner p{margin:0;flex:1;min-width:0;font-weight:700;font-size:18px}
 .sq-banner p b{display:block;font-family:var(--display);font-size:22px}

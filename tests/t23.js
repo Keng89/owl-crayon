@@ -3,7 +3,8 @@
 // the storybook, no sideways scroll, and that progress survives a reload. Every math stop must have a story riddle
 // with exactly one right answer, and a wrong riddle answer must teach. On the tablet, shrinking the window to a phone
 // redraws the map in the phone layout. The quest ending comes after chapter 5, and an old save that finished
-// chapters 1-3 (from before chapters 4 and 5 existed) opens chapter 4. Screenshots go to SHOTS (default: current folder).
+// chapters 1-3 (from before chapters 4 and 5 existed) opens chapter 4. On every chapter's map no decoration covers a
+// stop, and the chapter picker is one row of named, tappable tabs (also on a phone). Screenshots go to SHOTS (default: current folder).
 const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim() + '/playwright');
 const PORT = process.env.PORT || 8766, SHOTS = process.env.SHOTS || '.';
 const URL = `http://localhost:${PORT}/index.html#selftest`;
@@ -59,8 +60,14 @@ async function run(b, age, vp, errs) {
             out.wrongShown = true; await noScroll('math help'); await shot('math-help');
           }
           if (c === 0 && i === 6 && k === 0) await shot('math');
+          const seen = () => p.evaluate(() => Object.values(window.__owl.st.skills).reduce((a, x) => a + x.seen, 0)), seen0 = await seen(), review0 = await p.evaluate(() => window.__owl.st.review.length);
           await p.click('.choice[data-ok]');
           await p.waitForSelector('.choice.right');
+          if (q.story) { // a riddle feeds the learning engine (once per riddle, also after a wrong try) but never the review list
+            const firstTry = !(await p.$('.choice.wrong'));
+            if (firstTry && await seen() !== seen0 + 1) errs.push(`${tag}: ch${c + 1} ${q.story} riddle did not count toward a topic`);
+            if (await p.evaluate(() => window.__owl.st.review.length) !== review0) errs.push(`${tag}: a riddle went into the review list`);
+          }
         }
         if (riddles < (ch[i][1] ? 2 : 1)) errs.push(`${tag}: ch${c + 1} stop ${i + 1} had ${riddles} story riddles`);
       } else if (ch[i][0] === 'art') {
@@ -128,6 +135,28 @@ async function run(b, age, vp, errs) {
   // a locked stop just talks, it does not open
   await p.click('.sq-stop[data-stop="4"]'); await sleep(200);
   if (!await p.$('.sq-map')) errs.push(`${tag}: a locked stop opened`);
+  // every chapter's map: no decoration (picture, volcano and its smoke, prize) covers a stop button, and on a phone
+  // the chapter picker is one row of tabs big enough to tap, each with a name for screen readers
+  await p.evaluate(() => { window.__owl.st.unlockAll = true; });
+  for (let c = 0; c < 5; c++) {
+    await p.evaluate(c => window.__owl.go(window.__quest.mapView, c), c); await p.waitForSelector(`.sq-ch[data-ch="${c}"].on`);
+    const m = await p.evaluate(() => {
+      const R = e => e.getBoundingClientRect(), hit = (a, b) => a.left < b.right && b.left < a.right && a.top < b.bottom && b.top < a.bottom;
+      const decs = [...document.querySelectorAll('.sq-mapbg .sq-dec')].flatMap(e => e.tagName === 'g' ? [...e.children] : [e]), over = [];
+      document.querySelectorAll('.sq-stop').forEach(s => decs.forEach(d => { if (hit(R(s), R(d))) over.push(`stop ${+s.dataset.stop + 1} / ${d.tagName} ${d.textContent}`); }));
+      const tabs = [...document.querySelectorAll('.sq-ch')];
+      return { over, decs: decs.length, rows: new Set(tabs.map(t => Math.round(R(t).top))).size, small: tabs.filter(t => R(t).width < 44 || R(t).height < 44).length,
+        unnamed: tabs.filter(t => !/^Chapter \d: \S/.test(t.getAttribute('aria-label') || '')).length, mapTop: R(document.querySelector('.sq-map')).top };
+    });
+    if (m.decs < 5) errs.push(`${tag}: ch${c + 1} map has only ${m.decs} decorations`);
+    if (m.over.length) errs.push(`${tag}: ch${c + 1} map decorations cover stops: ${m.over.join(', ')}`);
+    if (m.rows !== 1) errs.push(`${tag}: chapter picker takes ${m.rows} rows`);
+    if (m.small) errs.push(`${tag}: ${m.small} chapter tabs are smaller than 44px`);
+    if (m.unnamed) errs.push(`${tag}: ${m.unnamed} chapter tabs have no accessible name`);
+    if (vp.width < 700 && m.mapTop > 420) errs.push(`${tag}: the map starts too far down (${Math.round(m.mapTop)}px)`);
+    await noScroll(`chapter ${c + 1} map look`);
+    if (c === 4) await shot('map5-look');
+  }
   // chapter 3 map look
   await p.evaluate(() => { window.__owl.st.unlockAll = true; window.__owl.go(window.__quest.mapView, 2); });
   await p.waitForSelector('.sq-ch[data-ch="2"].on'); await noScroll('chapter 3 map'); await shot('map3');
