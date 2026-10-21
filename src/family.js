@@ -163,10 +163,12 @@ function wirePlayers() {
     profiles.push({ id, avatar: av }); store.set('profiles', profiles); store.set('state:' + id, migrate(s)); store.set('gallery:' + id, []);
     go(parent); toast(`${s.name || 'New player'} added!`);
   };
+  const EXTRA = ['flip', 'questPics', 'sceneDraft'];
   $('#bk').onclick = () => {
-    const data = { app: 'owl-crayon', v: 1, saved: new Date().toISOString(), profiles, current: pid, states: {}, galleries: {} };
+    const data = { app: 'owl-crayon', v: 1, saved: new Date().toISOString(), profiles, current: pid, states: {}, galleries: {}, extra: {} };
     save(); saveGallery();
-    profiles.forEach(p => { data.states[p.id] = store.get('state:' + p.id, null); data.galleries[p.id] = store.get('gallery:' + p.id, []); });
+    profiles.forEach(p => { data.states[p.id] = store.get('state:' + p.id, null); data.galleries[p.id] = store.get('gallery:' + p.id, []);
+      EXTRA.forEach(k => { const v = store.get(k + ':' + p.id, null); if (v != null) (data.extra[k] = data.extra[k] || {})[p.id] = v; }); });
     try {
       const url = URL.createObjectURL(new Blob([JSON.stringify(data)], { type: 'application/json' })), a = document.createElement('a');
       a.href = url; a.download = `owl-crayon-backup-${today()}.json`; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 5000);
@@ -179,7 +181,8 @@ function wirePlayers() {
       const d = JSON.parse(txt);
       if (d.app !== 'owl-crayon' || !Array.isArray(d.profiles)) throw new Error('not a backup');
       profiles = d.profiles; store.set('profiles', profiles);
-      profiles.forEach(p => { if (d.states[p.id]) store.set('state:' + p.id, d.states[p.id]); store.set('gallery:' + p.id, d.galleries[p.id] || []); });
+      profiles.forEach(p => { if (d.states[p.id]) store.set('state:' + p.id, d.states[p.id]); store.set('gallery:' + p.id, d.galleries[p.id] || []);
+        EXTRA.forEach(k => { const v = (d.extra || {})[k]; if (v && v[p.id] != null) store.set(k + ':' + p.id, v[p.id]); }); });
       loadProfile(profiles.some(p => p.id === d.current) ? d.current : profiles[0].id); updateTop();
       go(parent); toast('Backup restored!');
     }).catch(() => { $('#bkm').textContent = 'That file is not an Owl & Crayon backup. Pick the file that starts with owl-crayon-backup.'; });
