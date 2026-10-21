@@ -36,16 +36,26 @@ const englishHome = (() => {
   }
 
   const SECTIONS = [
-    { id: 'phonics', ico: '🔤', name: 'Letter sounds', sub: 'Tap a letter to hear its sound', fn: () => phonics('letters'), c: '#C44E40' },
-    { id: 'blend', ico: '🧩', name: 'Blend it', sub: 'c-a-t makes cat!', fn: () => blendGame(), c: '#B05F1E' },
-    { id: 'sight', ico: '👀', name: 'Sight words', sub: 'Words to know at a glance', fn: () => sightHome(), c: '#2776C3' },
-    { id: 'read', ico: '📖', name: 'Read', sub: 'Words, sentences and stories', fn: () => readHome(), c: '#268457' },
-    { id: 'build', ico: '🏗️', name: 'Sentence builder', sub: 'Put the words in order', fn: () => buildGame(), c: '#5B44C0' },
-    { id: 'grammar', ico: '📐', name: 'Grammar games', sub: `${EN_GAMES.length} word games`, fn: () => grammarHome(), c: '#1D7C82' },
-    { id: 'vocab', ico: '🗂️', name: 'Word book', sub: `${EN_VOCAB.reduce((a, t) => a + t.words.length, 0)} words in ${EN_VOCAB.length} topics`, fn: () => vocab(), c: '#A23E78' },
-    { id: 'say', ico: '💬', name: 'Say it!', sub: 'Everyday words, fun talk, funny sayings', fn: () => sayings(), c: '#22305A' },
-    { id: 'fun', ico: '🎪', name: 'Fun games', sub: 'Pop bubbles, feed the monster, dig for treasure', fn: () => funHome(), c: '#7A3FB8' }
+    { id: 'phonics', ico: '🔤', name: 'Letter sounds', sub: 'Tap a letter to hear its sound', fn: () => phonics('letters'), c: '#C44E40',
+      tip: 'Say the sound, not the letter name: "sss", not "ess". Keep it short and crisp ("buh", not "buhhh").' },
+    { id: 'blend', ico: '🧩', name: 'Blend it', sub: 'c-a-t makes cat!', fn: () => blendGame(), c: '#B05F1E',
+      tip: 'Stretch the sounds like a rubber band, then snap them together: "mmm-aaa-p... map!"' },
+    { id: 'sight', ico: '👀', name: 'Sight words', sub: 'Words to know at a glance', fn: () => sightHome(), c: '#2776C3',
+      tip: 'Two or three new sight words a day is plenty. Point them out in picture books and on signs.' },
+    { id: 'read', ico: '📖', name: 'Read', sub: 'Words, sentences and stories', fn: () => readHome(), c: '#268457',
+      tip: 'Let your child try a word first. After the story, ask "What was your favorite part? Why?"' },
+    { id: 'build', ico: '🏗️', name: 'Sentence builder', sub: 'Put the words in order', fn: () => buildGame(), c: '#5B44C0',
+      tip: 'Read the finished sentence aloud together. Ask: does it sound right? Does it start with a capital?' },
+    { id: 'grammar', ico: '📐', name: 'Grammar games', get sub() { return `${EN_GAMES.length} word games`; }, fn: () => grammarHome(), c: '#1D7C82',
+      tip: 'Grammar sticks best in talk: play "opposites" or "one cat, two cats" in the car or at dinner.' },
+    { id: 'vocab', ico: '🗂️', name: 'Word book', get sub() { return `${EN_VOCAB.reduce((a, t) => a + t.words.length, 0)} words in ${EN_VOCAB.length} topics`; }, fn: () => vocab(), c: '#A23E78',
+      tip: 'Pick one topic a week and hunt for those things around the house. Big words (✨) are for older readers.' },
+    { id: 'say', ico: '💬', name: 'Say it!', sub: 'Everyday words, fun talk, funny sayings', fn: () => sayings(), c: '#22305A',
+      tip: 'Use one saying on purpose today ("It\'s raining cats and dogs!") and see if your child spots it.' },
+    { id: 'fun', ico: '🎪', name: 'Fun games', sub: 'Pop bubbles, feed the monster, dig for treasure', fn: () => funHome(), c: '#7A3FB8',
+      tip: 'Short and happy beats long and tired: stop while it is still fun.' }
   ];
+  const ptip = id => { const x = SECTIONS.find(s => s.id === id); return x && x.tip ? `<p class="en-ptip"><span aria-hidden="true">👪</span> <b>Grown-ups:</b> ${esc(x.tip)}</p>` : ''; };
   // Word pals: a little friend pops out of the book after every finished round, and joins the reading club.
   const PALS = [['🦄', 'Sparkle the unicorn'], ['🐲', 'Puff the dragon'], ['🦖', 'Rexy the dinosaur'], ['🐙', 'Inky the octopus'], ['🐼', 'Bao the panda'], ['🦊', 'Rusty the fox'],
     ['🐧', 'Pip the penguin'], ['🐸', 'Hopper the frog'], ['🐝', 'Buzz the bee'], ['🦋', 'Flutter the butterfly'], ['🐳', 'Splash the whale'], ['🐯', 'Stripes the tiger'], ['🐨', 'Cuddles the koala'],
@@ -64,7 +74,6 @@ const englishHome = (() => {
     say(`${title} ${line.replace(/⭐/g, 'stars')} ${isNew ? `${pal[1]} pops out of the book and joins your reading club!` : `${pal[1]} came back to cheer!`}`);
     $('#enAgain').onclick = again; $('#enBack').onclick = back;
   }
-  const SEC = Object.fromEntries(SECTIONS.map(s => [s.id, s]));
 
   // The "next up" card: what a reader at this stage should try next.
   function nextUp() {
@@ -95,11 +104,14 @@ const englishHome = (() => {
     wireBack(home);
     sayScreen(`English and reading. You are at stage ${s}, ${S.name}. Try ${nx.title}!`);
     $('#enNext').onclick = nx.go;
-    view.querySelectorAll('[data-sec]').forEach(b => b.onclick = () => go(SEC[b.dataset.sec].fn));
+    view.querySelectorAll('[data-sec]').forEach(b => b.onclick = () => go(SECTIONS.find(x => x.id === b.dataset.sec).fn));
+    if (enHome.after) enHome.after(view);
   }
 
   /* --- a round of questions (used by every game) --- */
   let Q = null;
+  // Words the child gets wrong go to a review queue (english5.js fills these in); q.rv names the word a question is about.
+  const hooks = { miss() {}, hit() {} };
   function quiz(spec) { Q = { ...spec, spec, n: spec.list ? spec.list.length : spec.n || 6, i: 0, first: 0, stars: 0, used: new Set() }; ask(); }
   function ask() {
     const nav = navId; let q;
@@ -114,7 +126,7 @@ const englishHome = (() => {
         ${q.visual ? `<div class="visual">${q.visual}</div>` : ''}
         <div class="choices en-ch${Q.cls ? ' ' + Q.cls : ''}" style="grid-template-columns:repeat(${cols},1fr)">${q.choices.map((c, i) => `<button class="choice${c.txt ? ' txt' : ''}" data-i="${i}" aria-label="${esc(c.say != null ? c.say : plain(c.html))}">${c.html}</button>`).join('')}</div>
         <div class="cheer" id="cheer" aria-live="polite"></div><div id="exp" style="width:100%"></div>
-      </div>`;
+      </div>${Q.tip ? ptip(Q.tip) : ''}`;
     wireBack(Q.back);
     const speak = () => q.onShow ? q.onShow(nav) : say(q.say || plain(q.prompt));
     $('#spk').onclick = speak;
@@ -127,12 +139,14 @@ const englishHome = (() => {
         b.classList.add('right'); view.querySelectorAll('.choice').forEach(x => x.disabled = true);
         Q.stars += earned; if (first) { Q.first++; questTick('firsttry'); }
         if (Q.onRight) Q.onRight(q, first, b);
+        if (q.rv) hooks.hit(q.rv, first, !!Q.review);
         give(earned);
         const w = first ? pick(['Great reading!', 'You got it!', 'Super!', 'Yes!', 'Brilliant!']) : 'Now you know it!';
         $('#cheer').textContent = w + ' ⭐'.repeat(earned); yay(); say(w);
         setTimeout(() => { if (nav !== navId) return; Q.i++; Q.i < Q.n ? ask() : finish(); }, first ? 1300 : 2100);
       } else {
         tries++; b.classList.add('wrong'); b.disabled = true; oops();
+        if (q.rv && tries === 1) hooks.miss(q.rv);
         $('#exp').innerHTML = `<div class="explain"><p>${esc(q.explain || 'Try another one!')}</p></div>`;
         say(q.explain || 'Try another one!');
       }
@@ -143,6 +157,7 @@ const englishHome = (() => {
     e.rounds[id] = (e.rounds[id] || 0) + 1; e.best[id] = Math.max(e.best[id] || 0, Q.first);
     if (Q.done) Q.done(Q);
     save();
+    if (Q.end) return Q.end(Q, () => reward(Q.first >= Q.n - 1 ? 'Amazing reading!' : 'Well done!', `You got ${Q.first} of ${Q.n} on the first try and earned ${Q.stars} ⭐`, () => go(quiz, spec), spec.back));
     reward(Q.first >= Q.n - 1 ? 'Amazing reading!' : 'Well done!', `You got ${Q.first} of ${Q.n} on the first try and earned ${Q.stars} ⭐`, () => go(quiz, spec), spec.back);
   }
 
@@ -163,7 +178,7 @@ const englishHome = (() => {
         <button class="en-gbtn${open(3) ? '' : ' locked'}" id="enMagic">✨ Magic e game${open(3) ? '' : ' 🔒'}</button>
         <button class="en-gbtn${open(3) ? '' : ' locked'}" id="enTeams">🧪 Vowel team game${open(3) ? '' : ' 🔒'}</button></div>
       <p class="note">${open(T.stage) ? 'Tap a card to hear its sound.' : lockText(T.stage)}</p>
-      <div class="en-ph${open(T.stage) ? '' : ' dim'}">${items.map((x, i) => `<button class="en-pt${e.heard[x.k] ? ' heard' : ''}" data-ph="${i}" aria-label="${esc(x.big)}, ${esc(x.w)}"><b>${x.big}</b><span class="en-pe">${x.e}</span><small>${x.w}</small></button>`).join('')}</div>`;
+      <div class="en-ph${open(T.stage) ? '' : ' dim'}">${items.map((x, i) => `<button class="en-pt${e.heard[x.k] ? ' heard' : ''}" data-ph="${i}" aria-label="${esc(x.big)}, ${esc(x.w)}"><b>${x.big}</b><span class="en-pe">${x.e}</span><small>${x.w}</small></button>`).join('')}</div>${ptip('phonics')}`;
     wireBack(enHome);
     sayScreen(`${T.name}. Tap a card to hear its sound.`);
     view.querySelectorAll('[data-tab]').forEach(b => b.onclick = () => go(phonics, b.dataset.tab));
@@ -186,7 +201,7 @@ const englishHome = (() => {
       const others = shuffle(pool.filter(o => GROUP(o[0]) !== GROUP(L[0]))).slice(0, 2);
       const opts = shuffle([L, ...others]);
       return { prompt: `Which picture starts with <b>${L[0]}</b>?`, say: `Which picture starts with ${L[1]}? ${L[1]}.`, visual: `<div class="en-letter">${L[0].toUpperCase()}${L[0]}</div>`,
-        choices: opts.map(o => ({ html: o[3], val: o[2], say: o[2] })), answer: L[2], explain: `${L[2]} starts with ${L[1]}. ${L[1]}, ${L[2]}!` };
+        rv: { w: L[2], e: L[3] }, choices: opts.map(o => ({ html: o[3], val: o[2], say: o[2] })), answer: L[2], explain: `${L[2]} starts with ${L[1]}. ${L[1]}, ${L[2]}!` };
     } };
   }
   function magicSpec() {
@@ -208,12 +223,12 @@ const englishHome = (() => {
   /* --- blending --- */
   function blendGame() { go(quiz, blendSpec()); }
   function blendSpec() {
-    return { id: 'blend', title: '🧩 Blend it', back: () => go(enHome), gen() {
+    return { id: 'blend', title: '🧩 Blend it', back: () => go(enHome), tip: 'blend', gen() {
       const s = stage(), pool = EN_BLEND.filter(b => b.stage <= Math.min(2, s)), B = pick(pool);
       const others = shuffle(pool.filter(x => x.w !== B.w)).slice(0, 2);
       return { prompt: 'Blend the sounds. Which picture is it?', word: B.w, parts: B.parts,
         visual: `<div class="en-blend" id="enBlend">${B.parts.map((p, i) => `<span class="en-snd" data-sn="${i}">${p}</span>`).join('')}<span class="en-bw">${B.w}</span></div>`,
-        choices: shuffle([B, ...others]).map(o => ({ html: o.e, val: o.w, say: o.w })), answer: B.w,
+        rv: { w: B.w, e: B.e }, choices: shuffle([B, ...others]).map(o => ({ html: o.e, val: o.w, say: o.w })), answer: B.w,
         explain: `${B.parts.map(p => EN_SND[p]).join(', ')}... ${B.w}! Say the sounds faster and faster.`,
         onShow(nav) {
           const box = document.getElementById('enBlend'); if (!box) return;
@@ -231,7 +246,7 @@ const englishHome = (() => {
     view.innerHTML = `${crumbs('👀 Sight words')}
       <p class="note">These words show up in almost every book. Many can't be sounded out, so we learn them by heart.</p>
       <div class="en-list">${EN_SIGHT.map(x => { const k = x.words.filter(w => e.sight[w]).length;
-        return `<button class="en-row${open(x.stage) ? '' : ' locked'}" data-set="${x.id}"><span class="en-rico">${open(x.stage) ? x.ico : '🔒'}</span><span><b>${x.name}</b><small>${x.words.length} words · ${k} known</small></span>${open(x.stage) ? `<span class="meter"><i style="width:${Math.round(k / x.words.length * 100)}%"></i></span>` : lockTag(x.stage)}</button>`; }).join('')}</div>`;
+        return `<button class="en-row${open(x.stage) ? '' : ' locked'}" data-set="${x.id}"><span class="en-rico">${open(x.stage) ? x.ico : '🔒'}</span><span><b>${x.name}</b><small>${x.words.length} words · ${k} known</small></span>${open(x.stage) ? `<span class="meter"><i style="width:${Math.round(k / x.words.length * 100)}%"></i></span>` : lockTag(x.stage)}</button>`; }).join('')}</div>${ptip('sight')}`;
     wireBack(enHome);
     sayScreen('Sight words. Pick a set.');
     view.querySelectorAll('[data-set]').forEach(b => b.onclick = () => { const x = EN_SIGHT.find(s => s.id === b.dataset.set); open(x.stage) ? go(sightSet, x.id) : say(lockText(x.stage)); });
@@ -274,7 +289,7 @@ const englishHome = (() => {
     quiz({ id: 'sight-' + id, title: `🔎 Find the word`, back: () => go(sightSet, id),
       gen() { const e = E(), fresh = x.words.filter(w => !e.sight[w]), w = pick(fresh.length && Math.random() < 0.75 ? fresh : x.words);
         const near = shuffle(x.words.filter(o => o !== w)).sort((a, b) => Math.abs(a.length - w.length) - Math.abs(b.length - w.length) || (a[0] === w[0] ? -1 : 1)).slice(0, 3);
-        return { prompt: 'Tap the word you hear.', say: `Find the word: ${w}. ${w}.`, visual: '<div class="en-pic">👂</div>', choices: enTxt([w, ...near]), answer: w, explain: `This one says ${w}. Look for it again!` }; },
+        return { prompt: 'Tap the word you hear.', say: `Find the word: ${w}. ${w}.`, visual: '<div class="en-pic">👂</div>', rv: { w, k: 'sight' }, choices: enTxt([w, ...near]), answer: w, explain: `This one says ${w}. Look for it again!` }; },
       onRight(q, first) { if (first) E().sight[q.answer] = 1; } });
   }
 
@@ -284,7 +299,7 @@ const englishHome = (() => {
     view.innerHTML = `${crumbs('📖 Read')}
       <div class="en-games"><button class="en-gbtn" id="enRW">🔤 Read &amp; match words</button><button class="en-gbtn" id="enRS">📝 Read sentences</button><button class="en-gbtn" id="enSilly">🤪 Silly sentences</button></div>
       <h3 class="section-title">Stories <span class="tag">${Object.keys(e.stories).length}/${EN_STORIES.length} read</span></h3>
-      <div class="en-stories">${EN_STORIES.map(x => `<button class="en-story${open(x.stage) ? '' : ' locked'}" data-story="${x.id}"><span class="en-sico">${open(x.stage) ? x.ico : '🔒'}</span><b>${esc(x.title)}</b><small>Stage ${x.stage}${e.stories[x.id] ? ' · ✅ read' : ''}</small></button>`).join('')}</div>`;
+      <div class="en-stories">${EN_STORIES.map(x => `<button class="en-story${open(x.stage) ? '' : ' locked'}" data-story="${x.id}"><span class="en-sico">${open(x.stage) ? x.ico : '🔒'}</span><b>${esc(x.title)}</b><small>Stage ${x.stage}${e.stories[x.id] ? ' · ✅ read' : ''}</small></button>`).join('')}</div>${ptip('read')}`;
     wireBack(enHome);
     sayScreen('Read! Pick a word game, a sentence game or a story.');
     $('#enRW').onclick = () => go(quiz, readWordSpec());
@@ -295,9 +310,9 @@ const englishHome = (() => {
   function readWordSpec() {
     return { id: 'readword', title: '🔤 Read & match', back: () => go(readHome), gen() {
       const s = stage(); let pool = EN_BLEND.filter(b => b.stage <= Math.min(2, s)).map(b => ({ w: b.w, e: b.e }));
-      if (s >= 3) pool = pool.concat(EN_VOCAB.flatMap(t => t.words).filter(x => !/ /.test(x.w) && x.w.length <= 8));
+      if (s >= 3) pool = pool.concat(EN_VOCAB.flatMap(t => t.words).filter(x => !/ /.test(x.w) && x.w.length <= 8 && tierOf(x) <= maxTier()));
       const W = pick(pool), others = shuffle(pool.filter(x => x.w !== W.w && x.e !== W.e)).slice(0, 2);
-      return { prompt: 'Read the word. Which picture is it?', say: 'Read the word. Then tap its picture.', visual: `<div class="en-word">${esc(W.w)}</div>`,
+      return { prompt: 'Read the word. Which picture is it?', say: 'Read the word. Then tap its picture.', visual: `<div class="en-word">${esc(W.w)}</div>`, rv: { w: W.w, e: W.e },
         choices: shuffle([W, ...others]).map(o => ({ html: o.e, val: o.w, say: o.w })), answer: W.w, explain: `This word says ${W.w}.` };
     } };
   }
@@ -367,7 +382,7 @@ const englishHome = (() => {
         <button class="en-tool" id="enUndo" aria-label="Undo">↩️</button>
       </div>
       <div class="row"><button class="btn leaf" id="enCheck">✔ Check</button><button class="btn alt" id="enHearS">🔊 Hear it</button></div>
-      <div class="cheer" id="cheer" aria-live="polite">${msg || ''}</div>`;
+      <div class="cheer" id="cheer" aria-live="polite">${msg || ''}</div>${ptip('build')}`;
     wireBack(enHome);
     view.querySelectorAll('[data-t]').forEach(b => b.onclick = () => { if (B.done) return; B.placed.push(+b.dataset.t); tone([520 + B.placed.length * 40], .06); drawBuild(); say(S.toks[+b.dataset.t].low.replace(/,$/, '')); });
     view.querySelectorAll('[data-p]').forEach(b => b.onclick = () => { if (B.done) return; const p = +b.dataset.p; B.placed.splice(p, 1); if (p === 0) B.cap = false; drawBuild(); });
@@ -413,7 +428,7 @@ const englishHome = (() => {
   function grammarHome() {
     const e = E();
     view.innerHTML = `${crumbs('📐 Grammar games')}
-      <div class="en-gg">${EN_GAMES.map(g => `<button class="en-gt${open(g.stage) ? '' : ' locked'}" data-g="${g.id}"><span class="en-sico">${open(g.stage) ? g.ico : '🔒'}</span><b>${g.name}</b><small>Stage ${g.stage}${e.best['g-' + g.id] != null ? ` · best ${e.best['g-' + g.id]}/6` : ''}</small></button>`).join('')}</div>`;
+      <div class="en-gg">${EN_GAMES.map(g => `<button class="en-gt${open(g.stage) ? '' : ' locked'}" data-g="${g.id}"><span class="en-sico">${open(g.stage) ? g.ico : '🔒'}</span><b>${g.name}</b><small>Stage ${g.stage}${e.best['g-' + g.id] != null ? ` · best ${e.best['g-' + g.id]}/6` : ''}</small></button>`).join('')}</div>${ptip('grammar')}`;
     wireBack(enHome);
     sayScreen('Grammar games. Pick one!');
     view.querySelectorAll('[data-g]').forEach(b => b.onclick = () => { const g = EN_GAMES.find(x => x.id === b.dataset.g); open(g.stage) ? go(grammarGame, g.id) : say(lockText(g.stage)); });
@@ -431,25 +446,34 @@ const englishHome = (() => {
   const grammarSpec = id => { const g = EN_GAMES.find(x => x.id === id); return { id: 'g-' + id, title: `${g.ico} ${g.name}`, back: () => go(grammarHome), gen: () => g.gen(stage()) }; };
 
   /* --- word book --- */
-  function vocab(tid) {
+  // Word tiers: 1 first words, 2 more words, 3 big words with meanings. The quizzes use the tiers that fit the reading stage.
+  const TIERS = [[1, '🌱', 'First words'], [2, '🌿', 'More words'], [3, '✨', 'Big words']];
+  const maxTier = () => { const s = stage(); return s <= 2 ? 1 : s === 3 ? 2 : 3; };
+  const tierOf = x => x.t || 1;
+  function vocab(tid, tier) {
     const T = EN_VOCAB.find(t => t.id === (tid || E().vt)) || EN_VOCAB[0]; E().vt = T.id;
+    const tf = tier != null ? tier : E().vtier || 0; E().vtier = tf;
+    const list = T.words.map((x, i) => [x, i]).filter(([x]) => !tf || tierOf(x) === tf);
     view.innerHTML = `${crumbs('🗂️ Word book')}
       <div class="en-tabs scroll">${EN_VOCAB.map(t => `<button class="en-tab${t.id === T.id ? ' on' : ''}" data-topic="${t.id}">${t.ico} ${t.name}</button>`).join('')}</div>
+      <div class="en-tabs en-tiers"><button class="en-tab${tf ? '' : ' on'}" data-tier="0">All ${T.words.length}</button>${TIERS.map(([n, ico, name]) => `<button class="en-tab${tf === n ? ' on' : ''}" data-tier="${n}">${ico} ${name} ${T.words.filter(x => tierOf(x) === n).length}</button>`).join('')}</div>
       <div class="en-games"><button class="en-gbtn" id="enVQ">🎯 ${esc(T.name)} quiz</button></div>
-      <div class="en-vg">${T.words.map((x, i) => `<button class="en-vc" data-v="${i}"><span class="en-pe">${x.e}</span><b>${esc(x.w)}</b></button>`).join('')}</div>`;
+      <div class="en-vg">${list.map(([x, i]) => `<button class="en-vc${tierOf(x) === 3 ? ' t3' : ''}" data-v="${i}"><span class="en-pe">${x.e}</span><b>${esc(x.w)}</b>${x.m ? `<small>${esc(x.m)}</small>` : ''}</button>`).join('') || '<p class="note">No words of this kind in this topic. Try another!</p>'}</div>${ptip('vocab')}`;
     wireBack(enHome);
     sayScreen(`${T.name}. Tap a picture to hear the word.`);
     view.querySelectorAll('[data-topic]').forEach(b => b.onclick = () => go(vocab, b.dataset.topic));
-    view.querySelectorAll('[data-v]').forEach(b => b.onclick = () => { const x = T.words[+b.dataset.v]; view.querySelectorAll('.en-vc.lit').forEach(o => o.classList.remove('lit')); b.classList.add('lit'); say(x.w); });
+    view.querySelectorAll('[data-tier]').forEach(b => b.onclick = () => go(vocab, T.id, +b.dataset.tier));
+    view.querySelectorAll('[data-v]').forEach(b => b.onclick = () => { const x = T.words[+b.dataset.v]; view.querySelectorAll('.en-vc.lit').forEach(o => o.classList.remove('lit')); b.classList.add('lit'); say(x.m ? `${x.w}. ${x.w} means ${x.m}` : x.w); });
     $('#enVQ').onclick = () => go(quiz, vocabSpec(T.id));
   }
   function vocabSpec(tid) {
     const T = EN_VOCAB.find(t => t.id === tid);
     return { id: 'v-' + tid, title: `🎯 ${T.name}`, back: () => go(vocab, tid), gen() {
-      const W = pick(T.words), others = shuffle(T.words.filter(x => x.w !== W.w && x.e !== W.e)).slice(0, 3), opts = shuffle([W, ...others]);
+      const mt = maxTier(), fit = T.words.filter(x => tierOf(x) <= mt), pool = fit.length >= 6 ? fit : T.words;
+      const W = pick(pool), others = shuffle(pool.filter(x => x.w !== W.w && x.e !== W.e)).slice(0, 3), opts = shuffle([W, ...others]);
       if (stage() >= 3 && Math.random() < 0.5)
-        return { prompt: 'What is this?', say: 'What is this? Read the words.', visual: `<div class="en-pic">${W.e}</div>`, choices: enTxt(opts.map(o => o.w)), answer: W.w, explain: `This is: ${W.w}.` };
-      return { prompt: `Which one is <b>${esc(W.w)}</b>?`, say: `Which one is ${W.w}?`, visual: '', choices: opts.map(o => ({ html: o.e, val: o.w, say: o.w })), answer: W.w, explain: `${W.e} This one is ${W.w}.` };
+        return { prompt: 'What is this?', say: 'What is this? Read the words.', visual: `<div class="en-pic">${W.e}</div>`, rv: { w: W.w, e: W.e }, choices: enTxt(opts.map(o => o.w)), answer: W.w, explain: `This is: ${W.w}.` };
+      return { prompt: `Which one is <b>${esc(W.w)}</b>?`, say: `Which one is ${W.w}?`, visual: '', rv: { w: W.w, e: W.e }, choices: opts.map(o => ({ html: o.e, val: o.w, say: o.w })), answer: W.w, explain: `${W.e} This one is ${W.w}.` };
     } };
   }
 
@@ -459,7 +483,7 @@ const englishHome = (() => {
     view.innerHTML = `${crumbs('💬 Say it!')}
       <div class="en-tabs">${EN_SAYINGS.map(g => `<button class="en-tab${g.id === G.id ? ' on' : ''}" data-grp="${g.id}">${open(g.stage) ? g.ico : '🔒'} ${g.name}</button>`).join('')}</div>
       ${ok ? `<div class="en-games"><button class="en-gbtn" id="enSQ">🎯 What does it mean?</button></div>` : `<p class="note">${lockText(G.stage)}</p>`}
-      <div class="en-says${ok ? '' : ' dim'}">${G.items.map(([p, e, m, ex], i) => `<button class="en-say" data-s="${i}"><span class="en-pe">${e}</span><span><b>${esc(p)}</b><span>${esc(m)}</span><i>“${esc(ex)}”</i></span></button>`).join('')}</div>`;
+      <div class="en-says${ok ? '' : ' dim'}">${G.items.map(([p, e, m, ex], i) => `<button class="en-say" data-s="${i}"><span class="en-pe">${e}</span><span><b>${esc(p)}</b><span>${esc(m)}</span><i>“${esc(ex)}”</i></span></button>`).join('')}</div>${ptip('say')}`;
     wireBack(enHome);
     sayScreen(`${G.name}. Tap one to hear it.`);
     view.querySelectorAll('[data-grp]').forEach(b => b.onclick = () => go(sayings, b.dataset.grp));
@@ -504,7 +528,7 @@ const englishHome = (() => {
         <button class="en-gt en-fun" data-fun="monster"><span class="en-sico">👾</span><b>Feed Munch</b><small>Munch the monster only eats the right word</small></button>
         <button class="en-gt en-fun" data-fun="hunt"><span class="en-sico">💎</span><b>Word treasure hunt</b><small>Dig up the words Owl calls out</small></button>
         <button class="en-gt en-fun" data-fun="silly"><span class="en-sico">🤪</span><b>Silly sentences</b><small>Read a silly sentence, find its silly picture</small></button>
-      </div>`;
+      </div>${ptip('fun')}`;
     wireBack(enHome);
     sayScreen('Fun games! Pop bubbles, feed Munch the monster, dig for treasure, or read silly sentences.');
     view.querySelectorAll('[data-fun]').forEach(b => b.onclick = () => { const f = b.dataset.fun; f === 'hunt' ? go(hunt) : go(quiz, f === 'bubbles' ? bubbleSpec() : f === 'monster' ? monsterSpec() : sillySpec()); });
@@ -524,7 +548,7 @@ const englishHome = (() => {
       while (near.length < 3) near.push(pick(words.filter(o => o !== w && !near.includes(o))));
       return { prompt: 'Munch is hungry! Feed him the word he asks for.', say: `Munch says: I want to eat the word ${w}! Yum yum, ${w}!`,
         visual: '<div class="en-mon" id="enMon"><span class="en-mface">👾</span><span class="en-mbub">🍪 Yum yum! 🔊</span></div>',
-        choices: enTxt([w, ...near]), answer: w, explain: `Bleh! Munch does not want that word. He wants ${w}. ${w}!` };
+        rv: { w, k: 'sight' }, choices: enTxt([w, ...near]), answer: w, explain: `Bleh! Munch does not want that word. He wants ${w}. ${w}!` };
     }, onRight(q, first, b) { const m = document.getElementById('enMon'); if (m) { m.classList.add('chomp'); m.querySelector('.en-mbub').textContent = 'CHOMP! Yummy!'; } b.classList.add('eaten'); } };
   }
   const SILLY = { who: [['pig', '🐷'], ['cat', '🐱'], ['dog', '🐶'], ['frog', '🐸'], ['cow', '🐮'], ['duck', '🦆'], ['bear', '🐻'], ['fox', '🦊']],
@@ -573,11 +597,11 @@ const englishHome = (() => {
     });
   }
 
-  const info = () => ({
+  const info = () => { const b = {
     words: EN_VOCAB.reduce((a, t) => a + t.words.length, 0), topics: EN_VOCAB.length, sounds: EN_LETTERS.length + EN_DIGRAPHS.length + EN_MAGIC.length + EN_TEAMS.length,
     blend: EN_BLEND.length, sight: EN_SIGHT.reduce((a, s) => a + s.words.length, 0), stories: EN_STORIES.length, sentences: EN_SENTENCES.length, build: EN_BUILD.length,
     grammar: EN_GAMES.length, games: EN_GAMES.length + 15, pals: PALS.length, sayings: EN_SAYINGS.reduce((a, g) => a + g.items.length, 0), stages: STAGES.length
-  });
+  }; return enHome.more ? enHome.more(b) : b; };
   const VIEWS = { home: enHome, phonics, blend: blendGame, sight: sightHome, sightSet, flash, sightFind, read: readHome, story: storyRead, build: buildGame, grammar: grammarHome, game: grammarGame, vocab, say: sayings,
     fun: funHome, hunt, bubbles: () => quiz(bubbleSpec()), monster: () => quiz(monsterSpec()), silly: () => quiz(sillySpec()),
     first: () => quiz(firstSoundSpec()), magic: () => quiz(magicSpec()), teams: () => quiz(teamSpec()), readword: () => quiz(readWordSpec()), readsent: () => quiz(readSentSpec()),
@@ -588,5 +612,7 @@ const englishHome = (() => {
     data: { EN_LETTERS, EN_DIGRAPHS, EN_TEAMS, EN_BLEND, EN_SIGHT, EN_VOCAB, EN_SAYINGS, EN_STORIES, EN_SENTENCES, EN_BUILD, EN_GAMES }
   };
   enHome.info = info;
+  // The rest of the English area (english5.js) builds on these.
+  enHome.api = { quiz, give, reward, E, stage, open, talk, tapWords, wireTapWords, lockText, plain, ptip, hooks, maxTier, tierOf, SECTIONS, VIEWS, STAGES, PALS, vocab, enHome };
   return enHome;
 })();

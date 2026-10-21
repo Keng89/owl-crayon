@@ -1,5 +1,5 @@
-// English & Reading: the home tile opens the area; every section renders (letter sounds, blend it, sight words,
-// read, sentence builder, grammar games, word book, say it, fun games); a letter-sound tap and the sound song; a blend
+// English & Reading: the home tile opens the area; all 11 sections render (letter sounds, blend it, sight words,
+// read, sentence builder, grammar games, word book, say it, fun games, word play, my words); a letter-sound tap and the sound song; a blend
 // round answered by a real tap; a sentence built block by block (with a wrong check first) awarding stars; grammar
 // answers (wrong then right); a whole round ending in the word-pal reward; a story read and its questions answered;
 // sight-word find, Feed Munch, bubble pop and the word treasure hunt; stage locks and the reading ladder; reading
@@ -64,11 +64,11 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
     await p.click('#tEnglish'); await p.waitForSelector('.en-secs');
     if ((await S()).stage !== 1) fail('a 5-year-old does not start at stage 1');
     const secs = await p.$$eval('[data-sec]', x => x.map(b => b.dataset.sec));
-    if (secs.length !== 9) fail(`${secs.length} sections`);
+    if (secs.length !== 11) fail(`${secs.length} sections`);
     await noScroll('english home'); await bigEnough('english home'); await shot('home');
 
     // 2. Every section renders.
-    const expect = { phonics: ['.en-pt', 26], blend: ['#enBlend', 1], sight: ['.en-row', 5], read: ['.en-story', 10], build: ['.en-tray .en-blk', 3], grammar: ['.en-gt', 15], vocab: ['.en-vc', 10], say: ['.en-say', 10], fun: ['.en-fun', 4] };
+    const expect = { phonics: ['.en-pt', 26], blend: ['#enBlend', 1], sight: ['.en-row', 5], read: ['.en-story', 10], build: ['.en-tray .en-blk', 3], grammar: ['.en-gt', 15], vocab: ['.en-vc', 10], say: ['.en-say', 10], fun: ['.en-fun', 4], play: ['.en-wp', 7], mywords: ['.en-stk', 10] };
     for (const id of secs) {
       await p.evaluate(() => window.__english.go('home')); await p.waitForSelector('.en-secs');
       await p.click(`[data-sec="${id}"]`);

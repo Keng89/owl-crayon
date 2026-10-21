@@ -913,6 +913,8 @@ function parent() {
 //@include english.js
 //@include english2.js
 //@include english3.js
+//@include english4.js
+//@include english5.js
 //@include tour.js
 //@include timer.js
 
