@@ -29,6 +29,7 @@ h1,h2,h3{font-family:var(--display);font-weight:800;margin:0;text-wrap:balance;l
 .tile h2{font-size:32px}
 .tile p{margin:2px 0 0;font-weight:700;opacity:.85}
 .t-math{background:var(--leaf);color:#fff}.t-art{background:var(--coral);color:#fff}.t-owl{background:var(--grape);color:#fff}
+.t-quest{background:var(--sky);color:#fff}
 .pick{display:flex;align-items:center;gap:14px;background:var(--sun-soft);border:3px dashed var(--sun);border-radius:24px;padding:14px 18px;text-align:left;width:100%}
 .pick .big{font-size:40px}
 .pick b{font-family:var(--display);font-size:22px;display:block}
