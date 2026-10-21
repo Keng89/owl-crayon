@@ -415,6 +415,7 @@ function artHome() {
       <button class="tool-tile" data-tool="color" style="background:#F49AC1;color:var(--ink);box-shadow:0 4px 0 #C96E96"><span class="ico">🖌️</span><b>Coloring book</b><span>Tap to fill colors</span></button>
       <button class="tool-tile" data-tool="scene" style="background:var(--orange-deep);box-shadow:0 4px 0 #7F4413"><span class="ico">🏞️</span><b>Sticker scenes</b><span>Make a picture story</span></button>
       <button class="tool-tile" data-tool="shapes" style="background:#1D7C82;box-shadow:0 4px 0 #135A5F"><span class="ico">🔺</span><b>Shape puzzles</b><span>Build with shapes</span></button>
+      <button class="tool-tile" data-tool="flip" style="background:#9B3A82;box-shadow:0 4px 0 #6E2A5C"><span class="ico">🎞️</span><b>Flipbook</b><span>Make drawings move</span></button>
       <button class="tool-tile" data-tool="gal" style="background:var(--leaf-deep);box-shadow:0 4px 0 #1A6E46"><span class="ico">🖼️</span><b>My pictures</b><span>${gallery.length} saved</span></button>
     </div>
     <h3 class="section-title">Lessons <span class="tag">${Object.keys(st.art.done).length} of ${LESSONS.length} done</span></h3>
@@ -423,7 +424,7 @@ function artHome() {
   wireBack(home);
   sayScreen('Welcome to Art School! Pick a lesson or a tool.');
   if (nl) $('#nextL').onclick = () => go(drawLesson, nl.id);
-  view.querySelectorAll('[data-tool]').forEach(b => b.onclick = () => { const t = b.dataset.tool; go(t === 'free' ? freeDraw : t === 'mandala' ? () => freeDraw(8) : t === 'pixel' ? pixelHome : t === 'mix' ? mixTab : t === 'color' ? colorHome : t === 'scene' ? sceneHome : t === 'shapes' ? shapeHome : galTab); });
+  view.querySelectorAll('[data-tool]').forEach(b => b.onclick = () => { const t = b.dataset.tool; go(t === 'free' ? freeDraw : t === 'mandala' ? () => freeDraw(8) : t === 'pixel' ? pixelHome : t === 'mix' ? mixTab : t === 'color' ? colorHome : t === 'scene' ? sceneHome : t === 'shapes' ? shapeHome : t === 'flip' ? flipHome : galTab); });
   view.querySelectorAll('[data-cat]').forEach(b => b.onclick = () => go(catView, b.dataset.cat));
 }
 function catView(cid) {
@@ -597,7 +598,7 @@ function mixTab() {
 function galTab() {
   view.innerHTML = `${crumbs('My pictures')}` + (gallery.length ? `<div class="gallery">${gallery.map(g => `<img src="${g}" alt="My drawing">`).join('')}</div>`
     : `<div class="mix"><span style="font-size:64px">🖼️</span><p style="font-weight:800;font-size:22px;text-align:center">Your saved drawings will show up here.</p></div>`);
-  wireBack(artHome);
+  wireBack(artHome); flipHome.gal();
 }
 
 /* ---------- pixel art: copy a picture square by square; the last level uses grid coordinates ---------- */
@@ -901,13 +902,14 @@ function parent() {
 //@include coloring.js
 //@include scenes.js
 //@include shapes.js
+//@include flipbook.js
 //@include tour.js
 //@include timer.js
 
 /* ---------- start ---------- */
 updateTop();
 go(profiles.length > 1 ? whoView : home);
-if (location.hash === "#selftest") window.__owl = { MATH, LESSONS, lessonSVG, PICS, get st() { return st; }, get profiles() { return profiles; }, quest, questTick, gainXP, petStage, go, home, mathHome, artHome, catView, drawLesson, gamesHome, ART_CATS, lessonView, play, speakable, storyHome, colorHome, sceneHome, shapeHome };
+if (location.hash === "#selftest") window.__owl = { MATH, LESSONS, lessonSVG, PICS, get st() { return st; }, get profiles() { return profiles; }, quest, questTick, gainXP, petStage, go, home, mathHome, artHome, catView, drawLesson, gamesHome, ART_CATS, lessonView, play, speakable, storyHome, colorHome, sceneHome, shapeHome, flipHome, galTab };
 if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) {
   try {
     // A new version installs in the background; offer a tap to switch rather than reloading mid-game.

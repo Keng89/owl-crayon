@@ -154,7 +154,7 @@ function wirePlayers() {
   view.querySelectorAll('[data-del]').forEach(b => b.onclick = () => {
     if (b.dataset.armed !== '1') { b.dataset.armed = '1'; b.textContent = 'Tap again to remove'; return; }
     const id = b.dataset.del; profiles = profiles.filter(p => p.id !== id); store.set('profiles', profiles);
-    try { localStorage.removeItem('owlcrayon:state:' + id); localStorage.removeItem('owlcrayon:gallery:' + id); } catch (e) {}
+    try { localStorage.removeItem('owlcrayon:state:' + id); localStorage.removeItem('owlcrayon:gallery:' + id); ['flip', 'questPics', 'sceneDraft', 'pt'].forEach(k => localStorage.removeItem('owlcrayon:' + k + ':' + id)); } catch (e) {}
     if (id === pid) loadProfile(profiles[0].id); updateTop(); go(parent);
   });
   $('#addForm').onsubmit = e => {

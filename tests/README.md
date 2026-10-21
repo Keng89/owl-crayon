@@ -25,3 +25,4 @@ Serve the app first: `python3 -m http.server 8766` from the repo root. Then run 
 - `t27.js`: shape puzzles: every easy puzzle by real drags, medium and tricky with turn and flip, wrong drops, stars once, saved progress.
 - `t28.js`: play-time limits and break reminders (fast clock, two players, grown-up gate, chart, reload).
 - `t29.js`: busy-child regressions from the monkey test: leaving a screen right after a tap (mix colors, sticker counting and saving, coloring save, a voice question to Owl), double taps on Done, Check and Save, and a long question in the Grown-ups corner.
+- `t30.js`: flipbook: drawing frames, onion skin, play/stop, lessons, saving, My flipbooks, reload.

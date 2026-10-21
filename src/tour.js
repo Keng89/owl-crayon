@@ -124,7 +124,7 @@ const tour = (() => {
         `<b>Write numbers</b>: trace 0–20 with a finger. <b>Math games</b>: ${GAMES.map(g => g.name).join(', ')}.`])}</div>
       <div class="panel"><h2>🖍️ Art School</h2>${li([
         `${LESSONS.length} drawing lessons in ${ART_CATS.length} kinds (${lv}). Each step draws itself, then your child copies it on the pad; 👻 Trace shows faint lines.`,
-        `Studio: free draw, mandala mode, ${PICS.length} pixel pictures, color mixing, a coloring book of ${FIXED.coloring} pages (tap to fill, color by number) sticker scenes in ${FIXED.places} places, and ${FIXED.shapes} shape puzzles (drag shapes into a picture, easy to tangram).`,
+        `Studio: free draw, mandala mode, ${PICS.length} pixel pictures, color mixing, a coloring book of ${FIXED.coloring} pages (tap to fill, color by number) sticker scenes in ${FIXED.places} places, ${FIXED.shapes} shape puzzles (drag shapes into a picture, easy to tangram), and a flipbook to make drawings move (8 animation lessons).`,
         'Finished drawings are saved in <b>My pictures</b>.'])}</div>
       <div class="panel"><h2>🗺️ Owl's Quest, daily quest and owl</h2>${li([
         `<b>Owl's Quest</b>: a story map of ${FIXED.chapters} chapters. Each stop is a few math puzzles, a drawing, or a story choice. Finished chapters become a storybook.`,

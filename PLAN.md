@@ -70,3 +70,5 @@ None of this sends data anywhere. Progress lives in the browser on that device.
 **2026-10-21 play time.** src/timer.js: per-player daily play limit and wiggle-break reminders set in Grown-ups corner (off by default), 7-day minutes chart, calm "All done for today" screen unlocked by a grown-up. Test t28. Also fixed a question auto-advance that could redraw over a screen the child had just left.
 
 **2026-10-21 bug hunt.** A random-tapping "monkey" test (scratchpad) found or led to 9 fixes: crashes when leaving mix colors, sticker counting, coloring save or the mic too fast; a misleading save message; double-tap star farming in write numbers, pixel art and the drawing pad (blank pictures no longer save); a sideways-scrolling grown-ups page. Test t29.
+
+**2026-10-21 flipbook.** src/flipbook.js: draw 2–12 frames with onion skin, play/bounce at 3 speeds, 8 guided animation lessons (bouncing ball, blinking eyes, rocket...), saved flipbooks play in My pictures. Removing a player now also clears their flipbooks, quest drawings, scene draft and play-time record. Test t30.
