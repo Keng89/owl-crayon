@@ -44,6 +44,7 @@ h1,h2,h3{font-family:var(--display);font-weight:800;margin:0;text-wrap:balance;l
 .tile h2{font-size:32px}
 .tile p{margin:2px 0 0;font-weight:700;opacity:.85}
 .t-math{background:var(--leaf);color:#fff}.t-art{background:var(--coral);color:#fff}.t-owl{background:var(--grape);color:#fff}
+.t-quest{background:var(--sky);color:#fff}
 .pick{display:flex;align-items:center;gap:14px;background:var(--sun-soft);border:3px dashed var(--sun);border-radius:24px;padding:14px 18px;text-align:left;width:100%}
 .pick .big{font-size:40px}
 .pick b{font-family:var(--display);font-size:22px;display:block}
@@ -855,6 +856,197 @@ ol.steps{margin:0;padding-left:1.4em;text-align:left;font-weight:700;font-size:1
 .choice.gone{opacity:.15;transform:scale(.9)}
 .qcard.demo{margin-top:16px;outline:3px dashed var(--sun)}
 .qcard.demo .choice{cursor:default;pointer-events:none}
+/* sticker scenes */
+.ss-idea .ss-bulb{font-size:34px}
+.ss-idea p{flex:1 1 200px}
+.ss-idea-btns{display:flex;gap:8px;flex-wrap:wrap}
+.ss-check{background:var(--leaf);color:#fff;box-shadow:0 3px 0 #1D7A4E}
+.ss-wrap{display:grid;gap:12px;grid-template-columns:minmax(0,1fr)}
+.ss-left{display:flex;flex-direction:column;gap:10px;min-width:0}
+@media (min-width:900px){.ss-wrap{grid-template-columns:minmax(0,1fr) 320px;align-items:start}}
+.ss-stage{position:relative;width:100%;aspect-ratio:4/3;border-radius:22px;overflow:hidden;box-shadow:0 5px 0 var(--line);touch-action:none;user-select:none;-webkit-user-select:none;background:#BDE7FF;--u:1px}
+.ss-bg,.ss-items,.ss-nums{position:absolute;inset:0}
+.ss-bg svg{width:100%;height:100%;display:block}
+.ss-doodle{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.ss-stage.drawing .ss-doodle{pointer-events:auto;cursor:crosshair}
+.ss-stage.drawing .ss-st{pointer-events:none}
+.ss-st{position:absolute;font-size:calc(var(--s,52) * var(--u));line-height:1;cursor:grab;font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif;border-radius:14px;white-space:nowrap;-webkit-touch-callout:none}
+.ss-st.on{outline:3px dashed #fff;box-shadow:0 0 0 3px rgba(34,48,90,.55);background:rgba(255,255,255,.18)}
+.ss-st.drag{cursor:grabbing;filter:drop-shadow(0 6px 4px rgba(0,0,0,.3))}
+.ss-st.pop{animation:ssPop .35s ease-out}
+@keyframes ssPop{0%{scale:.3}70%{scale:1.15}100%{scale:1}}
+.ss-nums{pointer-events:none}
+.ss-nums b{position:absolute;transform:translate(-50%,-50%);min-width:30px;height:30px;padding:0 6px;border-radius:15px;background:var(--sun);color:var(--ink);font:800 19px/30px var(--display);text-align:center;box-shadow:0 2px 0 #C9921A;animation:ssPop .3s ease-out}
+.ss-hint{position:absolute;left:50%;bottom:8px;transform:translateX(-50%);margin:0;background:rgba(255,255,255,.85);border-radius:999px;padding:4px 12px;font-weight:800;font-size:15px;pointer-events:none;white-space:nowrap}
+.ss-hint:empty{display:none}
+.ss-mode{display:flex;gap:8px;flex-wrap:wrap}
+.ss-mode .tool{flex:1 1 0;font-size:17px}
+.ss-edit{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px}
+.ss-eb{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;min-height:58px;border-radius:14px;background:var(--paper);box-shadow:0 3px 0 var(--line);font-weight:800;font-size:12px;padding:4px 0}
+.ss-eb span{font-size:24px;line-height:1}
+.ss-eb:disabled{opacity:.4;cursor:default}
+.ss-eb.ss-del:not(:disabled){background:var(--coral-soft)}
+.ss-crayon{display:flex;flex-direction:column;gap:8px}
+.ss-tray{background:var(--paper);border-radius:22px;box-shadow:0 4px 0 var(--line);padding:10px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.ss-tabs{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:5px}
+.ss-tab{height:48px;border-radius:14px;font-size:26px;background:var(--bg)}
+.ss-tab[aria-selected=true]{background:var(--sun);box-shadow:0 3px 0 #C9921A}
+.ss-tabname{margin:2px 4px 0;font-family:var(--display);font-weight:800;font-size:19px}
+.ss-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(54px,1fr));gap:6px;max-height:300px;overflow-y:auto;padding:2px}
+.ss-sk{height:58px;border-radius:14px;font-size:36px;line-height:1;background:var(--bg);font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif}
+.ss-sk:active{transform:scale(.9)}
+.ss-grid.ss-bgs{grid-template-columns:repeat(auto-fill,minmax(96px,1fr));max-height:420px}
+.ss-bgb{display:flex;flex-direction:column;gap:2px;border-radius:14px;padding:4px;background:var(--bg);font-weight:800;font-size:13px;line-height:1.1;text-align:center}
+.ss-bgb svg{width:100%;aspect-ratio:4/3;height:auto;border-radius:10px;display:block}
+.ss-bgb[aria-pressed=true]{outline:4px solid var(--sun)}
+.ss-tell{background:var(--paper);border-radius:22px;padding:12px 14px;box-shadow:0 4px 0 var(--line);display:flex;flex-direction:column;gap:8px}
+.ss-tell textarea{width:100%;font:700 19px var(--body);border:3px solid var(--line);border-radius:14px;padding:10px;resize:vertical;color:var(--ink)}
+.ss-tell .row{display:flex;gap:8px;flex-wrap:wrap}
+.ss-actions{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.ss-actions .btn{font-size:19px;padding:14px 12px}
+.ss-saved{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--leaf-soft);border-radius:18px;padding:10px 14px;font-weight:800;font-size:19px}
+@media (max-width:500px){.ss-grid{max-height:200px}.ss-grid.ss-bgs{max-height:260px;grid-template-columns:repeat(3,minmax(0,1fr))}.ss-actions{grid-template-columns:1fr 1fr}.ss-idea p{font-size:18px}}
+/* owl's quest */
+.sq-chs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.sq-ch{background:var(--paper);border-radius:20px;padding:10px 8px;display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center;box-shadow:0 4px 0 var(--line);border:3px solid transparent;min-width:0}
+.sq-ch.on{border-color:var(--chc);box-shadow:0 4px 0 var(--chc)}
+.sq-ch.locked{opacity:.6}
+.sq-chi{font-size:34px;line-height:1.1}
+.sq-ch b{font-family:var(--display);font-size:17px;line-height:1.1}
+.sq-chn{font-size:13px;font-weight:800;color:var(--ink-soft);display:flex;align-items:center;gap:4px}
+.sq-chn .sq-crayon,.sq-chn .sq-ge{height:20px;width:auto;font-size:16px}
+.sq-banner{display:flex;align-items:center;gap:12px;background:var(--sun-soft);border-radius:22px;padding:10px 14px}
+.sq-banner p{margin:0;flex:1;min-width:0;font-weight:700;font-size:18px}
+.sq-banner p b{display:block;font-family:var(--display);font-size:22px}
+.sq-bowl{font-size:44px;animation:sqBob 2.4s ease-in-out infinite}
+.sq-map{position:relative;width:100%;border-radius:28px;overflow:hidden;box-shadow:0 6px 0 var(--line)}
+.sq-mapbg{position:absolute;inset:0;width:100%;height:100%;display:block;transition:filter .6s}
+.sq-stop{position:absolute;transform:translate(-50%,-50%);width:62px;height:62px;border-radius:50%;background:#fff;box-shadow:0 5px 0 rgba(34,48,90,.25),0 0 0 4px #fff inset;display:grid;place-items:center;z-index:2}
+.sq-map.wide .sq-stop{width:76px;height:76px}
+.sq-si{font-size:32px;line-height:1}
+.sq-map.wide .sq-si{font-size:40px}
+.sq-stop.done{background:#FFF1CC;box-shadow:0 5px 0 #C9921A}
+.sq-stop.locked .sq-si{filter:grayscale(1);opacity:.45}
+.sq-stop.final{outline:4px dashed var(--sun);outline-offset:3px}
+.sq-stop.next{background:#fff;animation:sqPulse 1.6s ease-in-out infinite}
+.sq-star,.sq-lock{position:absolute;right:-6px;top:-8px;font-size:22px;line-height:1}
+.sq-lock{font-size:16px;right:-2px;top:-4px}
+.sq-num{position:absolute;left:-4px;bottom:-4px;font:800 13px var(--body);font-style:normal;background:var(--ink);color:#fff;border-radius:999px;min-width:22px;height:22px;display:grid;place-items:center}
+.sq-hoot{position:absolute;z-index:3;font-size:40px;line-height:1;transform:translate(-90%,-115%);transition:left .9s ease-in-out,top .9s ease-in-out;pointer-events:none;filter:drop-shadow(0 3px 2px rgba(0,0,0,.25))}
+.sq-map.wide .sq-hoot{font-size:48px}
+.sq-hoot i{position:absolute;left:50%;top:-14px;transform:translateX(-50%);font-size:.5em;font-style:normal}
+@keyframes sqPulse{0%,100%{box-shadow:0 5px 0 rgba(34,48,90,.25),0 0 0 0 rgba(255,194,61,.9)}50%{box-shadow:0 5px 0 rgba(34,48,90,.25),0 0 0 12px rgba(255,194,61,0)}}
+@keyframes sqBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.sq-under{display:flex;flex-direction:column;align-items:center;gap:12px}
+.sq-cta{width:100%;max-width:560px;font-size:22px}
+.sq-gifts{display:flex;flex-wrap:wrap;gap:5px;justify-content:center}
+.sq-slot{width:32px;height:46px;border-radius:10px;border:3px dashed var(--line);display:grid;place-items:center;background:var(--paper)}
+.sq-slot.got{border:3px solid var(--sun);background:var(--sun-soft)}
+.sq-slot .sq-crayon{height:40px;width:auto}
+.sq-slot .sq-ge{font-size:24px}
+.sq-crayon{display:block}
+.sq-ge{line-height:1;display:inline-block}
+.sq-page{display:flex;flex-direction:column;gap:14px;align-items:center;max-width:760px;width:100%;margin:0 auto}
+.sq-where{margin:0;font-weight:800;color:var(--ink-soft);font-size:15px}
+.sq-scene{position:relative;width:100%;max-width:640px;aspect-ratio:16/9;border-radius:24px;overflow:hidden;box-shadow:0 5px 0 var(--line)}
+.sq-scene svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.sq-shoot{animation:sqBob 2.2s ease-in-out infinite}
+.sq-story{position:relative;background:var(--paper);border-radius:24px;padding:16px 62px 16px 18px;box-shadow:0 5px 0 var(--line);width:100%;max-width:640px}
+.sq-story p{margin:0 0 8px;font-family:var(--display);font-weight:700;font-size:clamp(21px,3vw,26px);line-height:1.25}
+.sq-story p:last-of-type{margin:0}
+.sq-story .speak{position:absolute;right:8px;top:8px}
+.sq-task{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:var(--paper);border-radius:22px;padding:10px 12px;box-shadow:0 4px 0 var(--line)}
+.sq-tico{font-size:36px}
+.sq-task p{flex:1 1 0;min-width:0;margin:0;font-family:var(--display);font-weight:800;font-size:21px;line-height:1.15}
+.sq-dots{display:flex;gap:6px}
+.sq-dots i{width:34px;height:34px;border-radius:50%;background:var(--bg);border:3px dashed var(--line);display:grid;place-items:center;font-style:normal;font-size:18px}
+.sq-dots i.now{border:3px solid var(--sun);background:var(--sun-soft)}
+.sq-dots i.on{border:3px solid var(--leaf);background:var(--leaf-soft)}
+.sq-q{margin-top:4px}
+.sq-art{display:grid;grid-template-columns:1fr;gap:12px}
+.sq-idea{display:flex;align-items:center;gap:6px 12px;background:var(--sun-soft);border-radius:22px;padding:10px 14px;flex-wrap:wrap}
+.sq-idea b{font-family:var(--display);font-size:20px;width:100%}
+.sq-idea .art-svg{width:110px;max-width:110px;background:#fff;border-radius:16px;flex:none}
+.sq-idea .note{flex:1;min-width:120px;font-weight:800;font-size:16px}
+.sq-padbox{display:flex;flex-direction:column;gap:12px;align-items:center;min-width:0}
+.sq-padbox .studio{width:100%}
+@media (min-width:820px){.sq-art{grid-template-columns:230px 1fr;align-items:start}.sq-idea{flex-direction:column;text-align:center}.sq-idea .art-svg{width:190px;max-width:190px}}
+.sq-nudge{animation:shake .35s}
+.sq-opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;max-width:640px;width:100%;margin:0 auto}
+.sq-opt{background:var(--paper);border-radius:26px;padding:18px 12px;display:flex;flex-direction:column;align-items:center;gap:6px;box-shadow:0 6px 0 var(--line);border:4px solid transparent;min-height:170px;justify-content:center;transition:transform .12s}
+.sq-opt:active{transform:translateY(4px)}
+.sq-oe{font-size:72px;line-height:1}
+.sq-opt b{font-family:var(--display);font-size:24px;line-height:1.1}
+.sq-opt.chosen{border-color:var(--leaf);background:var(--leaf-soft);transform:scale(1.04)}
+.sq-center{text-align:center;align-self:center}
+.sq-win{display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;position:relative;max-width:760px;width:100%;margin:0 auto}
+.sq-win h1{font-size:clamp(34px,6vw,48px)}
+.sq-line{margin:0;font-family:var(--display);font-weight:700;font-size:clamp(20px,3vw,25px);max-width:36ch;line-height:1.25}
+.sq-earn{margin:0;font:800 26px var(--display);color:var(--leaf)}
+.sq-prize{display:grid;place-items:center;position:relative;z-index:1}
+.sq-win > .sq-scene + .sq-prize{margin-top:-58px}
+.sq-prize .sq-crayon.big{height:96px;width:auto;filter:drop-shadow(0 4px 0 rgba(0,0,0,.15))}
+.sq-prize .sq-ge.big{font-size:72px;background:#fff;border-radius:50%;width:104px;height:104px;display:grid;place-items:center;box-shadow:0 5px 0 var(--line)}
+.sq-prize .sq-crayon.big{background:#fff;border-radius:50%;padding:10px 30px;height:110px;box-shadow:0 5px 0 var(--line)}
+.sq-prize .huge{font-size:120px;height:170px;width:auto}
+.sq-pop{animation:sqPop .7s cubic-bezier(.3,1.6,.5,1) both}
+@keyframes sqPop{from{transform:scale(0) rotate(-20deg)}to{transform:scale(1) rotate(0)}}
+.sq-final{padding-top:18px;overflow:hidden}
+.sq-rays{position:absolute;top:-70px;left:50%;width:340px;height:340px;margin-left:-170px;border-radius:50%;background:repeating-conic-gradient(rgba(255,194,61,.45) 0 12deg,transparent 12deg 24deg);animation:sqSpin 14s linear infinite;-webkit-mask:radial-gradient(circle,#000 30%,transparent 70%);mask:radial-gradient(circle,#000 30%,transparent 70%);pointer-events:none}
+@keyframes sqSpin{to{transform:rotate(360deg)}}
+.sq-mine{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:center;background:var(--paper);border-radius:20px;padding:10px 14px;box-shadow:0 4px 0 var(--line)}
+.sq-mine b{width:100%}
+.sq-mine span{background:var(--grape-soft);border-radius:999px;padding:4px 12px;font-weight:800}
+.sq-book{display:flex;flex-direction:column;gap:18px;max-width:900px;width:100%;margin:0 auto}
+.sq-bpage{position:relative;display:grid;grid-template-columns:1fr;gap:12px;background:#FFFDF6;border-radius:24px;padding:14px;box-shadow:0 5px 0 var(--line),inset 0 0 0 2px #F1E6C8}
+@media (min-width:760px){.sq-bpage{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center}}
+.sq-bpage .sq-scene{box-shadow:none}
+.sq-btext h2{font-size:24px;margin-bottom:6px}
+.sq-btext p{margin:0 0 6px;font-family:var(--display);font-size:20px;font-weight:700;line-height:1.25}
+.sq-btext figure{margin:8px 0 0;display:inline-flex;flex-direction:column;align-items:center;gap:2px;background:#fff;padding:8px 8px 4px;border-radius:6px;box-shadow:0 3px 8px rgba(0,0,0,.15);transform:rotate(-2deg)}
+.sq-btext img{width:140px;height:auto;display:block}
+.sq-btext figcaption{font-weight:800;font-size:13px;color:var(--ink-soft)}
+.sq-pno{position:absolute;right:12px;bottom:8px;font:800 14px var(--display);color:var(--ink-soft);z-index:1}
+.sq-bend{display:flex;flex-direction:column;align-items:center;gap:6px;font:800 34px var(--display)}
+.sq-bend .big{height:90px;width:auto;font-size:64px}
+@media (max-width:520px){.sq-stop{width:54px;height:54px}.sq-si{font-size:28px}.sq-ch b{font-size:15px}.sq-chi{font-size:28px}.sq-banner p{font-size:16px}.sq-banner p b{font-size:19px}.sq-oe{font-size:60px}.sq-opt{min-height:150px}}
+@media (prefers-reduced-motion:reduce){.sq-stop.next,.sq-shoot,.sq-bowl,.sq-rays,.sq-pop{animation:none}}
+/* coloring book */
+.cb-lead{margin:0;font-weight:700;color:var(--ink-soft)}
+.cb-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px}
+.cb-card{background:var(--paper);border-radius:22px;padding:10px;box-shadow:0 4px 0 var(--line);display:flex;flex-direction:column;align-items:center;gap:4px;min-width:0}
+.cb-card b{font-family:var(--display);font-size:18px;text-align:center}
+.cb-card span{font-size:14px;font-weight:700;color:var(--ink-soft)}
+.cb-card.done{box-shadow:0 4px 0 var(--leaf)}
+.cb-thumb{width:100%;height:auto;display:block;border-radius:14px;pointer-events:none}
+.cb-wrap{display:grid;gap:14px;min-width:0}
+@media (min-width:760px){.cb-wrap{grid-template-columns:minmax(0,1fr) 320px;align-items:start}}
+.cb-stage{position:relative;background:#fff;border-radius:24px;box-shadow:0 5px 0 var(--line);padding:8px;min-width:0}
+.cb-svg{display:block;width:100%;height:auto;max-height:calc(100vh - 140px);touch-action:manipulation;user-select:none;-webkit-user-select:none}
+.cb-svg [data-r]{cursor:pointer}
+.cb-side{display:flex;flex-direction:column;gap:12px;min-width:0}
+.cb-pal{display:flex;flex-wrap:wrap;gap:8px}
+.cb-sw{width:46px;height:46px;border-radius:50%;box-shadow:inset 0 -4px 0 rgba(0,0,0,.15),inset 0 0 0 2px rgba(34,48,90,.15)}
+.cb-sw[aria-pressed=true]{outline:4px solid var(--ink);outline-offset:3px}
+.cb-tools{display:flex;flex-wrap:wrap;gap:8px}
+.cb-tools .tool[aria-pressed=true]{background:var(--sun)}
+.cb-tools .cb-save{background:var(--leaf);color:#fff}
+.cb-key{display:flex;flex-wrap:wrap;gap:6px}
+.cb-chip{display:inline-flex;align-items:center;gap:6px;padding:6px 12px 6px 6px;border-radius:999px;background:var(--paper);box-shadow:0 3px 0 var(--line);font:800 22px var(--display)}
+.cb-chip i{width:30px;height:30px;border-radius:50%;box-shadow:inset 0 0 0 2px rgba(34,48,90,.2)}
+.cb-msg{margin:0;font-weight:800;font-size:19px;min-height:1.2em}
+.cb-idea{position:absolute;right:10px;top:10px;width:min(40%,220px);background:#fff;border-radius:16px;box-shadow:0 4px 14px rgba(34,48,90,.25);padding:8px;display:flex;flex-direction:column;gap:6px;align-items:center;font-size:15px}
+.cb-idea svg{width:100%;height:auto;display:block}
+.cb-idea .tool{font-size:13px;height:auto;min-height:40px;padding:4px 8px}
+.cb-pop,.cb-flash,.cb-wig{transform-box:fill-box;transform-origin:center}
+.cb-pop{animation:cbPop .35s ease-out}
+.cb-flash{animation:cbFlash .4s ease-out}
+.cb-wig{animation:cbWig .25s ease-in-out 3}
+@keyframes cbPop{40%{transform:scale(1.08)}}
+@keyframes cbFlash{0%{opacity:.35}}
+@keyframes cbWig{25%{transform:translateX(-3px)}75%{transform:translateX(3px)}}
+@media (prefers-reduced-motion:reduce){.cb-pop,.cb-flash,.cb-wig{animation:none}}
+@media (max-width:520px){.sq-dots{order:5;width:100%;justify-content:center}.sq-task p{font-size:19px}}
 </style>
 
 </head><body>
@@ -9442,6 +9634,7 @@ function home() {
     <div class="tiles">
       <button class="tile t-math" id="tMath"><span class="big">🔢</span><span><h2>Number Garden</h2><p>From counting to algebra</p></span></button>
       <button class="tile t-art" id="tArt"><span class="big">🖍️</span><span><h2>Art School</h2><p>Step-by-step drawing and more</p></span></button>
+      <button class="tile t-quest" id="tQuest"><span class="big">🗺️</span><span><h2>Owl's Quest</h2><p>A story adventure with math and art</p></span></button>
       <button class="tile t-owl" id="tOwl"><span class="big">🦉</span><span><h2>Ask Owl</h2><p>Ask me anything!</p></span></button>
     </div>
     <h3 class="section-title">My stickers <span class="tag">every 10 ⭐</span><button class="tag badge-link" id="badgesBtn">🏅 Badges ${Object.keys(st.badges || {}).length}/${BADGES.length}</button></h3>
@@ -9454,6 +9647,7 @@ function home() {
   $('#tMath').onclick = () => go(mathHome);
   $('#tArt').onclick = () => go(artHome);
   $('#tOwl').onclick = () => go(owl);
+  $('#tQuest').onclick = () => go(storyHome);
   $('#parent').onclick = () => go(gate);
   $('#pick').onclick = () => p.kind === 'review' ? go(play, 'review') : p.kind === 'lesson' ? go(drawLesson, p.id) : go(startSkill, p.skill);
 }
@@ -9623,6 +9817,8 @@ function artHome() {
       <button class="tool-tile" data-tool="mandala" style="background:var(--grape);box-shadow:0 4px 0 #4B37A6"><span class="ico">🏵️</span><b>Mandala mode</b><span>Lines copy around</span></button>
       <button class="tool-tile" data-tool="pixel" style="background:var(--sky);box-shadow:0 4px 0 #1D5FA0"><span class="ico">👾</span><b>Pixel art</b><span>Color the squares</span></button>
       <button class="tool-tile" data-tool="mix" style="background:var(--sun);color:var(--ink);box-shadow:0 4px 0 #C9921A"><span class="ico">🎨</span><b>Mix colors</b><span>Make new colors</span></button>
+      <button class="tool-tile" data-tool="color" style="background:#F49AC1;color:var(--ink);box-shadow:0 4px 0 #C96E96"><span class="ico">🖌️</span><b>Coloring book</b><span>Tap to fill colors</span></button>
+      <button class="tool-tile" data-tool="scene" style="background:#FF8A2B;box-shadow:0 4px 0 #C4621A"><span class="ico">🏞️</span><b>Sticker scenes</b><span>Make a picture story</span></button>
       <button class="tool-tile" data-tool="gal" style="background:var(--leaf);box-shadow:0 4px 0 #1D7A4E"><span class="ico">🖼️</span><b>My pictures</b><span>${gallery.length} saved</span></button>
     </div>
     <h3 class="section-title">Lessons <span class="tag">${Object.keys(st.art.done).length} of ${LESSONS.length} done</span></h3>
@@ -9631,7 +9827,7 @@ function artHome() {
   wireBack(home);
   sayScreen('Welcome to Art School! Pick a lesson or a tool.');
   if (nl) $('#nextL').onclick = () => go(drawLesson, nl.id);
-  view.querySelectorAll('[data-tool]').forEach(b => b.onclick = () => { const t = b.dataset.tool; go(t === 'free' ? freeDraw : t === 'mandala' ? () => freeDraw(8) : t === 'pixel' ? pixelHome : t === 'mix' ? mixTab : galTab); });
+  view.querySelectorAll('[data-tool]').forEach(b => b.onclick = () => { const t = b.dataset.tool; go(t === 'free' ? freeDraw : t === 'mandala' ? () => freeDraw(8) : t === 'pixel' ? pixelHome : t === 'mix' ? mixTab : t === 'color' ? colorHome : t === 'scene' ? sceneHome : galTab); });
   view.querySelectorAll('[data-cat]').forEach(b => b.onclick = () => go(catView, b.dataset.cat));
 }
 function catView(cid) {
@@ -10067,7 +10263,7 @@ function parent() {
       <p class="note">Owl &amp; Crayon works without the internet. Progress, drawings and Owl's answers are saved only in this browser on this device. There are no ads, no tracking and no accounts, and nothing is sent anywhere unless you switch on Online Owl.</p>
       <p class="note">With Online Owl on, only the question your child asks and their age go to your Online Owl server, which asks an AI (Cloudflare's free AI, or Claude by Anthropic) for a short, child-friendly answer. Names and progress are never sent. You can read every answer above, and turn it off at any time.</p>
       <p class="note">The microphone button uses the browser's own speech recognition, which may send the recording to the browser maker (for example Google or Apple) to turn it into text. Typing works without it.</p>
-      <p class="note">Version 2026-10-21 00:29 UTC</p></div>`;
+      <p class="note">Version 2026-10-21 04:20 UTC</p></div>`;
   view.querySelectorAll('[data-teach]').forEach(b => b.onclick = () => {
     const i = +b.dataset.teach, ans = $('#t' + i).value.trim(); if (!ans) return;
     owlForget(st.owlMisses[i].q); st.owlTaught.push({ q: st.owlMisses[i].q, a: ans }); st.owlMisses.splice(i, 1); save(); go(parent);
@@ -11507,11 +11703,1332 @@ function sdkQ(d) {
 
 if (location.hash === '#selftest') window.__games3 = { scatterDots, snakeMake, snakeRoll, bakeMake, parkMake, monMake, bubMake, stkMake, sdkMake, sdkSolution, sdkSolvable, riddleMake };
 })();
+/* ---------- Owl's Quest: a story adventure with math puzzles, drawing and choices ---------- */
+// Three chapters of nine stops on a winding storybook map. Each stop tells a short story, then asks for
+// 3 math puzzles (from the player's age world, so the adaptive engine learns from them), a drawing, or a story choice
+// that changes a later line. Progress lives in st.story = { chapter, stop, done, picks, got }.
+const storyHome = (() => {
+  const CRAYON = { red: '#F2604F', orange: '#FF8A2B', yellow: '#FFC23D', green: '#2FA36B', blue: '#2E8BE6', purple: '#6D55D1', pink: '#F49AC1', brown: '#8B5A2B', black: '#22305A' };
+  const cr = (n, name) => ({ crayon: CRAYON[n], name });
+  const g = (e, name) => ({ e, name });
+  // Owl's own idea pictures (200 x 200, drawn with lines like the art lessons).
+  const IDEA = {
+    key: '<circle cx="58" cy="100" r="32"/><circle cx="58" cy="100" r="12"/><path d="M90 100 H174 M150 100 V128 H138 M170 100 V122"/><path d="M40 70 l-8 -10 M76 70 l8 -10" style="stroke:#FFC23D"/>',
+    rainbow: ['#F2604F', '#FF8A2B', '#FFC23D', '#2FA36B', '#2E8BE6', '#6D55D1'].map((c, i) => `<path d="M${20 + i * 12} 150 A${80 - i * 12} ${80 - i * 12} 0 0 1 ${180 - i * 12} 150" style="stroke:${c};stroke-width:8"/>`).join('') +
+      '<path d="M8 160 q0 -18 18 -16 q6 -14 22 -8 q14 0 12 24 z M140 160 q0 -18 18 -16 q6 -14 22 -8 q14 0 12 24 z"/>',
+    web: (() => { let s = ''; for (let k = 0; k < 8; k++) { const a = k * Math.PI / 4; s += `<path d="M100 100 L${(100 + 86 * Math.cos(a)).toFixed(1)} ${(100 + 86 * Math.sin(a)).toFixed(1)}"/>`; }
+      [24, 46, 68].forEach(r => { s += '<path d="' + Array.from({ length: 9 }, (_, k) => { const a = k * Math.PI / 4; return (k ? 'L' : 'M') + (100 + r * Math.cos(a)).toFixed(1) + ' ' + (100 + r * Math.sin(a)).toFixed(1); }).join(' ') + '"/>'; });
+      return s + '<circle cx="132" cy="52" r="8"/><path d="M124 46 l-8 -6 M124 52 h-10 M124 58 l-8 6 M140 46 l8 -6 M140 52 h10 M140 58 l8 6 M132 44 V28"/>'; })()
+  };
+  const CH = [
+    { id: 'crayons', title: 'The Lost Crayons', ico: '🖍️', color: 'var(--coral)', token: '🖍️', prize: { name: 'Golden Crayon', golden: true },
+      intro: 'A sneaky raccoon took all the colours! Help {owl} find the crayons.', decor: ['🌷', '🌳', '🌼', '🍄', '🌻', '🐞', '🌸', '🦋', '🌳', '🐌'],
+      stops: [
+        { ico: '🏘️', name: 'Crayon Village', kind: 'math', story: ['Oh no! All the colours in Crayon Village are gone. Everything is grey!', '{owl} the owl finds a trail of rainbow paw prints.'],
+          scene: [['🏠', 165, 112, 46], ['🏡', 232, 118, 40], ['🐾', 272, 158, 20], ['🐾', 300, 146, 20]], task: 'Solve 3 puzzles to follow the paw prints!', win: 'The paw prints lead out of the village. {owl} found the RED crayon!', gift: cr('red', 'the red crayon') },
+        { ico: '🪧', name: 'Two Paths', kind: 'choice', story: ['The paw prints split in two!', 'One trail goes into a sunflower field. The other goes along the river.'],
+          scene: [['🪧', 170, 118, 42], ['🌻', 250, 132, 30], ['🌻', 282, 124, 28], ['🌊', 292, 162, 26]], ask: 'Which way should {owl} go?',
+          opts: [{ e: '🌻', t: 'Sunflower field', line: '{owl} flew through the tall sunflowers. They nodded hello! An ORANGE crayon was hiding under a leaf.', echo: 'A sunflower petal was still stuck on {owl}\'s wing.' },
+            { e: '🏞️', t: 'River path', line: '{owl} hopped along the river. Splash! A fish pointed its fin at an ORANGE crayon.', echo: '{owl}\'s feet were still wet from the river.' }], gift: cr('orange', 'the orange crayon') },
+        { ico: '🚪', name: 'The Locked Gate', kind: 'art', story: ['A tall gate blocks the way. It is locked!', 'A sign says: Draw a key, and the gate will open.'],
+          scene: [['🚪', 200, 108, 64], ['🔒', 228, 118, 22]], draw: 'Draw a key for the gate!', idea: { svg: IDEA.key }, win: 'Click! Your key opened the gate. Behind it was the YELLOW crayon!', gift: cr('yellow', 'the yellow crayon') },
+        { ico: '🐰', name: 'Bunny Burrow', kind: 'math', story: ['{echo1}', 'Three little bunnies pop out of a hole. "The raccoon ran past us!" they say.', '"Help with our puzzles, and we will show you the way."'],
+          scene: [['🐰', 170, 140, 34], ['🐰', 212, 146, 30], ['🐰', 252, 140, 34], ['🕳️', 212, 168, 30]], task: 'Solve 3 puzzles for the bunnies!', win: 'The bunnies hop for joy and give {owl} the GREEN crayon.', gift: cr('green', 'the green crayon') },
+        { ico: '🌉', name: 'The Wide Lake', kind: 'choice', story: ['A big lake! The paw prints stop at the water.', 'There is a wobbly bridge, and a little red boat.'],
+          scene: [['🌉', 210, 120, 52], ['⛵', 268, 150, 34]], ask: 'Should {owl} take the bridge or the boat?',
+          opts: [{ e: '🌉', t: 'The bridge', line: '{owl} tiptoed over the wobbly bridge. Creak, creak, creak! On the other side was the BLUE crayon.', echo: '{owl}\'s legs were still wobbly from the bridge.' },
+            { e: '⛵', t: 'The boat', line: '{owl} sailed across the lake. Whoosh went the wind! The BLUE crayon was floating in the water.', echo: '{owl} tied the little boat to a tree.' }], gift: cr('blue', 'the blue crayon') },
+        { ico: '🌈', name: 'The Grey Rainbow', kind: 'art', story: ['{echo4}', 'Over the hill is a rainbow with no colours at all. It looks so sad.'],
+          scene: [['🌈', 210, 100, 70]], grey: true, draw: 'Draw a rainbow full of colours!', idea: { svg: IDEA.rainbow }, win: 'The rainbow shines again! A PURPLE crayon slides down it. Wheee!', gift: cr('purple', 'the purple crayon') },
+        { ico: '🦇', name: 'Echo Cave', kind: 'math', story: ['Inside a dark cave, {owl} hears giggles. "Tee hee! You will never find me!"', 'Glowing number stones light the way.'],
+          scene: [['🪨', 200, 130, 60], ['🦇', 250, 60, 26], ['🦇', 150, 48, 22], ['✨', 272, 120, 22]], task: 'Solve 3 puzzles to light the stones!', win: 'The stones glow bright. In the corner {owl} finds the PINK crayon!', gift: cr('pink', 'the pink crayon') },
+        { ico: '🍄', name: 'Mushroom Ring', kind: 'choice', story: ['{owl} finds a ring of glowing mushrooms near the raccoon\'s den.', 'A firefly whispers: "Bring a gift. The raccoon is a little bit sad."'],
+          scene: [['🍄', 170, 150, 30], ['🍄', 215, 160, 34], ['🍄', 262, 150, 30], ['✨', 230, 92, 22]], ask: 'What should {owl} bring?',
+          opts: [{ e: '🏮', t: 'A lantern', line: '{owl} picks up a warm lantern. Under it is the BROWN crayon!', echo: '{owl} held up the warm, glowing lantern.' },
+            { e: '🍪', t: 'Cookies to share', line: '{owl} picks some cookies to share. Next to them is the BROWN crayon!', echo: '{owl} held out the cookies to share.' }], gift: cr('brown', 'the brown crayon') },
+        { ico: '🦝', name: 'Raccoon\'s Den', kind: 'math', final: true, story: ['{echo7}', 'The raccoon peeks out. "I took the colours because my home was so grey," he sniffs.', '"Solve my riddles, and I will give them all back!"'],
+          scene: [['🦝', 220, 128, 54], ['🖍️', 270, 154, 26]], task: 'Solve the raccoon\'s 3 riddles!', win: 'The raccoon gives back every crayon and says sorry. Now he colours together with everyone. Crayon Village is bright again!', gift: cr('black', 'the very last crayon') }
+      ] },
+    { id: 'forest', title: 'The Number Forest', ico: '🌲', color: 'var(--leaf)', token: '✨', prize: { name: 'Firefly Lantern', e: '🏮' },
+      intro: 'The fireflies lost their glow. Help {owl} light up the Number Forest!', decor: ['🌲', '🌳', '🍄', '🌿', '🦔', '🪵', '🌲', '🍂', '🌲', '🦊'],
+      stops: [
+        { ico: '🌲', name: 'Forest Gate', kind: 'math', story: ['Deep in the Number Forest, the trees whisper numbers.', 'But tonight the fireflies have lost their glow, and the forest is too dark!'],
+          scene: [['🌲', 170, 110, 54], ['🌲', 250, 106, 60], ['🌲', 300, 120, 44]], task: 'Solve 3 puzzles to wake the first fireflies!', win: 'Blink, blink! The first fireflies light up. {owl} finds a magic leaf.', gift: g('🍃', 'a magic leaf') },
+        { ico: '🐿️', name: 'The Tall Tree', kind: 'choice', story: ['A little squirrel is stuck at the top of a tall tree.', '"Help! I can\'t get down!"'],
+          scene: [['🌳', 220, 96, 90], ['🐿️', 236, 48, 26]], ask: 'How should {owl} help the squirrel?',
+          opts: [{ e: '🪜', t: 'Build a ladder', line: '{owl} builds a ladder out of sticks. The squirrel climbs down and gives {owl} an acorn!', echo: 'The squirrel ran beside {owl}, carrying the stick ladder.' },
+            { e: '🦉', t: 'Fly up and help', line: '{owl} flies up and gives the squirrel a ride down. Whee! She gives {owl} an acorn.', echo: 'The squirrel rode on {owl}\'s back, giggling.' }], gift: g('🌰', 'an acorn') },
+        { ico: '🌙', name: 'The Dark Path', kind: 'art', story: ['{echo1}', 'The path is so dark that nobody can see.', '"If only the moon were out," says the squirrel.'],
+          scene: [['🌲', 180, 112, 48], ['🌲', 290, 112, 48], ['🐿️', 116, 148, 26]], draw: 'Draw a big moon to light the path!', idea: { lesson: 'a4-moon' }, win: 'Your moon glows in the sky! Now the path is easy to see. {owl} finds a shiny feather.', gift: g('🪶', 'a shiny feather') },
+        { ico: '🦫', name: 'Beaver Dam', kind: 'math', story: ['Splash! The beavers are building a dam.', 'But they lost count of their logs. Can you help them?'],
+          scene: [['🦫', 200, 140, 40], ['🪵', 252, 150, 34], ['🪵', 290, 140, 30], ['💧', 160, 162, 20]], task: 'Solve 3 puzzles for the beavers!', win: 'The dam is finished! The beavers give {owl} a smooth shell.', gift: g('🐚', 'a smooth shell') },
+        { ico: '🪵', name: 'The Stream', kind: 'choice', story: ['The path ends at a stream.', 'There is a hollow log to crawl through, or stepping stones to hop on.'],
+          scene: [['🪵', 200, 140, 52], ['🪨', 262, 158, 24], ['🪨', 296, 150, 22]], ask: 'Should {owl} crawl through the log or hop on the stones?',
+          opts: [{ e: '🪵', t: 'Crawl through the log', line: '{owl} crawls through the hollow log. It tickles! Inside is a tiny glowing mushroom.', echo: '{owl} brushed bits of bark off both wings.' },
+            { e: '🪨', t: 'Hop on the stones', line: 'Hop, hop, hop! {owl} reaches the other side and finds a tiny glowing mushroom.', echo: '{owl} was still counting hops: one, two, three!' }], gift: g('🍄', 'a glowing mushroom') },
+        { ico: '🕸️', name: 'Spider\'s Web', kind: 'art', story: ['{echo4}', 'A friendly spider waves her eight legs. "My web broke in the wind!"', '"Can you draw me a new one?"'],
+          scene: [['🕷️', 220, 70, 32], ['🌲', 280, 116, 52]], draw: 'Draw a new web for Spider!', idea: { svg: IDEA.web }, win: 'Spider loves her new web! She gives {owl} a sparkly dewdrop.', gift: g('💧', 'a sparkly dewdrop') },
+        { ico: '🐸', name: 'Frog Pond', kind: 'math', story: ['Ribbit! Frogs sit on lily pads around a pond.', '"We hop by the rules of numbers," they croak. "Can you solve our puzzles?"'],
+          scene: [['🐸', 180, 140, 34], ['🪷', 236, 156, 28], ['🐸', 280, 136, 30]], task: 'Solve 3 puzzles with the frogs!', win: 'The frogs do a happy hop. They give {owl} a lily flower.', gift: g('🪷', 'a lily flower') },
+        { ico: '💎', name: 'Something Shiny', kind: 'choice', story: ['Look! Something shiny is stuck in the mud.', 'It is the Firefly Queen\'s little crown!'],
+          scene: [['👑', 220, 142, 40], ['💦', 268, 120, 24]], ask: 'How should {owl} make the crown beautiful again?',
+          opts: [{ e: '💦', t: 'Wash it in the stream', line: '{owl} washes the crown until it sparkles like a star! A jewel twinkles on top.', echo: '{owl} held up the sparkling clean crown.' },
+            { e: '🌸', t: 'Add flowers', line: '{owl} wipes the crown and adds tiny pink flowers. So pretty! A jewel twinkles on top.', echo: '{owl} held up the crown, covered in tiny flowers.' }], gift: g('💎', 'a twinkly jewel') },
+        { ico: '✨', name: 'Firefly Queen', kind: 'math', final: true, story: ['At the end of the path sits the Firefly Queen. Her light is very dim.', '{echo7}', '"My crown! Solve my last riddles and my light will come back!"'],
+          scene: [['🧚', 222, 112, 50], ['✨', 260, 76, 22]], task: 'Solve the Queen\'s 3 riddles!', win: 'GLOW! The Queen shines bright, and thousands of fireflies light up the whole forest!', gift: g('✨', 'the firefly glow') }
+      ] },
+    { id: 'sky', title: 'The Sky Castle', ico: '🏰', color: 'var(--grape)', token: '⭐', prize: { name: 'Star Crown', e: '👑' },
+      intro: 'The stars will not come out! Help {owl} reach the Sky Castle.', decor: ['☁️', '🌟', '🎈', '☁️', '✨', '🪁', '☁️', '🕊️', '☁️', '💫'],
+      stops: [
+        { ico: '🌈', name: 'Rainbow Stairs', kind: 'math', story: ['The rainbow from Crayon Village reaches up into the clouds!', '{owl} climbs the rainbow stairs, one step at a time.'],
+          scene: [['🌈', 220, 100, 76], ['☁️', 290, 140, 30]], task: 'Solve 3 puzzles to climb the stairs!', win: '{owl} reaches the top of the rainbow. A cloud gives {owl} a fluffy puff.', gift: g('☁️', 'a cloud puff') },
+        { ico: '🎈', name: 'Up, Up, Up', kind: 'choice', story: ['Way up high, a castle floats on the clouds.', 'It is too high to fly. How can {owl} get there?'],
+          scene: [['🏰', 260, 50, 40], ['☁️', 260, 82, 46]], ask: 'Should {owl} ride a balloon or a giant kite?',
+          opts: [{ e: '🎈', t: 'A hot air balloon', line: 'Up, up, up goes the balloon! {owl} waves to the birds and catches a puff of wind.', echo: '{owl} tied the balloon to a cloud post.' },
+            { e: '🪁', t: 'A giant kite', line: 'Whoosh! The wind lifts the kite high into the sky. {owl} catches a puff of wind.', echo: '{owl} tied the kite to a cloud post.' }], gift: g('💨', 'a puff of wind') },
+        { ico: '☁️', name: 'Cloud Garden', kind: 'art', story: ['{echo1}', 'In the cloud garden, the cloud people make shapes out of clouds.', '"Make one with us!" they say.'],
+          scene: [['☁️', 180, 80, 44], ['☁️', 260, 110, 52], ['🌸', 230, 160, 24]], draw: 'Draw a cloud with a happy face!', idea: { lesson: 'a5-cloud' }, win: 'Your cloud floats away, smiling! The cloud people give {owl} a tiny rainbow.', gift: g('🌈', 'a tiny rainbow') },
+        { ico: '🌬️', name: 'Wind Bridge', kind: 'math', story: ['A bridge made of wind blows across the sky.', 'Every right answer turns a puff of wind into a solid step.'],
+          scene: [['🌬️', 220, 110, 50], ['☁️', 290, 140, 30]], task: 'Solve 3 puzzles to build the bridge!', win: 'The wind bridge holds! {owl} crosses safely and catches a shooting star.', gift: g('🌠', 'a shooting star') },
+        { ico: '🐲', name: 'Little Dragon', kind: 'choice', story: ['A little dragon guards the castle door. He looks lonely.', '"Nobody ever plays with me," he sighs.'],
+          scene: [['🐲', 226, 120, 54], ['🚪', 290, 112, 40]], ask: 'What should {owl} do?',
+          opts: [{ e: '🎵', t: 'Sing a silly song', line: '{owl} sings a silly song. The dragon laughs so hard he puffs smoke rings! He gives {owl} a golden heart.', echo: 'The little dragon flew beside {owl}, humming the silly song.' },
+            { e: '🤝', t: 'Ask to be friends', line: '"Will you be my friend?" asks {owl}. The dragon smiles a big toothy smile and gives {owl} a golden heart.', echo: '{owl}\'s new friend, the little dragon, flew beside {owl}.' }], gift: g('💛', 'a golden heart') },
+        { ico: '🖼️', name: 'Empty Frame', kind: 'art', story: ['{echo4}', 'Inside the castle hall there is an empty picture frame.', '"The Queen wants a picture of her castle," says the dragon.'],
+          scene: [['🖼️', 222, 100, 64]], draw: 'Draw a castle for the Cloud Queen!', idea: { lesson: 'castle' }, win: 'The picture is done! It looks magnificent. A guard gives {owl} a silver key.', gift: g('🗝️', 'a silver key') },
+        { ico: '⭐', name: 'Star Room', kind: 'math', story: ['{owl} opens a door with the silver key. Inside are buckets and buckets of stars!', 'They must be counted and sorted before night comes.'],
+          scene: [['🪣', 200, 146, 36], ['🪣', 254, 150, 32], ['⭐', 206, 112, 22], ['⭐', 258, 118, 20], ['🌟', 290, 84, 22]], task: 'Solve 3 puzzles to sort the stars!', win: 'All the stars are ready! {owl} keeps one little star.', gift: g('⭐', 'a little star') },
+        { ico: '🌙', name: 'Sleepy Moon', kind: 'choice', story: ['Oh dear! The Moon is fast asleep and snoring. Zzzz!', 'Without the Moon, night cannot start.'],
+          scene: [['🌛', 230, 70, 56], ['💤', 278, 40, 24]], ask: 'How should {owl} wake the Moon?',
+          opts: [{ e: '🔔', t: 'Ring a little bell', line: 'Ding, ding! The Moon opens one sleepy eye and yawns. It gives {owl} a moonbeam.', echo: 'The Moon was awake now, yawning a big yawn.' },
+            { e: '😂', t: 'Tell a funny joke', line: '"Why did the cloud stay home? It felt under the weather!" The Moon giggles awake and gives {owl} a moonbeam.', echo: 'The Moon was awake now, still giggling at the joke.' }], gift: g('🌙', 'a moonbeam') },
+        { ico: '👸', name: 'Throne Room', kind: 'math', final: true, story: ['{echo7}', 'The Cloud Queen smiles. "You did it! One last test, and the stars will shine all over the world."'],
+          scene: [['👸', 222, 110, 54], ['🏰', 290, 96, 40]], task: 'Solve the Queen\'s 3 puzzles!', win: 'Twinkle, twinkle! The stars pop out one by one. The Cloud Queen gives {owl} the Star Crown!', gift: g('🌟', 'the night stars') }
+      ] }
+  ];
+
+  /* --- state --- */
+  const S = () => { const s = st.story = st.story || {}; s.chapter = s.chapter || 0; s.stop = s.stop || 0; s.done = s.done || {}; s.picks = s.picks || {}; s.got = s.got || {}; return s; };
+  const key = (c, i) => c + '-' + i;
+  const isDone = (c, i) => !!S().done[key(c, i)];
+  const doneN = c => CH[c].stops.filter((_, i) => isDone(c, i)).length;
+  const nextStop = c => CH[c].stops.findIndex((_, i) => !isDone(c, i));
+  const chOpen = c => c === 0 || st.unlockAll || !!S().got[c - 1];
+  const stopOpen = (c, i) => chOpen(c) && (i === 0 || st.unlockAll || isDone(c, i - 1));
+  const owlName = () => (st.pet && st.pet.name) || 'Hoot';
+  function fill(text, c) {
+    return text.replace(/\{owl\}/g, owlName()).replace(/\{kid\}/g, st.name || 'friend').replace(/\{echo(\d)\}/g, (m, n) => {
+      const s = CH[c].stops[+n], k = S().picks[key(c, +n)];
+      return s && s.opts ? fill(s.opts[k == null ? 0 : k].echo, c) : '';
+    });
+  }
+  const lines = (c, s) => s.story.map(t => fill(t, c)).filter(Boolean);
+  // Runs fn later only if the player is still on the same screen.
+  function later(fn, ms) { const here = view.firstElementChild; setTimeout(() => { if (here && view.firstElementChild === here) fn(); }, ms); }
+
+  /* --- pictures --- */
+  function crayonSVG(color, cls = '', label = '') {
+    const gold = color === 'gold';
+    const fillC = gold ? 'url(#sqGold)' : color;
+    return `<svg class="sq-crayon ${cls}" viewBox="0 0 30 80" role="img" aria-label="${esc(label || 'crayon')}">${gold ? '<defs><linearGradient id="sqGold" x1="0" x2="1"><stop offset="0" stop-color="#C98B12"/><stop offset=".45" stop-color="#FFE48A"/><stop offset="1" stop-color="#D99A1C"/></linearGradient></defs>' : ''}
+      <path d="M8 22 L15 3 L22 22 Z" fill="${fillC}"/><rect x="5" y="21" width="20" height="56" rx="4" fill="${fillC}"/>
+      <rect x="5" y="30" width="20" height="7" fill="rgba(0,0,0,.18)"/><rect x="5" y="62" width="20" height="7" fill="rgba(0,0,0,.18)"/><rect x="8" y="40" width="4" height="18" rx="2" fill="rgba(255,255,255,.45)"/></svg>`;
+  }
+  const giftHTML = (gf, cls = '') => gf.crayon ? crayonSVG(gf.crayon, cls, gf.name) : `<span class="sq-ge ${cls}" role="img" aria-label="${esc(gf.name)}">${gf.e}</span>`;
+  const prizeHTML = (c, cls = '') => CH[c].prize.golden ? crayonSVG('gold', cls, CH[c].prize.name) : `<span class="sq-ge ${cls}" role="img" aria-label="${esc(CH[c].prize.name)}">${CH[c].prize.e}</span>`;
+  // Seeded random numbers, so the map looks the same every visit.
+  const seeded = seed => () => (seed = (seed * 9301 + 49297) % 233280) / 233280;
+  function sceneBG(c, prog) {
+    if (c === 0) return `<defs><linearGradient id="sqS0" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8FD3FF"/><stop offset="1" stop-color="#E4F6FF"/></linearGradient></defs>
+      <rect width="320" height="180" fill="url(#sqS0)"/><circle cx="276" cy="36" r="20" fill="#FFD447"/>
+      <g fill="#fff"><ellipse cx="70" cy="36" rx="26" ry="10"/><ellipse cx="88" cy="29" rx="17" ry="10"/><ellipse cx="190" cy="48" rx="22" ry="8"/></g>
+      <path d="M0 118 Q80 82 170 110 T320 98 V180 H0Z" fill="#8ED16F"/><path d="M0 146 Q100 122 200 142 T320 136 V180 H0Z" fill="#5DB65A"/>
+      <g>${[[30, 160, '#F2604F'], [120, 168, '#FFC23D'], [150, 156, '#F49AC1'], [300, 166, '#6D55D1'], [96, 150, '#fff']].map(([x, y, f]) => `<circle cx="${x}" cy="${y}" r="4" fill="${f}"/>`).join('')}</g>`;
+    if (c === 1) { const r = seeded(7); let flies = ''; for (let k = 0; k < Math.round(4 + prog * 22); k++) flies += `<circle cx="${(r() * 320).toFixed(0)}" cy="${(20 + r() * 120).toFixed(0)}" r="2.4" fill="#FFF27A" opacity=".9"/>`;
+      return `<defs><linearGradient id="sqS1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1F3B5C"/><stop offset="1" stop-color="#4C7E86"/></linearGradient></defs>
+      <rect width="320" height="180" fill="url(#sqS1)"/><circle cx="276" cy="34" r="14" fill="#FFF4C2" opacity="${(0.4 + prog * 0.6).toFixed(2)}"/>
+      <g fill="#1E4A33">${[20, 70, 120, 300].map((x, k) => `<path d="M${x} ${150 - k % 2 * 8} l-26 0 l26 -${70 + k % 3 * 14} l26 ${70 + k % 3 * 14}z"/>`).join('')}</g>
+      <path d="M0 150 Q160 136 320 150 V180 H0Z" fill="#2F5D3A"/>${flies}`; }
+    const r = seeded(11); let stars = ''; for (let k = 0; k < 14; k++) stars += `<circle cx="${(r() * 320).toFixed(0)}" cy="${(r() * 90).toFixed(0)}" r="${(1 + r() * 1.6).toFixed(1)}" fill="#fff" opacity="${(0.3 + prog * 0.7).toFixed(2)}"/>`;
+    return `<defs><linearGradient id="sqS2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9C8AF0"/><stop offset="1" stop-color="#FFD6E8"/></linearGradient></defs>
+      <rect width="320" height="180" fill="url(#sqS2)"/>${stars}
+      <g fill="#fff">${[[30, 172, 50, 20], [110, 178, 60, 22], [200, 174, 56, 22], [292, 176, 52, 20], [70, 160, 30, 16], [250, 158, 34, 16]].map(([x, y, a, b]) => `<ellipse cx="${x}" cy="${y}" rx="${a}" ry="${b}"/>`).join('')}</g>`;
+  }
+  const bgFilter = (c, prog) => c === 0 ? `filter:grayscale(${(0.85 * (1 - prog)).toFixed(2)})` : c === 1 ? `filter:brightness(${(0.7 + 0.3 * prog).toFixed(2)})` : '';
+  function sceneHTML(c, i, extra = []) {
+    const s = CH[c].stops[i], prog = doneN(c) / CH[c].stops.length;
+    const hoot = s.hoot || [86, 134], wear = st.pet && st.pet.wear;
+    const items = [...s.scene, ...extra].map(([e, x, y, z]) => `<text x="${x}" y="${y}" font-size="${z}" text-anchor="middle" dominant-baseline="central">${e}</text>`).join('');
+    return `<div class="sq-scene"><svg class="sq-bg" viewBox="0 0 320 180" style="${bgFilter(c, prog)}" aria-hidden="true">${sceneBG(c, prog)}</svg>
+      <svg class="sq-fg" viewBox="0 0 320 180" aria-hidden="true">${items}<g class="sq-shoot"><text x="${hoot[0]}" y="${hoot[1]}" font-size="56" text-anchor="middle" dominant-baseline="central">🦉</text>${wear ? `<text x="${hoot[0] + 2}" y="${hoot[1] - 30}" font-size="24" text-anchor="middle" dominant-baseline="central">${wear}</text>` : ''}</g></svg></div>`;
+  }
+
+  /* --- the map --- */
+  function layout(n, wide) {
+    const cols = wide ? 5 : 3, W = wide ? 1000 : 360, cw = W / cols, rowH = wide ? 180 : 150, top = wide ? 92 : 84;
+    const rows = Math.ceil(n / cols), H = top * 2 + (rows - 1) * rowH, pts = [];
+    for (let i = 0; i < n; i++) { const r = Math.floor(i / cols), k = i % cols, col = r % 2 ? cols - 1 - k : k; pts.push([cw * (col + 0.5), top + r * rowH + (k % 2 ? 16 : -8)]); }
+    return { W, H, pts, cols, cw, rowH, top, rows };
+  }
+  function trail(p, upto) {
+    let d = `M${p[0][0].toFixed(1)} ${p[0][1].toFixed(1)}`;
+    for (let a = 0; a < Math.min(upto, p.length - 1); a++) {
+      const p0 = p[a - 1] || p[a], p1 = p[a], p2 = p[a + 1], p3 = p[a + 2] || p2, t = 4.5;
+      d += ` C${(p1[0] + (p2[0] - p0[0]) / t).toFixed(1)} ${(p1[1] + (p2[1] - p0[1]) / t).toFixed(1)} ${(p2[0] - (p3[0] - p1[0]) / t).toFixed(1)} ${(p2[1] - (p3[1] - p1[1]) / t).toFixed(1)} ${p2[0].toFixed(1)} ${p2[1].toFixed(1)}`;
+    }
+    return d;
+  }
+  function mapHTML(c, L) {
+    const ch = CH[c], n = ch.stops.length, prog = doneN(c) / n, r = seeded(31 + c * 17);
+    const base = ['#CFEFB4', '#3F7D52', null][c], blob = [['#BDE59C', '#DDF5C6'], ['#4C8F60', '#356B45'], ['rgba(255,255,255,.55)', 'rgba(255,255,255,.35)']][c];
+    let bg = c === 2 ? `<defs><linearGradient id="sqM2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#B9A7F5"/><stop offset="1" stop-color="#FFD9EC"/></linearGradient></defs><rect width="${L.W}" height="${L.H}" fill="url(#sqM2)"/>` : `<rect width="${L.W}" height="${L.H}" fill="${base}"/>`;
+    for (let k = 0; k < 14; k++) bg += `<ellipse cx="${(r() * L.W).toFixed(0)}" cy="${(r() * L.H).toFixed(0)}" rx="${(30 + r() * 60).toFixed(0)}" ry="${(14 + r() * 24).toFixed(0)}" fill="${blob[k % 2]}"/>`;
+    if (c === 0) bg += `<path d="M${L.W * 0.72} 0 C${L.W * 0.6} ${L.H * 0.3} ${L.W * 0.95} ${L.H * 0.55} ${L.W * 0.82} ${L.H}" stroke="#9ED8F5" stroke-width="18" fill="none" opacity=".8"/>`;
+    // decorations sit in the gaps between rows, away from the trail
+    let dec = '', di = 0;
+    for (let row = 0; row < L.rows - 1; row++) {
+      const turn = row % 2 === 0 ? L.cols - 1 : 0, y = L.top + row * L.rowH + L.rowH / 2 + 4;
+      for (let col = 0; col < L.cols; col++) if (col !== turn) dec += `<text x="${(L.cw * (col + 0.5) + (r() - 0.5) * L.cw * 0.5).toFixed(0)}" y="${y.toFixed(0)}" font-size="${L.W > 500 ? 34 : 26}" text-anchor="middle" dominant-baseline="central">${ch.decor[di++ % ch.decor.length]}</text>`;
+    }
+    for (let col = 0; col < L.cols - 1; col++) dec += `<text x="${(L.cw * (col + 1)).toFixed(0)}" y="${(L.top - 52).toFixed(0)}" font-size="${L.W > 500 ? 28 : 22}" text-anchor="middle" dominant-baseline="central">${ch.decor[di++ % ch.decor.length]}</text>`;
+    const lastRow = L.rows - 1, filled = n - lastRow * L.cols;
+    if (filled < L.cols) { const col = lastRow % 2 ? L.cols - 1 - filled : filled; dec += `<text x="${(L.cw * (col + 0.5)).toFixed(0)}" y="${(L.top + lastRow * L.rowH).toFixed(0)}" font-size="44" text-anchor="middle" dominant-baseline="central" opacity="${S().got[c] ? 1 : 0.35}">${ch.prize.golden ? '🖍️' : ch.prize.e}</text>`; }
+    const nx = nextStop(c), upto = nx < 0 ? n - 1 : nx;
+    const path = trail(L.pts, n), donePath = trail(L.pts, upto);
+    const trailCol = ['#F3DDA8', '#8C6A43', '#FFFFFF'][c], dashCol = ['#C9A35F', '#5E452A', '#C9B8F5'][c];
+    const pct = p => `left:${(p[0] / L.W * 100).toFixed(2)}%;top:${(p[1] / L.H * 100).toFixed(2)}%`;
+    return `<div class="sq-map${L.W > 500 ? ' wide' : ''}" style="aspect-ratio:${L.W}/${L.H}">
+      <svg class="sq-mapbg" viewBox="0 0 ${L.W} ${L.H}" style="${bgFilter(c, prog)}" aria-hidden="true">${bg}
+        <path d="${path}" stroke="${trailCol}" stroke-width="24" fill="none" stroke-linecap="round"/>
+        <path d="${path}" stroke="${dashCol}" stroke-width="4" fill="none" stroke-linecap="round" stroke-dasharray="2 12"/>
+        ${upto > 0 ? `<path d="${donePath}" stroke="#FFC23D" stroke-width="9" fill="none" stroke-linecap="round"/>` : ''}${dec}</svg>
+      ${ch.stops.map((s, i) => { const done = isDone(c, i), open = stopOpen(c, i), nxt = i === nx;
+        return `<button class="sq-stop${done ? ' done' : ''}${nxt ? ' next' : ''}${open ? '' : ' locked'}${s.final ? ' final' : ''}" data-stop="${i}" style="${pct(L.pts[i])}" aria-label="Stop ${i + 1}: ${esc(s.name)}${done ? ', done' : open ? '' : ', locked'}">
+          <span class="sq-si">${s.ico}</span>${done ? '<b class="sq-star">⭐</b>' : open ? '' : '<b class="sq-lock">🔒</b>'}<i class="sq-num">${i + 1}</i></button>`; }).join('')}
+      <div class="sq-hoot" id="sqHoot" style="${pct(L.pts[nx < 0 ? n - 1 : nx])}" aria-hidden="true">🦉${st.pet && st.pet.wear ? `<i>${st.pet.wear}</i>` : ''}</div></div>`;
+  }
+
+  function mapView(c, from) {
+    const s = S();
+    if (c == null || !CH[c]) c = s.chapter;
+    if (!chOpen(c)) c = 0;
+    s.chapter = c; s.stop = Math.max(0, nextStop(c)); save();
+    const ch = CH[c], nx = nextStop(c), wide = view.clientWidth >= 640, L = layout(ch.stops.length, wide);
+    const allDone = nx < 0, got = !!s.got[c];
+    view.innerHTML = `${crumbs("🗺️ Owl's Quest")}
+      <div class="sq-chs" role="tablist">${CH.map((x, k) => { const open = chOpen(k);
+        return `<button class="sq-ch${k === c ? ' on' : ''}${open ? '' : ' locked'}" data-ch="${k}" role="tab" aria-selected="${k === c}" style="--chc:${x.color}">
+          <span class="sq-chi">${open ? x.ico : '🔒'}</span><b>${x.title}</b><span class="sq-chn">${s.got[k] ? `${prizeHTML(k, 'mini')} Done!` : open ? `${doneN(k)} of ${x.stops.length} ⭐` : `Finish chapter ${k}`}</span></button>`; }).join('')}</div>
+      <div class="sq-banner"><span class="sq-bowl" aria-hidden="true">🦉</span><p><b>Chapter ${c + 1}: ${ch.title}</b>${esc(fill(ch.intro, c))}</p><button class="speak" id="sqSpk" aria-label="Read it">🔊</button></div>
+      ${mapHTML(c, L)}
+      <div class="sq-under">
+        ${allDone ? (got ? '' : `<button class="btn leaf sq-cta" id="sqPrize">🎁 Open your chapter prize!</button>`) : `<button class="btn leaf sq-cta" id="sqGo">▶ ${nx === 0 && !doneN(c) ? 'Start' : 'Go to'} stop ${nx + 1}: ${esc(ch.stops[nx].name)}</button>`}
+        ${allDone && got && CH[c + 1] ? `<button class="btn sq-cta" id="sqNextCh" style="background:${CH[c + 1].color}">▶ Next chapter: ${CH[c + 1].title}</button>` : ''}
+        <div class="sq-gifts" aria-label="Treasures found">${ch.stops.map((x, i) => isDone(c, i) ? `<span class="sq-slot got">${giftHTML(x.gift)}</span>` : '<span class="sq-slot"></span>').join('')}</div>
+        ${doneN(c) ? `<button class="btn alt" id="sqBook">📖 Read my storybook</button>` : ''}
+      </div>`;
+    wireBack(home);
+    const intro = `Chapter ${c + 1}: ${ch.title}. ${fill(ch.intro, c)} ${allDone ? (got ? 'You finished this chapter!' : 'Open your prize!') : `Tap the shining stop to go on!`}`;
+    sayScreen(intro);
+    $('#sqSpk').onclick = () => say(intro);
+    view.querySelectorAll('[data-ch]').forEach(b => b.onclick = () => { const k = +b.dataset.ch; if (chOpen(k)) go(mapView, k); else say(`Finish chapter ${k}, ${CH[k - 1].title}, to open ${CH[k].title}!`); });
+    view.querySelectorAll('[data-stop]').forEach(b => b.onclick = () => { const i = +b.dataset.stop; if (stopOpen(c, i)) go(stopView, c, i); else say(`${ch.stops[i].name} is still locked. Finish the stops before it first!`); });
+    if ($('#sqGo')) $('#sqGo').onclick = () => go(stopView, c, nx);
+    if ($('#sqPrize')) $('#sqPrize').onclick = () => go(chapterDone, c);
+    if ($('#sqNextCh')) $('#sqNextCh').onclick = () => go(mapView, c + 1);
+    if ($('#sqBook')) $('#sqBook').onclick = () => go(bookView, c);
+    // Hoot walks along the trail from the stop just finished.
+    const h = $('#sqHoot');
+    if (from != null && L.pts[from] && h && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const end = h.getAttribute('style'); h.style.transition = 'none';
+      h.style.left = (L.pts[from][0] / L.W * 100) + '%'; h.style.top = (L.pts[from][1] / L.H * 100) + '%';
+      later(() => { h.style.transition = ''; h.setAttribute('style', end); tone([523, 659]); }, 350);
+    }
+  }
+
+  /* --- a stop: story page, then the challenge --- */
+  function stopView(c, i) {
+    const ch = CH[c], s = ch.stops[i], ls = lines(c, s), again = isDone(c, i);
+    const label = s.kind === 'math' ? '🔢 Help with puzzles!' : s.kind === 'art' ? '🖍️ Time to draw!' : '🤔 You choose!';
+    view.innerHTML = `${crumbs(`${s.ico} ${s.name}`)}
+      <div class="sq-page"><p class="sq-where">Chapter ${c + 1} · Stop ${i + 1} of ${ch.stops.length}${again ? ' · ⭐ done' : ''}</p>
+        ${sceneHTML(c, i)}
+        <div class="sq-story">${ls.map(t => `<p>${esc(t)}</p>`).join('')}<button class="speak" id="sqSpk" aria-label="Read it">🔊</button></div>
+        <button class="btn leaf sq-cta" id="sqGo">${label} ▶</button></div>`;
+    wireBack(() => mapView(c));
+    const text = ls.join(' ');
+    sayScreen(text);
+    $('#sqSpk').onclick = () => say(text);
+    $('#sqGo').onclick = () => go(s.kind === 'math' ? mathStep : s.kind === 'art' ? artStep : choiceStep, c, i, 0, []);
+  }
+  function taskBar(c, i, text, dots) {
+    const s = CH[c].stops[i];
+    return `${crumbs(`${s.ico} ${s.name}`)}<div class="sq-task"><span class="sq-tico" aria-hidden="true">${s.ico}</span><p id="sqTask">${esc(text)}</p>${dots || ''}<button class="speak" id="sqTSpk" aria-label="Read it">🔊</button></div>`;
+  }
+
+  // Math: 3 questions from the player's age world. The first one is the topic the engine recommends.
+  function pickSkill(k, used) {
+    const w = clamp(ageWorld(st.age), 0, WORLDS.length - 1), ids = worldSkills(w).map(x => x.id);
+    if (k === 0) { try { return recommendSkill(w); } catch (e) {} }
+    const fresh = ids.filter(x => !used.includes(x));
+    return pick(fresh.length ? fresh : ids);
+  }
+  function mathStep(c, i, k, used) {
+    const ch = CH[c], s = ch.stops[i];
+    let skill = pickSkill(k, used), q;
+    try { q = MATH[skill].gen(level(skill)); } catch (e) { skill = 'count'; q = MATH.count.gen(1); }
+    used.push(skill);
+    const t0 = Date.now(); let tries = 0, hinted = false;
+    const dots = `<div class="sq-dots" aria-label="Puzzle ${k + 1} of 3">${[0, 1, 2].map(j => `<i class="${j < k ? 'on' : j === k ? 'now' : ''}">${j < k ? ch.token : ''}</i>`).join('')}</div>`;
+    const cols = q.choices.some(x => String(x.html).replace(/<[^>]+>/g, '').length > 6) && q.choices.length > 2 ? 2 : q.choices.length > 4 ? 3 : q.choices.length;
+    view.innerHTML = `${taskBar(c, i, fill(s.task, c), dots)}
+      <div class="qcard sq-q">
+        <div class="prompt"><div class="ptext">${q.prompt}</div><button class="speak" id="spk" aria-label="Read it to me">🔊</button></div>
+        ${q.visual ? `<div class="visual">${q.visual}</div>` : ''}
+        <div class="choices" style="grid-template-columns:repeat(${cols},1fr)">${q.choices.map((x, j) => `<button class="choice${x.txt ? ' txt' : ''}" data-i="${j}"${String(x.val) === String(q.answer) ? ' data-ok="1"' : ''}${x.say && /<svg|<span/.test(String(x.html)) ? ` aria-label="${esc(x.say)}"` : ''}>${x.html}</button>`).join('')}</div>
+        <div class="cheer" id="cheer" aria-live="polite"></div>
+        <div id="exp" style="width:100%"></div>
+        <div class="row"><button class="help" id="hint">🦉 Hint</button></div>
+      </div>`;
+    wireBack(() => mapView(c));
+    const words = q.choices.map(x => x.say != null ? String(x.say) : String(x.val));
+    const qSay = (q.speak || q.prompt) + (st.age <= 8 && words.some(w => /[a-z]/i.test(w)) && words.every(w => w.length < 40) ? ` Is it ${words.join(', or ')}?` : '');
+    say((k === 0 ? fill(s.task, c) + ' ' : '') + qSay);
+    $('#spk').onclick = () => say(qSay);
+    $('#sqTSpk').onclick = () => say(fill(s.task, c));
+    $('#hint').onclick = () => {
+      const wrong = [...view.querySelectorAll('.choice')].filter(b => !b.disabled && String(q.choices[+b.dataset.i].val) !== String(q.answer));
+      if (hinted || wrong.length < 2) { say('Look carefully and try one!'); return; }
+      hinted = true; const b = pick(wrong); b.disabled = true; b.classList.add('gone'); $('#hint').disabled = true;
+      say(`${owlName()} took away one wrong answer. Try again!`);
+    };
+    view.querySelectorAll('.choice').forEach(b => b.onclick = () => {
+      const x = q.choices[+b.dataset.i];
+      if (b.disabled) return;
+      if (String(x.val) === String(q.answer)) {
+        const first = tries === 0 && !hinted;
+        b.classList.add('right'); view.querySelectorAll('.choice').forEach(y => y.disabled = true);
+        if (first) learn(skill, true, Date.now() - t0);
+        dayLog('q'); if (first) dayLog('ok');
+        questTick('math'); if (first) questTick('firsttry');
+        const cheer = first ? pick(['Great job!', 'You got it!', 'Super!', 'Yes!', 'Brilliant!']) : 'Now you know it!';
+        $('#cheer').textContent = cheer + ' ' + ch.token; yay(); say(cheer);
+        save();
+        later(() => k < 2 ? mathStep(c, i, k + 1, used) : complete(c, i), first ? 1300 : 2200);
+      } else {
+        tries++; b.classList.add('wrong'); b.disabled = true; oops();
+        if (tries === 1) { learn(skill, false, Date.now() - t0); addReview(skill, q); save(); }
+        $('#exp').innerHTML = `<div class="explain"><p>Let's work it out together.</p>${q.explain ? `<div class="visual">${q.explain}</div>` : ''}${q.steps ? `<ol class="steps">${q.steps.map(y => `<li>${y}</li>`).join('')}</ol>` : ''}<p>${q.explainText}</p></div>`;
+        say("Let's work it out together. " + (q.steps ? q.steps.join(' ') + ' ' : '') + q.explainText);
+      }
+    });
+  }
+
+  // Art: Owl shows an idea, the child draws anything on the pad, then taps Done.
+  function ideaSVG(idea, cls) {
+    if (idea.lesson) { const ls = lessonById(idea.lesson); if (ls) return lessonSVG(ls, ls.steps.length - 1, 'trace-svg').replace('class="trace-svg"', `class="${cls}"`); }
+    return `<svg class="${cls}" viewBox="0 0 200 200" aria-hidden="true"><g class="old">${idea.svg || ''}</g></svg>`;
+  }
+  function artStep(c, i) {
+    const s = CH[c].stops[i], task = fill(s.draw, c);
+    view.innerHTML = `${taskBar(c, i, task)}
+      <div class="sq-art"><div class="sq-idea"><b>💡 ${esc(owlName())}'s idea</b>${ideaSVG(s.idea, 'art-svg')}<span class="note">Draw it your own way. Any drawing is great!</span></div>
+        <div class="sq-padbox"><div class="studio" id="sqPad"></div><button class="btn leaf sq-cta" id="sqDone">✔ I'm done!</button></div></div>`;
+    wireBack(() => mapView(c));
+    let trace = false;
+    const pad = makePad($('#sqPad'), { square: true, extra: '<button class="tool" id="sqTrace" aria-pressed="false">👻 Trace</button>' });
+    say(task + ' Draw it any way you like, then tap I\'m done.');
+    $('#sqTSpk').onclick = () => say(task);
+    $('#sqTrace').onclick = e => { trace = !trace; e.currentTarget.setAttribute('aria-pressed', trace); pad.setTrace(trace ? ideaSVG(s.idea, 'trace-svg') : ''); if (trace) say('Trace mode! Draw over the light lines.'); };
+    $('#sqDone').onclick = () => {
+      if (!pad.drawn()) { say('Draw something first! Any drawing is great.'); $('#sqDone').classList.remove('sq-nudge'); void $('#sqDone').offsetWidth; $('#sqDone').classList.add('sq-nudge'); return; }
+      pad.save(false);
+      try { // a small copy for the storybook
+        const cv = view.querySelector('#cv'), t = document.createElement('canvas'); t.width = 200; t.height = Math.round(200 * cv.height / cv.width);
+        const tc = t.getContext('2d'); tc.fillStyle = '#fff'; tc.fillRect(0, 0, t.width, t.height); tc.drawImage(cv, 0, 0, t.width, t.height);
+        const pics = store.get('questPics:' + pid, {}); pics[key(c, i)] = t.toDataURL('image/jpeg', 0.6); store.set('questPics:' + pid, pics);
+      } catch (e) {}
+      questTick('art'); dayLog('art');
+      complete(c, i, 'Your drawing is saved in My pictures.');
+    };
+  }
+
+  // A story choice: either answer is right, and it changes a line later in the story.
+  function choiceStep(c, i) {
+    const s = CH[c].stops[i], ask = fill(s.ask, c);
+    view.innerHTML = `${taskBar(c, i, ask)}
+      <div class="sq-opts">${s.opts.map((o, k) => `<button class="sq-opt" data-o="${k}"><span class="sq-oe">${o.e}</span><b>${esc(fill(o.t, c))}</b></button>`).join('')}</div>
+      <p class="note sq-center">There is no wrong answer. You decide what happens in the story!</p>`;
+    wireBack(() => mapView(c));
+    const text = `${ask} ${s.opts.map(o => fill(o.t, c)).join(', or ')}?`;
+    say(text); $('#sqTSpk').onclick = () => say(text);
+    view.querySelectorAll('[data-o]').forEach(b => b.onclick = () => {
+      const k = +b.dataset.o; S().picks[key(c, i)] = k; save(); tone([523, 784]);
+      b.classList.add('chosen'); view.querySelectorAll('[data-o]').forEach(x => x.disabled = true);
+      later(() => complete(c, i, null, k), 500);
+    });
+  }
+
+  function complete(c, i, note, pickK) {
+    const ch = CH[c], s = ch.stops[i], first = !isDone(c, i);
+    S().done[key(c, i)] = today(); S().stop = Math.max(0, nextStop(c)); save();
+    const earn = s.kind === 'choice' ? 1 : 2;
+    if (first) addStars(earn); else { save(); updateTop(); }
+    yay(); confetti(first ? 30 : 12);
+    const line = pickK != null ? fill(s.opts[pickK].line, c) : fill(s.win, c);
+    const last = nextStop(c) < 0 && !S().got[c];
+    const extra = pickK != null ? [[s.opts[pickK].e, 142, 92, 34]] : [];
+    view.innerHTML = `<div class="sq-win">
+      ${sceneHTML(c, i, extra)}
+      <div class="sq-prize sq-pop">${giftHTML(s.gift, 'big')}</div>
+      <h1>${pick(['Hooray!', 'You did it!', 'Wonderful!', 'Hoo hoo, hooray!'])}</h1>
+      <p class="sq-line">${esc(line)}</p>
+      ${note ? `<p class="note sq-center">${esc(note)}</p>` : ''}
+      <p class="sq-earn">${first ? `+${earn} ⭐` : 'Played again!'}</p>
+      <div class="row"><button class="btn leaf" id="sqOn">${last ? '🎁 Chapter prize!' : '🗺️ On to the next stop!'}</button></div></div>`;
+    say(`${line} ${first ? `You earned ${earn} star${earn > 1 ? 's' : ''}!` : ''}`);
+    $('#sqOn').onclick = () => last ? go(chapterDone, c) : go(mapView, c, i);
+  }
+
+  function chapterDone(c) {
+    const ch = CH[c], first = !S().got[c];
+    if (nextStop(c) >= 0) return mapView(c);
+    if (first) { S().got[c] = today(); save(); addStars(5); }
+    confetti(70); yay(); setTimeout(() => tone([523, 659, 784, 1047], 0.14), 500);
+    const picks = ch.stops.map((s, i) => s.opts ? s.opts[S().picks[key(c, i)] || 0] : null).filter(Boolean);
+    const finale = CH[c + 1];
+    view.innerHTML = `<div class="sq-win sq-final">
+      <div class="sq-rays" aria-hidden="true"></div>
+      <div class="sq-prize sq-pop">${prizeHTML(c, 'huge')}</div>
+      <h1>Chapter ${c + 1} complete!</h1>
+      <p class="sq-line">${esc(fill(ch.stops[ch.stops.length - 1].win, c))}</p>
+      <p class="sq-line">You won the <b>${ch.prize.name}</b>!${first ? ' +5 ⭐' : ''}</p>
+      <div class="sq-mine"><b>Your story choices:</b>${picks.map(o => `<span>${o.e} ${esc(fill(o.t, c))}</span>`).join('')}</div>
+      <div class="row"><button class="btn alt" id="sqBook">📖 Read my storybook</button>
+        ${finale ? `<button class="btn leaf" id="sqNext">▶ Chapter ${c + 2}: ${finale.title}</button>` : '<button class="btn leaf" id="sqMap">🏆 Back to the map</button>'}</div>
+      ${finale ? '' : `<p class="sq-line">You finished the whole quest! ${esc(owlName())} is so proud of you.</p>`}</div>`;
+    say(`Chapter ${c + 1} complete! You won the ${ch.prize.name}! ${first ? 'And 5 bonus stars!' : ''} ${finale ? `Next is ${finale.title}.` : 'You finished the whole quest!'}`);
+    $('#sqBook').onclick = () => go(bookView, c);
+    if (finale) $('#sqNext').onclick = () => go(mapView, c + 1); else $('#sqMap').onclick = () => go(mapView, c);
+  }
+
+  // The storybook: every finished stop as a page, with the child's choices and drawings.
+  function bookView(c) {
+    const ch = CH[c], pics = store.get('questPics:' + pid, {});
+    const pages = ch.stops.map((s, i) => isDone(c, i) ? { s, i, text: [...lines(c, s), s.opts ? fill(s.opts[S().picks[key(c, i)] || 0].line, c) : fill(s.win, c)] } : null).filter(Boolean);
+    view.innerHTML = `${crumbs(`📖 ${ch.title}`)}
+      <div class="sq-book">${pages.map((p, n) => `<article class="sq-bpage"><span class="sq-pno">${n + 1}</span>
+        ${sceneHTML(c, p.i, p.s.opts ? [[p.s.opts[S().picks[key(c, p.i)] || 0].e, 142, 92, 34]] : [])}
+        <div class="sq-btext"><h2>${p.s.ico} ${esc(p.s.name)}</h2>${p.text.map(t => `<p>${esc(t)}</p>`).join('')}
+          ${pics[key(c, p.i)] ? `<figure><img src="${pics[key(c, p.i)]}" alt="My drawing"><figcaption>My drawing</figcaption></figure>` : ''}</div></article>`).join('')}
+        ${S().got[c] ? `<div class="sq-bend">${prizeHTML(c, 'big')}<b>The End</b></div>` : `<p class="note sq-center">To be continued…</p>`}</div>
+      <div class="row"><button class="btn leaf" id="sqRead">🔊 Read me the story</button><button class="btn alt" id="sqMap">🗺️ Map</button></div>`;
+    wireBack(() => mapView(c));
+    const all = `${ch.title}. ` + pages.map(p => p.text.join(' ')).join(' ') + (S().got[c] ? ' The end.' : ' To be continued.');
+    screenText = all; say(`Your storybook: ${ch.title}. Tap Read me the story to hear it.`);
+    $('#sqRead').onclick = () => say(all);
+    $('#sqMap').onclick = () => go(mapView, c);
+  }
+
+  if (location.hash === '#selftest') window.__quest = { CH, get state() { return S(); }, mapView, stopView, bookView, chapterDone, layout, isDone, nextStop };
+  return mapView;
+})();
+/* ---------- coloring book: tap a shape to fill it, with colour-by-number and colour-by-sum ---------- */
+// Every page is drawn from closed paths (one per fillable shape) with bold outlines, so a fill can never leak.
+// Pairs that belong together (two eyes, two wings) are one shape made of two pieces, so a young child fills both at once.
+const colorHome = (function () {
+  const CB = [['k', '#22305A', 'dark blue'], ['r', '#F2604F', 'red'], ['o', '#FF8A2B', 'orange'], ['y', '#FFC23D', 'yellow'], ['g', '#2FA36B', 'green'], ['b', '#2E8BE6', 'blue'],
+    ['u', '#6D55D1', 'purple'], ['p', '#F49AC1', 'pink'], ['n', '#8B5A2B', 'brown'], ['w', '#FFFFFF', 'white'], ['lb', '#8EC5F5', 'light blue'], ['lg', '#A8E06A', 'light green'],
+    ['ly', '#FFE79A', 'cream'], ['gy', '#9AA0A8', 'grey'], ['sk', '#F6C9A0', 'peach'], ['t', '#2EC4B6', 'teal']];
+  const HEX = {}, NAME = {};
+  CB.forEach(([k, h, n]) => { HEX[k] = h; NAME[h] = n; });
+  const INK = '#22305A';
+
+  /* --- shape helpers: every shape is an absolute path in a 200 × 200 box --- */
+  const f = v => +(+v).toFixed(2);
+  const ep = (x, y, rx, ry) => `M${f(x - rx)},${f(y)} A${f(rx)} ${f(ry)} 0 1 0 ${f(x + rx)},${f(y)} A${f(rx)} ${f(ry)} 0 1 0 ${f(x - rx)},${f(y)} Z`;
+  const cp = (x, y, r) => ep(x, y, r, r);
+  const rp = (x, y, w, h) => `M${x},${y} L${x + w},${y} L${x + w},${y + h} L${x},${y + h} Z`;
+  const rrp = (x, y, w, h, r) => `M${x + r},${y} L${x + w - r},${y} A${r} ${r} 0 0 1 ${x + w},${y + r} L${x + w},${y + h - r} A${r} ${r} 0 0 1 ${x + w - r},${y + h} L${x + r},${y + h} A${r} ${r} 0 0 1 ${x},${y + h - r} L${x},${y + r} A${r} ${r} 0 0 1 ${x + r},${y} Z`;
+  const pp = pts => 'M' + pts.trim().split(/\s+/).join(' L') + ' Z';
+  // A leaf, petal or flame from (x1,y1) to (x2,y2), w wide.
+  function leaf(x1, y1, x2, y2, w) {
+    const dx = x2 - x1, dy = y2 - y1, L = Math.hypot(dx, dy) || 1, nx = -dy / L * w, ny = dx / L * w, mx = (x1 + x2) / 2, my = (y1 + y2) / 2;
+    return `M${f(x1)},${f(y1)} Q${f(mx + nx)},${f(my + ny)} ${f(x2)},${f(y2)} Q${f(mx - nx)},${f(my - ny)} ${f(x1)},${f(y1)} Z`;
+  }
+  // A bumpy oval: clouds, bushes, tree tops, flower heads.
+  function scallop(cx, cy, rx, ry, n, k = 0.62) {
+    const P = []; for (let i = 0; i < n; i++) { const a = -Math.PI / 2 + i * 2 * Math.PI / n; P.push([cx + rx * Math.cos(a), cy + ry * Math.sin(a)]); }
+    let d = `M${f(P[0][0])},${f(P[0][1])}`;
+    for (let i = 0; i < n; i++) { const a = P[i], b = P[(i + 1) % n], r = Math.hypot(b[0] - a[0], b[1] - a[1]) * k; d += ` A${f(r)} ${f(r)} 0 0 1 ${f(b[0])},${f(b[1])}`; }
+    return d + ' Z';
+  }
+  function star(cx, cy, R, r, n = 5, rot = 0) {
+    const P = []; for (let i = 0; i < n * 2; i++) { const a = -Math.PI / 2 + rot + i * Math.PI / n, q = i % 2 ? r : R; P.push(f(cx + q * Math.cos(a)) + ',' + f(cy + q * Math.sin(a))); }
+    return pp(P.join(' '));
+  }
+  // A vertical stripe across an oval, following its outline.
+  function vband(cx, cy, rx, ry, x1, x2) {
+    const h = x => ry * Math.sqrt(Math.max(0, 1 - ((x - cx) / rx) ** 2));
+    return `M${x1},${f(cy - h(x1))} A${rx} ${ry} 0 0 1 ${x2},${f(cy - h(x2))} L${x2},${f(cy + h(x2))} A${rx} ${ry} 0 0 1 ${x1},${f(cy + h(x1))} Z`;
+  }
+  // Half-ring (rainbow band) centred on (cx,cy).
+  const arcBand = (cx, cy, R, r) => `M${cx - R},${cy} A${R} ${R} 0 0 1 ${cx + R},${cy} L${cx + r},${cy} A${r} ${r} 0 0 0 ${cx - r},${cy} Z`;
+  const heart = (cx, cy, s) => `M${cx},${f(cy + s * 0.9)} C${f(cx - s * 1.6)},${f(cy - s * 0.1)} ${f(cx - s * 0.6)},${f(cy - s * 1.2)} ${cx},${f(cy - s * 0.35)} C${f(cx + s * 0.6)},${f(cy - s * 1.2)} ${f(cx + s * 1.6)},${f(cy - s * 0.1)} ${cx},${f(cy + s * 0.9)} Z`;
+  const arch = (x, y, w, h) => `M${x},${y + h} L${x},${y + w / 2} A${w / 2} ${w / 2} 0 0 1 ${x + w},${y + w / 2} L${x + w},${y + h} Z`;
+  // Move, scale or mirror a path (absolute commands only).
+  const NARG = { M: 2, L: 2, Q: 4, C: 6, T: 2, S: 4, A: 7, Z: 0 };
+  function xf(d, map, s = 1, flip = false) {
+    const tk = d.match(/[A-Za-z]|-?\d*\.?\d+(?:e-?\d+)?/g); let out = '', i = 0, cmd = '';
+    while (i < tk.length) {
+      if (/[A-Za-z]/.test(tk[i])) { cmd = tk[i++]; out += ' ' + cmd; if (cmd === 'Z') continue; }
+      const n = NARG[cmd], a = tk.slice(i, i + n).map(Number); i += n;
+      if (cmd === 'A') { const [x, y] = map(a[5], a[6]); out += ` ${f(a[0] * s)} ${f(a[1] * s)} ${flip ? -a[2] : a[2]} ${a[3]} ${flip ? 1 - a[4] : a[4]} ${f(x)},${f(y)}`; }
+      else for (let j = 0; j < n; j += 2) { const [x, y] = map(a[j], a[j + 1]); out += ` ${f(x)},${f(y)}`; }
+    }
+    return out.trim();
+  }
+  const mir = d => xf(d, (x, y) => [200 - x, y], 1, true);
+  const pair = d => d + ' ' + mir(d);
+  const sc = (d, k, cx, cy) => xf(d, (x, y) => [cx + (x - cx) * k, cy + (y - cy) * k], k);
+  const mv = (d, dx, dy) => xf(d, (x, y) => [x + dx, y + dy]);
+  const pol = (r, deg, c = 100) => [c + r * Math.cos((deg - 90) * Math.PI / 180), c + r * Math.sin((deg - 90) * Math.PI / 180)];
+  // Decoration (not fillable), drawn on top: lines, dots and eyes.
+  const ln = (d, w) => `<path d="${d}"${w ? ` stroke-width="${w}"` : ''}/>`;
+  const dot = (x, y, r, c = INK) => `<circle cx="${x}" cy="${y}" r="${r}" fill="${c}" stroke="none"/>`;
+  const eye = (x, y, r) => dot(x, y, r) + dot(x + r * 0.35, y - r * 0.35, r * 0.35, '#fff');
+  const SKY = rp(0, 0, 200, 200);
+
+  /* --- the pages: lvl 1 = simple (5–10 big shapes), lvl 2 = detailed (20–50 shapes) --- */
+  const PAGES = [
+    { id: 'owl', name: 'Owl', ico: '🦉', lvl: 1, make: () => ({
+      r: [[SKY, 'lb'], [rrp(10, 176, 180, 14, 7), 'n'],
+        ['M55,112 Q55,62 70,54 L66,32 L86,50 Q100,46 114,50 L134,32 L130,54 Q145,62 145,112 Q145,176 100,178 Q55,176 55,112 Z', 'u'],
+        [pair('M58,100 Q26,134 62,170 Q76,138 58,100 Z'), 'p'], [ep(100, 138, 30, 34), 'ly'], [cp(80, 88, 19) + ' ' + cp(120, 88, 19), 'y'],
+        [pp('92,104 108,104 100,121'), 'o'], [ep(86, 178, 10, 6) + ' ' + ep(114, 178, 10, 6), 'o']],
+      d: eye(82, 90, 8) + eye(122, 90, 8) + ln('M88,128 Q93,133 98,128 M102,128 Q107,133 112,128 M94,142 Q99,147 104,142 M84,152 Q89,157 94,152 M106,152 Q111,157 116,152') }) },
+    { id: 'cat', name: 'Cat', ico: '🐱', lvl: 1, make: () => ({
+      r: [[SKY, 'ly'], [ep(100, 182, 88, 14), 'r'], ['M136,166 Q186,160 180,112 Q176,98 164,104 Q170,148 130,150 Z', 'o'], [ep(100, 148, 46, 34), 'o'],
+        [pp('60,76 64,30 96,52') + ' ' + pp('140,76 136,30 104,52'), 'o'], [cp(100, 90, 42), 'o'], [pp('93,96 107,96 100,105'), 'p'], [ep(82, 180, 13, 8) + ' ' + ep(118, 180, 13, 8), 'w']],
+      d: ln('M67,66 L67,42 L86,53 M133,66 L133,42 L114,53', 2) + dot(84, 84, 5) + dot(116, 84, 5) + ln('M100,105 Q96,114 88,111 M100,105 Q104,114 112,111 M56,96 L84,100 M56,106 L84,104 M144,96 L116,100 M144,106 L116,104')
+        + ln('M92,52 L94,62 M100,50 L100,61 M108,52 L106,62') }) },
+    { id: 'fish', name: 'Fish', ico: '🐠', lvl: 1, make: () => ({
+      r: [[SKY, 'lb'], ['M0,172 Q50,160 100,172 Q150,184 200,170 L200,200 L0,200 Z', 'ly'], ['M28,176 Q16,150 30,128 Q42,108 30,86 Q48,102 45,128 Q38,152 44,176 Z', 'g'],
+        [pp('140,100 186,64 176,100 186,136'), 'o'], ['M72,68 Q92,36 124,66 Z M84,132 Q96,158 114,133 Z', 'o'], [ep(95, 100, 52, 38), 'y'], [vband(95, 100, 52, 38, 104, 120), 'o'],
+        [cp(46, 60, 6) + ' ' + cp(60, 42, 8) + ' ' + cp(44, 24, 5), 'w']],
+      d: dot(66, 92, 8, '#fff').replace('stroke="none"', 'stroke="' + INK + '" stroke-width="2.5"') + eye(67, 92, 4.5) + ln('M50,110 Q58,116 66,112 M84,82 Q92,100 84,118') }) },
+    { id: 'tree', name: 'Apple tree', ico: '🍎', lvl: 1, make: () => ({
+      r: [[SKY, 'lb'], [cp(170, 30, 17), 'y'], ['M0,168 Q100,148 200,168 L200,200 L0,200 Z', 'lg'], ['M88,182 Q93,150 90,112 L110,112 Q107,150 112,182 Z', 'n'],
+        [scallop(100, 78, 64, 48, 11), 'g'], ['M140,160 L178,160 L172,186 L146,186 Z', 'o'],
+        [[cp(74, 68, 9), cp(116, 56, 9), cp(130, 94, 9), cp(84, 100, 9), cp(52, 182, 8), cp(152, 154, 8), cp(166, 154, 8)].join(' '), 'r']],
+      d: ln('M74,59 L76,54 M116,47 L118,42 M130,85 L132,80 M84,91 L86,86 M52,174 L54,169') + ln('M143,170 L175,170 M150,160 L152,186 M159,160 L159,186 M168,160 L166,186', 2) }) },
+    { id: 'house', name: 'House', ico: '🏠', lvl: 1, make: () => ({
+      r: [[SKY, 'lb'], [cp(30, 30, 16), 'y'], [scallop(166, 30, 24, 11, 8), 'w'], [rp(0, 168, 200, 32), 'lg'], [rp(124, 46, 18, 40), 'n'], [pp('30,102 100,44 170,102'), 'r'],
+        [rp(44, 100, 112, 72), 'p'], ['M86,172 L86,142 Q100,126 114,142 L114,172 Z', 'u'], [rp(56, 112, 24, 24) + ' ' + rp(120, 112, 24, 24), 'ly']],
+      d: ln('M68,112 L68,136 M56,124 L80,124 M132,112 L132,136 M120,124 L144,124') + dot(108, 158, 2.5) + ln('M133,40 Q127,32 134,26 Q141,20 135,12', 2.5) }) },
+    { id: 'icecream', name: 'Ice cream', ico: '🍦', lvl: 1, make: () => ({
+      r: [[SKY, 'lb'], [rp(0, 168, 200, 32), 'ly'], [pp('68,104 132,104 100,186'), 'o'], [cp(100, 56, 28), 'n'],
+        ['M62,110 Q58,70 100,68 Q142,70 138,110 Q132,120 126,110 Q118,122 110,110 Q100,122 92,110 Q82,122 74,110 Q68,120 62,110 Z', 'p'], [cp(104, 24, 9), 'r']],
+      d: ln('M104,15 Q108,6 118,4', 2.5) + ln('M71,112 L120,133 M80,112 L113,148 M124,112 L82,133 M114,112 L90,152 M76,124 L94,124 M104,124 L124,124', 2) + ln('M80,86 L86,84 M104,80 L110,84 M120,92 L126,90 M92,96 L96,100 M84,62 L90,64 M106,44 L110,40', 3) }) },
+    { id: 'sun', name: 'Sun & clouds', ico: '☀️', lvl: 1, make: () => ({
+      r: [[SKY, 'lb'], ['M0,170 Q50,118 110,162 Q150,128 200,148 L200,200 L0,200 Z', 'g'], ['M0,186 Q80,150 200,178 L200,200 L0,200 Z', 'lg'],
+        [star(66, 66, 56, 38, 12), 'o'], [cp(66, 66, 30), 'y'], [scallop(146, 52, 36, 16, 9), 'w'], [scallop(150, 116, 30, 13, 8), 'w']],
+      d: dot(56, 60, 3.5) + dot(76, 60, 3.5) + ln('M54,74 Q66,84 78,74') }) },
+    { id: 'rainbow', name: 'Rainbow', ico: '🌈', lvl: 1, make: () => ({
+      r: [[SKY, 'lb'], [rp(0, 150, 200, 50), 'lg'], ...[['r', 92], ['o', 80], ['y', 68], ['g', 56], ['b', 44]].map(([c, R]) => [arcBand(100, 150, R, R - 12), c]),
+        [scallop(26, 150, 30, 15, 9), 'w'], [scallop(174, 150, 30, 15, 9), 'w']],
+      d: '' }) },
+    { id: 'car', name: 'Car', ico: '🚗', lvl: 1, make: () => ({
+      r: [[SKY, 'lb'], [rp(0, 164, 200, 36), 'gy'], ['M48,110 L70,72 L134,72 L158,110 Z', 'r'], ['M16,152 L16,124 Q18,110 34,110 L166,110 Q182,112 184,128 L184,152 Z', 'r'],
+        [pp('62,107 76,80 98,80 98,107') + ' ' + pp('106,80 128,80 144,107 106,107'), 'lb'], [cp(56, 152, 19) + ' ' + cp(146, 152, 19), 'k'], [cp(56, 152, 8) + ' ' + cp(146, 152, 8), 'y'],
+        [rp(8, 182, 26, 5) + ' ' + rp(66, 182, 26, 5) + ' ' + rp(124, 182, 26, 5) + ' ' + rp(182, 182, 18, 5), 'w']],
+      d: ln('M102,112 L102,148 M108,122 L118,122', 2.5) + dot(178, 124, 4, '#FFE79A') }) },
+    { id: 'flower', name: 'Flower', ico: '🌷', lvl: 1, make: () => ({
+      r: [[SKY, 'lb'], ['M95,150 Q91,120 96,96 L104,96 Q100,120 105,150 Z', 'g'], [leaf(99, 132, 60, 112, 16) + ' ' + leaf(101, 122, 140, 102, 16), 'lg'],
+        ['M72,152 L128,152 L120,192 L80,192 Z', 'o'], [rrp(64, 142, 72, 14, 4), 'n'],
+        [[1, 3, 5, 7].map(i => leaf(...pol(8, i * 45, 0).map((v, j) => v + (j ? 66 : 100)), ...pol(46, i * 45, 0).map((v, j) => v + (j ? 66 : 100)), 30)).join(' '), 'p'],
+        [[0, 2, 4, 6].map(i => leaf(...pol(8, i * 45, 0).map((v, j) => v + (j ? 66 : 100)), ...pol(48, i * 45, 0).map((v, j) => v + (j ? 66 : 100)), 32)).join(' '), 'r'], [cp(100, 66, 15), 'y']],
+      d: dot(94, 62, 2.5) + dot(106, 62, 2.5) + ln('M94,71 Q100,76 106,71', 2) }) },
+    { id: 'snowman', name: 'Snowman', ico: '⛄', lvl: 1, make: () => ({
+      r: [[SKY, 'lb'], ['M0,166 Q100,146 200,168 L200,200 L0,200 Z', 'w'], [cp(100, 152, 36), 'w'], [cp(100, 102, 27), 'w'], [cp(100, 62, 21), 'w'],
+        ['M78,80 Q100,92 122,80 L124,90 Q100,102 76,90 Z M106,90 L118,88 L124,118 L110,120 Z', 'r'], [rp(84, 14, 32, 30), 'k'], [rp(84, 34, 32, 7), 'r'], [rrp(72, 41, 56, 8, 3), 'k'],
+        [pp('100,60 124,66 100,68'), 'o']],
+      d: dot(92, 56, 3) + dot(108, 56, 3) + dot(90, 72, 1.8) + dot(96, 75, 1.8) + dot(104, 75, 1.8) + dot(110, 72, 1.8) + dot(100, 104, 3) + dot(100, 118, 3) + dot(100, 142, 3.5)
+        + ln('M74,100 L40,82 M48,86 L44,74 M126,100 L160,82 M152,86 L158,74', 3) + dot(30, 30, 3, '#fff') + dot(170, 50, 3, '#fff') + dot(150, 20, 2, '#fff') + dot(40, 120, 2.5, '#fff') }) },
+    { id: 'turtle', name: 'Turtle', ico: '🐢', lvl: 1, make: () => ({
+      r: [[SKY, 'lb'], [cp(30, 30, 16), 'y'], ['M0,160 Q100,148 200,160 L200,200 L0,200 Z', 'ly'],
+        [ep(64, 150, 13, 16) + ' ' + ep(136, 150, 13, 16) + ' ' + pp('44,128 20,142 46,142'), 'lg'], [cp(166, 118, 18), 'lg'],
+        ['M38,136 Q42,70 100,68 Q158,70 162,136 Z', 'g'], ['M32,136 L168,136 Q170,148 158,148 L42,148 Q30,148 32,136 Z', 'o'],
+        [star(100, 104, 20, 17.5, 6, Math.PI / 6) + ' ' + cp(66, 118, 11) + ' ' + cp(134, 118, 11) + ' ' + cp(78, 86, 8) + ' ' + cp(122, 86, 8), 'lg']],
+      d: eye(172, 112, 3.5) + ln('M170,126 Q178,128 182,122', 2) }) },
+    { id: 'whale', name: 'Whale', ico: '🐳', lvl: 1, make: () => ({
+      r: [[SKY, 'lb'], ['M0,128 Q25,118 50,128 Q75,138 100,128 Q125,118 150,128 Q175,138 200,128 L200,200 L0,200 Z', 'b'],
+        ['M70,64 Q66,40 50,34 Q60,30 72,42 Q72,24 76,18 Q81,24 81,42 Q92,30 102,34 Q86,40 82,64 Z', 'w'],
+        [sc('M146,112 Q168,104 166,78 Q156,68 152,58 Q168,62 176,72 Q184,58 198,58 Q188,72 182,86 Q178,118 150,132 Z', 0.85, 146, 120), 'u'],
+        ['M26,118 Q26,70 84,66 Q132,64 150,100 Q156,116 150,128 Q140,150 100,150 L52,150 Q26,148 26,118 Z', 'u'],
+        ['M30,132 Q60,146 100,142 Q132,140 148,128 Q140,150 100,150 L52,150 Q34,148 30,132 Z', 'lb'], [leaf(82, 126, 104, 150, 10), 'u'],
+        ['M0,168 Q25,158 50,168 Q75,178 100,168 Q125,158 150,168 Q175,178 200,168 L200,200 L0,200 Z', 't']],
+      d: eye(50, 102, 5) + ln('M34,118 Q46,126 60,120') }) },
+
+    /* --- detailed pages --- */
+    { id: 'butterfly', name: 'Butterfly', ico: '🦋', lvl: 2, make: () => {
+      const uw = 'M102,92 Q126,22 172,26 Q198,38 186,74 Q174,102 104,102 Z', lw = 'M104,106 Q160,100 168,138 Q166,168 138,166 Q112,158 102,118 Z';
+      return { r: [[SKY, 'lb'], ['M0,178 Q100,164 200,178 L200,200 L0,200 Z', 'lg'], [scallop(28, 176, 14, 14, 6), 'p'], [cp(28, 176, 5), 'y'], [scallop(174, 180, 12, 12, 6), 'u'], [cp(174, 180, 4), 'y'],
+        [uw, 'o'], [mir(uw), 'o'], [lw, 'y'], [mir(lw), 'y'], [sc(uw, 0.58, 152, 60), 'r'], [mir(sc(uw, 0.58, 152, 60)), 'r'], [sc(lw, 0.55, 140, 134), 'r'], [mir(sc(lw, 0.55, 140, 134)), 'r'],
+        [cp(170, 46, 7), 'y'], [mir(cp(170, 46, 7)), 'y'], [cp(140, 54, 6), 'y'], [mir(cp(140, 54, 6)), 'y'], [cp(148, 144, 6), 'y'], [mir(cp(148, 144, 6)), 'y'],
+        [ep(100, 112, 7, 36), 'k'], [cp(100, 70, 9), 'k']],
+        d: ln('M96,63 Q88,44 80,38 M104,63 Q112,44 120,38', 2.5) + dot(80, 38, 3.5) + dot(120, 38, 3.5) + dot(96, 68, 1.8, '#fff') + dot(104, 68, 1.8, '#fff') }; } },
+    { id: 'rocket', name: 'Rocket', ico: '🚀', lvl: 2, make: () => ({
+      r: [[SKY, 'k'], ...[[30, 30], [168, 26], [150, 80], [40, 96], [24, 186], [176, 196 - 14], [62, 52]].map(([x, y], i) => [star(x, y, i % 2 ? 9 : 7, i % 2 ? 4 : 3.2), 'y']),
+        ['M34,148 A22 22 0 1 0 60,180 A17 17 0 1 1 34,148 Z', 'ly'], [cp(160, 146, 22), 'u'], [cp(152, 138, 5), 'p'], [cp(168, 156, 4), 'p'],
+        ['M86,150 Q84,178 100,198 Q116,178 114,150 Z', 'o'], ['M92,150 Q92,172 100,186 Q108,172 108,150 Z', 'y'],
+        ['M82,110 L58,148 L62,158 L86,146 Z', 'r'], [mir('M82,110 L58,148 L62,158 L86,146 Z'), 'r'], [rp(88, 150, 24, 7), 'gy'],
+        ['M80,66 L120,66 L120,146 Q120,152 114,152 L86,152 Q80,152 80,146 Z', 'w'], [rp(80, 122, 40, 10), 'b'], ['M80,66 Q80,40 100,20 Q120,40 120,66 Z', 'r'],
+        [cp(100, 92, 15), 'y'], [cp(100, 92, 10), 'lb']],
+      d: ln('M86,140 L86,142 M114,140 L114,142', 3) + dot(96, 88, 2.5, '#fff') }) },
+    { id: 'dino', name: 'Dinosaur', ico: '🦕', lvl: 2, make: () => {
+      const plates = [[60, 120], [74, 104], [92, 95], [111, 95], [128, 102]].map(([x, y]) => pp(`${x - 10},${y + 7} ${x},${y - 18} ${x + 10},${y + 7}`));
+      return { r: [[SKY, 'lb'], [cp(30, 28, 15), 'y'], [scallop(42, 40, 12, 9, 7), 'gy'], ['M0,122 L28,60 L54,60 L86,122 Z', 'n'], ['M28,60 Q36,72 33,86 Q41,78 41,92 Q46,76 54,60 Z', 'r'],
+        ['M0,148 Q100,136 200,148 L200,200 L0,200 Z', 'lg'], ['M118,146 Q114,110 122,74 L128,74 Q122,110 128,146 Z', 'n'],
+        [leaf(125, 74, 98, 90, 13), 'g'], [leaf(125, 74, 104, 52, 13), 'g'], [leaf(125, 74, 148, 54, 13), 'g'], [leaf(125, 74, 154, 90, 13), 'g'],
+        [rrp(72, 138, 14, 36, 6), 'g'], [rrp(122, 138, 14, 36, 6), 'g'], ...plates.map(d => [d, 'o']),
+        ['M12,150 Q40,148 54,132 Q62,94 100,90 Q132,90 140,110 Q146,90 150,72 Q154,58 168,58 Q184,58 186,72 Q186,84 172,86 Q164,88 162,98 Q158,124 152,140 Q142,154 120,154 L64,154 Q40,158 12,150 Z', 'g'],
+        ['M60,152 Q92,134 130,140 Q148,138 154,128 Q148,150 124,154 L66,154 Z', 'lg'], [rrp(86, 140, 16, 38, 7), 'g'], [rrp(136, 136, 16, 40, 7), 'g'],
+        [ep(30, 172, 10, 13), 'w'], [ep(50, 178, 8, 10), 'ly']],
+        d: eye(170, 68, 3.5) + ln('M176,78 Q181,80 184,76', 2) + ln('M88,176 L88,172 M94,176 L94,172 M138,174 L138,170 M144,174 L144,170', 2) }; } },
+    { id: 'unicorn', name: 'Unicorn', ico: '🦄', lvl: 2, make: () => {
+      const H = d => xf(d, (x, y) => [x * 0.85 + 4, y * 0.85 + 30], 0.85);
+      return { r: [[SKY, 'lb'], ...[['r', 76], ['y', 66], ['g', 56], ['b', 46]].map(([c, R]) => [arcBand(40, 112, R, R - 10), c]), [scallop(28, 116, 30, 13, 8), 'w'],
+        [star(160, 22, 9, 4), 'y'], [star(186, 50, 7, 3), 'y'], [star(18, 20, 7, 3), 'y'],
+        ...[[146, 56, 196, 40], [158, 80, 210, 80], [166, 106, 214, 122], [172, 134, 212, 162], [176, 162, 206, 198]].map(([a, b, c, e], i) => [H(leaf(a, b, c, e, 24)), ['u', 'p', 'b', 'u', 'p'][i]]),
+        [H('M150,200 L146,152 Q118,140 100,128 L64,120 Q44,118 42,104 Q42,90 58,84 L94,62 Q112,44 140,48 Q176,56 184,100 Q190,150 196,200 Z'), 'w'],
+        [H('M64,120 Q44,118 42,104 Q42,90 58,84 Q76,88 80,104 Q80,118 64,120 Z'), 'p'], [H(cp(118, 104, 8)), 'p'],
+        [H(pp('134,54 150,16 160,58')), 'w'], [H(pp('143,48 150,32 153,50')), 'p'],
+        [H(pp('110,58 126,52 121,40 107,45')), 'y'], [H(pp('107,45 121,40 116,28 104,32')), 'y'], [H(pp('104,32 116,28 98,6')), 'y'],
+        [H(leaf(136, 50, 112, 72, 12)), 'p'], [H(scallop(164, 70, 9, 9, 6)), 'r'], [H(cp(164, 70, 3.5)), 'y']],
+        d: '<g transform="matrix(.85 0 0 .85 4 30)">' + eye(102, 80, 4.5) + ln('M94,74 Q100,70 106,72', 2) + dot(54, 100, 2.5) + ln('M48,112 Q56,116 64,113', 2) + '</g>' }; } },
+    { id: 'mandala', name: 'Mandala', ico: '🏵️', lvl: 2, make: () => {
+      const R = [[SKY, 'lb']];
+      for (let i = 0; i < 16; i++) R.push([leaf(...pol(60, i * 22.5), ...pol(96, i * 22.5), 13), i % 2 ? 'o' : 'r']);
+      R.push([cp(100, 100, 64), 'y']);
+      for (let i = 0; i < 8; i++) R.push([leaf(...pol(26, i * 45), ...pol(63, i * 45), 18), 'b']);
+      for (let i = 0; i < 8; i++) R.push([cp(...pol(50, i * 45 + 22.5), 7), 'p']);
+      R.push([cp(100, 100, 28), 'g']);
+      for (let i = 0; i < 8; i++) R.push([leaf(...pol(9, i * 45 + 22.5), ...pol(28, i * 45 + 22.5), 9), 'y']);
+      R.push([cp(100, 100, 10), 'u']);
+      return { r: R, d: '' }; } },
+    { id: 'robot', name: 'Robot', ico: '🤖', lvl: 2, make: () => ({
+      r: [[SKY, 'lb'], [rp(0, 176, 200, 24), 'gy'], [rp(95, 14, 10, 22), 'gy'], [cp(100, 13, 7), 'r'], [rrp(52, 46, 12, 22, 3), 'r'], [rrp(136, 46, 12, 22, 3), 'r'],
+        [rrp(62, 32, 76, 50, 10), 'gy'], [cp(84, 54, 9), 'w'], [cp(116, 54, 9), 'w'], ...[0, 1, 2, 3].map(i => [rp(78 + i * 11, 66, 11, 9), i % 2 ? 'y' : 'w']),
+        [rp(90, 82, 20, 9), 'gy'], [rrp(34, 92, 20, 52, 8), 'gy'], [rrp(146, 92, 20, 52, 8), 'gy'], [cp(44, 150, 10), 'r'], [cp(156, 150, 10), 'r'],
+        [rp(76, 150, 18, 22), 'gy'], [rp(106, 150, 18, 22), 'gy'], [rrp(66, 168, 34, 12, 5), 'o'], [rrp(100, 168, 34, 12, 5), 'o'],
+        [rrp(56, 90, 88, 64, 10), 'b'], [rrp(70, 100, 60, 42, 6), 'ly'], [cp(84, 113, 6), 'r'], [cp(100, 113, 6), 'y'], [cp(116, 113, 6), 'g'], [heart(100, 131, 8), 'p']],
+      d: eye(84, 54, 4) + eye(116, 54, 4) + ln('M40,96 L48,96 M152,96 L160,96', 2) }) },
+    { id: 'castle', name: 'Castle', ico: '🏰', lvl: 2, make: () => ({
+      r: [[SKY, 'lb'], [cp(178, 24, 13), 'y'], [scallop(44, 30, 24, 11, 8), 'w'], [scallop(130, 20, 20, 9, 7), 'w'], ['M0,152 Q100,130 200,152 L200,200 L0,200 Z', 'lg'],
+        [rp(80, 56, 40, 94), 'gy'], [pp('74,58 100,18 126,58'), 'u'], [pp('100,4 116,8 100,13'), 'r'], [arch(92, 66, 16, 24), 'ly'],
+        ['M40,156 L40,96 L48,96 L48,104 L57,104 L57,96 L66,96 L66,104 L75,104 L75,96 L84,96 L84,104 L93,104 L93,96 L107,96 L107,104 L116,104 L116,96 L125,96 L125,104 L134,104 L134,96 L143,96 L143,104 L152,104 L152,96 L160,96 L160,156 Z', 'gy'],
+        [arch(64, 114, 12, 18), 'ly'], [arch(124, 114, 12, 18), 'ly'], ['M84,158 L84,130 Q100,110 116,130 L116,158 Z', 'n'],
+        [rp(22, 80, 36, 80), 'gy'], [rp(142, 80, 36, 80), 'gy'], [pp('16,82 40,38 64,82'), 'b'], [pp('136,82 160,38 184,82'), 'b'],
+        [pp('40,22 56,26 40,31'), 'r'], [pp('160,22 176,26 160,31'), 'r'], [arch(34, 100, 12, 18), 'ly'], [arch(154, 100, 12, 18), 'ly'],
+        ['M0,174 Q100,164 200,174 L200,190 Q100,182 0,190 Z', 'b'], ['M84,158 L116,158 L122,194 L78,194 Z', 'n']],
+      d: ln('M100,18 L100,4 M40,38 L40,22 M160,38 L160,22', 2.5) + ln('M80,166 L120,166 M79,176 L121,176 M78,186 L122,186', 2) }) },
+    { id: 'train', name: 'Train', ico: '🚂', lvl: 2, make: () => ({
+      r: [[SKY, 'lb'], [cp(150, 54, 7), 'w'], [cp(158, 38, 9), 'w'], [cp(172, 21, 11), 'w'], [rp(0, 170, 200, 30), 'lg'], [rp(0, 166, 200, 6), 'n'],
+        [rrp(96, 68, 48, 10, 3), 'u'], [rp(100, 78, 40, 72), 'r'], [rp(108, 88, 24, 22), 'ly'],
+        ['M140,104 L180,104 Q188,104 188,114 L188,140 Q188,150 180,150 L140,150 Z', 'b'], [rp(151, 104, 9, 46) + ' ' + rp(169, 104, 9, 46), 'y'],
+        ['M146,104 L144,76 L160,76 L158,104 Z', 'gy'], [rrp(140, 66, 24, 10, 3), 'k'], [cp(190, 118, 5), 'y'],
+        [rp(96, 148, 92, 10), 'k'], [cp(116, 158, 15), 'r'], [cp(150, 160, 12), 'r'], [cp(176, 160, 12), 'r'], [cp(116, 158, 5), 'y'], [cp(150, 160, 4), 'y'], [cp(176, 160, 4), 'y'], ['M186,142 L199,166 L182,166 Z', 'y'],
+        [rrp(8, 72, 84, 10, 4), 'u'], [rp(14, 82, 72, 66), 'g'], [rp(22, 94, 24, 22), 'ly'], [rp(54, 94, 24, 22), 'ly'], [rp(84, 144, 16, 6), 'gy'],
+        [cp(30, 158, 12), 'k'], [cp(70, 158, 12), 'k'], [cp(30, 158, 4), 'y'], [cp(70, 158, 4), 'y']],
+      d: ln('M10,176 L10,184 M30,176 L30,184 M50,176 L50,184 M70,176 L70,184 M90,176 L90,184 M110,176 L110,184 M130,176 L130,184 M150,176 L150,184 M170,176 L170,184 M190,176 L190,184', 2) }) },
+    { id: 'cake', name: 'Birthday cake', ico: '🎂', lvl: 2, make: () => {
+      const flags = [0, 1, 2, 3, 4, 5].map(i => { const t = (i + 0.5) / 6, x = 200 * t, y = (1 - t) * (1 - t) * 10 + 2 * (1 - t) * t * 44 + t * t * 10; return pp(`${f(x - 12)},${f(y - 3)} ${f(x + 12)},${f(y + 3)} ${f(x - 2)},${f(y + 24)}`); });
+      const drip = (x, y, w, n, dep) => { let d = `M${x},${y} L${x + w},${y} L${x + w},${y + 6}`; const s = w / n; for (let i = 0; i < n; i++) { const xr = x + w - i * s; d += ` Q${f(xr - s / 2)},${y + 6 + (i % 2 ? dep : dep * 2)} ${f(xr - s)},${y + 6}`; } return d + ' Z'; };
+      return { r: [[SKY, 'lb'], ...flags.map((d, i) => [d, ['r', 'y', 'b', 'g', 'u', 'o'][i]]), [ep(30, 74, 14, 18), 'r'], [ep(172, 70, 14, 18), 'b'], [rp(0, 168, 200, 32), 'n'], [ep(100, 166, 74, 8), 'w'],
+        [rrp(40, 120, 120, 46, 6), 'p'], [drip(40, 120, 120, 6, 6), 'w'], [rrp(60, 82, 80, 38, 6), 'u'], [drip(60, 82, 80, 4, 5), 'ly'],
+        [rp(72, 56, 8, 26), 'b'], [rp(96, 50, 8, 32), 'y'], [rp(120, 56, 8, 26), 'g'], [leaf(76, 56, 76, 38, 6), 'o'], [leaf(100, 50, 100, 32, 6), 'o'], [leaf(124, 56, 124, 38, 6), 'o'],
+        ...[[56, 150], [84, 154], [116, 154], [144, 150]].map(([x, y]) => [cp(x, y, 5), 'r']), ...[[76, 108], [100, 110], [124, 108]].map(([x, y]) => [cp(x, y, 4.5), 'y'])],
+        d: ln('M0,10 Q100,78 200,10', 2) + ln('M30,92 Q24,120 34,160 M172,88 Q178,120 168,160', 1.5) + ln('M24,66 Q26,60 30,59', 2) }; } },
+    { id: 'monster', name: 'Monster', ico: '👾', lvl: 2, make: () => ({
+      r: [[SKY, 'lb'], ['M0,170 Q100,156 200,170 L200,200 L0,200 Z', 'lg'], [leaf(72, 62, 56, 22, 10), 'y'], [leaf(128, 62, 144, 22, 10), 'y'],
+        [leaf(56, 112, 16, 82, 13), 'u'], [leaf(144, 112, 184, 82, 13), 'u'], [ep(78, 178, 18, 9), 'o'], [ep(122, 178, 18, 9), 'o'],
+        ['M50,120 Q46,60 100,52 Q154,60 150,120 Q152,176 100,178 Q48,176 50,120 Z', 'u'], [ep(100, 150, 30, 22), 'p'],
+        [cp(62, 104, 6), 'p'], [cp(140, 100, 5), 'p'], [cp(60, 146, 5), 'p'], [cp(140, 148, 6), 'p'],
+        [cp(76, 84, 12), 'w'], [cp(100, 72, 14), 'w'], [cp(124, 84, 12), 'w'], [cp(77, 86, 6), 'g'], [cp(100, 74, 7), 'g'], [cp(123, 86, 6), 'g'],
+        ['M70,106 Q100,148 130,106 Q100,116 70,106 Z', 'k'], [pp('80,109 87,110 83,119'), 'w'], [pp('113,110 120,109 117,119'), 'w'], [ep(100, 126, 10, 5), 'r']],
+      d: dot(77, 86, 2.5) + dot(100, 74, 3) + dot(123, 86, 2.5) }) },
+    { id: 'garden', name: 'Garden', ico: '🌻', lvl: 2, make: () => {
+      const pick = x => pp(`${x},84 ${x + 11},72 ${x + 22},84 ${x + 22},150 ${x},150`);
+      const fl = [[34, 112, 'p'], [100, 104, 'u'], [166, 114, 'r']];
+      return { r: [[SKY, 'lb'], [cp(24, 24, 14), 'y'], [scallop(150, 26, 28, 11, 8), 'w'], [rp(0, 96, 200, 8) + ' ' + rp(0, 126, 200, 8), 'n'],
+        ...[6, 38, 70, 102, 134, 166].map(x => [pick(x), 'w']), ['M0,146 Q50,138 100,146 Q150,154 200,144 L200,200 L0,200 Z', 'g'],
+        [fl.map(([x, y]) => rp(x - 2, y + 10, 4, 160 - y)).join(' '), 'lg'], ...fl.map(([x, y, c]) => [scallop(x, y, 14, 14, 6), c]), ...fl.map(([x, y]) => [cp(x, y, 5.5), 'y']),
+        ['M126,188 Q128,178 138,180 L166,180 Q176,170 182,176 Q186,188 176,188 Z', 'ly'], [cp(152, 174, 13), 'o'],
+        [rrp(64, 170, 14, 20, 4), 'w'], ['M50,172 Q71,138 92,172 Z', 'r'], [cp(64, 162, 3) + ' ' + cp(77, 158, 3) + ' ' + cp(72, 167, 2.5), 'w'],
+        [ep(104, 40, 7, 10) + ' ' + ep(116, 40, 7, 10), 'w'], [ep(110, 54, 13, 9), 'y'], [vband(110, 54, 13, 9, 107, 113), 'k']],
+        d: ln('M152,166 Q160,170 156,176 Q150,180 148,172', 2) + ln('M178,176 L180,166 M182,177 L186,168', 2) + dot(180, 166, 2) + dot(186, 168, 2) + dot(99, 52, 1.8) + ln('M123,54 L128,54', 2) }; } },
+    { id: 'balloon', name: 'Hot air balloon', ico: '🎈', lvl: 2, make: () => {
+      const mer = k => [100 + 22 * k, 100 + 7 * k];
+      const gore = k => `M100,16 C${100 + 22 * k},16 ${100 + 22 * k},100 ${mer(k)[1]},136 L${mer(k + 1)[1]},136 C${100 + 22 * (k + 1)},100 ${100 + 22 * (k + 1)},16 100,16 Z`;
+      const G = [-3, -2, -1, 0, 1, 2].map(gore), small = d => xf(d, (x, y) => [28 + (x - 100) * 0.3, 40 + (y - 16) * 0.3], 0.3);
+      return { r: [[SKY, 'lb'], [cp(178, 26, 13), 'y'], [scallop(30, 120, 24, 10, 8), 'w'], [scallop(172, 96, 22, 9, 7), 'w'], [scallop(176, 62, 16, 7, 7), 'w'],
+        ['M0,172 L50,110 L100,172 Z', 'gy'], ['M104,172 L168,104 L232,172 Z', 'u'], [pp('50,110 40,122 46,119 51,125 56,119 60,122'), 'w'], [pp('168,104 154.8,118 161,115 168,121 175,115 181.2,118'), 'w'],
+        [rp(0, 168, 200, 32), 'lg'], [scallop(20, 166, 14, 10, 7), 'g'], [scallop(184, 164, 14, 10, 7), 'g'],
+        ...G.map((d, i) => [d, ['r', 'y', 'o', 'r', 'y', 'o'][i]]), [rrp(88, 150, 24, 18, 3), 'n'],
+        [small(G[0]) + ' ' + small(G[2]) + ' ' + small(G[4]), 'b'], [small(G[1]) + ' ' + small(G[3]) + ' ' + small(G[5]), 'w'], [rrp(25, 81, 6, 6, 1), 'n']],
+        d: ln('M79,136 L89,150 M121,136 L111,150 M93,136 L95,150 M107,136 L105,150', 1.5) + ln('M22,76 L25.5,81 M34,76 L30.5,81', 1) + ln('M150,46 Q155,41 160,46 Q165,41 170,46 M60,30 Q64,26 68,30 Q72,26 76,30', 2) }; } },
+    { id: 'boat', name: 'Sailboat', ico: '⛵', lvl: 2, make: () => ({
+      r: [[SKY, 'lb'], [cp(36, 36, 18), 'y'], [scallop(150, 30, 28, 11, 8), 'w'], [scallop(32, 92, 22, 9, 7), 'w'], ['M150,120 Q170,92 196,120 Z', 'lg'], [leaf(172, 108, 172, 80, 6), 'g'],
+        ['M0,120 Q25,112 50,120 Q75,128 100,120 Q125,112 150,120 Q175,128 200,120 L200,200 L0,200 Z', 'b'],
+        [pp('102,24 102,112 152,112'), 'w'], [pp('102,72 129.3,72 137.2,86 102,86'), 'b'], [pp('96,30 96,112 52,112'), 'y'], [pp('96,70 96,84 67,84 74.5,70'), 'o'], [pp('100,10 118,15 100,20'), 'r'], [rp(97, 10, 5, 108), 'n'],
+        ['M40,116 L164,116 L148,146 L56,146 Z', 'r'], [rp(48, 122, 108, 7), 'w'], [cp(74, 136, 4), 'lb'], [cp(100, 136, 4), 'lb'], [cp(126, 136, 4), 'lb'],
+        ['M0,150 Q25,142 50,150 Q75,158 100,150 Q125,142 150,150 Q175,158 200,150 L200,170 L0,170 Z', 't'],
+        ['M0,170 Q25,162 50,170 Q75,178 100,170 Q125,162 150,170 Q175,178 200,170 L200,200 L0,200 Z', 'b'],
+        [ep(30, 186, 10, 5) + ' ' + pp('38,186 46,180 46,192'), 'o'], [ep(170, 160, 8, 4) + ' ' + pp('163,160 156,155 156,165'), 'p']],
+      d: ln('M60,70 Q65,65 70,70 Q75,65 80,70 M130,60 Q134,56 138,60 Q142,56 146,60', 2) + dot(26, 185, 1.5) + dot(174, 159, 1.2) }) }
+  ];
+  // Build each page's shapes once.
+  PAGES.forEach(pg => { const m = pg.make(); pg.R = m.r.map(([d, c], i) => ({ id: 'r' + i, d, hint: HEX[c] })); pg.deco = m.d; });
+  // A page can be coloured by number when it uses 8 or fewer colours.
+  PAGES.forEach(pg => { pg.key = [...new Set(pg.R.map(r => r.hint))]; pg.num = pg.key.length <= 8; });
+  const byId = id => PAGES.find(p => p.id === id);
+  const rec = id => { st.coloring = st.coloring || {}; return st.coloring[id] = st.coloring[id] || { f: {} }; };
+  const filledCount = pg => pg.R.filter(r => (rec(pg.id).f || {})[r.id]).length;
+
+  function svgFor(pg, fills, { cls = '', labels = '', w = 0 } = {}) {
+    const sw = pg.lvl === 1 ? 3 : 2.2;
+    return `<svg ${w ? `xmlns="http://www.w3.org/2000/svg" width="${w}" height="${w}" ` : ''}viewBox="0 0 200 200" class="${cls}" role="img" aria-label="${pg.name} coloring page">`
+      + `<g stroke="${INK}" stroke-width="${sw}" stroke-linejoin="round">${pg.R.map(r => `<path data-r="${r.id}" d="${r.d}" fill="${fills[r.id] || '#FFFFFF'}"/>`).join('')}</g>`
+      + `<g pointer-events="none" fill="none" stroke="${INK}" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round">${pg.deco}</g>${labels}</svg>`;
+  }
+
+  /* --- where to write the numbers: the most open visible spot of every shape (and of every big piece of a shape) --- */
+  const spotCache = {};
+  function spots(pg, svg) {
+    if (spotCache[pg.id]) return spotCache[pg.id];
+    const N = 64, step = 200 / N, els = [...svg.querySelectorAll('[data-r]')], bb = els.map(e => e.getBBox()), lab = new Int16Array(N * N).fill(-1), pt = svg.createSVGPoint();
+    for (let gy = 0; gy < N; gy++) for (let gx = 0; gx < N; gx++) {
+      pt.x = (gx + 0.5) * step; pt.y = (gy + 0.5) * step;
+      for (let j = els.length - 1; j >= 0; j--) { const b = bb[j]; if (pt.x < b.x || pt.y < b.y || pt.x > b.x + b.width || pt.y > b.y + b.height) continue; if (els[j].isPointInFill(pt)) { lab[gy * N + gx] = j; break; } }
+    }
+    // Distance (in cells) from each cell to the nearest cell of another shape.
+    const dist = new Float32Array(N * N).fill(1e9), q = [];
+    const nb = i => { const x = i % N, y = (i / N) | 0, o = []; if (x > 0) o.push(i - 1); if (x < N - 1) o.push(i + 1); if (y > 0) o.push(i - N); if (y < N - 1) o.push(i + N); return o; };
+    for (let i = 0; i < N * N; i++) { const x = i % N, y = (i / N) | 0; if (x === 0 || y === 0 || x === N - 1 || y === N - 1 || nb(i).some(k => lab[k] !== lab[i])) { dist[i] = 1; q.push(i); } }
+    for (let h = 0; h < q.length; h++) { const i = q[h]; for (const k of nb(i)) if (lab[k] === lab[i] && dist[k] > dist[i] + 1) { dist[k] = dist[i] + 1; q.push(k); } }
+    // Connected pieces of each shape; label every piece at least a third the size of its biggest.
+    const seen = new Uint8Array(N * N), pieces = els.map(() => []);
+    for (let i = 0; i < N * N; i++) {
+      if (seen[i] || lab[i] < 0) continue;
+      const L = lab[i], st2 = [i]; let n = 0, best = i; seen[i] = 1;
+      while (st2.length) { const c = st2.pop(); n++; if (dist[c] > dist[best]) best = c; for (const k of nb(c)) if (!seen[k] && lab[k] === L) { seen[k] = 1; st2.push(k); } }
+      pieces[L].push({ n, x: (best % N + 0.5) * step, y: (((best / N) | 0) + 0.5) * step, r: dist[best] * step });
+    }
+    const out = pg.R.map((r, j) => {
+      const ps = pieces[j].sort((a, b) => b.n - a.n);
+      if (!ps.length) { const b = bb[j]; return { cells: 0, at: [{ x: b.x + b.width / 2, y: b.y + b.height / 2, r: 4 }] }; }
+      return { cells: ps.reduce((a, p) => a + p.n, 0), at: ps.filter(p => p.n >= Math.max(3, ps[0].n / 3)) };
+    });
+    return spotCache[pg.id] = out;
+  }
+
+  /* --- colour-by-number, colour-by-sum (age 7+) and colour-by-take-away (age 9+) --- */
+  const MODES = [['n', '1 2 3'], ['sum', '2+3'], ['sub', '5−2']];
+  function clue(n, mode, seed) {
+    if (mode === 'sum') { if (n === 1) return ['1+0', '1 plus 0']; const a = 1 + seed % (n - 1); return [`${a}+${n - a}`, `${a} plus ${n - a}`]; }
+    if (mode === 'sub') { const b = 1 + seed % 5; return [`${n + b}−${b}`, `${n + b} take away ${b}`]; }
+    return [String(n), String(n)];
+  }
+
+  function colorHomeView(tab) {
+    tab = tab || colorHomeView.tab || 'easy'; colorHomeView.tab = tab;
+    const list = PAGES.filter(p => tab === 'easy' ? p.lvl === 1 : tab === 'detail' ? p.lvl === 2 : p.num);
+    const done = PAGES.filter(p => rec(p.id).done).length;
+    view.innerHTML = `${crumbs('🖌️ Coloring book')}
+      <p class="cb-lead">Pick a picture. Tap a colour, then tap a shape to fill it. <b>${done} of ${PAGES.length}</b> finished.</p>
+      <div class="tabs cb-tabs" role="group" aria-label="Kind of page">${[['easy', '🖍️ Easy'], ['detail', '🔍 Detailed'], ['num', '🔢 Color by number']].map(([k, t]) => `<button data-tab="${k}" aria-pressed="${k === tab}">${t}</button>`).join('')}</div>
+      <div class="cb-grid">${list.map(p => { const R = rec(p.id), n = filledCount(p);
+        return `<button class="cb-card${R.done ? ' done' : ''}" data-pg="${p.id}" aria-label="${p.name}${R.done ? ', finished' : ''}">${svgFor(p, R.f || {}, { cls: 'cb-thumb' })}<b>${p.ico} ${p.name}</b><span>${R.done ? '✅ Done' : n ? `${n} of ${p.R.length} shapes` : `${p.R.length} shapes`}</span></button>`; }).join('')}</div>`;
+    wireBack(artHome);
+    sayScreen(tab === 'num' ? 'Color by number! Every number has its own colour. Pick a picture.' : 'Coloring book! Pick a picture to color.');
+    view.querySelectorAll('[data-tab]').forEach(b => b.onclick = () => go(colorHomeView, b.dataset.tab));
+    view.querySelectorAll('[data-pg]').forEach(b => b.onclick = () => go(colorPage, b.dataset.pg, tab === 'num'));
+  }
+
+  function colorPage(id, numMode) {
+    const pg = byId(id), R = rec(id), fills = R.f = R.f || {}, undo = [];
+    numMode = !!numMode && pg.num;
+    let brush = HEX.r, mode = st.age >= 9 ? 'sub' : st.age >= 7 ? 'sum' : 'n', cheered = false;
+    const numOf = r => pg.key.indexOf(r.hint) + 1;
+    view.innerHTML = `${crumbs(`${pg.ico} ${pg.name}`)}
+      <div class="cb-wrap">
+        <div class="cb-stage" id="cbStage">${svgFor(pg, fills, { cls: 'cb-svg' })}
+          <div class="cb-idea" id="cbIdea" hidden><b>✨ Owl's idea</b><div id="cbIdeaPic"></div><button class="tool" id="cbOne">✨ Fill one for me</button></div></div>
+        <div class="cb-side">
+          <div class="cb-key" id="cbKey" hidden></div>
+          <div class="cb-pal" role="group" aria-label="Colours">${CB.map(([k, h, n]) => `<button class="cb-sw" data-c="${h}" style="background:${h}" aria-label="${n}" aria-pressed="${h === brush}"></button>`).join('')}</div>
+          <div class="cb-tools">
+            <button class="tool" id="cbEr" aria-pressed="false">🧽 Eraser</button>
+            <button class="tool" id="cbUn">↩️ Undo</button>
+            <button class="tool" id="cbMagic" aria-pressed="false">✨ Magic</button>
+            ${pg.num ? `<button class="tool" id="cbNum" aria-pressed="${numMode}">🔢 Numbers</button><button class="tool" id="cbMode" ${numMode ? '' : 'hidden'}></button>` : ''}
+            <button class="tool" id="cbClr">🗑️ Start over</button>
+            <button class="tool cb-save" id="cbSave">💾 Save</button>
+          </div>
+          <p class="cb-msg" id="cbMsg" aria-live="polite"></p>
+        </div>
+      </div>`;
+    wireBack(colorHomeView);
+    const svg = $('.cb-svg'), msg = t => { $('#cbMsg').textContent = t; };
+    const el = rid => svg.querySelector(`[data-r="${rid}"]`);
+    const anim = (e, cls) => { e.classList.remove('cb-pop', 'cb-flash', 'cb-wig'); void e.getBBox(); e.classList.add(cls); setTimeout(() => e.classList.remove(cls), 1100); };
+    function paint(rid, c) { const e = el(rid); if (c) fills[rid] = c; else delete fills[rid]; e.setAttribute('fill', c || '#FFFFFF'); updLabel(rid); return e; }
+    function updLabel(rid) { const r = pg.R.find(x => x.id === rid); svg.querySelectorAll(`[data-l="${rid}"]`).forEach(t => t.style.display = fills[rid] === r.hint ? 'none' : ''); }
+
+    function drawLabels() {
+      svg.querySelectorAll('.cb-lab').forEach(g => g.remove());
+      $('#cbKey').hidden = !numMode; const mb = $('#cbMode'); if (mb) { mb.hidden = !numMode; mb.textContent = MODES.find(m => m[0] === mode)[1]; }
+      if (!numMode) return;
+      const sp = spots(pg, svg);
+      let out = '<g class="cb-lab" pointer-events="none" font-family="Baloo 2,Arial Rounded MT Bold,ui-rounded,sans-serif" font-weight="800" fill="' + INK + '" stroke="#fff" stroke-width="2.4" paint-order="stroke" text-anchor="middle" dominant-baseline="central">';
+      pg.R.forEach((r, i) => { const [txt] = clue(numOf(r), mode, i * 7 + id.length); sp[i].at.forEach(a => {
+        const fs = Math.max(5, Math.min(14, a.r * 1.3, a.r * 2.6 / Math.max(1, txt.length * 0.62)));
+        out += `<text data-l="${r.id}" x="${f(a.x)}" y="${f(a.y)}" font-size="${f(fs)}">${txt}</text>`; }); });
+      svg.insertAdjacentHTML('beforeend', out + '</g>');
+      pg.R.forEach(r => updLabel(r.id));
+      $('#cbKey').innerHTML = pg.key.map((h, i) => `<button class="cb-chip" data-c="${h}" aria-label="${i + 1} is ${NAME[h]}"><i style="background:${h}"></i>${i + 1}</button>`).join('');
+      $('#cbKey').querySelectorAll('[data-c]').forEach(b => b.onclick = () => setBrush(b.dataset.c, true));
+    }
+    function setBrush(c, speak) {
+      brush = c; $('#cbEr').setAttribute('aria-pressed', String(c === null));
+      view.querySelectorAll('.cb-sw').forEach(x => x.setAttribute('aria-pressed', String(x.dataset.c === c)));
+      if (speak && c) { const n = pg.key.indexOf(c) + 1; say(numMode && n ? `${NAME[c]}. That is number ${n}.` : NAME[c]); }
+    }
+    function tap(rid) {
+      const r = pg.R.find(x => x.id === rid), prev = fills[rid] || null;
+      if (prev === brush) { anim(el(rid), 'cb-pop'); return; }
+      undo.push([[rid, prev]]); if (undo.length > 200) undo.shift();
+      const e = paint(rid, brush), b = e.getBBox();
+      anim(e, b.width * b.height > 9000 ? 'cb-flash' : 'cb-pop');
+      tone([brush ? 392 + (CB.findIndex(x => x[1] === brush) % 8) * 49 : 300], 0.07);
+      if (numMode && brush && brush !== r.hint) {
+        const n = numOf(r), [, spoken] = clue(n, mode, pg.R.indexOf(r) * 7 + id.length);
+        setTimeout(() => anim(e, 'cb-wig'), 380);
+        msg(`That shape is number ${n}. ${n} is ${NAME[r.hint]}.`); say(`${mode === 'n' ? '' : spoken + ' is ' + n + '. '}Number ${n} is ${NAME[r.hint]}.`);
+      } else if (numMode && brush && mode !== 'n' && Math.random() < 0.5) { const n = numOf(r), [, spoken] = clue(n, mode, pg.R.indexOf(r) * 7 + id.length); say(`${spoken} is ${n}!`); }
+      save(); check();
+    }
+    function check() {
+      const left = pg.R.filter(r => !fills[r.id]);
+      if (left.length) { if (!numMode) msg(left.length <= 3 ? `Only ${left.length} more shape${left.length > 1 ? 's' : ''} to fill!` : ''); return; }
+      if (numMode) {
+        const wrong = pg.R.filter(r => fills[r.id] !== r.hint);
+        if (wrong.length) { wrong.forEach(r => anim(el(r.id), 'cb-wig')); msg(`Almost! ${wrong.length} shape${wrong.length > 1 ? 's do' : ' does'} not match ${wrong.length > 1 ? 'their numbers' : 'its number'}. Look for the wiggly ones!`); say(`Almost! Look for the wiggly shape${wrong.length > 1 ? 's' : ''}. Check ${wrong.length > 1 ? 'their numbers' : 'its number'}.`); return; }
+      }
+      if (cheered) return; cheered = true;
+      const first = !R.done, firstNum = numMode && !R.nd;
+      R.done = R.done || today(); if (numMode) R.nd = R.nd || today();
+      questTick('art'); dayLog('art');
+      if (first || firstNum) addStars((first ? 2 : 0) + (firstNum ? 1 : 0)); else save();
+      confetti(); yay();
+      const t = numMode ? `You matched every number! What a beautiful ${pg.name.toLowerCase()}!` : `You colored the whole ${pg.name.toLowerCase()}! Beautiful!`;
+      msg(t + (first || firstNum ? ' ⭐ You earned stars!' : '') + ' Tap Save to keep it.'); say(t + (first || firstNum ? ' You earned stars!' : ''));
+    }
+    svg.addEventListener('click', e => { const t = e.target.closest && e.target.closest('[data-r]'); if (t) tap(t.dataset.r); });
+    view.querySelectorAll('.cb-sw').forEach(b => b.onclick = () => setBrush(b.dataset.c, true));
+    $('#cbEr').onclick = () => { setBrush(brush === null ? HEX.r : null); if (brush === null) say('Eraser. Tap a shape to make it white again.'); };
+    $('#cbUn').onclick = () => { const u = undo.pop(); if (!u) { say('Nothing to undo.'); return; } u.forEach(([rid, c]) => anim(paint(rid, c), 'cb-flash')); cheered = false; save(); msg(''); };
+    $('#cbClr').onclick = () => { const all = Object.keys(fills).map(rid => [rid, fills[rid]]); if (!all.length) return; undo.push(all); all.forEach(([rid]) => paint(rid, null)); cheered = false; save(); msg('A fresh page! Undo brings your colours back.'); say('A fresh page!'); };
+    // Magic: Owl shows a coloured-in idea. Tap a shape in it to borrow that colour, or let Owl fill one shape.
+    $('#cbMagic').onclick = () => {
+      const box = $('#cbIdea'), show = box.hidden; box.hidden = !show; $('#cbMagic').setAttribute('aria-pressed', String(show));
+      if (show) { const hint = {}; pg.R.forEach(r => hint[r.id] = r.hint); $('#cbIdeaPic').innerHTML = svgFor(pg, hint); say("Here is Owl's idea! Tap a shape in the little picture to use its colour, or use your own colours."); }
+    };
+    $('#cbIdeaPic').addEventListener('click', e => { const t = e.target.closest && e.target.closest('[data-r]'); if (t) { const r = pg.R.find(x => x.id === t.dataset.r); setBrush(r.hint, true); } });
+    $('#cbOne').onclick = () => {
+      const left = pg.R.filter(r => fills[r.id] !== r.hint && !(fills[r.id] && !numMode)); if (!left.length) { say('Every shape is colored!'); return; }
+      const r = pick(left), keep = brush; brush = r.hint; tap(r.id); brush = keep; tone([784, 988], 0.08);
+    };
+    if (pg.num) {
+      $('#cbNum').onclick = () => { numMode = !numMode; $('#cbNum').setAttribute('aria-pressed', String(numMode)); cheered = false; drawLabels(); say(numMode ? 'Color by number! Find the number, then use its colour from the key.' : 'Free coloring. Use any colours you like!'); };
+      $('#cbMode').onclick = () => { mode = MODES[(MODES.findIndex(m => m[0] === mode) + 1) % MODES.length][0]; drawLabels(); say(mode === 'n' ? 'Numbers.' : mode === 'sum' ? 'Adding! Work out each sum to find its colour.' : 'Taking away! Work out each one to find its colour.'); };
+    }
+    $('#cbSave').onclick = () => savePng(pg, fills).then(url => {
+      gallery.unshift(url); gallery = gallery.slice(0, 30); saveGallery();
+      msg('Saved to My pictures! 🖼️'); say('Saved to your pictures!'); tone([659, 784, 1047], 0.09);
+    }).catch(() => { msg('Sorry, this picture could not be saved on this device.'); });
+    drawLabels();
+    sayScreen(numMode ? `${pg.name}. Color by number! Each number has a colour in the key. Number 1 is ${NAME[pg.key[0]]}.` : `${pg.name}. Pick a colour, then tap a shape to fill it.`);
+  }
+
+  // Draw the page (without numbers) onto a canvas and keep it as a small picture, like the other drawings.
+  function savePng(pg, fills) {
+    return new Promise((res, rej) => {
+      const im = new Image();
+      im.onload = () => { try { const c = document.createElement('canvas'); c.width = c.height = 360; const x = c.getContext('2d'); x.fillStyle = '#fff'; x.fillRect(0, 0, 360, 360); x.drawImage(im, 0, 0, 360, 360); res(c.toDataURL('image/jpeg', 0.8)); } catch (e) { rej(e); } };
+      im.onerror = rej;
+      im.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgFor(pg, fills, { w: 720 }));
+    });
+  }
+
+  if (location.hash === '#selftest') window.__color = { PAGES, HEX, NAME, colorPage, colorHomeView, svgFor, spots: id => spots(byId(id), view.querySelector('.cb-svg')), get state() { return st.coloring; } };
+  return () => colorHomeView();
+})();
+/* ---------- sticker scenes: pick a place, add stickers, doodle, count, tell a story, save ---------- */
+const sceneHome = (() => {
+  const W = 400, H = 300; // scene units; the stage is always 4:3
+  // Starry skies need the same stars every time, so they come from a tiny seeded random.
+  const dots = (n, seed, y0, y1, r0, r1, fill) => { let s = seed, o = ''; const R = () => (s = (s * 9301 + 49297) % 233280) / 233280;
+    for (let i = 0; i < n; i++) o += `<circle cx="${(R() * W).toFixed(0)}" cy="${(y0 + R() * (y1 - y0)).toFixed(0)}" r="${(r0 + R() * (r1 - r0)).toFixed(1)}" fill="${fill}"/>`; return o; };
+  const cloud = (x, y, k = 1, c = '#fff') => `<g fill="${c}" transform="translate(${x} ${y}) scale(${k})"><ellipse cx="0" cy="0" rx="26" ry="14"/><ellipse cx="-18" cy="6" rx="18" ry="11"/><ellipse cx="20" cy="6" rx="20" ry="11"/><ellipse cx="2" cy="-9" rx="16" ry="12"/></g>`;
+  const BGS = [
+    { id: 'beach', name: 'Beach', at: 'at the beach', svg: `<rect width="400" height="300" fill="#8ED8F8"/><circle cx="335" cy="52" r="30" fill="#FFD54A"/><circle cx="335" cy="52" r="40" fill="#FFD54A" opacity=".25"/>${cloud(90, 50)}${cloud(220, 34, .7)}
+      <rect y="140" width="400" height="70" fill="#2E9BD6"/><path d="M0 150q20-8 40 0t40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0" stroke="#8ED8F8" stroke-width="4" fill="none" opacity=".7"/><path d="M0 172q25-7 50 0t50 0 50 0 50 0 50 0 50 0 50 0 50 0" stroke="#7FC6EE" stroke-width="3" fill="none" opacity=".6"/>
+      <path d="M0 198q50-14 100-4t110 2 100-6 90 6V300H0z" fill="#F6DC9A"/><path d="M0 204q50-12 100-3t110 2 100-5 90 5" stroke="#fff" stroke-width="5" fill="none" opacity=".8"/>
+      <g transform="translate(46 210)"><path d="M0 0L6 -60" stroke="#8B5A2B" stroke-width="3"/><path d="M-34 -52Q6 -88 46 -68Z" fill="#F2604F"/><path d="M-34 -52Q-8 -78 6 -60Z" fill="#fff"/></g>${dots(14, 3, 220, 295, 1.5, 2.5, '#E3C47A')}` },
+    { id: 'farm', name: 'Farm', at: 'on the farm', svg: `<rect width="400" height="300" fill="#A9DDF7"/><circle cx="60" cy="50" r="26" fill="#FFD54A"/>${cloud(200, 45)}${cloud(320, 70, .8)}
+      <path d="M0 160Q90 110 190 150T400 140V300H0z" fill="#8BCF6A"/><path d="M0 190Q120 160 260 185T400 180V300H0z" fill="#6DBB4F"/>
+      <g transform="translate(290 112)"><rect x="0" y="30" width="80" height="62" fill="#D9473A"/><path d="M-8 32L40 0 88 32z" fill="#A8322A"/><rect x="28" y="58" width="24" height="34" fill="#fff"/><path d="M28 58l24 34M52 58L28 92" stroke="#D9473A" stroke-width="3"/><rect x="31" y="38" width="18" height="14" fill="#fff"/></g>
+      <g stroke="#fff" stroke-width="4">${[...Array(9)].map((_, i) => `<line x1="${10 + i * 32}" y1="214" x2="${10 + i * 32}" y2="244"/>`).join('')}<line x1="0" y1="222" x2="275" y2="222"/><line x1="0" y1="236" x2="275" y2="236"/></g>
+      <path d="M150 300Q190 260 230 250T330 230" stroke="#D9B27C" stroke-width="22" fill="none" stroke-linecap="round"/>` },
+    { id: 'space', name: 'Space', at: 'in space', svg: `<rect width="400" height="300" fill="#151A3D"/>${dots(70, 11, 0, 240, .6, 1.8, '#fff')}${dots(8, 5, 0, 220, 2, 3, '#FFE79A')}
+      <circle cx="320" cy="72" r="30" fill="#F2A65A"/><path d="M320 64q-16 6-28 2M325 82q-14 4-32 0" stroke="#D9843A" stroke-width="4" fill="none"/><ellipse cx="320" cy="74" rx="52" ry="11" fill="none" stroke="#FFD08A" stroke-width="4" transform="rotate(-14 320 74)"/>
+      <circle cx="70" cy="60" r="14" fill="#7FC6EE"/><circle cx="66" cy="56" r="5" fill="#2FA36B"/>
+      <path d="M0 250Q100 225 200 245T400 238V300H0z" fill="#B7B9CC"/><ellipse cx="80" cy="268" rx="22" ry="7" fill="#9A9CB2"/><ellipse cx="250" cy="282" rx="30" ry="8" fill="#9A9CB2"/><ellipse cx="340" cy="258" rx="14" ry="5" fill="#9A9CB2"/>` },
+    { id: 'sea', name: 'Under the sea', at: 'under the sea', svg: `<rect width="400" height="300" fill="#1B78C2"/><rect width="400" height="110" fill="#2E9BD6"/><path d="M60 0L20 300H70L110 0zM200 0L180 300H230L250 0zM320 0L330 300H370L350 0z" fill="#fff" opacity=".07"/>
+      ${[[40, 80, 5], [52, 60, 3], [300, 120, 6], [312, 96, 4], [180, 50, 3]].map(([x, y, r]) => `<circle cx="${x}" cy="${y}" r="${r}" fill="none" stroke="#BFE6FF" stroke-width="2"/>`).join('')}
+      <path d="M0 255Q70 238 150 252T300 248 400 250V300H0z" fill="#E9CF8E"/>
+      ${[[30, 0], [62, 1], [355, 0], [378, 1], [190, 1]].map(([x, k]) => `<path d="M${x} 262q${k ? 14 : -14}-24 0-48t0-48" stroke="#2FA36B" stroke-width="7" fill="none" stroke-linecap="round"/>`).join('')}
+      <g fill="#F2604F"><path d="M250 258q-6-26 4-38q2 14 8 18q2-16 10-22q-2 18 2 42z"/></g>${dots(10, 9, 262, 296, 1.5, 2.5, '#D2B26E')}` },
+    { id: 'forest', name: 'Forest', at: 'in the forest', svg: `<rect width="400" height="300" fill="#BFE6F5"/>${cloud(300, 40, .8)}
+      <g fill="#4E9E66">${[20, 70, 130, 200, 260, 330, 385].map((x, i) => `<path d="M${x} ${70 + (i % 3) * 14}l-34 120h68z"/>`).join('')}</g>
+      <g fill="#3B7F51">${[45, 165, 235, 300, 360].map((x, i) => `<path d="M${x} ${100 + (i % 2) * 16}l-30 110h60z"/>`).join('')}</g>
+      <rect y="200" width="400" height="100" fill="#6CB650"/><path d="M170 300Q200 250 180 230T220 200" stroke="#D9B27C" stroke-width="26" fill="none" stroke-linecap="round"/>${dots(18, 21, 215, 295, 2, 3, '#4E9E40')}` },
+    { id: 'city', name: 'City street', at: 'in the city', svg: `<rect width="400" height="300" fill="#9FD3F2"/>${cloud(80, 36, .8)}
+      ${[[0, 90, 60, '#6D55D1'], [62, 60, 54, '#2E8BE6'], [118, 110, 70, '#F49AC1'], [190, 50, 56, '#FF8A2B'], [248, 80, 66, '#2FA36B'], [316, 40, 84, '#8C7AE6']].map(([x, y, w, c]) => `<rect x="${x}" y="${y}" width="${w}" height="${215 - y}" fill="${c}"/>` + [...Array(Math.floor((205 - y) / 28))].map((_, r) => [...Array(Math.floor((w - 8) / 18))].map((_, k) => `<rect x="${x + 8 + k * 18}" y="${y + 12 + r * 28}" width="10" height="14" fill="#FFF1A8"/>`).join('')).join('')).join('')}
+      <rect y="214" width="400" height="18" fill="#D2D6DE"/><rect y="232" width="400" height="68" fill="#4D5361"/><path d="M0 266h400" stroke="#FFC23D" stroke-width="5" stroke-dasharray="26 20"/>` },
+    { id: 'snow', name: 'Snowy hill', at: 'on the snowy hill', svg: `<rect width="400" height="300" fill="#CFE7F7"/>
+      <path d="M-20 200L80 80 170 200zM120 200L250 60 380 200zM300 200L380 110 440 200z" fill="#A7C4DA"/><path d="M80 80l-24 28 14-4 10 10 10-12 14 6zM250 60l-30 34 16-4 14 12 12-14 18 6z" fill="#fff"/>
+      <path d="M0 210Q140 150 260 196T400 190V300H0z" fill="#fff"/><path d="M0 250Q160 220 400 260V300H0z" fill="#E3EFF8"/>${dots(40, 7, 0, 290, 1.5, 3, '#fff')}` },
+    { id: 'castle', name: 'Castle', at: 'at the castle', svg: `<rect width="400" height="300" fill="#E8D9FF"/>${cloud(70, 50, .8)}${cloud(330, 36, .7)}
+      <g fill="#B9A9D9"><rect x="120" y="100" width="160" height="110"/><rect x="104" y="70" width="40" height="140"/><rect x="256" y="70" width="40" height="140"/><rect x="180" y="50" width="40" height="60"/></g>
+      <g fill="#8C7AE6"><path d="M98 72l26-36 26 36zM250 72l26-36 26 36zM174 52l26-34 26 34z"/></g><g stroke="#8B5A2B" stroke-width="2"><line x1="124" y1="36" x2="124" y2="20"/><line x1="276" y1="36" x2="276" y2="20"/><line x1="200" y1="18" x2="200" y2="4"/></g><g fill="#F2604F"><path d="M124 20l14 4-14 4zM276 20l14 4-14 4zM200 4l14 4-14 4z"/></g>
+      <path d="M180 210v-40a20 20 0 0 1 40 0v40z" fill="#6B4A2B"/><g fill="#FFF1A8"><rect x="116" y="96" width="14" height="20" rx="7"/><rect x="270" y="96" width="14" height="20" rx="7"/><rect x="194" y="70" width="12" height="18" rx="6"/></g>
+      <rect y="206" width="400" height="94" fill="#8BD07A"/><path d="M200 210Q190 250 160 300H240Q210 250 200 210z" fill="#E6D3A3"/>` },
+    { id: 'jungle', name: 'Jungle', at: 'in the jungle', svg: `<rect width="400" height="300" fill="#7FCB8A"/><rect width="400" height="300" fill="#2E7D4F" opacity=".35"/>
+      ${[[0, 30, -30], [40, 0, 20], [370, 20, 200], [400, 70, 160], [20, 120, -60], [380, 140, 220]].map(([x, y, r]) => `<ellipse cx="${x}" cy="${y}" rx="70" ry="22" fill="#2E7D4F" transform="rotate(${r} ${x} ${y})"/>`).join('')}
+      <path d="M110 0q-10 60 10 110M290 0q14 50-6 90" stroke="#3B7F2E" stroke-width="5" fill="none"/><g fill="#5BB04C"><ellipse cx="118" cy="60" rx="8" ry="4"/><ellipse cx="114" cy="86" rx="8" ry="4"/><ellipse cx="292" cy="50" rx="8" ry="4"/></g>
+      <path d="M0 230Q100 205 200 225T400 220V300H0z" fill="#4E8F34"/>${[[60, 236], [200, 240], [330, 232]].map(([x, y]) => `<path d="M${x} ${y}q-20-30-36-24q20 6 36 24zM${x} ${y}q18-34 38-30q-22 6-38 30z" fill="#2E7D4F"/>`).join('')}` },
+    { id: 'party', name: 'Birthday party', at: 'at the birthday party', svg: `<rect width="400" height="300" fill="#FFE3EC"/>${dots(30, 13, 40, 200, 3, 5, '#FFC9DA')}
+      <path d="M0 14Q100 44 200 14T400 14" stroke="#22305A" stroke-width="2" fill="none"/>${[...Array(12)].map((_, i) => { const x = 8 + i * 33, y = 14 + 13 * Math.sin(Math.PI * ((x % 200) / 200)); return `<path d="M${x} ${y.toFixed(0)}l16 2-6 22z" fill="${['#F2604F', '#FFC23D', '#2FA36B', '#2E8BE6', '#6D55D1'][i % 5]}"/>`; }).join('')}
+      <rect y="210" width="400" height="90" fill="#F7C98B"/><path d="M0 210h400" stroke="#E0A65E" stroke-width="4"/>
+      <rect x="90" y="190" width="220" height="16" rx="6" fill="#fff"/><path d="M96 206h208l-8 30H104z" fill="#F2604F" opacity=".85"/><g fill="#fff" opacity=".6"><circle cx="130" cy="220" r="4"/><circle cx="170" cy="224" r="4"/><circle cx="210" cy="220" r="4"/><circle cx="250" cy="224" r="4"/></g>` },
+    { id: 'rain', name: 'Rainy day', at: 'on a rainy day', svg: `<rect width="400" height="300" fill="#9BA9B8"/>${cloud(80, 40, 1.4, '#6E7D8F')}${cloud(250, 30, 1.6, '#7C8A9B')}${cloud(370, 55, 1.1, '#6E7D8F')}
+      <g stroke="#DDE8F3" stroke-width="2" stroke-linecap="round">${[...Array(36)].map((_, i) => { const x = (i * 53) % 400, y = 70 + ((i * 37) % 150); return `<line x1="${x}" y1="${y}" x2="${x - 5}" y2="${y + 14}"/>`; }).join('')}</g>
+      <rect y="220" width="400" height="80" fill="#7B9A68"/><ellipse cx="90" cy="262" rx="50" ry="10" fill="#8EB4D6"/><ellipse cx="290" cy="276" rx="64" ry="12" fill="#8EB4D6"/><ellipse cx="290" cy="276" rx="30" ry="5" fill="none" stroke="#C9DDF0" stroke-width="2"/>` },
+    { id: 'night', name: 'Night sky', at: 'at night', svg: `<rect width="400" height="300" fill="#1B2559"/>${dots(55, 17, 0, 200, .7, 1.8, '#fff')}<circle cx="320" cy="64" r="32" fill="#FFF1A8"/><circle cx="334" cy="56" r="30" fill="#1B2559"/>
+      <path d="M0 210Q100 170 200 205T400 195V300H0z" fill="#22404A"/><path d="M0 250Q150 225 400 255V300H0z" fill="#183038"/>
+      <g transform="translate(70 186)"><rect x="0" y="12" width="40" height="30" fill="#3A4C7A"/><path d="M-6 14L20 -6 46 14z" fill="#2B385C"/><rect x="8" y="20" width="10" height="10" fill="#FFE07A"/><rect x="24" y="20" width="10" height="10" fill="#FFE07A"/></g>` },
+    { id: 'garden', name: 'Garden', at: 'in the garden', svg: `<rect width="400" height="300" fill="#BDE7FF"/><circle cx="340" cy="50" r="26" fill="#FFD54A"/>${cloud(110, 50, .9)}
+      <g fill="#fff" stroke="#E2D2B4" stroke-width="2">${[...Array(14)].map((_, i) => `<path d="M${i * 30 + 2} 200v-56l12-12 12 12v56z"/>`).join('')}</g><rect y="160" width="400" height="8" fill="#fff"/>
+      <rect y="196" width="400" height="104" fill="#7CCB5C"/>${[[40, 214], [120, 230], [300, 222], [360, 244], [210, 262]].map(([x, y], i) => `<circle cx="${x}" cy="${y}" r="5" fill="${['#F2604F', '#FFC23D', '#F49AC1', '#6D55D1', '#fff'][i]}"/><circle cx="${x}" cy="${y}" r="2" fill="#FFC23D"/>`).join('')}` },
+    { id: 'desert', name: 'Desert', at: 'in the desert', svg: `<rect width="400" height="300" fill="#FFD9A1"/><circle cx="200" cy="80" r="40" fill="#FFB347"/>
+      <path d="M0 170Q60 130 140 165T280 150 400 160V300H0z" fill="#F2B866"/><path d="M0 220Q120 180 240 215T400 205V300H0z" fill="#E9A44F"/>
+      <g fill="#4E9E40"><rect x="320" y="150" width="14" height="60" rx="7"/><path d="M320 180h-14v-20" stroke="#4E9E40" stroke-width="10" fill="none" stroke-linecap="round"/><path d="M334 172h12v-16" stroke="#4E9E40" stroke-width="10" fill="none" stroke-linecap="round"/></g>` },
+    { id: 'paper', name: 'Plain paper', at: 'on my paper', svg: `<rect width="400" height="300" fill="#FFFDF6"/><g stroke="#E4EEF6" stroke-width="2">${[...Array(9)].map((_, i) => `<line x1="0" y1="${30 + i * 32}" x2="400" y2="${30 + i * 32}"/>`).join('')}</g>` }
+  ];
+  const bgById = id => BGS.find(b => b.id === id) || BGS[0];
+  const bgSVG = (b, cls = '') => `<svg class="${cls}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" preserveAspectRatio="none" aria-hidden="true">${b.svg}</svg>`;
+
+  // name/plural; a plain name gets an "s".
+  const G = (id, ico, name, list) => ({ id, ico, name, items: list.split('|').map(x => { const [e, n] = [x.slice(0, x.indexOf(' ')), x.slice(x.indexOf(' ') + 1)]; const [one, many] = n.split('/'); return { e, one, many: many || one + 's' }; }) });
+  const GROUPS = [
+    G('animals', '🐶', 'Animals', '🐶 dog|🐱 cat|🐭 mouse/mice|🐹 hamster|🐰 bunny/bunnies|🦊 fox/foxes|🐻 bear|🐼 panda|🐨 koala|🐯 tiger|🦁 lion|🐮 cow|🐷 pig|🐸 frog|🐵 monkey|🐔 hen|🐤 chick|🐦 bird|🦆 duck|🦉 owl|🐧 penguin|🐴 horse|🐑 sheep/sheep|🐐 goat|🐘 elephant|🦒 giraffe|🦓 zebra|🐢 turtle|🐍 snake|🦔 hedgehog|🐿️ squirrel|🦘 kangaroo'),
+    G('sea', '🐟', 'Sea', '🐟 fish/fish|🐠 striped fish/striped fish|🐡 puffer fish/puffer fish|🐬 dolphin|🐳 whale|🦈 shark|🐙 octopus/octopuses|🦑 squid/squid|🦀 crab|🦞 lobster|🦐 shrimp/shrimp|🐚 shell|🐊 crocodile|🦭 seal|⚓ anchor'),
+    G('people', '👧', 'People', '👶 baby/babies|👧 girl|👦 boy|👩 mom|👨 dad|👵 grandma|👴 grandpa|🧒 kid|👮 police officer|👷 builder|🧑‍🚀 astronaut|🧑‍🍳 chef|🧑‍🚒 firefighter|🧑‍🌾 farmer|💃 dancer|🕺 dancer'),
+    G('vehicles', '🚗', 'Things that go', '🚗 car|🚕 taxi/taxis|🚙 jeep|🚌 bus/buses|🚒 fire truck|🚑 ambulance|🚓 police car|🚜 tractor|🏎️ race car|🚚 truck|🚲 bike|🛴 scooter|🚂 train|🚀 rocket|✈️ plane|🚁 helicopter|⛵ sailboat|🚤 speedboat|🛸 flying saucer|🎈 balloon'),
+    G('food', '🍎', 'Food', '🍎 apple|🍌 banana|🍇 grapes/grapes|🍓 strawberry/strawberries|🍉 watermelon|🍒 cherries/cherries|🍍 pineapple|🥕 carrot|🌽 corn/corn|🥦 broccoli/broccoli|🍕 pizza|🍔 burger|🌭 hot dog|🍟 fries/fries|🍩 donut|🍪 cookie|🎂 cake|🧁 cupcake|🍦 ice cream/ice creams|🍭 lollipop|🍫 chocolate|🥪 sandwich/sandwiches|🧃 juice box/juice boxes|🍯 honey pot'),
+    G('nature', '🌳', 'Nature', '🌳 tree|🌲 pine tree|🌴 palm tree|🌵 cactus/cactuses|🌻 sunflower|🌷 tulip|🌹 rose|🌸 blossom|🍄 mushroom|🍀 clover|🍁 leaf/leaves|🌿 plant|⛰️ mountain|🏠 house|🏡 cottage|⛺ tent|🔥 campfire|🌊 wave|🐝 bee|🐛 caterpillar|🦋 butterfly/butterflies|🐞 ladybug|🐌 snail|🐜 ant'),
+    G('sky', '🌈', 'Sky & weather', '☀️ sun|🌙 moon|⭐ star|🌟 shining star|☁️ cloud|🌧️ rain cloud|⛈️ storm cloud|🌈 rainbow|❄️ snowflake|⛄ snowman/snowmen|⚡ lightning bolt|💧 raindrop|🌪️ tornado|☂️ umbrella|🪐 planet|🌍 Earth/Earths|☄️ comet'),
+    G('fantasy', '🦄', 'Magic', '🦄 unicorn|🐉 dragon|🧚 fairy/fairies|🧜 mermaid|🧙 wizard|👸 princess/princesses|🤴 prince|🦸 superhero/superheroes|🤖 robot|👻 ghost|👽 alien|👾 monster|🧞 genie|👑 crown|💎 gem|🔮 crystal ball|🏰 castle|🎃 pumpkin|🪄 magic wand'),
+    G('toys', '🧸', 'Toys & party', '⚽ soccer ball|🏀 basketball|🎾 tennis ball|🎁 present|🎀 bow|🧸 teddy bear|🎨 paint set|🎸 guitar|🥁 drum|🎺 trumpet|🎪 circus tent|🎠 carousel|🎡 big wheel|🪁 kite|🎉 party popper|🎲 dice/dice|🧩 puzzle piece|🏆 trophy|🎯 target|🪀 yo-yo|🛝 slide'),
+    G('shapes', '🔴', 'Shapes', '🔴 red circle|🔵 blue circle|🟢 green circle|🟡 yellow circle|🟠 orange circle|🟣 purple circle|🟥 red square|🟦 blue square|🟩 green square|🟨 yellow square|🔺 triangle|🔷 diamond|❤️ red heart|💛 yellow heart|💚 green heart|💙 blue heart|💜 purple heart|⭐ star')
+  ];
+  const INFO = {}; GROUPS.forEach(g => g.items.forEach(it => { if (!INFO[it.e]) INFO[it.e] = it; }));
+
+  // Kinds the counting games ask for: one name, many stickers that count as it.
+  const K = (one, many, list) => ({ one, many, list });
+  const KINDS = {
+    fish: K('fish', 'fish', ['🐟', '🐠', '🐡']), tree: K('tree', 'trees', ['🌳', '🌲', '🌴']), flower: K('flower', 'flowers', ['🌻', '🌷', '🌹', '🌸']),
+    star: K('star', 'stars', ['⭐', '🌟']), car: K('car', 'cars', ['🚗', '🚕', '🚙', '🏎️', '🚓']), bird: K('bird', 'birds', ['🐦', '🐤', '🦉', '🦆', '🐔', '🐧']),
+    cloud: K('cloud', 'clouds', ['☁️', '🌧️', '⛈️']), apple: K('apple', 'apples', ['🍎']), balloon: K('balloon', 'balloons', ['🎈']), cupcake: K('cupcake', 'cupcakes', ['🧁']),
+    present: K('present', 'presents', ['🎁']), snowman: K('snowman', 'snowmen', ['⛄']), snowflake: K('snowflake', 'snowflakes', ['❄️']), bug: K('bug', 'bugs', ['🐝', '🐛', '🦋', '🐞', '🐌', '🐜']),
+    cat: K('cat', 'cats', ['🐱']), dog: K('dog', 'dogs', ['🐶']), person: K('person', 'people', ['👶', '👧', '👦', '👩', '👨', '👵', '👴', '🧒', '👮', '👷', '🧑‍🚀', '🧑‍🍳', '🧑‍🚒', '🧑‍🌾', '💃', '🕺', '👸', '🤴', '🦸', '🧙', '🧚', '🧜']),
+    icecream: K('ice cream', 'ice creams', ['🍦']), crab: K('crab', 'crabs', ['🦀']), rocket: K('rocket', 'rockets', ['🚀']), planet: K('planet', 'planets', ['🪐', '🌍']),
+    house: K('house', 'houses', ['🏠', '🏡']), sheep: K('sheep', 'sheep', ['🐑']), cow: K('cow', 'cows', ['🐮']), shell: K('shell', 'shells', ['🐚']), monkey: K('monkey', 'monkeys', ['🐵']), banana: K('banana', 'bananas', ['🍌'])
+  };
+  const kindOf = e => Object.keys(KINDS).filter(k => KINDS[k].list.includes(e));
+  const nm = (k, n) => n === 1 ? KINDS[k].one : KINDS[k].many;
+
+  // Counting games. lv 1 for the youngest; lv 2 joins at age 6+.
+  const MATHP = [
+    { lv: 1, t: 'Put 5 fish in the sea.', bg: 'sea', tab: 'sea', need: { fish: 5 } },
+    { lv: 1, t: 'Put 3 stars in the night sky.', bg: 'night', tab: 'sky', need: { star: 3 } },
+    { lv: 1, t: 'Put 4 cars on the street.', bg: 'city', tab: 'vehicles', need: { car: 4 } },
+    { lv: 1, t: 'Put 6 flowers in the garden.', bg: 'garden', tab: 'nature', need: { flower: 6 } },
+    { lv: 1, t: 'Put 2 cupcakes and 3 balloons at the party.', bg: 'party', tab: 'food', need: { cupcake: 2, balloon: 3 } },
+    { lv: 1, t: 'Put 2 crabs and 4 shells on the beach.', bg: 'beach', tab: 'sea', need: { crab: 2, shell: 4 } },
+    { lv: 1, t: 'Make 2 groups of 3 trees. Keep each group close together.', bg: 'forest', tab: 'nature', groups: ['tree', 2, 3] },
+    { lv: 1, t: 'Put 3 birds in the sky. Then add 1 more! How many birds now?', bg: 'farm', tab: 'animals', need: { bird: 4 } },
+    { lv: 1, t: 'Put 3 bugs in the garden. Then 2 more bugs come to play!', bg: 'garden', tab: 'nature', need: { bug: 5 } },
+    { lv: 1, t: 'Build 2 snowmen and 3 snowflakes.', bg: 'snow', tab: 'sky', need: { snowman: 2, snowflake: 3 } },
+    { lv: 1, t: 'Put 1 rocket and 4 stars in space.', bg: 'space', tab: 'sky', need: { rocket: 1, star: 4 } },
+    { lv: 1, t: 'Make a pattern: red circle, blue circle, red circle, blue circle… Use 6 circles in a row.', bg: 'paper', tab: 'shapes', pattern: ['🔴', '🔵'], min: 6 },
+    { lv: 1, t: 'Put some dogs and some cats. Put MORE cats than dogs!', bg: 'garden', tab: 'animals', more: ['cat', 'dog'] },
+    { lv: 1, t: 'Put 2 people. Give each person 1 ice cream.', bg: 'beach', tab: 'people', need: { person: 2, icecream: 2 } },
+    { lv: 1, t: 'Put 3 monkeys in the jungle and 3 bananas, one for each monkey.', bg: 'jungle', tab: 'animals', need: { monkey: 3, banana: 3 } },
+    { lv: 1, t: 'Put 4 sheep and 1 cow on the farm.', bg: 'farm', tab: 'animals', need: { sheep: 4, cow: 1 } },
+    { lv: 2, t: 'Make 3 groups of 2 apples. How many apples is that?', bg: 'paper', tab: 'food', groups: ['apple', 3, 2] },
+    { lv: 2, t: 'Make a pattern: yellow, green, green, yellow, green, green… Use 6 circles in a row.', bg: 'paper', tab: 'shapes', pattern: ['🟡', '🟢', '🟢'], min: 6 },
+    { lv: 2, t: 'Put 10 fish in the sea. Try 2 groups of 5!', bg: 'sea', tab: 'sea', need: { fish: 10 } },
+    { lv: 2, t: 'Put 8 balloons at the party.', bg: 'party', tab: 'vehicles', need: { balloon: 8 } },
+    { lv: 2, t: 'Put 2 houses. Give each house 2 trees.', bg: 'farm', tab: 'nature', need: { house: 2, tree: 4 } },
+    { lv: 2, t: 'Put 3 planets and double that many stars.', bg: 'space', tab: 'sky', need: { planet: 3, star: 6 } },
+    { lv: 2, t: 'Make 2 groups of 4 presents for the party.', bg: 'party', tab: 'toys', groups: ['present', 2, 4] }
+  ];
+  const IDEAS = [
+    ['Put 3 animals at a picnic.', 'garden'], ['A rocket lands on the farm!', 'farm'], ['A dragon goes to the beach.', 'beach'], ['A birthday party for a dinosaur… or a dragon!', 'party'],
+    ['The fish are having a race under the sea.', 'sea'], ['A snowman makes a new friend.', 'snow'], ['An alien visits the city.', 'city'], ['A princess and a robot have a tea party.', 'castle'],
+    ['Who is hiding in the jungle?', 'jungle'], ['The animals are scared of the storm. Who helps them?', 'rain'], ['A bedtime story: who is still awake at night?', 'night'], ['A unicorn gets lost in the forest.', 'forest'],
+    ['Make a zoo! Which animals live there?', 'garden'], ['A traffic jam! Who is stuck?', 'city'], ['A camping trip in the forest.', 'forest'], ['Astronauts find a new planet.', 'space'],
+    ['A monster bakes a cake.', 'party'], ['The penguins go on holiday to the desert!', 'desert'], ['A treasure hunt at the beach.', 'beach'], ['The farm animals put on a show.', 'farm'],
+    ['A pirate ship sails past the castle.', 'castle'], ['A puddle jumping party in the rain.', 'rain'], ['A shark who is scared of fish.', 'sea'], ['What do toys do when nobody is looking?', 'paper'],
+    ['A superhero saves the kitten.', 'city'], ['A camel and a cactus become friends.', 'desert'], ['Fairies dance under the moon.', 'night'], ['A bus full of animals goes to the snow.', 'snow']
+  ];
+
+  const MAX = 60;
+  let S, sel = null, mode = 'move', tab = 'bg', prompt = null, solved = false, undo = [], crayon = { c: '#F2604F', z: 4, er: false }, saveT = 0, nextId = 1, clearArm = 0;
+  const draftKey = () => 'sceneDraft:' + pid;
+  const fresh = () => ({ bg: 'beach', items: [], doodle: null, story: '' });
+  const persist = () => { clearTimeout(saveT); saveT = setTimeout(() => store.set(draftKey(), S), 250); };
+  const snap = () => { undo.push({ items: JSON.stringify(S.items), doodle: S.doodle, bg: S.bg }); if (undo.length > 30) undo.shift(); };
+  const kidName = e => (INFO[e] || { one: 'sticker' }).one;
+
+  function sceneHome() {
+    S = Object.assign(fresh(), store.get(draftKey(), null) || {});
+    S.items = (S.items || []).filter(x => x && x.e); S.items.forEach(x => { x.id = nextId++; });
+    sel = null; mode = 'move'; prompt = null; solved = false; undo = []; tab = S.items.length ? 'animals' : 'bg';
+    view.innerHTML = `${crumbs('🏞️ Sticker scenes')}
+      <div class="idea ss-idea"><span class="ss-bulb" aria-hidden="true">💡</span><p id="ssIdea">Pick a place, then add stickers to make a picture story!</p>
+        <button class="speak" id="ssSpk" aria-label="Read it">🔊</button>
+        <div class="ss-idea-btns"><button class="tool" id="ssStory">💡 Story idea</button><button class="tool" id="ssCount">🔢 Counting game</button><button class="tool ss-check" id="ssCheck" hidden>✅ Check</button></div></div>
+      <div class="ss-wrap">
+        <div class="ss-left">
+          <div class="ss-stage" id="ssStage" role="application" aria-label="Your scene. Tap a sticker to pick it, then drag it to move it."><div class="ss-bg" id="ssBg"></div><div class="ss-items" id="ssItems"></div><canvas class="ss-doodle" id="ssDoodle" width="800" height="600"></canvas><div class="ss-nums" id="ssNums"></div><p class="ss-hint" id="ssHint"></p></div>
+          <div class="ss-mode" role="group" aria-label="Mode"><button class="tool" data-mode="move" aria-pressed="true">✋ Stickers</button><button class="tool" data-mode="crayon" aria-pressed="false">🖍️ Crayon</button><button class="tool" id="ssUndo">↩️ Undo</button></div>
+          <div class="ss-edit" id="ssEdit">
+            <button class="ss-eb" data-ed="big"><span>➕</span>Bigger</button><button class="ss-eb" data-ed="small"><span>➖</span>Smaller</button>
+            <button class="ss-eb" data-ed="flip"><span>↔️</span>Flip</button><button class="ss-eb" data-ed="turn"><span>🔄</span>Turn</button>
+            <button class="ss-eb" data-ed="front"><span>⬆️</span>Front</button><button class="ss-eb" data-ed="copy"><span>📋</span>Copy</button><button class="ss-eb ss-del" data-ed="del"><span>🗑️</span>Delete</button></div>
+          <div class="ss-crayon" id="ssCrayon" hidden>
+            <div class="tools">${PAINT.map(c => `<button class="sw" style="background:${c};${c === '#FFFFFF' ? 'box-shadow:inset 0 0 0 2px var(--line)' : ''}" data-c="${c}" aria-label="crayon color" aria-pressed="${c === crayon.c}"></button>`).join('')}</div>
+            <div class="tools"><button class="tool size" data-z="2" aria-label="thin"><i style="width:6px;height:6px"></i></button><button class="tool size" data-z="4" aria-pressed="true" aria-label="medium"><i style="width:14px;height:14px"></i></button><button class="tool size" data-z="9" aria-label="thick"><i style="width:26px;height:26px"></i></button>
+              <button class="tool" id="ssEr" aria-pressed="false">🧽 Eraser</button><button class="tool" id="ssClrD">🧹 Clear crayon</button></div></div>
+        </div>
+        <div class="ss-tray">
+          <div class="ss-tabs" role="tablist"><button class="ss-tab" role="tab" data-tab="bg" aria-label="Places">🖼️</button>${GROUPS.map(g => `<button class="ss-tab" role="tab" data-tab="${g.id}" aria-label="${g.name}">${g.ico}</button>`).join('')}</div>
+          <p class="ss-tabname" id="ssTabName"></p>
+          <div class="ss-grid" id="ssGrid"></div>
+        </div>
+      </div>
+      <div class="ss-tell" id="ssTell" hidden><label for="ssText"><b>📖 Tell your story</b> <span class="note">A grown-up can type what happens in the picture.</span></label>
+        <textarea id="ssText" rows="2" maxlength="220" placeholder="Once upon a time…"></textarea><div class="row"><button class="btn sm" id="ssRead">🔊 Read it back</button><button class="btn sm alt" id="ssTellDone">Done</button></div></div>
+      <div class="ss-actions"><button class="btn alt" id="ssTellBtn">📖 Tell my story</button><button class="btn alt" id="ssLook">👀 What's in my picture?</button><button class="btn leaf" id="ssSave">💾 Save</button><button class="btn alt" id="ssNew">🆕 New</button></div>
+      <div class="ss-saved" id="ssSaved" hidden><span>🖼️ Saved to My pictures!</span><button class="btn sm" id="ssGal">See My pictures</button></div>`;
+    wireBack(artHome);
+    const stage = $('#ssStage'), cv = $('#ssDoodle'), ctx = cv.getContext('2d');
+    const setU = () => stage.style.setProperty('--u', stage.clientWidth / W + 'px');
+    setU(); const ro = new ResizeObserver(setU); ro.observe(stage);
+    if (S.doodle) { const im = new Image(); im.onload = () => ctx.drawImage(im, 0, 0, 800, 600); im.src = S.doodle; }
+
+    const hint = t => { $('#ssHint').textContent = t; };
+    const renderBg = () => { $('#ssBg').innerHTML = bgSVG(bgById(S.bg)); };
+    const elOf = s => view.querySelector(`.ss-st[data-id="${s.id}"]`);
+    function place(s, el = elOf(s)) {
+      if (!el) return;
+      el.style.left = (s.x / W * 100) + '%'; el.style.top = (s.y / H * 100) + '%';
+      el.style.setProperty('--s', s.s); el.style.transform = `translate(-50%,-50%) rotate(${s.r}deg) scaleX(${s.f ? -1 : 1})`;
+    }
+    function renderItems() {
+      $('#ssItems').innerHTML = S.items.map(s => `<span class="ss-st${sel === s.id ? ' on' : ''}" data-id="${s.id}" role="img" aria-label="${esc(kidName(s.e))}">${s.e}</span>`).join('');
+      S.items.forEach(s => place(s));
+      editState();
+    }
+    function editState() {
+      const on = !!sel;
+      view.querySelectorAll('[data-ed]').forEach(b => { b.disabled = !on; });
+      $('#ssEdit').classList.toggle('off', !on);
+      hint(mode === 'crayon' ? '' : S.items.length ? (on ? '' : 'Tap a sticker to change it') : 'Tap a sticker below to add it');
+    }
+    const cur = () => S.items.find(s => s.id === sel);
+    function select(id) { sel = id; view.querySelectorAll('.ss-st').forEach(el => el.classList.toggle('on', +el.dataset.id === id)); editState(); }
+    function changed() { persist(); clearNums(); $('#ssSaved').hidden = true; }
+
+    function add(e) {
+      if (S.items.length >= MAX) { say('Your picture is full! Delete a sticker to add more.'); return; }
+      snap();
+      // Try a few spots near the middle and use the one with the most room, so stickers are easy to count.
+      let best = null, room = -1;
+      for (let i = 0; i < 14; i++) { const x = W / 2 + rnd(-130, 130), y = H / 2 + rnd(-85, 85), d = Math.min(999, ...S.items.map(q => Math.hypot(q.x - x, q.y - y))); if (d > room) { room = d; best = [x, y]; } if (d > 70) break; }
+      const s = { id: nextId++, e, x: best[0], y: best[1], s: 52, r: 0, f: false };
+      S.items.push(s); sel = s.id; renderItems();
+      const el = elOf(s); if (el) el.classList.add('pop');
+      tone([520 + rnd(0, 6) * 40]); say(kidName(e)); changed();
+    }
+    function edit(k) {
+      const s = cur(); if (!s) return;
+      snap();
+      if (k === 'big') s.s = Math.min(170, Math.round(s.s * 1.25));
+      else if (k === 'small') s.s = Math.max(20, Math.round(s.s / 1.25));
+      else if (k === 'flip') s.f = !s.f;
+      else if (k === 'turn') s.r = (s.r + 30) % 360;
+      else if (k === 'front') { S.items = S.items.filter(x => x !== s).concat(s); renderItems(); }
+      else if (k === 'copy') { if (S.items.length >= MAX) { undo.pop(); return say('Your picture is full!'); } const c = Object.assign({}, s, { id: nextId++, x: clamp(s.x + 34, 20, W - 20), y: clamp(s.y + 10, 20, H - 20) }); S.items.push(c); sel = c.id; renderItems(); tone([660]); changed(); return; }
+      else if (k === 'del') { S.items = S.items.filter(x => x !== s); sel = null; renderItems(); tone([300, 220]); changed(); return; }
+      place(s); tone([k === 'small' ? 440 : 600]); changed();
+    }
+    function restore() {
+      const u = undo.pop(); if (!u) return say('Nothing to undo.');
+      S.items = JSON.parse(u.items); S.bg = u.bg; S.doodle = u.doodle; sel = null;
+      ctx.clearRect(0, 0, 800, 600);
+      if (S.doodle) { const im = new Image(); im.onload = () => ctx.drawImage(im, 0, 0, 800, 600); im.src = S.doodle; }
+      renderBg(); renderItems(); showTab(); changed();
+    }
+
+    // Tray: places plus groups of stickers.
+    function showTab() {
+      view.querySelectorAll('.ss-tab').forEach(b => b.setAttribute('aria-selected', b.dataset.tab === tab));
+      const g = GROUPS.find(x => x.id === tab);
+      $('#ssTabName').textContent = g ? g.name : 'Places';
+      $('#ssGrid').className = 'ss-grid' + (g ? '' : ' ss-bgs');
+      $('#ssGrid').innerHTML = g ? g.items.map(it => `<button class="ss-sk" data-e="${it.e}" aria-label="${esc(it.one)}">${it.e}</button>`).join('')
+        : BGS.map(b => `<button class="ss-bgb" data-bg="${b.id}" aria-pressed="${b.id === S.bg}">${bgSVG(b)}<span>${b.name}</span></button>`).join('');
+      view.querySelectorAll('.ss-sk').forEach(b => b.onclick = () => add(b.dataset.e));
+      view.querySelectorAll('.ss-bgb').forEach(b => b.onclick = () => setBg(b.dataset.bg, true));
+    }
+    function setBg(id, speak) {
+      if (S.bg !== id) snap();
+      S.bg = id; renderBg(); view.querySelectorAll('.ss-bgb').forEach(x => x.setAttribute('aria-pressed', x.dataset.bg === id));
+      if (speak) { tone([500, 700]); say(bgById(id).name + '!'); }
+      changed();
+    }
+    view.querySelectorAll('.ss-tab').forEach(b => b.onclick = () => { tab = b.dataset.tab; showTab(); const g = GROUPS.find(x => x.id === tab); say(g ? g.name : 'Pick a place'); });
+
+    // Moving stickers with a finger or mouse; drawing in crayon mode.
+    const pt = e => { const r = stage.getBoundingClientRect(); return [(e.clientX - r.left) * W / r.width, (e.clientY - r.top) * H / r.height]; };
+    let drag = null, drawing = null;
+    stage.addEventListener('pointerdown', e => {
+      if (e.button > 0) return;
+      if (mode === 'crayon') {
+        e.preventDefault(); snap(); const [x, y] = pt(e); drawing = { id: e.pointerId, x, y }; stroke(x, y, x, y); try { stage.setPointerCapture(e.pointerId); } catch (x) {} return;
+      }
+      const el = e.target.closest('.ss-st');
+      if (!el) { select(null); return; }
+      e.preventDefault();
+      const s = S.items.find(x => x.id === +el.dataset.id); if (!s) return;
+      select(s.id); const [x, y] = pt(e);
+      drag = { id: e.pointerId, s, dx: s.x - x, dy: s.y - y, moved: false, sx: x, sy: y };
+      try { stage.setPointerCapture(e.pointerId); } catch (x) {}
+    });
+    const move = e => {
+      if (drawing && e.pointerId === drawing.id) { const [x, y] = pt(e); stroke(drawing.x, drawing.y, x, y); drawing.x = x; drawing.y = y; return; }
+      if (!drag || e.pointerId !== drag.id) return;
+      const [x, y] = pt(e);
+      if (!drag.moved && Math.hypot(x - drag.sx, y - drag.sy) < 3) return;
+      if (!drag.moved) { snap(); drag.moved = true; elOf(drag.s) && elOf(drag.s).classList.add('drag'); }
+      drag.s.x = clamp(x + drag.dx, 0, W); drag.s.y = clamp(y + drag.dy, 0, H); place(drag.s);
+    };
+    const up = e => {
+      if (drawing && e.pointerId === drawing.id) { drawing = null; try { S.doodle = cv.toDataURL(); } catch (x) {} changed(); return; }
+      if (!drag || e.pointerId !== drag.id) return;
+      const d = drag; drag = null; const el = elOf(d.s); if (el) el.classList.remove('drag');
+      if (d.moved) { tone([480]); changed(); } else say(kidName(d.s.e));
+    };
+    window.addEventListener('pointermove', move); window.addEventListener('pointerup', up); window.addEventListener('pointercancel', up);
+    canvasCleanup = () => { ro.disconnect(); window.removeEventListener('pointermove', move); window.removeEventListener('pointerup', up); window.removeEventListener('pointercancel', up); clearTimeout(saveT); store.set(draftKey(), S); };
+    function stroke(x1, y1, x2, y2) {
+      ctx.globalCompositeOperation = crayon.er ? 'destination-out' : 'source-over';
+      ctx.strokeStyle = crayon.c; ctx.lineWidth = (crayon.er ? crayon.z * 3 : crayon.z) * 2; ctx.lineCap = ctx.lineJoin = 'round';
+      ctx.beginPath(); ctx.moveTo(x1 * 2, y1 * 2); ctx.lineTo(x2 * 2 + 0.01, y2 * 2); ctx.stroke(); ctx.globalCompositeOperation = 'source-over';
+    }
+    function setMode(m) {
+      mode = m; stage.classList.toggle('drawing', m === 'crayon');
+      view.querySelectorAll('[data-mode]').forEach(b => b.setAttribute('aria-pressed', b.dataset.mode === m));
+      $('#ssEdit').hidden = m === 'crayon'; $('#ssCrayon').hidden = m !== 'crayon';
+      if (m === 'crayon') { select(null); say('Crayon time! Draw on your picture.'); }
+      editState();
+    }
+    view.querySelectorAll('[data-mode]').forEach(b => b.onclick = () => setMode(b.dataset.mode));
+    view.querySelectorAll('#ssCrayon .sw').forEach(b => b.onclick = () => { crayon.c = b.dataset.c; crayon.er = false; $('#ssEr').setAttribute('aria-pressed', 'false'); view.querySelectorAll('#ssCrayon .sw').forEach(x => x.setAttribute('aria-pressed', x === b)); });
+    view.querySelectorAll('#ssCrayon [data-z]').forEach(b => b.onclick = () => { crayon.z = +b.dataset.z; view.querySelectorAll('#ssCrayon [data-z]').forEach(x => x.setAttribute('aria-pressed', x === b)); });
+    $('#ssEr').onclick = e => { crayon.er = !crayon.er; e.currentTarget.setAttribute('aria-pressed', crayon.er); };
+    $('#ssClrD').onclick = () => { snap(); ctx.clearRect(0, 0, 800, 600); S.doodle = null; changed(); };
+    view.querySelectorAll('[data-ed]').forEach(b => b.onclick = () => edit(b.dataset.ed));
+    $('#ssUndo').onclick = restore;
+
+    // Ideas and counting games.
+    const showIdea = t => { $('#ssIdea').textContent = t; say(t); };
+    $('#ssSpk').onclick = () => say($('#ssIdea').textContent);
+    $('#ssStory').onclick = () => {
+      const [t, bg] = pick(IDEAS.filter(i => i[0] !== $('#ssIdea').textContent));
+      prompt = null; $('#ssCheck').hidden = true; clearNums();
+      if (!S.items.length && bg) setBg(bg, false);
+      showIdea(t);
+    };
+    function newCount() {
+      const lv = st.age >= 6 ? 2 : 1, pool = MATHP.filter(p => p.lv <= lv && p !== prompt);
+      prompt = pick(pool); solved = false; clearNums();
+      if (!S.items.length && prompt.bg) setBg(prompt.bg, false);
+      tab = prompt.tab || tab; showTab();
+      $('#ssCheck').hidden = false; showIdea(prompt.t + ' Then tap Check!');
+    }
+    $('#ssCount').onclick = newCount;
+
+    function clearNums() { const n = $('#ssNums'); if (n) n.innerHTML = ''; clearTimeout(clearNums.t); }
+    // Number the counted stickers one by one, like counting with a finger.
+    function countUp(list, done) {
+      clearNums(); const box = $('#ssNums'); let i = 0;
+      const step = () => {
+        if (i >= list.length) { clearNums.t = setTimeout(done, 250); return; }
+        const s = list[i++]; const b = document.createElement('b'); b.textContent = i;
+        b.style.left = (s.x / W * 100) + '%'; b.style.top = ((s.y - s.s * 0.55) / H * 100) + '%'; box.appendChild(b); tone([400 + i * 40], 0.08);
+        clearNums.t = setTimeout(step, list.length > 8 ? 220 : 330);
+      };
+      step();
+    }
+    const ofKind = k => S.items.filter(s => KINDS[k].list.includes(s.e));
+    function judge(p) {
+      if (p.need) {
+        const ks = Object.keys(p.need), counted = [].concat(...ks.map(ofKind));
+        const parts = ks.map(k => { const have = ofKind(k).length, want = p.need[k];
+          return { k, have, want, msg: have === want ? '' : have < want ? `You have ${have} ${nm(k, have)}. We need ${want}. Add ${want - have} more!` : `You have ${have} ${nm(k, have)}. We need ${want}. Take away ${have - want}!` }; });
+        const bad = parts.find(x => x.msg);
+        return { ok: !bad, counted, msg: bad ? bad.msg : `Yes! ${parts.map(x => `${x.want} ${nm(x.k, x.want)}`).join(' and ')}. You did it!` };
+      }
+      if (p.groups) {
+        const [k, g, n] = p.groups, list = ofKind(k), want = g * n;
+        if (list.length !== want) return { ok: false, counted: list, msg: `You have ${list.length} ${nm(k, list.length)}. ${g} groups of ${n} makes ${want}. ${list.length < want ? `Add ${want - list.length} more!` : `Take away ${list.length - want}!`}` };
+        const cl = clusters(list, 78), sizes = cl.map(c => c.length);
+        if (cl.length === g && sizes.every(z => z === n)) return { ok: true, counted: [].concat(...cl), msg: `Yes! ${g} groups of ${n} ${nm(k, 2)}. That makes ${want}! You did it!` };
+        return { ok: false, counted: [], msg: `You have ${want} ${nm(k, want)}! Now drag them into ${g} groups of ${n}. Put each group close together, with space in between.` };
+      }
+      if (p.pattern) {
+        const seq = S.items.filter(s => p.pattern.includes(s.e)).sort((a, b) => a.x - b.x), es = seq.map(s => s.e);
+        if (es.length < p.min) return { ok: false, counted: seq, msg: `You have ${es.length} circles. Use ${p.min} circles in a row. Add ${p.min - es.length} more!` };
+        const ph = p.pattern.findIndex((_, i) => es.every((e, j) => e === p.pattern[(i + j) % p.pattern.length]));
+        return ph < 0 ? { ok: false, counted: [], msg: 'Look again at the colors from left to right. Can you fix the pattern?' } : { ok: true, counted: seq, msg: 'Yes! What a beautiful pattern! It repeats again and again.' };
+      }
+      if (p.more) {
+        const [a, b] = p.more, A = ofKind(a), B = ofKind(b);
+        if (!A.length || !B.length) return { ok: false, counted: A.concat(B), msg: `Put some ${nm(a, 2)} and some ${nm(b, 2)} first!` };
+        return A.length > B.length ? { ok: true, counted: A.concat(B), msg: `Yes! ${A.length} ${nm(a, A.length)} and ${B.length} ${nm(b, B.length)}. ${A.length} is more than ${B.length}!` }
+          : { ok: false, counted: A.concat(B), msg: `${A.length} ${nm(a, A.length)} and ${B.length} ${nm(b, B.length)}. We need MORE ${nm(a, 2)} than ${nm(b, 2)}. Add some ${nm(a, 2)}!` };
+      }
+      return { ok: false, counted: [], msg: '' };
+    }
+    // Stickers close to each other (chains of near neighbours) form one group.
+    function clusters(list, d) {
+      const left = list.slice(), out = [];
+      while (left.length) { const g = [left.shift()]; for (let i = 0; i < g.length; i++) for (let j = left.length - 1; j >= 0; j--) if (Math.hypot(g[i].x - left[j].x, g[i].y - left[j].y) < d) g.push(left.splice(j, 1)[0]); out.push(g); }
+      return out;
+    }
+    $('#ssCheck').onclick = () => {
+      if (!prompt) return;
+      select(null); const r = judge(prompt);
+      countUp(r.counted, () => {
+        if (r.ok) {
+          yay(); confetti(30); say(r.msg); $('#ssIdea').textContent = '🎉 ' + r.msg;
+          if (!solved) { solved = true; addStars(1); }
+          $('#ssCheck').hidden = true;
+          setTimeout(() => { if ($('#ssCount')) $('#ssCount').textContent = '🔢 Next game'; }, 50);
+        } else { oops(); say(r.msg); $('#ssIdea').textContent = r.msg; }
+      });
+    };
+
+    // Tell the story, and describe the picture in words.
+    $('#ssText').value = S.story || '';
+    $('#ssText').oninput = () => { S.story = $('#ssText').value; changed(); };
+    $('#ssTellBtn').onclick = () => { const t = $('#ssTell'); t.hidden = !t.hidden; if (!t.hidden) { $('#ssText').focus(); say('Tell me your story! A grown-up can type it.'); } };
+    $('#ssTellDone').onclick = () => { $('#ssTell').hidden = true; };
+    $('#ssRead').onclick = () => { const t = ($('#ssText').value || '').trim(); say(t || describe()); };
+    $('#ssLook').onclick = () => { const t = describe(); showIdea(t); };
+    function describe() {
+      if (!S.items.length) return `Your picture is ${bgById(S.bg).at}. Add some stickers!`;
+      const m = new Map(); S.items.forEach(s => { const n = kidName(s.e); m.set(n, (m.get(n) || 0) + 1); });
+      const parts = [...m].map(([n, c]) => { const it = Object.values(INFO).find(x => x.one === n) || { one: n, many: n + 's' }; return c === 1 ? (/^[aeiou]/i.test(n) ? 'an ' : 'a ') + n : `${c} ${it.many}`; });
+      const list = parts.length > 1 ? parts.slice(0, -1).join(', ') + ' and ' + parts[parts.length - 1] : parts[0];
+      return `In my picture ${bgById(S.bg).at}, there ${/^(a|an) /.test(parts[0]) && parts.length === 1 ? 'is' : 'are'} ${list}. That is ${S.items.length} sticker${S.items.length > 1 ? 's' : ''}!`;
+    }
+
+    // Save: paint the place, stickers and crayon onto a canvas, like the other pictures.
+    $('#ssSave').onclick = async () => {
+      if (!S.items.length && !S.doodle) return say('Add some stickers first!');
+      const b = $('#ssSave'); b.disabled = true; select(null);
+      try {
+        const url = await render(S, cv);
+        gallery.unshift(url); gallery = gallery.slice(0, 30); saveGallery();
+        questTick('art'); dayLog('art');
+        const first = st.sceneDay !== today(); st.sceneDay = today(); save();
+        if (first) addStars(2);
+        confetti(25); yay(); say(first ? 'Saved to your pictures! You earned 2 stars!' : 'Saved to your pictures!');
+        $('#ssSaved').hidden = false;
+      } catch (x) { say('Oops, that did not save. Try again.'); }
+      if (b.isConnected) b.disabled = false;
+    };
+    $('#ssGal').onclick = () => go(galTab);
+    $('#ssNew').onclick = e => {
+      if (!S.items.length && !S.doodle) return;
+      if (Date.now() - clearArm > 3000) { clearArm = Date.now(); e.currentTarget.textContent = '🆕 Tap again'; say('Tap again to start a new picture.'); setTimeout(() => { if ($('#ssNew')) $('#ssNew').textContent = '🆕 New'; }, 3000); return; }
+      clearArm = 0; snap(); S.items = []; S.doodle = null; S.story = ''; $('#ssText').value = ''; ctx.clearRect(0, 0, 800, 600); sel = null;
+      $('#ssNew').textContent = '🆕 New'; tab = 'bg'; renderItems(); showTab(); changed(); say('A fresh page! Pick a place.');
+    };
+
+    renderBg(); renderItems(); showTab(); setMode('move');
+    sayScreen(S.items.length ? 'Welcome back to your sticker scene!' : 'Sticker scenes! Pick a place, then tap stickers to add them. Drag them to move them.');
+    if (location.hash === '#selftest') window.__scenes = { BGS, GROUPS, MATHP, IDEAS, KINDS, get S() { return S; }, get sel() { return sel; }, get prompt() { return prompt; }, setPrompt: i => { prompt = MATHP[i]; solved = false; $('#ssCheck').hidden = false; showIdea(prompt.t); }, judge: () => judge(prompt), describe, galleryCount: () => gallery.length, add };
+  }
+
+  const loadImg = src => new Promise((ok, no) => { const im = new Image(); im.onload = () => ok(im); im.onerror = no; im.src = src; setTimeout(() => no(new Error('timeout')), 4000); });
+  async function render(sc, doodle) {
+    const w = 360, h = 270, k = w / W, story = (sc.story || '').trim();
+    const t = document.createElement('canvas'), c = t.getContext('2d');
+    c.font = '800 15px Nunito, ui-rounded, system-ui, sans-serif';
+    const lines = []; if (story) { let line = ''; story.split(/\s+/).forEach(wd => { const tr = line ? line + ' ' + wd : wd; if (c.measureText(tr).width > w - 24 && line) { lines.push(line); line = wd; } else line = tr; }); if (line) lines.push(line); }
+    const cap = lines.length ? 14 + lines.slice(0, 4).length * 19 : 0;
+    t.width = w; t.height = h + cap;
+    c.fillStyle = '#fff'; c.fillRect(0, 0, t.width, t.height);
+    const svg = bgSVG(bgById(sc.bg)).replace('<svg class=""', `<svg width="${w * 2}" height="${h * 2}"`);
+    try { c.drawImage(await loadImg('data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg)), 0, 0, w, h); } catch (x) { c.fillStyle = '#BDE7FF'; c.fillRect(0, 0, w, h); }
+    c.textAlign = 'center'; c.textBaseline = 'middle';
+    sc.items.forEach(s => {
+      c.save(); c.translate(s.x * k, s.y * k); c.rotate(s.r * Math.PI / 180); c.scale(s.f ? -1 : 1, 1);
+      c.font = `${(s.s * k).toFixed(1)}px "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif`; c.fillText(s.e, 0, s.s * k * 0.06); c.restore();
+    });
+    if (sc.doodle && doodle) c.drawImage(doodle, 0, 0, w, h);
+    if (cap) {
+      c.fillStyle = '#FFF6DE'; c.fillRect(0, h, w, cap); c.fillStyle = '#22305A'; c.font = '800 15px Nunito, ui-rounded, system-ui, sans-serif'; c.textAlign = 'left'; c.textBaseline = 'top';
+      lines.slice(0, 4).forEach((l, i) => c.fillText(i === 3 && lines.length > 4 ? l + '…' : l, 12, h + 8 + i * 19));
+    }
+    return t.toDataURL('image/jpeg', 0.75);
+  }
+  return sceneHome;
+})();
 
 /* ---------- start ---------- */
 updateTop();
 go(profiles.length > 1 ? whoView : home);
-if (location.hash === "#selftest") window.__owl = { MATH, LESSONS, lessonSVG, PICS, get st() { return st; }, get profiles() { return profiles; }, quest, questTick, gainXP, petStage, go, home, mathHome, artHome, catView, drawLesson, gamesHome, ART_CATS, lessonView, play, speakable };
+if (location.hash === "#selftest") window.__owl = { MATH, LESSONS, lessonSVG, PICS, get st() { return st; }, get profiles() { return profiles; }, quest, questTick, gainXP, petStage, go, home, mathHome, artHome, catView, drawLesson, gamesHome, ART_CATS, lessonView, play, speakable, storyHome, colorHome, sceneHome };
 if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) {
   try {
     // A new version installs in the background; offer a tap to switch rather than reloading mid-game.

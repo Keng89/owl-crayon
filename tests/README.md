@@ -18,3 +18,6 @@ Serve the app first: `python3 -m http.server 8766` from the repo root. Then run 
 - `t20.js`: plays the third set of 7 math games (snakes & ladders, bakery, parking, hungry monster, bubbles, sticker sort, number detective) the same way.
 - `t21.js`: art steps draw themselves and replay, Owl's worked example on math lessons, and the Owl hint removes one wrong answer.
 - `t22.js`: read-aloud text says signs, money, remainders and ratios as words.
+- `t23.js`: plays Owl's Quest chapter 1 at ages 5 and 9 on phone and tablet: math stops, drawing stops, story choices, stars, storybook and saved progress.
+- `t24.js`: fills every shape on all 26 coloring pages, color-by-number right and wrong, Magic help, undo, save and reload.
+- `t25.js`: sticker scenes: all 15 places, dragging by mouse and touch, edit buttons, crayon, story box, save, and every counting game.
