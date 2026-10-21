@@ -18,6 +18,8 @@
   --bg:#E9F3F8; --paper:#FFFFFF; --ink:#22305A; --ink-soft:#5A678C; --line:#CCDBE6;
   --leaf:#2FA36B; --leaf-soft:#D7F2E3; --sun:#FFC23D; --sun-soft:#FFF1CC;
   --coral:#F2604F; --coral-soft:#FDE0DB; --grape:#6D55D1; --grape-soft:#E6E0FA; --sky:#2E8BE6; --sky-soft:#D9EBFC;
+  /* deeper shades for surfaces that carry white text, and for colored text, so it reads clearly (4.5:1) */
+  --leaf-deep:#268457; --sky-deep:#2776C3; --coral-deep:#C44E40; --orange-deep:#B05F1E; --grape-ink:#5B44C0;
   --display:"Baloo 2","Arial Rounded MT Bold",ui-rounded,system-ui,sans-serif;
   --body:"Nunito",ui-rounded,system-ui,-apple-system,"Segoe UI",sans-serif;
   color-scheme:light;
@@ -42,16 +44,16 @@ h1,h2,h3{font-family:var(--display);font-weight:800;margin:0;text-wrap:balance;l
 .tile:active{transform:translateY(4px);box-shadow:0 2px 0 rgba(34,48,90,.15)}
 .tile .big{font-size:64px;line-height:1}
 .tile h2{font-size:32px}
-.tile p{margin:2px 0 0;font-weight:700;opacity:.85}
-.t-math{background:var(--leaf);color:#fff}.t-art{background:var(--coral);color:#fff}.t-owl{background:var(--grape);color:#fff}
-.t-quest{background:var(--sky);color:#fff}
+.tile p{margin:2px 0 0;font-weight:700}
+.t-math{background:var(--leaf-deep);color:#fff}.t-art{background:var(--coral-deep);color:#fff}.t-owl{background:var(--grape);color:#fff}
+.t-quest{background:var(--sky-deep);color:#fff}
 .pick{display:flex;align-items:center;gap:14px;background:var(--sun-soft);border:3px dashed var(--sun);border-radius:24px;padding:14px 18px;text-align:left;width:100%}
 .pick .big{font-size:40px}
 .pick b{font-family:var(--display);font-size:22px;display:block}
 .stickers{display:flex;flex-wrap:wrap;gap:8px;font-size:34px;min-height:40px}
 .stickers .empty{font-size:16px;color:var(--ink-soft);font-weight:700}
 .section-title{font-size:22px;display:flex;align-items:center;gap:10px}
-.small-link{font-weight:800;color:var(--ink-soft);text-decoration:underline;padding:8px;align-self:flex-start}
+.small-link{font-weight:800;color:var(--ink-soft);text-decoration:underline;padding:8px;align-self:flex-start;min-height:44px}
 /* skill picker */
 .skills{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:14px}
 .skill{background:var(--paper);border-radius:24px;padding:16px;display:flex;flex-direction:column;gap:6px;align-items:flex-start;box-shadow:0 5px 0 var(--line);text-align:left}
@@ -103,7 +105,7 @@ h1,h2,h3{font-family:var(--display);font-weight:800;margin:0;text-wrap:balance;l
 /* art */
 .tabs{display:flex;gap:8px;flex-wrap:wrap}
 .tabs button{padding:10px 18px;border-radius:999px;background:var(--paper);font-weight:800;box-shadow:0 3px 0 var(--line)}
-.tabs button[aria-pressed=true]{background:var(--coral);color:#fff;box-shadow:0 3px 0 #B8402F}
+.tabs button[aria-pressed=true]{background:var(--coral-deep);color:#fff;box-shadow:0 3px 0 #B8402F}
 .idea{display:flex;align-items:center;gap:12px;background:var(--paper);border-radius:22px;padding:12px 14px;box-shadow:0 4px 0 var(--line);flex-wrap:wrap}
 .idea p{flex:1;min-width:0;margin:0;font-weight:800;font-size:21px}
 .studio{display:flex;flex-direction:column;gap:12px;flex:1;min-height:0}
@@ -131,7 +133,7 @@ h1,h2,h3{font-family:var(--display);font-weight:800;margin:0;text-wrap:balance;l
 .ask{display:flex;gap:10px;flex-wrap:wrap}
 .ask input{flex:1;min-width:0;font:inherit;font-size:22px;font-weight:700;padding:16px 18px;border-radius:20px;border:3px solid var(--line);background:var(--paper);color:var(--ink)}
 .chips{display:flex;flex-wrap:wrap;gap:10px}
-.chips button{background:var(--grape-soft);color:var(--grape);border-radius:999px;padding:10px 16px;font-weight:800;font-size:17px;text-align:left}
+.chips button{background:var(--grape-soft);color:var(--grape-ink);border-radius:999px;padding:10px 16px;min-height:44px;font-weight:800;font-size:17px;text-align:left}
 .helped{display:flex;gap:10px;align-items:center;font-size:16px;color:var(--ink-soft);flex-wrap:wrap}
 .helped button{font-size:26px;background:var(--bg);border-radius:14px;padding:4px 12px}
 /* parent */
@@ -143,7 +145,7 @@ h1,h2,h3{font-family:var(--display);font-weight:800;margin:0;text-wrap:balance;l
 .bar{height:10px;border-radius:9px;background:var(--bg);min-width:80px;overflow:hidden}.bar i{display:block;height:100%;background:var(--leaf)}
 .miss{display:flex;flex-direction:column;gap:8px;border-top:1px solid var(--line);padding-top:10px}
 .miss textarea{font:inherit;font-size:16px;border:2px solid var(--line);border-radius:12px;padding:10px;min-height:64px;resize:vertical;background:var(--paper);color:var(--ink)}
-.field{display:flex;flex-direction:column;gap:6px;font-weight:800}
+.field{display:flex;flex-direction:column;gap:6px;font-weight:800;min-height:44px}
 .field input{font:inherit;font-size:20px;padding:12px 14px;border-radius:14px;border:3px solid var(--line);background:var(--paper);color:var(--ink);max-width:320px}
 .note{color:var(--ink-soft);font-size:15px;margin:0;max-width:65ch}
 .wide{overflow-x:auto}
@@ -170,7 +172,7 @@ h1,h2,h3{font-family:var(--display);font-weight:800;margin:0;text-wrap:balance;l
 pre.column{font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;font-weight:700;font-size:clamp(26px,4vw,36px);line-height:1.15;margin:0;background:var(--bg);padding:10px 18px;border-radius:16px;font-variant-numeric:tabular-nums}
 ol.steps{margin:0;padding-left:1.4em;text-align:left;font-weight:700;font-size:19px;display:flex;flex-direction:column;gap:6px;max-width:40ch}
 .qtools{position:absolute;top:14px;right:14px;display:flex;gap:8px}
-.help{height:44px;border-radius:999px;background:var(--grape-soft);color:var(--grape);font-weight:800;padding:0 14px;font-size:16px}
+.help{height:44px;border-radius:999px;background:var(--grape-soft);color:var(--grape-ink);font-weight:800;padding:0 14px;font-size:16px}
 .worlds{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
 .world{border-radius:26px;padding:18px;color:#fff;text-align:left;display:flex;flex-direction:column;gap:8px;box-shadow:0 6px 0 rgba(34,48,90,.18);min-height:150px}
 .world .big{font-size:46px;line-height:1}
@@ -179,7 +181,7 @@ ol.steps{margin:0;padding-left:1.4em;text-align:left;font-weight:700;font-size:1
 .world.locked{background:var(--line)!important;color:var(--ink-soft);box-shadow:none}
 .crumbs{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .crumbs h1{font-size:34px}
-.back{background:var(--paper);border-radius:999px;padding:8px 16px;font-weight:800;box-shadow:0 3px 0 var(--line)}
+.back{background:var(--paper);border-radius:999px;padding:8px 16px;font-weight:800;box-shadow:0 3px 0 var(--line);min-height:44px}
 .lesson{display:flex;flex-direction:column;gap:14px}
 .lstep{background:var(--paper);border-radius:22px;padding:16px;box-shadow:0 4px 0 var(--line);display:flex;gap:14px;align-items:center;flex-wrap:wrap;text-align:left}
 .lstep p{flex:1;min-width:200px;margin:0;font-weight:800;font-size:21px}
@@ -190,13 +192,13 @@ ol.steps{margin:0;padding-left:1.4em;text-align:left;font-weight:700;font-size:1
 .cat{background:var(--paper);border-radius:22px;padding:14px;text-align:left;box-shadow:0 4px 0 var(--line);display:flex;flex-direction:column;gap:4px}
 .cat .ico{font-size:36px}.cat b{font-family:var(--display);font-size:20px;line-height:1.1}.cat span{font-size:15px;color:var(--ink-soft);font-weight:700}
 .tools-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
-.tool-tile{background:var(--coral);color:#fff;border-radius:22px;padding:14px;text-align:left;box-shadow:0 4px 0 #B8402F;display:flex;flex-direction:column;gap:2px}
+.tool-tile{background:var(--coral-deep);color:#fff;border-radius:22px;padding:14px;text-align:left;box-shadow:0 4px 0 #B8402F;display:flex;flex-direction:column;gap:2px}
 .tool-tile .ico{font-size:34px}.tool-tile b{font-family:var(--display);font-size:20px}
 .lessons{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
 .lcard{background:var(--paper);border-radius:20px;padding:12px;text-align:left;box-shadow:0 4px 0 var(--line);display:flex;flex-direction:column;gap:4px;position:relative}
 .lcard .ico{font-size:34px}.lcard b{font-size:17px}
 .lcard .lvl-tag{font-size:12px;font-weight:800;border-radius:999px;padding:2px 8px;align-self:flex-start}
-.lv1{background:var(--leaf-soft);color:#1D7A4E}.lv2{background:var(--sky-soft);color:#1D5FA0}.lv3{background:var(--grape-soft);color:var(--grape)}
+.lv1{background:var(--leaf-soft);color:#1A6E46}.lv2{background:var(--sky-soft);color:#1D5FA0}.lv3{background:var(--grape-soft);color:var(--grape-ink)}
 .lcard.done::after{content:"✓";position:absolute;top:10px;right:12px;background:var(--leaf);color:#fff;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-weight:800}
 .lcard.locked{opacity:.45}
 .lesson-view{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:14px;flex:1;min-height:0}
@@ -277,7 +279,7 @@ ol.steps{margin:0;padding-left:1.4em;text-align:left;font-weight:700;font-size:1
 .wk i{display:block;width:70%;min-height:3px;border-radius:6px 6px 0 0;background:var(--sun)}
 .wk span{color:var(--ink-soft);font-weight:700}
 .art-svg .sk *,.trace-svg .sk *{stroke:var(--sk)}
-.badge-link{margin-left:auto;cursor:pointer;font-size:15px}
+.badge-link{margin-left:auto;cursor:pointer;font-size:15px;min-height:44px;display:inline-flex;align-items:center}
 .badges{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px}
 .badge{background:var(--paper);border-radius:22px;padding:14px 10px;display:flex;flex-direction:column;align-items:center;gap:4px;box-shadow:0 4px 0 var(--line);text-align:center;opacity:.7}
 .badge span{font-size:44px;line-height:1.1}.badge b{font-family:var(--display);font-size:18px}.badge small{color:var(--ink-soft);font-weight:700;font-size:13px;line-height:1.2}
@@ -306,7 +308,7 @@ ol.steps{margin:0;padding-left:1.4em;text-align:left;font-weight:700;font-size:1
 .gtile:active{transform:translateY(4px);box-shadow:0 2px 0 rgba(34,48,90,.18)}
 .gtile .ico{font-size:52px;line-height:1.05;display:inline-block;align-self:flex-start;animation:bob 2.6s ease-in-out infinite}
 .gtile b{font-family:var(--display);font-size:24px;line-height:1.05}
-.gtile span{font-weight:700;font-size:15px;opacity:.92}
+.gtile span{font-weight:700;font-size:15px}
 .gtile .gbest{margin-top:auto;font-size:17px;letter-spacing:2px}
 .gbest i{font-style:normal;opacity:.35;filter:grayscale(1) brightness(.6)}.gbest i.on{filter:none}.gbest i.on{opacity:1}
 .game{background:var(--paper);border-radius:32px;padding:clamp(14px,3vw,26px);display:flex;flex-direction:column;gap:14px;align-items:center;box-shadow:0 6px 0 var(--line);min-width:0;overflow:hidden}
@@ -314,7 +316,7 @@ ol.steps{margin:0;padding-left:1.4em;text-align:left;font-weight:700;font-size:1
 .gp{display:flex;gap:5px;justify-content:center;flex-wrap:wrap}
 .gp i{font-style:normal;width:28px;height:28px;display:grid;place-items:center;border-radius:50%;background:var(--bg);font-size:17px}
 .gp i.now{background:var(--sun);box-shadow:0 0 0 3px var(--sun-soft)}
-.gnum{color:var(--coral)}
+.gnum{color:var(--coral-deep)}
 .gexpr{font-size:1.25em;white-space:nowrap}
 .cheer.soft{color:var(--coral)}
 .game .cheer{height:auto;min-height:44px;text-align:center}
@@ -1058,7 +1060,7 @@ ol.steps{margin:0;padding-left:1.4em;text-align:left;font-weight:700;font-size:1
 .cb-sw[aria-pressed=true]{outline:4px solid var(--ink);outline-offset:3px}
 .cb-tools{display:flex;flex-wrap:wrap;gap:8px}
 .cb-tools .tool[aria-pressed=true]{background:var(--sun)}
-.cb-tools .cb-save{background:var(--leaf);color:#fff}
+.cb-tools .cb-save{background:var(--leaf-deep);color:#fff}
 .cb-key{display:flex;flex-wrap:wrap;gap:6px}
 .cb-chip{display:inline-flex;align-items:center;gap:6px;padding:6px 12px 6px 6px;border-radius:999px;background:var(--paper);box-shadow:0 3px 0 var(--line);font:800 22px var(--display)}
 .cb-chip i{width:30px;height:30px;border-radius:50%;box-shadow:inset 0 0 0 2px rgba(34,48,90,.2)}
@@ -1103,7 +1105,7 @@ ol.steps{margin:0;padding-left:1.4em;text-align:left;font-weight:700;font-size:1
 @media (prefers-reduced-motion:reduce){.wt-spot,.wt-owl,.wt-card{animation:none}.wt-spot{transition:none}}
 .wt-stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
 .wt-stat{background:var(--bg);border-radius:18px;padding:10px 12px;display:flex;flex-direction:column;min-width:0}
-.wt-stat b{font-family:var(--display);font-size:30px;line-height:1.1;color:var(--leaf)}
+.wt-stat b{font-family:var(--display);font-size:30px;line-height:1.1;color:var(--leaf-deep)}
 .wt-stat span{font-size:14px;font-weight:700;color:var(--ink-soft)}
 .wt-list{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:8px;font-size:16px;line-height:1.45;max-width:75ch;overflow-wrap:anywhere}
 .wt-tips{background:var(--sun-soft);box-shadow:0 4px 0 var(--sun)}
@@ -1406,10 +1408,10 @@ const chartData = (n, max) => { const set = pick([CHART_SETS.slice(0, 4), CHART_
 
 /* --- worlds --- */
 const WORLDS = [
-  { id: 'seed', name: 'Seedling Hill', ico: '🌱', ages: '3–5', color: 'var(--leaf)' },
-  { id: 'sprout', name: 'Sprout Valley', ico: '🌿', ages: '5–7', color: 'var(--sky)' },
+  { id: 'seed', name: 'Seedling Hill', ico: '🌱', ages: '3–5', color: 'var(--leaf-deep)' },
+  { id: 'sprout', name: 'Sprout Valley', ico: '🌿', ages: '5–7', color: 'var(--sky-deep)' },
   { id: 'tree', name: 'Treetop Town', ico: '🌳', ages: '7–9', color: 'var(--grape)' },
-  { id: 'forest', name: 'Deep Forest', ico: '🌲', ages: '9–11', color: 'var(--coral)' },
+  { id: 'forest', name: 'Deep Forest', ico: '🌲', ages: '9–11', color: 'var(--coral-deep)' },
   { id: 'peak', name: 'Mountain Peak', ico: '⛰️', ages: '11+', color: 'var(--ink)' }
 ];
 
@@ -9389,6 +9391,8 @@ function freshState(age = 5) {
 }
 /* ---------- players: each child has their own saved progress and pictures ---------- */
 const AVATARS = ['🦊', '🐼', '🐯', '🐸', '🦄', '🐙', '🐵', '🐨', '🐰', '🦁', '🐳', '🐞'];
+// Spoken names for the picture buttons, so a screen reader says "fox" rather than nothing useful.
+const AV_NAMES = { '🦊': 'fox', '🐼': 'panda', '🐯': 'tiger', '🐸': 'frog', '🦄': 'unicorn', '🐙': 'octopus', '🐵': 'monkey', '🐨': 'koala', '🐰': 'bunny', '🦁': 'lion', '🐳': 'whale', '🐞': 'ladybug' };
 function migrate(s) {
   for (const k in MATH) if (!s.skills[k]) s.skills[k] = { m: startMastery(k, s.age), seen: 0, hist: [], ms: 0 };
   s.art = s.art || { done: {}, pixel: 1, pixelDone: {} };
@@ -9529,14 +9533,14 @@ function playersPanel() {
       ${p.id === pid ? '' : `<button class="btn alt sm" data-switch="${p.id}">Switch</button>`}${profiles.length > 1 ? `<button class="btn alt sm" data-del="${p.id}">Remove</button>` : ''}</div>`).join('')}</div>
     <form id="addForm" class="add-player"><label class="field" for="npn">New player's name<input id="npn" autocomplete="off" required></label>
       <label class="field" for="npa">Age<input id="npa" type="number" min="3" max="16" value="5"></label>
-      <div class="avatars" role="group" aria-label="Picture">${AVATARS.map((a, i) => `<button type="button" class="av${i === profiles.length % AVATARS.length ? ' on' : ''}" data-av="${a}">${a}</button>`).join('')}</div>
+      <div class="avatars" role="group" aria-label="Picture">${AVATARS.map((a, i) => `<button type="button" class="av${i === profiles.length % AVATARS.length ? ' on' : ''}" data-av="${a}" aria-label="${AV_NAMES[a]}" aria-pressed="${i === profiles.length % AVATARS.length}">${a}</button>`).join('')}</div>
       <button class="btn leaf" type="submit">Add player</button></form></div>
   <div class="panel"><h2>Backup</h2><p class="note">Progress is saved on this tablet only. Save a backup file now and then (for example to Files or Google Drive), so nothing is lost if the browser is cleared or you get a new tablet.</p>
     <div class="row" style="justify-content:flex-start"><button class="btn" id="bk">Save a backup file</button><label class="btn alt" for="rs" style="cursor:pointer">Restore from a backup<input id="rs" type="file" accept="application/json,.json" hidden></label></div><p class="note" id="bkm" aria-live="polite"></p></div>`;
 }
 function wirePlayers() {
   let av = view.querySelector('.av.on')?.dataset.av || AVATARS[0];
-  view.querySelectorAll('[data-av]').forEach(b => b.onclick = () => { av = b.dataset.av; view.querySelectorAll('[data-av]').forEach(x => x.classList.toggle('on', x === b)); });
+  view.querySelectorAll('[data-av]').forEach(b => b.onclick = () => { av = b.dataset.av; view.querySelectorAll('[data-av]').forEach(x => { x.classList.toggle('on', x === b); x.setAttribute('aria-pressed', x === b); }); });
   view.querySelectorAll('[data-switch]').forEach(b => b.onclick = () => { loadProfile(b.dataset.switch); updateTop(); go(parent); });
   view.querySelectorAll('[data-del]').forEach(b => b.onclick = () => {
     if (b.dataset.armed !== '1') { b.dataset.armed = '1'; b.textContent = 'Tap again to remove'; return; }
@@ -9863,6 +9867,7 @@ function finish() {
 
 /* ---------- Art School ---------- */
 const PAINT = ['#22305A', '#F2604F', '#FF8A2B', '#FFC23D', '#2FA36B', '#2E8BE6', '#6D55D1', '#F49AC1', '#8B5A2B', '#FFFFFF'];
+const PAINT_NAMES = ['dark blue', 'red', 'orange', 'yellow', 'green', 'blue', 'purple', 'pink', 'brown', 'white'];
 let canvasCleanup = null;
 function stopCanvas() { if (canvasCleanup) { canvasCleanup(); canvasCleanup = null; } }
 // Art School groups its many kinds so a child can find things: things to draw, ways to make art, and art skills.
@@ -9881,11 +9886,11 @@ function artHome() {
     <div class="tools-row">
       <button class="tool-tile" data-tool="free"><span class="ico">🖍️</span><b>Free draw</b><span>Any idea you like</span></button>
       <button class="tool-tile" data-tool="mandala" style="background:var(--grape);box-shadow:0 4px 0 #4B37A6"><span class="ico">🏵️</span><b>Mandala mode</b><span>Lines copy around</span></button>
-      <button class="tool-tile" data-tool="pixel" style="background:var(--sky);box-shadow:0 4px 0 #1D5FA0"><span class="ico">👾</span><b>Pixel art</b><span>Color the squares</span></button>
+      <button class="tool-tile" data-tool="pixel" style="background:var(--sky-deep);box-shadow:0 4px 0 #1D5FA0"><span class="ico">👾</span><b>Pixel art</b><span>Color the squares</span></button>
       <button class="tool-tile" data-tool="mix" style="background:var(--sun);color:var(--ink);box-shadow:0 4px 0 #C9921A"><span class="ico">🎨</span><b>Mix colors</b><span>Make new colors</span></button>
       <button class="tool-tile" data-tool="color" style="background:#F49AC1;color:var(--ink);box-shadow:0 4px 0 #C96E96"><span class="ico">🖌️</span><b>Coloring book</b><span>Tap to fill colors</span></button>
-      <button class="tool-tile" data-tool="scene" style="background:#FF8A2B;box-shadow:0 4px 0 #C4621A"><span class="ico">🏞️</span><b>Sticker scenes</b><span>Make a picture story</span></button>
-      <button class="tool-tile" data-tool="gal" style="background:var(--leaf);box-shadow:0 4px 0 #1D7A4E"><span class="ico">🖼️</span><b>My pictures</b><span>${gallery.length} saved</span></button>
+      <button class="tool-tile" data-tool="scene" style="background:var(--orange-deep);box-shadow:0 4px 0 #7F4413"><span class="ico">🏞️</span><b>Sticker scenes</b><span>Make a picture story</span></button>
+      <button class="tool-tile" data-tool="gal" style="background:var(--leaf-deep);box-shadow:0 4px 0 #1A6E46"><span class="ico">🖼️</span><b>My pictures</b><span>${gallery.length} saved</span></button>
     </div>
     <h3 class="section-title">Lessons <span class="tag">${Object.keys(st.art.done).length} of ${LESSONS.length} done</span></h3>
     ${ART_GROUPS.map(g => { const cs = ART_CATS.filter(c => artGroup(c.id) === g.id); return cs.length ? `<h3 class="section-title sub">${g.ico} ${g.name}</h3><div class="cats">${cs.map(c => { const ls = LESSONS.filter(l => l.cat === c.id), d = ls.filter(l => st.art.done[l.id]).length;
@@ -9931,7 +9936,7 @@ function drawLesson(id) {
   view.innerHTML = `${crumbs(`${ls.ico} ${ls.title}`)}
     <div class="lesson-view">
       <div class="guide-card"><span class="stepno" id="sn"></span><div id="gsvg"></div><p id="gt"></p><p class="note" id="gx"></p>
-        <div class="stepnav"><button class="btn alt" id="prev">◀</button><button class="speak" id="gspk" aria-label="Read it">🔊</button><button class="speak" id="gplay" aria-label="Show me again">✏️</button><button class="btn" id="next">Next ▶</button></div></div>
+        <div class="stepnav"><button class="btn alt" id="prev" aria-label="Back one step">◀</button><button class="speak" id="gspk" aria-label="Read it">🔊</button><button class="speak" id="gplay" aria-label="Show me again">✏️</button><button class="btn" id="next">Next ▶</button></div></div>
       <div class="studio" id="studio"></div>
     </div>`;
   wireBack(() => catView(ls.cat));
@@ -9980,8 +9985,8 @@ function freeDraw(sym = 0) {
 }
 // A drawing pad: transparent canvas over a white card, with optional trace layer and symmetry.
 function makePad(el, { square = false, sym = 0, extra = '' } = {}) {
-  el.innerHTML = `<div class="canvas-wrap${square ? ' sq' : ''}" id="cw"><div id="tr"></div><canvas id="cv"></canvas><div class="mirror-line" id="ml" hidden></div></div>
-    <div class="tools">${PAINT.map((c, i) => `<button class="sw" style="background:${c};${c === '#FFFFFF' ? 'box-shadow:inset 0 0 0 2px var(--line)' : ''}" data-c="${c}" aria-label="color" aria-pressed="${i === 0}"></button>`).join('')}</div>
+  el.innerHTML = `<div class="canvas-wrap${square ? ' sq' : ''}" id="cw"><div id="tr"></div><canvas id="cv" role="img" aria-label="Drawing pad: draw here with your finger"></canvas><div class="mirror-line" id="ml" hidden></div></div>
+    <div class="tools">${PAINT.map((c, i) => `<button class="sw" style="background:${c};${c === '#FFFFFF' ? 'box-shadow:inset 0 0 0 2px var(--line)' : ''}" data-c="${c}" aria-label="${PAINT_NAMES[i]}" aria-pressed="${i === 0}"></button>`).join('')}</div>
     <div class="tools">
       <button class="tool size" data-z="5" aria-label="thin"><i style="width:6px;height:6px"></i></button>
       <button class="tool size" data-z="12" aria-pressed="true" aria-label="medium"><i style="width:14px;height:14px"></i></button>
@@ -9991,7 +9996,7 @@ function makePad(el, { square = false, sym = 0, extra = '' } = {}) {
       ${extra}
       <button class="tool" id="und">↩️ Undo</button>
       <button class="tool" id="clr">🗑️ Clear</button>
-      <button class="tool" id="sav" style="background:var(--leaf);color:#fff">💾 Save</button></div>`;
+      <button class="tool" id="sav" style="background:var(--leaf-deep);color:#fff">💾 Save</button></div>`;
   const cw = el.querySelector('#cw'), cv = el.querySelector('#cv'), ctx = cv.getContext('2d');
   let color = PAINT[0], size = 12, eraser = false, drawing = false, last = null, dirty = false; const undo = [];
   const W = () => cw.getBoundingClientRect();
@@ -10330,7 +10335,7 @@ function parent() {
       <p class="note">Owl &amp; Crayon works without the internet. Progress, drawings and Owl's answers are saved only in this browser on this device. There are no ads, no tracking and no accounts, and nothing is sent anywhere unless you switch on Online Owl.</p>
       <p class="note">With Online Owl on, only the question your child asks and their age go to your Online Owl server, which asks an AI (Cloudflare's free AI, or Claude by Anthropic) for a short, child-friendly answer. Names and progress are never sent. You can read every answer above, and turn it off at any time.</p>
       <p class="note">The microphone button uses the browser's own speech recognition, which may send the recording to the browser maker (for example Google or Apple) to turn it into text. Typing works without it.</p>
-      <p class="note">Version 2026-10-21 07:35 UTC</p></div>`;
+      <p class="note">Version 2026-10-21 08:42 UTC</p></div>`;
   view.querySelectorAll('[data-teach]').forEach(b => b.onclick = () => {
     const i = +b.dataset.teach, ans = $('#t' + i).value.trim(); if (!ans) return;
     owlForget(st.owlMisses[i].q); st.owlTaught.push({ q: st.owlMisses[i].q, a: ans }); st.owlMisses.splice(i, 1); save(); go(parent);
@@ -10449,12 +10454,12 @@ const ageLvl = () => st.age <= 4 ? 0 : st.age <= 5 ? 1 : st.age <= 6 ? 2 : st.ag
 let gm = null, GAME_SECS = 60;
 const gLvl = () => clamp(gm.base + gm.boost, 0, 6);
 const GAMES = [
-  { id: 'balloon', ico: '🎈', name: 'Balloon Pop', blurb: 'Pop the right number', bg: 'var(--coral)', pe: '🎈', n: 10, q: balloonQ },
-  { id: 'frog', ico: '🐸', name: 'Frog Hop', blurb: 'Where will the frog land?', bg: 'var(--leaf)', pe: '🪷', n: 8, q: frogQ },
+  { id: 'balloon', ico: '🎈', name: 'Balloon Pop', blurb: 'Pop the right number', bg: 'var(--coral-deep)', pe: '🎈', n: 10, q: balloonQ },
+  { id: 'frog', ico: '🐸', name: 'Frog Hop', blurb: 'Where will the frog land?', bg: 'var(--leaf-deep)', pe: '🪷', n: 8, q: frogQ },
   { id: 'shop', ico: '🛒', name: "Owl's Shop", blurb: 'Pay with coins', bg: 'var(--sun)', ink: 1, pe: '🛍️', n: 8, q: shopQ },
   { id: 'memory', ico: '🃏', name: 'Memory Match', blurb: 'Flip and find pairs', bg: 'var(--grape)', pe: '🃏', start: memoryStart, result: memoryResult },
-  { id: 'tower', ico: '🧱', name: 'Build the Tower', blurb: 'Make 10 and more', bg: '#FF8A2B', pe: '🧱', n: 10, q: towerQ },
-  { id: 'train', ico: '🚂', name: 'Pattern Train', blurb: 'What comes next?', bg: 'var(--sky)', pe: '🚃', n: 8, q: trainQ },
+  { id: 'tower', ico: '🧱', name: 'Build the Tower', blurb: 'Make 10 and more', bg: 'var(--orange-deep)', pe: '🧱', n: 10, q: towerQ },
+  { id: 'train', ico: '🚂', name: 'Pattern Train', blurb: 'What comes next?', bg: 'var(--sky-deep)', pe: '🚃', n: 8, q: trainQ },
   { id: 'race', ico: '🦉', name: 'Beat the Owl', blurb: () => st.age >= 7 ? 'A 60-second race' : 'Race the owl, no rush', bg: 'var(--ink)', pe: '🏃', start: raceStart, q: raceQ, result: raceResult }
 ];
 
@@ -10572,7 +10577,7 @@ const ansChoices = (a, n) => a.ans > 20 ? nearBy(a.ans, [10, -10, 1, -1, 2, -2, 
 function balloonQ(d) {
   const a = gArith(d), ch = ansChoices(a, d <= 1 ? 4 : 5), cols = shuffle(COLORS);
   gFrame(`<div class="sky"><span class="cloud c1">☁️</span><span class="cloud c2">☁️</span>${ch.map((c, i) => `<button class="balloon gopt" data-v="${c.val}"${c.val === a.ans ? ' data-ok="1"' : ''}
-      style="--c:${cols[i % 6][0]};--t:${cols[i % 6][1] === 'yellow' ? 'var(--ink)' : '#fff'};--d:${(i * .12 + Math.random() * .2).toFixed(2)}s;--y:${rnd(0, 60)}px">${c.val}</button>`).join('')}</div>`,
+      style="--c:${cols[i % 6][0]};--t:${/yellow|orange/.test(cols[i % 6][1]) ? 'var(--ink)' : '#fff'};--d:${(i * .12 + Math.random() * .2).toFixed(2)}s;--y:${rnd(0, 60)}px">${c.val}</button>`).join('')}</div>`,
     a.find ? `Pop the <b class="gnum">${a.ans}</b>!` : `Pop <span class="gnum">${a.q}</span>`,
     a.find ? `Pop the balloon with ${a.ans}!` : `What is ${a.q}? Pop the balloon with the answer!`);
   view.querySelectorAll('.balloon').forEach(b => b.onclick = () => {
@@ -10771,13 +10776,13 @@ const vals = cs => cs.map(c => c.val);
 const range = (a, b, s = 1) => { const o = []; for (let v = a; v <= b; v += s) o.push(v); return o; };
 
 GAMES.push(
-  { id: 'fish', ico: '🎣', name: 'Gone Fishing', blurb: 'Catch the right fish', bg: '#1E88B8', pe: '🐟', n: 8, q: fishQ },
-  { id: 'pizza', ico: '🍕', name: 'Pizza Party', blurb: () => ageLvl() >= 3 ? 'Slice up fractions' : 'Share it fairly', bg: '#C8553D', pe: '🍕', n: 8, q: pizzaQ },
-  { id: 'feed', ico: '🥕', name: 'Feed the Animals', blurb: () => ageLvl() >= 3 ? 'Groups and times' : 'Give everyone the same', bg: '#4E9A2F', pe: '🥕', n: 8, q: feedQ },
+  { id: 'fish', ico: '🎣', name: 'Gone Fishing', blurb: 'Catch the right fish', bg: '#1C7DA9', pe: '🐟', n: 8, q: fishQ },
+  { id: 'pizza', ico: '🍕', name: 'Pizza Party', blurb: () => ageLvl() >= 3 ? 'Slice up fractions' : 'Share it fairly', bg: '#C2523B', pe: '🍕', n: 8, q: pizzaQ },
+  { id: 'feed', ico: '🥕', name: 'Feed the Animals', blurb: () => ageLvl() >= 3 ? 'Groups and times' : 'Give everyone the same', bg: '#428328', pe: '🥕', n: 8, q: feedQ },
   { id: 'rocket', ico: '🚀', name: 'Rocket Countdown', blurb: '3, 2, 1... blast off!', bg: '#3B2E7E', pe: '🌟', n: 8, q: rocketQ },
-  { id: 'target', ico: '🎯', name: 'Target Practice', blurb: 'Which is bigger?', bg: '#D94A6A', pe: '🎯', n: 10, q: targetQ },
+  { id: 'target', ico: '🎯', name: 'Target Practice', blurb: 'Which is bigger?', bg: '#CA4563', pe: '🎯', n: 10, q: targetQ },
   { id: 'bee', ico: '🐝', name: 'Bee Hive Pairs', blurb: 'Two that make the number', bg: 'var(--sun)', ink: 1, pe: '🍯', n: 8, q: beeQ },
-  { id: 'map', ico: '🏝️', name: 'Treasure Map', blurb: () => ageLvl() >= 4 ? 'Find (x, y)' : 'Follow the steps', bg: '#0F8F84', pe: '💰', n: 8, q: mapQ }
+  { id: 'map', ico: '🏝️', name: 'Treasure Map', blurb: () => ageLvl() >= 4 ? 'Find (x, y)' : 'Follow the steps', bg: '#0E8278', pe: '💰', n: 8, q: mapQ }
 );
 
 /* ---------- 8. Gone Fishing: fish swim back and forth, catch the one that fits ---------- */
@@ -11249,12 +11254,12 @@ const PIPS = { 1: [4], 2: [0, 8], 3: [0, 4, 8], 4: [0, 2, 6, 8], 5: [0, 2, 4, 6,
 const dieHTML = (n, cls = '') => `<span class="g3die ${cls}" role="img" aria-label="${n}">${range(0, 8).map(i => `<i${PIPS[n].includes(i) ? ' class="on"' : ''}></i>`).join('')}</span>`;
 
 GAMES.push(
-  { id: 'snake', ico: '🎲', name: 'Snakes & Ladders', blurb: 'Roll, count and race the Owl', bg: '#2E9D5B', pe: '🎲', start: snakeStart, q: snakeQ, result: snakeResult },
-  { id: 'bakery', ico: '🧁', name: 'Bakery Orders', blurb: () => ageLvl() >= 3 ? 'Rows, boxes and fractions' : 'Fill the box just right', bg: '#E2558C', pe: '🧁', n: 8, q: bakeQ },
+  { id: 'snake', ico: '🎲', name: 'Snakes & Ladders', blurb: 'Roll, count and race the Owl', bg: '#27854D', pe: '🎲', start: snakeStart, q: snakeQ, result: snakeResult },
+  { id: 'bakery', ico: '🧁', name: 'Bakery Orders', blurb: () => ageLvl() >= 3 ? 'Rows, boxes and fractions' : 'Fill the box just right', bg: '#C24978', pe: '🧁', n: 8, q: bakeQ },
   { id: 'park', ico: '🚗', name: 'Parking Garage', blurb: () => ageLvl() >= 4 ? 'Round to park' : 'Park by number', bg: '#4A5A7A', pe: '🚗', n: 8, q: parkQ },
   { id: 'monster', ico: '👾', name: 'Hungry Monster', blurb: () => ageLvl() >= 2 ? 'Feed it what makes it true' : 'Feed it the bigger group', bg: '#7B4FD6', pe: '🍪', n: 8, q: monQ },
-  { id: 'bubble', ico: '🫧', name: 'Bubble Count', blurb: 'Look quick! How many?', bg: '#1FA2C8', pe: '🫧', n: 8, q: bubQ },
-  { id: 'sticker', ico: '📊', name: 'Sticker Sort', blurb: 'Sort them, then read the chart', bg: '#F07A2A', pe: '⭐', n: 6, q: stkQ },
+  { id: 'bubble', ico: '🫧', name: 'Bubble Count', blurb: 'Look quick! How many?', bg: '#187E9C', pe: '🫧', n: 8, q: bubQ },
+  { id: 'sticker', ico: '📊', name: 'Sticker Sort', blurb: 'Sort them, then read the chart', bg: '#B45B1F', pe: '⭐', n: 6, q: stkQ },
   { id: 'sudoku', ico: '🔎', name: 'Number Detective', blurb: () => ageLvl() >= 3 ? 'Sudoku and number riddles' : 'Fruit puzzles', bg: '#2D3F6E', pe: '🔎', n: 5, q: sdkQ }
 );
 
@@ -12963,7 +12968,7 @@ const sceneHome = (() => {
             <button class="ss-eb" data-ed="flip"><span>↔️</span>Flip</button><button class="ss-eb" data-ed="turn"><span>🔄</span>Turn</button>
             <button class="ss-eb" data-ed="front"><span>⬆️</span>Front</button><button class="ss-eb" data-ed="copy"><span>📋</span>Copy</button><button class="ss-eb ss-del" data-ed="del"><span>🗑️</span>Delete</button></div>
           <div class="ss-crayon" id="ssCrayon" hidden>
-            <div class="tools">${PAINT.map(c => `<button class="sw" style="background:${c};${c === '#FFFFFF' ? 'box-shadow:inset 0 0 0 2px var(--line)' : ''}" data-c="${c}" aria-label="crayon color" aria-pressed="${c === crayon.c}"></button>`).join('')}</div>
+            <div class="tools">${PAINT.map((c, i) => `<button class="sw" style="background:${c};${c === '#FFFFFF' ? 'box-shadow:inset 0 0 0 2px var(--line)' : ''}" data-c="${c}" aria-label="${PAINT_NAMES[i]} crayon" aria-pressed="${c === crayon.c}"></button>`).join('')}</div>
             <div class="tools"><button class="tool size" data-z="2" aria-label="thin"><i style="width:6px;height:6px"></i></button><button class="tool size" data-z="4" aria-pressed="true" aria-label="medium"><i style="width:14px;height:14px"></i></button><button class="tool size" data-z="9" aria-label="thick"><i style="width:26px;height:26px"></i></button>
               <button class="tool" id="ssEr" aria-pressed="false">🧽 Eraser</button><button class="tool" id="ssClrD">🧹 Clear crayon</button></div></div>
         </div>

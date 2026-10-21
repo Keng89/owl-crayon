@@ -155,7 +155,7 @@ const sceneHome = (() => {
             <button class="ss-eb" data-ed="flip"><span>↔️</span>Flip</button><button class="ss-eb" data-ed="turn"><span>🔄</span>Turn</button>
             <button class="ss-eb" data-ed="front"><span>⬆️</span>Front</button><button class="ss-eb" data-ed="copy"><span>📋</span>Copy</button><button class="ss-eb ss-del" data-ed="del"><span>🗑️</span>Delete</button></div>
           <div class="ss-crayon" id="ssCrayon" hidden>
-            <div class="tools">${PAINT.map(c => `<button class="sw" style="background:${c};${c === '#FFFFFF' ? 'box-shadow:inset 0 0 0 2px var(--line)' : ''}" data-c="${c}" aria-label="crayon color" aria-pressed="${c === crayon.c}"></button>`).join('')}</div>
+            <div class="tools">${PAINT.map((c, i) => `<button class="sw" style="background:${c};${c === '#FFFFFF' ? 'box-shadow:inset 0 0 0 2px var(--line)' : ''}" data-c="${c}" aria-label="${PAINT_NAMES[i]} crayon" aria-pressed="${c === crayon.c}"></button>`).join('')}</div>
             <div class="tools"><button class="tool size" data-z="2" aria-label="thin"><i style="width:6px;height:6px"></i></button><button class="tool size" data-z="4" aria-pressed="true" aria-label="medium"><i style="width:14px;height:14px"></i></button><button class="tool size" data-z="9" aria-label="thick"><i style="width:26px;height:26px"></i></button>
               <button class="tool" id="ssEr" aria-pressed="false">🧽 Eraser</button><button class="tool" id="ssClrD">🧹 Clear crayon</button></div></div>
         </div>

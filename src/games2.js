@@ -10,13 +10,13 @@ const vals = cs => cs.map(c => c.val);
 const range = (a, b, s = 1) => { const o = []; for (let v = a; v <= b; v += s) o.push(v); return o; };
 
 GAMES.push(
-  { id: 'fish', ico: '🎣', name: 'Gone Fishing', blurb: 'Catch the right fish', bg: '#1E88B8', pe: '🐟', n: 8, q: fishQ },
-  { id: 'pizza', ico: '🍕', name: 'Pizza Party', blurb: () => ageLvl() >= 3 ? 'Slice up fractions' : 'Share it fairly', bg: '#C8553D', pe: '🍕', n: 8, q: pizzaQ },
-  { id: 'feed', ico: '🥕', name: 'Feed the Animals', blurb: () => ageLvl() >= 3 ? 'Groups and times' : 'Give everyone the same', bg: '#4E9A2F', pe: '🥕', n: 8, q: feedQ },
+  { id: 'fish', ico: '🎣', name: 'Gone Fishing', blurb: 'Catch the right fish', bg: '#1C7DA9', pe: '🐟', n: 8, q: fishQ },
+  { id: 'pizza', ico: '🍕', name: 'Pizza Party', blurb: () => ageLvl() >= 3 ? 'Slice up fractions' : 'Share it fairly', bg: '#C2523B', pe: '🍕', n: 8, q: pizzaQ },
+  { id: 'feed', ico: '🥕', name: 'Feed the Animals', blurb: () => ageLvl() >= 3 ? 'Groups and times' : 'Give everyone the same', bg: '#428328', pe: '🥕', n: 8, q: feedQ },
   { id: 'rocket', ico: '🚀', name: 'Rocket Countdown', blurb: '3, 2, 1... blast off!', bg: '#3B2E7E', pe: '🌟', n: 8, q: rocketQ },
-  { id: 'target', ico: '🎯', name: 'Target Practice', blurb: 'Which is bigger?', bg: '#D94A6A', pe: '🎯', n: 10, q: targetQ },
+  { id: 'target', ico: '🎯', name: 'Target Practice', blurb: 'Which is bigger?', bg: '#CA4563', pe: '🎯', n: 10, q: targetQ },
   { id: 'bee', ico: '🐝', name: 'Bee Hive Pairs', blurb: 'Two that make the number', bg: 'var(--sun)', ink: 1, pe: '🍯', n: 8, q: beeQ },
-  { id: 'map', ico: '🏝️', name: 'Treasure Map', blurb: () => ageLvl() >= 4 ? 'Find (x, y)' : 'Follow the steps', bg: '#0F8F84', pe: '💰', n: 8, q: mapQ }
+  { id: 'map', ico: '🏝️', name: 'Treasure Map', blurb: () => ageLvl() >= 4 ? 'Find (x, y)' : 'Follow the steps', bg: '#0E8278', pe: '💰', n: 8, q: mapQ }
 );
 
 /* ---------- 8. Gone Fishing: fish swim back and forth, catch the one that fits ---------- */

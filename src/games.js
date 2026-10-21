@@ -5,12 +5,12 @@ const ageLvl = () => st.age <= 4 ? 0 : st.age <= 5 ? 1 : st.age <= 6 ? 2 : st.ag
 let gm = null, GAME_SECS = 60;
 const gLvl = () => clamp(gm.base + gm.boost, 0, 6);
 const GAMES = [
-  { id: 'balloon', ico: '🎈', name: 'Balloon Pop', blurb: 'Pop the right number', bg: 'var(--coral)', pe: '🎈', n: 10, q: balloonQ },
-  { id: 'frog', ico: '🐸', name: 'Frog Hop', blurb: 'Where will the frog land?', bg: 'var(--leaf)', pe: '🪷', n: 8, q: frogQ },
+  { id: 'balloon', ico: '🎈', name: 'Balloon Pop', blurb: 'Pop the right number', bg: 'var(--coral-deep)', pe: '🎈', n: 10, q: balloonQ },
+  { id: 'frog', ico: '🐸', name: 'Frog Hop', blurb: 'Where will the frog land?', bg: 'var(--leaf-deep)', pe: '🪷', n: 8, q: frogQ },
   { id: 'shop', ico: '🛒', name: "Owl's Shop", blurb: 'Pay with coins', bg: 'var(--sun)', ink: 1, pe: '🛍️', n: 8, q: shopQ },
   { id: 'memory', ico: '🃏', name: 'Memory Match', blurb: 'Flip and find pairs', bg: 'var(--grape)', pe: '🃏', start: memoryStart, result: memoryResult },
-  { id: 'tower', ico: '🧱', name: 'Build the Tower', blurb: 'Make 10 and more', bg: '#FF8A2B', pe: '🧱', n: 10, q: towerQ },
-  { id: 'train', ico: '🚂', name: 'Pattern Train', blurb: 'What comes next?', bg: 'var(--sky)', pe: '🚃', n: 8, q: trainQ },
+  { id: 'tower', ico: '🧱', name: 'Build the Tower', blurb: 'Make 10 and more', bg: 'var(--orange-deep)', pe: '🧱', n: 10, q: towerQ },
+  { id: 'train', ico: '🚂', name: 'Pattern Train', blurb: 'What comes next?', bg: 'var(--sky-deep)', pe: '🚃', n: 8, q: trainQ },
   { id: 'race', ico: '🦉', name: 'Beat the Owl', blurb: () => st.age >= 7 ? 'A 60-second race' : 'Race the owl, no rush', bg: 'var(--ink)', pe: '🏃', start: raceStart, q: raceQ, result: raceResult }
 ];
 
@@ -128,7 +128,7 @@ const ansChoices = (a, n) => a.ans > 20 ? nearBy(a.ans, [10, -10, 1, -1, 2, -2, 
 function balloonQ(d) {
   const a = gArith(d), ch = ansChoices(a, d <= 1 ? 4 : 5), cols = shuffle(COLORS);
   gFrame(`<div class="sky"><span class="cloud c1">☁️</span><span class="cloud c2">☁️</span>${ch.map((c, i) => `<button class="balloon gopt" data-v="${c.val}"${c.val === a.ans ? ' data-ok="1"' : ''}
-      style="--c:${cols[i % 6][0]};--t:${cols[i % 6][1] === 'yellow' ? 'var(--ink)' : '#fff'};--d:${(i * .12 + Math.random() * .2).toFixed(2)}s;--y:${rnd(0, 60)}px">${c.val}</button>`).join('')}</div>`,
+      style="--c:${cols[i % 6][0]};--t:${/yellow|orange/.test(cols[i % 6][1]) ? 'var(--ink)' : '#fff'};--d:${(i * .12 + Math.random() * .2).toFixed(2)}s;--y:${rnd(0, 60)}px">${c.val}</button>`).join('')}</div>`,
     a.find ? `Pop the <b class="gnum">${a.ans}</b>!` : `Pop <span class="gnum">${a.q}</span>`,
     a.find ? `Pop the balloon with ${a.ans}!` : `What is ${a.q}? Pop the balloon with the answer!`);
   view.querySelectorAll('.balloon').forEach(b => b.onclick = () => {

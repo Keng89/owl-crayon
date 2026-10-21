@@ -387,6 +387,7 @@ function finish() {
 
 /* ---------- Art School ---------- */
 const PAINT = ['#22305A', '#F2604F', '#FF8A2B', '#FFC23D', '#2FA36B', '#2E8BE6', '#6D55D1', '#F49AC1', '#8B5A2B', '#FFFFFF'];
+const PAINT_NAMES = ['dark blue', 'red', 'orange', 'yellow', 'green', 'blue', 'purple', 'pink', 'brown', 'white'];
 let canvasCleanup = null;
 function stopCanvas() { if (canvasCleanup) { canvasCleanup(); canvasCleanup = null; } }
 // Art School groups its many kinds so a child can find things: things to draw, ways to make art, and art skills.
@@ -405,11 +406,11 @@ function artHome() {
     <div class="tools-row">
       <button class="tool-tile" data-tool="free"><span class="ico">🖍️</span><b>Free draw</b><span>Any idea you like</span></button>
       <button class="tool-tile" data-tool="mandala" style="background:var(--grape);box-shadow:0 4px 0 #4B37A6"><span class="ico">🏵️</span><b>Mandala mode</b><span>Lines copy around</span></button>
-      <button class="tool-tile" data-tool="pixel" style="background:var(--sky);box-shadow:0 4px 0 #1D5FA0"><span class="ico">👾</span><b>Pixel art</b><span>Color the squares</span></button>
+      <button class="tool-tile" data-tool="pixel" style="background:var(--sky-deep);box-shadow:0 4px 0 #1D5FA0"><span class="ico">👾</span><b>Pixel art</b><span>Color the squares</span></button>
       <button class="tool-tile" data-tool="mix" style="background:var(--sun);color:var(--ink);box-shadow:0 4px 0 #C9921A"><span class="ico">🎨</span><b>Mix colors</b><span>Make new colors</span></button>
       <button class="tool-tile" data-tool="color" style="background:#F49AC1;color:var(--ink);box-shadow:0 4px 0 #C96E96"><span class="ico">🖌️</span><b>Coloring book</b><span>Tap to fill colors</span></button>
-      <button class="tool-tile" data-tool="scene" style="background:#FF8A2B;box-shadow:0 4px 0 #C4621A"><span class="ico">🏞️</span><b>Sticker scenes</b><span>Make a picture story</span></button>
-      <button class="tool-tile" data-tool="gal" style="background:var(--leaf);box-shadow:0 4px 0 #1D7A4E"><span class="ico">🖼️</span><b>My pictures</b><span>${gallery.length} saved</span></button>
+      <button class="tool-tile" data-tool="scene" style="background:var(--orange-deep);box-shadow:0 4px 0 #7F4413"><span class="ico">🏞️</span><b>Sticker scenes</b><span>Make a picture story</span></button>
+      <button class="tool-tile" data-tool="gal" style="background:var(--leaf-deep);box-shadow:0 4px 0 #1A6E46"><span class="ico">🖼️</span><b>My pictures</b><span>${gallery.length} saved</span></button>
     </div>
     <h3 class="section-title">Lessons <span class="tag">${Object.keys(st.art.done).length} of ${LESSONS.length} done</span></h3>
     ${ART_GROUPS.map(g => { const cs = ART_CATS.filter(c => artGroup(c.id) === g.id); return cs.length ? `<h3 class="section-title sub">${g.ico} ${g.name}</h3><div class="cats">${cs.map(c => { const ls = LESSONS.filter(l => l.cat === c.id), d = ls.filter(l => st.art.done[l.id]).length;
@@ -455,7 +456,7 @@ function drawLesson(id) {
   view.innerHTML = `${crumbs(`${ls.ico} ${ls.title}`)}
     <div class="lesson-view">
       <div class="guide-card"><span class="stepno" id="sn"></span><div id="gsvg"></div><p id="gt"></p><p class="note" id="gx"></p>
-        <div class="stepnav"><button class="btn alt" id="prev">◀</button><button class="speak" id="gspk" aria-label="Read it">🔊</button><button class="speak" id="gplay" aria-label="Show me again">✏️</button><button class="btn" id="next">Next ▶</button></div></div>
+        <div class="stepnav"><button class="btn alt" id="prev" aria-label="Back one step">◀</button><button class="speak" id="gspk" aria-label="Read it">🔊</button><button class="speak" id="gplay" aria-label="Show me again">✏️</button><button class="btn" id="next">Next ▶</button></div></div>
       <div class="studio" id="studio"></div>
     </div>`;
   wireBack(() => catView(ls.cat));
@@ -504,8 +505,8 @@ function freeDraw(sym = 0) {
 }
 // A drawing pad: transparent canvas over a white card, with optional trace layer and symmetry.
 function makePad(el, { square = false, sym = 0, extra = '' } = {}) {
-  el.innerHTML = `<div class="canvas-wrap${square ? ' sq' : ''}" id="cw"><div id="tr"></div><canvas id="cv"></canvas><div class="mirror-line" id="ml" hidden></div></div>
-    <div class="tools">${PAINT.map((c, i) => `<button class="sw" style="background:${c};${c === '#FFFFFF' ? 'box-shadow:inset 0 0 0 2px var(--line)' : ''}" data-c="${c}" aria-label="color" aria-pressed="${i === 0}"></button>`).join('')}</div>
+  el.innerHTML = `<div class="canvas-wrap${square ? ' sq' : ''}" id="cw"><div id="tr"></div><canvas id="cv" role="img" aria-label="Drawing pad: draw here with your finger"></canvas><div class="mirror-line" id="ml" hidden></div></div>
+    <div class="tools">${PAINT.map((c, i) => `<button class="sw" style="background:${c};${c === '#FFFFFF' ? 'box-shadow:inset 0 0 0 2px var(--line)' : ''}" data-c="${c}" aria-label="${PAINT_NAMES[i]}" aria-pressed="${i === 0}"></button>`).join('')}</div>
     <div class="tools">
       <button class="tool size" data-z="5" aria-label="thin"><i style="width:6px;height:6px"></i></button>
       <button class="tool size" data-z="12" aria-pressed="true" aria-label="medium"><i style="width:14px;height:14px"></i></button>
@@ -515,7 +516,7 @@ function makePad(el, { square = false, sym = 0, extra = '' } = {}) {
       ${extra}
       <button class="tool" id="und">↩️ Undo</button>
       <button class="tool" id="clr">🗑️ Clear</button>
-      <button class="tool" id="sav" style="background:var(--leaf);color:#fff">💾 Save</button></div>`;
+      <button class="tool" id="sav" style="background:var(--leaf-deep);color:#fff">💾 Save</button></div>`;
   const cw = el.querySelector('#cw'), cv = el.querySelector('#cv'), ctx = cv.getContext('2d');
   let color = PAINT[0], size = 12, eraser = false, drawing = false, last = null, dirty = false; const undo = [];
   const W = () => cw.getBoundingClientRect();

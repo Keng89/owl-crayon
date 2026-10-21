@@ -12,12 +12,12 @@ const PIPS = { 1: [4], 2: [0, 8], 3: [0, 4, 8], 4: [0, 2, 6, 8], 5: [0, 2, 4, 6,
 const dieHTML = (n, cls = '') => `<span class="g3die ${cls}" role="img" aria-label="${n}">${range(0, 8).map(i => `<i${PIPS[n].includes(i) ? ' class="on"' : ''}></i>`).join('')}</span>`;
 
 GAMES.push(
-  { id: 'snake', ico: '🎲', name: 'Snakes & Ladders', blurb: 'Roll, count and race the Owl', bg: '#2E9D5B', pe: '🎲', start: snakeStart, q: snakeQ, result: snakeResult },
-  { id: 'bakery', ico: '🧁', name: 'Bakery Orders', blurb: () => ageLvl() >= 3 ? 'Rows, boxes and fractions' : 'Fill the box just right', bg: '#E2558C', pe: '🧁', n: 8, q: bakeQ },
+  { id: 'snake', ico: '🎲', name: 'Snakes & Ladders', blurb: 'Roll, count and race the Owl', bg: '#27854D', pe: '🎲', start: snakeStart, q: snakeQ, result: snakeResult },
+  { id: 'bakery', ico: '🧁', name: 'Bakery Orders', blurb: () => ageLvl() >= 3 ? 'Rows, boxes and fractions' : 'Fill the box just right', bg: '#C24978', pe: '🧁', n: 8, q: bakeQ },
   { id: 'park', ico: '🚗', name: 'Parking Garage', blurb: () => ageLvl() >= 4 ? 'Round to park' : 'Park by number', bg: '#4A5A7A', pe: '🚗', n: 8, q: parkQ },
   { id: 'monster', ico: '👾', name: 'Hungry Monster', blurb: () => ageLvl() >= 2 ? 'Feed it what makes it true' : 'Feed it the bigger group', bg: '#7B4FD6', pe: '🍪', n: 8, q: monQ },
-  { id: 'bubble', ico: '🫧', name: 'Bubble Count', blurb: 'Look quick! How many?', bg: '#1FA2C8', pe: '🫧', n: 8, q: bubQ },
-  { id: 'sticker', ico: '📊', name: 'Sticker Sort', blurb: 'Sort them, then read the chart', bg: '#F07A2A', pe: '⭐', n: 6, q: stkQ },
+  { id: 'bubble', ico: '🫧', name: 'Bubble Count', blurb: 'Look quick! How many?', bg: '#187E9C', pe: '🫧', n: 8, q: bubQ },
+  { id: 'sticker', ico: '📊', name: 'Sticker Sort', blurb: 'Sort them, then read the chart', bg: '#B45B1F', pe: '⭐', n: 6, q: stkQ },
   { id: 'sudoku', ico: '🔎', name: 'Number Detective', blurb: () => ageLvl() >= 3 ? 'Sudoku and number riddles' : 'Fruit puzzles', bg: '#2D3F6E', pe: '🔎', n: 5, q: sdkQ }
 );
 

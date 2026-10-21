@@ -1,5 +1,7 @@
 /* ---------- players: each child has their own saved progress and pictures ---------- */
 const AVATARS = ['🦊', '🐼', '🐯', '🐸', '🦄', '🐙', '🐵', '🐨', '🐰', '🦁', '🐳', '🐞'];
+// Spoken names for the picture buttons, so a screen reader says "fox" rather than nothing useful.
+const AV_NAMES = { '🦊': 'fox', '🐼': 'panda', '🐯': 'tiger', '🐸': 'frog', '🦄': 'unicorn', '🐙': 'octopus', '🐵': 'monkey', '🐨': 'koala', '🐰': 'bunny', '🦁': 'lion', '🐳': 'whale', '🐞': 'ladybug' };
 function migrate(s) {
   for (const k in MATH) if (!s.skills[k]) s.skills[k] = { m: startMastery(k, s.age), seen: 0, hist: [], ms: 0 };
   s.art = s.art || { done: {}, pixel: 1, pixelDone: {} };
@@ -140,14 +142,14 @@ function playersPanel() {
       ${p.id === pid ? '' : `<button class="btn alt sm" data-switch="${p.id}">Switch</button>`}${profiles.length > 1 ? `<button class="btn alt sm" data-del="${p.id}">Remove</button>` : ''}</div>`).join('')}</div>
     <form id="addForm" class="add-player"><label class="field" for="npn">New player's name<input id="npn" autocomplete="off" required></label>
       <label class="field" for="npa">Age<input id="npa" type="number" min="3" max="16" value="5"></label>
-      <div class="avatars" role="group" aria-label="Picture">${AVATARS.map((a, i) => `<button type="button" class="av${i === profiles.length % AVATARS.length ? ' on' : ''}" data-av="${a}">${a}</button>`).join('')}</div>
+      <div class="avatars" role="group" aria-label="Picture">${AVATARS.map((a, i) => `<button type="button" class="av${i === profiles.length % AVATARS.length ? ' on' : ''}" data-av="${a}" aria-label="${AV_NAMES[a]}" aria-pressed="${i === profiles.length % AVATARS.length}">${a}</button>`).join('')}</div>
       <button class="btn leaf" type="submit">Add player</button></form></div>
   <div class="panel"><h2>Backup</h2><p class="note">Progress is saved on this tablet only. Save a backup file now and then (for example to Files or Google Drive), so nothing is lost if the browser is cleared or you get a new tablet.</p>
     <div class="row" style="justify-content:flex-start"><button class="btn" id="bk">Save a backup file</button><label class="btn alt" for="rs" style="cursor:pointer">Restore from a backup<input id="rs" type="file" accept="application/json,.json" hidden></label></div><p class="note" id="bkm" aria-live="polite"></p></div>`;
 }
 function wirePlayers() {
   let av = view.querySelector('.av.on')?.dataset.av || AVATARS[0];
-  view.querySelectorAll('[data-av]').forEach(b => b.onclick = () => { av = b.dataset.av; view.querySelectorAll('[data-av]').forEach(x => x.classList.toggle('on', x === b)); });
+  view.querySelectorAll('[data-av]').forEach(b => b.onclick = () => { av = b.dataset.av; view.querySelectorAll('[data-av]').forEach(x => { x.classList.toggle('on', x === b); x.setAttribute('aria-pressed', x === b); }); });
   view.querySelectorAll('[data-switch]').forEach(b => b.onclick = () => { loadProfile(b.dataset.switch); updateTop(); go(parent); });
   view.querySelectorAll('[data-del]').forEach(b => b.onclick = () => {
     if (b.dataset.armed !== '1') { b.dataset.armed = '1'; b.textContent = 'Tap again to remove'; return; }

@@ -148,10 +148,10 @@ const chartData = (n, max) => { const set = pick([CHART_SETS.slice(0, 4), CHART_
 
 /* --- worlds --- */
 const WORLDS = [
-  { id: 'seed', name: 'Seedling Hill', ico: '🌱', ages: '3–5', color: 'var(--leaf)' },
-  { id: 'sprout', name: 'Sprout Valley', ico: '🌿', ages: '5–7', color: 'var(--sky)' },
+  { id: 'seed', name: 'Seedling Hill', ico: '🌱', ages: '3–5', color: 'var(--leaf-deep)' },
+  { id: 'sprout', name: 'Sprout Valley', ico: '🌿', ages: '5–7', color: 'var(--sky-deep)' },
   { id: 'tree', name: 'Treetop Town', ico: '🌳', ages: '7–9', color: 'var(--grape)' },
-  { id: 'forest', name: 'Deep Forest', ico: '🌲', ages: '9–11', color: 'var(--coral)' },
+  { id: 'forest', name: 'Deep Forest', ico: '🌲', ages: '9–11', color: 'var(--coral-deep)' },
   { id: 'peak', name: 'Mountain Peak', ico: '⛰️', ages: '11+', color: 'var(--ink)' }
 ];
 
