@@ -196,7 +196,8 @@ function addStars(n) { st.stars += n; dayLog('stars', n); gainXP(n); bumpStreak(
 const view = document.getElementById('view');
 const $ = s => view.querySelector(s);
 function updateTop() { document.getElementById('starCount').textContent = st.stars; document.getElementById('streakCount').textContent = st.streak.n; const w = document.getElementById('whoBtn'); w.textContent = (profileOf(pid) || profiles[0]).avatar; w.setAttribute('aria-label', `Player: ${st.name || 'Player'}. Tap to switch`); }
-function go(fn, ...a) { try { speechSynthesis.cancel(); } catch (e) {} stopCanvas(); view.innerHTML = ''; window.scrollTo(0, 0); fn(...a); }
+let navId = 0;
+function go(fn, ...a) { navId++; try { speechSynthesis.cancel(); } catch (e) {} stopCanvas(); view.innerHTML = ''; window.scrollTo(0, 0); fn(...a); }
 document.getElementById('homeBtn').onclick = () => go(home);
 document.getElementById('whoBtn').onclick = () => go(whoView);
 document.getElementById('readBtn').onclick = () => say(screenText || document.getElementById('view').innerText.slice(0, 400));
@@ -362,7 +363,7 @@ function question() {
       const words = first ? pick(['Great job!', 'You got it!', 'Super!', 'Yes!', 'Brilliant!']) : 'Now you know it!';
       $('#cheer').textContent = words + ' ⭐'.repeat(earned); yay(); say(words);
       save();
-      setTimeout(() => { sess.i++; sess.i < sess.plan.length ? question() : finish(); }, first ? 1300 : 2200);
+      const nav = navId; setTimeout(() => { if (nav !== navId) return; sess.i++; sess.i < sess.plan.length ? question() : finish(); }, first ? 1300 : 2200);
     } else {
       tries++; b.classList.add('wrong'); b.disabled = true; oops();
       if (tries === 1) { learn(skill, false, Date.now() - t0); if (!item.review) addReview(skill, q); save(); }
@@ -391,6 +392,7 @@ function finish() {
 const PAINT = ['#22305A', '#F2604F', '#FF8A2B', '#FFC23D', '#2FA36B', '#2E8BE6', '#6D55D1', '#F49AC1', '#8B5A2B', '#FFFFFF'];
 const PAINT_NAMES = ['dark blue', 'red', 'orange', 'yellow', 'green', 'blue', 'purple', 'pink', 'brown', 'white'];
 let canvasCleanup = null;
+let livePad = null; // the pad on screen, so the play timer can save a drawing before "All done for today"
 function stopCanvas() { if (canvasCleanup) { canvasCleanup(); canvasCleanup = null; } }
 // Art School groups its many kinds so a child can find things: things to draw, ways to make art, and art skills.
 const ART_GROUPS = [
@@ -563,7 +565,7 @@ function makePad(el, { square = false, sym = 0, extra = '' } = {}) {
     if (cheer) { questTick('art'); dayLog('art'); addStars(1); confetti(20); yay(); say('Saved to your pictures! You earned a star.'); }
   }
   el.querySelector('#sav').onclick = () => savePic(true);
-  return { setTrace: svg => { el.querySelector('#tr').innerHTML = svg; }, save: savePic, drawn: () => dirty };
+  return (livePad = { setTrace: svg => { el.querySelector('#tr').innerHTML = svg; }, save: savePic, drawn: () => dirty, cv });
 }
 const MIXES = { 'red+yellow': ['#FF8A2B', 'orange'], 'blue+yellow': ['#2FA36B', 'green'], 'blue+red': ['#6D55D1', 'purple'], 'red+white': ['#F49AC1', 'pink'], 'blue+white': ['#8EC5F5', 'light blue'], 'white+yellow': ['#FFE79A', 'light yellow'], 'black+red': ['#8E2A20', 'dark red'], 'black+blue': ['#123E6E', 'navy blue'], 'black+white': ['#9AA0A8', 'grey'], 'black+yellow': ['#7A7A1E', 'olive'] };
 const BASE = { red: '#F2604F', yellow: '#FFC23D', blue: '#2E8BE6', white: '#FFFFFF', black: '#22252B' };
@@ -820,11 +822,11 @@ function owl() {
 function logMiss(q, why) { if (!st.owlMisses.some(m => m.q === q)) st.owlMisses.unshift({ q, why, at: today() }); st.owlMisses = st.owlMisses.slice(0, 40); save(); }
 
 /* ---------- grown-ups corner ---------- */
-function gate() {
-  const a = rnd(6, 9), b = rnd(6, 9);
-  view.innerHTML = `<div class="panel" style="max-width:520px"><h2>For grown-ups</h2><p class="note">Answer to continue: what is ${a} × ${b}?</p>
+function gate(onPass, box = view) {
+  const a = rnd(6, 9), b = rnd(6, 9), $ = s => box.querySelector(s);
+  box.innerHTML = `<div class="panel" style="max-width:520px"><h2>For grown-ups</h2><p class="note">Answer to continue: what is ${a} × ${b}?</p>
     <form id="gf" class="ask"><input id="ga" inputmode="numeric" aria-label="Answer" autocomplete="off"><button class="btn" type="submit">Go</button></form><p class="note" id="gm"></p></div>`;
-  $('#gf').onsubmit = e => { e.preventDefault(); +$('#ga').value === a * b ? go(parent) : ($('#gm').textContent = 'Not quite. Try again.'); };
+  $('#gf').onsubmit = e => { e.preventDefault(); +$('#ga').value === a * b ? (onPass ? onPass() : go(parent)) : ($('#gm').textContent = 'Not quite. Try again.'); };
 }
 function parent() {
   const rows = WORLDS.map((w, wi) => `<tr><th colspan="6" style="padding-top:16px">${w.ico} ${w.name} (ages ${w.ages})${worldOpen(wi) ? '' : ' · locked'}</th></tr>` + worldSkills(wi).map(s => { const k = s.id, x = st.skills[k], a = acc(k);
@@ -832,6 +834,7 @@ function parent() {
   const artDone = [1, 2, 3].map(lv => `${LEVEL_NAMES[lv]}: ${LESSONS.filter(l => l.level === lv && st.art.done[l.id]).length} of ${LESSONS.filter(l => l.level === lv).length}`).join(' · ');
   view.innerHTML = `<h1 style="font-size:36px">Grown-ups corner</h1><p class="note">Showing ${profileOf(pid).avatar} ${esc(st.name || 'Player')}. Switch players under Players below.</p>
     ${tour.panel()}
+    ${timer.panel()}
     ${weekPanel()}
     <div class="panel"><h2>Math progress</h2><p class="note">Each topic has 5 levels. It gets harder after answers that are right on the first try, and easier after mistakes. Missed questions come back for review after 1, 2, 4, 8 and 16 days. ${st.review.length} questions are in review, ${dueReviews().length} due today. A new world opens when your child reaches 50% in the world before it.</p>
       <div class="wide"><table class="ptable"><thead><tr><th>Topic</th><th>Level</th><th>Mastery</th><th>Right first try (last 20)</th><th>Avg time</th><th>Answered</th></tr></thead><tbody>${rows}</tbody></table></div></div>
@@ -863,7 +866,7 @@ function parent() {
     const i = +b.dataset.teach, ans = $('#t' + i).value.trim(); if (!ans) return;
     owlForget(st.owlMisses[i].q); st.owlTaught.push({ q: st.owlMisses[i].q, a: ans }); st.owlMisses.splice(i, 1); save(); go(parent);
   });
-  wirePlayers(); tour.wire();
+  wirePlayers(); tour.wire(); timer.wire();
   $('#oSave').onclick = () => {
     const cfg = { url: $('#ou').value.trim(), code: $('#oc').value.trim(), on: $('#oo').checked }, m = $('#om');
     if (cfg.url && !/^https:\/\//.test(cfg.url)) { m.textContent = 'The address must start with https://'; return; }
@@ -895,6 +898,7 @@ function parent() {
 //@include scenes.js
 //@include shapes.js
 //@include tour.js
+//@include timer.js
 
 /* ---------- start ---------- */
 updateTop();

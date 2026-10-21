@@ -66,3 +66,5 @@ None of this sends data anywhere. Progress lives in the browser on that device.
 **2026-10-21 polish.** Owl's Quest story riddles per chapter (paw prints, firefly jars, castle shapes), 10 art lessons redrawn (T-rex, triceratops, dragon, shadow dog, tessellation, lake, landscape...), a first-run welcome tour per player (src/tour.js) and a "What's inside" guide in Grown-ups corner. Test t26.
 
 **2026-10-21 shape puzzles.** src/shapes.js: 27 picture puzzles (11 easy, 8 medium, 8 classic 7-piece tangrams) opened from Art School and the Number Garden; drag shapes into the outline, turn/flip, hints, a shape tally at the end. Test t27.
+
+**2026-10-21 play time.** src/timer.js: per-player daily play limit and wiggle-break reminders set in Grown-ups corner (off by default), 7-day minutes chart, calm "All done for today" screen unlocked by a grown-up. Test t28. Also fixed a question auto-advance that could redraw over a screen the child had just left.

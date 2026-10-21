@@ -143,7 +143,8 @@ const tour = (() => {
         'The yellow suggestion on the home screen picks a review, an art lesson, or the topic that is "just right" (not too easy, not too hard).'])}</div>
       <div class="panel"><h2>📊 Progress and backup</h2>${li([
         'In the Grown-ups corner: <b>This week</b> (days played, stars, first-try %), <b>Math progress</b> per topic, <b>Art progress</b>, <b>Teach Owl</b>.',
-        'Progress is saved only on this device. Use <b>Backup</b> (under Players) to save a file now and then, and to restore it on a new device.'])}</div>
+        'Progress is saved only on this device. Use <b>Backup</b> (under Players) to save a file now and then, and to restore it on a new device.',
+        '<b>⏰ Play time</b>: minutes played each day per player, with an optional daily limit and wiggle-break reminders. Off unless you turn them on.'])}</div>
       <div class="panel wt-tips"><h2>⏱️ A first 15 minutes with a 5-year-old</h2>
         <ol class="wt-list">
           <li><b>0–2 min:</b> Sit together, sound up. Let your child do the tapping. Watch Owl's welcome tour (you can replay it).</li>
