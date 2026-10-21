@@ -73,4 +73,4 @@ None of this sends data anywhere. Progress lives in the browser on that device.
 
 **2026-10-21 flipbook.** src/flipbook.js: draw 2–12 frames with onion skin, play/bounce at 3 speeds, 8 guided animation lessons (bouncing ball, blinking eyes, rocket...), saved flipbooks play in My pictures. Removing a player now also clears their flipbooks, quest drawings, scene draft and play-time record. Test t30.
 
-**2026-10-21 math pictures.** 34 topics gained setup pictures (number bonds, bar models, number lines, place value, angle and percent diagrams, ratio bars); questions with no picture fell from 38% to 18%.
+**2026-10-21 math pictures.** 34 topics gained setup pictures (number bonds, bar models, number lines, place value, angle and percent diagrams, ratio bars); questions with no picture fell from 38% to 18%, then to 5% after a second pass over the older-kid topics (powers, probability, stats, algebra...).
