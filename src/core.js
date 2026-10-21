@@ -248,6 +248,7 @@ function mathHome() {
   view.innerHTML = `${crumbs('Number Garden')}
     <button class="pick" id="wr"><span class="big">✏️</span><span><b>Write numbers</b>Trace 0 to 20 with your finger</span></button>
     <button class="pick" id="gm" style="background:var(--grape);color:#fff"><span class="big">🎮</span><span><b>Math games</b>Pop, hop, shop and race with numbers</span></button>
+    <button class="pick" id="sp" style="background:#1D7C82;color:#fff;border-color:#135A5F"><span class="big">🔺</span><span><b>Shape puzzles</b>Build pictures with triangles, squares and circles</span></button>
     ${due ? `<button class="pick" id="rev"><span class="big">🔁</span><span><b>Practise again</b>${due} question${due > 1 ? 's' : ''} you missed before</span></button>` : ''}
     <div class="worlds">${WORLDS.map((w, i) => { const open = worldOpen(i), m = Math.round(worldMastery(i) * 100);
       return `<button class="world${open ? '' : ' locked'}" data-w="${i}" style="background:${w.color}" ${open ? '' : 'aria-disabled="true"'}>
@@ -258,6 +259,7 @@ function mathHome() {
   if (due) $('#rev').onclick = () => go(play, 'review');
   $('#wr').onclick = () => go(writeHome);
   $('#gm').onclick = () => go(gamesHome);
+  $('#sp').onclick = () => go(shapeHome, 'math');
   view.querySelectorAll('[data-w]').forEach(b => b.onclick = () => { const w = +b.dataset.w; if (worldOpen(w)) go(worldView, w); else say('Keep playing the world before to open this one!'); });
 }
 function worldView(w) {
@@ -410,6 +412,7 @@ function artHome() {
       <button class="tool-tile" data-tool="mix" style="background:var(--sun);color:var(--ink);box-shadow:0 4px 0 #C9921A"><span class="ico">🎨</span><b>Mix colors</b><span>Make new colors</span></button>
       <button class="tool-tile" data-tool="color" style="background:#F49AC1;color:var(--ink);box-shadow:0 4px 0 #C96E96"><span class="ico">🖌️</span><b>Coloring book</b><span>Tap to fill colors</span></button>
       <button class="tool-tile" data-tool="scene" style="background:var(--orange-deep);box-shadow:0 4px 0 #7F4413"><span class="ico">🏞️</span><b>Sticker scenes</b><span>Make a picture story</span></button>
+      <button class="tool-tile" data-tool="shapes" style="background:#1D7C82;box-shadow:0 4px 0 #135A5F"><span class="ico">🔺</span><b>Shape puzzles</b><span>Build with shapes</span></button>
       <button class="tool-tile" data-tool="gal" style="background:var(--leaf-deep);box-shadow:0 4px 0 #1A6E46"><span class="ico">🖼️</span><b>My pictures</b><span>${gallery.length} saved</span></button>
     </div>
     <h3 class="section-title">Lessons <span class="tag">${Object.keys(st.art.done).length} of ${LESSONS.length} done</span></h3>
@@ -418,7 +421,7 @@ function artHome() {
   wireBack(home);
   sayScreen('Welcome to Art School! Pick a lesson or a tool.');
   if (nl) $('#nextL').onclick = () => go(drawLesson, nl.id);
-  view.querySelectorAll('[data-tool]').forEach(b => b.onclick = () => { const t = b.dataset.tool; go(t === 'free' ? freeDraw : t === 'mandala' ? () => freeDraw(8) : t === 'pixel' ? pixelHome : t === 'mix' ? mixTab : t === 'color' ? colorHome : t === 'scene' ? sceneHome : galTab); });
+  view.querySelectorAll('[data-tool]').forEach(b => b.onclick = () => { const t = b.dataset.tool; go(t === 'free' ? freeDraw : t === 'mandala' ? () => freeDraw(8) : t === 'pixel' ? pixelHome : t === 'mix' ? mixTab : t === 'color' ? colorHome : t === 'scene' ? sceneHome : t === 'shapes' ? shapeHome : galTab); });
   view.querySelectorAll('[data-cat]').forEach(b => b.onclick = () => go(catView, b.dataset.cat));
 }
 function catView(cid) {
@@ -890,12 +893,13 @@ function parent() {
 //@include story.js
 //@include coloring.js
 //@include scenes.js
+//@include shapes.js
 //@include tour.js
 
 /* ---------- start ---------- */
 updateTop();
 go(profiles.length > 1 ? whoView : home);
-if (location.hash === "#selftest") window.__owl = { MATH, LESSONS, lessonSVG, PICS, get st() { return st; }, get profiles() { return profiles; }, quest, questTick, gainXP, petStage, go, home, mathHome, artHome, catView, drawLesson, gamesHome, ART_CATS, lessonView, play, speakable, storyHome, colorHome, sceneHome };
+if (location.hash === "#selftest") window.__owl = { MATH, LESSONS, lessonSVG, PICS, get st() { return st; }, get profiles() { return profiles; }, quest, questTick, gainXP, petStage, go, home, mathHome, artHome, catView, drawLesson, gamesHome, ART_CATS, lessonView, play, speakable, storyHome, colorHome, sceneHome, shapeHome };
 if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) {
   try {
     // A new version installs in the background; offer a tap to switch rather than reloading mid-game.

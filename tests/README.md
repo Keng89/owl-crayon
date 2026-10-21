@@ -22,3 +22,4 @@ Serve the app first: `python3 -m http.server 8766` from the repo root. Then run 
 - `t24.js`: fills every shape on all 26 coloring pages, color-by-number right and wrong, Magic help, undo, save and reload.
 - `t25.js`: sticker scenes: all 15 places, dragging by mouse and touch, edit buttons, crayon, story box, save, and every counting game.
 - `t26.js`: welcome tour for new players (steps, skip, once per player, replay) and the "What's inside" page for grown-ups.
+- `t27.js`: shape puzzles: every easy puzzle by real drags, medium and tricky with turn and flip, wrong drops, stars once, saved progress.
