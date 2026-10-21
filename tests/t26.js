@@ -1,5 +1,5 @@
 // Welcome tour and "What's inside": on a phone and a tablet, forces the first-run tour (tests normally skip it),
-// steps through all 5 cards (each rings a real home tile, the card never covers it), checks it shows only once per
+// steps through all 6 cards (each rings a real home tile, the card never covers it), checks it shows only once per
 // player (also after a reload), skips it for a second new player, replays it from the Grown-ups corner, and opens
 // "What's inside" (its counts match the app's data). The tablet run has no speech at all, to prove the tour never
 // waits on it. Also checks the tour stays away in plain #selftest runs. Screenshots go to SHOTS (default: current folder).
@@ -37,7 +37,7 @@ async function run(b, vp, noSpeech, errs) {
   // 1. first run: the tour starts by itself on the home screen
   await p.waitForSelector('.wt .wt-card', { timeout: 4000 });
   const sels = await p.evaluate(() => window.__tour.steps().map(s => s.sel));
-  if (sels.length < 4 || sels.length > 5) errs.push(`${tag}: ${sels.length} tour cards`);
+  if (sels.length < 4 || sels.length > 6) errs.push(`${tag}: ${sels.length} tour cards`);
   for (const need of ['#tMath', '#tArt', '#tQuest', '.quest']) if (!sels.includes(need)) errs.push(`${tag}: tour never points at ${need}`);
   // a tap outside the card does nothing (no tile opens behind the shade)
   const mb = await (await p.$('#tMath')).boundingBox();

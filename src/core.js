@@ -226,6 +226,7 @@ function home() {
       <button class="tile t-art" id="tArt"><span class="big">🖍️</span><span><h2>Art School</h2><p>Step-by-step drawing and more</p></span></button>
       <button class="tile t-quest" id="tQuest"><span class="big">🗺️</span><span><h2>Owl's Quest</h2><p>A story adventure with math and art</p></span></button>
       <button class="tile t-owl" id="tOwl"><span class="big">🦉</span><span><h2>Ask Owl</h2><p>Ask me anything!</p></span></button>
+      <button class="tile t-world" id="tWorld"><span class="big">🌍</span><span><h2>My World</h2><p>Spend your stars on lands, houses and animals</p></span><span class="tw-wallet">⭐ ${worldHome.wallet()} to spend</span><span class="tw-deco" aria-hidden="true">🐄🌳🏡🐧🌈</span></button>
     </div>
     <h3 class="section-title">My stickers <span class="tag">every 10 ⭐</span><button class="tag badge-link" id="badgesBtn">🏅 Badges ${Object.keys(st.badges || {}).length}/${BADGES.length}</button></h3>
     <div class="stickers">${stickers.length ? stickers.map(s => `<span>${s}</span>`).join('') : '<span class="empty">Earn 10 stars to get your first sticker.</span>'}</div>
@@ -238,6 +239,7 @@ function home() {
   $('#tArt').onclick = () => go(artHome);
   $('#tOwl').onclick = () => go(owl);
   $('#tQuest').onclick = () => go(storyHome);
+  $('#tWorld').onclick = () => go(worldHome);
   $('#parent').onclick = () => go(gate);
   $('#pick').onclick = () => p.kind === 'review' ? go(play, 'review') : p.kind === 'lesson' ? go(drawLesson, p.id) : go(startSkill, p.skill);
   tour.maybe();
@@ -903,13 +905,14 @@ function parent() {
 //@include scenes.js
 //@include shapes.js
 //@include flipbook.js
+//@include world.js
 //@include tour.js
 //@include timer.js
 
 /* ---------- start ---------- */
 updateTop();
 go(profiles.length > 1 ? whoView : home);
-if (location.hash === "#selftest") window.__owl = { MATH, LESSONS, lessonSVG, PICS, get st() { return st; }, get profiles() { return profiles; }, quest, questTick, gainXP, petStage, go, home, mathHome, artHome, catView, drawLesson, gamesHome, ART_CATS, lessonView, play, speakable, storyHome, colorHome, sceneHome, shapeHome, flipHome, galTab };
+if (location.hash === "#selftest") window.__owl = { MATH, LESSONS, lessonSVG, PICS, get st() { return st; }, get profiles() { return profiles; }, quest, questTick, gainXP, petStage, go, home, mathHome, artHome, catView, drawLesson, gamesHome, ART_CATS, lessonView, play, speakable, storyHome, colorHome, sceneHome, shapeHome, flipHome, galTab, worldHome };
 if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) {
   try {
     // A new version installs in the background; offer a tap to switch rather than reloading mid-game.
