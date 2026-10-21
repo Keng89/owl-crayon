@@ -971,3 +971,281 @@ S4('nthterm', 4, 'Pattern rules', '🧱', [
     steps: k === 'total' ? [`The whole square is (n + 2) tiles wide: ${N + 2} for pattern ${N}.`, `Tiles altogether = (n + 2)² = ${N + 2} × ${N + 2} = ${tot}.`, `Check: ${green} green + ${border} grey (4n + 4) = ${tot}.`] : [`Pattern n is an n × n square of green tiles.`, `${N} × ${N} = ${green}.`], explainText: `${ans} tiles.` });
 });
 })();
+
+/* ---------- setup pictures for topics that were words only ----------
+   Each wrapper only fills q.visual when the question has none; answers and choices are never touched.
+   Pictures show the set-up and put '?' where the answer goes. */
+(() => {
+  const QC = '#F2604F', BL = '#9CC9F2', YE = '#FFD98A', PK = '#F7B9AE', GR = '#A8E0C2';
+  const num = s => +String(s).replace(/−/g, '-').replace(/,/g, '');
+  const plain = h => String(h).replace(/<span class="frac"><i>(.*?)<\/i><i>(.*?)<\/i><\/span>/g, '$1/$2').replace(/<sup>(.*?)<\/sup>/g, '^$1').replace(/<br\s*\/?>/g, ' | ').replace(/<[^>]+>/g, ' ').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim();
+  const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  const tw = (s, k = 9) => [...String(s)].length * k;
+  const W = (id, fn) => { const g = MATH[id].gen; MATH[id].gen = L => { const q = g(L); if (!q.visual || !String(q.visual).trim()) { try { const v = fn(plain(q.prompt), L, q); if (v) q.visual = v; } catch (e) { /* keep words only */ } } return q; }; };
+  const pill = (x, y, s, o = {}) => { const w = Math.max(o.min || 34, tw(s, o.k || 9.5) + 16), h = o.h || 30, q = s === '?'; return `<rect x="${+(x - w / 2).toFixed(1)}" y="${y - h / 2}" width="${+w.toFixed(1)}" height="${h}" rx="9" fill="${q ? '#fff' : o.fill || '#D9EBFC'}" stroke="${INK}" stroke-width="2"${q ? ' stroke-dasharray="5 4"' : ''}/>${tx(x, y + 5.5, esc(s), { size: o.size || 16, fill: q ? QC : INK })}`; };
+  // A row of boxes joined by arrows, each arrow labelled with what to do: [box, op, box, op, box ...]
+  function flow(items, label = 'steps') {
+    const ws = items.map((s, i) => i % 2 ? Math.max(46, tw(s, 8.5) + 14) : Math.max(40, tw(s, 9.5) + 18)); let x = 4, g = '';
+    items.forEach((s, i) => { const w = ws[i];
+      if (i % 2) g += `<line x1="${x + 3}" y1="44" x2="${x + w - 7}" y2="44" stroke="#2E8BE6" stroke-width="2.5"/><path d="M${x + w - 12} 38 L${x + w - 4} 44 L${x + w - 12} 50" fill="none" stroke="#2E8BE6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>${tx(x + w / 2, 30, esc(s), { size: 14, fill: '#2E8BE6' })}`;
+      else g += pill(x + w / 2, 44, s, { min: w }); x += w; });
+    return svgBox(`0 0 ${Math.max(x + 4, 120).toFixed(0)} 66`, g, label, true);
+  }
+  // Square made of n × n little squares: sides and inside labels.
+  function sqPic(n, side, inside) {
+    const S = 132, c = S / n; let g = `<rect x="44" y="8" width="${S}" height="${S}" fill="#D9EBFC" stroke="${INK}" stroke-width="2.5"/>`;
+    if (n <= 15) for (let i = 1; i < n; i++) g += `<line x1="${44 + i * c}" y1="8" x2="${44 + i * c}" y2="${8 + S}" stroke="#9FB3C8" stroke-width="1"/><line x1="44" y1="${8 + i * c}" x2="${44 + S}" y2="${8 + i * c}" stroke="#9FB3C8" stroke-width="1"/>`;
+    g += pill(110, 74, inside, { size: 18 }) + tx(110, 162, side, { size: 17, fill: side === '?' ? QC : INK }) + tx(36, 80, side, { size: 17, anchor: 'end', fill: side === '?' ? QC : INK });
+    return svgBox('0 0 200 170', g, `square ${side} by ${side}`, true);
+  }
+  // Rectangle with an area written inside and unknown sides.
+  const areaRect = n => svgBox('0 0 240 130', `<rect x="40" y="10" width="170" height="90" rx="4" fill="#FFF1CC" stroke="${INK}" stroke-width="2.5"/>${tx(125, 52, 'area', { size: 13, fill: '#5A678C' })}${tx(125, 74, n, { size: 22 })}${tx(125, 122, '?', { size: 18, fill: QC })}${tx(30, 61, '?', { size: 18, fill: QC, anchor: 'end' })}`, `rectangle with area ${n}, sides unknown`, true);
+  // Factor tree: n splits into two unknown factors.
+  const tree = n => svgBox('0 0 200 120', `<line x1="100" y1="30" x2="54" y2="90" stroke="${INK}" stroke-width="2.5"/><line x1="100" y1="30" x2="146" y2="90" stroke="${INK}" stroke-width="2.5"/>${pill(100, 28, String(n), { size: 18, fill: YE })}${pill(54, 92, '?')}${pill(146, 92, '?')}${tx(100, 98, '×', { size: 18 })}`, `factor tree for ${n}`, true);
+  // b × b × … × b, e of them.
+  function chain(b, e) {
+    const show = e <= 5 ? Array(e).fill(String(b)) : [b, b, b, '…', b].map(String); let x = 10, g = '';
+    show.forEach((s, i) => { if (i) { g += tx(x + 8, 42, '×', { size: 18 }); x += 18; } if (s === '…') { g += tx(x + 12, 42, '…', { size: 20 }); x += 24; } else { g += `<circle cx="${x + 17}" cy="36" r="17" fill="${YE}" stroke="${INK}" stroke-width="2"/>${tx(x + 17, 42, s, { size: 16 })}`; x += 34; } });
+    g += `<path d="M12 62 V70 H${x - 2} V62" fill="none" stroke="${INK}" stroke-width="2"/>${tx((x + 10) / 2, 90, `${e} of them`, { size: 14, fill: '#5A678C' })}${pill(x + 38, 36, '?', { min: 34 })}${tx(x + 12, 42, '=', { size: 18 })}`;
+    return svgBox(`0 0 ${x + 62} 98`, g, `${b} multiplied ${e} times`, true);
+  }
+  // a^m × a^n or a^m ÷ a^n as tiles.
+  function powTiles(m, n, op) {
+    const tile = (x, y, c) => `<rect x="${x}" y="${y}" width="24" height="26" rx="5" fill="${c}" stroke="${INK}" stroke-width="1.6"/>${tx(x + 12, y + 18, 'a', { size: 15 })}`; let g = '';
+    if (op === '×') { const w = Math.max(m, n) * 27 + 34; for (let i = 0; i < m; i++) g += tile(30 + i * 27, 6, BL); g += tx(14, 66, '×', { size: 20 }); for (let i = 0; i < n; i++) g += tile(30 + i * 27, 46, PK);
+      g += tx(w + 10, 46, '= a', { size: 16, anchor: 'start' }) + tx(w + 42, 37, '?', { size: 16, fill: QC, anchor: 'start' });
+      return svgBox(`0 0 ${w + 58} 78`, g, `a to the ${m} times a to the ${n}`, true); }
+    const w = Math.max(m, n) * 27 + 10; for (let i = 0; i < m; i++) g += tile(8 + i * 27, 6, BL); g += `<line x1="4" y1="40" x2="${w}" y2="40" stroke="${INK}" stroke-width="2.5"/>`; for (let i = 0; i < n; i++) g += tile(8 + i * 27, 46, PK);
+    g += tx(w + 10, 46, '= a', { size: 16, anchor: 'start' }) + tx(w + 42, 37, '?', { size: 16, fill: QC, anchor: 'start' });
+    return svgBox(`0 0 ${w + 58} 78`, g, `a to the ${m} divided by a to the ${n}`, true);
+  }
+  // Two overlapping circles: what is in both?
+  const venn = (a, b, what) => svgBox('0 0 280 140', `<circle cx="105" cy="74" r="58" fill="${BL}" fill-opacity=".55" stroke="${INK}" stroke-width="2"/><circle cx="175" cy="74" r="58" fill="${PK}" fill-opacity=".55" stroke="${INK}" stroke-width="2"/>${tx(78, 80, a, { size: 20 })}${tx(202, 80, b, { size: 20 })}${tx(140, 82, '?', { size: 22, fill: QC })}${tx(70, 12, `${what} of ${a}`, { size: 12, fill: '#5A678C' })}${tx(210, 12, `${what} of ${b}`, { size: 12, fill: '#5A678C' })}`, `${what} of ${a} and of ${b}: which are in both?`, true);
+  // Rods of length a and b laid end to end: where do the two rows first line up?
+  function rods(a, b) {
+    const k = 210 / (3 * Math.max(a, b)); let g = '';
+    [[a, BL, 14], [b, PK, 60]].forEach(([v, c, y]) => { for (let i = 0; i < 3; i++) g += `<rect x="${34 + i * v * k}" y="${y}" width="${v * k}" height="30" fill="${c}" stroke="${INK}" stroke-width="2"/>${tx(34 + (i + .5) * v * k, y + 20, v, { size: v * k > 22 ? 14 : 11 })}`; g += tx(34 + 3 * v * k + 6, y + 21, '…', { size: 16, anchor: 'start' }); g += tx(26, y + 21, v, { size: 14, anchor: 'end', fill: '#5A678C' }); });
+    return svgBox('0 0 300 112', g + tx(280, 106, 'meet at ?', { size: 13, anchor: 'end', fill: QC }), `rods of ${a} and of ${b}`, true);
+  }
+  // Place-value strip with the digits of a number and an arrow showing how far they move.
+  const PLN = p => p >= 0 ? ['1', '10', '100', '1k', '10k', '100k', '1M', '10M', '100M', '1B'][p] : '.' + '0'.repeat(-p - 1) + '1';
+  function shiftPic(numStr, from, to, lab) {
+    const s = String(numStr).replace(/,/g, ''), [ip, fp = ''] = s.split('.'), digs = []; [...ip].forEach((d, i) => digs.push([ip.length - 1 - i, d])); [...fp].forEach((d, i) => digs.push([-1 - i, d]));
+    const ps = digs.map(d => d[0]).concat([0, from, to]), hi = Math.max(...ps), lo = Math.min(...ps), n = hi - lo + 1, cw = Math.min(28, 280 / n), VW = Math.max(300, 20 + n * cw), X = p => (VW - n * cw) / 2 + (hi - p) * cw; let g = '';
+    for (let p = hi; p >= lo; p--) g += `<rect x="${X(p)}" y="22" width="${cw}" height="32" fill="${p === 0 ? '#FFF1CC' : '#fff'}" stroke="#9FB3C8" stroke-width="1.2"/>${tx(X(p) + cw / 2, 15, PLN(p), { size: cw < 24 ? 8.5 : 10, fill: '#5A678C' })}`;
+    digs.forEach(([p, d]) => g += tx(X(p) + cw / 2, 45, d, { size: 17 }));
+    g += `<circle cx="${X(0) + cw}" cy="54" r="3.2" fill="${INK}"/>`;
+    const xa = X(from) + cw / 2, xb = X(to) + cw / 2, dir = xb < xa ? -1 : 1;
+    g += `<path d="M${xa} 62 Q${(xa + xb) / 2} 84 ${xb} 62" fill="none" stroke="${QC}" stroke-width="2.5"/><path d="M${xb - 6 * dir} 64 L${xb} 62 L${xb - 1 * dir} 69" fill="none" stroke="${QC}" stroke-width="2.5" stroke-linecap="round"/>${tx((xa + xb) / 2, 96, lab, { size: 13, fill: QC })}`;
+    return svgBox(`0 0 ${VW.toFixed(0)} 102`, g, 'place value columns', true);
+  }
+  // A balance: the two pans weigh the same.
+  function scale(cx, left, right) {
+    return `<path d="M${cx} 60 L${cx - 12} 96 H${cx + 12} Z" fill="#B9C3CF" stroke="${INK}" stroke-width="2"/><line x1="${cx - 54}" y1="58" x2="${cx + 54}" y2="58" stroke="${INK}" stroke-width="4" stroke-linecap="round"/>` +
+      [[cx - 46, left], [cx + 46, right]].map(([x, t]) => `<line x1="${x}" y1="58" x2="${x}" y2="44" stroke="${INK}" stroke-width="1.5"/><path d="M${x - 30} 44 H${x + 30} Q${x} 60 ${x - 30} 44 Z" fill="${YE}" stroke="${INK}" stroke-width="1.8"/>${tx(x, 34, esc(t), { size: [...t].length > 6 ? 15 : 19 })}`).join('');
+  }
+  const scales = (a, b) => svgBox('0 0 340 100', scale(84, ...a) + scale(256, ...b), 'two balances', true);
+  // Bag of red and blue marbles.
+  function bag(r, b) {
+    let g = `<path d="M70 26 Q34 30 26 80 Q22 118 70 120 H150 Q198 118 194 80 Q186 30 150 26 Z" fill="#E9D9C0" stroke="${INK}" stroke-width="2.5"/><path d="M78 26 Q110 10 142 26" fill="none" stroke="${INK}" stroke-width="3"/>`;
+    const all = [...Array(r).fill('#F2604F'), ...Array(b).fill('#2E8BE6')];
+    all.forEach((c, i) => { const row = Math.floor(i / 5), col = i % 5; g += `<circle cx="${62 + col * 24}" cy="${row ? 96 : 70}" r="11" fill="${c}" stroke="${INK}" stroke-width="1.5"/>`; });
+    return svgBox('0 0 220 128', g, `bag with ${r} red and ${b} blue balls`);
+  }
+  const PIPP = { 1: [[50, 50]], 2: [[28, 28], [72, 72]], 3: [[28, 28], [50, 50], [72, 72]], 4: [[28, 28], [72, 28], [28, 72], [72, 72]], 5: [[28, 28], [72, 28], [50, 50], [28, 72], [72, 72]], 6: [[28, 26], [72, 26], [28, 50], [72, 50], [28, 74], [72, 74]] };
+  const face = (x, y, n, s = 44) => `<rect x="${x}" y="${y}" width="${s}" height="${s}" rx="${s / 6}" fill="#fff" stroke="${INK}" stroke-width="2"/>` + (n ? PIPP[n].map(([a, b]) => `<circle cx="${(x + a / 100 * s).toFixed(1)}" cy="${(y + b / 100 * s).toFixed(1)}" r="${(s / 11).toFixed(1)}" fill="${INK}"/>`).join('') : tx(x + s / 2, y + s / 2 + 7, '?', { size: 20, fill: QC }));
+  const coinS = (x, y) => `<circle cx="${x + 22}" cy="${y + 22}" r="22" fill="#E8C24A" stroke="${INK}" stroke-width="2"/>${tx(x + 22, y + 28, 'H|T', { size: 14 })}`;
+  // Number chips in the order given, and empty slots to put them in order; the middle slot is '?'.
+  function slots(list, mid) {
+    const n = list.length, cw = Math.min(40, 290 / n), x0 = (300 - n * cw) / 2; let g = '';
+    list.forEach((v, i) => g += `<rect x="${x0 + i * cw + 2}" y="4" width="${cw - 4}" height="30" rx="7" fill="${YE}" stroke="${INK}" stroke-width="1.6"/>${tx(x0 + (i + .5) * cw, 25, v, { size: 15 })}`);
+    if (mid) { for (let i = 0; i < n; i++) { const m = mid.includes(i); g += `<rect x="${x0 + i * cw + 2}" y="58" width="${cw - 4}" height="30" rx="7" fill="#fff" stroke="${m ? QC : '#9FB3C8'}" stroke-width="${m ? 2.5 : 1.6}" stroke-dasharray="${m ? '0' : '4 3'}"/>${m ? tx(x0 + (i + .5) * cw, 79, '?', { size: 16, fill: QC }) : ''}`; }
+      g += tx(x0, 104, 'smallest', { size: 11, anchor: 'start', fill: '#5A678C' }) + tx(x0 + n * cw, 104, 'biggest', { size: 11, anchor: 'end', fill: '#5A678C' }) + `<path d="M150 38 V52 M144 46 L150 53 L156 46" fill="none" stroke="#2E8BE6" stroke-width="2.2" stroke-linecap="round"/>`; }
+    return svgBox(`0 0 300 ${mid ? 110 : 40}`, g, mid ? 'numbers to put in order' : 'the numbers', true);
+  }
+  // Columns that grow each year; the last one is '?'.
+  function growth(start, years, compound, rate) {
+    const n = years + 1, cw = Math.min(46, 250 / n), gap = cw * .35, H = 60; let g = '', x = 30;
+    for (let i = 0; i < n; i++) { let y = 120 - H; g += `<rect x="${x}" y="${y}" width="${cw}" height="${H}" fill="${BL}" stroke="${INK}" stroke-width="1.6"/>`;
+      for (let j = 0; j < i; j++) { const h = compound ? 12 * Math.pow(1 + rate / 40, j) : 12; y -= h; g += `<rect x="${x}" y="${y.toFixed(1)}" width="${cw}" height="${h.toFixed(1)}" fill="${YE}" stroke="${INK}" stroke-width="1.4"/>`; }
+      g += tx(x + cw / 2, 136, i ? `yr ${i}` : 'start', { size: 11, fill: '#5A678C' });
+      if (i === 0) g += tx(x + cw / 2, 120 - H / 2 + 4, start, { size: cw < 40 ? 9 : 11 }); if (i === n - 1) g += tx(x + cw / 2, y - 8, '?', { size: 18, fill: QC });
+      x += cw + gap; }
+    g += tx(4, 12, `+${rate}%${compound ? ' of the new total' : ' each year'}`, { size: 12, anchor: 'start', fill: '#B7791F' });
+    return svgBox('0 0 300 142', g, 'savings growing each year', true);
+  }
+  // Two number lines matched up: units on top, other units below.
+  function dbl(top, bot, k, val, valOnTop) {
+    const big = valOnTop ? val : val / k, max = Math.max(1, Math.ceil(big)), X = v => 20 + v / max * 260, step = max > 10 ? Math.ceil(max / 10) : 1; let g = `<line x1="14" y1="40" x2="286" y2="40" stroke="${INK}" stroke-width="2.5"/><line x1="14" y1="78" x2="286" y2="78" stroke="${INK}" stroke-width="2.5"/>`;
+    for (let v = 0; v <= max; v += step) { g += `<line x1="${X(v)}" y1="34" x2="${X(v)}" y2="84" stroke="#9FB3C8" stroke-width="1.4"/>`; if (v === 0 || v === step) g += tx(X(v), 26, `${v} ${top}`, { size: 11, fill: '#5A678C' }) + tx(X(v), 100, `${fmt(v * k)} ${bot}`, { size: 11, fill: '#5A678C' }); }
+    g += `<line x1="${X(big)}" y1="34" x2="${X(big)}" y2="84" stroke="${QC}" stroke-width="2.5"/>` + tx(X(big), 26, valOnTop ? `${fmt(val)} ${top}` : '?', { size: 15, fill: valOnTop ? INK : QC, anchor: X(big) > 240 ? 'end' : 'middle' }) + tx(X(big), 100, valOnTop ? '?' : `${fmt(val)} ${bot}`, { size: 15, fill: valOnTop ? QC : INK, anchor: X(big) > 240 ? 'end' : 'middle' });
+    return svgBox('0 0 300 106', g, `double number line: ${top} and ${bot}`, true);
+  }
+  // Digits in circles added up.
+  function digitAdd(ds, note) {
+    let x = 8, g = ''; ds.forEach((d, i) => { if (i) { g += tx(x + 8, 40, '+', { size: 18 }); x += 18; } g += `<circle cx="${x + 18}" cy="34" r="18" fill="${d === '?' ? '#fff' : YE}" stroke="${d === '?' ? QC : INK}" stroke-width="2"${d === '?' ? ' stroke-dasharray="5 4"' : ''}/>${tx(x + 18, 40, d, { size: 17, fill: d === '?' ? QC : INK })}`; x += 36; });
+    g += tx(x + 6, 40, '= ' + note, { size: 14, anchor: 'start' });
+    return svgBox(`0 0 ${x + 12 + tw(note, 8) + 20} 64`, g, 'add the digits', true);
+  }
+  // Fraction of a fraction: columns for the first, rows for the second.
+  function fracGrid(a, b, c, d) {
+    const Wd = 180, Ht = 120, cw = Wd / b, rh = Ht / d; let g = '';
+    for (let i = 0; i < b; i++) for (let j = 0; j < d; j++) g += `<rect x="${60 + i * cw}" y="${8 + j * rh}" width="${cw}" height="${rh}" fill="${i < a ? BL : '#fff'}" stroke="${INK}" stroke-width="1.2"/>`;
+    for (let j = 0; j < c; j++) g += `<rect x="60" y="${8 + j * rh}" width="${Wd}" height="${rh}" fill="#F2604F" fill-opacity=".28" stroke="none"/>`;
+    g += `<rect x="60" y="8" width="${Wd}" height="${Ht}" fill="none" stroke="${INK}" stroke-width="2.5"/>${tx(60 + a * cw / 2, 146, `${a}/${b}`, { size: 14, fill: '#2E8BE6' })}${tx(52, 8 + c * rh / 2 + 5, `${c}/${d}`, { size: 14, anchor: 'end', fill: QC })}`;
+    return svgBox('0 0 260 154', g, `${a} over ${b} of ${c} over ${d}`, true);
+  }
+  // A prism or pyramid with a k-sided base.
+  function solidK(k, prism) {
+    const P = (i, y) => [130 + 90 * Math.cos(Math.PI * 2 * i / k + .3), y + 26 * Math.sin(Math.PI * 2 * i / k + .3)], base = Array.from({ length: k }, (_, i) => P(i, 120)); let g = '';
+    const front = i => Math.sin(Math.PI * 2 * i / k + .3) > -0.2;
+    if (prism) { const top = Array.from({ length: k }, (_, i) => P(i, 40)); base.forEach((p, i) => g += `<line x1="${p[0].toFixed(1)}" y1="${p[1].toFixed(1)}" x2="${top[i][0].toFixed(1)}" y2="${top[i][1].toFixed(1)}" stroke="${INK}" stroke-width="2"${front(i) ? '' : ' stroke-dasharray="4 4" stroke-opacity=".5"'}/>`); g = `<polygon points="${pts2(top)}" fill="${YE}" stroke="${INK}" stroke-width="2"/>` + g; }
+    else base.forEach((p, i) => g += `<line x1="${p[0].toFixed(1)}" y1="${p[1].toFixed(1)}" x2="130" y2="14" stroke="${INK}" stroke-width="2"${front(i) ? '' : ' stroke-dasharray="4 4" stroke-opacity=".5"'}/>`);
+    g = `<polygon points="${pts2(base)}" fill="${BL}" fill-opacity=".6" stroke="${INK}" stroke-width="2"/>` + g;
+    return svgBox('0 0 260 156', g, `${prism ? 'prism' : 'pyramid'} with a ${k}-sided ${prism ? 'end' : 'base'}`, true);
+  }
+  // A cube with its face, an edge and a vertex pointed out.
+  const cubeParts = () => svgBox('0 0 280 150', `<polygon points="70,50 160,50 160,140 70,140" fill="${BL}" stroke="${INK}" stroke-width="2.5"/><polygon points="70,50 110,18 200,18 160,50" fill="${YE}" stroke="${INK}" stroke-width="2.5"/><polygon points="160,50 200,18 200,108 160,140" fill="#2E8BE6" stroke="${INK}" stroke-width="2.5"/>${tx(115, 100, 'face', { size: 15 })}<circle cx="200" cy="18" r="5" fill="${QC}"/>${tx(212, 22, 'vertex', { size: 14, anchor: 'start', fill: QC })}<line x1="200" y1="18" x2="200" y2="108" stroke="#2FA36B" stroke-width="5"/>${tx(208, 72, 'edge', { size: 14, anchor: 'start', fill: '#2FA36B' })}`, 'cube showing a face, an edge and a vertex', true);
+  const tab = (head, rows) => `<table class="m3tab">${head ? `<tr>${head.map(h => `<th>${h}</th>`).join('')}</tr>` : ''}${rows.map(r => `<tr>${r.map(v => v === '?' ? '<td style="background:#FFD98A;color:#F2604F">?</td>' : `<td>${v}</td>`).join('')}</tr>`).join('')}</table>`;
+  const sgn = v => v < 0 ? '− ' + -v : '+ ' + v;
+  const supH = e => `10<sup>${e}</sup>`;
+
+  W('powers', (p, L) => {
+    let m;
+    if (L === 1 && (m = p.match(/^(\d+)² =/))) return sqPic(+m[1], m[1], '?');
+    if (L === 2 && (m = p.match(/^(\d+)³ =/))) { const n = +m[1]; return n <= 4 ? isoSVG(cubesOf(n, n, n), { s: 16, label: `${n} by ${n} by ${n} cubes` }) : boxPic(n, n, n, [n, n, n]); }
+    if (L === 3 && (m = p.match(/√(\d+)/))) { const n = Math.round(Math.sqrt(+m[1])); return sqPic(n, '?', m[1]); }
+    if (L === 4 && (m = p.match(/^(\d+)\^(\d+) =/))) return chain(+m[1], +m[2]);
+    if ((m = p.match(/a\^(\d+) (×|÷) a\^(\d+)/))) return powTiles(+m[1], +m[3], m[2]);
+  });
+  W('primes', (p, L) => {
+    let m;
+    if (L === 1 && (m = p.match(/Is (\d+) a prime/))) { const n = +m[1], ps = [2, 3, 5, 7].filter(k => k < n); return ps.length ? tab(null, [[`<b>${n} ÷</b>`, ...ps], ['<b>exact?</b>', ...ps.map(() => '?')]]) : tree(n); }
+    if (L === 2 && (m = p.match(/factor of (\d+)/))) return areaRect(+m[1]);
+    if (L === 3 && (m = p.match(/of (\d+) and (\d+)/))) return venn(+m[1], +m[2], 'factors');
+    if (L === 4 && (m = p.match(/of (\d+) and (\d+)/))) return rods(+m[1], +m[2]);
+    if ((m = p.match(/Prime factors of (\d+)/))) return tree(+m[1]);
+  });
+  W('stdform', (p, L) => {
+    let m;
+    if ((m = p.match(/^\((\d+) × 10\^(\d+)\) (×|÷) \((\d+) × 10\^(\d+)\)/))) return tab(null, [['<b>Numbers</b>', `${m[1]} ${m[3]} ${m[4]}`, '?'], ['<b>Powers of 10</b>', `${supH(m[2])} ${m[3]} ${supH(m[5])}`, '?']]);
+    if ((m = p.match(/^([\d.]+) × 10\^(−?\d+) =/))) { const e = num(m[2]); return shiftPic(m[1], 0, e, `${Math.abs(e)} place${Math.abs(e) > 1 ? 's' : ''} ${e > 0 ? 'bigger' : 'smaller'}`); }
+    if ((m = p.match(/Write ([\d,.]+) in standard form/))) { const s = m[1].replace(/,/g, ''), v = +s, e = Math.floor(Math.log10(v) + 1e-9); return shiftPic(s, e, 0, '? places'); }
+  });
+  W('simul', (p, L) => {
+    let m;
+    if ((m = p.match(/^(\d+) (\S+) and 1 (\S+) cost (\d+)\. (\d+) \S+ and 1 \S+ cost (\d+)/u))) return scales([m[2].repeat(+m[1]) + m[3], m[4]], [m[2].repeat(+m[5]) + m[3], m[6]]);
+    const eqs = p.split(' | ').filter(s => s.includes('=')).map(s => s.split(' = '));
+    if (eqs.length === 2) return scales(eqs[0], eqs[1]);
+  });
+  W('expand', (p, L) => {
+    let m;
+    if (L === 1 && (m = p.match(/^Simplify (.+)$/))) { const ts = m[1].match(/[+−]?\s*\d*[a-z]/g); if (!ts) return; const vars = [...new Set(ts.map(t => t.slice(-1)))]; let x = 6, g = '';
+      ts.forEach(t => { const s = t.replace(/\s+/g, ''), w = tw(s, 10) + 18, c = s.slice(-1) === vars[0] ? BL : PK; g += `<rect x="${x}" y="8" width="${w}" height="36" rx="8" fill="${c}" stroke="${INK}" stroke-width="2"/>${tx(x + w / 2, 32, s, { size: 17 })}`; x += w + 8; });
+      return svgBox(`0 0 ${x} 52`, g + '', 'terms sorted by colour', true); }
+    if (L === 2 && (m = p.match(/Expand (\d+)\(x ([+−]) (\d+)\)/))) return areaModel(['x', (m[2] === '−' ? '−' : '+') + m[3]], [m[1]], [['?', '?']]);
+    if (L === 3 && (m = p.match(/(\d+)\(x ([+−]) (\d+)\) ([+−]) (\d+)\(x ([+−]) (\d+)\)/))) return areaModel(['x', m[2] + m[3]], [m[1]], [['?', '?']]) + areaModel(['x', m[6] + m[7]], [(m[4] === '−' ? '−' : '') + m[5]], [['?', '?']]);
+    if (L === 4 && (m = p.match(/\(x ([+−]) (\d+)\)\(x ([+−]) (\d+)\)/))) return areaModel(['x', m[1] + m[2]], ['x', m[3] + m[4]], [['?', '?'], ['?', '?']]);
+    if ((m = p.match(/Factorise x² ([+−]) (\d*)x ([+−]) (\d+)/))) return areaModel(['x', '?'], ['x', '?'], [['x²', '?'], ['?', m[3] + m[4]]]);
+    if ((m = p.match(/Factorise (\d+)x ([+−]) (\d+)$/))) return areaModel(['?', '?'], ['?'], [[m[1] + 'x', m[2] + m[3]]]);
+  });
+  W('probability', (p, L) => {
+    let m;
+    if ((m = p.match(/has (\d+) red and (\d+) blue/))) return bag(+m[1], +m[2]);
+    if (/Roll a dice/.test(p)) return svgBox('0 0 300 52', [1, 2, 3, 4, 5, 6].map(n => face(4 + (n - 1) * 50, 4, n)).join(''), 'the six sides of a dice', true);
+    if ((m = p.match(/rain is (\d+)\/(\d+)/))) { const a = +m[1], b = +m[2]; return barModel(Array.from({ length: b }, (_, i) => ({ w: 1, t: i === 0 ? 'rain' : i === b - 1 ? '?' : '', c: i < a ? BL : '#fff' })), 'rain + no rain = 1 whole'); }
+    if (/chance of/.test(p)) { const coinFirst = !/two 6s/.test(p), second = /coins/.test(p) ? 'coin' : 'die'; const a = coinFirst ? coinS(40, 6) : face(40, 6, 0); const b = second === 'coin' ? coinS(190, 6) : face(190, 6, 0);
+      return svgBox('0 0 280 80', a + b + tx(150, 34, 'and', { size: 15 }) + tx(62, 72, coinFirst ? '2 sides' : '6 sides', { size: 12, fill: '#5A678C' }) + tx(212, 72, second === 'coin' ? '2 sides' : '6 sides', { size: 12, fill: '#5A678C' }), 'two things at once', true); }
+  });
+  W('stats', (p, L) => {
+    let m;
+    if ((m = p.match(/Find the (mode|median): ([\d, ]+)/))) { const list = m[2].split(',').map(s => s.trim()).filter(Boolean), n = list.length; return m[1] === 'mode' ? slots(list) : slots(list, n % 2 ? [(n - 1) / 2] : [n / 2 - 1, n / 2]); }
+    if ((m = p.match(/interquartile range: ([\d, ]+)/))) { const list = m[1].split(',').map(x => x.trim()).filter(Boolean), n = list.length; return slots(list, [(n + 1) / 4 - 1, 3 * (n + 1) / 4 - 1]); }
+    if ((m = p.match(/mean of (\d+) numbers is (\d+)\. \d+ of them are ([\d, ]+)\./))) { const ks = m[3].split(',').map(s => s.trim()).filter(Boolean); return barModel([...ks.map(v => ({ w: 1, t: v })), { w: 1, t: '?', c: '#fff' }], `${m[1]} × ${m[2]} altogether`); }
+  });
+  W('lines', (p, L) => {
+    let m;
+    const parts = (mm, cc) => { const o = [...(mm !== 1 ? ['× ' + String(mm).replace('-', '−')] : []), ...(cc ? [sgn(cc)] : [])]; return o.length ? o : ['× 1']; };
+    if ((m = p.match(/y = (−?\d*)x(?: ([+−]) (\d+))?\. When x = ([−-]?\d+)/))) { const mm = m[1] === '' ? 1 : m[1] === '−' ? -1 : num(m[1]), cc = m[2] ? num(m[2] + m[3]) : 0, ops = parts(mm, cc), items = [neg(m[4])]; ops.forEach((o, i) => items.push(o, i === ops.length - 1 ? '?' : ' ')); return flow(items, 'number machine'); }
+    if ((m = p.match(/y = (−?\d*)x(?: ([+−]) (\d+))?\. For which x is y = ([−-]?\d+)/))) { const mm = m[1] === '' ? 1 : m[1] === '−' ? -1 : num(m[1]), cc = m[2] ? num(m[2] + m[3]) : 0, ops = parts(mm, cc), items = ['?']; ops.forEach((o, i) => items.push(o, i === ops.length - 1 ? neg(m[4]) : ' ')); return flow(items, 'number machine backwards'); }
+  });
+  W('inequal', (p, L) => {
+    let m;
+    if (L === 2) {
+      const circ = (X, v, fill) => `<circle cx="${X(v)}" cy="34" r="7" fill="${fill ? '#2E8BE6' : '#fff'}" stroke="#2E8BE6" stroke-width="3"/>`;
+      const line = (lo, hi, dots) => { const X = v => 20 + (v - lo) / (hi - lo) * 260; let g = `<line x1="6" y1="34" x2="294" y2="34" stroke="${INK}" stroke-width="2"/>`; for (let v = lo; v <= hi; v++) g += `<line x1="${X(v)}" y1="28" x2="${X(v)}" y2="40" stroke="${INK}" stroke-width="1.5"/>${tx(X(v), 58, neg(v), { size: 12 })}`; return svgBox('0 0 300 66', g + dots.map(([v, f]) => circ(X, v, f)).join('') + tx(150, 14, 'where does x go?', { size: 12, fill: QC }), 'number line', true); };
+      if ((m = p.match(/fits (−?\d+) (<|≤) x (<|≤) (−?\d+)/))) { const lo = num(m[1]), hi = num(m[4]); return line(lo - 2, hi + 2, [[lo, m[2] === '≤'], [hi, m[3] === '≤']]); }
+      if ((m = p.match(/fits x (<|>|≤|≥) (−?\d+)/))) { const v = num(m[2]); return line(v - 5, v + 5, [[v, m[1] === '≤' || m[1] === '≥']]); }
+    }
+    if ((m = p.match(/(Solve|with) (−?\d+)x ([+−]) (\d+) (<|>|≤|≥) (−?\d+)/))) { const a = m[2], b = num(m[3] + m[4]), op = m[5], undo = b > 0 ? `− ${b}` : `+ ${-b}`, last = L === 4 ? `x ${op} ?` : 'x ? ?';
+      return flow([`${a}x ${op} ?`, `÷ ${num(a) < 0 ? '(' + a + ') ⚠' : a}`, last], `first ${undo} on both sides`).replace('</svg>', tx(4, 12, `first ${undo} on both sides`, { size: 12, anchor: 'start', fill: '#5A678C' }) + '</svg>'); }
+  });
+  W('interest', (p, L) => {
+    let m;
+    if ((m = p.match(/save \$([\d,]+) at (\d+)% simple interest a year\. How much .* after (\d+) years/))) return growth('$' + m[1], +m[3], false, +m[2]);
+    if ((m = p.match(/^\$([\d,]+) earns (\d+)% compound interest each year\. How much is there after (\d+) years/))) return growth('$' + m[1], +m[3], true, +m[2]);
+    if ((m = p.match(/price (rose|fell) from \$([\d,]+) to \$([\d,]+)/))) { const a = num(m[2]), b = num(m[3]), up = m[1] === 'rose';
+      return compareModel(up ? [{ name: 'before', segs: [{ w: a, t: '$' + a, c: BL }] }, { name: 'after', segs: [{ w: a, t: '$' + a, c: BL }, { w: b - a, t: `+$${b - a}`, c: YE }] }] : [{ name: 'before', segs: [{ w: b, t: '$' + b, c: BL }, { w: a - b, t: `$${a - b}`, c: PK }] }, { name: 'after', segs: [{ w: b, t: '$' + b, c: BL }] }], `? %`); }
+    if ((m = p.match(/(\d+)% off sale, a \w+ costs \$([\d,]+)/))) { const d = +m[1]; return barModel([{ w: 100 - d, t: `${100 - d}% = $${m[2]}`, c: GR }, { w: d, t: `${d}%`, c: PK }], 'the old price, 100% = ?'); }
+    if ((m = p.match(/After a (\d+)% price rise, a \w+ costs \$([\d,]+)/))) { const d = +m[1]; return barModel([{ w: 100, t: '100% = ?', c: '#fff' }, { w: d, t: `${d}%`, c: YE }], `${100 + d}% = $${m[2]}`); }
+  });
+  W('order', (p, L) => {
+    const n = (p.match(/\d+/g) || []).map(Number), [a, b, c, d] = n; let rows;
+    if (L === 1) rows = [['1st', `${b} × ${c}`], ['2nd', `${a} + ?`]];
+    else if (L === 2) rows = [['1st', `(${a} + ${b})`], ['2nd', `? × ${c}`]];
+    else if (L === 3) rows = [['1st', `${a} × ${b}`], ['2nd', `? − ${c}`], ['3rd', `? + ${d}`]];
+    else if (L === 4) rows = [['1st', `${a} ÷ ${b}`], ['2nd', `${c} × ${d}`], ['3rd', '? + ?']];
+    else rows = [['1st', `(${c} − ${d})`], ['2nd', `${a}²`], ['3rd', `${b} × ?`], ['4th', '? + ?']];
+    return tab(['Step', 'Work out', '='], rows.map(r => [`<b>${r[0]}</b>`, r[1], '?']));
+  });
+  const RULES = { 2: 'last digit is 0, 2, 4, 6 or 8', 3: 'the digits add up to a multiple of 3', 4: 'the last two digits make a multiple of 4', 5: 'last digit is 0 or 5', 6: 'it divides by 2 and by 3', 9: 'the digits add up to a multiple of 9', 10: 'last digit is 0' };
+  W('divis', (p, L) => {
+    let m;
+    if ((m = p.match(/Does (\d+) divide exactly by (\d+)/))) { const k = +m[2]; return k === 3 || k === 9 ? digitAdd([...m[1]], `? Is it in the ${k} times table?`) : tab(null, [[`<b>÷ ${k}</b>`, RULES[k]]]); }
+    if ((m = p.match(/divides exactly by (\d+)\?/))) return RULES[m[1]] ? tab(null, [[`<b>÷ ${m[1]} test</b>`, RULES[m[1]]]]) : '';
+    if ((m = p.match(/(factor pair|factors does) (?:of )?(\d+)/))) return areaRect(+m[2]);
+    if ((m = p.match(/^(\d)\s*\?\s*(\d) divides by (\d)/))) return digitAdd([m[1], '?', m[2]], `a multiple of ${m[3]}`);
+  });
+  W('mental', (p, L) => {
+    let m;
+    if ((m = p.match(/^Double (\d+)/))) { const n = +m[1], t = n - n % 10; return flow([String(n), `double ${t}`, '?', `+ double ${n % 10}`, '?'], 'double tens then ones'); }
+    if ((m = p.match(/^(\d+) \+ (\d+) = \?/)) && +m[2] === +m[1] + 1) return flow([m[1], `+ ${m[1]}`, '?', '+ 1', '?'], 'near double');
+    if ((m = p.match(/^(\d+) × 5 = \?/))) return flow([m[1], '× 10', '?', '÷ 2', '?'], 'times 10 then halve');
+    if ((m = p.match(/^(\d+) × (\d+) = \?/))) { const b = +m[2]; return b % 10 === 0 ? flow([m[1], `× ${b / 10}`, '?', '× 10', '?'], 'times trick') : flow([m[1], `× ${b}`, '?'], 'times'); }
+    if ((m = p.match(/^(\d+) ([+−]) (\d+) = \?/))) { const a = m[1], op = m[2], b = +m[3], r = b >= 90 ? Math.round(b / 100) * 100 : Math.round(b / 10) * 10, k = b - r;
+      if (!k) return flow([a, `${op} ${b}`, '?'], 'jump');
+      const fix = op === '+' ? (k > 0 ? `+ ${k}` : `− ${-k}`) : (k > 0 ? `− ${k}` : `+ ${-k}`); return flow([a, `${op} ${r}`, '?', fix, '?'], 'round then fix'); }
+  });
+  W('place1000', (p, L, q) => {
+    let m;
+    if (/^[\d +]+= \?$/.test(p)) { const v = p.match(/\d+/g).reduce((a, b) => a + +b, 0); if (v < 1000) return htoSVG(Math.floor(v / 100), Math.floor(v / 10) % 10, v % 10); }
+    if (/hundred|tens|ones/.test(p) && / = \?$/.test(p)) { const g = w => +((p.match(new RegExp('(\\d+) ' + w)) || [0, 0])[1]); return htoSVG(g('hundred'), g('ten'), g('one')); }
+    if ((m = p.match(/What is (\d+) (less|more) than ([\d,]+)/))) { const s = m[3].replace(/,/g, ''); return pvChart(+s, s.length - 1 - Math.round(Math.log10(+m[1]))); }
+    if (/biggest|smallest/.test(p)) { const vs = q.choices.map(c => c.val), len = Math.max(...vs.map(v => v.length)); return tab(PV_NAMES.slice(0, len).reverse(), vs.map(v => [...v.padStart(len, ' ')].map(d => d === ' ' ? '' : d))); }
+    if ((m = p.match(/How many tens make ([\d,]+)/))) { const s = m[1].replace(/,/g, ''); return pvChart(+s, s.length - 2); }
+    if ((m = p.match(/^([\d,?]+) \+ ([\d,?]+) \+ ([\d,?]+) \+ ([\d,?]+) = ([\d,]+)/))) return tab(PV_NAMES.slice(0, 4).reverse(), [[m[1], m[2], m[3], m[4]]]);
+  });
+  const CONV = { 'L mL': 1000, 'm cm': 100, 'km m': 1000, 'kg g': 1000, 'cm mm': 10, 'm mm': 1000 };
+  W('measure', (p, L, q) => {
+    let m;
+    if ((m = p.match(/^([\d.,]+) (\w+) = \? (\w+)/))) { const a = num(m[1]), u1 = m[2], u2 = m[3]; if (CONV[`${u1} ${u2}`]) return dbl(u1, u2, CONV[`${u1} ${u2}`], a, true); if (CONV[`${u2} ${u1}`]) return dbl(u2, u1, CONV[`${u2} ${u1}`], a, false); }
+    if (/Which unit/.test(p)) { const g = [['📏', 'length', 'mm cm m km'], ['⚖️', 'weight', 'g kg'], ['🫗', 'liquid', 'mL L']].map(([e, w, u], i) => `<text x="${50 + i * 100}" y="44" font-size="34" text-anchor="middle">${e}</text>${tx(50 + i * 100, 70, w, { size: 13 })}${tx(50 + i * 100, 88, u, { size: 12, fill: '#5A678C' })}`).join('');
+      return svgBox('0 0 300 96', g, 'length, weight or liquid?', true); }
+  });
+  W('roman', (p, L) => {
+    const m = p.match(/Write (\d+) in Roman/); if (!m) return; const n = +m[1], parts = [Math.floor(n / 100) * 100, Math.floor(n % 100 / 10) * 10, n % 10].filter(Boolean);
+    return tab(null, [['<b>I</b> = 1', '<b>V</b> = 5', '<b>X</b> = 10', '<b>L</b> = 50', '<b>C</b> = 100']]) + tab(null, [['<b>Number</b>', ...parts], ['<b>Roman</b>', ...parts.map(() => '?')]]);
+  });
+  W('solids', (p, L) => {
+    let m;
+    if ((m = p.match(/has a (\d+)-sided (end|base)/))) return solidK(+m[1], m[2] === 'end');
+    if ((m = p.match(/has (\d+) faces and (\d+) vertices/))) return cubeParts() + tab(null, [['<b>Faces</b>', m[1]], ['<b>Vertices</b>', m[2]], ['<b>Edges</b>', '?']]);
+    if (/Which shape has/.test(p)) return cubeParts();
+  });
+  W('elapsed', p => { let m = p.match(/How many days are in (\d+) weeks/); if (m) return barModel(Array.from({ length: +m[1] }, () => ({ w: 1, t: '7' })), `${m[1]} weeks = ? days`);
+    if ((m = p.match(/How many minutes are in (\d+) hours?(?: and (\d+) minutes)?/))) return barModel([...Array.from({ length: +m[1] }, () => ({ w: 60, t: '60', c: BL })), ...(m[2] ? [{ w: +m[2], t: m[2], c: YE }] : [])], '? minutes');
+    if ((m = p.match(/How many minutes are in (\d+) and a half hours/))) return barModel([...Array.from({ length: +m[1] }, () => ({ w: 60, t: '60', c: BL })), { w: 30, t: '½ h', c: YE }], '? minutes'); });
+  W('fracops', (p, L) => { const m = p.match(/^(\d+)\/(\d+) × (\d+)\/(\d+) =/); if (m) return fracGrid(+m[1], +m[2], +m[3], +m[4]); });
+  W('decimals', (p, L) => { const m = p.match(/^([\d.]+) (×|÷) (10|100|1000) =/); if (!m) return; const e = Math.log10(+m[3]) * (m[2] === '×' ? 1 : -1); return shiftPic(m[1], 0, e, `${m[2]} ${m[3]}: ${Math.abs(e)} place${Math.abs(e) > 1 ? 's' : ''} ${e > 0 ? 'bigger' : 'smaller'}`); });
+  W('negatives', (p, L) => { if (/[×÷]/.test(p) && L >= 4) return tab(['× ÷', '+', '−'], [['<b>+</b>', '+', '−'], ['<b>−</b>', '−', '+']]); });
+})();
