@@ -10330,7 +10330,7 @@ function parent() {
       <p class="note">Owl &amp; Crayon works without the internet. Progress, drawings and Owl's answers are saved only in this browser on this device. There are no ads, no tracking and no accounts, and nothing is sent anywhere unless you switch on Online Owl.</p>
       <p class="note">With Online Owl on, only the question your child asks and their age go to your Online Owl server, which asks an AI (Cloudflare's free AI, or Claude by Anthropic) for a short, child-friendly answer. Names and progress are never sent. You can read every answer above, and turn it off at any time.</p>
       <p class="note">The microphone button uses the browser's own speech recognition, which may send the recording to the browser maker (for example Google or Apple) to turn it into text. Typing works without it.</p>
-      <p class="note">Version 2026-10-21 06:42 UTC</p></div>`;
+      <p class="note">Version 2026-10-21 07:35 UTC</p></div>`;
   view.querySelectorAll('[data-teach]').forEach(b => b.onclick = () => {
     const i = +b.dataset.teach, ans = $('#t' + i).value.trim(); if (!ans) return;
     owlForget(st.owlMisses[i].q); st.owlTaught.push({ q: st.owlMisses[i].q, a: ans }); st.owlMisses.splice(i, 1); save(); go(parent);
@@ -11523,7 +11523,7 @@ function monMake(d) {
   if (d === 2) { if (r < .35) return grp(3, 10, coin()); const T = rnd(4, 10), a = rnd(1, T - 1); return sent(a, '+', T - a, T, r < .7 ? 1 : 0, 3); }
   if (d === 3) {
     if (r < .3) { const T = rnd(8, 20), a = rnd(1, T - 1); return sent(a, '+', T - a, T, rnd(0, 1), 4); }
-    if (r < .65) { const a = rnd(8, 20), b = rnd(2, 9); return sent(a, '−', b, a - b, rnd(0, 2), 4); }
+    if (r < .65) { const a = rnd(8, 20), b = rnd(2, Math.min(9, a - 1)); return sent(a, '−', b, a - b, rnd(0, 2), 4); }
     const k = rnd(6, 18), big = coin(), ans = big ? k + rnd(1, 4) : k - rnd(1, 4), others = shuffle(big ? [k, k - 1, k - 2, k - 3] : [k, k + 1, k + 2, k + 3]).slice(0, 3);
     return { mode: 'num', check: v => big ? v > k : v < k, items: shuffle([ans, ...others]).map(v => Object.assign(N(v), { ok: v === ans })), q: `Make it true: <span class="gexpr">${box} ${big ? '&gt;' : '&lt;'} ${k}</span>`, say: `What number is ${big ? 'bigger' : 'smaller'} than ${k}?`, hint: `${big ? 'Bigger' : 'Smaller'} than ${k} means it comes ${big ? 'after' : 'before'} ${k} when you count. ${k} itself does not count!` };
   }

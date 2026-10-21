@@ -286,7 +286,7 @@ function monMake(d) {
   if (d === 2) { if (r < .35) return grp(3, 10, coin()); const T = rnd(4, 10), a = rnd(1, T - 1); return sent(a, '+', T - a, T, r < .7 ? 1 : 0, 3); }
   if (d === 3) {
     if (r < .3) { const T = rnd(8, 20), a = rnd(1, T - 1); return sent(a, '+', T - a, T, rnd(0, 1), 4); }
-    if (r < .65) { const a = rnd(8, 20), b = rnd(2, 9); return sent(a, '−', b, a - b, rnd(0, 2), 4); }
+    if (r < .65) { const a = rnd(8, 20), b = rnd(2, Math.min(9, a - 1)); return sent(a, '−', b, a - b, rnd(0, 2), 4); }
     const k = rnd(6, 18), big = coin(), ans = big ? k + rnd(1, 4) : k - rnd(1, 4), others = shuffle(big ? [k, k - 1, k - 2, k - 3] : [k, k + 1, k + 2, k + 3]).slice(0, 3);
     return { mode: 'num', check: v => big ? v > k : v < k, items: shuffle([ans, ...others]).map(v => Object.assign(N(v), { ok: v === ans })), q: `Make it true: <span class="gexpr">${box} ${big ? '&gt;' : '&lt;'} ${k}</span>`, say: `What number is ${big ? 'bigger' : 'smaller'} than ${k}?`, hint: `${big ? 'Bigger' : 'Smaller'} than ${k} means it comes ${big ? 'after' : 'before'} ${k} when you count. ${k} itself does not count!` };
   }
