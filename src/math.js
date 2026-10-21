@@ -80,6 +80,46 @@ function column(a, b, op, ans) {
 /* --- teaching pictures for lessons and wrong-answer help ---
    (hopLine, arraySVG, barModel and triSVG come from math3.js; they are only called when a question or lesson is shown) */
 const bigEq = s => `<span class="bignum m3mid">${s}</span>`;
+// Number bond (part-part-whole): the whole on top, the two parts below. Any of them can be '?'.
+function bondSVG(whole, a, b) {
+  const fs = Math.max(...[whole, a, b].map(v => String(v).length)) > 2 ? 17 : 22;
+  const c = (x, y, r, v, f) => `<circle cx="${x}" cy="${y}" r="${r}" fill="${v === '?' ? '#fff' : f}" stroke="#22305A" stroke-width="2.5"${v === '?' ? ' stroke-dasharray="6 4"' : ''}/><text x="${x}" y="${y + fs * 0.36}" font-size="${fs}" font-weight="800" text-anchor="middle" fill="${v === '?' ? '#F2604F' : '#22305A'}">${v}</text>`;
+  return `<div class="shape"><svg viewBox="0 0 200 128" role="img" aria-label="number bond: ${a} and ${b} make ${whole}"><line x1="100" y1="34" x2="48" y2="94" stroke="#22305A" stroke-width="2.5"/><line x1="100" y1="34" x2="152" y2="94" stroke="#22305A" stroke-width="2.5"/>${c(100, 32, 29, whole, '#FFD98A')}${c(48, 96, 27, a, '#9CC9F2')}${c(152, 96, 27, b, '#F7B9AE')}</svg></div>`;
+}
+// A number line from lo to hi with marked points [{v, t, c}]; labels sit above, alternating height so close ones do not overlap.
+function markLine(lo, hi, marks = [], { every = 0, mid = false, unit = '', ends = false } = {}) {
+  const X = v => +(24 + (v - lo) / (hi - lo) * 252).toFixed(1), y = 64, ev = every || (hi - lo <= 20 ? 1 : hi - lo <= 50 ? 5 : hi - lo <= 200 ? 10 : (hi - lo) / 10);
+  let g = `<line x1="14" y1="${y}" x2="286" y2="${y}" stroke="#22305A" stroke-width="3" stroke-linecap="round"/>`;
+  const n = Math.round((hi - lo) / ev), skip = n > 12 || fmt(hi).length > 3 ? 2 : 1;
+  for (let k = 0; k <= n; k++) { const v = lo + k * ev, end = k === 0 || k === n; g += `<line x1="${X(v)}" y1="${y - (end ? 8 : 5)}" x2="${X(v)}" y2="${y + (end ? 8 : 5)}" stroke="#22305A" stroke-width="2"/>`; if (end || (!ends && k % skip === 0)) g += `<text x="${X(v)}" y="${y + 24}" font-size="${end ? 14 : 11}" font-weight="800" text-anchor="middle" fill="${end ? '#22305A' : '#5A678C'}">${fmt(+v.toFixed(4)).replace('-', '−')}${unit}</text>`; }
+  if (mid) { const m = (lo + hi) / 2; g += `<line x1="${X(m)}" y1="${y - 12}" x2="${X(m)}" y2="${y + 12}" stroke="#9FB3C8" stroke-width="2" stroke-dasharray="3 3"/><text x="${X(m)}" y="${y + 24}" font-size="11" font-weight="800" text-anchor="middle" fill="#5A678C">${fmt(m)}</text>`; }
+  marks.forEach((m, i) => { const ty = i % 2 ? 22 : 42, col = m.c || '#F2604F'; g += `<line x1="${X(m.v)}" y1="${ty + 4}" x2="${X(m.v)}" y2="${y - 8}" stroke="${col}" stroke-width="1.5"/><circle cx="${X(m.v)}" cy="${y}" r="7" fill="${m.fill || '#FFC23D'}" stroke="#22305A" stroke-width="2"/><text x="${X(m.v)}" y="${ty}" font-size="15" font-weight="800" text-anchor="middle" fill="${col}">${m.t}</text>`; });
+  return `<div class="shape wide-shape"><svg viewBox="0 0 300 96" role="img" aria-label="number line from ${lo} to ${hi}">${g}</svg></div>`;
+}
+// Triangle with two angles given and the third marked '?'.
+function triAngSVG(a, b) {
+  const R = Math.PI / 180, c = 180 - a - b, len = 200 * Math.sin(b * R) / Math.sin(c * R), P = [[0, 0], [200, 0], [len * Math.cos(a * R), -len * Math.sin(a * R)]];
+  const xs = P.map(q => q[0]), ys = P.map(q => q[1]), x0 = Math.min(...xs) - 30, y0 = Math.min(...ys) - 30, W = Math.max(...xs) - x0 + 30, H = -y0 + 22;
+  const lab = (q, o, t, col) => { const cx = (P[0][0] + P[1][0] + P[2][0]) / 3, cy = (P[0][1] + P[1][1] + P[2][1]) / 3, dx = cx - q[0], dy = cy - q[1], d = Math.hypot(dx, dy); return `<text x="${(q[0] + dx / d * o).toFixed(1)}" y="${(q[1] + dy / d * o + 6).toFixed(1)}" font-size="17" font-weight="800" text-anchor="middle" fill="${col}">${t}</text>`; };
+  return `<div class="shape wide-shape"><svg viewBox="${x0.toFixed(1)} ${y0.toFixed(1)} ${W.toFixed(1)} ${H.toFixed(1)}" role="img" aria-label="triangle with angles ${a}, ${b} and a missing angle"><polygon points="${P.map(q => q.map(v => v.toFixed(1)).join(',')).join(' ')}" fill="#D9EBFC" stroke="#22305A" stroke-width="3" stroke-linejoin="round"/>${lab(P[0], 34, a + '°', '#22305A')}${lab(P[1], 34, b + '°', '#22305A')}${lab(P[2], 30, '?', '#F2604F')}</svg></div>`;
+}
+// Rays round a point: the angles in order, the last one is '?'.
+function aroundSVG(angs) {
+  let g = '', t = 0; const R = Math.PI / 180, cols = ['#FFD98A', '#9CC9F2', '#F7B9AE'];
+  angs.forEach((d, i) => { const a0 = t * R, a1 = (t + d) * R, m = (t + d / 2) * R, big = d > 180 ? 1 : 0;
+    g += `<path d="M60 60 L${(60 + 30 * Math.cos(a0)).toFixed(1)} ${(60 - 30 * Math.sin(a0)).toFixed(1)} A30 30 0 ${big} 0 ${(60 + 30 * Math.cos(a1)).toFixed(1)} ${(60 - 30 * Math.sin(a1)).toFixed(1)} Z" fill="${cols[i % 3]}" stroke="none"/>`;
+    g += `<text x="${(60 + 44 * Math.cos(m)).toFixed(1)}" y="${(60 - 44 * Math.sin(m) + 4).toFixed(1)}" font-size="11" font-weight="800" text-anchor="middle" fill="${i === angs.length - 1 ? '#F2604F' : '#22305A'}">${i === angs.length - 1 ? '?' : d + '°'}</text>`; t += d; });
+  t = 0; angs.forEach(d => { g += `<line x1="60" y1="60" x2="${(60 + 56 * Math.cos(t * R)).toFixed(1)}" y2="${(60 - 56 * Math.sin(t * R)).toFixed(1)}" stroke="#22305A" stroke-width="3" stroke-linecap="round"/>`; t += d; });
+  return `<div class="shape"><svg viewBox="0 0 120 120" role="img" aria-label="angles around a point">${g}<circle cx="60" cy="60" r="3.5" fill="#22305A"/></svg></div>`;
+}
+// Percent bar: the whole split into equal parts (10, 4, 2 or 20), the asked percent shaded, the whole labelled on top.
+function pctParts(pc, whole) {
+  const d = pc % 10 === 0 ? 10 : pc % 25 === 0 ? 4 : pc % 5 === 0 ? 20 : 0;
+  if (!d) return '';
+  return barModel(Array.from({ length: d }, (_, i) => ({ w: 1, t: '', c: i < pc / (100 / d) ? '#FFD98A' : '#fff' })), whole);
+}
+// A small table, e.g. a ratio table; '?' cells are highlighted.
+const miniTab = rows => `<table class="m3tab">${rows.map(r => `<tr><th>${r[0]}</th>${r.slice(1).map(v => v === '?' ? '<td style="background:#FFD98A;color:#F2604F">?</td>' : `<td>${v}</td>`).join('')}</tr>`).join('')}</table>`;
 // Ten frames: a red counters, then b blue ones. More than 10 uses two frames side by side.
 function tenFrame(a, b = 0) {
   const n = a + b, frames = n > 10 ? 2 : 1; let s = '';
@@ -193,6 +233,7 @@ S('compare', 0, 'Bigger or smaller', '🐘', [
   ['5 is bigger than 2. The crocodile mouth opens to the bigger number.', () => '<span class="bignum">5 > 2</span>'],
   ['Big numbers: more digits means bigger. 40 is bigger than 9.', () => '<span class="bignum">40 > 9</span>']
 ], L => { const q = GEN.compare(L), [a, b] = q.choices.map(c => +c.val), hi = Math.max(a, b), lo = Math.min(a, b);
+  if (!q.visual) q.visual = markLine(0, [10, 20, 50, 100, 1000][L - 1], [{ v: a, t: a, c: '#2E8BE6' }, { v: b, t: b }]);
   q.steps = hi <= 10 ? [`Line them up in pairs.`, `${hi} has ${hi - lo} left over, so ${hi} is more.`] : String(hi).length > String(lo).length ? [`${hi} has more digits than ${lo}.`, `More digits means bigger.`] : [`They have the same number of digits.`, `Look at the first digit: ${String(hi)[0]} and ${String(lo)[0]}.`, ...(String(hi)[0] === String(lo)[0] ? ['They match, so look at the next digit.'] : []), `${hi} is bigger, ${lo} is smaller.`];
   return q; });
 
@@ -269,7 +310,7 @@ S('add10', 1, 'Adding to 10', '➕', [
   if (L === 5) { const s = rnd(4, 10), a = rnd(1, s - 1); return Q({ prompt: `${a} + ? = ${s}`, speak: `${a} plus what makes ${s}?`, visual: objs(a, e), choices: opts(s - a, near(s - a)), answer: s - a, explain: tenFrame(a, s - a),
     steps: [`Start at ${a}.`, `Count up to ${s}: ${Array.from({ length: s - a }, (_, i) => a + i + 1).join(', ')}.`, `You counted ${s - a} more. The blue ones show them.`], explainText: `${a} + ${s - a} = ${s}.` }); }
   const max = L === 1 ? 5 : 10, a = rnd(1, max - 1), b = rnd(1, max - a);
-  return Q({ prompt: `${a} + ${b} = ?`, speak: `What is ${a} plus ${b}?`, visual: L <= 2 ? `${objs(a, e)}<span class="op">+</span>${objs(b, e)}` : '', choices: opts(a + b, near(a + b)), answer: a + b,
+  return Q({ prompt: `${a} + ${b} = ?`, speak: `What is ${a} plus ${b}?`, visual: L <= 2 ? `${objs(a, e)}<span class="op">+</span>${objs(b, e)}` : bondSVG('?', a, b), choices: opts(a + b, near(a + b)), answer: a + b,
     explain: `${objs(a, e, { num: true })}<span class="op">+</span>${objs(b, e, { num: true, numFrom: a })}`, steps: [`Start at the bigger number: ${Math.max(a, b)}.`, `Count on ${Math.min(a, b)}: ${Array.from({ length: Math.min(a, b) }, (_, i) => Math.max(a, b) + i + 1).join(', ')}.`], explainText: `${a} + ${b} = ${a + b}.` });
 });
 S('sub10', 1, 'Taking away to 10', '➖', [
@@ -282,7 +323,7 @@ S('sub10', 1, 'Taking away to 10', '➖', [
   if (L === 5) { const a = rnd(5, 10), r = rnd(1, a - 1); return Q({ prompt: `${a} − ? = ${r}`, speak: `${a} take away what leaves ${r}?`, visual: objs(a, e), choices: opts(a - r, near(a - r)), answer: a - r, explain: objs(a, e, { gone: a - r }),
     steps: [`Start with ${a}.`, `Keep ${r}. Cross out the rest.`, `You crossed out ${a - r}.`], explainText: `${a} − ${a - r} = ${r}.` }); }
   const max = [5, 10, 10, 10][L - 1], a = rnd(2, max), b = rnd(1, a - 1);
-  return Q({ prompt: `${a} − ${b} = ?`, speak: `What is ${a} take away ${b}?`, visual: L <= 2 ? objs(a, e) : '', choices: opts(a - b, near(a - b)), answer: a - b,
+  return Q({ prompt: `${a} − ${b} = ?`, speak: `What is ${a} take away ${b}?`, visual: L <= 2 ? objs(a, e) : bondSVG(a, b, '?'), choices: opts(a - b, near(a - b)), answer: a - b,
     explain: L === 4 ? hopLine([b, a], [`+${a - b}`]) : objs(a, e, { gone: b }),
     steps: L === 4 ? [`Think of adding instead: ${b} + what makes ${a}?`, `Count up from ${b} to ${a}: ${Array.from({ length: a - b }, (_, i) => b + i + 1).join(', ')}.`, `That is ${a - b} jumps.`] : [`Start with ${a}.`, `Cross out ${b}.`, `Count what is left: ${a - b}.`], explainText: `${a} − ${b} = ${a - b}.` });
 });
@@ -297,7 +338,7 @@ S('bonds', 1, 'Number friends', '🤝', [
     : T === 10 ? [`Put ${a} in the ten frame.`, `Count the empty boxes: ${f}.`]
     : T === 20 ? (a === 10 ? ['10 and 10 make 20. Double 10!'] : a < 10 ? [`${a} and ${10 - a} make 10.`, `Then 10 more makes 20.`, `${10 - a} + 10 = ${f}.`] : [`${a} is 10 and ${a - 10}.`, `${a - 10} needs ${20 - a} to make the next 10.`, `So ${a} + ${f} = 20.`])
     : [`Think in tens: ${a} is ${a / 10} tens.`, `${a / 10} and ${10 - a / 10} are friends of 10.`, `So ${a} and ${f} make 100.`];
-  return Q({ prompt: `${a} + ? = ${T}`, speak: `What goes with ${a} to make ${T}?`, visual: T <= 10 ? objs(a, '🔵') : '', choices: opts(T - a, near(T - a, { big: T === 100 }).filter(v => v % step === 0)), answer: T - a,
+  return Q({ prompt: `${a} + ? = ${T}`, speak: `What goes with ${a} to make ${T}?`, visual: T <= 10 ? objs(a, '🔵') : bondSVG(T, a, '?'), choices: opts(T - a, near(T - a, { big: T === 100 }).filter(v => v % step === 0)), answer: T - a,
     explain: T === 5 ? `${objs(a, '🔵')}<span class="op">+</span>${objs(T - a, '🔴')}` : T <= 20 ? tenFrame(a, f) : tenFrame(a / 10, f / 10), steps, explainText: `${a} and ${T - a} are friends. Together they make ${T}.` });
 });
 S('add20', 1, 'Adding to 20 and beyond', '🧮', [
@@ -315,7 +356,8 @@ S('add20', 1, 'Adding to 20 and beyond', '🧮', [
     pic = o > 10 && up !== a ? hopLine([a, up, a + b], [`+${up - a}`, `+${a + b - up}`]) : hopLine([a, a + b], [`+${b}`]); }
   else { a = rnd(11, 60); b = rnd(11, 89 - a); const T = a - a % 10 + b - b % 10, O = a % 10 + b % 10;
     how = [`Add the tens: ${a - a % 10} + ${b - b % 10} = ${T}.`, `Add the ones: ${a % 10} + ${b % 10} = ${O}.`, `Put them together: ${T} + ${O} = ${a + b}.`]; pic = hopLine([a, a + b - b % 10, a + b], b % 10 ? [`+${b - b % 10}`, `+${b % 10}`] : [`+${b}`]); }
-  return Q({ prompt: `${a} + ${b} = ?`, speak: `What is ${a} plus ${b}?`, choices: opts(a + b, near(a + b)), answer: a + b, explain: pic, steps: how, explainText: `${a} + ${b} = ${a + b}.` });
+  const vis = L <= 3 ? bondSVG('?', a, b) : L === 4 ? `<div class="row">${tensOnes(Math.floor(a / 10), a % 10)}<span class="op">+</span>${tensOnes(0, b)}</div>` : barModel([{ w: a, t: a }, { w: b, t: b }], '?');
+  return Q({ prompt: `${a} + ${b} = ?`, speak: `What is ${a} plus ${b}?`, visual: vis, choices: opts(a + b, near(a + b)), answer: a + b, explain: pic, steps: how, explainText: `${a} + ${b} = ${a + b}.` });
 });
 S('sub20', 1, 'Taking away to 20 and beyond', '🧺', [
   ['13 − 4: jump back to 10 first. That is a jump of 3.', () => hopLine([13, 10, 9], ['−3', '−1'])],
@@ -334,7 +376,8 @@ S('sub20', 1, 'Taking away to 20 and beyond', '🧺', [
   if (b <= 9 && bo > a % 10 && a % 10) { steps = [`Jump back to ${down} first: ${a} − ${a % 10} = ${down}.`, `You still need to take away ${b - a % 10} more.`, `${down} − ${b - a % 10} = ${r}.`]; pic = hopLine([a, down, r], [`−${a % 10}`, `−${b - a % 10}`]); }
   else if (b <= 9) { steps = a % 10 ? [`Take away from the ones: ${a % 10} − ${b} = ${a % 10 - b}.`, `The tens stay the same: ${down}.`, `So ${a} − ${b} = ${r}.`] : [`Count back ${b} from ${a}.`, `${r} + ${b} = ${a}, so it is ${r}.`]; pic = hopLine([a, r], [`−${b}`]); }
   else { steps = [`Split ${b} into ${bt}${bo ? ` and ${bo}` : ''}.`, `Take away the tens: ${a} − ${bt} = ${a - bt}.`, ...(bo ? [`Take away the ones: ${a - bt} − ${bo} = ${r}.`] : []), `Check: ${r} + ${b} = ${a}.`]; pic = hopLine([a, a - bt, r], bo ? [`−${bt}`, `−${bo}`] : [`−${bt}`]); }
-  return Q({ prompt: `${a} − ${b} = ?`, speak: `What is ${a} take away ${b}?`, choices: opts(r, near(r)), answer: r, explain: pic, steps, explainText: `${a} − ${b} = ${r}.` });
+  const vis = L <= 3 ? bondSVG(a, b, '?') : barModel([{ w: Math.max(r, a / 5), t: '?' }, { w: Math.max(b, a / 5), t: b, c: '#F7B9AE' }], a);
+  return Q({ prompt: `${a} − ${b} = ?`, speak: `What is ${a} take away ${b}?`, visual: vis, choices: opts(r, near(r)), answer: r, explain: pic, steps, explainText: `${a} − ${b} = ${r}.` });
 });
 S('place', 1, 'Tens and ones', '🧱', [
   ['A long rod is 10 cubes stuck together. A small cube is just 1.', () => tensOnes(1, 1)],
@@ -348,7 +391,7 @@ S('place', 1, 'Tens and ones', '🧱', [
   const digits = L === 3 ? 2 : L === 4 ? 3 : 4, n = rnd(10 ** (digits - 1), 10 ** digits - 1), s = String(n), i = rnd(0, digits - 1), place = 10 ** (digits - 1 - i), d = +s[i];
   if (d === 0) return MATH.place.gen(L);
   const names = { 1: 'ones', 10: 'tens', 100: 'hundreds', 1000: 'thousands' };
-  return Q({ prompt: `What is the ${d} worth in ${fmt(n)}?`, speak: `In the number ${n}, what is the digit ${d} worth?`, choices: opts(d * place, [d, d * 10, d * 100, d * 1000, d * place * 10].filter(v => v !== d * place)), answer: d * place,
+  return Q({ prompt: `What is the ${d} worth in ${fmt(n)}?`, speak: `In the number ${n}, what is the digit ${d} worth?`, visual: pvChart(n), choices: opts(d * place, [d, d * 10, d * 100, d * 1000, d * place * 10].filter(v => v !== d * place)), answer: d * place,
     explain: pvChart(n, i), steps: [`Put ${fmt(n)} in the place chart.`, `The ${d} sits under ${names[place]}.`, place === 1 ? `${d} ones is just ${d}.` : `${d} ${names[place]} is ${d} × ${fmt(place)} = ${fmt(d * place)}.`], explainText: `So the ${d} is worth ${fmt(d * place)}.` });
 });
 S('skip', 1, 'Skip counting', '🐸', [
@@ -359,7 +402,7 @@ S('skip', 1, 'Skip counting', '🐸', [
 ], L => {
   const by = [10, 5, 2, pick([3, 4]), pick([25, 3, 4, 6])][L - 1], back = L === 5 && Math.random() < 0.5, start = by * rnd(0, 4);
   const seq = Array.from({ length: 4 }, (_, i) => back ? start + by * (8 - i) : start + by * i), next = back ? seq[3] - by : seq[3] + by;
-  return Q({ prompt: `${seq.join(', ')}, ?`, speak: `Count by ${by}s. ${seq.join(', ')}. What comes next?`, choices: opts(next, [next + 1, next - 1, next + by, next - by * 2, next + 10]), answer: next,
+  return Q({ prompt: `${seq.join(', ')}, ?`, speak: `Count by ${by}s. ${seq.join(', ')}. What comes next?`, visual: hopLine(seq, ['?', '?', '?']), choices: opts(next, [next + 1, next - 1, next + by, next - by * 2, next + 10]), answer: next,
     explain: hopLine([seq[2], seq[3], next], [`${back ? '−' : '+'}${by}`, `${back ? '−' : '+'}${by}`]), steps: [back ? `Find the jump: ${seq[0]} − ${seq[1]} = ${by}. It goes down.` : `Find the jump: ${seq[1]} − ${seq[0]} = ${by}.`, `Jump once more: ${seq[3]} ${back ? '−' : '+'} ${by} = ${next}.`], explainText: `The next number is ${next}.` });
 });
 S('time', 1, 'Telling time', '🕒', [
@@ -387,10 +430,10 @@ S('oddeven', 1, 'Odd and even', '🧦', [
   ['Try it: 358 ends in 8, so 358 is even.', () => '<span class="bignum">35<u>8</u></span>']
 ], L => {
   const n = L === 1 ? rnd(1, 10) : L === 2 ? rnd(1, 20) : L === 3 ? rnd(10, 100) : L === 4 ? 0 : rnd(100, 99999);
-  if (L === 4) { const a = rnd(1, 20), b = rnd(1, 20), s = a + b; return Q({ prompt: `Is ${a} + ${b} odd or even?`, choices: opts(s % 2 ? 'odd' : 'even', ['odd', 'even'], 2, v => v), answer: s % 2 ? 'odd' : 'even',
+  if (L === 4) { const a = rnd(1, 20), b = rnd(1, 20), s = a + b; return Q({ prompt: `Is ${a} + ${b} odd or even?`, visual: bondSVG('?', a, b), choices: opts(s % 2 ? 'odd' : 'even', ['odd', 'even'], 2, v => v), answer: s % 2 ? 'odd' : 'even',
     steps: [`Add first: ${a} + ${b} = ${s}.`, `${s} ends in ${s % 10}.`, `${s % 10} is ${s % 2 ? 'odd' : 'even'}, so ${s} is ${s % 2 ? 'odd' : 'even'}.`], explainText: `Tip: odd + odd is even, even + even is even, odd + even is odd.` }); }
   const oe = n % 2 ? 'odd' : 'even';
-  return Q({ prompt: `Is ${fmt(n)} odd or even?`, visual: L === 1 ? objs(n, '🧦') : '', choices: opts(oe, ['odd', 'even'], 2, v => v), answer: oe, explain: n <= 12 ? pairsPic(n, '🧦') : '',
+  return Q({ prompt: `Is ${fmt(n)} odd or even?`, visual: L <= 2 ? objs(n, '🧦') : L === 3 ? tensOnes(Math.floor(n / 10), n % 10) : pvChart(n, String(n).length - 1), choices: opts(oe, ['odd', 'even'], 2, v => v), answer: oe, explain: n <= 12 ? pairsPic(n, '🧦') : '',
     steps: n <= 12 ? ['Put them in pairs.', n % 2 ? 'There is 1 left over.' : 'None are left over.'] : [`Look at the last digit: ${n % 10}.`, `${n % 10} is ${oe}.`],
     explainText: `So ${fmt(n)} is ${oe}. ${n % 2 ? 'Odd numbers end in 1, 3, 5, 7 or 9.' : 'Even numbers end in 0, 2, 4, 6 or 8.'}` });
 });
@@ -415,10 +458,10 @@ S('money', 1, 'Money', '🪙', [
       steps: ['$1 is 100¢.', `Count up from ${price}¢ to 100¢.`, two ? `${price} to ${up} is ${up - price}. ${up} to 100 is ${100 - up}. Together ${ch}.` : `${price} to 100 is ${ch}.`], explainText: `100 − ${price} = ${ch}, so your change is ${ch}¢.` });
   }
   const a = rnd(105, 495), b = rnd(55, 395), tot = a + b, pay = Math.ceil((tot + 1) / 500) * 500;
-  if (Math.random() < 0.5) return Q({ prompt: word(`A book costs ${money(a)} and a pen costs ${money(b)}. How much altogether?`), speak: `A book costs ${moneySay(a)} and a pen costs ${moneySay(b)}. How much altogether?`,
+  if (Math.random() < 0.5) return Q({ prompt: word(`A book costs ${money(a)} and a pen costs ${money(b)}. How much altogether?`), speak: `A book costs ${moneySay(a)} and a pen costs ${moneySay(b)}. How much altogether?`, visual: barModel([{ w: a, t: `📕 ${money(a)}` }, { w: Math.max(b, a * 0.6), t: `✏️ ${money(b)}` }], '?'),
     choices: opts(tot, [tot + 10, tot - 10, tot + 100, tot - 100, tot + 1], 4, money, moneySay), answer: tot, steps: [`Add the dollars: ${Math.floor(a / 100)} + ${Math.floor(b / 100)} = ${Math.floor(a / 100) + Math.floor(b / 100)}.`, `Add the cents: ${a % 100} + ${b % 100} = ${a % 100 + b % 100}.`, ...(a % 100 + b % 100 >= 100 ? ['100 cents make 1 more dollar.'] : [])], explainText: `Altogether it costs ${money(tot)}.` });
   const ch = pay - tot;
-  return Q({ prompt: word(`You buy things costing ${money(tot)} and pay with $${pay / 100}. How much change?`), speak: `You buy things costing ${moneySay(tot)} and pay with ${pay / 100} dollars. How much change?`,
+  return Q({ prompt: word(`You buy things costing ${money(tot)} and pay with $${pay / 100}. How much change?`), speak: `You buy things costing ${moneySay(tot)} and pay with ${pay / 100} dollars. How much change?`, visual: barModel([{ w: tot, t: money(tot) }, { w: Math.max(pay - tot, pay / 4), t: 'change ?', c: '#A8E0C2' }], money(pay)),
     choices: opts(ch, [ch + 10, ch - 10, ch + 100, ch - 1, ch + 5].filter(v => v > 0), 4, money, moneySay), answer: ch, steps: [`Change = ${money(pay)} − ${money(tot)}.`, `Count up from ${money(tot)} to ${money(pay)}.`], explainText: `Your change is ${money(ch)}.` });
 });
 
@@ -469,7 +512,7 @@ S('times', 2, 'Times tables', '✖️', [
     : t === 11 ? [`Times 11 is times 10, add one more.`, `${b} × 10 = ${b * 10}.`, `${b * 10} + ${b} = ${p}.`]
     : t === 12 ? [`Times 12 is times 10, add times 2.`, `${b} × 10 = ${b * 10} and ${b} × 2 = ${b * 2}.`, `${b * 10} + ${b * 2} = ${p}.`]
     : [`Split ${t} into 5 and ${t - 5}.`, `${b} × 5 = ${b * 5} and ${b} × ${t - 5} = ${b * (t - 5)}.`, `${b * 5} + ${b * (t - 5)} = ${p}.`];
-  return Q({ prompt: `${x} × ${y} = ?`, speak: `What is ${x} times ${y}?`, visual: p <= 30 && L <= 2 ? `<div class="row">${Array.from({ length: x }, () => objs(y, e)).join('')}</div>` : '',
+  return Q({ prompt: `${x} × ${y} = ?`, speak: `What is ${x} times ${y}?`, visual: p <= 30 && L <= 2 ? `<div class="row">${Array.from({ length: x }, () => objs(y, e)).join('')}</div>` : barModel(Array.from({ length: x }, () => ({ w: 1, t: y })), '?'),
     choices: opts(p, [p + t, p - t, p + b, p - b, p + 1, x + y]), answer: p, explain: p <= 60 && x <= 10 && y <= 10 ? arraySVG(x, y) : '', steps: tSteps, explainText: `${x} × ${y} means ${x} groups of ${y}. ${x <= 6 ? Array(x).fill(y).join(' + ') + ' = ' + p : 'Count by ' + y + 's ' + x + ' times to reach ' + p}.` });
 });
 S('divide', 2, 'Sharing and dividing', '➗', [
@@ -479,9 +522,9 @@ S('divide', 2, 'Sharing and dividing', '➗', [
   ['Sometimes some are left over. 13 ÷ 3 = 4, with 1 left. The 1 is the remainder.', () => `<div class="row">${objs(4, '🍪')}${objs(4, '🍪')}${objs(4, '🍪')}${objs(1, '🍪')}</div>`]
 ], L => {
   const d = pick([[2], [2, 5, 10], [3, 4], [6, 7, 8, 9], [3, 4, 6, 7, 8, 9]][L - 1]), q = rnd(1, L <= 2 ? 6 : 12), r = L === 5 ? rnd(1, d - 1) : 0, n = d * q + r, [e] = pick(THINGS);
-  if (r) { const ans = `${q} r ${r}`; return Q({ prompt: `${n} ÷ ${d} = ?`, speak: `What is ${n} divided by ${d}?`, choices: opts(ans, [`${q + 1} r ${r}`, `${q} r ${r + 1}`, `${q - 1} r ${r + d}`, `${q}`], 4, v => v), answer: ans,
+  if (r) { const ans = `${q} r ${r}`; return Q({ prompt: `${n} ÷ ${d} = ?`, speak: `What is ${n} divided by ${d}?`, visual: barModel([...Array.from({ length: d }, () => ({ w: 1, t: '?' })), { w: 0.6, t: 'r', c: '#E6ECF2' }], n), choices: opts(ans, [`${q + 1} r ${r}`, `${q} r ${r + 1}`, `${q - 1} r ${r + d}`, `${q}`], 4, v => v), answer: ans,
     steps: [`Find the ${d} times table number just below ${n}: ${d} × ${q} = ${d * q}.`, `${d} × ${q + 1} = ${d * (q + 1)} is too big.`, `${n} − ${d * q} = ${r} left over.`], explainText: `So ${n} ÷ ${d} is ${q} remainder ${r}.` }); }
-  return Q({ prompt: `${n} ÷ ${d} = ?`, speak: `What is ${n} divided by ${d}?`, visual: L === 1 ? objs(n, e) : '', choices: opts(q, near(q).filter(v => v > 0).concat([d, n - d])), answer: q,
+  return Q({ prompt: `${n} ÷ ${d} = ?`, speak: `What is ${n} divided by ${d}?`, visual: L === 1 ? objs(n, e) : barModel(Array.from({ length: d }, () => ({ w: 1, t: '?' })), n), choices: opts(q, near(q).filter(v => v > 0).concat([d, n - d])), answer: q,
     explain: L <= 2 ? `<div class="row">${Array.from({ length: d }, () => objs(q, e)).join('')}</div>` : n <= 60 ? arraySVG(d, q) : '',
     steps: [`Think: ${d} × what = ${n}?`, `${d} × ${q} = ${n}.`], explainText: `So ${n} ÷ ${d} = ${q}. ${n} shared into ${d} equal groups gives ${q} in each.` });
 });
@@ -499,7 +542,8 @@ S('missing', 2, 'Missing numbers', '🔍', [
   if (op === '÷') { b = rnd(2, 12); c = rnd(2, 12); a = b * c; txt = `${c} × ${b} = ${a}`; }
   const inv = { '+': 'take away', '−': 'add', '×': 'divide', '÷': 'multiply' }[op], wd = { '+': 'adding', '−': 'taking away', '×': 'multiplying', '÷': 'dividing' }[op];
   const pic = op === '+' ? barModel([{ w: Math.max(a, c / 5), t: '?' }, { w: Math.max(b, c / 5), t: b }], c) : op === '−' ? barModel([{ w: Math.max(c, a / 5), t: c }, { w: Math.max(b, a / 5), t: b }], '?') : '';
-  return Q({ prompt: `? ${op} ${b} = ${c}`, speak: `What number ${op === '+' ? 'plus' : op === '−' ? 'minus' : op === '×' ? 'times' : 'divided by'} ${b} makes ${c}?`, choices: opts(a, near(a).concat([c, b])), answer: a, explain: pic,
+  const vis = op === '×' ? compareModel([{ name: '', segs: [{ w: b, t: b }, { w: c - b, t: '?', dash: true }] }], c) : op === '÷' ? barModel(Array.from({ length: b }, () => ({ w: 1, t: c })), '?') : pic;
+  return Q({ prompt: `? ${op} ${b} = ${c}`, visual: vis, speak: `What number ${op === '+' ? 'plus' : op === '−' ? 'minus' : op === '×' ? 'times' : 'divided by'} ${b} makes ${c}?`, choices: opts(a, near(a).concat([c, b])), answer: a, explain: pic,
     steps: [`The opposite of ${wd} is to ${inv}.`, `${txt}.`, `Check: ${a} ${op} ${b} = ${c}.`], explainText: `The missing number is ${a}.` });
 });
 S('fractions', 2, 'Fractions', '🍕', [
@@ -537,15 +581,16 @@ S('round', 2, 'Rounding', '🎯', [
   ['47 has 7 ones. 7 is 5 or more, so 47 rounds up to 50.', () => '<span class="bignum">47 → 50</span>'],
   ['Rounding helps you estimate. 48 + 31 is about 50 + 30 = 80.', () => bigEq('50 + 30 = 80')]
 ], L => {
-  if (L === 5) { const a = rnd(11, 99), b = rnd(11, 99), r = x => Math.round(x / 10) * 10, est = r(a) + r(b); return Q({ prompt: `Estimate ${a} + ${b} by rounding to the nearest 10`, choices: opts(est, [est + 10, est - 10, a + b, est + 20]), answer: est,
+  if (L === 5) { const a = rnd(11, 99), b = rnd(11, 99), r = x => Math.round(x / 10) * 10, est = r(a) + r(b); return Q({ prompt: `Estimate ${a} + ${b} by rounding to the nearest 10`, visual: [a, b].map(v => markLine(v - v % 10, v - v % 10 + 10, [{ v, t: v }], { mid: true, ends: true })).join(''), choices: opts(est, [est + 10, est - 10, a + b, est + 20]), answer: est,
     steps: [`${a} has ${a % 10} ones, so it rounds ${a % 10 >= 5 ? 'up' : 'down'} to ${r(a)}.`, `${b} has ${b % 10} ones, so it rounds ${b % 10 >= 5 ? 'up' : 'down'} to ${r(b)}.`, `Add the easy numbers: ${r(a)} + ${r(b)} = ${est}.`], explainText: `The estimate is ${est}. The exact answer, ${a + b}, is close to it.` }); }
   const to = [10, 10, 100, 1000][L - 1], n = L === 1 ? rnd(11, 99) : L === 2 ? rnd(101, 999) : L === 3 ? rnd(101, 999) : rnd(1001, 9999);
   const ans = Math.round(n / to) * to, down = Math.floor(n / to) * to;
   const dig = String(n).at(-(String(to).length - 1)), dn = { 10: 'ones', 100: 'tens', 1000: 'hundreds' }[to];
-  return Q({ prompt: `Round ${fmt(n)} to the nearest ${to}`, choices: opts(ans, [down, down + to, down - to, n, down + 2 * to]), answer: ans, explain: hopLine([down, n, down + to], []),
+  return Q({ prompt: `Round ${fmt(n)} to the nearest ${to}`, visual: markLine(down, down + to, [{ v: n, t: fmt(n) }], { every: to / 10, mid: true, ends: true }), choices: opts(ans, [down, down + to, down - to, n, down + 2 * to]), answer: ans, explain: hopLine([down, n, down + to], []),
     steps: [`${fmt(n)} is between ${fmt(down)} and ${fmt(down + to)}.`, `Look at the ${dn} digit: ${dig}.`, `${dig} is ${+dig >= 5 ? '5 or more, so round up' : '4 or less, so round down'}.`], explainText: `${fmt(n)} rounds to ${fmt(ans)}.` });
 });
 
+{ const g = MATH.word.gen; MATH.word.gen = L => { const q = g(L); q.visual = q.visual || q.explain; return q; }; }
 const UNITS = [['the length of a pencil', 'cm'], ['how far to the next town', 'km'], ['the length of a room', 'm'], ['the weight of an apple', 'g'], ['the weight of a dog', 'kg'], ['the water in a bath', 'L'], ['medicine on a spoon', 'mL'], ['the width of a fingernail', 'mm']];
 S('measure', 2, 'Measuring', '📏', [
   ['Line the thing up with 0 on the ruler. The number at the end is how long it is.', () => ruler(4, 6)],
@@ -567,7 +612,7 @@ S('measure', 2, 'Measuring', '📏', [
     return Q({ prompt: `${fmt(n)} ${big} = ? ${small}`, choices: opts(ans, [ans * 10, ans / 10, Math.round(n) * f, ans + f], 4, v => fmt(v) + ' ' + small), answer: ans, steps: [`1 ${big} = ${fmt(f)} ${small}.`, `Big to small, so multiply: ${fmt(n)} × ${fmt(f)} = ${fmt(ans)}.`], explainText: `${fmt(n)} ${big} = ${fmt(ans)} ${small}.` });
   }
   const a1 = rnd(1, 4), a2 = rnd(10, f - 1 > 99 ? 900 : 90), b2 = rnd(10, f - 1 > 99 ? 900 : 90), tot = a1 * f + a2 + b2;
-  return Q({ prompt: word(`A ribbon is ${a1} ${big} ${a2} ${small}. Another is ${b2} ${small}. How long are they together, in ${small}?`), speak: `One is ${a1} ${big} and ${a2} ${small}. Another is ${b2} ${small}. How much together, in ${small}?`,
+  return Q({ prompt: word(`A ribbon is ${a1} ${big} ${a2} ${small}. Another is ${b2} ${small}. How long are they together, in ${small}?`), visual: barModel([{ w: a1 * f + a2, t: `${a1} ${big} ${a2} ${small}` }, { w: Math.max(b2, (a1 * f + a2) * 0.6), t: `${b2} ${small}` }], `? ${small}`), speak: `One is ${a1} ${big} and ${a2} ${small}. Another is ${b2} ${small}. How much together, in ${small}?`,
     choices: opts(tot, [a1 + a2 + b2, tot + f, tot - 10, a1 * 10 + a2 + b2], 4, v => fmt(v) + ' ' + small), answer: tot, steps: [`Change ${a1} ${big} into ${small}: ${a1} × ${fmt(f)} = ${fmt(a1 * f)} ${small}.`, `Add: ${fmt(a1 * f)} + ${a2} + ${b2} = ${fmt(tot)}.`], explainText: `Together they are ${fmt(tot)} ${small}.` });
 });
 S('data', 2, 'Charts and data', '📊', [
@@ -584,7 +629,7 @@ S('data', 2, 'Charts and data', '📊', [
     const ans = k === 'mean' ? sum / n : k === 'range' ? sorted[n - 1] - sorted[0] : sorted[2];
     const how = { mean: `Add them: ${list.join(' + ')} = ${sum}. Share by ${n}: ${sum} ÷ ${n} = ${ans}.`, range: `Biggest minus smallest: ${sorted[n - 1]} − ${sorted[0]} = ${ans}.`, median: `Put them in order: ${sorted.join(', ')}. The middle one is ${ans}.` }[k];
     const st = { mean: [`Add them all: ${list.join(' + ')} = ${sum}.`, `There are ${n} numbers, so share by ${n}.`, `${sum} ÷ ${n} = ${ans}.`], range: [`Find the biggest: ${sorted[n - 1]}.`, `Find the smallest: ${sorted[0]}.`, `${sorted[n - 1]} − ${sorted[0]} = ${ans}.`], median: [`Put them in order: ${sorted.join(', ')}.`, `The middle one is the 3rd: ${ans}.`] }[k];
-    return Q({ prompt: `Find the ${k === 'mean' ? 'mean (average)' : k} of: ${list.join(', ')}`, choices: opts(ans, [sum / n + 1, sorted[n - 1] - sorted[0], sorted[2], sum, list[2]].filter(v => Number.isInteger(v)), 4), answer: ans, steps: st, explainText: `The ${k} is ${ans}.` });
+    return Q({ prompt: `Find the ${k === 'mean' ? 'mean (average)' : k} of: ${list.join(', ')}`, visual: chartSVG(list.map((v, i) => ['ABCDE'[i], v]), 5).replace(/font-size="26"/g, 'font-size="18"'), choices: opts(ans, [sum / n + 1, sorted[n - 1] - sorted[0], sorted[2], sum, list[2]].filter(v => Number.isInteger(v)), 4), answer: ans, steps: st, explainText: `The ${k} is ${ans}.` });
   }
   const step = L === 4 ? 2 : 1, data = chartData(L === 1 ? 3 : 4, L === 4 ? 10 : [5, 8, 10][L - 1]).map(d => [d[0], d[1] * step, d[2]]);
   const vis = chartSVG(data, step), [a, b] = shuffle(data);
@@ -606,7 +651,8 @@ S('longmul', 3, 'Long multiplication', '🧮', [
   const r = [[12, 49, 2, 9], [101, 499, 2, 9], [12, 49, 11, 29], [101, 399, 11, 49], [1001, 4999, 11, 59]][L - 1], a = rnd(r[0], r[1]), b = rnd(r[2], r[3]), p = a * b;
   const steps = b < 10 ? splitSteps(a, b) : [`Split ${b} into ${b - b % 10} and ${b % 10}.`, `${fmt(a)} × ${b - b % 10} = ${fmt(a * (b - b % 10))}.`, `${fmt(a)} × ${b % 10} = ${fmt(a * (b % 10))}.`, `Add them: ${fmt(a * (b - b % 10))} + ${fmt(a * (b % 10))} = ${fmt(p)}.`];
   const aParts = String(a).split('').map((d, i, s) => +d * 10 ** (s.length - 1 - i)).filter(Boolean);
-  return Q({ prompt: `${fmt(a)} × ${b} = ?`, speak: `What is ${a} times ${b}?`, choices: opts(p, [p + a, p - a, p + 10, p + b * 10, a * (b % 10) + a * Math.floor(b / 10)]), answer: p,
+  const bParts = b < 10 ? [b] : [b - b % 10, b % 10].filter(Boolean), gA = b < 10 ? aParts : [a];
+  return Q({ prompt: `${fmt(a)} × ${b} = ?`, speak: `What is ${a} times ${b}?`, visual: `<table class="m3tab"><tr><th>×</th>${gA.map(v => `<th>${fmt(v)}</th>`).join('')}</tr>${bParts.map(q => `<tr><th>${fmt(q)}</th>${gA.map(() => '<td style="color:#F2604F">?</td>').join('')}</tr>`).join('')}</table>`, choices: opts(p, [p + a, p - a, p + 10, p + b * 10, a * (b % 10) + a * Math.floor(b / 10)]), answer: p,
     explain: b < 10 ? gridMul(aParts, [b]) : gridMul([a], [b - b % 10, b % 10].filter(Boolean)), steps, explainText: `${fmt(a)} × ${b} = ${fmt(p)}.` });
 });
 function splitSteps(a, b) {
@@ -623,7 +669,7 @@ S('longdiv', 3, 'Long division', '🍰', [
   const ans = r ? `${q} r ${r}` : String(q);
   const steps = []; let rem = 0, qs = '';
   for (const ch of String(n)) { const cur = rem * 10 + +ch, k = Math.floor(cur / d); if (qs || k) steps.push(`${rem ? (steps.length ? `Carry the ${rem} to make ${cur}. ` : `${rem} is too small to share by ${d}, so use ${cur}. `) : ''}${cur} ÷ ${d} = ${k}${cur - k * d ? `, ${cur - k * d} left over` : ''}.`); qs += k; rem = cur - k * d; }
-  return Q({ prompt: `${fmt(n)} ÷ ${d} = ?`, speak: `What is ${n} divided by ${d}?`, choices: opts(ans, r ? [`${q + 1} r ${r}`, `${q} r ${(r + 1) % d || d}`, `${q - 1} r ${r}`, String(q)] : [q + 1, q - 1, q + 10, q * 10, q - 10].map(String), 4, v => v), answer: ans,
+  return Q({ prompt: `${fmt(n)} ÷ ${d} = ?`, speak: `What is ${n} divided by ${d}?`, visual: busStop(d, n, '?'), choices: opts(ans, r ? [`${q + 1} r ${r}`, `${q} r ${(r + 1) % d || d}`, `${q - 1} r ${r}`, String(q)] : [q + 1, q - 1, q + 10, q * 10, q - 10].map(String), 4, v => v), answer: ans,
     explain: busStop(d, n, ans), steps: steps.length <= 5 ? steps : null, explainText: `Check: ${d} × ${q}${r ? ` + ${r}` : ''} = ${fmt(n)}. So the answer is ${r ? `${q} remainder ${r}` : q}.` });
 });
 S('fracops', 3, 'Fraction maths', '🥧', [
@@ -634,10 +680,10 @@ S('fracops', 3, 'Fraction maths', '🥧', [
 ], L => {
   const F = v => frac(...v.split('/')), sayF = v => fracSay(...v.split('/'));
   const simp = (n, d) => { const g = gcd(n, d); return `${n / g}/${d / g}`; };
-  if (L === 1) { const d = pick([2, 3, 4, 5]), n = rnd(1, d - 1), k = rnd(2, 4); return Q({ prompt: `${frac(n, d)} = ${frac('?', d * k)}`, speak: `${fracSay(n, d)} equals what over ${d * k}?`, choices: opts(n * k, [n + k, n * k + 1, d * k - n * k, n]), answer: n * k, explain: `<div class="row">${pieSVG(d, n)}${pieSVG(d * k, n * k)}</div>`, steps: [`The bottom went from ${d} to ${d * k}. That is times ${k}.`, `Do the same to the top: ${n} × ${k} = ${n * k}.`], explainText: `${frac(n, d)} = ${frac(n * k, d * k)}. Same amount, smaller pieces.` }); }
-  if (L === 2) { const d = pick([2, 3, 4, 5]), n = rnd(1, d - 1), k = rnd(2, 5), s = simp(n * k, d * k); return Q({ prompt: `Simplify ${frac(n * k, d * k)}`, speak: `Simplify ${fracSay(n * k, d * k)}`, choices: opts(s, [`${n * k / gcd(n * k, d * k) + 1}/${d}`, `${n}/${d * k}`, `${n * k}/${d}`, `1/${k}`], 4, F, sayF), answer: s, explain: `<div class="row">${barSVG(d * k, n * k)}${barSVG(+s.split('/')[1], +s.split('/')[0])}</div>`, steps: [`Find the biggest number that divides both ${n * k} and ${d * k}: ${gcd(n * k, d * k)}.`, `${n * k} ÷ ${gcd(n * k, d * k)} = ${s.split('/')[0]} and ${d * k} ÷ ${gcd(n * k, d * k)} = ${s.split('/')[1]}.`], explainText: `So ${frac(n * k, d * k)} = ${F(s)}.` }); }
-  if (L === 3) { const d = pick([5, 6, 7, 8, 9, 10]), a = rnd(1, d - 2), b = rnd(1, d - 1 - a), s = `${a + b}/${d}`; return Q({ prompt: `${frac(a, d)} + ${frac(b, d)} = ?`, speak: `${fracSay(a, d)} plus ${fracSay(b, d)}`, choices: opts(s, [`${a + b}/${d * 2}`, `${a * b}/${d}`, `${a + b + 1}/${d}`, `${Math.abs(a - b) || 1}/${d}`], 4, F, sayF), answer: s, explain: barSVG(d, a + b), steps: [`The bottoms match: both are ${d}.`, `Add the tops: ${a} + ${b} = ${a + b}.`, `Keep the bottom the same: ${F(s)}.`], explainText: `The pieces are the same size, so you just count them.` }); }
-  if (L === 4) { const [d1, d2] = pick([[2, 4], [3, 6], [2, 6], [4, 8], [2, 3], [3, 4], [2, 5]]), a = rnd(1, d1 - 1), b = rnd(1, d2 - 1), L2 = lcm(d1, d2), n = a * L2 / d1 + b * L2 / d2, s = simp(n, L2); return Q({ prompt: `${frac(a, d1)} + ${frac(b, d2)} = ?`, speak: `${fracSay(a, d1)} plus ${fracSay(b, d2)}`, choices: opts(s, [`${a + b}/${d1 + d2}`, `${a + b}/${L2}`, simp(n + 1, L2), `${a * b}/${d1 * d2}`], 4, F, sayF), answer: s, steps: [`Make the bottoms match: use ${L2}.`, `${frac(a, d1)} = ${frac(a * L2 / d1, L2)} and ${frac(b, d2)} = ${frac(b * L2 / d2, L2)}.`, `Add the tops: ${a * L2 / d1} + ${b * L2 / d2} = ${n}, so ${frac(n, L2)}${s !== `${n}/${L2}` ? ` = ${F(s)}` : ''}.`], explainText: `The answer is ${F(s)}.` }); }
+  if (L === 1) { const d = pick([2, 3, 4, 5]), n = rnd(1, d - 1), k = rnd(2, 4); return Q({ prompt: `${frac(n, d)} = ${frac('?', d * k)}`, speak: `${fracSay(n, d)} equals what over ${d * k}?`, visual: `<div class="row">${pieSVG(d, n)}${pieSVG(d * k, 0)}</div>`, choices: opts(n * k, [n + k, n * k + 1, d * k - n * k, n]), answer: n * k, explain: `<div class="row">${pieSVG(d, n)}${pieSVG(d * k, n * k)}</div>`, steps: [`The bottom went from ${d} to ${d * k}. That is times ${k}.`, `Do the same to the top: ${n} × ${k} = ${n * k}.`], explainText: `${frac(n, d)} = ${frac(n * k, d * k)}. Same amount, smaller pieces.` }); }
+  if (L === 2) { const d = pick([2, 3, 4, 5]), n = rnd(1, d - 1), k = rnd(2, 5), s = simp(n * k, d * k); return Q({ prompt: `Simplify ${frac(n * k, d * k)}`, speak: `Simplify ${fracSay(n * k, d * k)}`, visual: barSVG(d * k, n * k), choices: opts(s, [`${n * k / gcd(n * k, d * k) + 1}/${d}`, `${n}/${d * k}`, `${n * k}/${d}`, `1/${k}`], 4, F, sayF), answer: s, explain: `<div class="row">${barSVG(d * k, n * k)}${barSVG(+s.split('/')[1], +s.split('/')[0])}</div>`, steps: [`Find the biggest number that divides both ${n * k} and ${d * k}: ${gcd(n * k, d * k)}.`, `${n * k} ÷ ${gcd(n * k, d * k)} = ${s.split('/')[0]} and ${d * k} ÷ ${gcd(n * k, d * k)} = ${s.split('/')[1]}.`], explainText: `So ${frac(n * k, d * k)} = ${F(s)}.` }); }
+  if (L === 3) { const d = pick([5, 6, 7, 8, 9, 10]), a = rnd(1, d - 2), b = rnd(1, d - 1 - a), s = `${a + b}/${d}`; return Q({ prompt: `${frac(a, d)} + ${frac(b, d)} = ?`, speak: `${fracSay(a, d)} plus ${fracSay(b, d)}`, visual: `<div class="row">${barSVG(d, a)}${barSVG(d, b, '#2E8BE6')}</div>`, choices: opts(s, [`${a + b}/${d * 2}`, `${a * b}/${d}`, `${a + b + 1}/${d}`, `${Math.abs(a - b) || 1}/${d}`], 4, F, sayF), answer: s, explain: barSVG(d, a + b), steps: [`The bottoms match: both are ${d}.`, `Add the tops: ${a} + ${b} = ${a + b}.`, `Keep the bottom the same: ${F(s)}.`], explainText: `The pieces are the same size, so you just count them.` }); }
+  if (L === 4) { const [d1, d2] = pick([[2, 4], [3, 6], [2, 6], [4, 8], [2, 3], [3, 4], [2, 5]]), a = rnd(1, d1 - 1), b = rnd(1, d2 - 1), L2 = lcm(d1, d2), n = a * L2 / d1 + b * L2 / d2, s = simp(n, L2); return Q({ prompt: `${frac(a, d1)} + ${frac(b, d2)} = ?`, speak: `${fracSay(a, d1)} plus ${fracSay(b, d2)}`, visual: `<div class="row">${barSVG(d1, a)}${barSVG(d2, b, '#2E8BE6')}</div>`, choices: opts(s, [`${a + b}/${d1 + d2}`, `${a + b}/${L2}`, simp(n + 1, L2), `${a * b}/${d1 * d2}`], 4, F, sayF), answer: s, steps: [`Make the bottoms match: use ${L2}.`, `${frac(a, d1)} = ${frac(a * L2 / d1, L2)} and ${frac(b, d2)} = ${frac(b * L2 / d2, L2)}.`, `Add the tops: ${a * L2 / d1} + ${b * L2 / d2} = ${n}, so ${frac(n, L2)}${s !== `${n}/${L2}` ? ` = ${F(s)}` : ''}.`], explainText: `The answer is ${F(s)}.` }); }
   const a = rnd(1, 4), b = rnd(2, 6), c = rnd(1, 4), d = rnd(2, 6), s = simp(a * c, b * d);
   return Q({ prompt: `${frac(a, b)} × ${frac(c, d)} = ?`, speak: `${fracSay(a, b)} times ${fracSay(c, d)}`, choices: opts(s, [`${a + c}/${b + d}`, `${a * d}/${b * c}`, `${a * c}/${b + d}`, simp(a * c + 1, b * d)], 4, F, sayF), answer: s, steps: [`Multiply the tops: ${a} × ${c} = ${a * c}.`, `Multiply the bottoms: ${b} × ${d} = ${b * d}.`, s !== `${a * c}/${b * d}` ? `${frac(a * c, b * d)} simplifies to ${F(s)}.` : `That gives ${F(s)}.`], explainText: `The answer is ${F(s)}.` });
 });
@@ -648,12 +694,12 @@ S('decimals', 3, 'Decimals', '🔟', [
   ['Line up the decimal points to add or take away: 1.5 + 2.3 = 3.8.', () => '<pre class="column"> 1.5\n+2.3\n────\n 3.8</pre>']
 ], L => {
   if (L === 1) { const n = rnd(1, 9); return Q({ prompt: 'What decimal is shaded?', visual: barSVG(10, n), choices: opts(`0.${n}`, [`${n}.0`, `0.0${n}`, `0.${10 - n}`, `0.${(n % 9) + 1}`], 4, v => v), answer: `0.${n}`, explain: barSVG(10, n), steps: ['The bar is cut into 10 equal parts. Each part is one tenth, 0.1.', `${n} parts are shaded: ${n} tenths.`], explainText: `${n} tenths is written 0.${n}.` }); }
-  if (L === 2) { const a = rnd(1, 99) / 100, b = rnd(1, 9) / 10; if (a === b) return MATH.decimals.gen(L); const big = Math.max(a, b); return Q({ prompt: 'Which is bigger?', choices: opts(String(big), [String(a), String(b)], 2, v => v), answer: String(big), steps: [`Give both 2 decimal places: ${a.toFixed(2)} and ${b.toFixed(2)}.`, `Compare the tenths first: ${a.toFixed(2)[2]} and ${b.toFixed(2)[2]}.${a.toFixed(2)[2] === b.toFixed(2)[2] ? ' They match, so compare the hundredths.' : ''}`], explainText: `${big} is bigger.` }); }
+  if (L === 2) { const a = rnd(1, 99) / 100, b = rnd(1, 9) / 10; if (a === b) return MATH.decimals.gen(L); const big = Math.max(a, b); const dg = v => v.toFixed(2).split(''); return Q({ prompt: 'Which is bigger?', visual: `<table class="m3tab"><tr><th>Ones</th><th>.</th><th>Tenths</th><th>Hundredths</th></tr>${[a, b].map(v => `<tr>${dg(v).map(x => `<td>${x}</td>`).join('')}</tr>`).join('')}</table>`, choices: opts(String(big), [String(a), String(b)], 2, v => v), answer: String(big), steps: [`Give both 2 decimal places: ${a.toFixed(2)} and ${b.toFixed(2)}.`, `Compare the tenths first: ${a.toFixed(2)[2]} and ${b.toFixed(2)[2]}.${a.toFixed(2)[2] === b.toFixed(2)[2] ? ' They match, so compare the hundredths.' : ''}`], explainText: `${big} is bigger.` }); }
   if (L === 5) { const a = rnd(11, 999) / 10, k = pick([10, 100]), mul = Math.random() < 0.5, r = +(mul ? a * k : a / k).toFixed(4); return Q({ prompt: `${a} ${mul ? '×' : '÷'} ${k} = ?`, choices: opts(r, [+(mul ? a / k : a * k).toFixed(4), +(r * 10).toFixed(4), +(r / 10).toFixed(4)]), answer: r, steps: [`${mul ? 'Multiplying' : 'Dividing'} by ${k} makes the number ${k} times ${mul ? 'bigger' : 'smaller'}.`, `Every digit moves ${k === 10 ? 'one place' : 'two places'} to the ${mul ? 'left' : 'right'}.`, `${a} becomes ${fmt(r)}.`], explainText: `${a} ${mul ? '×' : '÷'} ${k} = ${fmt(r)}.` }); }
   const dp = L === 3 ? 1 : 2, a = rnd(10, 999) / 10 ** dp, b = rnd(10, 499) / 10 ** dp, sub = L === 4 && Math.random() < 0.5 && a > b, r = +(sub ? a - b : a + b).toFixed(dp);
   const sc = 10 ** dp, A = Math.round(a * sc), B = Math.round(b * sc), dn = dp === 1 ? ['Tenths', 'Ones', 'Tens', 'Hundreds'] : ['Hundredths', 'Tenths', 'Ones', 'Tens'];
   const w = Math.max(a.toFixed(dp).length, b.toFixed(dp).length + 1, r.toFixed(dp).length);
-  return Q({ prompt: `${a.toFixed(dp)} ${sub ? '−' : '+'} ${b.toFixed(dp)} = ?`, choices: opts(r, near(r, { dec: dp }).concat([+(r * 10).toFixed(dp)])), answer: r,
+  return Q({ prompt: `${a.toFixed(dp)} ${sub ? '−' : '+'} ${b.toFixed(dp)} = ?`, visual: `<pre class="column">${a.toFixed(dp).padStart(w)}\n${sub ? '−' : '+'}${b.toFixed(dp).padStart(w - 1)}\n${'─'.repeat(w)}\n${'?'.padStart(w)}</pre>`, choices: opts(r, near(r, { dec: dp }).concat([+(r * 10).toFixed(dp)])), answer: r,
     explain: `<pre class="column">${a.toFixed(dp).padStart(w)}\n${sub ? '−' : '+'}${b.toFixed(dp).padStart(w - 1)}\n${'─'.repeat(w)}\n${r.toFixed(dp).padStart(w)}</pre>`,
     steps: ['Line up the decimal points.', ...(sub ? subSteps(A, B, dn) : colSteps(A, B, dn.map(x => x.toLowerCase()))).slice(0, 4)], explainText: `Keep the point in line: the answer is ${r.toFixed(dp)}.` });
 });
@@ -663,7 +709,7 @@ S('percent', 3, 'Percentages', '💯', [
   ['To find 10%, divide by 10. 10% of 80 is 8.', () => bigEq('80 ÷ 10 = 8')],
   ['Build other percents from 10%. 30% is 3 lots of 10%: 3 × 8 = 24. 5% is half of 10%: 4.', () => bigEq('30% of 80 = 24')]
 ], L => {
-  if (L === 3) { const [n, d] = pick([[1, 2], [1, 4], [3, 4], [1, 5], [2, 5], [1, 10], [7, 10], [3, 5]]), p = n / d * 100; return Q({ prompt: `${frac(n, d)} = ?%`, speak: `What percent is ${fracSay(n, d)}?`, choices: opts(`${p}%`, [`${n * 10}%`, `${d * 10}%`, `${100 - p}%`, `${n}${d}%`].filter(v => v !== `${p}%`), 4, v => v), answer: `${p}%`, explain: barSVG(d, n), steps: ['Percent means out of 100, so make the bottom 100.', `${d} × ${100 / d} = 100, so do the same to the top: ${n} × ${100 / d} = ${p}.`, `${frac(p, 100)} is ${p}%.`], explainText: `${frac(n, d)} = ${p}%.` }); }
+  if (L === 3) { const [n, d] = pick([[1, 2], [1, 4], [3, 4], [1, 5], [2, 5], [1, 10], [7, 10], [3, 5]]), p = n / d * 100; return Q({ prompt: `${frac(n, d)} = ?%`, speak: `What percent is ${fracSay(n, d)}?`, visual: barSVG(d, n), choices: opts(`${p}%`, [`${n * 10}%`, `${d * 10}%`, `${100 - p}%`, `${n}${d}%`].filter(v => v !== `${p}%`), 4, v => v), answer: `${p}%`, explain: barSVG(d, n), steps: ['Percent means out of 100, so make the bottom 100.', `${d} × ${100 / d} = 100, so do the same to the top: ${n} × ${100 / d} = ${p}.`, `${frac(p, 100)} is ${p}%.`], explainText: `${frac(n, d)} = ${p}%.` }); }
   const pc = L === 1 ? pick([50, 25, 10]) : L === 2 ? rnd(1, 9) * 10 : L === 4 ? pick([5, 15, 20, 35, 75, 12]) : pick([10, 20, 25, 50]), base = L === 4 ? rnd(2, 20) * 20 : L === 1 ? rnd(1, 10) * 20 : rnd(2, 20) * 10, v = pc * base / 100;
   const t = base / 10, pcSteps = pc === 50 ? [`50% is half.`, `${base} ÷ 2 = ${v}.`] : pc === 25 ? [`25% is a quarter.`, `${base} ÷ 4 = ${v}.`] : pc === 10 ? [`10% means divide by 10.`, `${base} ÷ 10 = ${v}.`]
     : pc === 5 ? [`10% of ${base} is ${fmt(t)}.`, `5% is half of that: ${fmt(v)}.`]
@@ -672,9 +718,9 @@ S('percent', 3, 'Percentages', '💯', [
     : pc === 75 ? [`50% of ${base} is ${fmt(base / 2)}. 25% is ${fmt(base / 4)}.`, `75% is 50% + 25%: ${fmt(base / 2)} + ${fmt(base / 4)} = ${fmt(v)}.`]
     : pc === 12 ? [`10% of ${base} is ${fmt(t)}. 1% is ${fmt(base / 100)}, so 2% is ${fmt(base / 50)}.`, `12% is 10% + 2%: ${fmt(t)} + ${fmt(base / 50)} = ${fmt(v)}.`]
     : [`10% of ${base} is ${base} ÷ 10 = ${fmt(t)}.`, `${pc}% is ${pc / 10} lots of 10%: ${pc / 10} × ${fmt(t)} = ${fmt(v)}.`];
-  if (L === 5) { const up = Math.random() < 0.5, nv = up ? base + v : base - v; return Q({ prompt: word(`A toy costs $${base}. The price goes ${up ? 'up' : 'down'} ${pc}%. What is the new price?`), choices: opts(nv, [v, base, up ? base - v : base + v, nv + 10]), answer: nv,
+  if (L === 5) { const up = Math.random() < 0.5, nv = up ? base + v : base - v; return Q({ prompt: word(`A toy costs $${base}. The price goes ${up ? 'up' : 'down'} ${pc}%. What is the new price?`), visual: pctParts(pc, '$' + base), choices: opts(nv, [v, base, up ? base - v : base + v, nv + 10]), answer: nv,
     steps: [...pcSteps, `The price goes ${up ? 'up, so add' : 'down, so take away'}: ${base} ${up ? '+' : '−'} ${v} = ${nv}.`], explainText: `The new price is $${nv}.` }); }
-  return Q({ prompt: `${pc}% of ${base} = ?`, choices: opts(v, [base / 10, base / 2, v + 5, v * 2, pc]), answer: v, explain: [10, 20, 30, 40, 50, 60, 70, 80, 90].includes(pc) ? barSVG(10, pc / 10) : '', steps: pcSteps, explainText: `${pc}% of ${base} is ${fmt(v)}.` });
+  return Q({ prompt: `${pc}% of ${base} = ?`, visual: pctParts(pc, base), choices: opts(v, [base / 10, base / 2, v + 5, v * 2, pc]), answer: v, explain: [10, 20, 30, 40, 50, 60, 70, 80, 90].includes(pc) ? barSVG(10, pc / 10) : '', steps: pcSteps, explainText: `${pc}% of ${base} is ${fmt(v)}.` });
 });
 S('negatives', 3, 'Negative numbers', '🌡️', [
   ['Numbers below zero are negative, like a very cold day. Further left on the number line means lower.', () => hopLine([-3, -2, -1, 0, 1, 2, 3], [])],
@@ -682,7 +728,7 @@ S('negatives', 3, 'Negative numbers', '🌡️', [
   ['Taking away a negative is the same as adding: 4 − (−2) = 4 + 2 = 6.', () => bigEq('4 − (−2) = 6')],
   ['Times and divide: same signs give a positive answer. Different signs give a negative answer. −3 × 4 = −12.', () => bigEq('−3 × 4 = −12')]
 ], L => {
-  if (L === 1) { const a = rnd(-10, 10), b = rnd(-10, 10); if (a === b) return MATH.negatives.gen(L); const c = Math.min(a, b); return Q({ prompt: `Which is colder: ${a}° or ${b}°?`, choices: opts(`${c}°`, [`${a}°`, `${b}°`], 2, v => v), answer: `${c}°`,
+  if (L === 1) { const a = rnd(-10, 10), b = rnd(-10, 10); if (a === b) return MATH.negatives.gen(L); const c = Math.min(a, b); return Q({ prompt: `Which is colder: ${a}° or ${b}°?`, visual: markLine(-10, 10, [], { every: 2, unit: '°' }), choices: opts(`${c}°`, [`${a}°`, `${b}°`], 2, v => v), answer: `${c}°`,
     explain: hopLine([a, b, 0], []), steps: ['Put both on the number line.', `${c} is further left, so it is lower.`], explainText: `${c}° is colder.` }); }
   let a, b, op, r;
   if (L === 2) { a = rnd(-9, -1); b = rnd(1, 15); op = '+'; }
@@ -693,7 +739,8 @@ S('negatives', 3, 'Negative numbers', '🌡️', [
   const sb = b < 0 ? `(${b})` : b, md = op === '×' || op === '÷', right = op === '+' ? b >= 0 : b < 0;
   const steps = md ? (r === 0 ? ['Anything times 0 is 0.'] : [`Ignore the signs first: ${Math.abs(a)} ${op} ${Math.abs(b)} = ${Math.abs(r)}.`, (a < 0) === (b < 0) ? 'The signs are the same, so the answer is positive.' : 'The signs are different, so the answer is negative.'])
     : b === 0 ? [`Adding or taking away 0 changes nothing.`] : [...(op === '−' && b < 0 ? [`Taking away a negative is the same as adding: ${a} + ${-b}.`] : op === '+' && b < 0 ? [`Adding a negative is the same as taking away: ${a} − ${-b}.`] : []), `Start at ${a} on the number line.`, `Move ${right ? 'right' : 'left'} ${Math.abs(b)}. You land on ${r}.`];
-  return Q({ prompt: `${a} ${op} ${sb} = ?`, choices: opts(r, [-r, r + 1, r - 1, r + 2, r - 10].filter(v => v !== r)), answer: r,
+  const lim = L === 2 ? [-10, 15] : L === 3 ? [-25, 25] : [-40, 40];
+  return Q({ prompt: `${a} ${op} ${sb} = ?`, visual: md ? '' : markLine(lim[0], lim[1], [{ v: a, t: `start ${neg(a)}` }], { every: 5 }), choices: opts(r, [-r, r + 1, r - 1, r + 2, r - 10].filter(v => v !== r)), answer: r,
     explain: md || b === 0 ? '' : hopLine([a, r, 0], [`${right ? '+' : '−'}${Math.abs(b)}`]), steps, explainText: `${a} ${op} ${sb} = ${r}.` });
 });
 S('area', 3, 'Area and perimeter', '📐', [
@@ -707,7 +754,7 @@ S('area', 3, 'Area and perimeter', '📐', [
   if (L === 3) { const p = 2 * (w + h); return Q({ prompt: 'What is the perimeter?', visual: rectSVG(w, h, false), choices: opts(p, [w * h, w + h, p + 2, p - 2]), answer: p, explain: rectSVG(w, h, false), steps: ['A rectangle has 4 sides. Opposite sides are the same.', `Add all 4: ${w} + ${h} + ${w} + ${h} = ${p}.`], explainText: `The perimeter is ${p}. (Do not multiply: that gives the area!)` }); }
   if (L === 4) { const W = rnd(6, 10), H = rnd(5, 8), cw = rnd(2, W - 3), ch = rnd(2, H - 3), a = W * H - cw * ch; return Q({ prompt: word(`A ${W} × ${H} rectangle has a ${cw} × ${ch} corner cut out. What area is left?`), visual: rectSVG(W, H, true), choices: opts(a, [W * H, cw * ch, a + cw, a - ch]), answer: a, steps: [`Whole rectangle: ${W} × ${H} = ${W * H}.`, `Cut-out corner: ${cw} × ${ch} = ${cw * ch}.`, `Take it away: ${W * H} − ${cw * ch} = ${a}.`], explainText: `The area left is ${a}.` }); }
   const b = rnd(2, 10) * 2, ht = rnd(2, 12), a = b * ht / 2;
-  return Q({ prompt: `A triangle has base ${b} and height ${ht}. What is its area?`, choices: opts(a, [b * ht, b + ht, a + b, a / 2]), answer: a, explain: triSVG(b, ht, 0.6, `base ${b}`, `height ${ht}`, { rect: true }),
+  return Q({ prompt: `A triangle has base ${b} and height ${ht}. What is its area?`, visual: triSVG(b, ht, 0.6, `base ${b}`, `height ${ht}`), choices: opts(a, [b * ht, b + ht, a + b, a / 2]), answer: a, explain: triSVG(b, ht, 0.6, `base ${b}`, `height ${ht}`, { rect: true }),
     steps: ['A triangle is half of a rectangle.', `Rectangle: ${b} × ${ht} = ${b * ht}.`, `Half of ${b * ht} is ${a}.`], explainText: `The area is ${a}.` });
 });
 S('angles', 3, 'Angles', '📏', [
@@ -719,10 +766,10 @@ S('angles', 3, 'Angles', '📏', [
   if (L === 1) { const d = pick([30, 45, 60, 90, 110, 135, 150, 180]), t = d < 90 ? 'acute' : d === 90 ? 'right' : d < 180 ? 'obtuse' : 'straight'; return Q({ prompt: 'What kind of angle is this?', visual: angleSVG(d), choices: opts(t, ['acute', 'right', 'obtuse', 'straight'], 4, v => v), answer: t,
     explain: `<div class="row">${angleSVG(90)}${angleSVG(d)}</div>`, steps: ['Compare it with a square corner, 90°.', d < 90 ? 'It is smaller, so it is acute.' : d === 90 ? 'It is exactly a square corner.' : d < 180 ? 'It is bigger, but not a straight line, so it is obtuse.' : 'It is a flat straight line, 180°.'], explainText: `This angle is ${d}°. ${t === 'acute' ? 'Less than 90° is acute.' : t === 'right' ? '90° is a right angle.' : t === 'obtuse' ? 'Between 90° and 180° is obtuse.' : '180° is a straight line.'}` }); }
   if (L === 2) { const a = rnd(20, 160); return Q({ prompt: `Angles on a straight line: ${a}° and ?`, visual: angleSVG(180 - a, '?'), choices: opts(180 - a, [360 - a, 90 - a, a, 180 - a + 10].filter(v => v > 0)), answer: 180 - a, explain: angleSVG(180 - a, `${180 - a}°`), steps: ['Angles on a straight line add to 180°.', `180 − ${a} = ${180 - a}.`], explainText: `The missing angle is ${180 - a}°.` }); }
-  if (L === 3) { const a = rnd(20, 100), b = rnd(20, 150 - a), c = 180 - a - b; return Q({ prompt: `A triangle has angles ${a}° and ${b}°. What is the third?`, choices: opts(c, [360 - a - b, c + 10, c - 10, 90]), answer: c, steps: ['The angles in a triangle add to 180°.', `Add the two you know: ${a} + ${b} = ${a + b}.`, `180 − ${a + b} = ${c}.`], explainText: `The third angle is ${c}°.` }); }
-  if (L === 4) { const a = rnd(50, 150), b = rnd(50, 150), c = 360 - a - b; return Q({ prompt: `Angles around a point: ${a}°, ${b}° and ?`, choices: opts(c, [180 - a, c + 10, c - 20, 180]), answer: c, steps: ['Angles all the way round a point add to 360°.', `Add the two you know: ${a} + ${b} = ${a + b}.`, `360 − ${a + b} = ${c}.`], explainText: `The missing angle is ${c}°.` }); }
+  if (L === 3) { const a = rnd(20, 100), b = rnd(20, 150 - a), c = 180 - a - b; return Q({ prompt: `A triangle has angles ${a}° and ${b}°. What is the third?`, visual: triAngSVG(a, b), choices: opts(c, [360 - a - b, c + 10, c - 10, 90]), answer: c, steps: ['The angles in a triangle add to 180°.', `Add the two you know: ${a} + ${b} = ${a + b}.`, `180 − ${a + b} = ${c}.`], explainText: `The third angle is ${c}°.` }); }
+  if (L === 4) { const a = rnd(50, 150), b = rnd(50, 150), c = 360 - a - b; return Q({ prompt: `Angles around a point: ${a}°, ${b}° and ?`, visual: aroundSVG([a, b, c]), choices: opts(c, [180 - a, c + 10, c - 20, 180]), answer: c, steps: ['Angles all the way round a point add to 360°.', `Add the two you know: ${a} + ${b} = ${a + b}.`, `360 − ${a + b} = ${c}.`], explainText: `The missing angle is ${c}°.` }); }
   const n = rnd(4, 10), s = (n - 2) * 180, names = { 4: 'quadrilateral', 5: 'pentagon', 6: 'hexagon', 7: 'heptagon', 8: 'octagon', 9: 'nonagon', 10: 'decagon' };
-  return Q({ prompt: `What do the inside angles of a ${names[n]} add up to?`, choices: opts(s, [n * 180, s + 180, s - 180, 360]), answer: s, explain: n <= 6 ? shapeSVG(['', '', '', 'triangle', 'square', 'pentagon', 'hexagon'][n], '#B9A6F2', true) : '', steps: [`A ${names[n]} has ${n} sides.`, `From one corner, it splits into ${n} − 2 = ${n - 2} triangles.`, `Each triangle has 180°: ${n - 2} × 180 = ${s}°.`], explainText: `The inside angles add up to ${s}°.` });
+  return Q({ prompt: `What do the inside angles of a ${names[n]} add up to?`, visual: `<div class="shape"><svg viewBox="-6 -6 112 112" role="img" aria-label="${names[n]}"><polygon points="${polyPts(n).map(q => q.join(',')).join(' ')}" fill="#B9A6F2" stroke="#22305A" stroke-width="2.5" stroke-linejoin="round"/></svg></div>`, choices: opts(s, [n * 180, s + 180, s - 180, 360]), answer: s, explain: n <= 6 ? shapeSVG(['', '', '', 'triangle', 'square', 'pentagon', 'hexagon'][n], '#B9A6F2', true) : '', steps: [`A ${names[n]} has ${n} sides.`, `From one corner, it splits into ${n} − 2 = ${n - 2} triangles.`, `Each triangle has 180°: ${n - 2} × 180 = ${s}°.`], explainText: `The inside angles add up to ${s}°.` });
 });
 S('order', 3, 'Order of operations', '🪜', [
   ['Do things in this order: Brackets, then × and ÷, then + and −.', () => '<span class="bignum">( ) → × ÷ → + −</span>'],
@@ -802,12 +849,12 @@ S('ratio', 4, 'Ratio and proportion', '⚖️', [
   ['Sharing in a ratio: 2 : 3 means 5 parts in all. Share 20: one part is 20 ÷ 5 = 4. So 8 and 12.', () => barModel([{ w: 1, t: 4, c: '#FFD98A' }, { w: 1, t: 4, c: '#FFD98A' }, { w: 1, t: 4, c: '#9CC9F2' }, { w: 1, t: 4, c: '#9CC9F2' }, { w: 1, t: 4, c: '#9CC9F2' }], 20)],
   ['Recipes scale: twice the people need twice as much of everything.', () => bigEq('2 eggs → 4 eggs')]
 ], L => {
-  if (L === 1) { const a = rnd(1, 5), b = rnd(1, 5), k = rnd(2, 6), g = gcd(a, b), s = `${a / g} : ${b / g}`; return Q({ prompt: `Simplify ${a * k} : ${b * k}`, choices: opts(s, [`${b / g} : ${a / g}`, `${a} : ${b * k}`, `${a * k / 2 | 0} : ${b * k}`, `${a / g + 1} : ${b / g}`].filter(v => v !== s), 4, v => v), answer: s, steps: [`Find the biggest number that divides ${a * k} and ${b * k}: ${gcd(a * k, b * k)}.`, `${a * k} ÷ ${gcd(a * k, b * k)} = ${a / g} and ${b * k} ÷ ${gcd(a * k, b * k)} = ${b / g}.`], explainText: `So it simplifies to ${s}.` }); }
-  if (L === 2) { const a = rnd(1, 4), b = rnd(1, 4), k = rnd(2, 10), tot = (a + b) * k; return Q({ prompt: word(`Share ${tot} sweets in the ratio ${a} : ${b}. How many does the first person get?`), choices: opts(a * k, [b * k, tot / 2, a * k + k, tot - k]), answer: a * k, explain: barModel([...Array.from({ length: a }, () => ({ w: 1, t: k, c: '#FFD98A' })), ...Array.from({ length: b }, () => ({ w: 1, t: k, c: '#9CC9F2' }))], tot), steps: [`Add the parts: ${a} + ${b} = ${a + b}.`, `One part: ${tot} ÷ ${a + b} = ${k}.`, `The first person gets ${a} part${a > 1 ? 's' : ''}: ${a} × ${k} = ${a * k}.`], explainText: `The first person gets ${a * k}.` }); }
-  if (L === 3) { const eggs = rnd(2, 4), ppl = rnd(2, 4), m = rnd(2, 4); return Q({ prompt: word(`A recipe for ${ppl} people uses ${eggs} eggs. How many eggs for ${ppl * m} people?`), choices: opts(eggs * m, [eggs + m, eggs * m + 1, ppl * m, eggs * ppl]), answer: eggs * m, steps: [`How many times more people? ${ppl * m} ÷ ${ppl} = ${m}.`, `So use ${m} times the eggs: ${eggs} × ${m} = ${eggs * m}.`], explainText: `You need ${eggs * m} eggs.` }); }
-  if (L === 4) { const n = rnd(2, 6), p = rnd(2, 9), m = rnd(2, 8); return Q({ prompt: word(`${n} pens cost $${n * p}. How much do ${m} pens cost?`), choices: opts(m * p, [n * p, m * n, m * p + p, p]), answer: m * p, steps: [`Find one pen first: $${n * p} ÷ ${n} = $${p}.`, `Then ${m} pens: ${m} × $${p} = $${m * p}.`], explainText: `${m} pens cost $${m * p}.` }); }
+  if (L === 1) { const a = rnd(1, 5), b = rnd(1, 5), k = rnd(2, 6), g = gcd(a, b), s = `${a / g} : ${b / g}`; return Q({ prompt: `Simplify ${a * k} : ${b * k}`, visual: compareModel([{ name: 'red', segs: [{ w: a * k, t: a * k, c: '#F7B9AE' }] }, { name: 'blue', segs: [{ w: b * k, t: b * k, c: '#9CC9F2' }] }]), choices: opts(s, [`${b / g} : ${a / g}`, `${a} : ${b * k}`, `${a * k / 2 | 0} : ${b * k}`, `${a / g + 1} : ${b / g}`].filter(v => v !== s), 4, v => v), answer: s, steps: [`Find the biggest number that divides ${a * k} and ${b * k}: ${gcd(a * k, b * k)}.`, `${a * k} ÷ ${gcd(a * k, b * k)} = ${a / g} and ${b * k} ÷ ${gcd(a * k, b * k)} = ${b / g}.`], explainText: `So it simplifies to ${s}.` }); }
+  if (L === 2) { const a = rnd(1, 4), b = rnd(1, 4), k = rnd(2, 10), tot = (a + b) * k; return Q({ prompt: word(`Share ${tot} sweets in the ratio ${a} : ${b}. How many does the first person get?`), visual: barModel([...Array.from({ length: a }, () => ({ w: 1, t: '?', c: '#FFD98A' })), ...Array.from({ length: b }, () => ({ w: 1, t: '?', c: '#9CC9F2' }))], tot), choices: opts(a * k, [b * k, tot / 2, a * k + k, tot - k]), answer: a * k, explain: barModel([...Array.from({ length: a }, () => ({ w: 1, t: k, c: '#FFD98A' })), ...Array.from({ length: b }, () => ({ w: 1, t: k, c: '#9CC9F2' }))], tot), steps: [`Add the parts: ${a} + ${b} = ${a + b}.`, `One part: ${tot} ÷ ${a + b} = ${k}.`, `The first person gets ${a} part${a > 1 ? 's' : ''}: ${a} × ${k} = ${a * k}.`], explainText: `The first person gets ${a * k}.` }); }
+  if (L === 3) { const eggs = rnd(2, 4), ppl = rnd(2, 4), m = rnd(2, 4); return Q({ prompt: word(`A recipe for ${ppl} people uses ${eggs} eggs. How many eggs for ${ppl * m} people?`), visual: miniTab([['People', ppl, ppl * m], ['Eggs', eggs, '?']]), choices: opts(eggs * m, [eggs + m, eggs * m + 1, ppl * m, eggs * ppl]), answer: eggs * m, steps: [`How many times more people? ${ppl * m} ÷ ${ppl} = ${m}.`, `So use ${m} times the eggs: ${eggs} × ${m} = ${eggs * m}.`], explainText: `You need ${eggs * m} eggs.` }); }
+  if (L === 4) { const n = rnd(2, 6), p = rnd(2, 9), m = rnd(2, 8); return Q({ prompt: word(`${n} pens cost $${n * p}. How much do ${m} pens cost?`), visual: miniTab([['Pens', n, m], ['Cost', '$' + n * p, '?']]), choices: opts(m * p, [n * p, m * n, m * p + p, p]), answer: m * p, steps: [`Find one pen first: $${n * p} ÷ ${n} = $${p}.`, `Then ${m} pens: ${m} × $${p} = $${m * p}.`], explainText: `${m} pens cost $${m * p}.` }); }
   const a = rnd(1, 5), b = rnd(1, 5), s = `${a}/${a + b}`;
-  return Q({ prompt: `Red : blue = ${a} : ${b}. What fraction is red?`, choices: opts(s, [`${a}/${b}`, `${b}/${a + b}`, `${a + b}/${a}`], 4, v => frac(...v.split('/')), v => fracSay(...v.split('/'))), answer: s, explain: `<div class="pat">${Array(a).fill(dot('#F2604F')).join('')}${Array(b).fill(dot('#2E8BE6')).join('')}</div>`, steps: [`Count all the parts: ${a} + ${b} = ${a + b}. That is the bottom number.`, `${a} of them are red. That is the top number.`], explainText: `Red is ${frac(a, a + b)}.` });
+  return Q({ prompt: `Red : blue = ${a} : ${b}. What fraction is red?`, visual: `<div class="pat">${Array(a).fill(dot('#F2604F')).join('')}${Array(b).fill(dot('#2E8BE6')).join('')}</div>`, choices: opts(s, [`${a}/${b}`, `${b}/${a + b}`, `${a + b}/${a}`], 4, v => frac(...v.split('/')), v => fracSay(...v.split('/'))), answer: s, explain: `<div class="pat">${Array(a).fill(dot('#F2604F')).join('')}${Array(b).fill(dot('#2E8BE6')).join('')}</div>`, steps: [`Count all the parts: ${a} + ${b} = ${a + b}. That is the bottom number.`, `${a} of them are red. That is the top number.`], explainText: `Red is ${frac(a, a + b)}.` });
 });
 S('sequences', 4, 'Sequences', '🔗', [
   ['A sequence follows a rule. 3, 7, 11, 15… adds 4 each time.', () => '<span class="bignum">3, 7, 11, 15</span>'],
@@ -816,12 +863,12 @@ S('sequences', 4, 'Sequences', '🔗', [
   ['The nth term is a formula for any place. 4n − 1: for term 10, 4 × 10 − 1 = 39.', () => '<table class="m3tab"><tr><th>n</th><td>1</td><td>2</td><td>3</td><td>10</td></tr><tr><th>4n − 1</th><td>3</td><td>7</td><td>11</td><td>39</td></tr></table>']
 ], L => {
   const a = rnd(1, 10), d = rnd(2, 9);
-  if (L === 1 || L === 2) { const dd = L === 2 ? -d : d, s0 = L === 2 ? a + 40 : a, seq = [0, 1, 2, 3].map(i => s0 + dd * i), nx = s0 + dd * 4; return Q({ prompt: `${seq.join(', ')}, ?`, choices: opts(nx, [nx + 1, nx - dd * 2, nx + dd, nx - 1]), answer: nx, explain: hopLine([seq[2], seq[3], nx], [`${dd > 0 ? '+' : '−'}${Math.abs(dd)}`, `${dd > 0 ? '+' : '−'}${Math.abs(dd)}`]), steps: [dd > 0 ? `Find the difference: ${seq[1]} − ${seq[0]} = ${dd}.` : `Find the difference: ${seq[0]} − ${seq[1]} = ${-dd}. It goes down.`, `Each term ${dd > 0 ? 'adds' : 'takes away'} ${Math.abs(dd)}.`, `${seq[3]} ${dd > 0 ? '+' : '−'} ${Math.abs(dd)} = ${nx}.`], explainText: `The next term is ${nx}.` }); }
-  if (L === 3) { const r = pick([2, 3]), s0 = rnd(1, 5), seq = [0, 1, 2, 3].map(i => s0 * r ** i), nx = s0 * r ** 4; return Q({ prompt: `${seq.join(', ')}, ?`, choices: opts(nx, [seq[3] + (seq[3] - seq[2]), nx + r, nx * r, nx - 1]), answer: nx, steps: [`The gaps keep growing, so try dividing: ${seq[1]} ÷ ${seq[0]} = ${r}.`, `Each term is multiplied by ${r}.`, `${seq[3]} × ${r} = ${nx}.`], explainText: `The next term is ${nx}.` }); }
+  if (L === 1 || L === 2) { const dd = L === 2 ? -d : d, s0 = L === 2 ? a + 40 : a, seq = [0, 1, 2, 3].map(i => s0 + dd * i), nx = s0 + dd * 4; return Q({ prompt: `${seq.join(', ')}, ?`, visual: hopLine(seq, ['?', '?', '?']), choices: opts(nx, [nx + 1, nx - dd * 2, nx + dd, nx - 1]), answer: nx, explain: hopLine([seq[2], seq[3], nx], [`${dd > 0 ? '+' : '−'}${Math.abs(dd)}`, `${dd > 0 ? '+' : '−'}${Math.abs(dd)}`]), steps: [dd > 0 ? `Find the difference: ${seq[1]} − ${seq[0]} = ${dd}.` : `Find the difference: ${seq[0]} − ${seq[1]} = ${-dd}. It goes down.`, `Each term ${dd > 0 ? 'adds' : 'takes away'} ${Math.abs(dd)}.`, `${seq[3]} ${dd > 0 ? '+' : '−'} ${Math.abs(dd)} = ${nx}.`], explainText: `The next term is ${nx}.` }); }
+  if (L === 3) { const r = pick([2, 3]), s0 = rnd(1, 5), seq = [0, 1, 2, 3].map(i => s0 * r ** i), nx = s0 * r ** 4; return Q({ prompt: `${seq.join(', ')}, ?`, visual: hopLine(seq, ['×?', '×?', '×?']), choices: opts(nx, [seq[3] + (seq[3] - seq[2]), nx + r, nx * r, nx - 1]), answer: nx, steps: [`The gaps keep growing, so try dividing: ${seq[1]} ÷ ${seq[0]} = ${r}.`, `Each term is multiplied by ${r}.`, `${seq[3]} × ${r} = ${nx}.`], explainText: `The next term is ${nx}.` }); }
   const b = rnd(1, 9) * pick([1, 1, -1]), n = rnd(10, 50), rule = `${d}n ${b < 0 ? '−' : '+'} ${Math.abs(b)}`;
-  if (L === 4) return Q({ prompt: `nth term ${rule}. What is term ${n}?`, choices: opts(d * n + b, [d * n, d * (n + b), d * n + b + d, n + b]), answer: d * n + b, steps: [`Put n = ${n} into the rule.`, `${d} × ${n} = ${d * n}.`, `${d * n} ${b < 0 ? '−' : '+'} ${Math.abs(b)} = ${d * n + b}.`], explainText: `Term ${n} is ${d * n + b}.` });
+  if (L === 4) return Q({ prompt: `nth term ${rule}. What is term ${n}?`, visual: miniTab([['n', 1, 2, 3, n], [rule, d + b, 2 * d + b, 3 * d + b, '?'].map((v, i) => i ? neg(v) : v)]), choices: opts(d * n + b, [d * n, d * (n + b), d * n + b + d, n + b]), answer: d * n + b, steps: [`Put n = ${n} into the rule.`, `${d} × ${n} = ${d * n}.`, `${d * n} ${b < 0 ? '−' : '+'} ${Math.abs(b)} = ${d * n + b}.`], explainText: `Term ${n} is ${d * n + b}.` });
   const seq = [1, 2, 3, 4].map(i => d * i + b);
-  return Q({ prompt: `Find the rule: ${seq.join(', ')}, …`, choices: opts(rule, [`${b}n ${d < 0 ? '−' : '+'} ${d}`, `${d}n`, `n + ${d}`, `${d + 1}n ${b - 1 < 0 ? '−' : '+'} ${Math.abs(b - 1)}`].filter(v => v !== rule), 4, v => v), answer: rule, steps: [`It goes up by ${d} each time, so the rule starts with ${d}n.`, `For the first term, ${d}n is ${d} × 1 = ${d}. But the first term is ${seq[0]}.`, `To get from ${d} to ${seq[0]}, ${b < 0 ? 'take away ' + -b : 'add ' + b}.`], explainText: `The rule is ${rule}.` });
+  return Q({ prompt: `Find the rule: ${seq.join(', ')}, …`, visual: miniTab([['n', 1, 2, 3, 4], ['term', ...seq.map(neg)]]), choices: opts(rule, [`${b}n ${d < 0 ? '−' : '+'} ${d}`, `${d}n`, `n + ${d}`, `${d + 1}n ${b - 1 < 0 ? '−' : '+'} ${Math.abs(b - 1)}`].filter(v => v !== rule), 4, v => v), answer: rule, steps: [`It goes up by ${d} each time, so the rule starts with ${d}n.`, `For the first term, ${d}n is ${d} × 1 = ${d}. But the first term is ${seq[0]}.`, `To get from ${d} to ${seq[0]}, ${b < 0 ? 'take away ' + -b : 'add ' + b}.`], explainText: `The rule is ${rule}.` });
 });
 S('probability', 4, 'Chance and probability', '🎲', [
   ['Probability is how likely something is, from 0 (impossible) to 1 (certain).', () => '<span class="bignum">0 … ½ … 1</span>'],

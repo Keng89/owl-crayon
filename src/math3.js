@@ -1030,6 +1030,7 @@ S3('trig', 4, 'Trigonometry: SOH CAH TOA', '⛺', [
 
 const tiles = (list, hi = []) => `<div class="ntiles">${list.map((v, i) => `<span${hi.includes(i) ? ' class="hi"' : ''}>${neg(v)}</span>`).join('')}</div>`;
 const median = s => s.length % 2 ? s[(s.length - 1) / 2] : (s[s.length / 2 - 1] + s[s.length / 2]) / 2;
+{ const g = MATH.trig.gen; MATH.trig.gen = L => { const q = g(L); if (!q.explain) q.explain = q.visual.replace(/<p class="wordq">[\s\S]*<\/p>/, ''); return q; }; }
 S3('stats', 4, 'Averages and spread', '📋', [
   ['Mean: add them all up and share equally. Median: the middle one when they are in order. Mode: the most common.', () => tiles([2, 3, 3, 5, 7], [2])],
   ['Range = biggest − smallest. The interquartile range is the spread of the middle half.', () => '<span class="expr">7 − 2 = 5</span>'],

@@ -403,17 +403,17 @@ S('days', 0, 'Days of the week', '📅', [
   }
   if (L === 4) {
     const i = rnd(0, 6), tom = Math.random() < 0.5, j = (i + (tom ? 1 : 6)) % 7;
-    return Q({ prompt: `Today is ${DAYS[i]}. What day ${tom ? 'will it be tomorrow' : 'was it yesterday'}?`, choices: dayOpts(j, 4), answer: DAYS[j], explain: week(-1, i),
+    return Q({ prompt: `Today is ${DAYS[i]}. What day ${tom ? 'will it be tomorrow' : 'was it yesterday'}?`, visual: week(-1, i), choices: dayOpts(j, 4), answer: DAYS[j], explain: week(-1, i),
       explainText: tom ? `Tomorrow is the next day. After ${DAYS[i]} comes ${DAYS[j]}.` : `Yesterday was the day before. Before ${DAYS[i]} comes ${DAYS[j]}.` });
   }
   const k = pick(['jump', 'jump', 'count', 'weekend']);
-  if (k === 'count') return Q({ prompt: 'How many days are in a week?', choices: opts(7, [5, 6, 10, 12, 30], 4), answer: 7, explain: week(), explainText: 'Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday. That is 7 days.' });
+  if (k === 'count') return Q({ prompt: 'How many days are in a week?', visual: week(), choices: opts(7, [5, 6, 10, 12, 30], 4), answer: 7, explain: week(), explainText: 'Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday. That is 7 days.' });
   if (k === 'weekend') {
     const ans = 'Saturday and Sunday';
-    return Q({ prompt: 'Which days are the weekend?', choices: opts(ans, ['Monday and Tuesday', 'Friday and Monday', 'Sunday and Monday', 'Thursday and Friday'], 3, v => v), answer: ans, explain: week(-1, 5), explainText: 'Saturday and Sunday are the weekend. The other five days are weekdays.' });
+    return Q({ prompt: 'Which days are the weekend?', visual: week(), choices: opts(ans, ['Monday and Tuesday', 'Friday and Monday', 'Sunday and Monday', 'Thursday and Friday'], 3, v => v), answer: ans, explain: week(-1, 5), explainText: 'Saturday and Sunday are the weekend. The other five days are weekdays.' });
   }
   const i = rnd(0, 6), d = rnd(2, 3), j = (i + d) % 7;
-  return Q({ prompt: `What day is ${d} days after ${DAYS[i]}?`, choices: opts(DAYS[j], [DAYS[(j + 6) % 7], DAYS[(j + 1) % 7], DAYS[(i + 1) % 7], DAYS[(i + 6) % 7]], 4, v => v), answer: DAYS[j], explain: week(-1, i),
+  return Q({ prompt: `What day is ${d} days after ${DAYS[i]}?`, visual: week(-1, i), choices: opts(DAYS[j], [DAYS[(j + 6) % 7], DAYS[(j + 1) % 7], DAYS[(i + 1) % 7], DAYS[(i + 6) % 7]], 4, v => v), answer: DAYS[j], explain: week(-1, i),
     explainText: `Start at ${DAYS[i]} and count on ${d}: ${Array.from({ length: d }, (_, s) => DAYS[(i + s + 1) % 7]).join(', ')}. It is ${DAYS[j]}.` });
 });
 
@@ -457,12 +457,12 @@ S('doubles', 1, 'Doubles', '🐞', [
 ], L => {
   if (L <= 2) {
     const n = rnd(1, L === 1 ? 5 : 10), pic = n <= 6;
-    return Q({ prompt: L === 1 ? `${n} spots on each wing. How many spots altogether?` : `${n} + ${n} = ?`, speak: L === 1 ? `This ladybug has ${n} spots on each wing. How many spots altogether?` : `What is double ${n}? ${n} plus ${n}?`, visual: pic ? P(bug(n, n), 'sm') : '',
+    return Q({ prompt: L === 1 ? `${n} spots on each wing. How many spots altogether?` : `${n} + ${n} = ?`, speak: L === 1 ? `This ladybug has ${n} spots on each wing. How many spots altogether?` : `What is double ${n}? ${n} plus ${n}?`, visual: pic ? P(bug(n, n), 'sm') : bondSVG('?', n, n),
       choices: nOpts(2 * n, 1, 22, L === 1 ? 3 : 4, [n, 2 * n + 1, 2 * n - 1]), answer: 2 * n, explain: pic ? P(bug(n, n), 'xs') : '', explainText: `Double ${n} is ${n} + ${n} = ${2 * n}.` });
   }
   if (L === 3) {
     const n = rnd(2, 9), [a, b] = Math.random() < 0.5 ? [n, n + 1] : [n + 1, n];
-    return Q({ prompt: `${a} + ${b} = ?`, speak: `What is ${a} plus ${b}? Use a double!`, visual: n + 1 <= 6 ? P(bug(a, b), 'sm') : '', choices: nOpts(2 * n + 1, 1, 20, 4, [2 * n, 2 * n + 2]), answer: 2 * n + 1,
+    return Q({ prompt: `${a} + ${b} = ?`, speak: `What is ${a} plus ${b}? Use a double!`, visual: n + 1 <= 6 ? P(bug(a, b), 'sm') : bondSVG('?', a, b), choices: nOpts(2 * n + 1, 1, 20, 4, [2 * n, 2 * n + 2]), answer: 2 * n + 1,
       steps: [`${n} + ${n} = ${2 * n} is a double you know.`, `${n + 1} is one more than ${n}, so add 1: ${2 * n + 1}.`], explainText: `${a} + ${b} = ${2 * n + 1}.` });
   }
   if (L === 4) {
@@ -472,11 +472,11 @@ S('doubles', 1, 'Doubles', '🐞', [
   }
   if (Math.random() < 0.5) {
     const n = pick([11, 12, 13, 14, 15, 20, 25, 30, 35, 40, 50]);
-    return Q({ prompt: `Double ${n} = ?`, speak: `What is double ${n}?`, choices: nOpts(2 * n, 1, 110, 4, [n + 2, 2 * n + 10, 2 * n - 10]), answer: 2 * n,
+    return Q({ prompt: `Double ${n} = ?`, speak: `What is double ${n}?`, visual: bondSVG('?', n, n), choices: nOpts(2 * n, 1, 110, 4, [n + 2, 2 * n + 10, 2 * n - 10]), answer: 2 * n,
       explainText: n % 10 ? `Double the tens and the ones: double ${n - n % 10} is ${2 * (n - n % 10)}, double ${n % 10} is ${2 * (n % 10)}. Together ${2 * n}.` : `Double ${n / 10} tens is ${n / 5} tens: ${2 * n}.` });
   }
   const h = pick([12, 15, 20, 25, 30, 40, 50]);
-  return Q({ prompt: `Half of ${2 * h} = ?`, speak: `What is half of ${2 * h}?`, choices: nOpts(h, 1, 110, 4, [2 * h, h + 10, h - 5]), answer: h, explainText: `Half of ${2 * h} is ${h}, because ${h} + ${h} = ${2 * h}.` });
+  return Q({ prompt: `Half of ${2 * h} = ?`, speak: `What is half of ${2 * h}?`, visual: barModel([{ w: 1, t: '?' }, { w: 1, t: '?' }], 2 * h), choices: nOpts(h, 1, 110, 4, [2 * h, h + 10, h - 5]), answer: h, explainText: `Half of ${2 * h} is ${h}, because ${h} + ${h} = ${2 * h}.` });
 });
 
 /* Number line with frog jumps. */
@@ -637,22 +637,22 @@ S('calendar', 1, 'Months and seasons', '🗓️', [
   if (L <= 3) {
     if (L === 3 && Math.random() < 0.35) {
       const i = rnd(0, 3), j = (i + 1) % 4;
-      return Q({ prompt: `Which season comes after ${SEASONS[i][0]}?`, choices: opts(SEASONS[j][0], SEASONS.map(s => s[0]), 3, v => v), answer: SEASONS[j][0], explain: `<span class="m2emo">${SEASONS.map(s => s[1].slice(0, 2)).join(' ')}</span>`, explainText: `The seasons go spring, summer, autumn, winter, and round again. After ${SEASONS[i][0]} comes ${SEASONS[j][0]}.` });
+      return Q({ prompt: `Which season comes after ${SEASONS[i][0]}?`, visual: `<span class="m2emo">${SEASONS.map(s => s[1].slice(0, 2)).join(' ')}</span>`, choices: opts(SEASONS[j][0], SEASONS.map(s => s[0]), 3, v => v), answer: SEASONS[j][0], explain: `<span class="m2emo">${SEASONS.map(s => s[1].slice(0, 2)).join(' ')}</span>`, explainText: `The seasons go spring, summer, autumn, winter, and round again. After ${SEASONS[i][0]} comes ${SEASONS[j][0]}.` });
     }
     const i = rnd(0, 11), after = L === 2 || Math.random() < 0.5, j = (i + (after ? 1 : 11)) % 12;
-    return Q({ prompt: `Which month comes ${after ? 'after' : 'before'} ${MONTHS[i]}?`, visual: L === 2 ? monthStrip(i) : '', choices: mOpts(j, L === 2 ? 3 : 4), answer: MONTHS[j], explain: monthStrip(j),
+    return Q({ prompt: `Which month comes ${after ? 'after' : 'before'} ${MONTHS[i]}?`, visual: monthStrip(i), choices: mOpts(j, L === 2 ? 3 : 4), answer: MONTHS[j], explain: monthStrip(j),
       explainText: `${after ? `${MONTHS[i]}, then ${MONTHS[j]}.` : `${MONTHS[j]}, then ${MONTHS[i]}.`}${after && i === 11 ? ' After December, a new year starts with January.' : !after && i === 0 ? ' Before January comes December of the year before.' : ''}` });
   }
   if (L === 4) {
     const k = pick(['nth', 'nth', 'count', 'jump']);
-    if (k === 'count') return Q({ prompt: 'How many months are in a year?', choices: opts(12, [10, 7, 4, 52, 30], 4), answer: 12, explain: monthStrip(), explainText: 'January to December is 12 months.' });
+    if (k === 'count') return Q({ prompt: 'How many months are in a year?', visual: monthStrip(), choices: opts(12, [10, 7, 4, 52, 30], 4), answer: 12, explain: monthStrip(), explainText: 'January to December is 12 months.' });
     if (k === 'jump') {
       const i = rnd(0, 11), d = rnd(2, 3), j = (i + d) % 12;
-      return Q({ prompt: `Which month is ${d} months after ${MONTHS[i]}?`, choices: opts(MONTHS[j], [MONTHS[(j + 11) % 12], MONTHS[(j + 1) % 12], MONTHS[(i + 1) % 12]], 4, v => v), answer: MONTHS[j], explain: monthStrip(i),
+      return Q({ prompt: `Which month is ${d} months after ${MONTHS[i]}?`, visual: monthStrip(i), choices: opts(MONTHS[j], [MONTHS[(j + 11) % 12], MONTHS[(j + 1) % 12], MONTHS[(i + 1) % 12]], 4, v => v), answer: MONTHS[j], explain: monthStrip(i),
         explainText: `Count on ${d} from ${MONTHS[i]}: ${Array.from({ length: d }, (_, s) => MONTHS[(i + s + 1) % 12]).join(', ')}.` });
     }
     const n = rnd(1, 12);
-    return Q({ prompt: `What is month number ${n}?`, speak: `Which month is the ${['', 'first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth', 'tenth', 'eleventh', 'twelfth'][n]} month of the year?`, choices: mOpts(n - 1, 4), answer: MONTHS[n - 1], explain: monthStrip(n - 1),
+    return Q({ prompt: `What is month number ${n}?`, visual: monthStrip(), speak: `Which month is the ${['', 'first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth', 'tenth', 'eleventh', 'twelfth'][n]} month of the year?`, choices: mOpts(n - 1, 4), answer: MONTHS[n - 1], explain: monthStrip(n - 1),
       explainText: `Count from January: ${MONTHS.slice(0, n).join(', ')}. Month ${n} is ${MONTHS[n - 1]}.` });
   }
   const mi = rnd(0, 11), start = rnd(0, 6);
@@ -673,7 +673,7 @@ S('between', 1, 'Before, after, between', '🔢', [
 ], L => {
   if (L === 5) {
     const x = rnd(10, 85), y = x + rnd(4, 8), ans = rnd(x + 1, y - 1);
-    return Q({ prompt: `Which number is between ${x} and ${y}?`, choices: opts(ans, [x, y, x - rnd(1, 5), y + rnd(1, 5), y + 10, x - 10].filter(v => v >= 0), 4), answer: ans,
+    return Q({ prompt: `Which number is between ${x} and ${y}?`, visual: markLine(x, y), choices: opts(ans, [x, y, x - rnd(1, 5), y + rnd(1, 5), y + 10, x - 10].filter(v => v >= 0), 4), answer: ans,
       explainText: `Between ${x} and ${y} are the numbers ${Array.from({ length: y - x - 1 }, (_, i) => x + i + 1).join(', ')}. ${ans} is one of them.` });
   }
   const kind = L === 1 ? 'after' : L === 2 ? 'before' : L === 3 ? 'between' : pick(['after', 'before', 'between']);
@@ -716,7 +716,7 @@ S('factfam', 1, 'Fact families', '🏠', [
       explainText: hide === 'c' ? `Add the parts: ${a} + ${b} = ${c}.` : `Take the part from the whole: ${c} − ${hide === 'a' ? b : a} = ${ans}.` });
   }
   const ok = shuffle(facts(a, b, c)).slice(0, 3), bad = pick([`${c} − ${a} = ${b + 1}`, `${a} + ${b} = ${c - 1}`, `${b} − ${a} = ${c}`, `${c} + ${b} = ${a}`, `${c} − ${b} = ${a + 2}`]);
-  return Q({ prompt: `Which one is NOT in the family ${a}, ${b}, ${c}?`, speak: `Three of these belong to the family ${a}, ${b}, ${c}. Which one does not belong?`, choices: shuffle([bad, ...ok]).map(v => C(v, v, SPEAK_EQ(v), true)), answer: bad,
+  return Q({ prompt: `Which one is NOT in the family ${a}, ${b}, ${c}?`, visual: P(house(a, b, c), 'xs'), speak: `Three of these belong to the family ${a}, ${b}, ${c}. Which one does not belong?`, choices: shuffle([bad, ...ok]).map(v => C(v, v, SPEAK_EQ(v), true)), answer: bad,
     explainText: `${bad} is not true. The family facts are ${facts(a, b, c).join(', ')}.` });
 });
 
@@ -746,7 +746,7 @@ S('add3', 1, 'Adding three numbers', '🎯', [
   } else { a = rnd(1, 4) * 10; b = rnd(1, 4) * 10; c = rnd(1, 9); }
   const s = a + b + c, pair = [[a, b, c], [a, c, b], [b, c, a]].find(([x, y]) => x + y === 10) || (a === b ? [a, b, c] : null);
   steps = pair ? [`${pair[0]} + ${pair[1]} = ${pair[0] + pair[1]}${pair[0] + pair[1] === 10 ? ' (a ten!)' : ' (a double!)'}.`, `${pair[0] + pair[1]} + ${pair[2]} = ${s}.`] : [`${a} + ${b} = ${a + b}.`, `${a + b} + ${c} = ${s}.`];
-  return Q({ prompt: `${a} + ${b} + ${c} = ?`, speak: speak || `What is ${a} plus ${b} plus ${c}?`, visual, choices: nOpts(s, 1, 100, L === 1 ? 3 : 4, [a + b, b + c, s + 10]), answer: s, steps, explainText: `So ${a} + ${b} + ${c} = ${s}.` });
+  return Q({ prompt: `${a} + ${b} + ${c} = ?`, speak: speak || `What is ${a} plus ${b} plus ${c}?`, visual: visual || barModel([a, b, c].map(v => ({ w: Math.max(v, s / 6), t: v })), '?'), choices: nOpts(s, 1, 100, L === 1 ? 3 : 4, [a + b, b + c, s + 10]), answer: s, steps, explainText: `So ${a} + ${b} + ${c} = ${s}.` });
 });
 
 const SYM = { lt: ['&lt;', 'less than'], gt: ['&gt;', 'greater than'], eq: ['=', 'equal to'] };
