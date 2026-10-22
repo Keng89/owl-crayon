@@ -167,10 +167,11 @@ function subSteps(a, b, names = PV_NAMES) {
 
 /* --- money, measuring and charts --- */
 const COIN_COL = { 1: '#D98C4A', 2: '#D98C4A', 5: '#B9C3CF', 10: '#B9C3CF', 20: '#E8C24A', 50: '#E8C24A', 100: '#E8C24A' };
-const coin = v => `<svg viewBox="0 0 40 40" width="${v >= 20 ? 62 : 52}" height="${v >= 20 ? 62 : 52}" role="img" aria-label="${v >= 100 ? '1 dollar' : v + ' cents'}"><circle cx="20" cy="20" r="18" fill="${COIN_COL[v]}" stroke="#22305A" stroke-width="2"/><circle cx="20" cy="20" r="13" fill="none" stroke="#22305A" stroke-opacity=".25" stroke-width="1.5"/><text x="20" y="25" font-size="${v >= 100 ? 11 : 13}" font-weight="800" text-anchor="middle" fill="#22305A">${v >= 100 ? '$1' : v + '¢'}</text></svg>`;
+const coin = v => `<svg viewBox="0 0 40 40" width="${v >= 20 ? 62 : 52}" height="${v >= 20 ? 62 : 52}" role="img" aria-label="${cashSay(v)}"><circle cx="20" cy="20" r="18" fill="${COIN_COL[v]}" stroke="#22305A" stroke-width="2"/><circle cx="20" cy="20" r="13" fill="none" stroke="#22305A" stroke-opacity=".25" stroke-width="1.5"/><text x="20" y="25" font-size="${v >= 100 ? 11 : 13}" font-weight="800" text-anchor="middle" fill="#22305A">${cash(v)}</text></svg>`;
 const coins = list => `<div class="coins">${list.map(coin).join('')}</div>`;
-const money = c => c < 100 ? `${c}¢` : `$${(c / 100).toFixed(2)}`;
-const moneySay = c => c < 100 ? `${c} cents` : `${Math.floor(c / 100)} dollar${c >= 200 ? 's' : ''}${c % 100 ? ` and ${c % 100} cents` : ''}`;
+// The currency (dollars by default) is picked in the Grown-ups corner; cash and cashSay live in math5.js.
+const money = c => c < 100 ? cash(c) : curOf().big + (c / 100).toFixed(2);
+const moneySay = c => cashSay(c);
 function ruler(len, max) {
   let t = '';
   for (let i = 0; i <= max; i++) t += `<line x1="${10 + i * 20}" y1="52" x2="${10 + i * 20}" y2="${i % 5 ? 62 : 66}" stroke="#22305A" stroke-width="1.5"/><text x="${10 + i * 20}" y="78" font-size="10" font-weight="800" text-anchor="middle" fill="#22305A">${i}</text>`;
@@ -451,20 +452,20 @@ S('money', 1, 'Money', '🪙', [
     const kinds = [[1, 5], [1, 2, 5, 10], [1, 2, 5, 10, 20, 50]][L - 1], n = rnd(2, [3, 4, 5][L - 1]);
     const list = Array.from({ length: n }, () => pick(kinds)).sort((a, b) => b - a), tot = list.reduce((a, b) => a + b, 0);
     const run = []; list.reduce((a, b) => (run.push(a + b), a + b), 0);
-    return Q({ prompt: 'How much money is this?', visual: coins(list), choices: opts(tot, near(tot).filter(v => v > 0).concat([list.length]), 4, v => v + '¢'), answer: tot,
-      explain: coins(list), steps: [`Start with the biggest coin: ${list[0]}¢.`, ...list.slice(1).map((c, i) => `Add ${c}¢ to get ${run[i + 1]}¢.`)], explainText: `${list.join('¢ + ')}¢ = ${tot}¢.` });
+    return Q({ prompt: 'How much money is this?', visual: coins(list), choices: opts(tot, near(tot).filter(v => v > 0).concat([list.length]), 4, money, moneySay), answer: tot,
+      explain: coins(list), steps: [`Start with the biggest coin: ${money(list[0])}.`, ...list.slice(1).map((c, i) => `Add ${money(c)} to get ${money(run[i + 1])}.`)], explainText: `${list.map(money).join(' + ')} = ${money(tot)}.` });
   }
   if (L === 4) {
     const price = rnd(1, 19) * 5, pay = 100, ch = pay - price, up = Math.ceil(price / 10) * 10, two = price % 10 && up < 100;
-    return Q({ prompt: word(`A toy costs ${price}¢. You pay with $1. How much change do you get?`), speak: `A toy costs ${price} cents. You pay with 1 dollar, which is 100 cents. How much change do you get?`, visual: coins([100]),
-      choices: opts(ch, near(ch).filter(v => v > 0 && v < 100).concat([price]), 4, v => v + '¢'), answer: ch, explain: hopLine(two ? [price, up, 100] : [price, 100], two ? [`+${up - price}`, `+${100 - up}`] : [`+${ch}`]),
-      steps: ['$1 is 100¢.', `Count up from ${price}¢ to 100¢.`, two ? `${price} to ${up} is ${up - price}. ${up} to 100 is ${100 - up}. Together ${ch}.` : `${price} to 100 is ${ch}.`], explainText: `100 − ${price} = ${ch}, so your change is ${ch}¢.` });
+    return Q({ prompt: word(`A toy costs ${money(price)}. You pay with ${money(100)}. How much change do you get?`), speak: `A toy costs ${moneySay(price)}. You pay with ${moneySay(100)}, which is 100 ${curOf().sn[1]}. How much change do you get?`, visual: coins([100]),
+      choices: opts(ch, near(ch).filter(v => v > 0 && v < 100).concat([price]), 4, money, moneySay), answer: ch, explain: hopLine(two ? [price, up, 100] : [price, 100], two ? [`+${up - price}`, `+${100 - up}`] : [`+${ch}`]),
+      steps: [`${money(100)} is 100${curOf().small}.`, `Count up from ${money(price)} to 100${curOf().small}.`, two ? `${price} to ${up} is ${up - price}. ${up} to 100 is ${100 - up}. Together ${ch}.` : `${price} to 100 is ${ch}.`], explainText: `100 − ${price} = ${ch}, so your change is ${money(ch)}.` });
   }
   const a = rnd(105, 495), b = rnd(55, 395), tot = a + b, pay = Math.ceil((tot + 1) / 500) * 500;
   if (Math.random() < 0.5) return Q({ prompt: word(`A book costs ${money(a)} and a pen costs ${money(b)}. How much altogether?`), speak: `A book costs ${moneySay(a)} and a pen costs ${moneySay(b)}. How much altogether?`, visual: barModel([{ w: a, t: `📕 ${money(a)}` }, { w: Math.max(b, a * 0.6), t: `✏️ ${money(b)}` }], '?'),
     choices: opts(tot, [tot + 10, tot - 10, tot + 100, tot - 100, tot + 1], 4, money, moneySay), answer: tot, steps: [`Add the dollars: ${Math.floor(a / 100)} + ${Math.floor(b / 100)} = ${Math.floor(a / 100) + Math.floor(b / 100)}.`, `Add the cents: ${a % 100} + ${b % 100} = ${a % 100 + b % 100}.`, ...(a % 100 + b % 100 >= 100 ? ['100 cents make 1 more dollar.'] : [])], explainText: `Altogether it costs ${money(tot)}.` });
   const ch = pay - tot;
-  return Q({ prompt: word(`You buy things costing ${money(tot)} and pay with $${pay / 100}. How much change?`), speak: `You buy things costing ${moneySay(tot)} and pay with ${pay / 100} dollars. How much change?`, visual: barModel([{ w: tot, t: money(tot) }, { w: Math.max(pay - tot, pay / 4), t: 'change ?', c: '#A8E0C2' }], money(pay)),
+  return Q({ prompt: word(`You buy things costing ${money(tot)} and pay with ${cash(pay)}. How much change?`), speak: `You buy things costing ${moneySay(tot)} and pay with ${moneySay(pay)}. How much change?`, visual: barModel([{ w: tot, t: money(tot) }, { w: Math.max(pay - tot, pay / 4), t: 'change ?', c: '#A8E0C2' }], money(pay)),
     choices: opts(ch, [ch + 10, ch - 10, ch + 100, ch - 1, ch + 5].filter(v => v > 0), 4, money, moneySay), answer: ch, steps: [`Change = ${money(pay)} − ${money(tot)}.`, `Count up from ${money(tot)} to ${money(pay)}.`], explainText: `Your change is ${money(ch)}.` });
 });
 

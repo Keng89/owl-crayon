@@ -664,6 +664,9 @@ const storyHome = (() => {
     if (!q) {
       skill = pickSkill(k, used);
       try { q = MATH[skill].gen(level(skill)); } catch (e) { skill = 'count'; q = MATH.count.gen(1); }
+      // Hands-on questions (set a clock, pay, build a chart) need their own screen; story stops use tap answers.
+      for (let t = 0; q.interact && t < 6; t++) { skill = pickSkill(k, used.concat(skill)); try { q = MATH[skill].gen(level(skill)); } catch (e) { q = { interact: 1 }; } }
+      if (q.interact) { skill = 'count'; q = MATH.count.gen(1); }
       used.push(skill);
     }
     // what the engine learns from: the generic question's skill, or the topic a story riddle practises

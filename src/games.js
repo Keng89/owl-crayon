@@ -167,14 +167,14 @@ function frogQ(d) {
 
 /* ---------- 3. Owl's Shop: pay with coins, or work out the change ---------- */
 const SHOP_ITEMS = [['🍎', 'apple'], ['🧸', 'teddy bear'], ['🍪', 'cookie'], ['🎈', 'balloon'], ['🖍️', 'crayon'], ['🍌', 'banana'], ['🚗', 'toy car'], ['⚽', 'ball'], ['🍦', 'ice cream'], ['📚', 'book'], ['🦕', 'dinosaur'], ['🪀', 'yo-yo'], ['🧃', 'juice'], ['🪁', 'kite']];
-const shopCounter = (e, price) => `<div class="counter"><span class="keeper" aria-hidden="true">🦉</span><div class="item"><span>${e}</span><b class="price">${price}¢</b></div></div>`;
+const shopCounter = (e, price) => `<div class="counter"><span class="keeper" aria-hidden="true">🦉</span><div class="item"><span>${e}</span><b class="price">${cash(price)}</b></div></div>`;
 function shopQ(d) {
   const [e, name] = pick(SHOP_ITEMS);
   if (d >= 5 && Math.random() < .45) {
     const pay = d >= 6 ? pick([100, 100, 50]) : pick([20, 50, 100]), price = rnd(Math.ceil(pay * .3), pay - 1), ans = pay - price;
     gFrame(`<div class="shop" data-price="${price}">${shopCounter(e, price)}<div class="paywith"><b>You pay</b>${coin(pay)}<b>Your change?</b></div>
-      ${choicesHTML(nearBy(ans, [10, -10, 1, -1, 5, -5], 1, pay, 4), ans, '¢')}</div>`,
-      `The ${name} costs ${price}¢. You pay ${pay}¢. How much change?`, `The ${name} costs ${price} cents. You pay with ${pay} cents. How much change do you get back?`);
+      ${choicesHTML(nearBy(ans, [10, -10, 1, -1, 5, -5], 1, pay, 4), ans, curOf().small)}</div>`,
+      `The ${name} costs ${cash(price)}. You pay ${cash(pay)}. How much change?`, `The ${name} costs ${cashSay(price)}. You pay with ${cashSay(pay)}. How much change do you get back?`);
     return wireChoices(ans, `Count up from ${price} to ${pay}.`, () => $('.item').classList.add('sold'), 1300);
   }
   const kinds = [[1], [1, 5], [1, 5, 10], [1, 5, 10], [1, 5, 10, 20, 50], [1, 2, 5, 10, 20, 50], [1, 5, 10, 20, 50, 100]][d];
@@ -182,19 +182,19 @@ function shopQ(d) {
   gFrame(`<div class="shop" data-price="${price}">${shopCounter(e, price)}
     <div class="purse" id="purse"><div class="paid" id="paid"></div><b class="tot" id="tot">Tap the coins to pay</b></div>
     <div class="tray">${kinds.map(v => `<button class="cbtn" data-c="${v}">${coin(v)}</button>`).join('')}</div></div>`,
-    `Pay <b class="gnum">${price}¢</b> for the ${name}!`, `The ${name} costs ${price} cents. Tap the coins to pay ${price} cents.`);
+    `Pay <b class="gnum">${cash(price)}</b> for the ${name}!`, `The ${name} costs ${cashSay(price)}. Tap the coins to pay ${cashSay(price)}.`);
   let paid = [];
   const total = () => paid.reduce((a, b) => a + b, 0);
   const show = () => {
-    $('#paid').innerHTML = paid.map((v, i) => `<button class="pc" data-i="${i}" aria-label="Give back ${v} cents">${coin(v)}</button>`).join('');
-    $('#tot').textContent = paid.length ? `You paid ${total()}¢` : 'Tap the coins to pay';
+    $('#paid').innerHTML = paid.map((v, i) => `<button class="pc" data-i="${i}" aria-label="Give back ${cashSay(v)}">${coin(v)}</button>`).join('');
+    $('#tot').textContent = paid.length ? `You paid ${cash(total())}` : 'Tap the coins to pay';
     view.querySelectorAll('.pc').forEach(b => b.onclick = () => { if (gm.lock) return; paid.splice(+b.dataset.i, 1); show(); $('#purse').classList.toggle('over', total() > price); tone([300]); });
   };
   view.querySelectorAll('.cbtn').forEach(b => b.onclick = () => {
     if (gm.lock || paid.length >= 20) return;
     paid.push(+b.dataset.c); show(); const t = total(); $('#purse').classList.toggle('over', t > price);
     if (t === price) { $('.item').classList.add('sold'); gameRight($('#purse'), 1400, `Thank you! 🛍️`); }
-    else if (t > price) { $('#tot').textContent = `${t}¢ is too much!`; gameMiss($('#purse'), `That is ${t} cents. Too much! Tap a coin in your purse to give it back.${gm.tries >= 1 ? ' Start with the biggest coin that fits.' : ''}`, null, 'Too much!'); }
+    else if (t > price) { $('#tot').textContent = `${cash(t)} is too much!`; gameMiss($('#purse'), `That is ${cashSay(t)}. Too much! Tap a coin in your purse to give it back.${gm.tries >= 1 ? ' Start with the biggest coin that fits.' : ''}`, null, 'Too much!'); }
     else { tone([500 + t * 4], .06); if (d <= 2) say(String(t)); }
   });
 }

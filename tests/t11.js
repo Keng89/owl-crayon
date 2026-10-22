@@ -2,7 +2,7 @@ const { chromium } = require(require('child_process').execSync('npm root -g').to
 (async () => {
   const b = await chromium.launch(); const p = await b.newPage({ viewport: { width: 390, height: 844 } }); const errs = [];
   p.on('pageerror', e => errs.push(e.message));
-  await p.goto('http://localhost:8766/index.html?w#selftest'); await p.evaluate(() => localStorage.clear()); await p.reload(); await p.waitForTimeout(300);
+  await p.goto(`http://localhost:${process.env.PORT || 8766}/index.html?w#selftest`); await p.evaluate(() => localStorage.clear()); await p.reload(); await p.waitForTimeout(300);
   await p.click('#tMath'); await p.click('[data-w="0"]'); await p.click('[data-s="mix"]');
   for (let i = 0; i < 6; i++) { const n = await p.locator('.choice').count(); for (let j = 0; j < n; j++) { const c = p.locator('.choice').nth(j); if (await c.isDisabled()) continue; await c.click(); await p.waitForTimeout(80); if (await p.locator('.choice.right').count()) break; } await p.waitForTimeout(2400); }
   console.log('days', JSON.stringify(await p.evaluate(() => __owl.st.days)));

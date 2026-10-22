@@ -127,6 +127,7 @@ const tour = (() => {
       <div class="panel"><h2>🔢 Number Garden (math)</h2>${li([
         `${WORLDS.map((w, i) => `${w.ico} <b>${w.name}</b> (ages ${w.ages}, ${worldSkills(i).length} topics)`).join(' · ')}.`,
         'Each topic starts with a short lesson Owl reads aloud, then a round of 6–8 questions. 🦉 Hint removes a wrong answer; 💡 shows the method.',
+        `<b>Hands-on real-life math</b> (${Object.values(MATH).filter(s => ['coins5', 'myday', 'purse', 'toyshop', 'setclock', 'blocks', 'thermo', 'pictogram', 'buildbar', 'change5', 'sorting'].includes(s.id)).length} topics): coins and notes, count the purse, pay at the toy shop by tapping coins, give change, set the clock by dragging its hands, my day in order, measure with blocks and a ruler, hot and cold, pictograms, build a bar chart, and Venn and Carroll diagrams. Money is in ${esc(curOf().label.toLowerCase())}; change it under Settings below.`,
         `<b>Write numbers</b>: trace 0–20 with a finger. <b>Math games</b>: ${GAMES.map(g => g.name).join(', ')}.`])}</div>
       <div class="panel"><h2>🖍️ Art School</h2>${li([
         `${LESSONS.length} drawing lessons in ${ART_CATS.length} kinds (${lv}). Each step draws itself, then your child copies it on the pad; 👻 Trace shows faint lines.`,

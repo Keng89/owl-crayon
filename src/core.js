@@ -40,7 +40,7 @@ const oops = () => tone([330, 262], 0.15);
 function speakable(text) {
   return String(text).replace(/<sup>(\d+)<\/sup>/g, ' to the power $1 ').replace(/<span class="frac"><i>([^<]*)<\/i><i>([^<]*)<\/i><\/span>/g, ' $1 over $2 ')
     .replace(/<[^>]+>/g, ' ').replace(/&lt;=|≤/g, ' is less than or equal to ').replace(/&gt;=|≥/g, ' is greater than or equal to ').replace(/&lt;/g, ' is less than ').replace(/&gt;/g, ' is greater than ')
-    .replace(/≠/g, ' is not equal to ').replace(/≈/g, ' about ').replace(/\$(\d+)\.(\d\d)\b/g, '$1 dollars and $2 cents').replace(/\$(\d+)/g, '$1 dollars').replace(/(\d)\s*¢/g, '$1 cents')
+    .replace(/≠/g, ' is not equal to ').replace(/≈/g, ' about ').replace(/\$(\d+)\.(\d\d)\b/g, '$1 dollars and $2 cents').replace(/\$(\d+)/g, '$1 dollars').replace(/£(\d+)\.(\d\d)\b/g, '$1 pounds and $2 pence').replace(/£(\d+)/g, '$1 pounds').replace(/€(\d+)\.(\d\d)\b/g, '$1 euros and $2 cents').replace(/€(\d+)/g, '$1 euros').replace(/(\d)\s*¢/g, '$1 cents')
     .replace(/(\d) r (\d)/g, '$1 remainder $2').replace(/(\d) : (\d)/g, '$1 to $2').replace(/&[a-z]+;/g, ' ').replace(/×/g, ' times ').replace(/÷/g, ' divided by ').replace(/−/g, ' minus ').replace(/²/g, ' squared ').replace(/³/g, ' cubed ')
     .replace(/√/g, ' square root of ').replace(/%/g, ' percent').replace(/°/g, ' degrees').replace(/(^|[\s=(+-])\?(?=[\s=)]|$)/g, '$1 what ').replace(/[^\w\s.,!?'+=:-]/g, ' ').replace(/\s+/g, ' ');
 }
@@ -143,6 +143,7 @@ const GEN = {
 //@include math2.js
 //@include math3.js
 //@include math4.js
+//@include math5.js
 //@include art.js
 //@include art2.js
 //@include art3.js
@@ -325,7 +326,7 @@ function workedExample(id) {
   let q; try { q = MATH[id].gen(1); } catch (e) { return; }
   const box = $('#demoBox'), here = box;
   box.innerHTML = `<div class="qcard demo"><p class="note">🦉 Owl's turn! Watch how I do it.</p><div class="prompt"><div class="ptext">${q.prompt}</div></div>${q.visual ? `<div class="visual">${q.visual}</div>` : ''}
-    <div class="choices" style="grid-template-columns:repeat(${Math.min(q.choices.length, 2)},1fr)">${q.choices.map(c => `<span class="choice${c.txt ? ' txt' : ''}${String(c.val) === String(q.answer) ? ' ans' : ''}">${c.html}</span>`).join('')}</div><div class="wdemo"></div></div>`;
+    ${q.interact ? '<p class="note">🖐️ This one is hands-on: you move things to answer.</p>' : `<div class="choices" style="grid-template-columns:repeat(${Math.min(q.choices.length, 2)},1fr)">${q.choices.map(c => `<span class="choice${c.txt ? ' txt' : ''}${String(c.val) === String(q.answer) ? ' ans' : ''}">${c.html}</span>`).join('')}</div>`}<div class="wdemo"></div></div>`;
   box.scrollIntoView({ behavior: 'smooth', block: 'start' });
   say(`Owl's turn. ${q.speak || q.prompt} Hmm, let me think.`);
   setTimeout(() => {
@@ -334,7 +335,7 @@ function workedExample(id) {
     const ans = q.choices.find(c => String(c.val) === String(q.answer));
     box.querySelector('.wdemo').innerHTML = `<div class="explain">${q.explain ? `<div class="visual">${q.explain}</div>` : ''}${q.steps ? `<ol class="steps">${q.steps.map(x => `<li>${x}</li>`).join('')}</ol>` : ''}<p>${q.explainText}</p></div><div class="row"><button class="btn leaf" id="tryNow">Now you try! ▶</button></div>`;
     box.querySelector('#tryNow').onclick = () => go(play, id);
-    say(`The answer is ${ans ? ans.say : q.answer}. ` + (q.steps ? q.steps.join(' ') + ' ' : '') + q.explainText + ' Now you try!');
+    say(`The answer is ${q.answerSay || (ans ? ans.say : q.answer)}. ` + (q.steps ? q.steps.join(' ') + ' ' : '') + q.explainText + ' Now you try!');
   }, 3500);
 }
 
@@ -357,36 +358,41 @@ function question() {
   let q;
   try { q = item.review ? { ...item.review.q, choices: shuffle(item.review.q.choices) } : MATH[skill].gen(level(skill)); }
   catch (e) { q = MATH.count.gen(1); }
-  const t0 = Date.now(); let tries = 0, hinted = false;
+  const t0 = Date.now(); let tries = 0, hinted = false, solved = false;
+  // A hands-on question (math5.js) shows a widget and a Check button instead of answer buttons.
+  const mx = q.interact && typeof MX !== 'undefined' && MX[q.interact.kind];
   view.innerHTML = `
     <div class="progress">${sess.plan.map((_, i) => `<i class="${i < sess.i ? 'done' : i === sess.i ? 'now' : ''}"></i>`).join('')}</div>
     <div class="qcard">
       <div class="prompt"><div class="ptext">${q.prompt}</div><button class="speak" id="spk" aria-label="Read it to me">🔊</button></div>
-      ${q.visual ? `<div class="visual">${q.visual}</div>` : ''}
-      <div class="choices" style="grid-template-columns:repeat(${q.choices.some(c => String(c.html).replace(/<[^>]+>/g, '').length > 6) && q.choices.length > 2 ? 2 : q.choices.length > 4 ? 3 : q.choices.length},1fr)">${q.choices.map((c, i) => `<button class="choice${c.txt ? ' txt' : ''}" data-i="${i}"${c.say && /<svg|<span/.test(String(c.html)) ? ` aria-label="${esc(c.say)}"` : ''}>${c.html}</button>`).join('')}</div>
+      ${q.visual && !(mx && q.interact.own) ? `<div class="visual">${q.visual}</div>` : ''}
+      ${mx ? `<div class="m5mx" id="mx"></div><div class="row"><button class="btn leaf m5check" id="mxok">Check ✓</button></div>` : `<div class="choices" style="grid-template-columns:repeat(${q.choices.some(c => String(c.html).replace(/<[^>]+>/g, '').length > 6) && q.choices.length > 2 ? 2 : q.choices.length > 4 ? 3 : q.choices.length},1fr)">${q.choices.map((c, i) => `<button class="choice${c.txt ? ' txt' : ''}" data-i="${i}"${c.say && /<svg|<span/.test(String(c.html)) ? ` aria-label="${esc(c.say)}"` : ''}>${c.html}</button>`).join('')}</div>`}
       <div class="cheer" id="cheer" aria-live="polite"></div>
       <div id="exp" style="width:100%"></div>
       <div class="row"><button class="help" id="hint">🦉 Hint</button><button class="help" id="how">💡 How does this work?</button></div>
     </div>`;
   // Young children may not read word answers yet, so read them out too.
   const words = q.choices.map(c => c.say != null ? String(c.say) : String(c.val));
-  const qSay = (q.speak || q.prompt) + (st.age <= 8 && words.some(w => /[a-z]/i.test(w)) && words.every(w => w.length < 40) ? ` Is it ${words.join(', or ')}?` : '');
+  const qSay = (q.speak || q.prompt) + (!mx && st.age <= 8 && words.some(w => /[a-z]/i.test(w)) && words.every(w => w.length < 40) ? ` Is it ${words.join(', or ')}?` : '');
   say(qSay);
   $('#spk').onclick = () => say(qSay);
+  const w = mx ? mx.mount($('#mx'), q.interact, q.answer) : null;
+  if (location.hash === '#selftest') window.__owlQ = q;
   // A hint takes away one wrong answer (only once, and only when 3 or more are left), so a stuck child can still win.
   $('#hint').onclick = () => {
+    if (w) { if (hinted || solved) { say('Look carefully and try!'); return; } hinted = true; $('#hint').disabled = true; say(w.hint()); return; }
     const wrong = [...view.querySelectorAll('.choice')].filter(b => !b.disabled && String(q.choices[+b.dataset.i].val) !== String(q.answer));
     if (hinted || wrong.length < 2) { say('Look carefully at the picture and try one!'); return; }
     hinted = true; const b = pick(wrong); b.disabled = true; b.classList.add('gone'); $('#hint').disabled = true;
     say('Owl took away one wrong answer. Try again!');
   };
   $('#how').onclick = () => { const s = MATH[skill]; $('#exp').innerHTML = `<div class="explain">${s.lesson.map(([t, v]) => `<p>${t}</p>${v() ? `<div class="visual">${v()}</div>` : ''}`).join('')}</div>`; say(s.lesson.map(x => x[0]).join(' ')); };
-  view.querySelectorAll('.choice').forEach(b => b.onclick = () => {
-    const c = q.choices[+b.dataset.i];
-    if (b.disabled) return;
-    if (String(c.val) === String(q.answer)) {
-      const first = tries === 0 && !hinted, ms = Date.now() - t0;
+  const answer = (val, b) => {
+    if (solved) return;
+    if (String(val) === String(q.answer)) {
+      const first = tries === 0 && !hinted, ms = Date.now() - t0; solved = true;
       b.classList.add('right'); view.querySelectorAll('.choice').forEach(x => x.disabled = true);
+      if (w) { w.lock(); b.disabled = true; $('#hint').disabled = true; }
       if (first) { learn(skill, true, ms); sess.firstTries++; }
       if (item.review) { const r = item.review; r.box = first ? Math.min(r.box + 1, BOXES.length - 1) : 0; r.due = dayNum(today()) + BOXES[r.box]; if (first && r.box === BOXES.length - 1) st.review = st.review.filter(x => x !== r); }
       const earned = first ? 2 : 1; sess.stars += earned; st.stars += earned; dayLog('stars', earned); dayLog('q'); if (first) dayLog('ok'); gainXP(earned); updateTop();
@@ -396,12 +402,20 @@ function question() {
       save();
       const nav = navId; setTimeout(() => { if (nav !== navId) return; sess.i++; sess.i < sess.plan.length ? question() : finish(); }, first ? 1300 : 2200);
     } else {
-      tries++; b.classList.add('wrong'); b.disabled = true; oops();
+      tries++; b.classList.add('wrong'); oops();
+      if (w) { const here = b; setTimeout(() => here.classList.remove('wrong'), 600); w.wrong(); } else b.disabled = true;
       if (tries === 1) { learn(skill, false, Date.now() - t0); if (!item.review) addReview(skill, q); save(); }
       $('#exp').innerHTML = `<div class="explain"><p>Let's work it out together.</p>${q.explain ? `<div class="visual">${q.explain}</div>` : ''}${q.steps ? `<ol class="steps">${q.steps.map(s => `<li>${s}</li>`).join('')}</ol>` : ''}<p>${q.explainText}</p></div>`;
-      say("Let's work it out together. " + (q.steps ? q.steps.join(' ') + ' ' : '') + q.explainText);
+      say(`${w ? 'Not quite. ' : ''}Let's work it out together. ` + (q.steps ? q.steps.join(' ') + ' ' : '') + q.explainText);
     }
-  });
+  };
+  view.querySelectorAll('.choice').forEach(b => b.onclick = () => { if (!b.disabled) answer(q.choices[+b.dataset.i].val, b); });
+  if (w) $('#mxok').onclick = () => {
+    if (solved) return;
+    const v = w.value();
+    if (v == null) { say(q.interact.empty || 'Make your answer, then tap Check.'); return; }
+    answer(v, $('#mxok'));
+  };
 }
 function finish() {
   const before = Math.floor((st.stars - sess.stars) / 10), after = Math.floor(st.stars / 10);
@@ -910,6 +924,7 @@ function parent() {
     <div class="panel"><h2>Settings</h2>
       <label class="field" for="nm">Child's name<input id="nm" value="${esc(st.name)}" autocomplete="off"></label>
       <label class="field" for="ag">Age<input id="ag" type="number" min="3" max="16" value="${st.age}"></label>
+      <label class="field" for="cur">Money in math (for every player)<select id="cur">${Object.entries(CURRENCIES).map(([k, c]) => `<option value="${k}"${store.get('currency', 'usd') === k ? ' selected' : ''}>${c.label}</option>`).join('')}</select></label>
       <label class="field" style="flex-direction:row;align-items:center;gap:10px"><input type="checkbox" id="sp" ${st.speak ? 'checked' : ''} style="width:26px;height:26px"> Read everything aloud</label>
       <label class="field" style="flex-direction:row;align-items:center;gap:10px"><input type="checkbox" id="ua" ${st.unlockAll ? 'checked' : ''} style="width:26px;height:26px"> Open every world, lesson and level</label>
       <div class="row" style="justify-content:flex-start"><button class="btn" id="saveS">Save settings</button><button class="btn alt" id="reset">Reset all progress</button></div><p class="note" id="sm" aria-live="polite"></p></div>
@@ -936,7 +951,7 @@ function parent() {
   $('#saveS').onclick = () => {
     const age = clamp(+$('#ag').value || 5, 3, 16);
     if (age !== st.age) for (const k in MATH) if (st.skills[k].seen === 0) st.skills[k].m = startMastery(k, age);
-    st.name = $('#nm').value.trim().slice(0, 20); st.age = age; st.speak = $('#sp').checked; st.unlockAll = $('#ua').checked; save(); updateTop(); $('#sm').textContent = 'Saved.';
+    st.name = $('#nm').value.trim().slice(0, 20); st.age = age; st.speak = $('#sp').checked; st.unlockAll = $('#ua').checked; if (CURRENCIES[$('#cur').value]) store.set('currency', $('#cur').value); save(); updateTop(); $('#sm').textContent = 'Saved.';
   };
   let armed = false;
   $('#reset').onclick = e => {
@@ -949,6 +964,7 @@ function parent() {
 //@include games.js
 //@include games2.js
 //@include games3.js
+//@include games4.js
 //@include story.js
 //@include coloring.js
 //@include scenes.js
