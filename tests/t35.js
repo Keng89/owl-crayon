@@ -60,7 +60,7 @@ const errs = [], fails = [];
     S('freedraw', async () => {
       await p.evaluate(() => window.__owl.artHome()); await tap('Free draw'); await p.waitForSelector('#idea');
       const seen = new Set();
-      for (let k = 0; k < 40 && seen.size < 10; k++) {
+      for (let k = 0; k < 150 && seen.size < 10; k++) {
         const r = await p.evaluate(() => { const e = document.querySelector('#idea'), box = document.querySelector('.idea').getBoundingClientRect(), r = e.getBoundingClientRect(); return { t: e.textContent, sw: e.scrollWidth, cw: e.clientWidth, out: r.right > box.right + 1 }; });
         seen.add(r.t);
         if (r.sw > r.cw + 1 || r.out) fail(`idea "${r.t}" clipped (${r.sw}>${r.cw})`);
