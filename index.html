@@ -1631,6 +1631,70 @@ body:has(.sp-svg) #toast{pointer-events:none}
 .en-tries{font-size:28px;letter-spacing:4px}
 @media (prefers-reduced-motion:reduce){.en-wsun,.en-wpic,.en-revc,.en-hid,.en-ear,.en-note,.en-song .en-notes{animation:none}}
 @media (max-width:520px){.en-slot{width:42px;height:54px;font-size:32px}.en-tile{width:54px;height:54px;font-size:30px}.en-mk{grid-template-columns:repeat(2,1fr)}.en-album{grid-template-columns:repeat(auto-fill,minmax(78px,1fr))}.en-rslot{font-size:40px;min-width:52px}.en-wpic{font-size:80px}}
+
+/* ---------- Crafts corner (src/crafts*.js): prefix cr- ---------- */
+.t-crafts{grid-column:1/-1;position:relative;overflow:hidden;min-height:160px;color:#fff;background:repeating-linear-gradient(135deg,rgba(255,255,255,.08) 0 14px,transparent 14px 28px),linear-gradient(120deg,#C0541F 0%,#B05F1E 45%,#1D7C82 100%);box-shadow:0 6px 0 #7F3A12}
+.t-crafts h2,.t-crafts p{text-shadow:0 2px 0 rgba(60,20,0,.4)}
+.tc-deco{position:absolute;right:18px;bottom:14px;font-size:38px;letter-spacing:4px;animation:bob 2.6s ease-in-out infinite}
+@media (max-width:520px){.tc-deco{font-size:24px;bottom:12px}.t-crafts{min-height:150px}}
+.cr-hero{display:flex;align-items:center;gap:12px;background:var(--paper);border-radius:22px;padding:12px 16px;box-shadow:0 4px 0 var(--line)}
+.cr-hero p{margin:0;font-weight:700}.cr-owl{font-size:44px;flex:none}
+.cr-levels{display:flex;flex-wrap:wrap;gap:8px}
+.cr-lvb{min-height:48px;padding:8px 14px;border-radius:999px;background:var(--paper);box-shadow:0 3px 0 var(--line);font-weight:800;font-size:16px}
+.cr-lvb small{font-weight:700;color:var(--ink-soft)}
+.cr-lvb[aria-pressed=true]{background:var(--ink);color:#fff}.cr-lvb[aria-pressed=true] small{color:#DDE3F2}
+.cr-cats{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+.cr-cat{border-radius:22px;padding:14px;min-height:118px;color:#fff;text-align:left;display:flex;flex-direction:column;gap:4px;box-shadow:0 5px 0 rgba(34,48,90,.25);transition:transform .12s}
+.cr-cat:active,.cr-card:active{transform:translateY(3px)}
+.cr-cat b{font-family:var(--display);font-size:19px;line-height:1.1}.cr-cat>span:last-child{font-size:14px;font-weight:700;opacity:.95}
+.cr-cico{font-size:34px;line-height:1}
+.cr-h{font-size:24px}
+.cr-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.cr-card{position:relative;background:var(--paper);border-radius:20px;padding:12px;min-height:128px;text-align:left;display:flex;flex-direction:column;gap:6px;box-shadow:0 4px 0 var(--line);transition:transform .12s}
+.cr-card b{font-family:var(--display);font-size:18px;line-height:1.1}
+.cr-ico{font-size:38px;line-height:1}
+.cr-meta,.cr-info{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.cr-lv{font-size:13px;font-weight:800;border-radius:999px;padding:3px 9px;white-space:nowrap}
+.cr-lv1{background:#D7F2E3;color:#1A6E46}.cr-lv2{background:#FFF1CC;color:#7A5300}.cr-lv3{background:#FFE1C9;color:#8A3F0B}.cr-lv4{background:#FDE0DB;color:#9A2A1E}
+.cr-time{font-size:13px;font-weight:800;color:var(--ink-soft);white-space:nowrap}
+.cr-info .cr-lv,.cr-info .cr-time{font-size:15px}
+.cr-done{position:absolute;top:8px;right:10px;font-size:24px}
+.cr-wall h2{font-size:22px}.cr-stk{display:flex;flex-wrap:wrap;gap:6px;font-size:32px}
+.cr-need h2{font-size:22px}
+.cr-mat{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.cr-mat li{display:flex;align-items:center;gap:6px;background:var(--sun-soft);border-radius:999px;padding:6px 12px;font-weight:700;font-size:16px}
+.cr-mat li span{font-size:22px}
+.cr-safe{background:var(--coral-soft);border-radius:14px;padding:10px 14px;display:flex;flex-direction:column;gap:4px}
+.cr-safe b{color:var(--coral-deep)}.cr-safe p{margin:0;font-size:15px;font-weight:700}
+.cr-movie{background:var(--paper);border-radius:24px;padding:12px;box-shadow:0 4px 0 var(--line);display:flex;flex-direction:column;gap:10px;align-items:center;min-width:0}
+.cr-screen{position:relative;width:100%;max-width:560px;border-radius:18px;overflow:hidden;box-shadow:inset 0 0 0 3px var(--line)}
+.cr-screen svg{display:block;width:100%;height:auto;aspect-ratio:4/3}
+.cr-badge,.cr-mode{position:absolute;top:8px;left:8px;background:rgba(34,48,90,.82);color:#fff;font-weight:800;font-size:14px;border-radius:999px;padding:4px 10px}
+.cr-mode{left:auto;right:8px;background:var(--coral-deep)}
+.cr-bar{width:100%;max-width:560px;height:8px;border-radius:99px;background:var(--line);overflow:hidden}.cr-bar i{display:block;height:100%;width:0;background:var(--leaf)}
+.cr-text{margin:0;font-size:22px;font-weight:800;text-align:center;max-width:36ch;min-height:2.6em}
+.cr-text b{color:var(--grape-ink)}
+.cr-ctrl{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.cr-ctrl .tool{min-width:56px;height:56px;font-size:24px}
+.cr-ctrl #crAll{font-size:18px}
+.cr-ctrl .tool:disabled{opacity:.4}
+.cr-dots{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+.cr-dot{width:44px;height:44px;border-radius:50%;background:var(--bg);font-weight:800;font-size:17px;box-shadow:0 3px 0 var(--line)}
+.cr-dot.seen{background:var(--leaf-soft)}.cr-dot.on{background:var(--grape);color:#fff;box-shadow:0 3px 0 #4B37A6}
+.cr-next{width:100%;max-width:560px;min-height:64px;font-size:26px}
+.cr-next.cr-made{background:var(--coral-deep)}
+.cr-pulse{animation:glow 1.2s ease-in-out 3}
+.cr-made-top{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.cr-made-top h2{font-size:26px}.cr-made-top p{margin:4px 0 0;font-weight:700}
+.cr-mini{width:160px;max-width:45%;border-radius:16px;box-shadow:0 3px 0 var(--line)}
+.cr-stks{display:grid;grid-template-columns:repeat(auto-fill,minmax(60px,1fr));gap:8px}
+.cr-sb{min-height:60px;font-size:34px;border-radius:16px;background:var(--bg);box-shadow:0 3px 0 var(--line)}
+.cr-pad{width:100%;max-width:560px;margin:0 auto;border-radius:16px;overflow:hidden;box-shadow:inset 0 0 0 3px var(--line);touch-action:none}
+.cr-pad canvas{display:block;width:100%;touch-action:none}
+.cr-cols{justify-content:center}
+.cr-win{align-items:center;text-align:center}.cr-big{font-size:72px;line-height:1;animation:starpop .6s}
+@media (max-width:520px){.cr-text{font-size:19px}.cr-ctrl .tool{min-width:50px;height:50px;font-size:21px}.cr-cats{grid-template-columns:repeat(2,1fr)}.cr-cards{grid-template-columns:repeat(2,1fr)}}
+@media (prefers-reduced-motion:reduce){.tc-deco,.cr-pulse,.cr-big{animation:none}}
 </style>
 
 </head><body>
@@ -12710,6 +12774,7 @@ function home() {
       <button class="tile t-quest" id="tQuest"><span class="big">🗺️</span><span><h2>Owl's Quest</h2><p>A story adventure with math and art</p></span></button>
       <button class="tile t-owl" id="tOwl"><span class="big">🦉</span><span><h2>Ask Owl</h2><p>Ask me anything!</p></span></button>
       <button class="tile t-english" id="tEnglish"><span class="big">📚</span><span><h2>English &amp; Reading</h2><p>Sounds, words, stories and grammar games</p></span><span class="te-deco" aria-hidden="true">Aa Bb Cc</span></button>
+      <button class="tile t-crafts" id="tCrafts"><span class="big">✂️</span><span><h2>Crafts corner</h2><p>Fold, cut, glue and build real things</p></span><span class="tc-deco" aria-hidden="true">🦢🐸🧦🚀</span></button>
       <button class="tile t-world" id="tWorld"><span class="big">🌍</span><span><h2>My World</h2><p>Spend your stars on lands, houses and animals</p></span><span class="tw-wallet">⭐ ${worldHome.wallet()} to spend</span><span class="tw-deco" aria-hidden="true">🐄🌳🏡🐧🌈</span></button>
     </div>
     <h3 class="section-title">My stickers <span class="tag">every 10 ⭐</span><button class="tag badge-link" id="badgesBtn">🏅 Badges ${Object.keys(st.badges || {}).length}/${BADGES.length}</button></h3>
@@ -12725,6 +12790,7 @@ function home() {
   $('#tQuest').onclick = () => go(storyHome);
   $('#tWorld').onclick = () => go(worldHome);
   $('#tEnglish').onclick = () => go(englishHome);
+  $('#tCrafts').onclick = () => go(craftsHome);
   $('#parent').onclick = () => go(gate);
   $('#pick').onclick = () => p.kind === 'review' ? go(play, 'review') : p.kind === 'lesson' ? go(drawLesson, p.id) : go(startSkill, p.skill);
   tour.maybe();
@@ -13375,7 +13441,7 @@ function parent() {
       <p class="note">Owl &amp; Crayon works without the internet. Progress, drawings and Owl's answers are saved only in this browser on this device. There are no ads, no tracking and no accounts, and nothing is sent anywhere unless you switch on Online Owl.</p>
       <p class="note">With Online Owl on, only the question your child asks and their age go to your Online Owl server, which asks an AI (Cloudflare's free AI, or Claude by Anthropic) for a short, child-friendly answer. Names and progress are never sent. You can read every answer above, and turn it off at any time.</p>
       <p class="note">The microphone button uses the browser's own speech recognition, which may send the recording to the browser maker (for example Google or Apple) to turn it into text. Typing works without it.</p>
-      <p class="note">Version 2026-10-21 23:51 UTC</p></div>`;
+      <p class="note">Version 2026-10-22 02:32 UTC</p></div>`;
   view.querySelectorAll('[data-teach]').forEach(b => b.onclick = () => {
     const i = +b.dataset.teach, ans = $('#t' + i).value.trim(); if (!ans) return;
     owlForget(st.owlMisses[i].q); st.owlTaught.push({ q: st.owlMisses[i].q, a: ans }); st.owlMisses.splice(i, 1); save(); go(parent);
@@ -19736,6 +19802,1501 @@ const EN_DESC = {
   }));
   Object.assign(window.__english ? window.__english.data : {}, { EN_ALLWORDS, EN_TWISTERS, EN_RHYMES, EN_TALE, EN_DESC });
 })();
+/* ---------- Crafts corner: drawing kit, mini-movie engine and screens ---------- */
+// Real crafts to make with paper, playdough, string and boxes, from Easy to Expert. Every step is a short looping
+// "mini-movie" drawn in code (SVG, redrawn each frame: scissors cut along a dashed line, paper folds over, glue dots
+// appear, beads slide down a string), read aloud by Owl with the text shown too. No video files, no network.
+// The craft data lives in crafts2.js and crafts3.js and is added with craftsHome.add(). Finished crafts are kept per
+// player in st.crafts, so they are saved, backed up and removed with the player like everything else.
+const craftsHome = (() => {
+  const OL = '#22305A';
+  const C = { red: '#F2604F', orange: '#FF8A2B', yellow: '#FFC23D', green: '#2FA36B', blue: '#2E8BE6', purple: '#6D55D1', pink: '#F49AC1', brown: '#A86B3C',
+    white: '#FFFFFF', sky: '#8EC5F5', mint: '#9ED9B4', card: '#D9A86C', grey: '#A9B2BC', black: '#2B2B33', cream: '#FFF3D6', lime: '#B6E05A', teal: '#1D9AA0', tan: '#E8C9A0', paper: '#FFFDF7' };
+  const f1 = n => Math.round(n * 10) / 10;
+  const P = pts => pts.map(p => f1(p[0]) + ',' + f1(p[1])).join(' ');
+  const lerp = (a, b, t) => a + (b - a) * t;
+  const cl = (v, a = 0, b = 1) => Math.max(a, Math.min(b, v));
+  const ez = t => t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+  const seg = (e, a, b) => cl((e - a) / (b - a)); // the part of the progress between a and b, as 0..1
+  const sk = (w = 1.6) => `stroke="${OL}" stroke-width="${w}" stroke-linejoin="round" stroke-linecap="round"`;
+  const rr = i => { const x = Math.sin(i * 12.9898 + 4.1) * 43758.5453; return x - Math.floor(x); }; // the same "random" every frame
+
+  /* --- the drawing kit: small shapes the craft data is built from (viewBox 0 0 200 150) --- */
+  const K = {
+    C, OL, f1,
+    poly: (pts, fill, w = 1.6, extra = '') => `<polygon points="${P(pts)}" fill="${fill}" ${w ? sk(w) : ''} ${extra}/>`,
+    rect: (x, y, w, h, fill, rx = 3, extra = '') => `<rect x="${f1(x)}" y="${f1(y)}" width="${f1(w)}" height="${f1(h)}" rx="${rx}" fill="${fill}" ${sk()} ${extra}/>`,
+    circ: (cx, cy, r, fill, w = 1.6, extra = '') => `<circle cx="${f1(cx)}" cy="${f1(cy)}" r="${f1(r)}" fill="${fill}" ${w ? sk(w) : ''} ${extra}/>`,
+    ell: (cx, cy, rx, ry, fill, w = 1.6, extra = '') => `<ellipse cx="${f1(cx)}" cy="${f1(cy)}" rx="${f1(rx)}" ry="${f1(ry)}" fill="${fill}" ${w ? sk(w) : ''} ${extra}/>`,
+    path: (d, fill = 'none', w = 1.6, extra = '') => `<path d="${d}" fill="${fill}" ${w ? sk(w) : ''} ${extra}/>`,
+    line: (pts, color = OL, w = 2, dash = '') => `<polyline points="${P(pts)}" fill="none" stroke="${color}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round"${dash ? ` stroke-dasharray="${dash}"` : ''}/>`,
+    emo: (ch, x, y, size = 20, rot = 0) => `<text x="${f1(x)}" y="${f1(y)}" font-size="${size}" text-anchor="middle" dominant-baseline="central"${rot ? ` transform="rotate(${f1(rot)} ${f1(x)} ${f1(y)})"` : ''}>${ch}</text>`,
+    g: (svg, x = 0, y = 0, s = 1, r = 0, extra = '') => `<g transform="translate(${f1(x)} ${f1(y)}) rotate(${f1(r)}) scale(${s})" ${extra}>${svg}</g>`,
+    eye: (x, y, r = 5) => `<circle cx="${f1(x)}" cy="${f1(y)}" r="${r}" fill="#fff" ${sk(1.2)}/><circle cx="${f1(x + r * 0.2)}" cy="${f1(y + r * 0.15)}" r="${f1(r * 0.5)}" fill="${OL}"/>`,
+    eyes: (x, y, r = 5, gap = 14) => K.eye(x - gap / 2, y, r) + K.eye(x + gap / 2, y, r),
+    smile: (x, y, w = 8, c = OL) => `<path d="M${f1(x - w)},${f1(y)} Q${f1(x)},${f1(y + w * 0.8)} ${f1(x + w)},${f1(y)}" fill="none" stroke="${c}" stroke-width="2" stroke-linecap="round"/>`,
+    heart: (cx, cy, s, fill, w = 1.6) => `<path d="M${f1(cx)},${f1(cy + s * 0.9)} C${f1(cx - s * 1.5)},${f1(cy - s * 0.1)} ${f1(cx - s * 0.7)},${f1(cy - s * 1.2)} ${f1(cx)},${f1(cy - s * 0.4)} C${f1(cx + s * 0.7)},${f1(cy - s * 1.2)} ${f1(cx + s * 1.5)},${f1(cy - s * 0.1)} ${f1(cx)},${f1(cy + s * 0.9)}Z" fill="${fill}" ${w ? sk(w) : ''}/>`,
+    starPts: (cx, cy, r, n = 5, inner = 0.45, rot = -90) => Array.from({ length: n * 2 }, (_, i) => { const a = (rot + i * 180 / n) * Math.PI / 180, q = i % 2 ? r * inner : r; return [cx + q * Math.cos(a), cy + q * Math.sin(a)]; }),
+    star: (cx, cy, r, fill, n = 5) => K.poly(K.starPts(cx, cy, r, n), fill),
+    arc: (cx, cy, rx, ry, a0, a1, n = 24) => Array.from({ length: n + 1 }, (_, i) => { const a = (a0 + (a1 - a0) * i / n) * Math.PI / 180; return [cx + rx * Math.cos(a), cy + ry * Math.sin(a)]; }),
+    spiral: (cx, cy, r0, r1, turns = 3, n = 80) => Array.from({ length: n + 1 }, (_, i) => { const k = i / n, a = k * turns * Math.PI * 2, r = lerp(r0, r1, k); return [cx + r * Math.cos(a), cy + r * Math.sin(a)]; }),
+    wave: (x0, x1, y, amp = 6, waves = 3, n = 40) => Array.from({ length: n + 1 }, (_, i) => [lerp(x0, x1, i / n), y + amp * Math.sin(i / n * waves * Math.PI * 2)]),
+    zig: (x0, x1, y, h = 8, n = 6) => Array.from({ length: n * 2 + 1 }, (_, i) => [lerp(x0, x1, i / (n * 2)), i % 2 ? y - h : y]),
+    sheet: (x, y, w, h, fill = C.paper) => K.rect(x, y, w, h, fill, 2),
+    plate: (cx, cy, r, fill = '#fff') => K.circ(cx, cy, r, fill) + `<circle cx="${cx}" cy="${cy}" r="${f1(r * 0.76)}" fill="none" stroke="rgba(34,48,90,.18)" stroke-width="1.5"/>`,
+    tube: (cx, y, w, h, fill = C.card) => `${K.rect(cx - w / 2, y, w, h, fill, 0)}${K.path(`M${f1(cx - w / 2)},${f1(y + h)} Q${f1(cx)},${f1(y + h + w * 0.3)} ${f1(cx + w / 2)},${f1(y + h)}`, fill)}${K.ell(cx, y, w / 2, w * 0.18, '#7A5A3A')}`,
+    sock: (x, y, fill = C.blue) => K.path(`M${x},${y} h30 v60 q0,24 -24,24 h-26 q-14,0 -14,-13 q0,-12 14,-13 l20,-2 z`, fill) + K.rect(x, y, 30, 10, '#fff', 2),
+    bag: (x, y, w, h, fill = C.tan) => K.rect(x, y, w, h, fill, 2) + K.rect(x, y, w, h * 0.32, '#D9B98A', 2) + K.line([[x + 4, y + h * 0.32 + 3], [x + w - 4, y + h * 0.32 + 3]], 'rgba(34,48,90,.25)', 1.5),
+    leaf: (cx, cy, s, fill = C.green, rot = 0) => K.g(`${K.path(`M${-s},0 Q0,${-s * 0.75} ${s},0 Q0,${s * 0.75} ${-s},0Z`, fill)}${K.line([[-s * 1.25, 0], [s * 0.8, 0]], OL, 1.2)}${K.line([[-s * 0.3, 0], [0, -s * 0.3]], OL, 1)}${K.line([[0.1 * s, 0], [0.35 * s, s * 0.28]], OL, 1)}`, cx, cy, 1, rot),
+    rock: (cx, cy, rx, ry, fill = C.grey) => K.path(`M${f1(cx - rx)},${f1(cy + ry * 0.2)} C${f1(cx - rx)},${f1(cy - ry * 1.1)} ${f1(cx + rx * 0.9)},${f1(cy - ry * 1.15)} ${f1(cx + rx)},${f1(cy)} C${f1(cx + rx * 1.05)},${f1(cy + ry)} ${f1(cx - rx * 0.9)},${f1(cy + ry * 1.05)} ${f1(cx - rx)},${f1(cy + ry * 0.2)}Z`, fill),
+    cone: (cx, cy, s = 1) => K.g(`${K.ell(0, 0, 24, 34, '#8B5A2B')}${[-22, -10, 2, 14, 26].map((y, i) => K.path(`M-${20 - Math.abs(y) * 0.3},${y} Q0,${y + 9} ${20 - Math.abs(y) * 0.3},${y}`, 'none', 1.4) + (i % 2 ? '' : K.line([[0, y - 6], [0, y + 4]], OL, 1))).join('')}`, cx, cy, s),
+    bottle: (cx, y, w, h, fill = 'rgba(142,197,245,.55)') => `${K.rect(cx - w / 2, y + h * 0.22, w, h * 0.78, fill, 8)}${K.path(`M${f1(cx - w / 2 + 4)},${f1(y + h * 0.24)} Q${f1(cx - w * 0.2)},${f1(y + h * 0.1)} ${f1(cx - w * 0.16)},${f1(y + 8)} L${f1(cx + w * 0.16)},${f1(y + 8)} Q${f1(cx + w * 0.2)},${f1(y + h * 0.1)} ${f1(cx + w / 2 - 4)},${f1(y + h * 0.24)}`, fill)}${K.rect(cx - w * 0.18, y, w * 0.36, 9, C.red, 2)}`,
+    box: (x, y, w, h, fill = C.card) => `${K.poly([[x, y], [x + 14, y - 10], [x + w + 14, y - 10], [x + w, y]], '#E5BC85')}${K.poly([[x + w, y], [x + w + 14, y - 10], [x + w + 14, y + h - 10], [x + w, y + h]], '#B98A55')}${K.rect(x, y, w, h, fill, 1)}`,
+    bead: (x, y, r, fill) => `<circle cx="${f1(x)}" cy="${f1(y)}" r="${r}" fill="${fill}" ${sk(1.2)}/><circle cx="${f1(x - r * 0.35)}" cy="${f1(y - r * 0.35)}" r="${f1(r * 0.28)}" fill="rgba(255,255,255,.7)"/>`,
+    wheel: (cx, cy, r) => K.circ(cx, cy, r, OL) + K.circ(cx, cy, r * 0.45, C.grey, 1.2),
+    card: (x, y, w, h, fill = C.paper) => K.rect(x, y, w, h, fill, 2) + K.line([[x + w / 2, y], [x + w / 2, y + h]], 'rgba(34,48,90,.35)', 1.2, '3 3'),
+    hole: (x, y, r = 3) => `<circle cx="${f1(x)}" cy="${f1(y)}" r="${r}" fill="#FFF6E5" ${sk(1.2)}/>`,
+    dash: (pts, c = OL) => K.line(pts, c, 1.6, '4 3')
+  };
+
+  /* --- tools that move in the movies --- */
+  const T = {
+    scissors(x, y, ang, open) {
+      const blade = r => `<g transform="rotate(${f1(r)} -16 0)"><path d="M-16,0 L6,-2 L9,0 L-16,2.6Z" fill="#DDE5EC" stroke="${OL}" stroke-width="1.2" stroke-linejoin="round"/></g>`;
+      const handle = (r, yy) => `<g transform="rotate(${f1(r)} -16 0)"><ellipse cx="-28" cy="${yy}" rx="8.5" ry="5.5" fill="none" stroke="${C.red}" stroke-width="3.6"/><line x1="-20" y1="${yy * 0.45}" x2="-16" y2="0" stroke="${C.red}" stroke-width="3.6" stroke-linecap="round"/></g>`;
+      return `<g transform="translate(${f1(x)} ${f1(y)}) rotate(${f1(ang)})">${handle(open, -7)}${handle(-open, 7)}${blade(-open)}${blade(open)}<circle cx="-16" cy="0" r="1.8" fill="${OL}"/></g>`;
+    },
+    glue: (x, y) => `<g transform="translate(${f1(x)} ${f1(y)})"><path d="M0,0 L-3.5,-8 L3.5,-8Z" fill="${C.orange}" ${sk(1.2)}/><rect x="-8" y="-33" width="16" height="25" rx="4" fill="#fff" ${sk(1.4)}/><rect x="-8" y="-25" width="16" height="9" fill="${C.blue}"/></g>`,
+    crayon: (x, y, c = C.red) => `<g transform="translate(${f1(x)} ${f1(y)}) rotate(35)"><path d="M0,0 L-4.5,-10 L4.5,-10Z" fill="${c}" ${sk(1.2)}/><rect x="-4.5" y="-38" width="9" height="28" rx="1.5" fill="${c}" ${sk(1.2)}/><rect x="-4.5" y="-31" width="9" height="13" fill="rgba(255,255,255,.55)"/></g>`,
+    pen: (x, y, c = OL) => `<g transform="translate(${f1(x)} ${f1(y)}) rotate(35)"><path d="M0,0 L-3,-7 L3,-7Z" fill="${c}"/><rect x="-4" y="-40" width="8" height="33" rx="3" fill="#fff" ${sk(1.2)}/><rect x="-4" y="-40" width="8" height="9" rx="3" fill="${c}"/></g>`,
+    brush: (x, y, c = C.blue) => `<g transform="translate(${f1(x)} ${f1(y)}) rotate(35)"><path d="M0,0 Q-5,-6 -4,-12 L4,-12 Q5,-6 0,0Z" fill="${c}" ${sk(1.2)}/><rect x="-4.5" y="-19" width="9" height="7" fill="#C9D3DC" ${sk(1.2)}/><rect x="-3" y="-48" width="6" height="29" rx="3" fill="${C.brown}" ${sk(1.2)}/></g>`,
+    sponge: (x, y, c = C.yellow) => `<g transform="translate(${f1(x)} ${f1(y)})"><rect x="-12" y="-16" width="24" height="16" rx="4" fill="${C.yellow}" ${sk(1.4)}/><rect x="-12" y="-4" width="24" height="4" fill="${c}"/><circle cx="-5" cy="-11" r="1.5" fill="#E0A82A"/><circle cx="4" cy="-9" r="1.8" fill="#E0A82A"/></g>`,
+    hand: (x, y, ch = '👆', s = 22, rot = 0) => K.emo(ch, x, y + (ch === '👆' ? s * 0.5 : 0), s, rot),
+    needle: (x, y, ang = -30) => `<g transform="translate(${f1(x)} ${f1(y)}) rotate(${f1(ang)})"><line x1="0" y1="0" x2="-24" y2="0" stroke="#8A96A3" stroke-width="2.4" stroke-linecap="round"/><ellipse cx="-20" cy="0" rx="2.6" ry="1.2" fill="#FFF6E5" stroke="#8A96A3" stroke-width="1"/></g>`,
+    punch: (x, y, down) => `<g transform="translate(${f1(x)} ${f1(y)})"><rect x="-13" y="-6" width="26" height="12" rx="3" fill="#8A96A3" ${sk(1.2)}/><rect x="-13" y="${down ? -13 : -20}" width="26" height="7" rx="3" fill="${C.blue}" ${sk(1.2)}/><rect x="-2" y="${down ? -7 : -14}" width="4" height="${down ? 7 : 8}" fill="${OL}"/></g>`,
+    shaker: (x, y) => `<g transform="translate(${f1(x)} ${f1(y)}) rotate(160)"><rect x="-8" y="-10" width="16" height="22" rx="4" fill="#fff" ${sk(1.3)}/><rect x="-9" y="-14" width="18" height="6" rx="2" fill="${C.purple}" ${sk(1.2)}/></g>`,
+    yarn: (x, y, c = C.red) => `<g transform="translate(${f1(x)} ${f1(y)})"><circle r="9" fill="${c}" ${sk(1.3)}/><path d="M-7,-4 Q0,2 7,-5 M-8,2 Q0,7 8,1 M-3,-8 Q2,0 -1,8" fill="none" stroke="rgba(255,255,255,.6)" stroke-width="1.3"/></g>`
+  };
+
+  /* --- polylines: lengths, points along them, partial strokes --- */
+  const plen = pts => { let L = 0; for (let i = 1; i < pts.length; i++) L += Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]); return L; };
+  function along(pts, d) {
+    for (let i = 1; i < pts.length; i++) {
+      const a = pts[i - 1], b = pts[i], l = Math.hypot(b[0] - a[0], b[1] - a[1]);
+      if (d <= l || i === pts.length - 1) { const k = l ? cl(d / l) : 0; return [a[0] + (b[0] - a[0]) * k, a[1] + (b[1] - a[1]) * k, Math.atan2(b[1] - a[1], b[0] - a[0]) * 180 / Math.PI]; }
+      d -= l;
+    }
+    return [pts[0][0], pts[0][1], 0];
+  }
+  function upto(pts, d) {
+    const out = [pts[0]];
+    for (let i = 1; i < pts.length; i++) {
+      const a = pts[i - 1], b = pts[i], l = Math.hypot(b[0] - a[0], b[1] - a[1]);
+      if (d >= l) { out.push(b); d -= l; } else { if (l) out.push([a[0] + (b[0] - a[0]) * d / l, a[1] + (b[1] - a[1]) * d / l]); break; }
+    }
+    return out;
+  }
+
+  /* --- paper folding: a tiny flat-folding simulator for the origami movies --- */
+  // A model is a stack of flat layers ({p: points, f: 0 front / 1 back}). A fold reflects every layer part on the
+  // "from" side of a line onto the other side (the line is the one that takes the point `from` to the point `to`).
+  // Folded flaps land on top, in reverse order, like real paper. `top: true` folds only the top layer under `from`.
+  const area = pts => { let a = 0; for (let i = 0; i < pts.length; i++) { const p = pts[i], q = pts[(i + 1) % pts.length]; a += p[0] * q[1] - q[0] * p[1]; } return a / 2; };
+  function clip(pts, f) {
+    const out = [];
+    for (let i = 0; i < pts.length; i++) {
+      const a = pts[i], b = pts[(i + 1) % pts.length], fa = f(a), fb = f(b);
+      if (fa >= 0) out.push(a);
+      if ((fa >= 0) !== (fb >= 0)) { const t = fa / (fa - fb); out.push([a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t]); }
+    }
+    return out;
+  }
+  function inPoly(pt, pts) {
+    let inside = false;
+    for (let i = 0, j = pts.length - 1; i < pts.length; j = i++) {
+      const [xi, yi] = pts[i], [xj, yj] = pts[j];
+      if ((yi > pt[1]) !== (yj > pt[1]) && pt[0] < (xj - xi) * (pt[1] - yi) / (yj - yi) + xi) inside = !inside;
+    }
+    return inside;
+  }
+  function nearEdge(pt, pts) {
+    let m = 1e9;
+    for (let i = 0; i < pts.length; i++) {
+      const a = pts[i], b = pts[(i + 1) % pts.length], dx = b[0] - a[0], dy = b[1] - a[1], L2 = dx * dx + dy * dy || 1, t = cl(((pt[0] - a[0]) * dx + (pt[1] - a[1]) * dy) / L2);
+      m = Math.min(m, Math.hypot(a[0] + dx * t - pt[0], a[1] + dy * t - pt[1]));
+    }
+    return m;
+  }
+  function foldGeo(op) {
+    let from = op.from, to = op.to;
+    if (op.line) { // a fold along a given line, moving the side the point `at` is on
+      const [a, b] = op.line, dx = b[0] - a[0], dy = b[1] - a[1], L = Math.hypot(dx, dy), nx = -dy / L, ny = dx / L, s = (op.at[0] - a[0]) * nx + (op.at[1] - a[1]) * ny;
+      from = op.at; to = [op.at[0] - 2 * s * nx, op.at[1] - 2 * s * ny];
+    }
+    const mx = (from[0] + to[0]) / 2, my = (from[1] + to[1]) / 2, L = Math.hypot(to[0] - from[0], to[1] - from[1]) || 1, nx = (to[0] - from[0]) / L, ny = (to[1] - from[1]) / L;
+    return { from, to, nx, ny, side: p => (p[0] - mx) * nx + (p[1] - my) * ny };
+  }
+  // Split the stack for one or more folds made together; each later fold only touches what the earlier ones left.
+  function foldParts(L, ops) {
+    let keep = L.map(l => ({ ...l, i: 0 })); const flaps = [];
+    ops.forEach(op => {
+      const g = foldGeo(op), probe = [g.from[0] + g.nx * 1.5, g.from[1] + g.ny * 1.5];
+      let only = -1;
+      if (op.top) { for (let i = keep.length - 1; i >= 0; i--) if (inPoly(probe, keep[i].p) || nearEdge(g.from, keep[i].p) < 1.5) { only = i; break; } }
+      const nk = [], fl = [];
+      keep.forEach((l, i) => {
+        if (op.top && i !== only) { nk.push(l); return; }
+        const k = clip(l.p, p => g.side(p)), f = clip(l.p, p => -g.side(p));
+        if (Math.abs(area(k)) > 0.5) nk.push({ p: k, f: l.f });
+        if (Math.abs(area(f)) > 0.5) fl.push({ p: f, f: l.f, g });
+      });
+      keep = nk; flaps.push(...fl.reverse());
+    });
+    return { keep, flaps };
+  }
+  const moveFlap = (fl, e) => { const c = Math.cos(Math.PI * e), g = fl.g; return { p: fl.p.map(p => { const s = g.side(p); return [p[0] - g.nx * s * (1 - c), p[1] - g.ny * s * (1 - c)]; }), f: c < 0 ? 1 - fl.f : fl.f }; };
+  // Resample a polygon to n points spaced evenly round its edge, clockwise, starting at its top-left, for morphing.
+  function resample(pts, n = 40) {
+    let q = area(pts) < 0 ? pts.slice().reverse() : pts.slice();
+    const s = q.reduce((b, p, i) => p[0] + p[1] < q[b][0] + q[b][1] ? i : b, 0); q = q.slice(s).concat(q.slice(0, s)); q.push(q[0]);
+    const L = plen(q); return Array.from({ length: n }, (_, i) => along(q, L * i / n).slice(0, 2));
+  }
+  function applyOri(L, op) {
+    if (op.k === 'fold') { const { keep, flaps } = foldParts(L, op.ops); const moved = flaps.map(f => moveFlap(f, 1)); return op.under ? moved.reverse().concat(keep) : keep.concat(moved); }
+    if (op.k === 'flip') return L.slice().reverse().map(l => ({ p: l.p.map(([x, y]) => [200 - x, y]).reverse(), f: 1 - l.f }));
+    if (op.k === 'turn') { const a = op.deg * Math.PI / 180, c = Math.cos(a), s = Math.sin(a); return L.map(l => ({ f: l.f, p: l.p.map(([x, y]) => [100 + (x - 100) * c - (y - 75) * s, 75 + (x - 100) * s + (y - 75) * c]) })); }
+    if (op.k === 'morph') return op.to;
+    return L;
+  }
+  const layerSVG = (l, cols) => K.poly(l.p, cols[l.f], 1.4);
+  function oriFrame(s, e) {
+    const L = s.L, op = s.op, cols = s.c; let out = '';
+    if (op.k === 'fold') {
+      const { keep, flaps } = foldParts(L, op.ops), moved = flaps.map(f => moveFlap(f, e));
+      const fs = moved.map(l => layerSVG(l, cols)).join(''), ks = keep.map(l => layerSVG(l, cols)).join('');
+      out = op.under && e > 0.5 ? fs + ks : ks + fs;
+      // the fold line shows first, then a finger pushes the moving corner across
+      if (e < 0.6) op.ops.forEach(o => { const g = foldGeo(o), dx = -g.ny * 140, dy = g.nx * 140, mx = (g.from[0] + g.to[0]) / 2, my = (g.from[1] + g.to[1]) / 2;
+        out += `<g opacity="${f1(1 - seg(e, 0.35, 0.6))}">${K.line([[mx - dx, my - dy], [mx + dx, my + dy]], C.purple, 1.6, '5 4')}</g>`; });
+      const g = foldGeo(op.ops[0]), c = Math.cos(Math.PI * e), sd = g.side(g.from), tip = [g.from[0] - g.nx * sd * (1 - c), g.from[1] - g.ny * sd * (1 - c)];
+      out += T.hand(tip[0], tip[1] - 2, '👆', 20);
+    } else if (op.k === 'flip') {
+      const c = Math.cos(Math.PI * e), order = c < 0 ? L.slice().reverse() : L;
+      out = order.map(l => K.poly(l.p.map(([x, y]) => [100 + (x - 100) * c, y]), cols[c < 0 ? 1 - l.f : l.f], 1.4)).join('');
+      out += K.g(`<path d="M-26,0 A26,10 0 1 0 26,0" fill="none" stroke="${C.purple}" stroke-width="2.5" stroke-dasharray="5 4"/><path d="M26,0 l-6,-6 m6,6 l4,-7" stroke="${C.purple}" stroke-width="2.5" fill="none" stroke-linecap="round"/>`, 100, 142, 1);
+    } else if (op.k === 'turn') {
+      out = `<g transform="rotate(${f1(op.deg * e)} 100 75)">${L.map(l => layerSVG(l, cols)).join('')}</g>`;
+    } else if (op.k === 'morph') {
+      out = morphSVG(L.map(l => ({ p: l.p, c: cols[l.f] })), op.to.map(l => ({ p: l.p, c: cols[l.f] })), e);
+    }
+    return out;
+  }
+  function morphSVG(A, B, e) {
+    const n = Math.max(A.length, B.length); let out = '';
+    for (let i = 0; i < n; i++) {
+      const a = A[i], b = B[i];
+      if (a && b) { const ra = resample(a.p), rb = resample(b.p); out += K.poly(ra.map((p, k) => [lerp(p[0], rb[k][0], e), lerp(p[1], rb[k][1], e)]), e < 0.5 ? a.c : b.c, 1.4); }
+      else if (a) out += `<g opacity="${f1(1 - e)}">${K.poly(a.p, a.c, 1.4)}</g>`;
+      else out += `<g opacity="${f1(e)}">${K.poly(b.p, b.c, 1.4)}</g>`;
+    }
+    return out;
+  }
+  // The builder the data files use: each call returns one movie step and moves the paper model on.
+  K.ori = (c0, c1, pts) => {
+    let L = [{ p: pts, f: 0 }]; const cols = [c0, c1];
+    const step = (t, op, o = {}) => { const s = { t, a: 'ori', L, op, c: cols, ...o }; L = applyOri(L, op); return s; };
+    const B = {
+      fold: (t, ...ops) => step(t, { k: 'fold', ops: ops.filter(o => !o.opt) }, Object.assign({}, ...ops.filter(o => o.opt).map(o => o.opt))),
+      under: (t, ...ops) => step(t, { k: 'fold', ops, under: true }),
+      flip: t => step(t, { k: 'flip' }),
+      turn: (t, deg) => step(t, { k: 'turn', deg }),
+      morph: (t, to) => step(t, { k: 'morph', to: (typeof to === 'function' ? to(L) : to).map(l => Array.isArray(l) ? { p: l, f: 0 } : l) }),
+      shift: (dx, dy) => { L = L.map(l => ({ f: l.f, p: l.p.map(([x, y]) => [x + dx, y + dy]) })); return B; },
+      svg: () => L.map(l => layerSVG(l, cols)).join(''),
+      get L() { return L; }
+    };
+    return B;
+  };
+
+  /* --- the movie frames: one drawing function per kind of action --- */
+  let clipN = 0;
+  const R = {
+    ori: (s, e) => oriFrame(s, e),
+    morph: (s, e) => morphSVG(s.from, s.to, e),
+    draw(s, e) {
+      const strokes = (s.s || []).map(x => Array.isArray(x) ? { p: x } : x), total = strokes.reduce((a, x) => a + plen(x.p), 0);
+      let left = total * seg(e, 0, 0.92), out = '', tip = null, tc = s.c || OL;
+      strokes.forEach(x => {
+        const L = plen(x.p), col = x.c || s.c || OL, w = x.w || s.w || 2.6;
+        if (s.guide !== false && left < L) out += K.line(x.p, 'rgba(34,48,90,.18)', 1.3, '3 3');
+        if (left <= 0) return;
+        const part = upto(x.p, Math.min(left, L));
+        if (s.tool === 'glue') out += K.line(part, '#B9D8F5', w + 2.5) + K.line(part, '#fff', w);
+        else out += K.line(part, col, w, x.dash || s.dash || '');
+        if (left < L) { const q = along(x.p, left); tip = q; tc = col; } else if (!tip) { const q = along(x.p, L); tip = q; tc = col; }
+        left -= L;
+      });
+      if (s.fill && e > 0.85) out = `<g opacity="${f1(seg(e, 0.85, 1))}">${s.fill}</g>` + out;
+      const tool = s.tool || 'crayon';
+      if (tip && e < 0.97) out += tool === 'finger' ? T.hand(tip[0], tip[1], '👆') : tool === 'glue' ? T.glue(tip[0], tip[1]) : (T[tool] || T.crayon)(tip[0], tip[1], tc);
+      return out;
+    },
+    cut(s, e) {
+      // one cutting line (pts) or several in turn (cuts); the scissors snip along the dashed line
+      const lines = s.cuts || [s.pts], lens = lines.map(plen), total = lens.reduce((a, b) => a + b, 0), mv = ez(seg(e, 0.8, 1));
+      let d = total * seg(e, 0, 0.78), out = s.piece ? K.g(s.piece, (s.off || [0, 0])[0] * mv, (s.off || [0, 0])[1] * mv) : '', q = null;
+      lines.forEach((pts, i) => {
+        out += K.line(pts, 'rgba(34,48,90,.55)', 1.6, '4 3');
+        if (d > 0) { const part = Math.min(d, lens[i]); out += K.line(upto(pts, part), OL, 1.8); if (d <= lens[i] || i === lines.length - 1) q = q || along(pts, part); }
+        d -= lens[i];
+      });
+      const k = seg(e, 0, 0.78); q = q || along(lines[0], 0);
+      const open = k > 0 && k < 1 ? 6 + 10 * Math.abs(Math.sin(e * 60)) : 4;
+      if (e < 0.9) out += T.scissors(q[0], q[1], q[2], open);
+      return out;
+    },
+    glue(s, e) {
+      const n = s.dots.length, k = seg(e, 0, 0.9) * n, i = Math.min(n - 1, Math.floor(k)), f = k - i;
+      let out = s.dots.map((d, j) => j < Math.floor(k) || (j === i && f > 0.55) ? K.circ(d[0], d[1], s.r || 3.6, '#fff', 0, `stroke="#9CC8F0" stroke-width="1.5"`) : '').join('');
+      const a = s.dots[Math.max(0, i - (f < 0.4 ? 1 : 0))], b = s.dots[i], m = f < 0.4 ? ez(f / 0.4) : 1;
+      const x = lerp(a[0], b[0], m), y = lerp(a[1], b[1], m) - (f < 0.4 ? 8 * Math.sin(Math.PI * m) : f < 0.6 ? 0 : 3);
+      if (e < 0.95) out += T.glue(x, y);
+      return out;
+    },
+    place(s, e) {
+      const ps = s.pieces, n = ps.length; let out = '';
+      ps.forEach((p, i) => {
+        const k = seg(e, i / n * 0.85, (i + 1) / n * 0.85), m = ez(k), fr = p.from || [0, -60];
+        // pieces wait at their start spot, a little see-through, then slide into place
+        const press = k >= 1 ? 1 - 0.04 * Math.sin(Math.PI * seg(e, (i + 1) / n * 0.85, (i + 1) / n * 0.85 + 0.08)) : 1;
+        const at = p.at || [100, 75];
+        out += `<g${k <= 0 ? ' opacity=".55"' : ''} transform="translate(${f1(fr[0] * (1 - m))} ${f1(fr[1] * (1 - m))}) rotate(${f1((p.r || 0) * (1 - m))} ${at[0]} ${at[1]})"><g transform="translate(${at[0]} ${at[1]}) scale(${f1(press * 100) / 100}) translate(${-at[0]} ${-at[1]})">${p.svg}</g></g>`;
+        if (k > 0 && k < 1) out += T.hand(at[0] + fr[0] * (1 - m) + 6, at[1] + fr[1] * (1 - m) - 4, '👆', 18);
+      });
+      return out;
+    },
+    paint(s, e) {
+      const [x, y, w, h] = s.box, k = seg(e, 0, 0.9), id = 'crp' + (++clipN), edge = x + w * k;
+      let out = `<clipPath id="${id}"><rect x="${f1(x - 2)}" y="${f1(y - 4)}" width="${f1(w * k + 2)}" height="${f1(h + 8)}"/></clipPath><g clip-path="url(#${id})">${s.area}</g>`;
+      const by = y + h * (0.5 + 0.45 * Math.sin(e * 46)), tool = s.tool || 'brush';
+      if (e < 0.93) out += tool === 'sponge' ? T.sponge(edge, by, s.c) : tool === 'crayon' ? T.crayon(edge, by, s.c) : tool === 'finger' ? T.hand(edge, by, '👆') : T.brush(edge, by, s.c);
+      return out;
+    },
+    clay(s, e) {
+      const [cx, cy] = s.at || [100, 85], r = s.r || 20, c = s.c || C.orange, t = e * 8 * Math.PI; let out = '';
+      if (s.mode === 'ball') {
+        const pts = Array.from({ length: 40 }, (_, i) => { const a = i / 40 * Math.PI * 2, q = r * (1 + 0.28 * (1 - e) * Math.sin(5 * a + 1) * Math.cos(3 * a)); return [cx + q * Math.cos(a), cy + q * Math.sin(a)]; });
+        out = K.poly(pts, c) + T.hand(cx + 22 * Math.cos(t), cy - r - 10 + 6 * Math.sin(t), '✋', 22);
+      } else if (s.mode === 'snake') {
+        const rx = lerp(r, r * 3.4, e), ry = lerp(r, r * 0.42, e);
+        out = K.ell(cx, cy, rx, ry, c) + T.hand(cx - rx * 0.45 + 6 * Math.sin(t), cy - ry - 8, '✋', 20) + T.hand(cx + rx * 0.45 - 6 * Math.sin(t), cy - ry - 8, '✋', 20);
+      } else if (s.mode === 'flat') {
+        const rx = lerp(r, r * 1.9, e), ry = lerp(r, r * 0.42, e);
+        out = K.ell(cx, cy, rx, ry, c) + T.hand(cx, cy - ry - 12 - 8 * Math.abs(Math.sin(t / 2)), '✋', 24);
+      } else if (s.mode === 'coil') {
+        const sp = K.spiral(cx, cy, 2, r * 1.15, 2.4, 70), Ls = plen(sp), k = ez(e), coil = upto(sp, Ls * k), end = coil[coil.length - 1];
+        const tail = [end, [end[0] + (Ls * (1 - k)) * 0.55, end[1]]];
+        const pts = coil.concat(tail.slice(1)), w = r * 0.5;
+        out = K.line(pts, OL, w + 3) + K.line(pts, c, w) + T.hand(end[0] + 8, end[1] - 14, '👆', 18);
+      } else if (s.mode === 'pinch') {
+        const d = ez(e), top = lerp(r, r * 0.35, d);
+        out = K.path(`M${cx - r},${cy} A${r},${r} 0 0 0 ${cx + r},${cy} A${r},${top} 0 0 0 ${cx - r},${cy}Z`, c) +
+          (d > 0.05 ? K.ell(cx, cy, r * 0.78 * d, top * 0.7 * d, 'rgba(0,0,0,.22)', 0) : '') + T.hand(cx + 2 * Math.sin(t), cy - top - 6 + 8 * d, '👍', 22);
+      } else if (s.mode === 'squeeze') { // pull a nose or point out of a ball
+        const nose = lerp(0, r * 0.9, ez(e));
+        out = K.poly([[cx + r * 0.8, cy - r * 0.45], [cx + r + nose, cy], [cx + r * 0.8, cy + r * 0.45]], c) + K.circ(cx, cy, r, c) + T.hand(cx + r + nose + 4, cy - 10, '🤏', 20);
+      }
+      return out;
+    },
+    thread(s, e) {
+      const pts = s.pts, L = plen(pts), r = s.r || 6, n = s.beads.length, pre = s.pre || 0; let out = K.line(pts, s.sc || OL, 1.8);
+      s.beads.forEach((b, i) => {
+        const slot = (i + 0.6) * r * 2.1, k = i < pre ? 1 : ez(seg(e, (i - pre) / (n - pre) * 0.85, (i - pre + 1) / (n - pre) * 0.85));
+        if (k <= 0 && i > pre) return;
+        const q = along(pts, lerp(L + r * 3, slot, k));
+        out += s.tube ? `<g transform="rotate(${f1(q[2])} ${f1(q[0])} ${f1(q[1])})">${K.rect(q[0] - r, q[1] - r * 0.7, r * 2, r * 1.4, b, 2)}</g>` : K.bead(q[0], q[1], r, b);
+      });
+      const end = along(pts, L);
+      out += `<g transform="translate(${f1(end[0])} ${f1(end[1])}) rotate(${f1(end[2])})"><rect x="-2" y="-3" width="10" height="6" rx="1.5" fill="${C.sky}" ${sk(1)}/></g>`;
+      return out;
+    },
+    tear(s, e) {
+      const [x, y, w, h] = s.box, n = s.n || 4, k = ez(seg(e, 0.1, 0.9)), cuts = Array.from({ length: n + 1 }, (_, i) => x + w * i / n);
+      const edge = (cx, j) => Array.from({ length: 9 }, (_, i) => [cx + (i % 2 ? 3 : -3) * (j ? 1 : 0) + (rr(j * 9 + i) - 0.5) * 4 * (j ? 1 : 0), y + h * i / 8]);
+      let out = '';
+      for (let i = 0; i < n; i++) {
+        const left = i === 0 ? [[x, y + h], [x, y]] : edge(cuts[i], i).reverse(), right = i === n - 1 ? [[x + w, y], [x + w, y + h]] : edge(cuts[i + 1], i + 1);
+        const pts = (i === 0 ? left : left).concat(right), mid = i - (n - 1) / 2;
+        out += `<g transform="translate(${f1(mid * 10 * k)} ${f1((i % 2 ? 14 : -4) * k)}) rotate(${f1(mid * 7 * k)} ${f1(x + w * (i + 0.5) / n)} ${f1(y + h / 2)})">${K.poly(pts, s.c || C.red, 1.3)}</g>`;
+      }
+      if (e < 0.92) { const ci = Math.min(n - 1, 1 + Math.floor(k * (n - 1))); out += T.hand(cuts[ci] - 10 - 8 * k, y - 4, '🤏', 20) + T.hand(cuts[ci] + 10 + 8 * k, y - 4, '🤏', 20); }
+      return out;
+    },
+    stamp(s, e) {
+      const [x, y] = s.at, down = seg(e, 0, 0.4), up = seg(e, 0.58, 1), sq = e > 0.4 && e < 0.58 ? 0.92 : 1;
+      const dy = e < 0.4 ? -70 * (1 - ez(down)) : e > 0.58 ? -70 * ez(up) : 0;
+      let out = e > 0.5 ? `<g opacity="${f1(seg(e, 0.5, 0.62))}">${s.print}</g>` : '';
+      out += `<g transform="translate(${x} ${f1(y + dy)}) scale(1 ${sq})">${s.item}</g>`;
+      if (e > 0.3 && e < 0.65) out += T.hand(x, y + dy - 22, '✋', 22);
+      return out;
+    },
+    wrap(s, e) {
+      const [x, y, w, h] = s.box, n = s.n || 9, k = seg(e, 0, 0.92) * n; let out = '';
+      for (let i = 0; i < n; i++) {
+        if (i > k) break;
+        const f = Math.min(1, k - i), y0 = y + h * (i + 0.2) / n, y1 = y + h * (i + 0.9) / n;
+        out += K.line([[x - 2, y0], [lerp(x - 2, x + w + 2, f), lerp(y0, y1, f)]], s.c || C.red, 3);
+      }
+      const bx = x + w + 16 + 6 * Math.sin(e * 40), by = y + h * Math.min(1, k / n);
+      if (e < 0.95) out += T.yarn(bx, by, s.c);
+      return out;
+    },
+    weave(s, e) {
+      const [x, y, w, h] = s.mat, nb = s.bands || 7, sh = s.sh || 12, bw = (w - 16) / nb, row = s.row || 0, rows = s.rows || 5;
+      let out = K.rect(x, y, w, h, s.c || C.blue, 2);
+      for (let b = 1; b < nb; b++) out += K.line([[x + 8 + b * bw, y + 8], [x + 8 + b * bw, y + h - 8]], 'rgba(34,48,90,.5)', 1.2);
+      const edge = lerp(x - 30, x + w + 4, ez(seg(e, 0, 0.9)));
+      for (let r = 0; r <= row; r++) {
+        const ry = y + 10 + (h - 20) * (r + 0.5) / rows - sh / 2, col = (s.sc || [C.yellow, C.red, C.green, C.pink, C.orange])[r % 5], cur = r === row;
+        const x1 = cur ? edge : x + w + 4, x0 = x1 - (w + 34);
+        if (x0 < x + 8) out += K.rect(x0, ry, Math.min(x + 8, x1) - x0, sh, col, 1);
+        for (let b = 0; b < nb; b++) {
+          const bx0 = x + 8 + b * bw, bx1 = bx0 + bw, a = Math.max(bx0, x0), z = Math.min(bx1, x1);
+          if (z > a && (b + r) % 2 === 0) out += K.rect(a, ry, z - a, sh, col, 1);
+        }
+        if (x1 > x + w - 8) out += K.rect(x + w - 8, ry, x1 - (x + w - 8), sh, col, 1);
+      }
+      if (e < 0.93) out += T.hand(edge + 4, y + 10 + (h - 20) * (row + 0.5) / rows - 8, '👆', 18);
+      return out;
+    },
+    punch(s, e) {
+      const n = s.holes.length, k = seg(e, 0, 0.9) * n, i = Math.min(n - 1, Math.floor(k)), f = k - i;
+      let out = s.holes.map((h, j) => j < i || (j === i && f > 0.6) ? K.hole(h[0], h[1], s.r || 3.4) : '').join('');
+      const a = s.holes[Math.max(0, i - 1)], b = s.holes[i], m = ez(cl(f / 0.4));
+      if (e < 0.95) out += T.punch(lerp(a[0], b[0], m), lerp(a[1], b[1], m), f > 0.45 && f < 0.7);
+      return out;
+    },
+    sprinkle(s, e) {
+      const [x, y, w, h] = s.box, n = s.n || 36, cols = s.colors || [C.yellow, C.pink, C.blue], k = seg(e, 0, 0.9); let out = '', sx = x;
+      for (let i = 0; i < n; i++) {
+        const t0 = i / n, px = x + rr(i) * w, py = y + rr(i + 99) * h, f = (k - t0) * 8;
+        if (f <= 0) continue;
+        if (f < 1) { sx = px; out += K.circ(px, lerp(y - 40, py, f), 1.8, cols[i % cols.length], 0); }
+        else out += K.circ(px, py, 2, cols[i % cols.length], 0);
+      }
+      if (e < 0.95) out += T.shaker(sx, y - 50);
+      return out;
+    },
+    tie(s, e) {
+      const [x, y] = s.at, k = ez(seg(e, 0.1, 0.9)), c = s.c || C.red;
+      return `<g transform="translate(${x} ${y})">${K.line([[-3, 2], [-10, 18 * k + 4]], c, 3)}${K.line([[3, 2], [10, 18 * k + 4]], c, 3)}${K.ell(-12 * k - 2, -2, 11 * k + 1, 6 * k + 1, 'none', 0, `stroke="${c}" stroke-width="3" transform="rotate(-10)"`)}${K.ell(12 * k + 2, -2, 11 * k + 1, 6 * k + 1, 'none', 0, `stroke="${c}" stroke-width="3" transform="rotate(10)"`)}${K.circ(0, 0, 3.5, c, 1.2)}</g>` + (e < 0.92 ? T.hand(x - 18 - 6 * k, y + 10, '🤏', 18) + T.hand(x + 18 + 6 * k, y + 10, '🤏', 18) : '');
+    },
+    stitch(s, e) {
+      const L = plen(s.pts), d = L * seg(e, 0, 0.92), q = along(s.pts, d), up = Math.floor(d / 8) % 2 === 0;
+      return K.line(s.pts, 'rgba(34,48,90,.25)', 1.2, '2 3') + K.line(upto(s.pts, d), s.c || C.red, 2.6, '7 5') + (e < 0.95 ? `<g opacity="${up ? 1 : 0.45}">${T.needle(q[0], q[1], q[2] + 180 - (up ? 20 : -20))}</g>` : '');
+    },
+    braid(s, e) {
+      const [x, y] = s.at, cols = s.colors || [C.red, C.yellow, C.blue], n = s.n || 9, k = ez(seg(e, 0, 0.92)) * n; let out = K.rect(x - 14, y - 10, 28, 8, C.grey, 2);
+      for (let i = 0; i < n; i++) {
+        if (i > k) break;
+        const yy = y + 4 + i * 9, f = Math.min(1, k - i);
+        out += s.mode === 'knot'
+          ? `<g opacity="${f1(f)}">${K.poly([[x - 12, yy], [x, yy + 6], [x + 12, yy], [x + 12, yy + 7], [x, yy + 13], [x - 12, yy + 7]], cols[i % cols.length], 1.1)}</g>`
+          : `<g opacity="${f1(f)}"><ellipse cx="${f1(x + (i % 2 ? 4 : -4))}" cy="${f1(yy + 5)}" rx="9" ry="5.5" transform="rotate(${i % 2 ? -30 : 30} ${f1(x + (i % 2 ? 4 : -4))} ${f1(yy + 5)})" fill="${cols[i % cols.length]}" ${sk(1.1)}/></g>`;
+      }
+      const ty = y + 4 + Math.min(n, Math.ceil(k)) * 9 + 6;
+      cols.forEach((c, i) => { out += K.line([[x + (i - 1) * 5, ty], [x + (i - 1) * 12, Math.max(ty + 8, y + n * 9 + 30)]], c, 3); });
+      if (e < 0.93) out += T.hand(x - 26, ty, '🤏', 18) + T.hand(x + 26, ty, '🤏', 18);
+      return out;
+    },
+    pins(s, e) {
+      const pts = s.order.map(i => s.pins[i]), L = plen(pts), d = L * seg(e, 0, 0.92), q = along(pts, d);
+      return s.pins.map(p => K.circ(p[0], p[1], 2.4, C.grey, 1)).join('') + K.line(upto(pts, d), s.c || C.red, 1.6) + (e < 0.95 ? T.yarn(q[0] + 10, q[1] - 10, s.c) : '');
+    },
+    show(s, e, t) {
+      const [x, y] = s.at || [100, 78], sc = s.s || 1, k = s.kind || 'bounce'; let tr = '';
+      if (k === 'bounce') tr = `translate(${x} ${f1(y - Math.abs(Math.sin(t / 320)) * 10)}) scale(${sc})`;
+      else if (k === 'spin') tr = `translate(${x} ${y}) rotate(${f1((t / 6 * (s.speed || 1)) % 360)}) scale(${sc})`;
+      else if (k === 'drive') { const u = (t % 3600) / 3600; tr = `translate(${f1(lerp(-70, 270, u))} ${f1(y + 1.5 * Math.sin(t / 60))}) scale(${sc})`; }
+      else if (k === 'wiggle') tr = `translate(${x} ${y}) rotate(${f1(8 * Math.sin(t / 260))}) scale(${sc})`;
+      else if (k === 'float') tr = `translate(${x} ${f1(y + 5 * Math.sin(t / 420))}) rotate(${f1(3 * Math.sin(t / 600))}) scale(${sc})`;
+      else if (k === 'fly') { const u = (t % 3200) / 3200; tr = `translate(${f1(lerp(-40, 240, u))} ${f1(y + 14 * Math.sin(u * Math.PI * 2))}) rotate(${f1(10 * Math.cos(u * Math.PI * 2))}) scale(${sc})`; }
+      else if (k === 'up') { const u = (t % 3000) / 3000; tr = `translate(${x} ${f1(lerp(190, -50, u))}) scale(${sc})`; }
+      else if (k === 'fall') { const u = (t % 3400) / 3400; tr = `translate(${f1(x + 10 * Math.sin(u * 9))} ${f1(lerp(-10, 150, u))}) scale(${f1(Math.cos(t / 70) * sc)} ${sc})`; }
+      else if (k === 'hop') { const u = (t % 1400) / 1400; tr = `translate(${x} ${f1(y - 34 * Math.sin(u * Math.PI))}) rotate(${f1(-12 * Math.sin(u * Math.PI))}) scale(${sc})`; }
+      else tr = `translate(${x} ${y}) scale(${f1((1 + 0.05 * Math.sin(t / 300)) * sc * 100) / 100})`;
+      let out = (s.base || '') + `<g transform="${tr}">${s.item}</g>`;
+      const sp = [[30, 26], [172, 32], [40, 124], [166, 116]];
+      sp.forEach((p, i) => { const a = (Math.sin(t / 300 + i * 1.7) + 1) / 2; out += `<g opacity="${f1(a)}">${K.emo('✨', p[0], p[1], 14 + 6 * a)}</g>`; });
+      return out;
+    }
+  };
+  K.still = (s, e = 1) => (s.base || '') + ((R[s.a] || R.show)(s, e, 0) || '') + (s.top || ''); // a finished step as a picture
+  const BG = `<rect width="200" height="150" fill="#FFF6E5"/><rect x="0" y="132" width="200" height="18" fill="#F3E3C6"/>`;
+  function frame(s, e, t = 0) {
+    let body = '';
+    try { body = (R[s.a] || R.show)(s, e, t) || ''; } catch (err) { body = ''; }
+    return BG + (s.a === 'show' ? '' : s.base || '') + body + (s.top || '') + (s.topEnd && e > 0.85 ? `<g opacity="${f1(seg(e, 0.85, 1))}">${s.topEnd}</g>` : '');
+  }
+
+  /* --- data: categories, levels, crafts --- */
+  const CATS = [
+    { id: 'fold', ico: '🦢', name: 'Paper folding & origami', c: '#2776C3' },
+    { id: 'cut', ico: '✂️', name: 'Paper cutting', c: '#C44E40' },
+    { id: 'collage', ico: '🌈', name: 'Collage & tearing', c: '#B05F1E' },
+    { id: 'plate', ico: '🍽️', name: 'Paper plate crafts', c: '#268457' },
+    { id: 'roll', ico: '🧻', name: 'Toilet roll crafts', c: '#8A5A2B' },
+    { id: 'cards', ico: '💌', name: 'Cards & gifts', c: '#A23E78' },
+    { id: 'clay', ico: '🐌', name: 'Playdough & clay', c: '#C0541F' },
+    { id: 'nature', ico: '🍂', name: 'Nature crafts', c: '#4E7A1E' },
+    { id: 'puppet', ico: '🧦', name: 'Sock & bag puppets', c: '#5B44C0' },
+    { id: 'thread', ico: '📿', name: 'Threading & weaving', c: '#1D7C82' },
+    { id: 'recycle', ico: '♻️', name: 'Recycled crafts', c: '#2F7D4F' },
+    { id: 'sew', ico: '🪡', name: 'Simple sewing', c: '#9B3A82' },
+    { id: 'party', ico: '🎉', name: 'Holiday & party', c: '#C2371F' },
+    { id: 'science', ico: '🚁', name: 'Science crafts', c: '#22305A' },
+    { id: 'string', ico: '🧶', name: 'String art & bracelets', c: '#7A3FB8' }
+  ];
+  const LEVELS = [
+    { n: 1, name: 'Easy', ico: '🟢', ages: '4+', stars: 3 },
+    { n: 2, name: 'Medium', ico: '🟡', ages: '6+', stars: 4 },
+    { n: 3, name: 'Tricky', ico: '🟠', ages: '8+', stars: 5 },
+    { n: 4, name: 'Expert', ico: '🔴', ages: '10+', stars: 6 }
+  ];
+  const CRAFTS = [], BY = {};
+  function add(list) { list.forEach(c => { if (BY[c.id]) return; c.steps = c.steps.filter(Boolean); CRAFTS.push(c); BY[c.id] = c; }); }
+  const stepDur = s => s.d || (s.a === 'show' ? 4000 : s.a === 'ori' ? 4600 : 5000);
+
+  // Safety notes come from what the craft uses, so a new craft cannot forget one.
+  function safety(c) {
+    const m = c.mat.map(x => x[1].toLowerCase()).join(' | '), acts = c.steps.map(s => s.a), out = [];
+    if (/scissor|knife/.test(m) || acts.includes('cut')) out.push(['✂️', 'Scissors are sharp. Ask a grown-up to help, and keep fingers away from the blades.']);
+    if (/glue/.test(m) || acts.includes('glue')) out.push(['🧴', 'Glue is not for eating. Ask a grown-up which glue to use, and wash your hands after.']);
+    if (/needle|pin\b|pins|skewer|toothpick/.test(m)) out.push(['📌', 'Pins and needles are sharp. Ask a grown-up to do the poking.']);
+    if (c.hot) out.push(['🔥', c.hot]);
+    if (/bead|button|pasta|cereal|seed/.test(m)) out.push(['👶', 'Small pieces can choke babies. Keep them away from little ones.']);
+    if (c.safe) out.push(['⚠️', c.safe]);
+    return out;
+  }
+
+  /* --- per-player progress in st.crafts --- */
+  const CS = () => { const c = st.crafts = st.crafts || {}; c.done = c.done || {}; c.stars = c.stars || 0; return c; };
+  const madeCount = () => Object.keys(CS().done).filter(k => BY[k]).length;
+  const maxLvForAge = () => st.age <= 5 ? 1 : st.age <= 7 ? 2 : st.age <= 9 ? 3 : 4;
+  function suggest() {
+    const ml = maxLvForAge(), D = CS().done, todo = CRAFTS.filter(c => !D[c.id]);
+    return todo.filter(c => c.lv <= ml).sort((a, b) => a.lv - b.lv)[0] || todo.sort((a, b) => a.lv - b.lv)[0] || CRAFTS[0];
+  }
+  const lvChip = c => `<span class="cr-lv cr-lv${c.lv}">${LEVELS[c.lv - 1].ico} ${LEVELS[c.lv - 1].name}</span>`;
+  const card = c => { const d = CS().done[c.id];
+    return `<button class="cr-card" data-c="${c.id}" aria-label="${esc(c.name)}, ${LEVELS[c.lv - 1].name}, ${c.min} minutes${d ? ', made' : ''}"><span class="cr-ico" aria-hidden="true">${c.ico}</span><b>${esc(c.name)}</b>
+      <span class="cr-meta">${lvChip(c)}<span class="cr-time">⏱ ${c.min} min</span></span>${d ? `<span class="cr-done" aria-hidden="true">${d.sticker || '✅'}</span>` : ''}</button>`; };
+  const wireCards = back => view.querySelectorAll('[data-c]').forEach(b => b.onclick = () => go(craftView, b.dataset.c, back));
+  const TIP = 'Do the cutting and poking parts together. Praise the trying, not the neatness: a wonky boat still floats!';
+
+  function crHome(level = 0) {
+    const D = CS(), s = suggest(), made = madeCount(), stickers = CRAFTS.filter(c => D.done[c.id]).map(c => D.done[c.id].sticker || c.ico);
+    view.innerHTML = `${crumbs('✂️ Crafts corner')}
+      <div class="cr-hero"><span class="cr-owl" aria-hidden="true">🦉</span><p>Let's make real things! Watch each little movie, then make it with your hands. Easy ones first, then trickier ones.</p></div>
+      <button class="pick" id="crPick"><span class="big">${s.ico}</span><span><b>Try this: ${esc(s.name)}</b>${LEVELS[s.lv - 1].name} · ${s.min} minutes</span></button>
+      <div class="cr-levels" role="group" aria-label="Show crafts by level"><button class="cr-lvb" data-lv="0" aria-pressed="${!level}">All</button>${LEVELS.map(l => `<button class="cr-lvb" data-lv="${l.n}" aria-pressed="${level === l.n}">${l.ico} ${l.name} <small>${l.ages}</small></button>`).join('')}</div>
+      ${level ? `<h2 class="cr-h">${LEVELS[level - 1].ico} ${LEVELS[level - 1].name} crafts</h2><div class="cr-cards">${CRAFTS.filter(c => c.lv === level).map(card).join('')}</div>`
+        : `<div class="cr-cats">${CATS.map(k => { const list = CRAFTS.filter(c => c.cat === k.id), dn = list.filter(c => D.done[c.id]).length;
+          return `<button class="cr-cat" data-cat="${k.id}" style="background:${k.c}"><span class="cr-cico" aria-hidden="true">${k.ico}</span><b>${k.name}</b><span>${list.length} crafts${dn ? ` · ${dn} made ✅` : ''}</span></button>`; }).join('')}</div>`}
+      <div class="panel cr-wall"><h2>🏆 My crafts: ${made} made</h2>${stickers.length ? `<div class="cr-stk">${stickers.map(x => `<span>${x}</span>`).join('')}</div>` : '<p class="note">Finish a craft and tap "I made it!" to put it on your wall.</p>'}</div>
+      <p class="en-ptip"><span aria-hidden="true">👪</span> <b>Grown-ups:</b> ${TIP}</p>`;
+    wireBack(home);
+    sayScreen(`Crafts corner! Let's make things. Try ${s.name}!`);
+    $('#crPick').onclick = () => go(craftView, s.id);
+    view.querySelectorAll('[data-lv]').forEach(b => b.onclick = () => go(crHome, +b.dataset.lv));
+    view.querySelectorAll('[data-cat]').forEach(b => b.onclick = () => go(catView, b.dataset.cat));
+    wireCards(() => crHome(level));
+  }
+  function catView(id) {
+    const k = CATS.find(x => x.id === id) || CATS[0], list = CRAFTS.filter(c => c.cat === k.id).sort((a, b) => a.lv - b.lv);
+    view.innerHTML = `${crumbs(`${k.ico} ${k.name}`)}<p class="note">From easy to tricky. Tap one to watch how to make it.</p><div class="cr-cards">${list.map(card).join('')}</div>`;
+    wireBack(crHome);
+    sayScreen(`${k.name}. ${list.map(c => c.name).join(', ')}.`);
+    wireCards(() => catView(id));
+  }
+
+  /* --- the craft page and its movie player --- */
+  let M = null; // the movie on screen: { c, i, playing, start, at, all, frames, raf }
+  function craftView(id, back) {
+    const c = BY[id] || CRAFTS[0], d = CS().done[c.id], safe = safety(c), backTo = back || (() => catView(c.cat));
+    view.innerHTML = `${crumbs(`${c.ico} ${esc(c.name)}`)}
+      <div class="cr-info">${lvChip(c)}<span class="cr-time">⏱ ${c.min} minutes</span><span class="cr-time">🎬 ${c.steps.length} steps</span>${d ? `<span class="cr-time">✅ made ${d.n}×</span>` : ''}</div>
+      <div class="panel cr-need"><h2>You need</h2><ul class="cr-mat">${c.mat.map(([e, n]) => `<li><span aria-hidden="true">${e}</span>${esc(n)}</li>`).join('')}</ul>
+        ${safe.length ? `<div class="cr-safe" role="note"><b>⚠️ Safety: ask a grown-up</b>${safe.map(([e, t]) => `<p><span aria-hidden="true">${e}</span> ${esc(t)}</p>`).join('')}</div>` : ''}</div>
+      <div class="cr-movie" id="crMovie">
+        <div class="cr-screen"><svg viewBox="0 0 200 150" id="crSvg" role="img" aria-label="A little movie of this step"></svg><span class="cr-badge" id="crBadge"></span><span class="cr-mode" id="crMode" hidden>🎬 Movie</span></div>
+        <div class="cr-bar" aria-hidden="true"><i id="crBar"></i></div>
+        <p class="cr-text" id="crText" aria-live="polite"></p>
+        <div class="cr-ctrl">
+          <button class="tool" id="crPrev" aria-label="Step before">⏮</button>
+          <button class="tool" id="crPlay" aria-label="Pause">⏸</button>
+          <button class="tool" id="crReplay" aria-label="Replay this step">🔁</button>
+          <button class="tool" id="crSay" aria-label="Say it again">🔊</button>
+          <button class="tool" id="crAll">🎬 Watch all</button>
+        </div>
+        <div class="cr-dots" role="group" aria-label="Steps">${c.steps.map((_, i) => `<button class="cr-dot" data-s="${i}" aria-label="Step ${i + 1}">${i + 1}</button>`).join('')}</div>
+        <button class="btn leaf cr-next" id="crNext">Next step ▶</button>
+      </div>
+      ${c.tip ? `<p class="en-ptip"><span aria-hidden="true">👪</span> <b>Grown-ups:</b> ${esc(c.tip)}</p>` : ''}`;
+    wireBack(backTo);
+    const nav = navId, svg = $('#crSvg');
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    M = { c, i: 0, playing: !reduce, start: performance.now(), at: reduce ? 0.9 * stepDur(c.steps[0]) : 0, all: false, frames: 0, raf: 0, nav, holdUntil: 0 };
+    const mv = M;
+    function show(i, speak = true) {
+      mv.i = cl(i, 0, c.steps.length - 1) | 0; mv.start = performance.now(); mv.at = 0; mv.holdUntil = 0;
+      if (!mv.playing && !mv.all) mv.at = 0.9 * stepDur(c.steps[mv.i]);
+      const s = c.steps[mv.i], last = mv.i === c.steps.length - 1;
+      $('#crBadge').textContent = `Step ${mv.i + 1} of ${c.steps.length}`;
+      $('#crText').innerHTML = `<b>Step ${mv.i + 1}.</b> ${esc(s.t)}`;
+      $('#crNext').textContent = last ? '🎉 I made it!' : 'Next step ▶';
+      $('#crNext').classList.toggle('cr-made', last);
+      $('#crPrev').disabled = mv.i === 0;
+      view.querySelectorAll('.cr-dot').forEach((b, k) => { b.classList.toggle('on', k === mv.i); b.classList.toggle('seen', k < mv.i); b.setAttribute('aria-current', k === mv.i ? 'step' : 'false'); });
+      draw(performance.now());
+      if (speak) say(`Step ${mv.i + 1}. ${s.t}`);
+      screenText = `Step ${mv.i + 1}. ${s.t}`;
+    }
+    function draw(now) {
+      const s = c.steps[mv.i], d = stepDur(s), el = mv.playing ? now - mv.start + mv.at : mv.at;
+      const u = mv.all ? Math.min(1, el / d) : (el % d) / d, e = u < 0.12 ? 0 : u > 0.82 ? 1 : ez((u - 0.12) / 0.7);
+      svg.innerHTML = frame(s, e, el); mv.frames++; mv.u = u; mv.e = e;
+      const bar = $('#crBar'); if (bar) bar.style.width = (u * 100).toFixed(1) + '%';
+      if (mv.all && mv.playing && el >= d) {
+        if (!mv.holdUntil) mv.holdUntil = now + Math.max(900, s.t.split(/\s+/).length * 330 - d + 1600);
+        else if (now >= mv.holdUntil) { if (mv.i < c.steps.length - 1) show(mv.i + 1); else stopAll(true); }
+      }
+    }
+    function loop(now) {
+      if (nav !== navId || !svg.isConnected) { M === mv && cancelAnimationFrame(mv.raf); return; }
+      if (mv.playing) draw(now);
+      mv.raf = requestAnimationFrame(loop);
+    }
+    function setPlay(on) {
+      const now = performance.now();
+      if (on && !mv.playing) { mv.start = now; mv.playing = true; }
+      else if (!on && mv.playing) { mv.at += now - mv.start; mv.playing = false; draw(now); }
+      $('#crPlay').textContent = mv.playing ? '⏸' : '▶️'; $('#crPlay').setAttribute('aria-label', mv.playing ? 'Pause' : 'Play');
+    }
+    function startAll() { mv.all = true; $('#crMode').hidden = false; $('#crAll').textContent = '⏹ Stop movie'; setPlay(true); show(0); }
+    function stopAll(end) {
+      mv.all = false; $('#crMode').hidden = true; $('#crAll').textContent = '🎬 Watch all';
+      if (end) { mv.start = performance.now(); mv.at = 0; say("That's how to make it! Now you try. Then tap I made it!"); $('#crNext').classList.add('cr-pulse'); }
+    }
+    $('#crPlay').onclick = () => setPlay(!mv.playing);
+    $('#crReplay').onclick = () => { setPlay(true); show(mv.i, true); };
+    $('#crSay').onclick = () => say(`Step ${mv.i + 1}. ${c.steps[mv.i].t}`);
+    $('#crPrev').onclick = () => { if (mv.all) stopAll(); show(mv.i - 1); };
+    $('#crAll').onclick = () => mv.all ? stopAll() : startAll();
+    $('#crNext').onclick = () => { if (mv.all) stopAll(); if (mv.i < c.steps.length - 1) { tone([620]); show(mv.i + 1); } else go(madeView, c.id); };
+    view.querySelectorAll('.cr-dot').forEach(b => b.onclick = () => { if (mv.all) stopAll(); show(+b.dataset.s); });
+    canvasCleanup = () => cancelAnimationFrame(mv.raf);
+    setPlay(mv.playing);
+    show(0, false);
+    say(`${c.name}. ${LEVELS[c.lv - 1].name}. You need ${c.mat.map(m => m[1]).join(', ')}. ${safe.length ? 'Ask a grown-up to help.' : ''} Step 1. ${c.steps[0].t}`);
+    mv.raf = requestAnimationFrame(loop);
+  }
+
+  /* --- "I made it!": draw your craft or pick a sticker, then stars --- */
+  const STK = ['🌟', '🏆', '🎨', '🦄', '🚀', '🐸', '🦉', '🌈', '💖', '🐱', '🦋', '🌻', '🐉', '🎁', '👑', '🐙'];
+  function award(c, how, sticker) {
+    const D = CS(), rec = D.done[c.id], first = !rec, n = first ? LEVELS[c.lv - 1].stars : 1;
+    D.done[c.id] = { n: (rec ? rec.n : 0) + 1, first: rec ? rec.first : today(), last: today(), sticker: sticker || (rec && rec.sticker) || c.ico, how };
+    D.stars += n; questTick('art'); dayLog('art'); addStars(n); confetti(60); yay();
+    return { n, first };
+  }
+  function madeView(id) {
+    const c = BY[id] || CRAFTS[0], last = c.steps[c.steps.length - 1];
+    let done = false;
+    view.innerHTML = `${crumbs('🎉 You made it!')}
+      <div class="cr-made-top"><svg viewBox="0 0 200 150" class="cr-mini" aria-hidden="true">${frame(last, 1, 600)}</svg><div><h2>${c.ico} ${esc(c.name)}</h2><p>Wow! Show Owl what yours looks like.</p></div></div>
+      <div class="row cr-how"><button class="btn" id="crDraw">✏️ Draw my craft</button><button class="btn alt" id="crStk">⭐ Pick a sticker</button></div>
+      <div id="crBox"></div><div class="cheer" id="cheer" aria-live="polite"></div>`;
+    wireBack(() => craftView(c.id));
+    sayScreen(`You made the ${c.name}! Draw it, or pick a sticker for it.`);
+    const finish = (how, sticker) => {
+      if (done) return; done = true;
+      const r = award(c, how, sticker), nx = CRAFTS.filter(x => x.cat === c.cat && x.id !== c.id && !CS().done[x.id]).sort((a, b) => a.lv - b.lv)[0] || suggest();
+      $('#crBox').innerHTML = `<div class="panel cr-win"><div class="cr-big" aria-hidden="true">${sticker || c.ico}</div><h2>${'⭐'.repeat(r.n)} +${r.n} star${r.n > 1 ? 's' : ''}!</h2>
+        <p>${r.first ? `Your ${esc(c.name)} is on your crafts wall.` : 'You made it again! Practice makes it better.'}</p>
+        <div class="row"><button class="btn leaf" id="crNx">${nx.ico} Next: ${esc(nx.name)}</button><button class="btn alt" id="crHm">✂️ All crafts</button></div></div>`;
+      $('#cheer').textContent = r.first ? 'Super crafter!' : 'Well done!';
+      view.querySelectorAll('.cr-how button').forEach(b => b.disabled = true);
+      say(`Well done! You earned ${r.n} star${r.n > 1 ? 's' : ''}! ${r.first ? `Your ${c.name} is on your crafts wall.` : ''}`);
+      $('#crNx').onclick = () => go(craftView, nx.id);
+      $('#crHm').onclick = () => go(crHome);
+    };
+    $('#crStk').onclick = () => {
+      if (done) return;
+      $('#crBox').innerHTML = `<div class="panel"><h2>Pick a sticker for it</h2><div class="cr-stks">${[c.ico, ...STK.filter(x => x !== c.ico)].map(x => `<button class="cr-sb" data-k="${x}" aria-label="Sticker ${x}">${x}</button>`).join('')}</div></div>`;
+      say('Pick a sticker for your craft!');
+      view.querySelectorAll('[data-k]').forEach(b => b.onclick = () => finish('sticker', b.dataset.k));
+    };
+    $('#crDraw').onclick = () => {
+      if (done) return;
+      $('#crBox').innerHTML = `<div class="panel"><h2>Draw your ${esc(c.name.toLowerCase())}</h2>
+        <div class="cr-pad"><canvas id="crCv" aria-label="Drawing pad: draw your craft here"></canvas></div>
+        <div class="tools cr-cols">${PAINT.slice(0, 9).map((p, i) => `<button class="sw" style="background:${p}" data-pc="${p}" aria-label="${PAINT_NAMES[i]}" aria-pressed="${i === 0}"></button>`).join('')}</div>
+        <div class="row"><button class="tool" id="crUndo">↩️ Undo</button><button class="tool" id="crClr">🗑️ Clear</button><button class="btn leaf" id="crSave">✅ Done</button></div></div>`;
+      say('Draw your craft! Then tap done.');
+      const cv = $('#crCv'), ctx = cv.getContext('2d'), wrap = cv.parentElement, dpr = window.devicePixelRatio || 1;
+      const W = wrap.clientWidth, H = Math.round(W * 0.7);
+      cv.width = W * dpr; cv.height = H * dpr; cv.style.height = H + 'px'; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, W, H); ctx.lineCap = ctx.lineJoin = 'round'; ctx.lineWidth = 6;
+      let col = PAINT[0], down = false, ink = 0; const undo = [];
+      const pos = e => { const r = cv.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; };
+      cv.onpointerdown = e => { down = true; try { cv.setPointerCapture(e.pointerId); } catch (x) {} undo.push(ctx.getImageData(0, 0, cv.width, cv.height)); if (undo.length > 12) undo.shift(); const [x, y] = pos(e); ctx.strokeStyle = col; ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x + 0.1, y + 0.1); ctx.stroke(); ink++; };
+      cv.onpointermove = e => { if (!down) return; const [x, y] = pos(e); ctx.lineTo(x, y); ctx.stroke(); ink++; };
+      cv.onpointerup = cv.onpointercancel = () => { down = false; };
+      view.querySelectorAll('[data-pc]').forEach(b => b.onclick = () => { col = b.dataset.pc; view.querySelectorAll('[data-pc]').forEach(x => x.setAttribute('aria-pressed', x === b)); });
+      $('#crUndo').onclick = () => { const im = undo.pop(); if (im) { ctx.putImageData(im, 0, 0); ink = undo.length ? ink : 0; } };
+      $('#crClr').onclick = () => { undo.push(ctx.getImageData(0, 0, cv.width, cv.height)); ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, W, H); ink = 0; };
+      $('#crSave').onclick = () => {
+        if (done) return;
+        if (ink < 3) { say('Draw your craft first!'); oops(); return; }
+        try { const t = document.createElement('canvas'); t.width = 360; t.height = Math.round(360 * H / W); t.getContext('2d').drawImage(cv, 0, 0, t.width, t.height);
+          gallery.unshift(t.toDataURL('image/jpeg', 0.75)); gallery = gallery.slice(0, 30); saveGallery(); } catch (e) {}
+        finish('drawing');
+      };
+    };
+  }
+
+  const info = () => ({ crafts: CRAFTS.length, cats: CATS.length, steps: CRAFTS.reduce((a, c) => a + c.steps.length, 0), levels: LEVELS.map(l => CRAFTS.filter(c => c.lv === l.n).length) });
+  if (location.hash === '#selftest') window.__crafts = {
+    CATS, LEVELS, get CRAFTS() { return CRAFTS; }, BY, info, safety, frame, stepDur, CS, suggest, raw: (s, e, t = 0) => R[s.a](s, e, t),
+    home: lv => go(crHome, lv || 0), cat: id => go(catView, id), open: id => go(craftView, id), made: id => go(madeView, id), get movie() { return M; }
+  };
+  crHome.add = add; crHome.kit = K; crHome.info = info; crHome.LEVELS = LEVELS; crHome.CATS = CATS;
+  return crHome;
+})();
+/* ---------- Crafts corner, part 2: paper folding, cutting, collage, plates, tubes, cards and clay ---------- */
+// Each step is { t: what to do (read aloud), a: the kind of mini-movie, ...what it draws }. Drawings use the kit in
+// crafts.js (viewBox 0 0 200 150). K.ori(...) folds a paper model step by step, so origami movies stay true to the paper.
+(() => {
+  const K = craftsHome.kit, C = K.C;
+  const S = (t, a, o = {}) => ({ t, a, ...o });
+  const mid = svg => K.g(svg, -100, -75); // a finished picture drawn around the middle, for the "show" movie
+  const M = {
+    paper: ['📄', 'paper'], sq: ['🟦', 'square paper'], color: ['🌈', 'colored paper'], scissors: ['✂️', 'child scissors'], glue: ['🧴', 'glue stick'], tape: ['🩹', 'sticky tape'],
+    crayons: ['🖍️', 'crayons'], pens: ['🖊️', 'felt pens'], pencil: ['✏️', 'pencil'], paint: ['🎨', 'paint'], brush: ['🖌️', 'paintbrush'], plate: ['🍽️', 'paper plate'],
+    roll: ['🧻', 'toilet roll tube'], dough: ['🟠', 'playdough or clay'], eyes: ['👀', 'googly eyes (or draw them)'], wool: ['🧶', 'wool or string'], card: ['🟨', 'thin card'],
+    punch: ['🕳️', 'hole punch'], cotton: ['☁️', 'cotton wool'], tissue: ['🎐', 'tissue paper'], news: ['📰', 'newspaper or big paper']
+  };
+  const circlePts = (cx, cy, r, n = 20) => K.arc(cx, cy, r, r, 0, 360, n);
+
+  /* --- paper folding & origami --- */
+  const fan = (() => {
+    const B = K.ori(C.yellow, '#F2C04A', [[40, 35], [160, 35], [160, 115], [40, 115]]);
+    const pleats = [92, 96, 100, 104, 108].map(x => K.line([[x, 35], [x, 115]], 'rgba(34,48,90,.4)', 1.2)).join('');
+    const s2 = B.fold('Fold a thin strip over at the edge.', { from: [40, 75], to: [58, 75] });
+    const s3 = Object.assign(B.morph('Turn it over and fold back. Over and back, like a zigzag!', [[[88, 35], [112, 35], [112, 115], [88, 115]]]), { topEnd: pleats });
+    const folded = B.svg() + pleats, tapeP = K.rect(84, 98, 32, 10, 'rgba(142,197,245,.85)', 1);
+    const fanSVG = K.poly([[0, 22], ...K.arc(0, 22, 58, 58, 200, 340, 12)], C.yellow) + K.arc(0, 22, 58, 58, 200, 340, 12).map(p => K.line([[0, 22], p], 'rgba(34,48,90,.35)', 1.1)).join('')
+      + K.line(K.arc(0, 22, 44, 44, 203, 337, 16), C.red, 3) + K.line(K.arc(0, 22, 32, 32, 207, 333, 14), C.blue, 3) + K.rect(-7, 12, 14, 14, 'rgba(142,197,245,.9)', 2);
+    return { id: 'fan', cat: 'fold', name: 'Paper fan', ico: '🪭', lv: 1, min: 10, mat: [M.color, M.crayons, M.tape], tip: 'Crisp folds make a better fan: run a fingernail along each fold.', steps: [
+      S('Draw bright stripes on your paper.', 'draw', { base: K.sheet(40, 35, 120, 80, C.yellow), s: [{ p: K.wave(48, 152, 55, 4, 3), c: C.red }, { p: K.wave(48, 152, 75, 4, 3), c: C.blue }, { p: K.wave(48, 152, 95, 4, 3), c: C.green }], w: 3.5, guide: false }),
+      s2, s3,
+      S('Squeeze the bottom together and wrap tape round it.', 'place', { base: folded, pieces: [{ svg: tapeP, at: [100, 103], from: [0, -60] }] }),
+      S('Open the top. Fan your face. Ahh, cool!', 'show', { item: fanSVG, at: [100, 70], kind: 'wiggle' })
+    ] };
+  })();
+
+  const dog = (() => {
+    const B = K.ori('#FFF6EA', '#C98A4B', [[100, 20], [155, 75], [100, 130], [45, 75]]);
+    const s1 = B.fold('Fold the square in half to make a triangle.', { from: [100, 20], to: [100, 130] });
+    B.shift(0, -15);
+    const s2 = B.fold('Fold the side corners down to make floppy ears.', { from: [45, 60], to: [58, 88] }, { from: [155, 60], to: [142, 88] });
+    const s3 = B.fold('Fold the bottom tip up a little.', { from: [100, 115], to: [100, 100] });
+    const face = K.circ(88, 74, 4, C.black, 0) + K.circ(112, 74, 4, C.black, 0) + K.ell(100, 90, 7, 5, C.black, 0);
+    return { id: 'dog', cat: 'fold', name: 'Origami dog face', ico: '🐶', lv: 1, min: 5, mat: [M.sq, M.pens], steps: [
+      s1, s2, s3,
+      S('Draw eyes and a nose. Woof!', 'draw', { base: B.svg(), tool: 'pen', s: [circlePts(88, 74, 4, 10), circlePts(112, 74, 4, 10), K.arc(100, 90, 7, 5, 0, 360, 12)], fill: face }),
+      S('Your puppy is ready to play!', 'show', { item: mid(B.svg() + face + K.smile(100, 97, 6)), kind: 'wiggle' })
+    ] };
+  })();
+
+  const plane = (() => {
+    const B = K.ori('#DDF0FF', '#8EC5F5', [[60, 8], [140, 8], [140, 142], [60, 142]]);
+    const s1 = S('Fold the paper in half the long way, then open it again.', 'draw', { base: B.svg(), s: [[[100, 8], [100, 142]]], c: C.purple, dash: '5 4', tool: 'finger' });
+    const s2 = B.fold('Fold the top corners in to the middle line.', { from: [60, 8], to: [100, 48] }, { from: [140, 8], to: [100, 48] });
+    const s3 = B.fold('Fold the slanted edges in to the middle again.', { from: [60, 48], to: [100, 64.6] }, { from: [140, 48], to: [100, 64.6] });
+    const s4 = Object.assign(B.morph('Fold it in half, then fold each wing down.', [{ p: [[100, 10], [158, 124], [100, 108], [42, 124]], f: 1 }]), { topEnd: K.line([[100, 10], [100, 108]], 'rgba(34,48,90,.5)', 1.5) });
+    const dart = K.poly([[34, 0], [-28, -24], [-16, 0], [-28, 24]], '#8EC5F5') + K.line([[34, 0], [-16, 0]], 'rgba(34,48,90,.5)', 1.4);
+    return { id: 'plane', cat: 'fold', name: 'Paper airplane', ico: '✈️', lv: 2, min: 10, mat: [M.paper], safe: 'Throw it away from faces and windows.', steps: [
+      s1, s2, s3, s4, S('Hold it underneath and throw it gently. Whoosh!', 'show', { item: dart, at: [100, 70], kind: 'fly' })
+    ] };
+  })();
+
+  const cup = (() => {
+    const B = K.ori('#E9F7EF', C.green, [[100, 25], [160, 85], [100, 145], [40, 85]]);
+    const st = [
+      B.fold('Fold the bottom corner up to the top. A triangle!', { from: [100, 145], to: [100, 25] }),
+      B.fold('Fold the right corner across to touch the left side.', { from: [160, 85], to: [75.1, 49.9] }),
+      B.fold('Fold the left corner across to the right side.', { from: [40, 85], to: [124.9, 49.9] }),
+      B.fold('Fold the front top flap down.', { from: [100, 25], to: [100, 72], top: true }),
+      B.flip('Turn it over.'),
+      B.fold('Fold the other top flap down too.', { from: [100, 25], to: [100, 72], top: true })
+    ];
+    return { id: 'cup', cat: 'fold', name: 'Origami cup', ico: '🥤', lv: 2, min: 10, mat: [M.sq], tip: 'A paper cup holds water for a minute or two: try it over the sink!', steps: [
+      ...st, S('Open the top gently. You made a cup!', 'show', { item: mid(B.svg()), kind: 'bounce' })
+    ] };
+  })();
+
+  function hatSteps(B) {
+    const s1 = B.fold('Fold the paper in half, top down to the bottom.', { from: [100, 5], to: [100, 145] });
+    B.shift(0, -35);
+    return [s1,
+      B.fold('Fold the top corners down to the middle.', { line: [[100, 40], [30, 90]], at: [30, 40] }, { line: [[100, 40], [170, 90]], at: [170, 40] }),
+      B.fold('Fold the bottom strip up, just the front one.', { from: [100, 110], to: [100, 70], top: true }),
+      B.flip('Turn it over.'),
+      B.fold('Fold the other strip up too.', { from: [100, 110], to: [100, 70], top: true })];
+  }
+  const hat = (() => {
+    const B = K.ori('#F9D56E', '#F4C542', [[30, 5], [170, 5], [170, 145], [30, 145]]), st = hatSteps(B);
+    return { id: 'hat', cat: 'fold', name: 'Paper hat', ico: '👒', lv: 2, min: 10, mat: [M.news, M.crayons], steps: [...st, S('Open the bottom and put it on your head!', 'show', { item: mid(B.svg()), kind: 'wiggle' })] };
+  })();
+  const boat = (() => {
+    const B = K.ori('#DCEBFF', '#9DC4F2', [[30, 5], [170, 5], [170, 145], [30, 145]]), st = hatSteps(B);
+    const s6 = B.morph('Open the bottom and squash it flat into a diamond.', [{ p: [[100, 20], [140, 75], [100, 130], [60, 75]], f: 0 }]);
+    const s7 = B.morph('Fold the bottom points up, open again, then pull the top points apart. A boat!', [{ p: [[40, 80], [160, 80], [135, 110], [65, 110]], f: 1 }, { p: [[100, 25], [132, 80], [68, 80]], f: 0 }]);
+    const water = K.line(K.wave(10, 190, 118, 3, 5), C.blue, 3);
+    return { id: 'boat', cat: 'fold', name: 'Paper boat', ico: '⛵', lv: 3, min: 15, mat: [M.news], tip: 'Float it in the bath or a puddle. Waxed crayon on the bottom keeps it dry longer.', steps: [
+      ...st, s6, s7, S('Float your boat!', 'show', { item: mid(B.svg()) + K.g(water, 0, 30), kind: 'float' })
+    ] };
+  })();
+
+  const frog = (() => {
+    const B = K.ori(C.green, '#7CC79A', [[60, 10], [140, 10], [140, 140], [60, 140]]);
+    const s1 = S('Fold each top corner across to make an X, then open.', 'draw', { base: B.svg(), s: [[[60, 10], [140, 90]], [[140, 10], [60, 90]], [[60, 50], [140, 50]]], c: C.purple, dash: '5 4', tool: 'finger' });
+    const s2 = B.morph('Push the sides in so the top folds into a triangle.', [{ p: [[60, 50], [140, 50], [140, 140], [60, 140]], f: 0 }, { p: [[60, 50], [100, 10], [140, 50]], f: 1 }]);
+    const s3 = B.fold('Fold the triangle corners up to the top. Front legs!', { from: [60, 50], to: [100, 12], top: true }, { from: [140, 50], to: [100, 12], top: true });
+    const s4 = B.morph('Fold the sides in to the middle.', L => L.map((l, i) => i === 0 ? { p: [[74, 50], [126, 50], [126, 140], [74, 140]], f: 0 } : l));
+    const s5 = B.morph('Fold the bottom up, then fold half of it back down. That is the spring!', L => [{ p: [[74, 50], [126, 50], [126, 100], [74, 100]], f: 0 }, { p: [[74, 92], [126, 92], [126, 104], [74, 104]], f: 1 }, ...L.slice(1)]);
+    const s6 = B.flip('Turn it over.');
+    const eyes = K.eyes(100, 42, 6, 22);
+    const frogSVG = K.ell(0, 10, 34, 22, C.green) + K.ell(-30, 24, 12, 7, C.green) + K.ell(30, 24, 12, 7, C.green) + K.circ(-13, -12, 9, C.green) + K.circ(13, -12, 9, C.green) + K.eyes(0, -13, 5, 26) + K.smile(0, 8, 12);
+    return { id: 'frog', cat: 'fold', name: 'Jumping frog', ico: '🐸', lv: 3, min: 15, mat: [['🟩', 'a small card or thick paper'], M.pens], tip: 'An index card jumps best. Press its back edge and slide your finger off.', steps: [
+      s1, s2, s3, s4, s5, s6,
+      S('Draw big eyes. Press its back and let go. Hop!', 'place', { base: B.svg(), pieces: [{ svg: eyes, at: [100, 42], from: [0, -50] }] }),
+      S('Hop, hop, hop! How far can it jump?', 'show', { item: frogSVG, at: [100, 92], kind: 'hop' })
+    ] };
+  })();
+
+  const crane = (() => {
+    const B = K.ori('#FFE3EC', '#F2607F', [[100, 15], [160, 75], [100, 135], [40, 75]]);
+    const st = [
+      B.fold('Fold the bottom corner up to the top.', { from: [100, 135], to: [100, 15] }),
+      B.fold('Fold it in half again, left to right.', { from: [40, 75], to: [160, 75] }),
+      B.morph('Open the top flap and squash it into a square. Turn over and do the same.', [{ p: [[100, 15], [140, 55], [100, 95], [60, 55]], f: 1 }, { p: [[100, 15], [140, 55], [100, 95], [60, 55]], f: 1 }]),
+      B.fold('Fold the lower edges in to the middle line. A kite!', { from: [60, 55], to: [100, 38.4], top: true }, { from: [140, 55], to: [100, 38.4], top: true }),
+      B.morph('Fold the top down, then lift the bottom point up and flatten it. Do the back too.', [{ p: [[100, 8], [116, 70], [100, 140], [84, 70]], f: 1 }]),
+      B.morph('Fold the edges in to make the legs thin, on both sides.', [{ p: [[100, 8], [114, 72], [103, 140], [97, 140], [86, 72]], f: 1 }]),
+      B.morph('Fold the legs up for a neck and a tail. Bend the head down and open the wings.', [
+        { p: [[100, 88], [62, 18], [108, 62]], f: 0 }, { p: [[100, 88], [140, 20], [114, 64]], f: 0 },
+        { p: [[84, 90], [48, 34], [54, 32], [76, 96]], f: 1 }, { p: [[118, 90], [150, 30], [158, 28], [166, 38], [158, 36], [128, 96]], f: 1 },
+        { p: [[68, 96], [100, 80], [134, 96], [100, 108]], f: 1 }])
+    ];
+    return { id: 'crane', cat: 'fold', name: 'Origami crane', ico: '🕊️', lv: 4, min: 30, mat: [['🟥', 'thin square paper (15 cm)']], tip: 'The crane is a classic challenge. Fold slowly, crease hard, and expect the first one to look wobbly.', steps: [
+      ...st, S('A paper crane! In Japan, cranes are a wish for good luck.', 'show', { item: mid(B.svg()), kind: 'float' })
+    ] };
+  })();
+
+  /* --- paper cutting --- */
+  const heart = (() => {
+    const B = K.ori(C.pink, '#F9C5DC', [[50, 30], [150, 30], [150, 130], [50, 130]]);
+    const s1 = B.fold('Fold the paper in half.', { from: [50, 80], to: [150, 80] });
+    const half = [[100, 55], [108, 45], [122, 41], [136, 48], [141, 63], [134, 84], [118, 102], [100, 118]];
+    return { id: 'heart', cat: 'cut', name: 'Cut-out heart', ico: '💖', lv: 1, min: 5, mat: [M.color, M.pencil, M.scissors], steps: [
+      s1,
+      S('Draw half a heart that starts and ends on the fold.', 'draw', { base: B.svg(), s: [half], c: C.grey, tool: 'pen' }),
+      S('Cut along the line. Keep the paper folded!', 'cut', { base: B.svg(), pts: half }),
+      S('Open it up. A whole heart! Both sides match.', 'show', { item: K.heart(0, 0, 38, C.pink) + K.line([[0, -15], [0, 34]], 'rgba(34,48,90,.25)', 1.2), kind: 'bounce' })
+    ] };
+  })();
+
+  const snake = (() => {
+    const sp = K.spiral(100, 75, 5, 50, 3, 90).reverse(), plate = K.circ(100, 75, 55, '#fff');
+    const colored = K.circ(100, 75, 55, C.lime) + K.spiral(100, 75, 10, 50, 3, 90).filter((_, i) => i % 6 === 0).map(p => K.circ(p[0], p[1], 3, C.orange, 0)).join('');
+    const helix = Array.from({ length: 91 }, (_, i) => { const k = i / 90, a = k * 6 * Math.PI; return [(34 - 26 * k) * Math.cos(a), -40 + k * 86 + 6 * Math.sin(a)]; });
+    const item = K.line([[0, -72], [0, -44]], C.grey, 1.4) + K.line(helix, '#22305A', 9) + K.line(helix, C.lime, 6) + K.circ(0, -40, 7, C.lime) + K.eyes(0, -41, 2.4, 6);
+    return { id: 'spiral', cat: 'cut', name: 'Spiral snake', ico: '🐍', lv: 1, min: 10, mat: [M.plate, M.crayons, M.scissors, M.wool], steps: [
+      S('Draw a big spiral, round and round to the middle.', 'draw', { base: plate, s: [sp], c: C.grey, tool: 'pen' }),
+      S('Color it like a snake: stripes and spots!', 'paint', { base: plate, area: colored + K.line(sp, 'rgba(34,48,90,.5)', 1.3), box: [45, 20, 110, 110], tool: 'crayon', c: C.lime }),
+      S('Cut along the spiral line, all the way to the middle.', 'cut', { base: colored, pts: sp }),
+      S('Draw eyes and a red tongue on the head.', 'draw', { base: colored + K.line(sp, K.OL, 1.5), s: [{ p: [[100, 75], [100, 86], [96, 91]], c: C.red }, { p: [[100, 86], [104, 91]], c: C.red }], fill: K.eyes(100, 70, 3, 9), tool: 'pen' }),
+      S('Hang it on a string. It twirls!', 'show', { item, at: [100, 72], kind: 'wiggle' })
+    ] };
+  })();
+
+  const chain = (() => {
+    const B = K.ori('#FFFFFF', '#F2F2F2', [[20, 40], [180, 40], [180, 110], [20, 110]]);
+    const s1 = B.morph('Fold the strip back and forth like a zigzag fan.', [[[78, 40], [122, 40], [122, 110], [78, 110]]]);
+    const person = [[78, 66], [92, 64], ...K.arc(100, 54, 9, 9, 150, 390, 14), [108, 64], [122, 66], [122, 76], [108, 76], [110, 110], [101, 110], [100, 92], [99, 92], [98, 110], [90, 110], [92, 76], [78, 76]];
+    const at = dx => person.map(([x, y]) => [x + dx, y]), cols = [C.red, C.blue, C.green, C.orange];
+    const row = fill => [-66, -22, 22, 66].map((dx, i) => K.poly(at(dx), fill === 'c' ? cols[i] : '#fff', 1.4) + (fill === 'c' ? K.eyes(100 + dx, 53, 2, 6) + K.smile(100 + dx, 58, 3) : '')).join('');
+    return { id: 'chain', cat: 'cut', name: 'Paper chain friends', ico: '🧑‍🤝‍🧑', lv: 2, min: 15, mat: [['📜', 'a long strip of paper'], M.pencil, M.scissors, M.crayons], tip: 'The hands must reach the folds, or the friends will not hold hands.', steps: [
+      s1,
+      S('Draw a person. The hands must touch both sides!', 'draw', { base: B.svg(), s: [person.concat([person[0]])], c: C.grey, tool: 'pen' }),
+      S('Cut around the person. Do not cut the hands!', 'cut', { base: B.svg(), pts: person.concat([person[0]]) }),
+      S('Open it up. A row of friends holding hands!', 'morph', { from: [{ p: person, c: '#fff' }], to: [-66, -22, 22, 66].map(dx => ({ p: at(dx), c: '#fff' })) }),
+      S('Color your paper friends.', 'paint', { base: row(''), area: row('c'), box: [12, 40, 176, 72], tool: 'crayon', c: C.red }),
+      S('Hello, friends!', 'show', { item: mid(row('c')), kind: 'bounce' })
+    ] };
+  })();
+
+  const flake = (() => {
+    const B = K.ori('#FFFFFF', '#E8F2FF', [[45, 20], [155, 20], [155, 130], [45, 130]]);
+    const st = [
+      B.fold('Fold the square corner to corner. A triangle!', { from: [155, 20], to: [45, 130] }),
+      B.fold('Fold the triangle in half.', { from: [45, 20], to: [155, 130] }),
+      B.fold('Fold it in half one more time.', { from: [45, 130], to: [155, 130] })
+    ];
+    const cuts = [[[100, 92], [110, 98], [100, 104]], [[114, 130], [120, 119], [126, 130]], [[121, 96], [119, 106], [131, 107]], [[138, 130], [140, 122], [146, 130]]];
+    const f = K.starPts(0, 0, 54, 6, 0.55, -90), holes = Array.from({ length: 6 }, (_, i) => { const a = (i * 60 - 90) * Math.PI / 180; return K.poly(K.starPts(30 * Math.cos(a), 30 * Math.sin(a), 7, 3, 0.5, i * 60 + 90), '#DCEBFF', 1); }).join('');
+    return { id: 'flake', cat: 'cut', name: 'Paper snowflake', ico: '❄️', lv: 3, min: 15, mat: [['⬜', 'thin white square paper'], M.scissors], tip: 'Thin paper is easier to cut through all the layers. No two snowflakes come out the same!', steps: [
+      ...st,
+      S('Cut little shapes out of the edges: triangles, curves and notches.', 'cut', { base: B.svg(), cuts }),
+      S('Open it very slowly. A snowflake!', 'show', { item: K.poly(f, '#fff') + holes + K.circ(0, 0, 8, '#DCEBFF', 1), kind: 'float' })
+    ] };
+  })();
+
+  /* --- collage & tearing --- */
+  const rainbow = (() => {
+    const sheet = K.sheet(20, 20, 160, 110, '#fff'), rs = [[66, C.red], [54, C.orange], [42, C.yellow], [30, C.green]];
+    const glue = rs.map(([r]) => K.line(K.arc(100, 120, r, r, 180, 360, 30), '#B9D8F5', 6) + K.line(K.arc(100, 120, r, r, 180, 360, 30), '#fff', 4)).join('');
+    const bits = (r, c) => K.arc(100, 120, r, r, 186, 354, 9).map((p, i) => K.poly([[p[0] - 5, p[1] - 4], [p[0] + 4, p[1] - 5], [p[0] + 5, p[1] + 4], [p[0] - 4, p[1] + 5]], c, 1)).join('');
+    const pic = sheet + rs.map(([r, c]) => bits(r, c)).join('');
+    const cloud = (x, y) => [[-8, 2, 8], [0, -4, 10], [9, 2, 8]].map(([a, b, r]) => K.circ(x + a, y + b, r, '#fff', 1.2)).join('');
+    return { id: 'rainbow', cat: 'collage', name: 'Torn paper rainbow', ico: '🌈', lv: 1, min: 15, mat: [M.color, M.glue, M.paper, M.cotton], steps: [
+      S('Tear colored paper into little pieces. Rip, rip!', 'tear', { box: [50, 45, 100, 60], c: C.red, n: 5 }),
+      S('Draw rainbow stripes with glue.', 'draw', { base: sheet, s: rs.map(([r]) => K.arc(100, 120, r, r, 180, 360, 30)), tool: 'glue', w: 4 }),
+      S('Stick on the pieces. One color for each stripe!', 'place', { base: sheet + glue, pieces: rs.map(([r, c], i) => ({ svg: bits(r, c), at: [100, 120 - r], from: [(i - 1.5) * 30, -70] })) }),
+      S('Glue fluffy cotton clouds at the ends.', 'place', { base: pic, pieces: [{ svg: cloud(36, 118), at: [36, 118], from: [-30, -40] }, { svg: cloud(164, 118), at: [164, 118], from: [30, -40] }] }),
+      S('A rainbow made by you!', 'show', { item: mid(pic + cloud(36, 118) + cloud(164, 118)), kind: 'bounce' })
+    ] };
+  })();
+
+  const fish = (() => {
+    const sheet = K.sheet(15, 15, 170, 120, '#fff'), body = K.arc(88, 75, 48, 32, 0, 360, 32), tail = [[132, 75], [165, 50], [165, 100], [132, 75]];
+    const tiles = []; for (let x = 46; x <= 130; x += 11) for (let y = 48; y <= 102; y += 11) if (((x + 4.5 - 88) / 46) ** 2 + ((y + 4.5 - 75) / 30) ** 2 < 0.85) tiles.push([x, y]);
+    const tc = x => [C.blue, C.teal, C.yellow, C.orange, C.purple][Math.floor((x - 46) / 22) % 5];
+    const tset = k => tiles.filter(([x]) => Math.floor((x - 46) / 22) % 3 === k).map(([x, y]) => K.rect(x, y, 9, 9, tc(x), 1)).join('');
+    const outline = sheet + K.line(body, K.OL, 1.8) + K.line(tail, K.OL, 1.8);
+    const done = outline + tset(0) + tset(1) + tset(2) + K.poly(tail, C.orange);
+    return { id: 'mosaic', cat: 'collage', name: 'Mosaic fish', ico: '🐠', lv: 2, min: 20, mat: [M.color, M.scissors, M.glue, M.pens], steps: [
+      S('Cut strips of colored paper, then cut them into little squares.', 'cut', { base: K.sheet(40, 30, 120, 75, C.blue), cuts: [[[40, 55], [160, 55]], [[40, 80], [160, 80]], [[70, 30], [70, 105]], [[100, 30], [100, 105]], [[130, 30], [130, 105]]] }),
+      S('Draw a big fish with a tail.', 'draw', { base: sheet, s: [body, tail], c: K.OL, tool: 'pen' }),
+      S('Put glue inside the fish.', 'glue', { base: outline, dots: tiles.filter((_, i) => i % 3 === 0).map(([x, y]) => [x + 4.5, y + 4.5]) }),
+      S('Stick the squares on, close together. That is a mosaic!', 'place', { base: outline, pieces: [0, 1, 2].map(k => ({ svg: tset(k), at: [88, 75], from: [k * 40 - 40, -80] })) }),
+      S('Color the tail and add an eye and bubbles.', 'draw', { base: done, s: [circlePts(60, 68, 5, 12), circlePts(30, 50, 4, 10), circlePts(24, 36, 6, 12)], fill: K.eye(60, 68, 5), tool: 'pen' }),
+      S('Blub blub! Your fish is swimming.', 'show', { item: mid(done + K.eye(60, 68, 5) + K.circ(30, 50, 4, 'none') + K.circ(24, 36, 6, 'none')), kind: 'float' })
+    ] };
+  })();
+
+  const robot = (() => {
+    const bg = K.sheet(20, 15, 160, 120, '#EAF4FF');
+    const body = K.rect(75, 60, 50, 45, C.grey, 4), head = K.rect(82, 28, 36, 28, C.sky, 4), arms = K.rect(56, 64, 17, 9, C.orange, 3) + K.rect(127, 64, 17, 9, C.orange, 3);
+    const legs = K.rect(80, 106, 12, 20, C.blue, 2) + K.rect(108, 106, 12, 20, C.blue, 2), bits = K.circ(92, 40, 5, '#fff') + K.circ(108, 40, 5, '#fff') + K.circ(92, 40, 2, K.OL, 0) + K.circ(108, 40, 2, K.OL, 0) + K.circ(90, 76, 4, C.red) + K.circ(100, 76, 4, C.yellow) + K.circ(110, 76, 4, C.green) + K.line([[100, 28], [100, 18]], K.OL, 2) + K.circ(100, 16, 3.5, C.red);
+    const all = bg + body + head + arms + legs;
+    return { id: 'robot', cat: 'collage', name: 'Shape robot collage', ico: '🤖', lv: 1, min: 15, mat: [M.color, M.scissors, M.glue, M.paper], steps: [
+      S('Cut out squares, rectangles and circles.', 'cut', { base: K.sheet(30, 30, 140, 90, C.grey), pts: [[60, 45], [140, 45], [140, 105], [60, 105], [60, 45]], piece: K.rect(60, 45, 80, 60, C.grey, 2), off: [0, -20] }),
+      S('Put glue dots where the robot goes.', 'glue', { base: bg, dots: [[100, 82], [100, 42], [64, 68], [136, 68], [86, 116], [114, 116]] }),
+      S('Stick on a body, a head, arms and legs.', 'place', { base: bg, pieces: [{ svg: body, at: [100, 82], from: [0, -80] }, { svg: head, at: [100, 42], from: [-60, -40] }, { svg: arms, at: [100, 68], from: [60, -40] }, { svg: legs, at: [100, 116], from: [0, 40] }] }),
+      S('Add circle eyes, buttons and an antenna.', 'place', { base: all, pieces: [{ svg: bits, at: [100, 50], from: [0, -60] }] }),
+      S('Beep boop! Hello, robot!', 'show', { item: mid(all + bits), kind: 'wiggle' })
+    ] };
+  })();
+
+  /* --- paper plate crafts --- */
+  const yellowPlate = (c = C.yellow) => K.circ(100, 75, 45, c);
+  const lion = (() => {
+    const mane = Array.from({ length: 18 }, (_, i) => { const a = i * 20, r = a * Math.PI / 180; return K.g(K.rect(0, -4, 22, 8, i % 2 ? C.orange : '#E8702A', 2), 100 + 40 * Math.cos(r), 75 + 40 * Math.sin(r), 1, a); });
+    const q = k => mane.filter((_, i) => Math.floor(i / 4.5) === k).join('');
+    const face = K.eyes(100, 66, 5, 22) + K.poly([[93, 80], [107, 80], [100, 88]], C.brown) + K.path('M88,94 Q100,104 112,94', 'none', 2);
+    const fsvg = mane.join('') + yellowPlate() + face;
+    return { id: 'lion', cat: 'plate', name: 'Paper plate lion', ico: '🦁', lv: 1, min: 20, mat: [M.plate, ['🟨', 'yellow paint'], M.brush, ['🟧', 'orange paper'], M.glue, M.pens], steps: [
+      S('Paint the plate yellow.', 'paint', { base: K.plate(100, 75, 45), area: yellowPlate(), box: [55, 30, 90, 90], c: C.yellow }),
+      S('Tear orange paper into long strips.', 'tear', { box: [60, 45, 80, 50], c: C.orange, n: 6 }),
+      S('Glue the strips all around the edge. A big mane!', 'place', { base: yellowPlate(), pieces: [0, 1, 2, 3].map(k => ({ svg: q(k), at: [100, 75], from: [[50, 50], [-50, 50], [-50, -50], [50, -50]][k] })) }),
+      S('Draw eyes, a nose and a big smile.', 'draw', { base: mane.join('') + yellowPlate(), s: [circlePts(89, 66, 5, 10), circlePts(111, 66, 5, 10), [[93, 80], [107, 80], [100, 88], [93, 80]], [[88, 94], [100, 101], [112, 94]]], fill: face, tool: 'pen' }),
+      S('Roar! Your lion is ready.', 'show', { item: mid(fsvg), kind: 'wiggle' })
+    ] };
+  })();
+
+  const sun = (() => {
+    const rays = Array.from({ length: 12 }, (_, i) => { const a = i * 30, r = a * Math.PI / 180; return K.g(K.poly([[0, -9], [24, 0], [0, 9]], i % 2 ? C.orange : C.yellow), 100 + 44 * Math.cos(r), 75 + 44 * Math.sin(r), 1, a); });
+    const face = K.eyes(100, 68, 4.5, 22) + K.smile(100, 84, 12) + K.circ(82, 82, 4, C.pink, 0) + K.circ(118, 82, 4, C.pink, 0);
+    return { id: 'sun', cat: 'plate', name: 'Sunshine plate', ico: '☀️', lv: 1, min: 15, mat: [M.plate, M.paint, M.brush, ['🟧', 'yellow and orange paper'], M.scissors, M.glue], steps: [
+      S('Paint the plate a sunny yellow.', 'paint', { base: K.plate(100, 75, 45), area: yellowPlate(), box: [55, 30, 90, 90], c: C.yellow }),
+      S('Cut triangles for sun rays.', 'cut', { base: K.sheet(30, 50, 140, 40, C.orange), pts: K.zig(30, 170, 90, 40, 6) }),
+      S('Glue the rays all around the plate.', 'place', { base: yellowPlate(), pieces: [0, 1, 2].map(k => ({ svg: rays.filter((_, i) => i % 3 === k).join(''), at: [100, 75], from: [[60, 0], [-60, 20], [0, -60]][k] })) }),
+      S('Draw a happy face.', 'draw', { base: rays.join('') + yellowPlate(), s: [circlePts(89, 68, 4.5, 10), circlePts(111, 68, 4.5, 10), [[88, 84], [100, 93], [112, 84]]], fill: face, tool: 'pen' }),
+      S('Good morning, sunshine!', 'show', { item: mid(rays.join('') + yellowPlate() + face), kind: 'float' })
+    ] };
+  })();
+
+  const bug = (() => {
+    const red = yellowPlate(C.red), line = K.line([[100, 32], [100, 120]], K.OL, 3), head = K.path('M70,40 A30,22 0 0 1 130,40 Z', K.C.black);
+    const spots = [[80, 62], [120, 62], [76, 92], [124, 92], [100, 104]].map(([x, y]) => K.circ(x, y, 7, C.black, 0)).join('');
+    const eyes = K.circ(88, 33, 5, '#fff', 1) + K.circ(112, 33, 5, '#fff', 1) + K.circ(88, 33, 2, K.OL, 0) + K.circ(112, 33, 2, K.OL, 0);
+    const all = red + line + head + spots + eyes;
+    return { id: 'ladybug', cat: 'plate', name: 'Ladybug plate', ico: '🐞', lv: 1, min: 15, mat: [M.plate, ['🟥', 'red paint'], M.brush, ['⚫', 'black paper or pen'], M.glue], steps: [
+      S('Paint the plate red.', 'paint', { base: K.plate(100, 75, 45), area: red, box: [55, 30, 90, 90], c: C.red }),
+      S('Draw a line down the middle and a black head on top.', 'draw', { base: red, s: [[[100, 32], [100, 120]], K.arc(100, 40, 30, 22, 180, 360, 16)], c: C.black, w: 3, fill: head, tool: 'pen' }),
+      S('Stick on round black spots.', 'place', { base: red + line + head, pieces: [{ svg: spots, at: [100, 80], from: [0, -70] }] }),
+      S('Add two eyes.', 'place', { base: red + line + head + spots, pieces: [{ svg: eyes, at: [100, 33], from: [0, -50] }] }),
+      S('Hello, little ladybug!', 'show', { item: mid(all), kind: 'wiggle' })
+    ] };
+  })();
+
+  const mask = (() => {
+    const holes = K.ell(83, 68, 10, 7, '#FFF6E5') + K.ell(117, 68, 10, 7, '#FFF6E5');
+    const tiger = yellowPlate(C.orange) + [[-1, 40], [1, 40]].map(([s]) => [0, 1, 2].map(i => K.line([[100 + s * 45, 58 + i * 14], [100 + s * 28, 62 + i * 14]], C.black, 4)).join('')).join('') + K.poly([[94, 84], [106, 84], [100, 92]], C.pink) + K.smile(100, 96, 8);
+    return { id: 'mask', cat: 'plate', name: 'Animal mask', ico: '🐯', lv: 2, min: 20, mat: [M.plate, M.scissors, M.paint, M.brush, M.punch, ['🧵', 'string or elastic']], tip: 'Hold the plate to the face and mark the eyes with a pencil before cutting.', steps: [
+      S('Hold the plate to your face. A grown-up marks where your eyes go.', 'draw', { base: K.plate(100, 75, 45), s: [K.arc(83, 68, 10, 7, 0, 360, 16), K.arc(117, 68, 10, 7, 0, 360, 16)], c: C.grey, tool: 'pen' }),
+      S('A grown-up cuts out the eye holes.', 'cut', { base: K.plate(100, 75, 45), cuts: [K.arc(83, 68, 10, 7, 0, 360, 16), K.arc(117, 68, 10, 7, 0, 360, 16)], topEnd: holes }),
+      S('Paint your animal face. Stripes for a tiger!', 'paint', { base: K.plate(100, 75, 45), area: tiger, box: [55, 30, 90, 90], c: C.orange, top: holes }),
+      S('Punch a hole on each side.', 'punch', { base: tiger + holes, holes: [[60, 70], [140, 70]] }),
+      S('Tie string through the holes to go round your head.', 'draw', { base: tiger + holes + K.hole(60, 70) + K.hole(140, 70), s: [[[60, 70], [40, 50], [70, 22], [100, 15]], [[140, 70], [160, 50], [130, 22], [100, 15]]], c: C.red, tool: 'finger' }),
+      S('Put it on. Grrr!', 'show', { item: mid(tiger + holes), kind: 'wiggle' })
+    ] };
+  })();
+
+  /* --- toilet roll crafts --- */
+  const binos = (() => {
+    const tubes = (c, dx = 0) => K.tube(82 - dx, 40, 34, 70, c) + K.tube(118 + dx, 40, 34, 70, c);
+    const green = tubes(C.green), tape = K.rect(88, 60, 24, 26, 'rgba(142,197,245,.85)', 1);
+    const string = K.line(K.arc(100, 52, 37, 36, 180, 360, 20), C.red, 2.5);
+    return { id: 'binos', cat: 'roll', name: 'Explorer binoculars', ico: '🔭', lv: 1, min: 15, mat: [['🧻', 'two toilet roll tubes'], M.tape, M.crayons, M.punch, M.wool], steps: [
+      S('Color both tubes.', 'paint', { base: tubes(C.card), area: green, box: [60, 30, 80, 90], tool: 'crayon', c: C.green }),
+      S('Hold them side by side and tape them together.', 'place', { base: '', pieces: [{ svg: K.tube(82, 40, 34, 70, C.green), at: [82, 75], from: [-50, 0] }, { svg: K.tube(118, 40, 34, 70, C.green), at: [118, 75], from: [50, 0] }, { svg: tape, at: [100, 73], from: [0, -60] }] }),
+      S('Punch a hole near the top on each outside edge.', 'punch', { base: green + tape, holes: [[69, 52], [131, 52]] }),
+      S('Tie on a string so they hang round your neck.', 'draw', { base: green + tape + K.hole(69, 52) + K.hole(131, 52), s: [K.arc(100, 52, 31, 36, 180, 360, 20)], c: C.red, w: 2.5, tool: 'finger' }),
+      S('Look through them. What can you spy?', 'show', { item: mid(green + tape + string), kind: 'wiggle' })
+    ] };
+  })();
+
+  const rocket = (() => {
+    const red = K.tube(100, 50, 36, 70, C.red), cone = K.poly([[80, 50], [100, 14], [120, 50]], C.sky), fins = K.poly([[82, 95], [66, 124], [82, 120]], C.yellow) + K.poly([[118, 95], [134, 124], [118, 120]], C.yellow);
+    const win = K.circ(100, 72, 8, C.sky), flames = K.path('M88,122 Q92,142 96,128 Q100,148 104,128 Q108,142 112,122 Z', C.orange);
+    const all = flames + red + win + cone + fins;
+    return { id: 'rocket', cat: 'roll', name: 'Tube rocket', ico: '🚀', lv: 2, min: 25, mat: [M.roll, M.paint, M.brush, M.card, M.scissors, M.glue, M.tissue], steps: [
+      S('Paint the tube and let it dry.', 'paint', { base: K.tube(100, 50, 36, 70), area: red, box: [80, 40, 40, 85], c: C.red }),
+      S('Cut out a circle, then cut a line to the middle.', 'cut', { base: K.sheet(50, 30, 100, 90, C.sky), cuts: [K.arc(100, 75, 36, 36, 0, 360, 30), [[100, 75], [136, 75]]] }),
+      S('Roll the circle into a cone and glue it on top.', 'place', { base: red + win, pieces: [{ svg: cone, at: [100, 35], from: [0, -60] }] }),
+      S('Cut two fins and glue them on the bottom.', 'place', { base: red + win + cone, pieces: [{ svg: fins, at: [100, 110], from: [0, 40] }] }),
+      S('Push in tissue paper flames.', 'place', { base: red + win + cone + fins, pieces: [{ svg: flames, at: [100, 130], from: [0, 30] }] }),
+      S('3, 2, 1... blast off!', 'show', { item: mid(all), kind: 'up' })
+    ] };
+  })();
+
+  const owl = (() => {
+    const tube = [[80, 40], [120, 40], [120, 120], [80, 120]], eared = [[80, 30], [90, 44], [110, 44], [120, 30], [120, 120], [80, 120]];
+    const brown = K.poly(eared, '#9A6A3E'), eyes = K.circ(91, 60, 8, '#fff') + K.circ(109, 60, 8, '#fff') + K.circ(91, 60, 3.5, K.OL, 0) + K.circ(109, 60, 3.5, K.OL, 0) + K.poly([[96, 70], [104, 70], [100, 78]], C.orange);
+    const wings = K.ell(78, 92, 7, 18, '#7A4E2A') + K.ell(122, 92, 7, 18, '#7A4E2A'), belly = [0, 1, 2].map(i => K.path(`M${92 + i * 0},${88 + i * 8} q4,5 8,0 q4,5 8,0`, 'none', 1.4)).join('');
+    return { id: 'tubeowl', cat: 'roll', name: 'Tube owl', ico: '🦉', lv: 1, min: 15, mat: [M.roll, M.paint, M.brush, M.paper, M.glue], steps: [
+      S('Push the top of the tube down on both sides. Pointy ears!', 'morph', { from: [{ p: tube, c: C.card }], to: [{ p: eared, c: C.card }] }),
+      S('Paint it brown.', 'paint', { base: K.poly(eared, C.card), area: brown, box: [78, 28, 44, 94], c: '#9A6A3E' }),
+      S('Glue on big round eyes and a little beak.', 'place', { base: brown, pieces: [{ svg: eyes, at: [100, 64], from: [0, -60] }] }),
+      S('Add wings on the sides and draw feathers.', 'place', { base: brown + eyes, pieces: [{ svg: wings, at: [100, 92], from: [0, 40] }, { svg: belly, at: [100, 96], from: [0, 30] }] }),
+      S('Hoo hoo! A wise little owl.', 'show', { item: mid(brown + eyes + wings + belly), kind: 'wiggle' })
+    ] };
+  })();
+
+  /* --- cards & gifts --- */
+  const handPrint = (c, x, y, s = 1) => K.g(K.ell(0, 8, 15, 16, c, 1.2) + [[-12, -14, -12], [-4, -20, -4], [4, -20, 4], [12, -15, 14]].map(([fx, fy, r]) => K.g(K.rect(-3.5, -14, 7, 22, c, 3.5), fx, fy + 10, 1, r)).join('') + K.g(K.rect(-3.5, -12, 7, 18, c, 3.5), 18, 10, 1, 55), x, y, s);
+  const handCard = (() => {
+    const B = K.ori('#FFFFFF', '#FFF2D9', [[30, 30], [170, 30], [170, 130], [30, 130]]);
+    const s1 = B.fold('Fold a piece of card in half.', { from: [30, 80], to: [170, 80] });
+    const cardSVG = B.svg(), print = handPrint(C.blue, 135, 85, 0.95), deco = K.circ(129, 74, 2.5, K.OL, 0) + K.poly([[118, 76], [110, 79], [118, 82]], C.orange) + K.line([[128, 100], [126, 112]], C.orange, 2) + K.line([[138, 100], [140, 112]], C.orange, 2);
+    return { id: 'handcard', cat: 'cards', name: 'Handprint card', ico: '🖐️', lv: 1, min: 15, mat: [M.card, M.paint, M.brush, M.pens], tip: 'Washable paint and a wet cloth nearby make this a happy craft.', steps: [
+      s1,
+      S('Paint your palm and fingers. It tickles!', 'paint', { base: handPrint('#F6D3B3', 100, 80, 1.6), area: handPrint(C.blue, 100, 80, 1.6), box: [62, 30, 82, 90], c: C.blue }),
+      S('Press your hand flat on the card, then lift it up.', 'stamp', { base: cardSVG, at: [135, 85], item: K.emo('✋', 0, 0, 44), print }),
+      S('Turn it into a bird, a tree or a monster with pens!', 'draw', { base: cardSVG + print, s: [circlePts(129, 74, 2.5, 8), [[118, 76], [110, 79], [118, 82]], [[128, 100], [126, 112]], [[138, 100], [140, 112]]], fill: deco, tool: 'pen' }),
+      S('Write a message inside: I love you!', 'draw', { base: K.sheet(30, 30, 140, 100, '#FFF2D9') + K.line([[100, 30], [100, 130]], 'rgba(34,48,90,.3)', 1.2, '3 3'), s: [K.wave(110, 160, 60, 3, 3), K.wave(110, 150, 76, 3, 3), K.wave(110, 140, 92, 3, 2)], c: C.red, tool: 'pen', guide: false }),
+      S('Give it to someone you love.', 'show', { item: mid(cardSVG + print + deco), kind: 'bounce' })
+    ] };
+  })();
+
+  const popup = (() => {
+    const flat = [[40, 50], [160, 50], [160, 110], [40, 110]];
+    const open = [{ p: [[40, 20], [160, 20], [160, 75], [40, 75]], c: '#FFFDF7' }, { p: [[40, 75], [160, 75], [178, 130], [22, 130]], c: '#FFF2D9' }, { p: [[85, 58], [115, 58], [115, 75], [85, 75]], c: '#FFE3EC' }];
+    const openSVG = open.map(o => K.poly(o.p, o.c, 1.4)).join(''), pic = K.heart(100, 52, 14, C.red);
+    return { id: 'popup', cat: 'cards', name: 'Pop-up card', ico: '💌', lv: 2, min: 20, mat: [M.card, M.scissors, M.glue, M.crayons], steps: [
+      S('Fold the card in half.', 'morph', { from: [{ p: [[40, 20], [160, 20], [160, 130], [40, 130]], c: '#FFFDF7' }], to: [{ p: flat, c: '#FFFDF7' }] }),
+      S('Cut two short lines from the fold, side by side.', 'cut', { base: K.poly(flat, '#FFFDF7'), cuts: [[[85, 50], [85, 70]], [[115, 50], [115, 70]]] }),
+      S('Fold the flap in, open the card and push the flap through. Pop!', 'morph', { from: [{ p: flat, c: '#FFFDF7' }], to: open }),
+      S('Glue a picture on the front of the step.', 'place', { base: openSVG, pieces: [{ svg: pic, at: [100, 52], from: [0, -50] }] }),
+      S('Decorate it and write a message.', 'draw', { base: openSVG + pic, s: [K.wave(50, 90, 32, 2, 2), K.wave(110, 150, 32, 2, 2), K.wave(50, 150, 110, 2, 5)], c: C.purple, tool: 'pen', guide: false }),
+      S('Open it and it pops up!', 'show', { item: mid(openSVG + pic + K.line(K.wave(50, 150, 110, 2, 5), C.purple, 2)), kind: 'bounce' })
+    ] };
+  })();
+
+  const monster = (() => {
+    const B = K.ori(C.green, '#7CC79A', [[50, 25], [150, 25], [150, 125], [50, 125]]);
+    const s1 = B.fold('Fold the square corner to corner. A triangle!', { from: [150, 25], to: [50, 125] });
+    const s2 = B.morph('Fold the two side corners up to the top to make a square.', [{ p: [[50, 25], [100, 75], [50, 125]], f: 0 }, { p: [[50, 25], [150, 125], [50, 125]], f: 0 }, { p: [[50, 75], [100, 75], [50, 125]], f: 1 }]);
+    const s3 = B.morph('Unfold them, and tuck the top flap into the pocket. A corner!', [{ p: [[50, 25], [150, 125], [50, 125]], f: 0 }, { p: [[50, 60], [115, 125], [50, 125]], f: 1 }]);
+    const face = K.eyes(72, 82, 7, 22) + K.poly([[60, 100], [66, 108], [72, 100], [78, 108], [84, 100]], '#fff', 1.2);
+    return { id: 'bookmark', cat: 'cards', name: 'Monster bookmark', ico: '👾', lv: 2, min: 15, mat: [M.sq, M.glue, M.pens, ['⬜', 'white paper scraps']], tip: 'A corner bookmark slips over the page corner, so it never falls out.', steps: [
+      s1, s2, s3,
+      S('Draw two big eyes.', 'draw', { base: B.svg(), s: [circlePts(61, 82, 7, 12), circlePts(83, 82, 7, 12)], fill: K.eyes(72, 82, 7, 22), tool: 'pen' }),
+      S('Glue on white zigzag teeth.', 'place', { base: B.svg() + K.eyes(72, 82, 7, 22), pieces: [{ svg: K.poly([[60, 100], [66, 108], [72, 100], [78, 108], [84, 100]], '#fff', 1.2), at: [72, 104], from: [0, 40] }] }),
+      S('Chomp! It eats the corner of your page.', 'show', { item: mid(K.sheet(40, 15, 130, 120, '#fff') + [40, 55, 70].map(y => K.line([[100, y], [160, y]], 'rgba(34,48,90,.2)', 2)).join('') + B.svg() + face), kind: 'wiggle' })
+    ] };
+  })();
+
+  /* --- playdough & clay --- */
+  const clayDone = (c, cx = 100, cy = 85, rx = 68, ry = 8.4) => K.ell(cx, cy, rx, ry, c);
+  const snakeClay = (() => {
+    const body = clayDone(C.green), tongue = K.line([[168, 85], [178, 85], [184, 80]], C.red, 2) + K.line([[178, 85], [184, 90]], C.red, 2);
+    const eyes = K.circ(158, 82, 1.8, K.OL, 0) + K.circ(158, 88, 1.8, K.OL, 0);
+    const wavy = K.wave(-66, 60, 0, 8, 1.5);
+    const item = K.line(wavy, K.OL, 13) + K.line(wavy, C.green, 10) + K.circ(66, -2, 9, C.green) + K.circ(68, -5, 2, K.OL, 0) + K.line([[75, 0], [84, 0], [89, -4]], C.red, 2) + K.line([[84, 0], [89, 4]], C.red, 2);
+    return { id: 'claysnake', cat: 'clay', name: 'Playdough snake', ico: '🐍', lv: 1, min: 5, mat: [M.dough, M.pencil], steps: [
+      S('Squish a lump of playdough into a ball.', 'clay', { mode: 'ball', c: C.green }),
+      S('Roll it back and forth into a long sausage.', 'clay', { mode: 'snake', c: C.green }),
+      S('Make a little red tongue and press it on.', 'place', { base: body, pieces: [{ svg: tongue, at: [176, 85], from: [20, -40] }] }),
+      S('Poke two eyes with a pencil. Hiss!', 'draw', { base: body + tongue, s: [circlePts(158, 82, 1.8, 6), circlePts(158, 88, 1.8, 6)], fill: eyes, tool: 'pen' }),
+      S('Make it wiggle!', 'show', { item, at: [96, 80], kind: 'wiggle' })
+    ] };
+  })();
+
+  const coilSVG = (cx, cy, r, c) => { const sp = K.spiral(cx, cy, 2, r * 1.15, 2.4, 70); return K.line(sp, K.OL, r * 0.5 + 3) + K.line(sp, c, r * 0.5); };
+  const snail = (() => {
+    const shell = coilSVG(110, 72, 26, C.orange), body = K.ell(95, 110, 50, 7, C.green), feel = K.line([[52, 106], [44, 86]], K.OL, 2) + K.line([[58, 106], [56, 84]], K.OL, 2) + K.circ(44, 85, 3, K.OL, 0) + K.circ(56, 83, 3, K.OL, 0);
+    return { id: 'snail', cat: 'clay', name: 'Playdough snail', ico: '🐌', lv: 1, min: 10, mat: [['🟠', 'playdough in two colors']], steps: [
+      S('Roll a long sausage.', 'clay', { mode: 'snake', c: C.orange }),
+      S('Roll it up into a swirl. That is the shell!', 'clay', { mode: 'coil', c: C.orange, at: [110, 72], r: 26 }),
+      S('Roll a fat little sausage for the body.', 'clay', { mode: 'snake', c: C.green, at: [95, 110], r: 14 }),
+      S('Put the shell on the body.', 'place', { base: body, pieces: [{ svg: shell, at: [110, 72], from: [0, -60] }] }),
+      S('Add two feelers with eyes.', 'place', { base: body + shell, pieces: [{ svg: feel, at: [50, 96], from: [-30, -30] }] }),
+      S('Slowly, slowly... hello, snail!', 'show', { item: mid(body + shell + feel), kind: 'float' })
+    ] };
+  })();
+
+  K.bowl = (cx, cy, r, c) => { const top = r * 0.35; return K.path(`M${cx - r},${cy} A${r},${r} 0 0 0 ${cx + r},${cy} A${r},${top} 0 0 0 ${cx - r},${cy}Z`, c) + K.ell(cx, cy, r * 0.78, top * 0.7, 'rgba(0,0,0,.22)', 0); };
+  const pot = (() => {
+    const plain = K.bowl(100, 85, 30, C.tan), painted = K.bowl(100, 85, 30, C.blue) + K.line(K.wave(72, 128, 100, 3, 3), C.yellow, 3);
+    return { id: 'pinchpot', cat: 'clay', name: 'Pinch pot bowl', ico: '🥣', lv: 2, min: 20, mat: [['🟤', 'air-dry clay or playdough'], ['💧', 'a little water'], M.paint, M.brush], tip: 'Air-dry clay takes a day or two to dry before painting.', steps: [
+      S('Roll the clay into a smooth ball.', 'clay', { mode: 'ball', c: C.tan, r: 30 }),
+      S('Push your thumb into the middle.', 'clay', { mode: 'pinch', c: C.tan, r: 30 }),
+      S('Pinch and turn, pinch and turn, to make the sides thin.', 'draw', { base: plain, s: [K.arc(100, 85, 26, 9, 180, 540, 30)], tool: 'finger', c: 'rgba(255,255,255,.8)', w: 3 }),
+      S('Smooth it with a wet finger. Let it dry.', 'draw', { base: plain, s: [K.arc(100, 88, 30, 18, 20, 160, 20)], tool: 'finger', c: 'rgba(255,255,255,.7)', w: 4 }),
+      S('Paint your bowl!', 'paint', { base: plain, area: painted, box: [70, 70, 60, 46], c: C.blue }),
+      S('A bowl for your treasures!', 'show', { item: mid(painted), kind: 'bounce' })
+    ] };
+  })();
+
+  const hog = (() => {
+    const body = K.poly([[116, 86], [138, 95], [116, 104]], C.brown) + K.circ(100, 95, 20, C.brown), spikes = k => Array.from({ length: 6 }, (_, i) => { const a = (200 + (k * 6 + i) * 8.5) * Math.PI / 180; return K.line([[100 + 18 * Math.cos(a), 95 + 18 * Math.sin(a)], [100 + 30 * Math.cos(a), 95 + 30 * Math.sin(a)]], '#E7D3A4', 3); }).join('');
+    const face = K.circ(110, 88, 2.4, K.OL, 0) + K.circ(137, 95, 3, K.OL, 0);
+    const all = spikes(0) + spikes(1) + spikes(2) + body + face;
+    return { id: 'hedgehog', cat: 'clay', name: 'Spiky hedgehog', ico: '🦔', lv: 2, min: 15, mat: [M.dough, ['🍝', 'short dry pasta pieces']], steps: [
+      S('Roll a brown ball.', 'clay', { mode: 'ball', c: C.brown, at: [100, 95] }),
+      S('Pinch and pull out a pointy nose.', 'clay', { mode: 'squeeze', c: C.brown, at: [100, 95] }),
+      S('Push pasta spikes into its back. Ouch, prickly!', 'place', { base: body, pieces: [0, 1, 2].map(k => ({ svg: spikes(k), at: [100, 70], from: [[-40, -30], [0, -50], [40, -30]][k] })) }),
+      S('Add eyes and a black nose.', 'place', { base: spikes(0) + spikes(1) + spikes(2) + body, pieces: [{ svg: face, at: [118, 90], from: [30, -30] }] }),
+      S('Sniff sniff! A happy hedgehog.', 'show', { item: mid(all), kind: 'wiggle' })
+    ] };
+  })();
+
+  craftsHome.add([fan, dog, plane, cup, hat, boat, frog, crane, heart, snake, chain, flake, rainbow, fish, robot, lion, sun, bug, mask, binos, rocket, owl, handCard, popup, monster, snakeClay, snail, pot, hog]);
+})();
+/* ---------- Crafts corner, part 3: nature, puppets, threading, recycling, sewing, parties, science and string ---------- */
+(() => {
+  const K = craftsHome.kit, C = K.C;
+  const S = (t, a, o = {}) => ({ t, a, ...o });
+  const mid = svg => K.g(svg, -100, -75);
+  const M = {
+    paper: ['📄', 'paper'], color: ['🌈', 'colored paper'], scissors: ['✂️', 'child scissors'], glue: ['🧴', 'glue stick'], tape: ['🩹', 'sticky tape'], crayons: ['🖍️', 'crayons'],
+    pens: ['🖊️', 'felt pens'], pencil: ['✏️', 'pencil'], paint: ['🎨', 'paint'], brush: ['🖌️', 'paintbrush'], wool: ['🧶', 'wool or string'], card: ['🟨', 'thin card'],
+    punch: ['🕳️', 'hole punch'], felt: ['🟥', 'felt'], eyes: ['👀', 'googly eyes (or draw them)'], sq: ['🟦', 'square paper']
+  };
+  const circlePts = (cx, cy, r, n = 20) => K.arc(cx, cy, r, r, 0, 360, n);
+  // A heart outline as points (the classic heart curve), for lacing, sewing and string art.
+  const heartPts = (cx, cy, s, n = 40) => Array.from({ length: n + 1 }, (_, i) => { const t = i / n * Math.PI * 2;
+    return [cx + s * 16 * Math.pow(Math.sin(t), 3) / 16, cy - s * (13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t)) / 16]; });
+
+  /* --- nature crafts --- */
+  const leafPrint = (() => {
+    const sheet = K.sheet(25, 20, 150, 110, '#fff'), p1 = `<g opacity=".85">${K.leaf(100, 80, 30, C.red, -20)}</g>`, p2 = `<g opacity=".85">${K.leaf(58, 50, 20, C.orange, 30)}</g>${'<g opacity=".85">' + K.leaf(146, 104, 18, C.green, -60) + '</g>'}`;
+    return { id: 'leafprint', cat: 'nature', name: 'Leaf prints', ico: '🍁', lv: 1, min: 15, mat: [['🍂', 'fresh leaves'], M.paint, M.brush, M.paper], tip: 'Fresh, bendy leaves with big veins print best. Collect them on a walk together.', steps: [
+      S('Find leaves with bumpy veins.', 'place', { base: '', pieces: [{ svg: K.leaf(60, 75, 22, C.green, 20), at: [60, 75], from: [-20, -90], r: -60 }, { svg: K.leaf(110, 70, 28, C.lime, -15), at: [110, 70], from: [0, -100], r: 80 }, { svg: K.leaf(155, 85, 18, C.orange, 40), at: [155, 85], from: [20, -90], r: -40 }] }),
+      S('Paint the bumpy side of a leaf.', 'paint', { base: K.leaf(100, 75, 40, C.mint), area: K.leaf(100, 75, 40, C.red), box: [55, 45, 90, 60], c: C.red }),
+      S('Press it paint side down on paper, then peel it off.', 'stamp', { base: sheet, at: [100, 80], item: K.leaf(0, 0, 30, C.red, -20), print: p1 }),
+      S('Print more leaves in other colors.', 'stamp', { base: sheet + p1, at: [58, 50], item: K.leaf(0, 0, 20, C.orange, 30), print: p2 }),
+      S('Look at all the veins! Nature made the pattern.', 'show', { item: mid(sheet + p1 + p2), kind: 'glow' })
+    ] };
+  })();
+
+  const rockBug = (() => {
+    const rock = K.rock(100, 85, 46, 32, C.grey), red = K.rock(100, 85, 46, 32, C.red), head = K.path('M58,92 C54,70 70,62 78,66 C70,74 70,92 66,100 Z', C.black);
+    const spots = [[100, 70], [120, 82], [96, 98], [126, 102], [140, 76]].map(([x, y]) => K.circ(x, y, 5, C.black, 0)).join(''), line = K.line([[80, 62], [140, 104]], C.black, 2.5);
+    const eyes = K.circ(64, 78, 3, '#fff', 0) + K.circ(70, 74, 3, '#fff', 0);
+    return { id: 'rockbug', cat: 'nature', name: 'Painted rock ladybug', ico: '🪨', lv: 1, min: 15, mat: [['🪨', 'a smooth rock'], M.paint, M.brush, ['🖊️', 'black paint pen']], tip: 'Wash and dry the rock first. Hide it in the garden for someone to find!', steps: [
+      S('Paint the rock red all over. Let it dry.', 'paint', { base: rock, area: red, box: [52, 50, 96, 70], c: C.red }),
+      S('Paint a black head at one end.', 'paint', { base: red, area: head, box: [52, 60, 28, 44], c: C.black }),
+      S('Paint a line down the back and black spots.', 'draw', { base: red + head, s: [[[80, 62], [140, 104]], ...[[100, 70], [120, 82], [96, 98], [126, 102], [140, 76]].map(([x, y]) => circlePts(x, y, 5, 10))], c: C.black, fill: spots + line, tool: 'brush' }),
+      S('Add two white dots for eyes.', 'draw', { base: red + head + spots + line, s: [circlePts(64, 78, 3, 8), circlePts(70, 74, 3, 8)], c: '#fff', fill: eyes, tool: 'brush' }),
+      S('A rock ladybug! Hide it in the garden.', 'show', { item: mid(red + head + spots + line + eyes), kind: 'wiggle' })
+    ] };
+  })();
+
+  const coneOwl = (() => {
+    const cone = K.cone(100, 88), eyes = K.circ(90, 66, 8, '#fff') + K.circ(110, 66, 8, '#fff') + K.circ(90, 66, 3, K.OL, 0) + K.circ(110, 66, 3, K.OL, 0), beak = K.poly([[96, 74], [104, 74], [100, 82]], C.orange);
+    const wings = K.ell(74, 92, 7, 18, C.orange) + K.ell(126, 92, 7, 18, C.orange), tufts = K.poly([[80, 58], [84, 44], [92, 56]], C.brown) + K.poly([[120, 58], [116, 44], [108, 56]], C.brown);
+    return { id: 'coneowl', cat: 'nature', name: 'Pinecone owl', ico: '🌰', lv: 2, min: 20, mat: [['🌰', 'a pinecone'], M.felt, M.scissors, M.glue, M.eyes], steps: [
+      S('Cut two felt circles for eyes and a little triangle beak.', 'cut', { base: K.sheet(40, 40, 120, 70, '#fff'), cuts: [circlePts(75, 70, 16, 20), circlePts(125, 70, 16, 20), [[96, 95], [104, 95], [100, 104], [96, 95]]] }),
+      S('Put glue dots near the top of the pinecone.', 'glue', { base: cone, dots: [[90, 66], [110, 66], [100, 78]] }),
+      S('Stick on the eyes and beak.', 'place', { base: cone, pieces: [{ svg: eyes, at: [100, 66], from: [0, -60] }, { svg: beak, at: [100, 78], from: [40, -30] }] }),
+      S('Add felt wings and ear tufts.', 'place', { base: cone + eyes + beak, pieces: [{ svg: wings, at: [100, 92], from: [0, 40] }, { svg: tufts, at: [100, 52], from: [0, -40] }] }),
+      S('Hoo! A woodland owl.', 'show', { item: mid(cone + wings + tufts + eyes + beak), kind: 'wiggle' })
+    ] };
+  })();
+
+  const crownN = (() => {
+    const band = K.rect(20, 70, 160, 34, C.tan, 2), zig = K.zig(20, 180, 70, 22, 5), cutBand = K.poly([[20, 104], ...zig, [180, 104]], C.tan);
+    const bits = [[40, 86, C.green], [72, 84, C.orange], [100, 86, C.red], [128, 84, C.lime], [160, 86, C.yellow]].map(([x, y, c], i) => i % 2 ? K.leaf(x, y, 12, c, 30) : [0, 72, 144, 216, 288].map(a => K.ell(x + 5 * Math.cos(a * Math.PI / 180), y + 5 * Math.sin(a * Math.PI / 180), 4, 4, c, 1)).join('') + K.circ(x, y, 3, C.yellow, 1)).join('');
+    const ring = [...K.arc(100, 70, 70, 18, 180, 360, 20).map(([x, y], i) => [x, y - (i % 4 === 2 ? 20 : 0)]), ...K.arc(100, 104, 70, 18, 0, 180, 20)];
+    return { id: 'naturecrown', cat: 'nature', name: 'Nature crown', ico: '👑', lv: 2, min: 20, mat: [['🟫', 'a long strip of card'], M.scissors, M.glue, M.tape, ['🌼', 'leaves and flowers']], steps: [
+      S('Cut zigzag points along the top of the card strip.', 'cut', { base: band, pts: zig }),
+      S('Put glue along the band.', 'glue', { base: cutBand, dots: [[40, 86], [72, 84], [100, 86], [128, 84], [160, 86]] }),
+      S('Stick on leaves and flowers.', 'place', { base: cutBand, pieces: [{ svg: bits, at: [100, 86], from: [0, -70] }] }),
+      S('Wrap it round your head and tape the ends.', 'morph', { from: [{ p: [[20, 104], ...zig, [180, 104]], c: C.tan }], to: [{ p: ring, c: C.tan }] }),
+      S('You are the king or queen of the forest!', 'show', { item: mid(cutBand + bits), kind: 'wiggle' })
+    ] };
+  })();
+
+  /* --- sock & bag puppets --- */
+  const sockP = (() => {
+    const head = K.path('M30,62 Q30,40 64,40 L140,45 Q172,50 172,76 Q172,102 140,106 L64,110 Q30,110 30,90 Z', C.blue) + K.line([[172, 76], [130, 80]], K.OL, 2);
+    const eyes = K.eye(120, 58, 7) + K.eye(140, 60, 6), tongue = K.path('M150,79 Q160,96 168,80 Z', C.red), hair = K.line(K.zig(80, 130, 42, 10, 5), C.yellow, 3);
+    return { id: 'sock', cat: 'puppet', name: 'Sock puppet', ico: '🧦', lv: 1, min: 15, mat: [['🧦', 'an old sock'], M.eyes, M.felt, M.glue, M.wool], tip: 'Fabric glue or a few stitches hold better than a glue stick on socks.', steps: [
+      S('Put the sock on your hand. Your thumb makes the mouth.', 'place', { base: '', pieces: [{ svg: head, at: [100, 75], from: [-110, 0] }] }),
+      S('Put two glue dots where the eyes go.', 'glue', { base: head, dots: [[120, 58], [140, 60]] }),
+      S('Stick on the eyes.', 'place', { base: head, pieces: [{ svg: eyes, at: [130, 59], from: [0, -60] }] }),
+      S('Glue a red felt tongue in the mouth.', 'place', { base: head + eyes, pieces: [{ svg: tongue, at: [158, 84], from: [30, 30] }] }),
+      S('Add wool hair on top.', 'place', { base: head + eyes + tongue, pieces: [{ svg: hair, at: [105, 40], from: [0, -50] }] }),
+      S('Make it talk! Hello, I am Socky!', 'show', { item: mid(head + eyes + tongue + hair), kind: 'wiggle' })
+    ] };
+  })();
+
+  const bagP = (() => {
+    const bag = K.bag(65, 20, 70, 110), face = K.eye(88, 34, 6) + K.eye(112, 34, 6) + K.circ(100, 46, 4, C.pink, 1.2), mouth = K.path('M82,56 Q100,72 118,56 Z', C.red);
+    const ears = K.poly([[66, 24], [52, 6], [80, 20]], C.brown) + K.poly([[134, 24], [148, 6], [120, 20]], C.brown), arms = K.rect(46, 78, 20, 10, C.tan, 4) + K.rect(134, 78, 20, 10, C.tan, 4);
+    return { id: 'bagpuppet', cat: 'puppet', name: 'Paper bag puppet', ico: '🛍️', lv: 1, min: 15, mat: [['🛍️', 'a paper lunch bag'], M.crayons, M.color, M.scissors, M.glue], steps: [
+      S('Lay the bag flat with the folded bottom on top. Draw a face on the flap.', 'draw', { base: bag, s: [circlePts(88, 34, 6, 10), circlePts(112, 34, 6, 10), circlePts(100, 46, 4, 8)], fill: face, tool: 'pen' }),
+      S('Draw a mouth just under the flap.', 'draw', { base: bag + face, s: [[[82, 56], [100, 69], [118, 56]]], c: C.red, fill: mouth, tool: 'crayon' }),
+      S('Cut out ears and arms from paper.', 'cut', { base: K.sheet(40, 50, 120, 50, C.brown), cuts: [[[50, 95], [65, 55], [80, 95]], [[120, 95], [135, 55], [150, 95]]] }),
+      S('Glue on the ears and arms.', 'place', { base: bag + face + mouth, pieces: [{ svg: ears, at: [100, 16], from: [0, -40] }, { svg: arms, at: [100, 83], from: [0, 40] }] }),
+      S('Put your hand in and open and close the flap. It talks!', 'show', { item: mid(ears + arms + bag + face + mouth), kind: 'wiggle' })
+    ] };
+  })();
+
+  const fingerP = (() => {
+    const strip = [[40, 65], [160, 65], [160, 85], [40, 85]], tube = [[85, 50], [115, 50], [115, 110], [85, 110]];
+    const face = K.eyes(100, 70, 3.5, 12) + K.circ(100, 78, 3, C.pink, 1) + K.smile(100, 84, 5), ears = K.poly([[86, 52], [88, 38], [96, 50]], C.orange) + K.poly([[114, 52], [112, 38], [104, 50]], C.orange);
+    const one = (c, dx) => K.g(K.poly(tube, c) + face + ears, dx, 0);
+    return { id: 'fingerpuppet', cat: 'puppet', name: 'Finger puppets', ico: '🐱', lv: 2, min: 15, mat: [M.color, M.scissors, M.tape, M.pens], steps: [
+      S('Cut a strip of paper a little longer than your finger is round.', 'cut', { base: K.sheet(30, 40, 140, 70, C.orange), cuts: [[[30, 65], [170, 65]], [[30, 85], [170, 85]]] }),
+      S('Wrap it round your finger and tape it.', 'morph', { from: [{ p: strip, c: C.orange }], to: [{ p: tube, c: C.orange }], topEnd: K.rect(85, 92, 30, 8, 'rgba(142,197,245,.85)', 1) }),
+      S('Draw a face.', 'draw', { base: K.poly(tube, C.orange), s: [circlePts(94, 70, 3.5, 8), circlePts(106, 70, 3.5, 8), [[95, 84], [100, 88], [105, 84]]], fill: face, tool: 'pen' }),
+      S('Glue on ears. A kitten!', 'place', { base: K.poly(tube, C.orange) + face, pieces: [{ svg: ears, at: [100, 46], from: [0, -40] }] }),
+      S('Make a whole family, one for each finger!', 'show', { item: mid(one(C.orange, -40) + one(C.pink, 0) + one(C.sky, 40)), kind: 'bounce' })
+    ] };
+  })();
+
+  /* --- threading & weaving --- */
+  const necklace = (() => {
+    const str = K.arc(100, 30, 70, 80, 170, 10, 40), cols = [C.red, C.yellow, C.blue, C.red, C.yellow, C.blue, C.red, C.yellow];
+    const loop = K.arc(100, 75, 50, 48, 0, 360, 40), beadsOn = K.line(loop, K.OL, 1.6) + Array.from({ length: 14 }, (_, i) => { const p = K.arc(100, 75, 50, 48, 110 + i * 23, 110 + i * 23, 1)[0]; return K.bead(p[0], p[1], 7, cols[i % 3]); }).join('');
+    return { id: 'necklace', cat: 'thread', name: 'Bead necklace', ico: '📿', lv: 1, min: 10, mat: [M.wool, ['📿', 'big beads or tube pasta'], M.tape], steps: [
+      S('Wrap tape round one end of the string. Now it is stiff, like a needle!', 'place', { base: K.line(str, K.OL, 1.8), pieces: [{ svg: K.g(K.rect(-2, -4, 12, 8, C.sky, 2), 169, 44, 1, -40), at: [172, 42], from: [20, -40] }] }),
+      S('Thread the first bead and tie it at the end so the others cannot fall off.', 'thread', { pts: str, beads: [C.red], r: 7 }),
+      S('Thread the beads on one by one. Make a pattern: red, yellow, blue!', 'thread', { pts: str, beads: cols, r: 7, pre: 1 }),
+      S('Tie the ends together in a bow.', 'tie', { base: beadsOn, at: [100, 28] }),
+      S('Wear your necklace!', 'show', { item: mid(beadsOn + K.circ(100, 28, 3, C.red)), kind: 'bounce' })
+    ] };
+  })();
+
+  const weaveMat = (() => {
+    const B = K.ori(C.blue, '#7FB2EA', [[40, 30], [160, 30], [160, 120], [40, 120]]);
+    const s1 = B.fold('Fold a piece of paper in half.', { from: [100, 120], to: [100, 30] });
+    const slits = [52, 64, 76, 88, 100, 112, 124, 136, 148].map(x => [[x, 75], [x, 40]]);
+    const mat = [30, 25, 140, 100], w = (row, t, d) => S(t, 'weave', { mat, row, rows: 5, bands: 7, d });
+    const done = K.still({ a: 'weave', mat, row: 4, rows: 5, bands: 7 });
+    return { id: 'weave', cat: 'thread', name: 'Paper weaving mat', ico: '🧺', lv: 2, min: 25, mat: [['🟦', 'a sheet of paper'], ['🟨', 'strips of another color'], M.scissors, M.glue], tip: 'Over-under is a great pattern lesson. Say "over, under" out loud together.', steps: [
+      s1,
+      S('Cut lines from the fold. Stop before the edge!', 'cut', { base: B.svg(), cuts: slits }),
+      S('Cut strips from the other paper.', 'cut', { base: K.sheet(30, 40, 140, 70, C.yellow), cuts: [[[30, 57], [170, 57]], [[30, 75], [170, 75]], [[30, 93], [170, 93]]] }),
+      w(0, 'Open the paper. Weave a strip: over, under, over, under.'),
+      w(1, 'The next strip goes under, over, under, over. Push it up close.'),
+      w(4, 'Keep going until it is full. Glue the ends down.'),
+      S('A woven mat! Baskets and cloth are made like this.', 'show', { item: mid(done), kind: 'glow' })
+    ] };
+  })();
+
+  const feeder = (() => {
+    const line = [[30, 110], [170, 40]], ring = circlePts(100, 80, 36, 40), cer = Array.from({ length: 16 }, (_, i) => { const a = i / 16 * Math.PI * 2; return K.circ(100 + 36 * Math.cos(a), 80 + 36 * Math.sin(a), 6, i % 2 ? C.tan : '#E8B86A', 1.2) + K.circ(100 + 36 * Math.cos(a), 80 + 36 * Math.sin(a), 2, '#FFF6E5', 0); }).join('');
+    const ringSVG = K.line(ring, '#C8A2E8', 3) + cer;
+    return { id: 'feeder', cat: 'thread', name: 'Cereal bird feeder', ico: '🐦', lv: 1, min: 10, mat: [['〰️', 'a pipe cleaner'], ['🥣', 'hoop cereal'], M.wool], steps: [
+      S('Thread cereal hoops onto a pipe cleaner.', 'thread', { pts: line, beads: [C.tan, '#E8B86A', C.tan, '#E8B86A', C.tan, '#E8B86A', C.tan, '#E8B86A'], r: 6, sc: '#C8A2E8' }),
+      S('Bend it into a circle and twist the ends together.', 'draw', { base: '', s: [ring], c: '#C8A2E8', w: 3, fill: cer, tool: 'finger' }),
+      S('Tie on a string to hang it.', 'tie', { base: ringSVG + K.line([[100, 44], [100, 20]], C.red, 2), at: [100, 20] }),
+      S('Hang it on a tree. Tweet tweet!', 'show', { item: mid(K.line([[100, 0], [100, 44]], C.red, 2) + ringSVG) + K.emo('🐦', 0, 4, 26), kind: 'float' })
+    ] };
+  })();
+
+  /* --- recycled crafts --- */
+  const planter = (() => {
+    const bottom = K.rect(72, 80, 56, 55, 'rgba(142,197,245,.55)', 8);
+    const painted = K.rect(72, 80, 56, 55, C.green, 8) + K.eyes(100, 102, 5, 20) + K.smile(100, 114, 8);
+    const soil = K.rect(76, 80, 48, 10, '#6B4A2E', 3), sprout = K.line([[100, 82], [100, 56]], C.green, 3) + K.leaf(90, 58, 9, C.lime, -30) + K.leaf(110, 52, 9, C.lime, 30);
+    return { id: 'planter', cat: 'recycle', name: 'Bottle planter', ico: '🪴', lv: 2, min: 25, mat: [['🍶', 'a plastic bottle'], ['🔪', 'scissors (a grown-up cuts)'], M.paint, M.brush, ['🪴', 'soil'], ['🌱', 'seeds (cress grows fast)']], safe: 'Cut plastic has sharp edges. A grown-up cuts the bottle and tapes the edge.', steps: [
+      S('A grown-up cuts the bottle in half.', 'cut', { base: bottom, pts: [[70, 80], [130, 80]], piece: `<g>${K.bottle(100, 15, 56, 66)}</g>`, off: [30, -10] }),
+      S('Paint a funny face on the bottom half.', 'paint', { base: bottom, area: painted, box: [70, 78, 60, 58], c: C.green }),
+      S('Fill it with soil.', 'sprinkle', { base: painted, box: [76, 80, 48, 10], colors: ['#6B4A2E', '#8B5E3C', '#5A3D26'], n: 50 }),
+      S('Push in some seeds and water them a little.', 'sprinkle', { base: painted + soil, box: [80, 80, 40, 6], colors: [C.yellow, C.tan], n: 12 }),
+      S('Put it in the sun. Watch your plant grow!', 'show', { item: mid(painted + soil + sprout), kind: 'glow' })
+    ] };
+  })();
+
+  const boxBot = (() => {
+    const box = K.box(65, 60, 70, 60, C.card), silver = K.box(65, 60, 70, 60, '#C9D3DC'), head = K.box(78, 22, 44, 34, '#C9D3DC');
+    const lids = K.circ(90, 38, 7, C.red) + K.circ(110, 38, 7, C.red) + K.circ(90, 38, 2.5, K.OL, 0) + K.circ(110, 38, 2.5, K.OL, 0) + K.circ(84, 80, 5, C.yellow) + K.circ(100, 80, 5, C.green) + K.circ(116, 80, 5, C.blue);
+    const arms = K.rect(40, 66, 25, 12, C.card, 5) + K.rect(135, 66, 25, 12, C.card, 5), extra = K.line([[100, 22], [100, 8]], K.OL, 2) + K.circ(100, 6, 4, C.red) + K.line(K.zig(88, 112, 50, 3, 4), K.OL, 2) + K.line([[78, 100], [122, 100]], K.OL, 1.5) + K.line([[78, 106], [122, 106]], K.OL, 1.5);
+    return { id: 'boxbot', cat: 'recycle', name: 'Box robot', ico: '🤖', lv: 2, min: 30, mat: [['📦', 'two small boxes'], ['🧻', 'two tubes for arms'], M.tape, M.paint, M.brush, ['🔴', 'bottle lids'], M.glue], steps: [
+      S('Paint a box silver or grey.', 'paint', { base: box, area: silver, box: [65, 48, 86, 74], c: '#C9D3DC' }),
+      S('Tape a smaller box on top for the head.', 'place', { base: silver, pieces: [{ svg: head, at: [100, 40], from: [0, -60] }] }),
+      S('Glue on bottle lids for eyes and buttons.', 'place', { base: silver + head, pieces: [{ svg: lids, at: [100, 58], from: [0, -60] }] }),
+      S('Tape on tube arms.', 'place', { base: silver + head + lids, pieces: [{ svg: arms, at: [100, 72], from: [0, 40] }] }),
+      S('Draw a mouth, vents and an antenna.', 'draw', { base: silver + head + lids + arms, s: [[[100, 22], [100, 8]], K.zig(88, 112, 50, 3, 4), [[78, 100], [122, 100]], [[78, 106], [122, 106]]], fill: extra, tool: 'pen' }),
+      S('Beep beep! I am Box Bot!', 'show', { item: mid(silver + head + lids + arms + extra), kind: 'wiggle' })
+    ] };
+  })();
+
+  const car = (() => {
+    const box = K.box(40, 60, 110, 45, C.card), win = [[90, 64], [135, 64], [135, 82], [90, 82], [90, 64]], hole = K.rect(90, 64, 45, 18, '#5A3D26', 1);
+    const red = K.box(40, 60, 110, 45, C.red) + hole, wheels = K.wheel(65, 108, 13) + K.wheel(128, 108, 13), lights = K.circ(147, 74, 5, C.yellow) + K.line([[80, 66], [80, 100]], K.OL, 1.5) + K.rect(44, 66, 8, 6, C.orange, 1);
+    return { id: 'boxcar', cat: 'recycle', name: 'Cardboard car', ico: '🚗', lv: 3, min: 40, mat: [['📦', 'a cardboard box'], ['🔪', 'scissors (a grown-up cuts)'], M.paint, M.brush, ['⚪', '4 paper plates or bottle lids'], M.glue, M.tape], safe: 'Cardboard is tough to cut. A grown-up does the cutting.', steps: [
+      S('A grown-up cuts out a window.', 'cut', { base: box, pts: win, topEnd: hole }),
+      S('Paint your car.', 'paint', { base: box + hole, area: red, box: [40, 48, 126, 58], c: C.red }),
+      S('Glue on four wheels. You can see two from the side.', 'place', { base: red, pieces: [{ svg: K.wheel(65, 108, 13), at: [65, 108], from: [-40, 30] }, { svg: K.wheel(128, 108, 13), at: [128, 108], from: [40, 30] }] }),
+      S('Add lights and a door.', 'draw', { base: red + wheels, s: [circlePts(147, 74, 5, 10), [[80, 66], [80, 100]], [[44, 66], [52, 66], [52, 72], [44, 72], [44, 66]]], fill: lights, tool: 'pen' }),
+      S('Vroom vroom! Where will you drive?', 'show', { item: mid(red + wheels + lights), at: [100, 70], kind: 'drive' })
+    ] };
+  })();
+
+  /* --- simple sewing --- */
+  const lacing = (() => {
+    const hp = heartPts(100, 72, 46, 40), holes = heartPts(100, 72, 40, 12).slice(0, 12), card = K.sheet(30, 15, 140, 120, '#fff');
+    const cutH = K.poly(hp, C.yellow), lace = K.line(holes.concat([holes[0]]), C.red, 2.6, '7 5');
+    return { id: 'lacing', cat: 'sew', name: 'Lacing card', ico: '🥾', lv: 2, min: 20, mat: [M.card, M.pencil, M.scissors, M.punch, ['👟', 'a shoelace (or wool with tape on the end)']], tip: 'Lacing is first sewing: in and out builds the finger skills for real needlework.', steps: [
+      S('Draw a big heart on the card.', 'draw', { base: card, s: [hp], c: C.grey, tool: 'pen' }),
+      S('Cut it out.', 'cut', { base: card, pts: hp, piece: cutH, off: [0, 0] }),
+      S('Punch holes all around the edge.', 'punch', { base: cutH, holes }),
+      S('Push the lace in and out, in and out, through the holes.', 'stitch', { base: cutH + holes.map(h => K.hole(h[0], h[1], 3.4)).join(''), pts: holes.concat([holes[0]]) }),
+      S('Tie the ends in a bow.', 'tie', { base: cutH + holes.map(h => K.hole(h[0], h[1], 3.4)).join('') + lace, at: [100, 50] }),
+      S('You sewed a heart!', 'show', { item: mid(cutH + holes.map(h => K.hole(h[0], h[1], 3.4)).join('') + lace), kind: 'bounce' })
+    ] };
+  })();
+
+  const pillow = (() => {
+    const hp = heartPts(100, 72, 44, 40), inner = heartPts(100, 72, 38, 40), felt = K.sheet(30, 15, 140, 120, C.pink), h1 = K.poly(hp, C.red), h2 = K.poly(hp, '#E0503F');
+    const gap = inner.slice(0, 32), close = inner.slice(31).concat([inner[0]]);
+    const puff = K.circ(116, 46, 7, '#fff', 1) + K.circ(124, 50, 6, '#fff', 1);
+    const sewn = h2 + K.line(gap, C.yellow, 2, '6 4');
+    return { id: 'pillow', cat: 'sew', name: 'Felt heart pillow', ico: '❤️', lv: 3, min: 40, mat: [M.felt, M.scissors, ['🪡', 'a big plastic needle'], ['🧵', 'thick thread'], ['☁️', 'stuffing or cotton wool']], tip: 'A blunt plastic needle and thick embroidery thread are easiest. Knot the thread to the needle so it cannot slip off.', steps: [
+      S('Cut two hearts from felt.', 'cut', { base: felt, pts: hp, piece: h1, off: [0, 0] }),
+      S('Put the two hearts together.', 'place', { base: h1, pieces: [{ svg: h2, at: [100, 72], from: [70, -10] }] }),
+      S('Sew little stitches around the edge. Leave a gap!', 'stitch', { base: h2, pts: gap, c: C.yellow }),
+      S('Push stuffing in through the gap.', 'place', { base: sewn, pieces: [{ svg: puff, at: [120, 48], from: [40, -40] }] }),
+      S('Sew the gap closed and tie a knot.', 'stitch', { base: sewn, pts: close, c: C.yellow }),
+      S('A soft, squishy heart pillow!', 'show', { item: mid(sewn + K.line(close, C.yellow, 2, '6 4')), kind: 'bounce' })
+    ] };
+  })();
+
+  const buttonSew = (() => {
+    const cloth = K.rect(30, 25, 140, 100, C.sky, 6) + K.line(K.wave(30, 170, 120, 1.5, 6), 'rgba(34,48,90,.25)', 1), btn = K.circ(100, 75, 22, C.yellow) + K.circ(100, 75, 17, 'none', 1);
+    const h = [[92, 67], [108, 67], [108, 83], [92, 83]], dots = h.map(p => K.circ(p[0], p[1], 2.6, K.OL, 0)).join('');
+    const x1 = K.line([h[0], h[2]], C.red, 2.6), x2 = K.line([h[1], h[3]], C.red, 2.6);
+    return { id: 'button', cat: 'sew', name: 'Sew on a button', ico: '🔘', lv: 4, min: 20, mat: [['🧵', 'thread'], ['🪡', 'a sewing needle'], ['🔘', 'a big button'], ['🧣', 'a scrap of fabric'], M.scissors], tip: 'A real life skill! Sit close by while the needle is in use.', steps: [
+      S('Thread the needle and tie a knot at the end of the thread.', 'stitch', { base: K.sheet(20, 40, 160, 70, '#FFF6E5'), pts: [[30, 75], [170, 75]] }),
+      S('Hold the button where you want it.', 'place', { base: cloth, pieces: [{ svg: btn + dots, at: [100, 75], from: [60, -50] }] }),
+      S('Push the needle up through one hole and down through the hole across.', 'stitch', { base: cloth + btn + dots, pts: [h[0], h[2]] }),
+      S('Do it 4 times. Then sew the other two holes to make an X.', 'stitch', { base: cloth + btn + dots + x1, pts: [h[1], h[3], h[1], h[3]] }),
+      S('Knot the thread at the back and snip it.', 'cut', { base: cloth + btn + dots + x1 + x2 + K.line([[120, 90], [150, 110]], C.red, 2), pts: [[140, 95], [140, 112]] }),
+      S('Your button is on! You can mend clothes now.', 'show', { item: mid(cloth + btn + dots + x1 + x2), kind: 'glow' })
+    ] };
+  })();
+
+  /* --- holiday & party --- */
+  const lantern = (() => {
+    const B = K.ori(C.red, '#F7A08F', [[30, 30], [170, 30], [170, 120], [30, 120]]);
+    const s1 = B.fold('Fold the paper in half the long way.', { from: [100, 30], to: [100, 120] });
+    B.shift(0, -20);
+    const slits = [44, 58, 72, 86, 100, 114, 128, 142, 156].map(x => [[x, 55], [x, 90]]);
+    const shape = [[72, 30], [128, 30], [142, 75], [128, 120], [72, 120], [58, 75]], lines = [78, 89, 100, 111, 122].map(x => K.line([[x, 32], [x + (x - 100) * 0.35, 75], [x, 118]], 'rgba(34,48,90,.5)', 1.3)).join('');
+    const body = K.poly(shape, C.red) + lines + K.rect(72, 26, 56, 6, C.yellow, 1) + K.rect(72, 118, 56, 6, C.yellow, 1), handle = K.path('M76,28 Q100,-4 124,28', 'none', 0, `stroke="${C.yellow}" stroke-width="5"`);
+    return { id: 'lantern', cat: 'party', name: 'Paper lantern', ico: '🏮', lv: 2, min: 20, mat: [M.color, M.scissors, M.glue, M.tape], steps: [
+      s1,
+      S('Cut lines from the fold. Stop before the edge!', 'cut', { base: B.svg(), cuts: slits }),
+      S('Open it, roll it into a tube and glue the edges.', 'morph', { from: [{ p: [[30, 30], [170, 30], [170, 120], [30, 120]], c: C.red }], to: [{ p: shape, c: C.red }], topEnd: lines }),
+      S('Glue on a paper strip handle.', 'place', { base: K.poly(shape, C.red) + lines, pieces: [{ svg: handle + K.rect(72, 26, 56, 6, C.yellow, 1) + K.rect(72, 118, 56, 6, C.yellow, 1), at: [100, 28], from: [0, -50] }] }),
+      S('Hang up your lantern for the party!', 'show', { item: mid(body + handle), kind: 'float' })
+    ] };
+  })();
+
+  const partyCrown = (() => {
+    const band = K.rect(20, 55, 160, 50, C.yellow, 2), zig = K.zig(20, 180, 80, 25, 5), cutB = K.poly([[20, 105], ...zig, [180, 105]], C.yellow);
+    const gems = [[36, 92, C.red], [68, 92, C.blue], [100, 92, C.green], [132, 92, C.purple], [164, 92, C.red]].map(([x, y, c]) => K.circ(x, y, 6, c)).join('') + K.zig(20, 180, 80, 25, 5).filter((_, i) => i % 2).map(p => K.circ(p[0], p[1] - 2, 3.5, C.pink)).join('');
+    const ring = [...K.arc(100, 80, 70, 16, 180, 360, 20).map(([x, y], i) => [x, y - (i % 4 === 2 ? 22 : 0)]), ...K.arc(100, 105, 70, 16, 0, 180, 20)];
+    return { id: 'crown', cat: 'party', name: 'Party crown', ico: '👑', lv: 1, min: 15, mat: [M.card, M.pencil, M.scissors, M.crayons, ['💎', 'stickers'], M.tape], steps: [
+      S('Draw a zigzag along a long strip of card.', 'draw', { base: band, s: [zig], c: C.grey, tool: 'pen' }),
+      S('Cut along the zigzag.', 'cut', { base: band, pts: zig }),
+      S('Decorate it with stickers and jewels.', 'place', { base: cutB, pieces: [{ svg: gems, at: [100, 88], from: [0, -60] }] }),
+      S('Wrap it round your head and tape it.', 'morph', { from: [{ p: [[20, 105], ...zig, [180, 105]], c: C.yellow }], to: [{ p: ring, c: C.yellow }] }),
+      S('Happy birthday, your majesty!', 'show', { item: mid(cutB + gems), kind: 'wiggle' })
+    ] };
+  })();
+
+  const wand = (() => {
+    const sp = K.starPts(100, 60, 40, 5, 0.45), star = K.poly(sp, C.yellow), card = K.sheet(40, 10, 120, 105, '#fff'), glue = K.line(sp.concat([sp[0]]), '#B9D8F5', 4);
+    const stick = K.rect(96, 96, 8, 50, C.purple, 3), rib = K.path('M100,96 Q80,110 86,130', 'none', 0, `stroke="${C.pink}" stroke-width="3"`) + K.path('M100,96 Q122,108 114,132', 'none', 0, `stroke="${C.sky}" stroke-width="3"`);
+    const glit = K.starPts(100, 60, 30, 5, 0.45).map((p, i) => K.circ(p[0], p[1], 1.8, [C.pink, C.blue, C.purple][i % 3], 0)).join('');
+    return { id: 'wand', cat: 'party', name: 'Star wand', ico: '🪄', lv: 1, min: 15, mat: [M.card, M.pencil, M.scissors, M.glue, ['✨', 'glitter or sequins'], ['🥢', 'a straw or stick'], M.tape, ['🎀', 'ribbon']], steps: [
+      S('Draw a big star on card.', 'draw', { base: card, s: [sp.concat([sp[0]])], c: C.grey, tool: 'pen' }),
+      S('Cut out the star.', 'cut', { base: card, pts: sp.concat([sp[0]]), piece: star, off: [0, 0] }),
+      S('Draw glue lines and shake on glitter.', 'sprinkle', { base: star + glue, box: [70, 30, 60, 55], colors: [C.pink, C.blue, C.purple], n: 40 }),
+      S('Tape a stick on the back and tie on ribbons.', 'place', { base: star + glit, pieces: [{ svg: stick, at: [100, 120], from: [0, 50] }, { svg: rib, at: [100, 112], from: [0, 40] }] }),
+      S('Wave your magic wand! Abracadabra!', 'show', { item: mid(stick + rib + star + glit), kind: 'wiggle' })
+    ] };
+  })();
+
+  /* --- science crafts --- */
+  const heli = (() => {
+    const strip = [[80, 15], [120, 15], [120, 140], [80, 140]], sheet = K.poly(strip, C.sky);
+    const stem = [[80, 15], [120, 15], [120, 85], [108, 85], [108, 140], [92, 140], [92, 85], [80, 85]];
+    const rotor = [[40, 30], [96, 30], [100, 36], [104, 30], [160, 30], [160, 40], [106, 40], [106, 135], [94, 135], [94, 40], [40, 40]];
+    const clip = K.rect(94, 124, 12, 16, 'none', 3, `stroke="#8A96A3" stroke-width="2.5"`);
+    return { id: 'heli', cat: 'science', name: 'Paper helicopter', ico: '🚁', lv: 2, min: 10, mat: [['📄', 'a strip of paper'], M.scissors, ['📎', 'a paper clip']], tip: 'Science question: does it spin the other way if you swap the wings? Drop two from up high and see.', steps: [
+      S('Cut a line down the middle of the top half.', 'cut', { base: sheet, pts: [[100, 15], [100, 75]] }),
+      S('Cut a little way in from each side, in the middle.', 'cut', { base: sheet + K.line([[100, 15], [100, 75]], K.OL, 1.6), cuts: [[[80, 85], [92, 85]], [[120, 85], [108, 85]]] }),
+      S('Fold the sides in to make a thin stem.', 'morph', { from: [{ p: strip, c: C.sky }], to: [{ p: stem, c: C.sky }] }),
+      S('Fold one wing forward and one wing back.', 'morph', { from: [{ p: stem, c: C.sky }], to: [{ p: rotor, c: C.sky }] }),
+      S('Put a paper clip on the bottom.', 'place', { base: K.poly(rotor, C.sky), pieces: [{ svg: clip, at: [100, 132], from: [0, 40] }] }),
+      S('Drop it from up high. It spins as it falls!', 'show', { item: mid(K.poly(rotor, C.sky) + clip), kind: 'fall', s: 0.6 })
+    ] };
+  })();
+
+  const pinwheel = (() => {
+    const sq = [[50, 25], [150, 25], [150, 125], [50, 125]], diag = [[[50, 25], [92, 67]], [[150, 25], [108, 67]], [[150, 125], [108, 83]], [[50, 125], [92, 83]]];
+    const blades = [[[100, 75], [50, 25], [100, 25]], [[100, 75], [150, 25], [150, 75]], [[100, 75], [150, 125], [100, 125]], [[100, 75], [50, 125], [50, 75]]];
+    const cols = [C.red, C.yellow, C.blue, C.green], wheel = blades.map((b, i) => K.poly(b, cols[i])).join('') + K.circ(100, 75, 4, C.white);
+    const stick = K.rect(97, 75, 6, 70, C.brown, 2);
+    return { id: 'pinwheel', cat: 'science', name: 'Pinwheel', ico: '🎡', lv: 3, min: 20, mat: [M.sq, M.pencil, M.scissors, ['📍', 'a pin (a grown-up does this)'], ['🥢', 'a pencil with an eraser, or a stick']], tip: 'Wind is moving air. Try blowing softly, then hard: which spins faster?', steps: [
+      S('Draw lines from each corner toward the middle.', 'draw', { base: K.poly(sq, C.paper), s: diag, c: C.grey, tool: 'pen' }),
+      S('Cut along each line. Stop before the middle!', 'cut', { base: K.poly(sq, C.paper), cuts: diag }),
+      S('Bend every other corner into the middle.', 'morph', { from: [{ p: sq, c: C.paper }], to: blades.map((b, i) => ({ p: b, c: cols[i] })) }),
+      S('A grown-up pushes a pin through the middle into a stick.', 'place', { base: wheel, pieces: [{ svg: stick, at: [100, 110], from: [0, 40] }, { svg: K.circ(100, 75, 3, C.grey), at: [100, 75], from: [0, -50] }] }),
+      S('Blow on it. Whirr!', 'show', { item: K.g(wheel, -100, -75), at: [100, 70], kind: 'spin', speed: 1.4, base: K.rect(97, 72, 6, 78, C.brown, 2) })
+    ] };
+  })();
+
+  const kaleido = (() => {
+    const tube = K.circ(100, 75, 46, C.card) + K.circ(100, 75, 38, '#5A3D26'), tri = K.poly([[100, 44], [127, 92], [73, 92]], '#DDE5EC');
+    const beads = [[96, 70, C.red], [104, 78, C.blue], [92, 84, C.yellow], [108, 86, C.green], [100, 62, C.pink]].map(([x, y, c]) => K.circ(x, y, 3.5, c, 1)).join('');
+    const cap = K.circ(100, 75, 46, C.purple) + K.circ(100, 75, 8, '#5A3D26');
+    const pat = Array.from({ length: 6 }, (_, i) => K.g(K.circ(0, -24, 8, C.red, 1) + K.circ(0, -40, 5, C.yellow, 1) + K.poly([[0, -10], [8, -18], [0, -28], [-8, -18]], C.blue, 1), 0, 0, 1, i * 60)).join('');
+    return { id: 'kaleido', cat: 'science', name: 'Kaleidoscope', ico: '🔮', lv: 3, min: 40, mat: [['🧻', 'a kitchen roll tube'], ['🪞', 'shiny card or foil card'], M.scissors, M.tape, ['🫙', 'clear plastic (from packaging)'], ['📿', 'tiny beads'], M.paper], tip: 'Mirrors bounce light. Three mirrors make one bead look like many, in a circle.', steps: [
+      S('Fold shiny card into a long triangle tube, shiny side in.', 'morph', { from: [{ p: [[40, 60], [160, 60], [160, 90], [40, 90]], c: '#DDE5EC' }], to: [{ p: [[100, 44], [127, 92], [73, 92]], c: '#DDE5EC' }] }),
+      S('Slide the triangle into the tube.', 'place', { base: tube, pieces: [{ svg: tri, at: [100, 75], from: [0, -90] }] }),
+      S('Tape clear plastic on one end and drop in tiny beads.', 'place', { base: tube + tri, pieces: [{ svg: beads, at: [100, 75], from: [0, -70] }] }),
+      S('Cover the other end with a paper cap. Poke a peep hole.', 'place', { base: tube + tri + beads, pieces: [{ svg: cap, at: [100, 75], from: [0, -100] }] }),
+      S('Look in and turn it slowly. Magic patterns!', 'show', { item: K.circ(0, 0, 54, '#22305A') + pat + K.circ(0, 0, 6, C.purple, 1), kind: 'spin', speed: 0.4 })
+    ] };
+  })();
+
+  const strawRocket = (() => {
+    const pic = K.poly([[100, 30], [114, 52], [114, 100], [86, 100], [86, 52]], C.red) + K.circ(100, 64, 6, C.sky) + K.poly([[86, 86], [74, 104], [86, 100]], C.yellow) + K.poly([[114, 86], [126, 104], [114, 100]], C.yellow);
+    const tubeR = [[90, 30], [110, 30], [110, 120], [90, 120]];
+    return { id: 'strawrocket', cat: 'science', name: 'Straw rocket', ico: '🚀', lv: 1, min: 10, mat: [M.paper, M.pencil, M.tape, ['🥤', 'a straw'], M.crayons], safe: 'Never aim it at people or animals.', steps: [
+      S('Draw a little rocket and color it.', 'draw', { base: K.sheet(60, 20, 80, 95, '#fff'), s: [[[100, 30], [114, 52], [114, 100], [86, 100], [86, 52], [100, 30]], circlePts(100, 64, 6, 10)], fill: pic, tool: 'crayon', c: C.red }),
+      S('Roll a strip of paper round a pencil and tape it. Slide the pencil out.', 'morph', { from: [{ p: [[40, 40], [160, 40], [160, 110], [40, 110]], c: C.paper }], to: [{ p: tubeR, c: C.paper }] }),
+      S('Fold the top over and tape it shut.', 'place', { base: K.poly(tubeR, C.paper), pieces: [{ svg: K.rect(86, 28, 28, 10, 'rgba(142,197,245,.85)', 1), at: [100, 33], from: [0, -40] }] }),
+      S('Tape your rocket picture onto the tube.', 'place', { base: K.poly(tubeR, C.paper), pieces: [{ svg: pic, at: [100, 70], from: [60, 0] }] }),
+      S('Slide it on a straw and blow hard. Blast off!', 'show', { item: mid(pic) + K.rect(-3, 30, 6, 40, C.blue, 2), kind: 'up' })
+    ] };
+  })();
+
+  /* --- string art & bracelets --- */
+  const letter = (() => {
+    const L = [[70, 25], [95, 25], [95, 105], [140, 105], [140, 128], [70, 128], [70, 25]], card = K.sheet(40, 15, 130, 120, '#fff'), cutL = K.poly(L, C.tan);
+    const wrapV = Array.from({ length: 14 }, (_, i) => K.line([[68, 25 + 103 * (i + 0.2) / 14], [97, 25 + 103 * (i + 0.9) / 14]], C.purple, 3)).join('');
+    const wrapH = Array.from({ length: 8 }, (_, i) => K.line([[95 + 45 * (i + 0.2) / 8, 103], [95 + 45 * (i + 0.9) / 8, 130]], C.purple, 3)).join('');
+    return { id: 'yarnletter', cat: 'string', name: 'Wool-wrapped letter', ico: '🔤', lv: 2, min: 30, mat: [M.card, M.pencil, M.scissors, M.tape, ['🧶', 'wool']], tip: 'Use the first letter of your child\'s name. It looks lovely on a bedroom door.', steps: [
+      S('Draw a big fat letter, like the first letter of your name.', 'draw', { base: card, s: [L], c: C.grey, tool: 'pen' }),
+      S('Cut it out.', 'cut', { base: card, pts: L, piece: cutL, off: [0, 0] }),
+      S('Tape the end of the wool to the back.', 'place', { base: cutL, pieces: [{ svg: K.rect(74, 30, 18, 8, 'rgba(142,197,245,.85)', 1), at: [83, 34], from: [-40, -30] }] }),
+      S('Wrap the wool round and round. Cover it all!', 'wrap', { base: cutL, box: [70, 25, 25, 103], c: C.purple, n: 14 }),
+      S('Wrap the bottom part too. Tape the end at the back.', 'wrap', { base: cutL + wrapV, box: [95, 105, 45, 23], c: C.purple, n: 6 }),
+      S('Your very own letter!', 'show', { item: mid(cutL + wrapV + wrapH), kind: 'bounce' })
+    ] };
+  })();
+
+  const braid = (() => {
+    const cols = [C.red, C.yellow, C.blue], loop = Array.from({ length: 22 }, (_, i) => { const a = i / 22 * Math.PI * 2; return `<ellipse cx="${(42 * Math.cos(a)).toFixed(1)}" cy="${(30 * Math.sin(a)).toFixed(1)}" rx="7" ry="4.5" transform="rotate(${(a * 180 / Math.PI + (i % 2 ? 30 : -30)).toFixed(0)} ${(42 * Math.cos(a)).toFixed(1)} ${(30 * Math.sin(a)).toFixed(1)})" fill="${cols[i % 3]}" stroke="#22305A" stroke-width="1.1"/>`; }).join('');
+    const knot = K.circ(100, 24, 5, C.red);
+    return { id: 'braid', cat: 'string', name: 'Braided bracelet', ico: '🎗️', lv: 3, min: 20, mat: [['🧶', 'wool in 3 colors'], M.tape, M.scissors], tip: 'Say it out loud: "left over middle, right over middle". The rhythm helps.', steps: [
+      S('Tie three strings together with a knot.', 'tie', { base: cols.map((c, i) => K.line([[100, 26], [80 + i * 20, 120]], c, 3)).join(''), at: [100, 24], c: C.red }),
+      S('Tape the knot to the table.', 'place', { base: cols.map((c, i) => K.line([[100, 26], [80 + i * 20, 120]], c, 3)).join('') + knot, pieces: [{ svg: K.rect(86, 16, 28, 12, 'rgba(142,197,245,.85)', 1), at: [100, 22], from: [0, -40] }] }),
+      S('Left string over the middle. Right string over the middle. Again and again!', 'braid', { at: [100, 20], colors: cols, n: 5 }),
+      S('Keep going until it fits round your wrist.', 'braid', { at: [100, 20], colors: cols, n: 10 }),
+      S('Tie a knot at the end. Tie it round your wrist.', 'tie', { base: K.g(loop, 100, 75), at: [100, 105], c: C.yellow }),
+      S('A bracelet you made yourself!', 'show', { item: loop, kind: 'float' })
+    ] };
+  })();
+
+  const friend = (() => {
+    const cols = [C.pink, C.purple, C.teal, C.yellow];
+    const loop = Array.from({ length: 20 }, (_, i) => { const a = i / 20 * Math.PI * 2, x = 44 * Math.cos(a), y = 30 * Math.sin(a); return K.g(K.poly([[-6, -4], [0, 0], [6, -4], [6, 2], [0, 6], [-6, 2]], cols[i % 4], 1), x, y, 1, a * 180 / Math.PI + 90); }).join('');
+    const strings = cols.map((c, i) => K.line([[100, 26], [76 + i * 16, 125]], c, 3)).join('');
+    return { id: 'friendship', cat: 'string', name: 'Friendship bracelet', ico: '🤝', lv: 4, min: 60, mat: [['🧵', 'embroidery thread in 4 colors'], M.tape, M.scissors], tip: 'Each knot is two half-knots on the same string. Patience: it grows a little each day.', steps: [
+      S('Cut 4 long threads. Knot them together at the top.', 'tie', { base: strings, at: [100, 24], c: C.pink }),
+      S('Make a 4 shape with the left thread over the next one. Loop it under and pull up. Do it twice.', 'braid', { mode: 'knot', at: [100, 20], colors: cols, n: 2 }),
+      S('That thread knots across every string, to the right side.', 'braid', { mode: 'knot', at: [100, 20], colors: cols, n: 5 }),
+      S('Start again with the new left thread. Stripes appear!', 'braid', { mode: 'knot', at: [100, 20], colors: cols, n: 11 }),
+      S('Knot the end. Tie it on a friend\'s wrist.', 'tie', { base: K.g(loop, 100, 75), at: [100, 105], c: C.purple }),
+      S('A bracelet to share with a friend!', 'show', { item: loop, kind: 'float' })
+    ] };
+  })();
+
+  const stringArt = (() => {
+    const pins = heartPts(100, 74, 46, 24).slice(0, 24), board = K.rect(30, 15, 140, 122, C.card, 4);
+    const zig = []; for (let i = 0; i < 12; i++) zig.push(i, 23 - i);
+    const cross = []; for (let i = 0; i < 24; i++) cross.push((i * 7) % 24);
+    const round = Array.from({ length: 25 }, (_, i) => i % 24);
+    const drawn = (order, c) => K.line(order.map(i => pins[i]), c, 1.3);
+    const dots = pins.map(p => K.circ(p[0], p[1], 2.4, C.grey, 1)).join('');
+    return { id: 'stringart', cat: 'string', name: 'String art heart', ico: '💝', lv: 4, min: 60, mat: [['🟫', 'a cork board or thick card'], ['📍', 'push pins (a grown-up helps)'], M.pencil, ['🧶', 'wool or embroidery thread']], tip: 'Cork board and push pins are safest. Show how to hold the pin by the head.', steps: [
+      S('Draw a heart on the board.', 'draw', { base: board, s: [heartPts(100, 74, 46, 40)], c: C.grey, tool: 'pen' }),
+      S('A grown-up helps push pins all around the heart.', 'punch', { base: board, holes: pins, r: 2.4 }),
+      S('Tie the wool to one pin. Go across to another pin, round it, and back.', 'pins', { base: board, pins, order: zig, c: C.red }),
+      S('Keep criss-crossing until the heart is full.', 'pins', { base: board + drawn(zig, C.red), pins, order: cross, c: C.pink }),
+      S('Go round the outside edge, then tie it off.', 'pins', { base: board + drawn(zig, C.red) + drawn(cross, C.pink), pins, order: round, c: C.red }),
+      S('Beautiful string art!', 'show', { item: mid(board + drawn(zig, C.red) + drawn(cross, C.pink) + drawn(round, C.red) + dots), kind: 'glow' })
+    ] };
+  })();
+
+  craftsHome.add([leafPrint, rockBug, coneOwl, crownN, sockP, bagP, fingerP, necklace, weaveMat, feeder, planter, boxBot, car, lacing, pillow, buttonSew, lantern, partyCrown, wand, heli, pinwheel, kaleido, strawRocket, letter, braid, friend, stringArt]);
+})();
 /* ---------- welcome tour (once per player) and the grown-ups' "What's inside" guide ---------- */
 // The tour shows the first time a player reaches the home screen: 7 big cards, each read aloud and pointing at a real
 // home-screen tile. It is stored per player as st.tour. Automated runs (#selftest or a webdriver) skip it unless
@@ -19856,7 +21417,7 @@ const tour = (() => {
     const nl = nextLesson(), aw = WORLDS[ageWorld(st.age)];
     view.innerHTML = `${crumbs("What's inside")}
       <div class="panel"><h2>At a glance</h2>
-        <div class="wt-stats">${stat(topics, `math topics in ${WORLDS.length} worlds`)}${stat(GAMES.length, 'math games')}${stat(21, 'numbers to trace (0–20)')}${stat(LESSONS.length, 'step-by-step art lessons')}${stat(ART_CATS.length, 'kinds of art')}${stat(FIXED.coloring, 'coloring pages')}${stat(FIXED.places, 'sticker-scene places')}${stat(FIXED.shapes, 'shape puzzles')}${stat(PICS.length, 'pixel pictures')}${stat(FIXED.chapters, `story chapters of ${FIXED.stops} stops`)}${stat(KB.length, 'offline Owl answers')}${stat(BADGES.length, 'badges')}${stat(worldHome.info().items, 'things to buy in My World')}${stat(englishHome.info().words, 'English words in pictures')}${stat(englishHome.info().stories, 'reading stories')}${stat(englishHome.info().games, 'reading and grammar games')}</div>
+        <div class="wt-stats">${stat(topics, `math topics in ${WORLDS.length} worlds`)}${stat(GAMES.length, 'math games')}${stat(21, 'numbers to trace (0–20)')}${stat(LESSONS.length, 'step-by-step art lessons')}${stat(ART_CATS.length, 'kinds of art')}${stat(FIXED.coloring, 'coloring pages')}${stat(FIXED.places, 'sticker-scene places')}${stat(FIXED.shapes, 'shape puzzles')}${stat(PICS.length, 'pixel pictures')}${stat(FIXED.chapters, `story chapters of ${FIXED.stops} stops`)}${stat(KB.length, 'offline Owl answers')}${stat(BADGES.length, 'badges')}${stat(worldHome.info().items, 'things to buy in My World')}${stat(englishHome.info().words, 'English words in pictures')}${stat(englishHome.info().stories, 'reading stories')}${stat(englishHome.info().games, 'reading and grammar games')}${stat(craftsHome.info().crafts, 'crafts with step-by-step movies')}</div>
         <p class="note">Everything works offline, with no ads and no accounts. Each player has their own progress, owl and pictures.</p></div>
       <div class="panel"><h2>🔢 Number Garden (math)</h2>${li([
         `${WORLDS.map((w, i) => `${w.ico} <b>${w.name}</b> (ages ${w.ages}, ${worldSkills(i).length} topics)`).join(' · ')}.`,
@@ -19874,6 +21435,10 @@ const tour = (() => {
         `<b>Fun games</b>: bubble pop, Feed Munch the monster, a word treasure hunt and silly sentences. Each finished round brings out a word pal for the reading club (${englishHome.info().pals} to collect).`,
         `<b>Word play</b>: a spelling bee with letter tiles, a story maker (hero, place and problem: ${englishHome.info().tales} stories, read aloud), rhyme time that turns into a song (${englishHome.info().rhymes} rhymes), describe it, a sound safari, ${englishHome.info().twisters} tongue twisters, and listen &amp; tap. The word book has age tiers: first words, more words, and ${englishHome.info().bigwords} big words with meanings.`,
         `<b>My words</b>: a word of the day with a daily streak, Owl's review (missed words come back the same day, then after 1 and 3 days, until learned), and a word album that collects a sticker for each word got right twice. Each section ends with a one-line tip for grown-ups.`])}</div>
+      <div class="panel"><h2>✂️ Crafts corner</h2>${li([
+        `${craftsHome.info().crafts} real crafts in ${craftsHome.info().cats} kinds (origami, paper cutting, collage, paper plates, toilet rolls, cards, playdough, nature, puppets, threading and weaving, recycling, simple sewing, parties, science, string and bracelets), at 4 levels: Easy 4+ (${craftsHome.info().levels[0]}), Medium 6+ (${craftsHome.info().levels[1]}), Tricky 8+ (${craftsHome.info().levels[2]}) and Expert 10+ (${craftsHome.info().levels[3]}).`,
+        'Each craft lists what you need and the time it takes. Every step is a short looping movie drawn in the app (scissors cutting, paper folding, glue dots, beads sliding on), read aloud by Owl, with play, pause, replay and "Watch all".',
+        'Crafts with scissors, glue, needles or pins show a safety note: ask a grown-up. "I made it!" lets your child draw the craft (saved to My pictures) or pick a sticker, and earns stars (more for harder crafts, 1 for a repeat).'])}</div>
       <div class="panel"><h2>🗺️ Owl's Quest, My World, daily quest and owl</h2>${li([
         `<b>Owl's Quest</b>: a story map of ${FIXED.chapters} chapters. Each stop is a few math puzzles, a drawing, or a story choice. Finished chapters become a storybook.`,
         "<b>Today's quest</b> on the home screen: 3 small jobs a day, then a treasure chest.",
@@ -20111,7 +21676,7 @@ const timer = (() => {
 /* ---------- start ---------- */
 updateTop();
 go(profiles.length > 1 ? whoView : home);
-if (location.hash === "#selftest") window.__owl = { MATH, LESSONS, BRUSHES, get livePad() { return livePad; }, lessonSVG, PICS, get st() { return st; }, get profiles() { return profiles; }, quest, questTick, gainXP, petStage, go, home, mathHome, artHome, catView, drawLesson, gamesHome, ART_CATS, lessonView, play, speakable, storyHome, colorHome, sceneHome, shapeHome, flipHome, galTab, worldHome, englishHome };
+if (location.hash === "#selftest") window.__owl = { MATH, LESSONS, BRUSHES, get livePad() { return livePad; }, lessonSVG, PICS, get st() { return st; }, get profiles() { return profiles; }, quest, questTick, gainXP, petStage, go, home, mathHome, artHome, catView, drawLesson, gamesHome, ART_CATS, lessonView, play, speakable, storyHome, colorHome, sceneHome, shapeHome, flipHome, galTab, worldHome, englishHome, craftsHome };
 if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) {
   try {
     // A new version installs in the background; offer a tap to switch rather than reloading mid-game.
