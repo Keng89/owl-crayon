@@ -1691,3 +1691,29 @@ body:has(.sp-svg) #toast{pointer-events:none}
 .cr-search .tool{min-width:56px;height:56px;font-size:20px}
 @media (max-width:520px){.cr-text{font-size:19px}.cr-ctrl .tool{min-width:50px;height:50px;font-size:21px}.cr-cats{grid-template-columns:repeat(2,1fr)}.cr-cards{grid-template-columns:repeat(2,1fr)}.cr-hv{font-size:16px;padding:8px 12px}.cr-cotd-t b{font-size:19px}}
 @media (prefers-reduced-motion:reduce){.tc-deco,.cr-pulse,.cr-big{animation:none}}
+
+/* ---------- home: the areas in three groups (Learn, Make, Play), every tile on the first screen of a phone ---------- */
+.hgroups{display:grid;gap:14px}
+.hg-title{font-size:22px;display:flex;align-items:center;gap:8px;margin:0 0 8px;color:var(--ink)}
+.hgroup .tiles{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.hgroup .tile{grid-column:auto;min-height:150px;padding:16px;justify-content:flex-start;gap:8px;position:relative;overflow:hidden}
+.hgroup .tile h2{font-size:clamp(20px,2.8vw,27px);overflow-wrap:anywhere}
+.hgroup .tile .big{font-size:52px}
+.hgroup .te-deco,.hgroup .tc-deco,.hgroup .tw-deco{display:none}
+.hgroup .tw-wallet{margin-top:6px;font-size:15px;padding:3px 10px}
+.t-draw{background:#B9407E;color:#fff}
+.t-games{background:#1D7C82;color:#fff}
+@media (max-width:520px){
+  .hgroups{gap:10px}
+  .hg-title{font-size:19px;margin-bottom:6px}
+  .hgroup .tiles{gap:8px}
+  .hgroup .tile{min-height:112px;padding:10px 6px;align-items:center;justify-content:center;text-align:center;gap:4px;border-radius:22px}
+  .hgroup .tile .big{font-size:42px}
+  .hgroup .tile h2{font-size:16px;line-height:1.1}
+  .hgroup .tile p{display:none}
+  .hgroup .tw-wallet{align-self:center;font-size:12px;padding:2px 8px;margin-top:2px}
+  .hello{gap:10px;flex-wrap:nowrap}
+  .hello .pet-btn{flex:none}
+  .hello h1{font-size:26px}
+  .hello p{font-size:15px}
+}

@@ -74,7 +74,11 @@ const tour = (() => {
       root.classList.remove('wt-top');
       const r = t.getBoundingClientRect(), room = H - ch;
       const y = r.height + 24 > room ? r.top - 12 : r.top + r.height / 2 - room / 2;
-      scrollTo(0, Math.max(0, scrollY + y));
+      // A target near the end of the page (Today's quest, under the area tiles) gets room below it, so it can scroll
+      // clear of the card; the room goes when the tour ends.
+      const want = scrollY + y, max = document.documentElement.scrollHeight - H;
+      if (want > max) view.style.paddingBottom = (parseFloat(view.style.paddingBottom) || 0) + want - max + 'px';
+      scrollTo(0, Math.max(0, want));
     }
     const r = t.getBoundingClientRect(), pad = 8;
     if (scroll) root.classList.toggle('wt-top', r.bottom + pad > H - ch && r.top - pad > ch);
@@ -83,7 +87,7 @@ const tour = (() => {
 
   function close() {
     if (!cur) return;
-    cur.off(); cur.root.remove(); cur = null;
+    cur.off(); cur.root.remove(); cur = null; view.style.paddingBottom = '';
     try { speechSynthesis.cancel(); } catch (e) {}
   }
   function finish(how) {

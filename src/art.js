@@ -18,7 +18,24 @@ const ring = (n, R, f) => Array.from({ length: n }, (_, i) => { const a = i * 2 
 const zig = (n, r1, r2, cx = 100, cy = 100) => Array.from({ length: n * 2 }, (_, i) => { const a = i * Math.PI / n - Math.PI / 2, r = i % 2 ? r1 : r2; return `${(cx + r * Math.cos(a)).toFixed(1)},${(cy + r * Math.sin(a)).toFixed(1)}`; }).join(' ');
 const wedge = (i, n, col, R = 80) => { const a0 = i / n * 2 * Math.PI - Math.PI / 2, a1 = (i + 1) / n * 2 * Math.PI - Math.PI / 2; return paint(col, `<path d="M100 100 L${100 + R * Math.cos(a0)} ${100 + R * Math.sin(a0)} A${R} ${R} 0 0 1 ${100 + R * Math.cos(a1)} ${100 + R * Math.sin(a1)} Z"/>`); };
 
-const ART_CATS = [
+// Most lessons (art2.js to art11.js and the brush lessons) are queued on ART_LATER and only built the first time
+// something reads LESSONS or ART_CATS (the Art School, a lesson, the grown-ups' pages), not while the app starts.
+// core.js arms this once every file is loaded, so the lessons keep the same order as before.
+const ART_LATER = [];
+let artArmed = false, artBuilt = false, artBusy = false;
+const artLoad = () => { if (artBuilt || !artArmed || artBusy) return; artBuilt = true; ART_LATER.splice(0).forEach(f => f()); };
+// One file at a time while the app is idle after the home screen is up (core.js), so the Art School opens fast too.
+// Returns true while there is more to build.
+const artWarmStep = () => {
+  if (artBuilt || !artArmed) return false;
+  const f = ART_LATER.shift();
+  if (f) { artBusy = true; try { f(); } finally { artBusy = false; } }
+  if (!ART_LATER.length) artBuilt = true;
+  return !artBuilt;
+};
+const lazyArt = a => new Proxy(a, { get(t, k, r) { artLoad(); return Reflect.get(t, k, r); }, has(t, k) { artLoad(); return Reflect.has(t, k); } });
+
+const ART_CATS = lazyArt([
   { id: 'shapes', name: 'Shape Pictures', ico: '🔷', blurb: 'Build pictures from circles, squares and triangles' },
   { id: 'animals', name: 'Animals', ico: '🐾', blurb: 'Cats, owls, elephants and more' },
   { id: 'people', name: 'Faces & People', ico: '🙂', blurb: 'Feelings, faces and bodies' },
@@ -31,14 +48,14 @@ const ART_CATS = [
   { id: 'letters', name: 'Lettering', ico: '🔤', blurb: 'Fancy letters and your name' },
   { id: 'craft', name: 'Paper Crafts', ico: '✂️', blurb: 'Fold planes, cups and animals' },
   { id: 'paint', name: 'Painting & Collage', ico: '🖌️', blurb: 'Washes, dots, sponges, torn paper and more' }
-];
+]);
 const LEVEL_NAMES = ['', 'Beginner', 'Explorer', 'Master'];
 
 // Tessellation helpers: a flat-topped hexagon, and a square tile with a bump moved from its left side to its right side.
 const hexPts = (cx, cy, r = 17) => Array.from({ length: 6 }, (_, k) => { const t = k * Math.PI / 3; return `${(cx + r * Math.cos(t)).toFixed(1)},${(cy + r * Math.sin(t)).toFixed(1)}`; }).join(' ');
 const tessTile = (x, y, s = 36) => { const r = s * 0.22, m = s / 2; return `M${x} ${y} H${x + s} V${y + m - r} a${r} ${r} 0 0 1 0 ${2 * r} V${y + s} H${x} V${y + m + r} a${r} ${r} 0 0 0 0 ${-2 * r} Z`; };
 
-const LESSONS = [
+const LESSONS = lazyArt([
   /* ---- Shape pictures ---- */
   { id: 'house', cat: 'shapes', level: 1, title: 'A cozy house', ico: '🏠', need: 'Paper, a pencil and crayons', tip: 'A house is just a square with a triangle hat. You can draw shapes!', steps: [
     ['Draw a big square near the bottom of the page. These are the walls.', ar(50, 90, 100, 90)],
@@ -416,6 +433,6 @@ const LESSONS = [
     ['Paint a big yellow moon and a few stars. Paint a ring of yellow strokes around each one, so they glow.', paint('#FFD966', ac(160, 40, 14) + ac(30, 90, 6) + ac(110, 30, 5)) + stroke('#FFC23D', ac(160, 40, 22) + ac(30, 90, 12) + ac(110, 30, 10))],
     ['Paint the tree very dark, with strokes that go up like flames. Dark next to light makes it stand out.', paint('#22305A', ap('M40 185 Q30 120 45 70 Q55 120 60 185 Z'))],
     ['Paint tiny houses on the hills, each a square with a triangle roof and a yellow window. Leave the brush marks showing: that is the style!', ar(100, 150, 18, 14) + apg('98,150 109,141 120,150') + ar(130, 148, 18, 16) + apg('128,148 139,139 150,148') + paint('#FFC23D', ar(106, 155, 5, 5) + ar(136, 153, 5, 5))]] }
-];
+]);
 
 const lessonById = id => LESSONS.find(l => l.id === id);

@@ -1,7 +1,7 @@
 /* ---------- art4: farm, jungle & safari, pets, space, sports & play, buildings & cities ---------- */
 // Uses the helpers from art.js (ac, ae, al, ap, ar, apg, apl, guide, paint, atext).
 // Wrapped in a function so the little helpers below never clash with other files.
-(() => {
+ART_LATER.push(() => {
   const f1 = n => +n.toFixed(1);
   const DEG = Math.PI / 180, STEP = 3;
 
@@ -626,4 +626,4 @@
       ['Erase the guide lines. Draw windows: their tops and bottoms point to the dot too!', winL + winR + winF, { clear: true }],
       ['Color your street. Can you add cars that get smaller as they drive away?', M(paint(SKY, ar(0, 0, 200, 115.3)) + paint('#C9D3E0', apg('100,90 52,200 148,200')) + paint('#E8DCC8', apg('76,115.3 24,170 0,195.3 0,200 52,200 100,90 124,115.3 176,170 200,195.3 200,200 148,200')) + paint('#9AA1AB', far.map(F).join('')) + paint('#F7A39A', ap('M0 10 H24 V170 H0 Z')) + paint('#E8A86B', apg('24,10 76,64.7 76,115.3 24,170')) + paint('#9CCBF5', ap('M200 30 H176 V170 H200 Z')) + paint('#6D9BD1', apg('176,30 124,71.1 124,115.3 176,170')) + paint(SUN, winL + winR + winF + ar(97, 118, 6, 82)))]] });
   }
-})();
+});

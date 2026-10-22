@@ -1,7 +1,7 @@
 /* ---------- art6: 3 more lessons for each of the 12 first kinds of art ---------- */
 // Uses the helpers from art.js (ac, ae, al, ap, ar, apg, apl, guide, fold, stroke, paint, atext, ring, zig).
 // Wrapped in an IIFE so the little helpers below never clash with other files.
-(() => {
+ART_LATER.push(() => {
   const f1 = n => +(+n).toFixed(1);
   const P = (x, y) => `${f1(x)} ${f1(y)}`;
   const pts = a => a.map(p => `${f1(p[0])},${f1(p[1])}`).join(' ');
@@ -509,4 +509,4 @@
       ['Keep pressing and slowly pull the string out. Zzzip!', ar(100, 30, 80, 140, 2) + fold(al(100, 30, 100, 170)) + stroke('#6D55D1', fat('M150 170 Q150 185 130 190 Q100 196 70 186 Q50 178 40 188', 3)) + al(60, 160, 30, 160) + apl('36,155 30,160 36,165')],
       ['Open it up: a mirror swirl! Try again with a second color on top.', ar(20, 30, 160, 140, 2) + fold(al(100, 30, 100, 170)) + stroke('#6D55D1', fat(swirlA, 6) + mirror(fat(swirlA, 6))) + stroke('#F78FB3', fat(swirlB, 5) + mirror(fat(swirlB, 5)))]] }
   );
-})();
+});

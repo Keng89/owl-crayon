@@ -144,6 +144,7 @@ const GEN = {
 //@include art10.js
 //@include art11.js
 //@include brushes.js
+artArmed = true; // every lesson file is queued now; the first read of LESSONS or ART_CATS builds them
 
 /* ---------- state ---------- */
 const STICKERS = ['🦄','🐢','🚀','🌈','🐙','🦖','🍩','🐝','🎨','🦊','🐳','🌻','🏰','🐼','⚽','🎸','🦋','🍉','🐧','👑','🦁','🐬','🍄','🎃','🛸','🐉','🍭','🦒','⛵','🎠'];
@@ -222,17 +223,25 @@ function home() {
     <div class="hello"><button class="pet-btn" id="petBtn" aria-label="My owl ${esc(st.pet.name)}">${petHTML(76, 'bounce')}</button><div>
       <h1>Hi${st.name ? ', ' + esc(st.name) : ''}! What shall we do?</h1>
       <p>${esc(mood)}${st.streak.n > 1 ? ` You played ${st.streak.n} days in a row!` : ''}</p></div></div>
-    ${questCard()}
-    <button class="pick" id="pick"><span class="big">${p.ico}</span><span><b>${p.title}</b>${p.text}</span></button>
-    <div class="tiles">
-      <button class="tile t-math" id="tMath"><span class="big">🔢</span><span><h2>Number Garden</h2><p>From counting to algebra</p></span></button>
-      <button class="tile t-art" id="tArt"><span class="big">🖍️</span><span><h2>Art School</h2><p>Step-by-step drawing and more</p></span></button>
-      <button class="tile t-quest" id="tQuest"><span class="big">🗺️</span><span><h2>Owl's Quest</h2><p>A story adventure with math and art</p></span></button>
-      <button class="tile t-owl" id="tOwl"><span class="big">🦉</span><span><h2>Ask Owl</h2><p>Ask me anything!</p></span></button>
-      <button class="tile t-english" id="tEnglish"><span class="big">📚</span><span><h2>English &amp; Reading</h2><p>Sounds, words, stories and grammar games</p></span><span class="te-deco" aria-hidden="true">Aa Bb Cc</span></button>
-      <button class="tile t-crafts" id="tCrafts"><span class="big">✂️</span><span><h2>Crafts corner</h2><p>Fold, cut, glue and build real things</p></span><span class="tc-deco" aria-hidden="true">🦢🐸🧦🚀</span></button>
-      <button class="tile t-world" id="tWorld"><span class="big">🌍</span><span><h2>My World</h2><p>Spend your stars on lands, houses and animals</p></span><span class="tw-wallet">⭐ ${worldHome.wallet()} to spend</span><span class="tw-deco" aria-hidden="true">🐄🌳🏡🐧🌈</span></button>
+    <div class="hgroups">
+      <section class="hgroup g-learn" aria-label="Learn"><h2 class="hg-title"><span aria-hidden="true">📖</span> Learn</h2><div class="tiles">
+        <button class="tile t-math" id="tMath"><span class="big">🔢</span><span><h2>Number Garden</h2><p>From counting to algebra</p></span></button>
+        <button class="tile t-english" id="tEnglish"><span class="big">📚</span><span><h2>English &amp; Reading</h2><p>Sounds, words, stories and grammar games</p></span><span class="te-deco" aria-hidden="true">Aa Bb Cc</span></button>
+        <button class="tile t-owl" id="tOwl"><span class="big">🦉</span><span><h2>Ask Owl</h2><p>Ask me anything!</p></span></button>
+      </div></section>
+      <section class="hgroup g-make" aria-label="Make"><h2 class="hg-title"><span aria-hidden="true">🎨</span> Make</h2><div class="tiles">
+        <button class="tile t-art" id="tArt"><span class="big">🖍️</span><span><h2>Art School</h2><p>Step-by-step drawing and more</p></span></button>
+        <button class="tile t-crafts" id="tCrafts"><span class="big">✂️</span><span><h2>Crafts corner</h2><p>Fold, cut, glue and build real things</p></span><span class="tc-deco" aria-hidden="true">🦢🐸🧦🚀</span></button>
+        <button class="tile t-draw" id="tDraw"><span class="big">✏️</span><span><h2>Drawing pad</h2><p>Draw anything with real brushes</p></span></button>
+      </div></section>
+      <section class="hgroup g-play" aria-label="Play"><h2 class="hg-title"><span aria-hidden="true">🎈</span> Play</h2><div class="tiles">
+        <button class="tile t-games" id="tGames"><span class="big">🎮</span><span><h2>Games</h2><p>Pop, hop, shop and race with numbers</p></span></button>
+        <button class="tile t-quest" id="tQuest"><span class="big">🗺️</span><span><h2>Owl's Quest</h2><p>A story adventure with math and art</p></span></button>
+        <button class="tile t-world" id="tWorld"><span class="big">🌍</span><span><h2>My World</h2><p>Spend your stars on lands, houses and animals</p></span><span class="tw-wallet">⭐ ${worldHome.wallet()} to spend</span><span class="tw-deco" aria-hidden="true">🐄🌳🏡🐧🌈</span></button>
+      </div></section>
     </div>
+    <button class="pick" id="pick"><span class="big">${p.ico}</span><span><b>${p.title}</b>${p.text}</span></button>
+    ${questCard()}
     <h3 class="section-title">My stickers <span class="tag">every 10 ⭐</span><button class="tag badge-link" id="badgesBtn">🏅 Badges ${Object.keys(st.badges || {}).length}/${BADGES.length}</button></h3>
     <div class="stickers">${stickers.length ? stickers.map(s => `<span>${s}</span>`).join('') : '<span class="empty">Earn 10 stars to get your first sticker.</span>'}</div>
     <button class="small-link" id="parent">For grown-ups</button>`;
@@ -247,6 +256,8 @@ function home() {
   $('#tWorld').onclick = () => go(worldHome);
   $('#tEnglish').onclick = () => go(englishHome);
   $('#tCrafts').onclick = () => go(craftsHome);
+  $('#tDraw').onclick = () => go(freeDraw);
+  $('#tGames').onclick = () => go(gamesHome);
   $('#parent').onclick = () => go(gate);
   $('#pick').onclick = () => p.kind === 'review' ? go(play, 'review') : p.kind === 'lesson' ? go(drawLesson, p.id) : go(startSkill, p.skill);
   tour.maybe();
@@ -950,7 +961,13 @@ function parent() {
 /* ---------- start ---------- */
 updateTop();
 go(profiles.length > 1 ? whoView : home);
-if (location.hash === "#selftest") window.__owl = { MATH, LESSONS, BRUSHES, get livePad() { return livePad; }, lessonSVG, PICS, get st() { return st; }, get profiles() { return profiles; }, quest, questTick, gainXP, petStage, go, home, mathHome, artHome, catView, drawLesson, gamesHome, ART_CATS, lessonView, play, speakable, storyHome, colorHome, sceneHome, shapeHome, flipHome, galTab, worldHome, englishHome, craftsHome };
+// The art lessons and crafts are not built at startup. A few seconds after the first screen is up, they are built one
+// file at a time whenever the app is idle, so Art School and the Crafts corner open quickly later too.
+{
+  const idle = f => window.requestIdleCallback ? requestIdleCallback(f, { timeout: 3000 }) : setTimeout(f, 60);
+  setTimeout(() => idle(function warm() { if (artWarmStep() || craftsHome.warm()) idle(warm); }), 3000);
+}
+if (location.hash === "#selftest") window.__owl = { MATH, LESSONS, get artPending() { return artBuilt ? 0 : ART_LATER.length; }, BRUSHES, get livePad() { return livePad; }, lessonSVG, PICS, get st() { return st; }, get profiles() { return profiles; }, quest, questTick, gainXP, petStage, go, home, mathHome, artHome, catView, drawLesson, gamesHome, ART_CATS, lessonView, play, speakable, storyHome, colorHome, sceneHome, shapeHome, flipHome, galTab, worldHome, englishHome, craftsHome };
 if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) {
   try {
     // A new version installs in the background; offer a tap to switch rather than reloading mid-game.

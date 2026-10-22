@@ -3,7 +3,7 @@
 // These lessons teach the way real artists work: light construction shapes, then a contour around them,
 // then details, texture and shading. Shapes are kept as point lists, so an outline can be the union of
 // several shapes (head + body + legs become one smooth animal), and a shape behind can stop where a front shape begins.
-(() => {
+ART_LATER.push(() => {
   const f1 = n => +n.toFixed(1), DEG = Math.PI / 180;
   const P = 'Paper, a pencil, an eraser and crayons';
   const PS = 'Paper, a soft pencil, an eraser and colored pencils';
@@ -887,4 +887,4 @@
 
   PT.forEach(l => LESSONS.push(l));
 
-})();
+});

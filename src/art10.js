@@ -1,7 +1,7 @@
 /* ---------- art10: furniture & rooms, houses & homes, landscape drawing & painting ---------- */
 // Uses the helpers from art.js (ac, ae, al, ap, ar, apg, apl, guide, paint, stroke).
 // Wrapped in a function so the little helpers below never clash with other files.
-(() => {
+ART_LATER.push(() => {
   const f1 = n => +n.toFixed(1);
   const DEG = Math.PI / 180, STEP = 3;
 
@@ -803,4 +803,4 @@
       ['Draw a tiny farmhouse in a far field, a sun and some birds.', V(house) + V(hroof) + ac(166, 30, 12) + ap('M50 30 q5 -5 10 0 q5 -5 10 0 M76 44 q4 -4 8 0 q4 -4 8 0')],
       ['Color warm yellows and greens close up, and cool blues far away.', M(paint(SKY, ar(0, 0, 200, 80)) + paint('#AFC0E6', ap(hillsD + ' L200 80 L0 80 Z')) + paint('#BCD8C4', ar(0, 80, 200, 120)) + paint('#A8D07A', F(midR)) + paint('#E9C860', F(nearR)) + paint('#9CCB5A', ap('M0 160 Q30 138 70 130 L60 200 L0 200 Z')) + paint('#D9C3A0', F(roadR)) + paint('#3E9A62', F(trs[0].top)) + paint('#6DB98A', F(trs[1].top)) + paint('#9CC9B0', F(trs[2].top)) + paint(WOODD, Fs(trs.map(t => t.trunk))) + paint(RED, F(house) + F(hroof)) + paint(SUN, ac(166, 30, 12)))]] });
   }
-})();
+});

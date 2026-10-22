@@ -593,6 +593,8 @@ const craftsHome = (() => {
     { n: 4, name: 'Expert', ico: '🔴', ages: '10+', stars: 6 }
   ];
   const CRAFTS = [], BY = {};
+  // crafts2.js to crafts4.js queue their crafts here; they are built the first time the crafts are needed, not at startup.
+  const later = [], load = () => { if (later.length) later.splice(0).forEach(f => f()); };
   function add(list) { list.forEach(c => { if (BY[c.id]) return; c.steps = c.steps.filter(Boolean); CRAFTS.push(c); BY[c.id] = c; }); }
   const stepDur = s => s.d || (s.a === 'show' ? 4000 : s.a === 'ori' ? 4600 : 5000);
 
@@ -616,6 +618,7 @@ const craftsHome = (() => {
   const madeCount = () => Object.keys(CS().done).filter(k => BY[k]).length;
   const maxLvForAge = () => st.age <= 5 ? 1 : st.age <= 7 ? 2 : st.age <= 9 ? 3 : 4;
   function suggest() {
+    load();
     const ml = maxLvForAge(), D = CS().done, todo = CRAFTS.filter(c => !D[c.id]);
     return todo.filter(c => c.lv <= ml).sort((a, b) => a.lv - b.lv)[0] || todo.sort((a, b) => a.lv - b.lv)[0] || CRAFTS[0];
   }
@@ -640,6 +643,7 @@ const craftsHome = (() => {
   const norm = x => String(x).toLowerCase().replace(/[^a-z0-9 ]+/g, ' ').replace(/\s+/g, ' ').trim();
   // The crafts that match a level (0 = any), a material chip and typed words (every word must match the name, a material or the kind).
   function filter(level = 0, have = '', q = '') {
+    load();
     const h = HAVE.find(x => x.id === have), words = norm(q).split(' ').filter(Boolean);
     return CRAFTS.filter(c => {
       if (level && c.lv !== level) return false;
@@ -654,12 +658,14 @@ const craftsHome = (() => {
   }
   // Craft of the day: the same craft all day (from the date), picked from the levels that suit the child's age.
   function cotd(day = today()) {
+    load();
     let h = 2166136261; for (const ch of day) h = Math.imul(h ^ ch.charCodeAt(0), 16777619) >>> 0;
     const ml = maxLvForAge(), pool = CRAFTS.filter(c => c.lv <= ml), L = pool.length ? pool : CRAFTS;
     return L[h % L.length];
   }
 
   function crHome(level = 0, have = '', q = '') {
+    load();
     const D = CS(), s = suggest(), made = madeCount(), stickers = CRAFTS.filter(c => D.done[c.id]).map(c => D.done[c.id].sticker || c.ico), cd = cotd();
     view.innerHTML = `${crumbs('✂️ Crafts corner')}
       <div class="cr-hero"><span class="cr-owl" aria-hidden="true">🦉</span><p>Let's make real things! Watch each little movie, then make it with your hands. Easy ones first, then trickier ones.</p></div>
@@ -707,6 +713,7 @@ const craftsHome = (() => {
     list();
   }
   function catView(id) {
+    load();
     const k = CATS.find(x => x.id === id) || CATS[0], list = CRAFTS.filter(c => c.cat === k.id).sort((a, b) => a.lv - b.lv);
     view.innerHTML = `${crumbs(`${k.ico} ${k.name}`)}<p class="note">From easy to tricky. Tap one to watch how to make it.</p><div class="cr-cards">${list.map(card).join('')}</div>`;
     wireBack(crHome);
@@ -717,6 +724,7 @@ const craftsHome = (() => {
   /* --- the craft page and its movie player --- */
   let M = null; // the movie on screen: { c, i, playing, start, at, all, frames, raf }
   function craftView(id, back) {
+    load();
     const c = BY[id] || CRAFTS[0], d = CS().done[c.id], safe = safety(c), backTo = back || (() => catView(c.cat));
     view.innerHTML = `${crumbs(`${c.ico} ${esc(c.name)}`)}
       <div class="cr-info">${lvChip(c)}<span class="cr-time">⏱ ${c.min} minutes</span><span class="cr-time">🎬 ${c.steps.length} steps</span>${d ? `<span class="cr-time">✅ made ${d.n}×</span>` : ''}</div>
@@ -805,6 +813,7 @@ const craftsHome = (() => {
     return { n, first };
   }
   function madeView(id) {
+    load();
     const c = BY[id] || CRAFTS[0], last = c.steps[c.steps.length - 1];
     let done = false;
     view.innerHTML = `${crumbs('🎉 You made it!')}
@@ -860,11 +869,11 @@ const craftsHome = (() => {
     };
   }
 
-  const info = () => ({ crafts: CRAFTS.length, cats: CATS.length, steps: CRAFTS.reduce((a, c) => a + c.steps.length, 0), levels: LEVELS.map(l => CRAFTS.filter(c => c.lv === l.n).length) });
+  const info = () => (load(), { crafts: CRAFTS.length, cats: CATS.length, steps: CRAFTS.reduce((a, c) => a + c.steps.length, 0), levels: LEVELS.map(l => CRAFTS.filter(c => c.lv === l.n).length) });
   if (location.hash === '#selftest') window.__crafts = {
-    CATS, LEVELS, HAVE, get CRAFTS() { return CRAFTS; }, BY, info, safety, frame, stepDur, CS, suggest, filter, cotd, raw: (s, e, t = 0) => R[s.a](s, e, t),
+    CATS, LEVELS, HAVE, pending: () => later.length, get CRAFTS() { load(); return CRAFTS; }, get BY() { load(); return BY; }, info, safety, frame, stepDur, CS, suggest, filter, cotd, raw: (s, e, t = 0) => R[s.a](s, e, t),
     home: (lv, have, q) => go(crHome, lv || 0, have || '', q || ''), cat: id => go(catView, id), open: id => go(craftView, id), made: id => go(madeView, id), get movie() { return M; }
   };
-  crHome.add = add; crHome.kit = K; crHome.info = info; crHome.LEVELS = LEVELS; crHome.CATS = CATS;
+  crHome.add = add; crHome.later = later; crHome.warm = () => { const f = later.shift(); if (f) f(); return later.length > 0; }; crHome.kit = K; crHome.info = info; crHome.LEVELS = LEVELS; crHome.CATS = CATS;
   return crHome;
 })();

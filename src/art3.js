@@ -1,6 +1,6 @@
 /* ---------- more art lessons (art3): comics, drawing from life, seasons, printing, clay & 3D, famous styles ---------- */
 // Wrapped in a block so these helper names never clash with other files.
-{
+ART_LATER.push(() => {
   const f1 = n => +n.toFixed(1);
   // Colour that soaks in like a marker: lines underneath stay visible (multiply blend). ev = holes via even-odd.
   const T = (c, s, ev) => `<g class="pt" style="fill:${c};mix-blend-mode:multiply${ev ? ';fill-rule:evenodd' : ''}">${s}</g>`;
@@ -395,4 +395,4 @@
       ['Roy Lichtenstein filled spaces with comic-book dots. Add dots to one background.', paint('#E8402F', benDay)],
       ['Go over every line with a thick black marker. Pop art is bold! Hang it up and show someone.', stroke('#1B1B1B', wide(popC.map(([x, y]) => ae(x, y + 6, 24, 28) + ap(popHair(x, y)) + ap(popLips(x, y))).join(''), 4.5))]] }
   );
-}
+});

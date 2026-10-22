@@ -11,7 +11,8 @@
 <title>Owl & Crayon</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@500;700;800&display=swap">
+<!-- The fonts load without holding up the first paint (or the app, on a slow or missing network). -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@500;700;800&display=swap" media="print" onload="this.media='all'">
 <style>
 /* Layout: one-screen tablet app. Top bar, then one big view at a time. Single bright "classroom wall" look, chosen on purpose for kids. */
 :root{
@@ -1706,6 +1707,32 @@ body:has(.sp-svg) #toast{pointer-events:none}
 .cr-search .tool{min-width:56px;height:56px;font-size:20px}
 @media (max-width:520px){.cr-text{font-size:19px}.cr-ctrl .tool{min-width:50px;height:50px;font-size:21px}.cr-cats{grid-template-columns:repeat(2,1fr)}.cr-cards{grid-template-columns:repeat(2,1fr)}.cr-hv{font-size:16px;padding:8px 12px}.cr-cotd-t b{font-size:19px}}
 @media (prefers-reduced-motion:reduce){.tc-deco,.cr-pulse,.cr-big{animation:none}}
+
+/* ---------- home: the areas in three groups (Learn, Make, Play), every tile on the first screen of a phone ---------- */
+.hgroups{display:grid;gap:14px}
+.hg-title{font-size:22px;display:flex;align-items:center;gap:8px;margin:0 0 8px;color:var(--ink)}
+.hgroup .tiles{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.hgroup .tile{grid-column:auto;min-height:150px;padding:16px;justify-content:flex-start;gap:8px;position:relative;overflow:hidden}
+.hgroup .tile h2{font-size:clamp(20px,2.8vw,27px);overflow-wrap:anywhere}
+.hgroup .tile .big{font-size:52px}
+.hgroup .te-deco,.hgroup .tc-deco,.hgroup .tw-deco{display:none}
+.hgroup .tw-wallet{margin-top:6px;font-size:15px;padding:3px 10px}
+.t-draw{background:#B9407E;color:#fff}
+.t-games{background:#1D7C82;color:#fff}
+@media (max-width:520px){
+  .hgroups{gap:10px}
+  .hg-title{font-size:19px;margin-bottom:6px}
+  .hgroup .tiles{gap:8px}
+  .hgroup .tile{min-height:112px;padding:10px 6px;align-items:center;justify-content:center;text-align:center;gap:4px;border-radius:22px}
+  .hgroup .tile .big{font-size:42px}
+  .hgroup .tile h2{font-size:16px;line-height:1.1}
+  .hgroup .tile p{display:none}
+  .hgroup .tw-wallet{align-self:center;font-size:12px;padding:2px 8px;margin-top:2px}
+  .hello{gap:10px;flex-wrap:nowrap}
+  .hello .pet-btn{flex:none}
+  .hello h1{font-size:26px}
+  .hello p{font-size:15px}
+}
 </style>
 
 </head><body>
@@ -6003,7 +6030,24 @@ const ring = (n, R, f) => Array.from({ length: n }, (_, i) => { const a = i * 2 
 const zig = (n, r1, r2, cx = 100, cy = 100) => Array.from({ length: n * 2 }, (_, i) => { const a = i * Math.PI / n - Math.PI / 2, r = i % 2 ? r1 : r2; return `${(cx + r * Math.cos(a)).toFixed(1)},${(cy + r * Math.sin(a)).toFixed(1)}`; }).join(' ');
 const wedge = (i, n, col, R = 80) => { const a0 = i / n * 2 * Math.PI - Math.PI / 2, a1 = (i + 1) / n * 2 * Math.PI - Math.PI / 2; return paint(col, `<path d="M100 100 L${100 + R * Math.cos(a0)} ${100 + R * Math.sin(a0)} A${R} ${R} 0 0 1 ${100 + R * Math.cos(a1)} ${100 + R * Math.sin(a1)} Z"/>`); };
 
-const ART_CATS = [
+// Most lessons (art2.js to art11.js and the brush lessons) are queued on ART_LATER and only built the first time
+// something reads LESSONS or ART_CATS (the Art School, a lesson, the grown-ups' pages), not while the app starts.
+// core.js arms this once every file is loaded, so the lessons keep the same order as before.
+const ART_LATER = [];
+let artArmed = false, artBuilt = false, artBusy = false;
+const artLoad = () => { if (artBuilt || !artArmed || artBusy) return; artBuilt = true; ART_LATER.splice(0).forEach(f => f()); };
+// One file at a time while the app is idle after the home screen is up (core.js), so the Art School opens fast too.
+// Returns true while there is more to build.
+const artWarmStep = () => {
+  if (artBuilt || !artArmed) return false;
+  const f = ART_LATER.shift();
+  if (f) { artBusy = true; try { f(); } finally { artBusy = false; } }
+  if (!ART_LATER.length) artBuilt = true;
+  return !artBuilt;
+};
+const lazyArt = a => new Proxy(a, { get(t, k, r) { artLoad(); return Reflect.get(t, k, r); }, has(t, k) { artLoad(); return Reflect.has(t, k); } });
+
+const ART_CATS = lazyArt([
   { id: 'shapes', name: 'Shape Pictures', ico: '🔷', blurb: 'Build pictures from circles, squares and triangles' },
   { id: 'animals', name: 'Animals', ico: '🐾', blurb: 'Cats, owls, elephants and more' },
   { id: 'people', name: 'Faces & People', ico: '🙂', blurb: 'Feelings, faces and bodies' },
@@ -6016,14 +6060,14 @@ const ART_CATS = [
   { id: 'letters', name: 'Lettering', ico: '🔤', blurb: 'Fancy letters and your name' },
   { id: 'craft', name: 'Paper Crafts', ico: '✂️', blurb: 'Fold planes, cups and animals' },
   { id: 'paint', name: 'Painting & Collage', ico: '🖌️', blurb: 'Washes, dots, sponges, torn paper and more' }
-];
+]);
 const LEVEL_NAMES = ['', 'Beginner', 'Explorer', 'Master'];
 
 // Tessellation helpers: a flat-topped hexagon, and a square tile with a bump moved from its left side to its right side.
 const hexPts = (cx, cy, r = 17) => Array.from({ length: 6 }, (_, k) => { const t = k * Math.PI / 3; return `${(cx + r * Math.cos(t)).toFixed(1)},${(cy + r * Math.sin(t)).toFixed(1)}`; }).join(' ');
 const tessTile = (x, y, s = 36) => { const r = s * 0.22, m = s / 2; return `M${x} ${y} H${x + s} V${y + m - r} a${r} ${r} 0 0 1 0 ${2 * r} V${y + s} H${x} V${y + m + r} a${r} ${r} 0 0 0 0 ${-2 * r} Z`; };
 
-const LESSONS = [
+const LESSONS = lazyArt([
   /* ---- Shape pictures ---- */
   { id: 'house', cat: 'shapes', level: 1, title: 'A cozy house', ico: '🏠', need: 'Paper, a pencil and crayons', tip: 'A house is just a square with a triangle hat. You can draw shapes!', steps: [
     ['Draw a big square near the bottom of the page. These are the walls.', ar(50, 90, 100, 90)],
@@ -6401,13 +6445,13 @@ const LESSONS = [
     ['Paint a big yellow moon and a few stars. Paint a ring of yellow strokes around each one, so they glow.', paint('#FFD966', ac(160, 40, 14) + ac(30, 90, 6) + ac(110, 30, 5)) + stroke('#FFC23D', ac(160, 40, 22) + ac(30, 90, 12) + ac(110, 30, 10))],
     ['Paint the tree very dark, with strokes that go up like flames. Dark next to light makes it stand out.', paint('#22305A', ap('M40 185 Q30 120 45 70 Q55 120 60 185 Z'))],
     ['Paint tiny houses on the hills, each a square with a triangle roof and a yellow window. Leave the brush marks showing: that is the style!', ar(100, 150, 18, 14) + apg('98,150 109,141 120,150') + ar(130, 148, 18, 16) + apg('128,148 139,139 150,148') + paint('#FFC23D', ar(106, 155, 5, 5) + ar(136, 153, 5, 5))]] }
-];
+]);
 
 const lessonById = id => LESSONS.find(l => l.id === id);
 /* ---------- more art lessons (art2): vehicles, ocean, bugs & birds, dinosaurs, food, fairy tales ---------- */
 // Uses the helpers from art.js (ac, ae, al, ap, ar, apg, apl, guide, paint, fold, atext, ring, zig).
 // Wrapped in a block so the little helpers below do not clash with other files.
-(() => {
+ART_LATER.push(() => {
   const f1 = n => +n.toFixed(1);
   // A star with n points, outer radius R, inner radius r, turned by rot degrees.
   const starPts = (cx, cy, R, r, n = 5, rot = 0) => Array.from({ length: n * 2 }, (_, i) => {
@@ -6705,10 +6749,10 @@ const lessonById = id => LESSONS.find(l => l.id === id);
       ['Draw gold coins and a jewel on the ground in front.', ae(40, 184, 10, 4) + ae(62, 188, 10, 4) + ae(150, 180, 10, 4) + ae(150, 175, 10, 4) + apg('90,182 98,174 106,182 98,192')],
       ['Erase the guides. Color the chest brown and the treasure gold!', '', { clear: true }]] }
   );
-})();
+});
 /* ---------- more art lessons (art3): comics, drawing from life, seasons, printing, clay & 3D, famous styles ---------- */
 // Wrapped in a block so these helper names never clash with other files.
-{
+ART_LATER.push(() => {
   const f1 = n => +n.toFixed(1);
   // Colour that soaks in like a marker: lines underneath stay visible (multiply blend). ev = holes via even-odd.
   const T = (c, s, ev) => `<g class="pt" style="fill:${c};mix-blend-mode:multiply${ev ? ';fill-rule:evenodd' : ''}">${s}</g>`;
@@ -7103,11 +7147,11 @@ const lessonById = id => LESSONS.find(l => l.id === id);
       ['Roy Lichtenstein filled spaces with comic-book dots. Add dots to one background.', paint('#E8402F', benDay)],
       ['Go over every line with a thick black marker. Pop art is bold! Hang it up and show someone.', stroke('#1B1B1B', wide(popC.map(([x, y]) => ae(x, y + 6, 24, 28) + ap(popHair(x, y)) + ap(popLips(x, y))).join(''), 4.5))]] }
   );
-}
+});
 /* ---------- art4: farm, jungle & safari, pets, space, sports & play, buildings & cities ---------- */
 // Uses the helpers from art.js (ac, ae, al, ap, ar, apg, apl, guide, paint, atext).
 // Wrapped in a function so the little helpers below never clash with other files.
-(() => {
+ART_LATER.push(() => {
   const f1 = n => +n.toFixed(1);
   const DEG = Math.PI / 180, STEP = 3;
 
@@ -7732,11 +7776,11 @@ const lessonById = id => LESSONS.find(l => l.id === id);
       ['Erase the guide lines. Draw windows: their tops and bottoms point to the dot too!', winL + winR + winF, { clear: true }],
       ['Color your street. Can you add cars that get smaller as they drive away?', M(paint(SKY, ar(0, 0, 200, 115.3)) + paint('#C9D3E0', apg('100,90 52,200 148,200')) + paint('#E8DCC8', apg('76,115.3 24,170 0,195.3 0,200 52,200 100,90 124,115.3 176,170 200,195.3 200,200 148,200')) + paint('#9AA1AB', far.map(F).join('')) + paint('#F7A39A', ap('M0 10 H24 V170 H0 Z')) + paint('#E8A86B', apg('24,10 76,64.7 76,115.3 24,170')) + paint('#9CCBF5', ap('M200 30 H176 V170 H200 Z')) + paint('#6D9BD1', apg('176,30 124,71.1 124,115.3 176,170')) + paint(SUN, winL + winR + winF + ar(97, 118, 6, 82)))]] });
   }
-})();
+});
 /* ---------- art5: doodles, kawaii, origami, nature art, weaving & string, shadows & silhouettes ---------- */
 // Uses the helpers from art.js (ac, ae, al, ap, ar, apg, apl, guide, fold, stroke, paint, atext, zig).
 // Wrapped in an IIFE so the little helpers below never clash with other files.
-(() => {
+ART_LATER.push(() => {
   const f1 = n => +n.toFixed(1);
   // Colour that soaks in like a marker: lines underneath stay visible. ev = holes via even-odd.
   const T = (c, s, ev) => `<g class="pt" style="fill:${c};mix-blend-mode:multiply${ev ? ';fill-rule:evenodd' : ''}">${s}</g>`;
@@ -8217,11 +8261,11 @@ const lessonById = id => LESSONS.find(l => l.id === id);
       ['Fill the afternoon shadow with dots.', inClip(['a5s-notoy', 'a5s-sh2'], paint('#3D7DD8', shDots))],
       ['The sun was on the other side of the toy. Draw a sun for each shadow and show someone!', sunIcon(170, 66, '#FFE58A') + sunIcon(30, 66, '#FFC23D')]] }
   );
-})();
+});
 /* ---------- art6: 3 more lessons for each of the 12 first kinds of art ---------- */
 // Uses the helpers from art.js (ac, ae, al, ap, ar, apg, apl, guide, fold, stroke, paint, atext, ring, zig).
 // Wrapped in an IIFE so the little helpers below never clash with other files.
-(() => {
+ART_LATER.push(() => {
   const f1 = n => +(+n).toFixed(1);
   const P = (x, y) => `${f1(x)} ${f1(y)}`;
   const pts = a => a.map(p => `${f1(p[0])},${f1(p[1])}`).join(' ');
@@ -8729,10 +8773,10 @@ const lessonById = id => LESSONS.find(l => l.id === id);
       ['Keep pressing and slowly pull the string out. Zzzip!', ar(100, 30, 80, 140, 2) + fold(al(100, 30, 100, 170)) + stroke('#6D55D1', fat('M150 170 Q150 185 130 190 Q100 196 70 186 Q50 178 40 188', 3)) + al(60, 160, 30, 160) + apl('36,155 30,160 36,165')],
       ['Open it up: a mirror swirl! Try again with a second color on top.', ar(20, 30, 160, 140, 2) + fold(al(100, 30, 100, 170)) + stroke('#6D55D1', fat(swirlA, 6) + mirror(fat(swirlA, 6))) + stroke('#F78FB3', fat(swirlB, 5) + mirror(fat(swirlB, 5)))]] }
   );
-})();
+});
 /* ---------- art7: 3 more lessons in each of the 12 newer kinds (vehicles to famous styles) ---------- */
 // Uses the helpers from art.js. Wrapped in a block so the little helpers below never clash with other files.
-(() => {
+ART_LATER.push(() => {
   const f1 = n => +n.toFixed(1);
   // Colour that soaks in like a marker: lines underneath stay visible (multiply blend). ev = holes via even-odd.
   const T = (c, s, ev) => `<g class="pt" style="fill:${c};mix-blend-mode:multiply${ev ? ';fill-rule:evenodd' : ''}">${s}</g>`;
@@ -9184,11 +9228,11 @@ const lessonById = id => LESSONS.find(l => l.id === id);
       ['Draw lines inside the big wave, following its shape. Add flying foam dots.', ap('M18 170 C30 126 52 86 96 64') + ap('M40 176 C50 136 70 100 106 80') + ap('M60 182 C68 146 84 116 114 92') + [[170, 64], [176, 80], [166, 92], [184, 52], [156, 100]].map(([x, y]) => ac(x, y, 2.2)).join('')],
       ['Color the waves deep blue, the foam white, and the sky pale yellow.', T('#F6E7C1', ar(0, 0, 200, 200)) + T('#2E5FB8', ap(waveFill)) + T('#7FA7E0', ap(smallWave + ' V200 H86 Z')) + T('#A9B4C4', ap('M118 146 L150 104 L182 146 Z')) + paint('#fff', apg('137.3,120.7 143,125 150,118 157,125 162.7,120.7 150,104')) + T('#C99A6E', ap('M126 182 Q160 190 196 178 L192 188 Q160 198 130 190 Z'))]] }
   );
-})();
+});
 /* ---------- art8: art around the world, masks & puppets, cards & gifts, mixed media, chalk & pastels, mosaic & stained glass ---------- */
 // Uses the helpers from art.js (ac, ae, al, ap, ar, apg, apl, guide, fold, stroke, paint, atext).
 // Wrapped in an IIFE so the little helpers below never clash with other files.
-(() => {
+ART_LATER.push(() => {
   const f1 = n => +n.toFixed(1);
   // Colour that soaks in like a marker: lines underneath stay visible. ev = holes via even-odd.
   const T = (c, s, ev) => `<g class="pt" style="fill:${c};mix-blend-mode:multiply${ev ? ';fill-rule:evenodd' : ''}">${s}</g>`;
@@ -9669,11 +9713,11 @@ const lessonById = id => LESSONS.find(l => l.id === id);
       ['Colour all the background squares light blue.', pxCells('.')],
       ['Glue it on card. Now make your own pixel animal to keep it company!', stroke('#3D7DD8', wide(ar(14, 27, 172, 146, 6), 5))]] }
   );
-})();
+});
 /* ---------- art9: music, toys, weather, castles, gardens, silly creatures ---------- */
 // Uses the helpers from art.js (ac, ae, al, ap, ar, apg, apl, guide, paint, atext).
 // Wrapped in a function so the little helpers below never clash with other files.
-(() => {
+ART_LATER.push(() => {
   const f1 = n => +n.toFixed(1);
   const DEG = Math.PI / 180, STEP = 3;
 
@@ -10304,11 +10348,11 @@ const lessonById = id => LESSONS.find(l => l.id === id);
       ['Draw spikes on the big hump, spots, and more waves.', spikes + spots + lowWaves],
       ['Color your sea monster. Is it green, purple or rainbow?', M(paint(SKY, ar(0, 0, 200, 140)) + paint('#6DB3F2', ap(wd + ' L200 200 L0 200 Z')) + paint('#6CC08B', F(head) + ap('M48 60 Q30 100 40 140 L76 140 Q62 104 78 62 Z') + F(poly(arcE(112, 140, 20, 26, 180, 360).pts)) + F(poly(arcE(156, 140, 16, 18, 180, 360).pts)) + ap(tailD + ' Z')) + paint('#FFD43B', F(hornA) + F(hornB)) + paint('#3E9A62', spots))]] });
   }
-})();
+});
 /* ---------- art10: furniture & rooms, houses & homes, landscape drawing & painting ---------- */
 // Uses the helpers from art.js (ac, ae, al, ap, ar, apg, apl, guide, paint, stroke).
 // Wrapped in a function so the little helpers below never clash with other files.
-(() => {
+ART_LATER.push(() => {
   const f1 = n => +n.toFixed(1);
   const DEG = Math.PI / 180, STEP = 3;
 
@@ -11110,13 +11154,13 @@ const lessonById = id => LESSONS.find(l => l.id === id);
       ['Draw a tiny farmhouse in a far field, a sun and some birds.', V(house) + V(hroof) + ac(166, 30, 12) + ap('M50 30 q5 -5 10 0 q5 -5 10 0 M76 44 q4 -4 8 0 q4 -4 8 0')],
       ['Color warm yellows and greens close up, and cool blues far away.', M(paint(SKY, ar(0, 0, 200, 80)) + paint('#AFC0E6', ap(hillsD + ' L200 80 L0 80 Z')) + paint('#BCD8C4', ar(0, 80, 200, 120)) + paint('#A8D07A', F(midR)) + paint('#E9C860', F(nearR)) + paint('#9CCB5A', ap('M0 160 Q30 138 70 130 L60 200 L0 200 Z')) + paint('#D9C3A0', F(roadR)) + paint('#3E9A62', F(trs[0].top)) + paint('#6DB98A', F(trs[1].top)) + paint('#9CC9B0', F(trs[2].top)) + paint(WOODD, Fs(trs.map(t => t.trunk))) + paint(RED, F(house) + F(hroof)) + paint(SUN, ac(166, 30, 12)))]] });
   }
-})();
+});
 /* ---------- art11: real drawing — real animals, people & bodies, portraits & faces ---------- */
 // Uses the helpers from art.js (ac, ae, al, ap, guide, stroke, paint, atext).
 // These lessons teach the way real artists work: light construction shapes, then a contour around them,
 // then details, texture and shading. Shapes are kept as point lists, so an outline can be the union of
 // several shapes (head + body + legs become one smooth animal), and a shape behind can stop where a front shape begins.
-(() => {
+ART_LATER.push(() => {
   const f1 = n => +n.toFixed(1), DEG = Math.PI / 180;
   const P = 'Paper, a pencil, an eraser and crayons';
   const PS = 'Paper, a soft pencil, an eraser and colored pencils';
@@ -12000,7 +12044,7 @@ const lessonById = id => LESSONS.find(l => l.id === id);
 
   PT.forEach(l => LESSONS.push(l));
 
-})();
+});
 /* ---------- brush engine: real-media brushes and papers for the drawing pad ---------- */
 // makePad hands each stroke to BRUSHES.engine(cv, wet). Points are queued and painted in requestAnimationFrame with a
 // stamp budget per frame, so a fast finger never makes the pad lag. "Layer" brushes (marker, watercolor) paint into the
@@ -12390,7 +12434,7 @@ const BRUSHES = (() => {
 
 /* ---- 🎨 Paint like a pro: brush technique lessons (Art skills › Brush Techniques) ---- */
 // `brush` and `paper` preselect them on the pad; a step's third item { brush } switches brush at that step.
-(() => {
+ART_LATER.push(() => {
   const band = (y, h, col, op = 0.75) => paint(col, `<path d="M15 ${y} Q57 ${y - 7} 100 ${y} T185 ${y} L185 ${y + h} Q143 ${y + h + 7} 100 ${y + h} T15 ${y + h}Z" opacity="${op}"/>`);
   const frame = ar(15, 15, 170, 170, 8);
   const sky = paint('#1F2027', ar(15, 15, 170, 170, 8));
@@ -12454,7 +12498,8 @@ const BRUSHES = (() => {
       ['Pick Chalk and purple, thin size. Draw a little shadow under each cloud.', stroke('#6D55D1', ap('M40 86 Q65 92 90 86') + ap('M108 134 Q128 140 148 134')), { brush: 'chalk' }],
       ['Smudge the shadows gently into the white. Now your clouds look soft and round!', '', { brush: 'smudge' }]] }
   );
-})();
+});
+artArmed = true; // every lesson file is queued now; the first read of LESSONS or ART_CATS builds them
 
 /* ---------- state ---------- */
 const STICKERS = ['🦄','🐢','🚀','🌈','🐙','🦖','🍩','🐝','🎨','🦊','🐳','🌻','🏰','🐼','⚽','🎸','🦋','🍉','🐧','👑','🦁','🐬','🍄','🎃','🛸','🐉','🍭','🦒','⛵','🎠'];
@@ -12777,17 +12822,25 @@ function home() {
     <div class="hello"><button class="pet-btn" id="petBtn" aria-label="My owl ${esc(st.pet.name)}">${petHTML(76, 'bounce')}</button><div>
       <h1>Hi${st.name ? ', ' + esc(st.name) : ''}! What shall we do?</h1>
       <p>${esc(mood)}${st.streak.n > 1 ? ` You played ${st.streak.n} days in a row!` : ''}</p></div></div>
-    ${questCard()}
-    <button class="pick" id="pick"><span class="big">${p.ico}</span><span><b>${p.title}</b>${p.text}</span></button>
-    <div class="tiles">
-      <button class="tile t-math" id="tMath"><span class="big">🔢</span><span><h2>Number Garden</h2><p>From counting to algebra</p></span></button>
-      <button class="tile t-art" id="tArt"><span class="big">🖍️</span><span><h2>Art School</h2><p>Step-by-step drawing and more</p></span></button>
-      <button class="tile t-quest" id="tQuest"><span class="big">🗺️</span><span><h2>Owl's Quest</h2><p>A story adventure with math and art</p></span></button>
-      <button class="tile t-owl" id="tOwl"><span class="big">🦉</span><span><h2>Ask Owl</h2><p>Ask me anything!</p></span></button>
-      <button class="tile t-english" id="tEnglish"><span class="big">📚</span><span><h2>English &amp; Reading</h2><p>Sounds, words, stories and grammar games</p></span><span class="te-deco" aria-hidden="true">Aa Bb Cc</span></button>
-      <button class="tile t-crafts" id="tCrafts"><span class="big">✂️</span><span><h2>Crafts corner</h2><p>Fold, cut, glue and build real things</p></span><span class="tc-deco" aria-hidden="true">🦢🐸🧦🚀</span></button>
-      <button class="tile t-world" id="tWorld"><span class="big">🌍</span><span><h2>My World</h2><p>Spend your stars on lands, houses and animals</p></span><span class="tw-wallet">⭐ ${worldHome.wallet()} to spend</span><span class="tw-deco" aria-hidden="true">🐄🌳🏡🐧🌈</span></button>
+    <div class="hgroups">
+      <section class="hgroup g-learn" aria-label="Learn"><h2 class="hg-title"><span aria-hidden="true">📖</span> Learn</h2><div class="tiles">
+        <button class="tile t-math" id="tMath"><span class="big">🔢</span><span><h2>Number Garden</h2><p>From counting to algebra</p></span></button>
+        <button class="tile t-english" id="tEnglish"><span class="big">📚</span><span><h2>English &amp; Reading</h2><p>Sounds, words, stories and grammar games</p></span><span class="te-deco" aria-hidden="true">Aa Bb Cc</span></button>
+        <button class="tile t-owl" id="tOwl"><span class="big">🦉</span><span><h2>Ask Owl</h2><p>Ask me anything!</p></span></button>
+      </div></section>
+      <section class="hgroup g-make" aria-label="Make"><h2 class="hg-title"><span aria-hidden="true">🎨</span> Make</h2><div class="tiles">
+        <button class="tile t-art" id="tArt"><span class="big">🖍️</span><span><h2>Art School</h2><p>Step-by-step drawing and more</p></span></button>
+        <button class="tile t-crafts" id="tCrafts"><span class="big">✂️</span><span><h2>Crafts corner</h2><p>Fold, cut, glue and build real things</p></span><span class="tc-deco" aria-hidden="true">🦢🐸🧦🚀</span></button>
+        <button class="tile t-draw" id="tDraw"><span class="big">✏️</span><span><h2>Drawing pad</h2><p>Draw anything with real brushes</p></span></button>
+      </div></section>
+      <section class="hgroup g-play" aria-label="Play"><h2 class="hg-title"><span aria-hidden="true">🎈</span> Play</h2><div class="tiles">
+        <button class="tile t-games" id="tGames"><span class="big">🎮</span><span><h2>Games</h2><p>Pop, hop, shop and race with numbers</p></span></button>
+        <button class="tile t-quest" id="tQuest"><span class="big">🗺️</span><span><h2>Owl's Quest</h2><p>A story adventure with math and art</p></span></button>
+        <button class="tile t-world" id="tWorld"><span class="big">🌍</span><span><h2>My World</h2><p>Spend your stars on lands, houses and animals</p></span><span class="tw-wallet">⭐ ${worldHome.wallet()} to spend</span><span class="tw-deco" aria-hidden="true">🐄🌳🏡🐧🌈</span></button>
+      </div></section>
     </div>
+    <button class="pick" id="pick"><span class="big">${p.ico}</span><span><b>${p.title}</b>${p.text}</span></button>
+    ${questCard()}
     <h3 class="section-title">My stickers <span class="tag">every 10 ⭐</span><button class="tag badge-link" id="badgesBtn">🏅 Badges ${Object.keys(st.badges || {}).length}/${BADGES.length}</button></h3>
     <div class="stickers">${stickers.length ? stickers.map(s => `<span>${s}</span>`).join('') : '<span class="empty">Earn 10 stars to get your first sticker.</span>'}</div>
     <button class="small-link" id="parent">For grown-ups</button>`;
@@ -12802,6 +12855,8 @@ function home() {
   $('#tWorld').onclick = () => go(worldHome);
   $('#tEnglish').onclick = () => go(englishHome);
   $('#tCrafts').onclick = () => go(craftsHome);
+  $('#tDraw').onclick = () => go(freeDraw);
+  $('#tGames').onclick = () => go(gamesHome);
   $('#parent').onclick = () => go(gate);
   $('#pick').onclick = () => p.kind === 'review' ? go(play, 'review') : p.kind === 'lesson' ? go(drawLesson, p.id) : go(startSkill, p.skill);
   tour.maybe();
@@ -13452,7 +13507,7 @@ function parent() {
       <p class="note">Owl &amp; Crayon works without the internet. Progress, drawings and Owl's answers are saved only in this browser on this device. There are no ads, no tracking and no accounts, and nothing is sent anywhere unless you switch on Online Owl.</p>
       <p class="note">With Online Owl on, only the question your child asks and their age go to your Online Owl server, which asks an AI (Cloudflare's free AI, or Claude by Anthropic) for a short, child-friendly answer. Names and progress are never sent. You can read every answer above, and turn it off at any time.</p>
       <p class="note">The microphone button uses the browser's own speech recognition, which may send the recording to the browser maker (for example Google or Apple) to turn it into text. Typing works without it.</p>
-      <p class="note">Version 2026-10-22 04:19 UTC</p></div>`;
+      <p class="note">Version 2026-10-22 06:29 UTC</p></div>`;
   view.querySelectorAll('[data-teach]').forEach(b => b.onclick = () => {
     const i = +b.dataset.teach, ans = $('#t' + i).value.trim(); if (!ans) return;
     owlForget(st.owlMisses[i].q); st.owlTaught.push({ q: st.owlMisses[i].q, a: ans }); st.owlMisses.splice(i, 1); save(); go(parent);
@@ -20408,6 +20463,8 @@ const craftsHome = (() => {
     { n: 4, name: 'Expert', ico: '🔴', ages: '10+', stars: 6 }
   ];
   const CRAFTS = [], BY = {};
+  // crafts2.js to crafts4.js queue their crafts here; they are built the first time the crafts are needed, not at startup.
+  const later = [], load = () => { if (later.length) later.splice(0).forEach(f => f()); };
   function add(list) { list.forEach(c => { if (BY[c.id]) return; c.steps = c.steps.filter(Boolean); CRAFTS.push(c); BY[c.id] = c; }); }
   const stepDur = s => s.d || (s.a === 'show' ? 4000 : s.a === 'ori' ? 4600 : 5000);
 
@@ -20431,6 +20488,7 @@ const craftsHome = (() => {
   const madeCount = () => Object.keys(CS().done).filter(k => BY[k]).length;
   const maxLvForAge = () => st.age <= 5 ? 1 : st.age <= 7 ? 2 : st.age <= 9 ? 3 : 4;
   function suggest() {
+    load();
     const ml = maxLvForAge(), D = CS().done, todo = CRAFTS.filter(c => !D[c.id]);
     return todo.filter(c => c.lv <= ml).sort((a, b) => a.lv - b.lv)[0] || todo.sort((a, b) => a.lv - b.lv)[0] || CRAFTS[0];
   }
@@ -20455,6 +20513,7 @@ const craftsHome = (() => {
   const norm = x => String(x).toLowerCase().replace(/[^a-z0-9 ]+/g, ' ').replace(/\s+/g, ' ').trim();
   // The crafts that match a level (0 = any), a material chip and typed words (every word must match the name, a material or the kind).
   function filter(level = 0, have = '', q = '') {
+    load();
     const h = HAVE.find(x => x.id === have), words = norm(q).split(' ').filter(Boolean);
     return CRAFTS.filter(c => {
       if (level && c.lv !== level) return false;
@@ -20469,12 +20528,14 @@ const craftsHome = (() => {
   }
   // Craft of the day: the same craft all day (from the date), picked from the levels that suit the child's age.
   function cotd(day = today()) {
+    load();
     let h = 2166136261; for (const ch of day) h = Math.imul(h ^ ch.charCodeAt(0), 16777619) >>> 0;
     const ml = maxLvForAge(), pool = CRAFTS.filter(c => c.lv <= ml), L = pool.length ? pool : CRAFTS;
     return L[h % L.length];
   }
 
   function crHome(level = 0, have = '', q = '') {
+    load();
     const D = CS(), s = suggest(), made = madeCount(), stickers = CRAFTS.filter(c => D.done[c.id]).map(c => D.done[c.id].sticker || c.ico), cd = cotd();
     view.innerHTML = `${crumbs('✂️ Crafts corner')}
       <div class="cr-hero"><span class="cr-owl" aria-hidden="true">🦉</span><p>Let's make real things! Watch each little movie, then make it with your hands. Easy ones first, then trickier ones.</p></div>
@@ -20522,6 +20583,7 @@ const craftsHome = (() => {
     list();
   }
   function catView(id) {
+    load();
     const k = CATS.find(x => x.id === id) || CATS[0], list = CRAFTS.filter(c => c.cat === k.id).sort((a, b) => a.lv - b.lv);
     view.innerHTML = `${crumbs(`${k.ico} ${k.name}`)}<p class="note">From easy to tricky. Tap one to watch how to make it.</p><div class="cr-cards">${list.map(card).join('')}</div>`;
     wireBack(crHome);
@@ -20532,6 +20594,7 @@ const craftsHome = (() => {
   /* --- the craft page and its movie player --- */
   let M = null; // the movie on screen: { c, i, playing, start, at, all, frames, raf }
   function craftView(id, back) {
+    load();
     const c = BY[id] || CRAFTS[0], d = CS().done[c.id], safe = safety(c), backTo = back || (() => catView(c.cat));
     view.innerHTML = `${crumbs(`${c.ico} ${esc(c.name)}`)}
       <div class="cr-info">${lvChip(c)}<span class="cr-time">⏱ ${c.min} minutes</span><span class="cr-time">🎬 ${c.steps.length} steps</span>${d ? `<span class="cr-time">✅ made ${d.n}×</span>` : ''}</div>
@@ -20620,6 +20683,7 @@ const craftsHome = (() => {
     return { n, first };
   }
   function madeView(id) {
+    load();
     const c = BY[id] || CRAFTS[0], last = c.steps[c.steps.length - 1];
     let done = false;
     view.innerHTML = `${crumbs('🎉 You made it!')}
@@ -20675,18 +20739,18 @@ const craftsHome = (() => {
     };
   }
 
-  const info = () => ({ crafts: CRAFTS.length, cats: CATS.length, steps: CRAFTS.reduce((a, c) => a + c.steps.length, 0), levels: LEVELS.map(l => CRAFTS.filter(c => c.lv === l.n).length) });
+  const info = () => (load(), { crafts: CRAFTS.length, cats: CATS.length, steps: CRAFTS.reduce((a, c) => a + c.steps.length, 0), levels: LEVELS.map(l => CRAFTS.filter(c => c.lv === l.n).length) });
   if (location.hash === '#selftest') window.__crafts = {
-    CATS, LEVELS, HAVE, get CRAFTS() { return CRAFTS; }, BY, info, safety, frame, stepDur, CS, suggest, filter, cotd, raw: (s, e, t = 0) => R[s.a](s, e, t),
+    CATS, LEVELS, HAVE, pending: () => later.length, get CRAFTS() { load(); return CRAFTS; }, get BY() { load(); return BY; }, info, safety, frame, stepDur, CS, suggest, filter, cotd, raw: (s, e, t = 0) => R[s.a](s, e, t),
     home: (lv, have, q) => go(crHome, lv || 0, have || '', q || ''), cat: id => go(catView, id), open: id => go(craftView, id), made: id => go(madeView, id), get movie() { return M; }
   };
-  crHome.add = add; crHome.kit = K; crHome.info = info; crHome.LEVELS = LEVELS; crHome.CATS = CATS;
+  crHome.add = add; crHome.later = later; crHome.warm = () => { const f = later.shift(); if (f) f(); return later.length > 0; }; crHome.kit = K; crHome.info = info; crHome.LEVELS = LEVELS; crHome.CATS = CATS;
   return crHome;
 })();
 /* ---------- Crafts corner, part 2: paper folding, cutting, collage, plates, tubes, cards and clay ---------- */
 // Each step is { t: what to do (read aloud), a: the kind of mini-movie, ...what it draws }. Drawings use the kit in
 // crafts.js (viewBox 0 0 200 150). K.ori(...) folds a paper model step by step, so origami movies stay true to the paper.
-(() => {
+craftsHome.later.push(() => {
   const K = craftsHome.kit, C = K.C;
   const S = (t, a, o = {}) => ({ t, a, ...o });
   const mid = svg => K.g(svg, -100, -75); // a finished picture drawn around the middle, for the "show" movie
@@ -21117,9 +21181,9 @@ const craftsHome = (() => {
   })();
 
   craftsHome.add([fan, dog, plane, cup, hat, boat, frog, crane, heart, snake, chain, flake, rainbow, fish, robot, lion, sun, bug, mask, binos, rocket, owl, handCard, popup, monster, snakeClay, snail, pot, hog]);
-})();
+});
 /* ---------- Crafts corner, part 3: nature, puppets, threading, recycling, sewing, parties, science and string ---------- */
-(() => {
+craftsHome.later.push(() => {
   const K = craftsHome.kit, C = K.C;
   const S = (t, a, o = {}) => ({ t, a, ...o });
   const mid = svg => K.g(svg, -100, -75);
@@ -21505,12 +21569,12 @@ const craftsHome = (() => {
   })();
 
   craftsHome.add([leafPrint, rockBug, coneOwl, crownN, sockP, bagP, fingerP, necklace, weaveMat, feeder, planter, boxBot, car, lacing, pillow, buttonSew, lantern, partyCrown, wand, heli, pinwheel, kaleido, strawRocket, letter, braid, friend, stringArt]);
-})();
+});
 /* ---------- Crafts corner, part 4 (round 2): painting, beads, costumes, sensory play, building, gifts, seasons, more origami ---------- */
 // Same step format as crafts2.js. New movie kinds from crafts.js used here: dab (sponge, finger, stamp, dropper, cork
 // or straw prints, spread: true for watercolor), pour (a jug tips and the level rises; grain: true for beans, rice or
 // sand), stir, stack (pieces drop and land), knot, measure (a ruler and pencil marks), launch (spoon catapult) and oven.
-(() => {
+craftsHome.later.push(() => {
   const K = craftsHome.kit, C = K.C;
   const S = (t, a, o = {}) => ({ t, a, ...o });
   const mid = svg => K.g(svg, -100, -75);
@@ -21866,8 +21930,8 @@ const craftsHome = (() => {
   craftsHome.add([spongeFlowers, bubbleWrap, saltPaint, marblePaint, blowPaint, fingerBugs, resist, potato, blotFly,
     pastaNeck, strawBeads, paperBeads, buttonBrace, clayBeads, pipeRing, lizard,
     cape, eyeMask, ribbonWand, bagVest, earBand, shield, plateCrown]);
-})();
-(() => {
+});
+craftsHome.later.push(() => {
   const K = craftsHome.kit, C = K.C;
   const S = (t, a, o = {}) => ({ t, a, ...o });
   const mid = svg => K.g(svg, -100, -75);
@@ -22198,8 +22262,8 @@ const craftsHome = (() => {
   craftsHome.add([playdough, rainstick, shaker, calmJar, texture, cloudDough, pompom,
     bridge, cupTower, catapult, toothpick, balloonCar, marbleRun, paperTower, raft,
     frame, coupons, flowerPot, tasselMark, handprint, garland]);
-})();
-(() => {
+});
+craftsHome.later.push(() => {
   const K = craftsHome.kit, C = K.C;
   const S = (t, a, o = {}) => ({ t, a, ...o });
   const mid = svg => K.g(svg, -100, -75);
@@ -22451,7 +22515,7 @@ const craftsHome = (() => {
   })();
 
   craftsHome.add([tissueFlower, filterFly, jellyfish, sandArt, autumnTree, pumpkin, sockSnow, stickFlake, star3d, fox, tulip, oriHeart, oriFly, fortune, starBox]);
-})();
+});
 /* ---------- welcome tour (once per player) and the grown-ups' "What's inside" guide ---------- */
 // The tour shows the first time a player reaches the home screen: 7 big cards, each read aloud and pointing at a real
 // home-screen tile. It is stored per player as st.tour. Automated runs (#selftest or a webdriver) skip it unless
@@ -22528,7 +22592,11 @@ const tour = (() => {
       root.classList.remove('wt-top');
       const r = t.getBoundingClientRect(), room = H - ch;
       const y = r.height + 24 > room ? r.top - 12 : r.top + r.height / 2 - room / 2;
-      scrollTo(0, Math.max(0, scrollY + y));
+      // A target near the end of the page (Today's quest, under the area tiles) gets room below it, so it can scroll
+      // clear of the card; the room goes when the tour ends.
+      const want = scrollY + y, max = document.documentElement.scrollHeight - H;
+      if (want > max) view.style.paddingBottom = (parseFloat(view.style.paddingBottom) || 0) + want - max + 'px';
+      scrollTo(0, Math.max(0, want));
     }
     const r = t.getBoundingClientRect(), pad = 8;
     if (scroll) root.classList.toggle('wt-top', r.bottom + pad > H - ch && r.top - pad > ch);
@@ -22537,7 +22605,7 @@ const tour = (() => {
 
   function close() {
     if (!cur) return;
-    cur.off(); cur.root.remove(); cur = null;
+    cur.off(); cur.root.remove(); cur = null; view.style.paddingBottom = '';
     try { speechSynthesis.cancel(); } catch (e) {}
   }
   function finish(how) {
@@ -22831,7 +22899,13 @@ const timer = (() => {
 /* ---------- start ---------- */
 updateTop();
 go(profiles.length > 1 ? whoView : home);
-if (location.hash === "#selftest") window.__owl = { MATH, LESSONS, BRUSHES, get livePad() { return livePad; }, lessonSVG, PICS, get st() { return st; }, get profiles() { return profiles; }, quest, questTick, gainXP, petStage, go, home, mathHome, artHome, catView, drawLesson, gamesHome, ART_CATS, lessonView, play, speakable, storyHome, colorHome, sceneHome, shapeHome, flipHome, galTab, worldHome, englishHome, craftsHome };
+// The art lessons and crafts are not built at startup. A few seconds after the first screen is up, they are built one
+// file at a time whenever the app is idle, so Art School and the Crafts corner open quickly later too.
+{
+  const idle = f => window.requestIdleCallback ? requestIdleCallback(f, { timeout: 3000 }) : setTimeout(f, 60);
+  setTimeout(() => idle(function warm() { if (artWarmStep() || craftsHome.warm()) idle(warm); }), 3000);
+}
+if (location.hash === "#selftest") window.__owl = { MATH, LESSONS, get artPending() { return artBuilt ? 0 : ART_LATER.length; }, BRUSHES, get livePad() { return livePad; }, lessonSVG, PICS, get st() { return st; }, get profiles() { return profiles; }, quest, questTick, gainXP, petStage, go, home, mathHome, artHome, catView, drawLesson, gamesHome, ART_CATS, lessonView, play, speakable, storyHome, colorHome, sceneHome, shapeHome, flipHome, galTab, worldHome, englishHome, craftsHome };
 if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) {
   try {
     // A new version installs in the background; offer a tap to switch rather than reloading mid-game.
