@@ -9,9 +9,9 @@
 // (3 chapter stars + 10 = 13) with a vocabulary pop-up, grammar islands in order (badge round 13, the next island
 // opens; a 2-of-5 round gives 7 and no badge); the mission prize (+3) and the quest's English job; the grown-ups'
 // report counts; everything kept after a reload. Phone with speech, tablet without.
-// Prints "errors none" and "fails none" when clean. Takes PORT (default 8799). Screenshots go to SHOTS.
+// Prints "errors none" and "fails none" when clean. Takes PORT (default 8766). Screenshots go to SHOTS.
 const { chromium } = require(require('child_process').execSync('npm root -g').toString().trim() + '/playwright');
-const PORT = process.env.PORT || 8799, SHOTS = process.env.SHOTS || '.';
+const PORT = process.env.PORT || 8766, SHOTS = process.env.SHOTS || '.';
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 const errs = [], fails = [];
 
