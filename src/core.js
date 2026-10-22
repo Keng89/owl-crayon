@@ -964,6 +964,8 @@ function parent() {
 //@include crafts2.js
 //@include crafts3.js
 //@include crafts4.js
+//@include crafts5.js
+//@include crafts6.js
 //@include tour.js
 //@include timer.js
 //@include report.js

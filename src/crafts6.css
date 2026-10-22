@@ -1,0 +1,50 @@
+/* ---------- Crafts corner round 3 (src/crafts6.js): glowing tools, preview, slow motion, step checks, journeys, templates ---------- */
+.cr-glow{filter:drop-shadow(0 0 2px #fff) drop-shadow(0 0 4px rgba(255,200,40,.9))}
+.cr-pv{position:absolute;inset:0;background:#FFF6E5;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:8px;gap:6px}
+.cr-pv[hidden]{display:none}
+.cr-pv svg{position:absolute;inset:0;width:100%;height:100%}
+.cr-pv-t{position:relative;margin:0;background:rgba(34,48,90,.85);color:#fff;font-weight:800;font-size:17px;border-radius:999px;padding:4px 14px;margin-bottom:auto;margin-top:2px}
+.cr-pv-go{position:relative;min-height:52px;font-size:21px;padding:8px 22px;box-shadow:0 4px 0 #1E7A4E}
+.cr-cheer{position:absolute;left:50%;top:42%;transform:translate(-50%,-50%);background:var(--sun);color:var(--ink);font-family:var(--display);font-size:28px;font-weight:800;border-radius:24px;padding:8px 20px;box-shadow:0 4px 0 rgba(34,48,90,.25);animation:starpop .5s;pointer-events:none;white-space:nowrap}
+.cr-cheer[hidden]{display:none}
+#crSlow.on,#crSlow[aria-pressed=true]{background:var(--leaf);color:#fff}
+.cr-did{width:100%;max-width:560px;min-height:72px;font-size:28px}
+.cr-next.cr-next-alt:not(.cr-made){min-height:52px;font-size:20px;background:var(--paper);color:var(--ink);box-shadow:0 3px 0 var(--line)}
+.cr-dot.did{background:var(--leaf);color:#fff}
+.cr-dot.did::after{content:'✓';font-size:12px;margin-left:1px}
+.cr-tpl{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:10px}
+.cr-tpl .note{margin:0;flex:1;min-width:180px}
+.cr-jrn h2{font-size:22px}
+.cr-jlist{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.cr-jb{display:flex;align-items:center;gap:10px;text-align:left;background:var(--bg);border-radius:18px;padding:10px 12px;min-height:72px;box-shadow:0 3px 0 var(--line);border-left:8px solid var(--jc)}
+.cr-jico{font-size:34px;flex:none}
+.cr-jt{display:flex;flex-direction:column;gap:4px;min-width:0;flex:1}.cr-jt b{font-family:var(--display);font-size:19px;line-height:1.1}.cr-jt small{font-weight:800;color:var(--ink-soft)}
+.cr-jbar{display:block;height:10px;border-radius:99px;background:var(--line);overflow:hidden;width:100%}.cr-jbar i{display:block;height:100%}
+.cr-jwon{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
+.cr-jbadge{display:flex;flex-direction:column;align-items:center;font-size:40px;line-height:1}.cr-jbadge small{font-size:12px;font-weight:800}
+.cr-trail{list-style:none;margin:0;padding:0 0 0 8px;display:flex;flex-direction:column;gap:14px;position:relative}
+.cr-trail::before{content:'';position:absolute;left:34px;top:20px;bottom:20px;border-left:5px dashed var(--jc);opacity:.5}
+.cr-trail li{position:relative}
+.cr-stop{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:var(--paper);border-radius:20px;padding:10px 12px;min-height:72px;box-shadow:0 4px 0 var(--line)}
+.cr-sn{flex:none;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:20px;background:var(--bg);box-shadow:0 0 0 3px var(--jc);position:relative}
+.cr-trail .done .cr-sn{background:var(--jc);color:#fff}
+.cr-trail .next .cr-stop{outline:4px solid var(--sun);animation:crhalo 1.4s ease-in-out infinite}
+@keyframes crhalo{50%{box-shadow:0 0 0 8px rgba(255,194,61,.6)}}
+.cr-sico{font-size:32px;flex:none}
+.cr-st{display:flex;flex-direction:column;min-width:0}.cr-st b{font-family:var(--display);font-size:19px;line-height:1.1}.cr-st small{font-weight:700;color:var(--ink-soft)}
+.cr-snext{margin-left:auto;background:var(--sun);border-radius:999px;padding:4px 10px;font-weight:800;font-size:14px}
+.cr-goal .cr-stop{background:var(--sun-soft)}
+.cr-jdone{display:flex;flex-direction:column;align-items:center;gap:2px;background:var(--sun-soft);border-radius:18px;padding:10px 16px;margin-top:8px}
+.cr-jbig{font-size:56px;line-height:1;animation:starpop .6s}
+.cr-jgo{margin-top:8px}
+#crTplPrint{display:none}
+@media (max-width:520px){.cr-did{font-size:23px;min-height:64px}.cr-pv-t{font-size:15px}.cr-pv-go{font-size:18px;min-height:48px}.cr-cheer{font-size:22px}}
+@media (prefers-reduced-motion:reduce){.cr-trail .next .cr-stop,.cr-jbig,.cr-cheer{animation:none}}
+@media print{
+  body.cr-printing>:not(#crTplPrint){display:none!important}
+  body.cr-printing{background:#fff!important}
+  body.cr-printing #crTplPrint{display:block!important;color:#000}
+  #crTplPrint .cr-tpl-h{font:700 11pt sans-serif;margin:0 0 4mm}
+  #crTplPrint svg{display:block}
+  @page{margin:10mm}
+}
