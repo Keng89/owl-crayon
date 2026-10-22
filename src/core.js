@@ -1,9 +1,20 @@
 /* ---------- storage (works offline, survives without localStorage) ---------- */
-const mem = {};
+// When a write fails (storage full, private mode), the value is kept in memory and reads of that key use it, so the
+// app never reads back an older copy from localStorage (switching players and back kept the old progress before).
+const mem = {}, storeUnsaved = new Set();
 const store = {
-  get(k, d) { try { const v = localStorage.getItem('owlcrayon:' + k); if (v != null) return JSON.parse(v); } catch (e) {} return k in mem ? mem[k] : d; },
-  set(k, v) { mem[k] = v; try { localStorage.setItem('owlcrayon:' + k, JSON.stringify(v)); } catch (e) {} }
+  get(k, d) { if (storeUnsaved.has(k)) return mem[k]; try { const v = localStorage.getItem('owlcrayon:' + k); if (v != null) return JSON.parse(v); } catch (e) {} return k in mem ? mem[k] : d; },
+  set(k, v) {
+    mem[k] = v;
+    try { localStorage.setItem('owlcrayon:' + k, JSON.stringify(v)); storeUnsaved.delete(k); } catch (e) { storeUnsaved.add(k); return; }
+    this.flush(); // there is space again: write out whatever is still waiting
+  },
+  flush() { for (const u of storeUnsaved) try { localStorage.setItem('owlcrayon:' + u, JSON.stringify(mem[u])); storeUnsaved.delete(u); } catch (e) { return; } },
+  del(k) { delete mem[k]; storeUnsaved.delete(k); try { localStorage.removeItem('owlcrayon:' + k); } catch (e) {} }
 };
+// ...and once more when the app is hidden or closed, in case space came back after the last write.
+addEventListener('pagehide', () => store.flush());
+document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') store.flush(); });
 const today = () => { const d = new Date(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); };
 const dayNum = s => Math.round(new Date(s + 'T12:00:00').getTime() / 864e5);
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
@@ -201,7 +212,7 @@ const view = document.getElementById('view');
 const $ = s => view.querySelector(s);
 function updateTop() { document.getElementById('starCount').textContent = st.stars; document.getElementById('streakCount').textContent = st.streak.n; const w = document.getElementById('whoBtn'); w.textContent = (profileOf(pid) || profiles[0]).avatar; w.setAttribute('aria-label', `Player: ${st.name || 'Player'}. Tap to switch`); }
 let navId = 0;
-function go(fn, ...a) { navId++; try { speechSynthesis.cancel(); } catch (e) {} stopCanvas(); view.innerHTML = ''; window.scrollTo(0, 0); fn(...a); }
+function go(fn, ...a) { navId++; try { speechSynthesis.cancel(); } catch (e) {} stopCanvas(); document.body.classList.remove('rp-printing'); view.innerHTML = ''; window.scrollTo(0, 0); fn(...a); }
 document.getElementById('homeBtn').onclick = () => go(home);
 document.getElementById('whoBtn').onclick = () => go(whoView);
 document.getElementById('readBtn').onclick = () => say(screenText || document.getElementById('view').innerText.slice(0, 400));
@@ -966,7 +977,7 @@ go(profiles.length > 1 ? whoView : home);
   const idle = f => window.requestIdleCallback ? requestIdleCallback(f, { timeout: 3000 }) : setTimeout(f, 60);
   setTimeout(() => idle(function warm() { if (artWarmStep() || craftsHome.warm()) idle(warm); }), 3000);
 }
-if (location.hash === "#selftest") window.__owl = { MATH, LESSONS, get artPending() { return artBuilt ? 0 : ART_LATER.length; }, BRUSHES, get livePad() { return livePad; }, lessonSVG, PICS, get st() { return st; }, get profiles() { return profiles; }, quest, questTick, gainXP, petStage, go, home, mathHome, artHome, catView, drawLesson, gamesHome, ART_CATS, lessonView, play, speakable, storyHome, colorHome, sceneHome, shapeHome, flipHome, galTab, worldHome, englishHome, craftsHome };
+if (location.hash === "#selftest") window.__owl = { get pid() { return pid; }, store, storeWaiting: () => storeUnsaved.size, addStars, MATH, LESSONS, get artPending() { return artBuilt ? 0 : ART_LATER.length; }, BRUSHES, get livePad() { return livePad; }, lessonSVG, PICS, get st() { return st; }, get profiles() { return profiles; }, quest, questTick, gainXP, petStage, go, home, mathHome, artHome, catView, drawLesson, gamesHome, ART_CATS, lessonView, play, speakable, storyHome, colorHome, sceneHome, shapeHome, flipHome, galTab, worldHome, englishHome, craftsHome };
 if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) {
   try {
     // A new version installs in the background; offer a tap to switch rather than reloading mid-game.

@@ -3,8 +3,14 @@ const AVATARS = ['🦊', '🐼', '🐯', '🐸', '🦄', '🐙', '🐵', '🐨',
 // Spoken names for the picture buttons, so a screen reader says "fox" rather than nothing useful.
 const AV_NAMES = { '🦊': 'fox', '🐼': 'panda', '🐯': 'tiger', '🐸': 'frog', '🦄': 'unicorn', '🐙': 'octopus', '🐵': 'monkey', '🐨': 'koala', '🐰': 'bunny', '🦁': 'lion', '🐳': 'whale', '🐞': 'ladybug' };
 function migrate(s) {
+  // A save from an older version (or a damaged one) gets any missing top-level part from a fresh state, so loading it
+  // never throws. The newer areas (st.english, st.crafts, st.world...) fill themselves in when first used.
+  const f = freshState(+s.age || 5);
+  for (const k in f) if (s[k] == null || typeof s[k] !== typeof f[k] || Array.isArray(f[k]) !== Array.isArray(s[k])) s[k] = f[k];
+  if (!Number.isFinite(s.stars) || s.stars < 0) s.stars = Math.max(0, Math.floor(+s.stars) || 0);
+  if (!s.streak || typeof s.streak.n !== 'number') s.streak = f.streak;
   for (const k in MATH) if (!s.skills[k]) s.skills[k] = { m: startMastery(k, s.age), seen: 0, hist: [], ms: 0 };
-  s.art = s.art || { done: {}, pixel: 1, pixelDone: {} };
+  s.art.done = s.art.done || {}; s.art.pixel = s.art.pixel || 1; s.art.pixelDone = s.art.pixelDone || {};
   s.review = (s.review || []).filter(r => MATH[r.skill]);
   s.pet = s.pet || { xp: Math.min(s.stars || 0, 150), wear: '', name: 'Hoot', seen: null };
   s.bestStreak = Math.max(s.bestStreak || 0, s.streak.n);
@@ -154,7 +160,7 @@ function wirePlayers() {
   view.querySelectorAll('[data-del]').forEach(b => b.onclick = () => {
     if (b.dataset.armed !== '1') { b.dataset.armed = '1'; b.textContent = 'Tap again to remove'; return; }
     const id = b.dataset.del; profiles = profiles.filter(p => p.id !== id); store.set('profiles', profiles);
-    try { localStorage.removeItem('owlcrayon:state:' + id); localStorage.removeItem('owlcrayon:gallery:' + id); ['flip', 'questPics', 'sceneDraft', 'pt'].forEach(k => localStorage.removeItem('owlcrayon:' + k + ':' + id)); } catch (e) {}
+    ['state', 'gallery', 'flip', 'questPics', 'sceneDraft', 'pt'].forEach(k => store.del(k + ':' + id));
     if (id === pid) loadProfile(profiles[0].id); updateTop(); go(parent);
   });
   $('#addForm').onsubmit = e => {

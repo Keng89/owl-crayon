@@ -504,7 +504,7 @@ const englishHome = (() => {
   /* --- the sound song: each card lights up as its line is sung --- */
   function chant(items, tab) {
     const nav = navId, tiles = [...view.querySelectorAll('[data-ph]')];
-    const light = i => { if (nav !== navId) return; tiles.forEach(t => t.classList.remove('lit', 'sing')); const t = tiles[i]; if (t) { t.classList.add('lit', 'sing', 'heard'); E().heard[items[i].k] = 1; try { t.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); } catch (e) {} } };
+    const light = i => { if (nav !== navId) return; tiles.forEach(t => t.classList.remove('lit', 'sing')); const t = tiles[i]; if (t) { t.classList.add('lit', 'sing', 'heard'); if (!E().heard[items[i].k]) { E().heard[items[i].k] = 1; save(); } try { t.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); } catch (e) {} } };
     const line = x => tab === 'letters' ? `${x.big[0]}, ${x.big[0]}, ${x.s}, ${x.s}, ${x.s}! ${x.big[0]} is for ${x.w}!` : `${x.big.replace('‿', ' ')} says ${x.s}, ${x.s}, ${x.w}!`;
     save(); tone([523, 587, 659, 698, 784], .12);
     const voice = st.speak && 'speechSynthesis' in window && typeof SpeechSynthesisUtterance !== 'undefined';

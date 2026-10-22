@@ -849,10 +849,11 @@ const craftsHome = (() => {
       say('Draw your craft! Then tap done.');
       const cv = $('#crCv'), ctx = cv.getContext('2d'), wrap = cv.parentElement, dpr = window.devicePixelRatio || 1;
       const W = wrap.clientWidth, H = Math.round(W * 0.7);
-      cv.width = W * dpr; cv.height = H * dpr; cv.style.height = H + 'px'; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      cv.width = W * dpr; cv.height = H * dpr; cv.style.aspectRatio = `${W} / ${H}`; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, W, H); ctx.lineCap = ctx.lineJoin = 'round'; ctx.lineWidth = 6;
       let col = PAINT[0], down = false, ink = 0; const undo = [];
-      const pos = e => { const r = cv.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; };
+      // The pad keeps its shape when the screen turns or grows; a finger point is scaled back to the drawing's own size.
+      const pos = e => { const r = cv.getBoundingClientRect(); return [(e.clientX - r.left) * W / (r.width || W), (e.clientY - r.top) * H / (r.height || H)]; };
       cv.onpointerdown = e => { down = true; try { cv.setPointerCapture(e.pointerId); } catch (x) {} undo.push(ctx.getImageData(0, 0, cv.width, cv.height)); if (undo.length > 12) undo.shift(); const [x, y] = pos(e); ctx.strokeStyle = col; ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x + 0.1, y + 0.1); ctx.stroke(); ink++; };
       cv.onpointermove = e => { if (!down) return; const [x, y] = pos(e); ctx.lineTo(x, y); ctx.stroke(); ink++; };
       cv.onpointerup = cv.onpointercancel = () => { down = false; };

@@ -1800,11 +1800,22 @@ body:has(.sp-svg) #toast{pointer-events:none}
 (() => {
 'use strict';
 /* ---------- storage (works offline, survives without localStorage) ---------- */
-const mem = {};
+// When a write fails (storage full, private mode), the value is kept in memory and reads of that key use it, so the
+// app never reads back an older copy from localStorage (switching players and back kept the old progress before).
+const mem = {}, storeUnsaved = new Set();
 const store = {
-  get(k, d) { try { const v = localStorage.getItem('owlcrayon:' + k); if (v != null) return JSON.parse(v); } catch (e) {} return k in mem ? mem[k] : d; },
-  set(k, v) { mem[k] = v; try { localStorage.setItem('owlcrayon:' + k, JSON.stringify(v)); } catch (e) {} }
+  get(k, d) { if (storeUnsaved.has(k)) return mem[k]; try { const v = localStorage.getItem('owlcrayon:' + k); if (v != null) return JSON.parse(v); } catch (e) {} return k in mem ? mem[k] : d; },
+  set(k, v) {
+    mem[k] = v;
+    try { localStorage.setItem('owlcrayon:' + k, JSON.stringify(v)); storeUnsaved.delete(k); } catch (e) { storeUnsaved.add(k); return; }
+    this.flush(); // there is space again: write out whatever is still waiting
+  },
+  flush() { for (const u of storeUnsaved) try { localStorage.setItem('owlcrayon:' + u, JSON.stringify(mem[u])); storeUnsaved.delete(u); } catch (e) { return; } },
+  del(k) { delete mem[k]; storeUnsaved.delete(k); try { localStorage.removeItem('owlcrayon:' + k); } catch (e) {} }
 };
+// ...and once more when the app is hidden or closed, in case space came back after the last write.
+addEventListener('pagehide', () => store.flush());
+document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') store.flush(); });
 const today = () => { const d = new Date(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); };
 const dayNum = s => Math.round(new Date(s + 'T12:00:00').getTime() / 864e5);
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
@@ -12562,8 +12573,14 @@ const AVATARS = ['🦊', '🐼', '🐯', '🐸', '🦄', '🐙', '🐵', '🐨',
 // Spoken names for the picture buttons, so a screen reader says "fox" rather than nothing useful.
 const AV_NAMES = { '🦊': 'fox', '🐼': 'panda', '🐯': 'tiger', '🐸': 'frog', '🦄': 'unicorn', '🐙': 'octopus', '🐵': 'monkey', '🐨': 'koala', '🐰': 'bunny', '🦁': 'lion', '🐳': 'whale', '🐞': 'ladybug' };
 function migrate(s) {
+  // A save from an older version (or a damaged one) gets any missing top-level part from a fresh state, so loading it
+  // never throws. The newer areas (st.english, st.crafts, st.world...) fill themselves in when first used.
+  const f = freshState(+s.age || 5);
+  for (const k in f) if (s[k] == null || typeof s[k] !== typeof f[k] || Array.isArray(f[k]) !== Array.isArray(s[k])) s[k] = f[k];
+  if (!Number.isFinite(s.stars) || s.stars < 0) s.stars = Math.max(0, Math.floor(+s.stars) || 0);
+  if (!s.streak || typeof s.streak.n !== 'number') s.streak = f.streak;
   for (const k in MATH) if (!s.skills[k]) s.skills[k] = { m: startMastery(k, s.age), seen: 0, hist: [], ms: 0 };
-  s.art = s.art || { done: {}, pixel: 1, pixelDone: {} };
+  s.art.done = s.art.done || {}; s.art.pixel = s.art.pixel || 1; s.art.pixelDone = s.art.pixelDone || {};
   s.review = (s.review || []).filter(r => MATH[r.skill]);
   s.pet = s.pet || { xp: Math.min(s.stars || 0, 150), wear: '', name: 'Hoot', seen: null };
   s.bestStreak = Math.max(s.bestStreak || 0, s.streak.n);
@@ -12713,7 +12730,7 @@ function wirePlayers() {
   view.querySelectorAll('[data-del]').forEach(b => b.onclick = () => {
     if (b.dataset.armed !== '1') { b.dataset.armed = '1'; b.textContent = 'Tap again to remove'; return; }
     const id = b.dataset.del; profiles = profiles.filter(p => p.id !== id); store.set('profiles', profiles);
-    try { localStorage.removeItem('owlcrayon:state:' + id); localStorage.removeItem('owlcrayon:gallery:' + id); ['flip', 'questPics', 'sceneDraft', 'pt'].forEach(k => localStorage.removeItem('owlcrayon:' + k + ':' + id)); } catch (e) {}
+    ['state', 'gallery', 'flip', 'questPics', 'sceneDraft', 'pt'].forEach(k => store.del(k + ':' + id));
     if (id === pid) loadProfile(profiles[0].id); updateTop(); go(parent);
   });
   $('#addForm').onsubmit = e => {
@@ -12836,7 +12853,7 @@ const view = document.getElementById('view');
 const $ = s => view.querySelector(s);
 function updateTop() { document.getElementById('starCount').textContent = st.stars; document.getElementById('streakCount').textContent = st.streak.n; const w = document.getElementById('whoBtn'); w.textContent = (profileOf(pid) || profiles[0]).avatar; w.setAttribute('aria-label', `Player: ${st.name || 'Player'}. Tap to switch`); }
 let navId = 0;
-function go(fn, ...a) { navId++; try { speechSynthesis.cancel(); } catch (e) {} stopCanvas(); view.innerHTML = ''; window.scrollTo(0, 0); fn(...a); }
+function go(fn, ...a) { navId++; try { speechSynthesis.cancel(); } catch (e) {} stopCanvas(); document.body.classList.remove('rp-printing'); view.innerHTML = ''; window.scrollTo(0, 0); fn(...a); }
 document.getElementById('homeBtn').onclick = () => go(home);
 document.getElementById('whoBtn').onclick = () => go(whoView);
 document.getElementById('readBtn').onclick = () => say(screenText || document.getElementById('view').innerText.slice(0, 400));
@@ -13541,7 +13558,7 @@ function parent() {
       <p class="note">Owl &amp; Crayon works without the internet. Progress, drawings and Owl's answers are saved only in this browser on this device. There are no ads, no tracking and no accounts, and nothing is sent anywhere unless you switch on Online Owl.</p>
       <p class="note">With Online Owl on, only the question your child asks and their age go to your Online Owl server, which asks an AI (Cloudflare's free AI, or Claude by Anthropic) for a short, child-friendly answer. Names and progress are never sent. You can read every answer above, and turn it off at any time.</p>
       <p class="note">The microphone button uses the browser's own speech recognition, which may send the recording to the browser maker (for example Google or Apple) to turn it into text. Typing works without it.</p>
-      <p class="note">Version 2026-10-22 08:50 UTC</p></div>`;
+      <p class="note">Version 2026-10-22 13:06 UTC</p></div>`;
   view.querySelectorAll('[data-teach]').forEach(b => b.onclick = () => {
     const i = +b.dataset.teach, ans = $('#t' + i).value.trim(); if (!ans) return;
     owlForget(st.owlMisses[i].q); st.owlTaught.push({ q: st.owlMisses[i].q, a: ans }); st.owlMisses.splice(i, 1); save(); go(parent);
@@ -17802,8 +17819,10 @@ const worldHome = (() => {
   const night = () => { const h = hourSet != null ? hourSet : new Date().getHours(); return h >= 19 || h < 7; };
   function W() {
     const w = st.world = st.world || {};
-    w.spent = w.spent || 0; w.lands = w.lands || ['home']; w.items = w.items || []; w.got = w.got || {}; w.ms = w.ms || {}; w.fruit = w.fruit || { d: null, n: 0 };
-    w.n = w.n || 0; w.z = w.z == null ? 1 : w.z;
+    w.spent = Math.max(0, +w.spent || 0); w.lands = w.lands || ['home']; w.items = w.items || []; w.got = w.got || {}; w.ms = w.ms || {}; w.fruit = w.fruit || { d: null, n: 0 };
+    w.n = w.n || 0; w.z = ZOOMS[w.z] ? w.z : 1;
+    if (!Array.isArray(w.items)) w.items = []; if (!Array.isArray(w.lands)) w.lands = ['home'];
+    if (w.items.some(o => !o || !BY[o.id])) w.items = w.items.filter(o => o && BY[o.id]); // a damaged save never breaks the map
     return w;
   }
   const wallet = () => Math.max(0, st.stars - W().spent);
@@ -19109,7 +19128,7 @@ const englishHome = (() => {
   /* --- the sound song: each card lights up as its line is sung --- */
   function chant(items, tab) {
     const nav = navId, tiles = [...view.querySelectorAll('[data-ph]')];
-    const light = i => { if (nav !== navId) return; tiles.forEach(t => t.classList.remove('lit', 'sing')); const t = tiles[i]; if (t) { t.classList.add('lit', 'sing', 'heard'); E().heard[items[i].k] = 1; try { t.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); } catch (e) {} } };
+    const light = i => { if (nav !== navId) return; tiles.forEach(t => t.classList.remove('lit', 'sing')); const t = tiles[i]; if (t) { t.classList.add('lit', 'sing', 'heard'); if (!E().heard[items[i].k]) { E().heard[items[i].k] = 1; save(); } try { t.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); } catch (e) {} } };
     const line = x => tab === 'letters' ? `${x.big[0]}, ${x.big[0]}, ${x.s}, ${x.s}, ${x.s}! ${x.big[0]} is for ${x.w}!` : `${x.big.replace('‿', ' ')} says ${x.s}, ${x.s}, ${x.w}!`;
     save(); tone([523, 587, 659, 698, 784], .12);
     const voice = st.speak && 'speechSynthesis' in window && typeof SpeechSynthesisUtterance !== 'undefined';
@@ -20757,10 +20776,11 @@ const craftsHome = (() => {
       say('Draw your craft! Then tap done.');
       const cv = $('#crCv'), ctx = cv.getContext('2d'), wrap = cv.parentElement, dpr = window.devicePixelRatio || 1;
       const W = wrap.clientWidth, H = Math.round(W * 0.7);
-      cv.width = W * dpr; cv.height = H * dpr; cv.style.height = H + 'px'; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      cv.width = W * dpr; cv.height = H * dpr; cv.style.aspectRatio = `${W} / ${H}`; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, W, H); ctx.lineCap = ctx.lineJoin = 'round'; ctx.lineWidth = 6;
       let col = PAINT[0], down = false, ink = 0; const undo = [];
-      const pos = e => { const r = cv.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; };
+      // The pad keeps its shape when the screen turns or grows; a finger point is scaled back to the drawing's own size.
+      const pos = e => { const r = cv.getBoundingClientRect(); return [(e.clientX - r.left) * W / (r.width || W), (e.clientY - r.top) * H / (r.height || H)]; };
       cv.onpointerdown = e => { down = true; try { cv.setPointerCapture(e.pointerId); } catch (x) {} undo.push(ctx.getImageData(0, 0, cv.width, cv.height)); if (undo.length > 12) undo.shift(); const [x, y] = pos(e); ctx.strokeStyle = col; ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x + 0.1, y + 0.1); ctx.stroke(); ink++; };
       cv.onpointermove = e => { if (!down) return; const [x, y] = pos(e); ctx.lineTo(x, y); ctx.stroke(); ink++; };
       cv.onpointerup = cv.onpointercancel = () => { down = false; };
@@ -23146,7 +23166,7 @@ go(profiles.length > 1 ? whoView : home);
   const idle = f => window.requestIdleCallback ? requestIdleCallback(f, { timeout: 3000 }) : setTimeout(f, 60);
   setTimeout(() => idle(function warm() { if (artWarmStep() || craftsHome.warm()) idle(warm); }), 3000);
 }
-if (location.hash === "#selftest") window.__owl = { MATH, LESSONS, get artPending() { return artBuilt ? 0 : ART_LATER.length; }, BRUSHES, get livePad() { return livePad; }, lessonSVG, PICS, get st() { return st; }, get profiles() { return profiles; }, quest, questTick, gainXP, petStage, go, home, mathHome, artHome, catView, drawLesson, gamesHome, ART_CATS, lessonView, play, speakable, storyHome, colorHome, sceneHome, shapeHome, flipHome, galTab, worldHome, englishHome, craftsHome };
+if (location.hash === "#selftest") window.__owl = { get pid() { return pid; }, store, storeWaiting: () => storeUnsaved.size, addStars, MATH, LESSONS, get artPending() { return artBuilt ? 0 : ART_LATER.length; }, BRUSHES, get livePad() { return livePad; }, lessonSVG, PICS, get st() { return st; }, get profiles() { return profiles; }, quest, questTick, gainXP, petStage, go, home, mathHome, artHome, catView, drawLesson, gamesHome, ART_CATS, lessonView, play, speakable, storyHome, colorHome, sceneHome, shapeHome, flipHome, galTab, worldHome, englishHome, craftsHome };
 if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) {
   try {
     // A new version installs in the background; offer a tap to switch rather than reloading mid-game.

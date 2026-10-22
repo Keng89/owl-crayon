@@ -173,8 +173,10 @@ const worldHome = (() => {
   const night = () => { const h = hourSet != null ? hourSet : new Date().getHours(); return h >= 19 || h < 7; };
   function W() {
     const w = st.world = st.world || {};
-    w.spent = w.spent || 0; w.lands = w.lands || ['home']; w.items = w.items || []; w.got = w.got || {}; w.ms = w.ms || {}; w.fruit = w.fruit || { d: null, n: 0 };
-    w.n = w.n || 0; w.z = w.z == null ? 1 : w.z;
+    w.spent = Math.max(0, +w.spent || 0); w.lands = w.lands || ['home']; w.items = w.items || []; w.got = w.got || {}; w.ms = w.ms || {}; w.fruit = w.fruit || { d: null, n: 0 };
+    w.n = w.n || 0; w.z = ZOOMS[w.z] ? w.z : 1;
+    if (!Array.isArray(w.items)) w.items = []; if (!Array.isArray(w.lands)) w.lands = ['home'];
+    if (w.items.some(o => !o || !BY[o.id])) w.items = w.items.filter(o => o && BY[o.id]); // a damaged save never breaks the map
     return w;
   }
   const wallet = () => Math.max(0, st.stars - W().spent);
