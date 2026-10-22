@@ -711,6 +711,7 @@ const craftsHome = (() => {
     qi.onkeydown = e => { if (e.key === 'Enter') qi.blur(); };
     $('#crQx').onclick = () => { qi.value = ''; cur.q = ''; list(); };
     list();
+    if (crHome.onHome) try { crHome.onHome(); } catch (e) { console.warn(e); } // craft journeys (crafts6.js)
   }
   function catView(id) {
     load();
@@ -765,7 +766,7 @@ const craftsHome = (() => {
       screenText = `Step ${mv.i + 1}. ${s.t}`;
     }
     function draw(now) {
-      const s = c.steps[mv.i], d = stepDur(s), el = mv.playing ? now - mv.start + mv.at : mv.at;
+      const s = c.steps[mv.i], d = stepDur(s), el = mv.playing ? (now - mv.start) * (mv.rate || 1) + mv.at : mv.at; // rate < 1 is slow motion (crafts6.js)
       const u = mv.all ? Math.min(1, el / d) : (el % d) / d, e = u < 0.12 ? 0 : u > 0.82 ? 1 : ez((u - 0.12) / 0.7);
       svg.innerHTML = frame(s, e, el); mv.frames++; mv.u = u; mv.e = e;
       const bar = $('#crBar'); if (bar) bar.style.width = (u * 100).toFixed(1) + '%';
@@ -782,7 +783,7 @@ const craftsHome = (() => {
     function setPlay(on) {
       const now = performance.now();
       if (on && !mv.playing) { mv.start = now; mv.playing = true; }
-      else if (!on && mv.playing) { mv.at += now - mv.start; mv.playing = false; draw(now); }
+      else if (!on && mv.playing) { mv.at += (now - mv.start) * (mv.rate || 1); mv.playing = false; draw(now); }
       $('#crPlay').textContent = mv.playing ? '⏸' : '▶️'; $('#crPlay').setAttribute('aria-label', mv.playing ? 'Pause' : 'Play');
     }
     function startAll() { mv.all = true; $('#crMode').hidden = false; $('#crAll').textContent = '⏹ Stop movie'; setPlay(true); show(0); }
@@ -802,6 +803,7 @@ const craftsHome = (() => {
     show(0, false);
     say(`${c.name}. ${LEVELS[c.lv - 1].name}. You need ${c.mat.map(m => m[1]).join(', ')}. ${safe.length ? 'Ask a grown-up to help.' : ''} Step 1. ${c.steps[0].t}`);
     mv.raf = requestAnimationFrame(loop);
+    if (crHome.onView) try { crHome.onView({ c, mv, show, setPlay, draw, stopAll }); } catch (e) { console.warn(e); } // round 3 player extras (crafts6.js)
   }
 
   /* --- "I made it!": draw your craft or pick a sticker, then stars --- */
@@ -833,6 +835,7 @@ const craftsHome = (() => {
       say(`Well done! You earned ${r.n} star${r.n > 1 ? 's' : ''}! ${r.first ? `Your ${c.name} is on your crafts wall.` : ''}`);
       $('#crNx').onclick = () => go(craftView, nx.id);
       $('#crHm').onclick = () => go(crHome);
+      if (crHome.onMade) try { crHome.onMade(c, r); } catch (e) { console.warn(e); } // craft journeys (crafts6.js)
     };
     $('#crStk').onclick = () => {
       if (done) return;
@@ -877,5 +880,7 @@ const craftsHome = (() => {
   };
   crHome.add = add; crHome.later = later; crHome.warm = () => { const f = later.shift(); if (f) f(); return later.length > 0; }; crHome.kit = K; crHome.info = info; crHome.LEVELS = LEVELS; crHome.CATS = CATS;
   crHome.all = () => (load(), CRAFTS); crHome.byId = id => (load(), BY[id]);
+  // round 3 (crafts6.js): new movie kinds and tools, the frame painter, progress, and opening a craft from outside
+  crHome.R = R; crHome.T = T; crHome.frame = frame; crHome.CS = CS; crHome.safety = safety; crHome.open = (id, back) => go(craftView, id, back);
   return crHome;
 })();

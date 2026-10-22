@@ -77,7 +77,8 @@ const report = (() => {
     const maxLv = num(s.age) <= 5 ? 1 : num(s.age) <= 7 ? 2 : num(s.age) <= 9 ? 3 : 4, todo = crafts.filter(c => !cdone[c.id]);
     const C = { made: madeIds.length, all: crafts.length, times: madeIds.reduce((a, k) => a + (num(obj(cdone[k]).n) || 1), 0),
       levels: CL.map(L => ({ name: L.name, ico: L.ico, have: crafts.filter(c => c.lv === L.n && cdone[c.id]).length, all: crafts.filter(c => c.lv === L.n).length })),
-      next: todo.filter(c => c.lv <= maxLv).sort((a, b) => a.lv - b.lv)[0] || todo[0] || null };
+      next: todo.filter(c => c.lv <= maxLv).sort((a, b) => a.lv - b.lv)[0] || todo[0] || null,
+      J: safe(() => craftsHome.journeyStats(cr), null) || { all: 0, done: 0, started: 0, badges: [] } }; // craft journeys (crafts6.js)
 
     // --- My World ---
     const w = obj(s.world), items = arr(w.items).filter(o => o && typeof o === 'object'), wi = safe(() => worldHome.info(), {});
@@ -184,7 +185,7 @@ const report = (() => {
           ${fact('Words traced', E.r3.words)}${fact('Talk time chats', `${E.r3.chats} (${E.r3.scenes} of ${E.r3.scenesAll} places)`)}${fact('Sound game rounds', E.r3.sound)}${fact('English missions done', E.r3.missions)}`)}
         ${card('rp-art', '🖍️', 'Art', `${row('Art lessons done', R.done, R.all, 'var(--coral)')}${R.levels.map(l => row(`${l.name} lessons`, l.have, l.all, 'var(--coral-soft)')).join('')}
           ${fact('Pictures saved', R.pics)}${fact('Pixel art', `level ${R.pixel} of 5 · ${pl(R.pixelDone, 'picture')}`)}`)}
-        ${card('rp-cr', '✂️', 'Crafts', `${row('Crafts made', C.made, C.all, 'var(--sun)')}${C.levels.map(l => row(`${l.ico} ${l.name}`, l.have, l.all, 'var(--sun-soft)')).join('')}${fact('Times making crafts', C.times)}`)}
+        ${card('rp-cr', '✂️', 'Crafts', `${row('Crafts made', C.made, C.all, 'var(--sun)')}${C.levels.map(l => row(`${l.ico} ${l.name}`, l.have, l.all, 'var(--sun-soft)')).join('')}${fact('Times making crafts', C.times)}${C.J.all ? fact('Craft journeys finished', `${C.J.done} of ${C.J.all}${C.J.started > C.J.done ? ` (${C.J.started - C.J.done} under way)` : ''}`) + fact('Journey badges', C.J.badges.length ? esc(C.J.badges.join(', ')) : 'none yet') : ''}`)}
         ${card('rp-world', '🌍', 'My World', `${row('Stars spent', Wd.spent, Wd.earned, 'var(--sky)')}
           ${fact('Stars earned / to spend', `${Wd.earned} / ${Wd.wallet}`)}${fact('Things owned', `${Wd.items} (${pl(Wd.animals, 'animal')})`)}${fact('Lands opened', `${Wd.lands} of ${Wd.landsAll}`)}`)}
         ${card('rp-quest', '🗺️', 'Owl\'s Quest', `${row('Chapters finished', Q.chapters, Q.chaptersAll, 'var(--grape)')}${row('Story stops done', Q.stops, Q.stopsAll, 'var(--grape-soft)')}
