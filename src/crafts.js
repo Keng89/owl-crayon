@@ -2,7 +2,7 @@
 // Real crafts to make with paper, playdough, string and boxes, from Easy to Expert. Every step is a short looping
 // "mini-movie" drawn in code (SVG, redrawn each frame: scissors cut along a dashed line, paper folds over, glue dots
 // appear, beads slide down a string), read aloud by Owl with the text shown too. No video files, no network.
-// The craft data lives in crafts2.js and crafts3.js and is added with craftsHome.add(). Finished crafts are kept per
+// The craft data lives in crafts2.js, crafts3.js and crafts4.js and is added with craftsHome.add(). Finished crafts are kept per
 // player in st.crafts, so they are saved, backed up and removed with the player like everything else.
 const craftsHome = (() => {
   const OL = '#22305A';
@@ -71,8 +71,17 @@ const craftsHome = (() => {
     needle: (x, y, ang = -30) => `<g transform="translate(${f1(x)} ${f1(y)}) rotate(${f1(ang)})"><line x1="0" y1="0" x2="-24" y2="0" stroke="#8A96A3" stroke-width="2.4" stroke-linecap="round"/><ellipse cx="-20" cy="0" rx="2.6" ry="1.2" fill="#FFF6E5" stroke="#8A96A3" stroke-width="1"/></g>`,
     punch: (x, y, down) => `<g transform="translate(${f1(x)} ${f1(y)})"><rect x="-13" y="-6" width="26" height="12" rx="3" fill="#8A96A3" ${sk(1.2)}/><rect x="-13" y="${down ? -13 : -20}" width="26" height="7" rx="3" fill="${C.blue}" ${sk(1.2)}/><rect x="-2" y="${down ? -7 : -14}" width="4" height="${down ? 7 : 8}" fill="${OL}"/></g>`,
     shaker: (x, y) => `<g transform="translate(${f1(x)} ${f1(y)}) rotate(160)"><rect x="-8" y="-10" width="16" height="22" rx="4" fill="#fff" ${sk(1.3)}/><rect x="-9" y="-14" width="18" height="6" rx="2" fill="${C.purple}" ${sk(1.2)}/></g>`,
-    yarn: (x, y, c = C.red) => `<g transform="translate(${f1(x)} ${f1(y)})"><circle r="9" fill="${c}" ${sk(1.3)}/><path d="M-7,-4 Q0,2 7,-5 M-8,2 Q0,7 8,1 M-3,-8 Q2,0 -1,8" fill="none" stroke="rgba(255,255,255,.6)" stroke-width="1.3"/></g>`
+    yarn: (x, y, c = C.red) => `<g transform="translate(${f1(x)} ${f1(y)})"><circle r="9" fill="${c}" ${sk(1.3)}/><path d="M-7,-4 Q0,2 7,-5 M-8,2 Q0,7 8,1 M-3,-8 Q2,0 -1,8" fill="none" stroke="rgba(255,255,255,.6)" stroke-width="1.3"/></g>`,
+    // round 2 tools: a marble rolling through paint, a straw for blow painting, a pouring jug, a spoon, a dropper and a potato stamp
+    marble: (x, y, c = C.blue) => `<circle cx="${f1(x)}" cy="${f1(y)}" r="6" fill="${c}" ${sk(1.3)}/><circle cx="${f1(x - 2)}" cy="${f1(y - 2)}" r="2" fill="rgba(255,255,255,.75)"/>`,
+    straw: (x, y) => `<g transform="translate(${f1(x)} ${f1(y)}) rotate(-35)"><rect x="-3" y="-52" width="6" height="46" rx="2" fill="#fff" ${sk(1.2)}/>${[0, 1, 2, 3, 4].map(i => `<rect x="-3" y="${-50 + i * 9}" width="6" height="4" fill="${C.red}"/>`).join('')}<path d="M-6,-2 Q0,-8 6,-2" fill="none" stroke="${C.sky}" stroke-width="1.6" stroke-linecap="round"/></g>`,
+    cup: (x, y, rot = 0, c = C.sky) => `<g transform="translate(${f1(x)} ${f1(y)}) rotate(${f1(rot)})"><path d="M-14,-26 L14,-26 L11,0 L-11,0Z" fill="${c}" ${sk(1.4)}/><path d="M14,-20 Q24,-16 13,-6" fill="none" ${sk(2.2)}/><path d="M-14,-26 L-19,-29" ${sk(2)}/></g>`,
+    spoon: (x, y, rot = 0) => `<g transform="translate(${f1(x)} ${f1(y)}) rotate(${f1(rot)})"><ellipse cx="0" cy="0" rx="6" ry="8" fill="#C9D3DC" ${sk(1.2)}/><rect x="-2" y="-46" width="4" height="39" rx="2" fill="#C9D3DC" ${sk(1.2)}/></g>`,
+    dropper: (x, y, c = C.blue) => `<g transform="translate(${f1(x)} ${f1(y)})"><path d="M-3,-6 L0,0 L3,-6Z" fill="${c}"/><rect x="-3.5" y="-30" width="7" height="24" rx="2" fill="rgba(255,255,255,.85)" ${sk(1.2)}/><rect x="-3.5" y="-18" width="7" height="12" fill="${c}" opacity=".7"/><rect x="-5" y="-42" width="10" height="13" rx="5" fill="${C.red}" ${sk(1.2)}/></g>`,
+    stamp: (x, y, c = C.red) => `<g transform="translate(${f1(x)} ${f1(y)})"><path d="M-16,-2 Q-18,-26 0,-28 Q18,-26 16,-2Z" fill="#E8C98E" ${sk(1.3)}/><rect x="-16" y="-4" width="32" height="4" rx="2" fill="${c}"/><circle cx="-6" cy="-16" r="1.5" fill="#B8925A"/><circle cx="7" cy="-20" r="1.3" fill="#B8925A"/></g>`
   };
+  // mix two #rrggbb colors (k = 0 gives a, 1 gives b), for paint that blends while it is stirred
+  const mixC = (a, b, k) => { const h = c => [1, 3, 5].map(i => parseInt(c.slice(i, i + 2), 16)); const A = h(a), B = h(b); return '#' + A.map((v, i) => Math.round(lerp(v, B[i], cl(k))).toString(16).padStart(2, '0')).join(''); };
 
   /* --- polylines: lengths, points along them, partial strokes --- */
   const plen = pts => { let L = 0; for (let i = 1; i < pts.length; i++) L += Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]); return L; };
@@ -409,6 +418,121 @@ const craftsHome = (() => {
       const pts = s.order.map(i => s.pins[i]), L = plen(pts), d = L * seg(e, 0, 0.92), q = along(pts, d);
       return s.pins.map(p => K.circ(p[0], p[1], 2.4, C.grey, 1)).join('') + K.line(upto(pts, d), s.c || C.red, 1.6) + (e < 0.95 ? T.yarn(q[0] + 10, q[1] - 10, s.c) : '');
     },
+    /* round 2 movie kinds: dab, pour, stir, stack, knot, measure, launch, oven */
+    dab(s, e) {
+      // a sponge, finger, brush, stamp or dropper hops from spot to spot and leaves a print at each one;
+      // with spread: true the prints grow after landing, like watercolor soaking into paper
+      const pts = s.pts, n = pts.length, k = seg(e, 0, 0.9) * n, i = Math.min(n - 1, Math.floor(k)), f = k - i, r = s.r || 9;
+      const cols = s.colors || [s.c || C.red];
+      const mark = (p, j, g) => {
+        const c = p[2] || cols[j % cols.length], x = p[0], y = p[1], q = r * g, sh = s.shape || 'blob';
+        if (sh === 'sq') return `<rect x="${f1(x - q)}" y="${f1(y - q * 0.75)}" width="${f1(q * 2)}" height="${f1(q * 1.5)}" rx="${f1(q * 0.3)}" fill="${c}" opacity=".9"/>` + [0, 1, 2, 3].map(m => `<circle cx="${f1(x + (rr(j * 7 + m) - 0.5) * q * 1.4)}" cy="${f1(y + (rr(j * 7 + m + 3) - 0.5) * q)}" r="${f1(q * 0.12 + 0.4)}" fill="#fff" opacity=".6"/>`).join('');
+        if (sh === 'star') return K.poly(K.starPts(x, y, q, 5), c, 0);
+        if (sh === 'heart') return K.heart(x, y, q * 0.75, c, 0);
+        if (sh === 'bubble') return [[0, 0], ...Array.from({ length: 6 }, (_, m) => [Math.cos(m * Math.PI / 3), Math.sin(m * Math.PI / 3)])].map(([a, b]) => `<circle cx="${f1(x + a * q * 0.62)}" cy="${f1(y + b * q * 0.62)}" r="${f1(q * 0.27)}" fill="${c}"/><circle cx="${f1(x + a * q * 0.62 - q * 0.08)}" cy="${f1(y + b * q * 0.62 - q * 0.08)}" r="${f1(q * 0.08)}" fill="#fff" opacity=".6"/>`).join('');
+        if (sh === 'print') return K.ell(x, y, q * 0.7, q, c, 0) + `<path d="M${f1(x - q * 0.4)},${f1(y)} Q${f1(x)},${f1(y - q * 0.7)} ${f1(x + q * 0.4)},${f1(y)} M${f1(x - q * 0.25)},${f1(y + q * 0.35)} Q${f1(x)},${f1(y - q * 0.2)} ${f1(x + q * 0.25)},${f1(y + q * 0.35)}" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="1"/>`;
+        if (sh === 'dot') return K.circ(x, y, q, c, 0);
+        return K.poly(Array.from({ length: 14 }, (_, m) => { const a = m / 14 * Math.PI * 2, w = q * (0.82 + 0.3 * rr(j * 13 + m)); return [x + w * Math.cos(a), y + w * Math.sin(a)]; }), c, 0, s.spread ? 'opacity=".8"' : '');
+      };
+      let out = '';
+      pts.forEach((p, j) => { if (j < i || (j === i && f > 0.5)) out += mark(p, j, s.spread ? lerp(0.3, 1, ez(cl((k - j - 0.5) / 1.6))) : 1); });
+      const a = pts[Math.max(0, i - (f < 0.4 ? 1 : 0))], b = pts[i], m = f < 0.4 ? ez(f / 0.4) : 1;
+      const lift = f < 0.4 ? 14 * Math.sin(Math.PI * m) + 4 : f < 0.62 ? 0 : 6 * seg(f, 0.62, 1);
+      const x = lerp(a[0], b[0], m), y = lerp(a[1], b[1], m) - lift, tool = s.tool || 'sponge', tc = b[2] || cols[i % cols.length];
+      if (e < 0.95) out += tool === 'finger' ? T.hand(x, y - 4, '👆', 20) : tool === 'brush' ? T.brush(x, y, tc) : tool === 'stamp' ? T.stamp(x, y, tc) : tool === 'dropper' ? T.dropper(x, y, tc) : tool === 'straw' ? T.straw(x, y) : tool === 'cork' ? `<g transform="translate(${f1(x)} ${f1(y)})">${K.rect(-6, -22, 12, 22, '#C9A06A', 3)}</g>` : T.sponge(x, y, tc);
+      return out;
+    },
+    pour(s, e) {
+      // a jug tips over the container and pours; the level rises (grains: beans, rice or sand fall as dots)
+      const [x, y, w, h] = s.box, lv0 = s.lv0 || 0, lv1 = s.lv1 || 0.6, c = s.c || C.sky, tilt = e < 0.2 ? ez(e / 0.2) : e > 0.85 ? 1 - ez(seg(e, 0.85, 1)) : 1;
+      const flow = seg(e, 0.2, 0.85), lv = lerp(lv0, lv1, flow), top = y + h - h * lv, cx = s.cup ? s.cup[0] : x + w * 0.75, cy = s.cup ? s.cup[1] : y - 26;
+      let out = '';
+      const cid = s.clip ? 'crq' + (++clipN) : '';
+      if (s.grain) {
+        const n = Math.round(w * h * lv / 22);
+        for (let i = 0; i < n; i++) out += K.circ(x + 3 + rr(i) * (w - 6), y + h - 3 - rr(i + 50) * (h * lv - 4), s.gr || 2.2, (s.colors || [c])[i % (s.colors || [c]).length], 0.6);
+      } else {
+        out += `<path d="M${f1(x)},${f1(top)} ${K.wave(x, x + w, top, lv > 0.02 ? 1.6 : 0, 3, 12).map(p => 'L' + f1(p[0]) + ',' + f1(p[1] + 1.6 * Math.sin(e * 30 + p[0] / 6))).join(' ')} L${f1(x + w)},${f1(y + h)} L${f1(x)},${f1(y + h)}Z" fill="${c}" opacity=".85"/>`;
+      }
+      if (cid) out = `<clipPath id="${cid}"><path d="${s.clip}"/></clipPath><g clip-path="url(#${cid})">${out}</g>`;
+      const ra = -100 * tilt * Math.PI / 180, lip = [cx - 14 * Math.cos(ra) + 26 * Math.sin(ra), cy - 14 * Math.sin(ra) - 26 * Math.cos(ra)];
+      if (flow > 0 && flow < 1 && tilt > 0.9) {
+        if (s.grain) for (let i = 0; i < 7; i++) { const u = ((e * 9 + i / 7) % 1); out += K.circ(lip[0] + (rr(i) - 0.5) * 4, lerp(lip[1], top, u), s.gr || 2.2, (s.colors || [c])[i % (s.colors || [c]).length], 0.6); }
+        else out += K.line([lip, [lip[0] - 2, (lip[1] + top) / 2], [lip[0] - 1, top]], c, 4);
+      }
+      if (e < 0.95) out += T.cup(cx, cy, -100 * tilt, s.cupC || C.sky);
+      return out;
+    },
+    stir(s, e) {
+      // a spoon goes round a bowl; the colors swirl together into one
+      const [cx, cy] = s.at || [100, 88], r = s.r || 42, k = seg(e, 0, 0.9), c = mixC(s.c0 || '#FFFFFF', s.c1 || C.pink, k), a = e * Math.PI * 7;
+      let out = K.ell(cx, cy - 4, r * 0.86, r * 0.3, c, 1.2);
+      (s.bits || []).forEach((b, i) => { const ang = a * (0.6 + i * 0.1) + i * 2, d = r * 0.55 * (1 - k * 0.7); out += `<g opacity="${f1(1 - k)}">${K.ell(cx + d * Math.cos(ang), cy - 4 + d * 0.3 * Math.sin(ang), 7, 3, b, 0)}</g>`; });
+      out += K.line(K.spiral(cx, cy - 4, 2, r * 0.6, 1.4, 30).map(p => [p[0], cy - 4 + (p[1] - cy + 4) * 0.33]), 'rgba(255,255,255,.55)', 1.6).replace('<polyline', `<polyline transform="rotate(${f1(a * 57.3 % 360)} ${cx} ${cy - 4})"`);
+      out += T.spoon(cx + r * 0.45 * Math.cos(a), cy - 6 + r * 0.14 * Math.sin(a), 18 * Math.cos(a));
+      out += K.path(`M${cx - r},${cy - 4} A${r},${r * 0.95} 0 0 0 ${cx + r},${cy - 4}`, s.bowl || C.sky);
+      return out;
+    },
+    stack(s, e) {
+      // pieces drop one at a time from above and land with a little bounce
+      const ps = s.pieces, n = ps.length; let out = '';
+      ps.forEach((p, i) => {
+        const k = seg(e, i / n * 0.88, (i + 1) / n * 0.88), at = p.at || [100, 75];
+        if (k <= 0) { if (i === 0 || !s.base) out += `<g opacity=".3" transform="translate(0 ${-(p.h || 90)})">${p.svg}</g>`; return; } // waiting above, ready to drop
+        const fall = k < 0.7 ? 1 - Math.pow(k / 0.7, 2) : 0, bounce = k >= 0.7 ? Math.sin(seg(k, 0.7, 1) * Math.PI) * 4 : 0, dy = -(p.h || 90) * fall - bounce;
+        out += `<g transform="translate(0 ${f1(dy)})">${p.svg}</g>`;
+        if (k < 0.7) out += T.hand(at[0] + 4, at[1] + dy - (p.hy || 18), '🤏', 18);
+      });
+      return out;
+    },
+    knot(s, e) {
+      // two ends of a string cross, loop and pull tight into a knot
+      const [x, y] = s.at || [100, 70], c = s.c || C.red, k = ez(seg(e, 0.05, 0.6)), pull = ez(seg(e, 0.6, 0.92)), loopR = lerp(14, 3.5, pull), spread = lerp(26, 46, pull);
+      const lx = lerp(x - 40, x - spread, k), rx = lerp(x + 40, x + spread, k), ty = y + lerp(30, 26, pull);
+      let out = K.line([[x - 60, ty + 12], [lx, ty], [x - 4, y + loopR * 0.6], [x + 3, y - loopR], [x + loopR, y], [x - 2, y + loopR * 0.4], [rx, ty], [x + 60, ty + 12]], c, 3.2);
+      if (k > 0.3) out += K.ell(x, y, loopR, loopR * 0.8, 'none', 0, `stroke="${c}" stroke-width="3.2"`);
+      if (pull > 0.9) out += K.circ(x, y, 4, c, 1.2);
+      if (e < 0.94) out += T.hand(lx - 6, ty - 4, '🤏', 18) + T.hand(rx + 6, ty - 4, '🤏', 18);
+      return out;
+    },
+    measure(s, e) {
+      // a ruler slides in along a line, then a pencil marks it off: 1, 2, 3...
+      const [ax, ay] = s.from, [bx, by] = s.to, ang = Math.atan2(by - ay, bx - ax) * 180 / Math.PI, L = Math.hypot(bx - ax, by - ay), n = s.n || 5, slide = ez(seg(e, 0, 0.25)), k = seg(e, 0.28, 0.9);
+      const ruler = `<g transform="translate(${f1(ax)} ${f1(ay)}) rotate(${f1(ang)}) translate(${f1(-L * 1.2 * (1 - slide))} 0)"><rect x="-4" y="2" width="${f1(L + 8)}" height="14" rx="2" fill="${C.yellow}" ${sk(1.2)}/>${Array.from({ length: n * 2 + 1 }, (_, i) => `<line x1="${f1(L * i / (n * 2))}" y1="2" x2="${f1(L * i / (n * 2))}" y2="${i % 2 ? 6 : 9}" stroke="${OL}" stroke-width="1"/>`).join('')}</g>`;
+      let out = ruler, tip = [ax, ay];
+      for (let i = 0; i <= n; i++) {
+        if (i / n > k + 0.001) break;
+        const px = lerp(ax, bx, i / n), py = lerp(ay, by, i / n);
+        out += K.line([[px, py - 5], [px, py + 1]], s.c || C.red, 2) + (s.nums !== false ? `<text x="${f1(px)}" y="${f1(py - 9)}" font-size="8" font-weight="700" text-anchor="middle" fill="${OL}">${i}</text>` : '');
+        tip = [px, py - 3];
+      }
+      const q = [lerp(ax, bx, k), lerp(ay, by, k) - 3];
+      if (e < 0.95 && slide >= 1) out += T.pen(q[0], q[1], s.c || C.red);
+      return out;
+    },
+    launch(s, e) {
+      // a spoon catapult: push the spoon down, let go, the pom-pom flies in an arc and lands
+      const [px, py] = s.at || [70, 110], L = s.arm || 54, c = s.c || C.pink, tg = s.target || [170, 112];
+      const press = ez(seg(e, 0.05, 0.3)), snap = seg(e, 0.32, 0.4), back = seg(e, 0.85, 1);
+      const ang = e < 0.32 ? lerp(-8, 14, press) : e < 0.85 ? lerp(14, -55, ez(snap)) : lerp(-55, -8, ez(back));
+      const rad = ang * Math.PI / 180, tipx = px - L * Math.cos(rad), tipy = py + L * Math.sin(rad);
+      let out = `<g transform="rotate(${f1(-ang)} ${px} ${py})">${K.rect(px - L, py - 3, L, 6, C.tan, 2)}${K.ell(px - L, py - 6, 9, 5, '#C9D3DC', 1.3)}</g>`;
+      const fly = seg(e, 0.36, 0.86), start = [tipx, tipy - 6];
+      if (e < 0.36) out += K.circ(start[0], start[1], 6, c, 1.3);
+      else { const bx = lerp(start[0], tg[0], fly), by = lerp(start[1], tg[1], fly) - 80 * Math.sin(Math.PI * fly); out += K.circ(bx, by, 6, c, 1.3); }
+      if (e > 0.05 && e < 0.32) out += T.hand(tipx + 2, tipy - 18, '👆', 18);
+      return out;
+    },
+    oven(s, e) {
+      // a grown-up bakes it: the oven light glows, the dial turns, warm waves rise
+      const glow = Math.sin(Math.PI * seg(e, 0, 1)), dial = e * 270;
+      let out = K.rect(40, 30, 120, 100, '#E7EBEF', 8) + K.rect(52, 52, 96, 66, '#3A3F4A', 6) + `<rect x="56" y="56" width="88" height="58" rx="4" fill="${C.orange}" opacity="${f1(0.15 + 0.5 * glow)}"/>` + K.g(s.item || '', 100, 92, 0.5);
+      out += [64, 84].map((cx, i) => K.circ(cx, 41, 6, '#fff', 1.2) + `<line x1="${cx}" y1="41" x2="${f1(cx + 5 * Math.cos((dial + i * 90) * Math.PI / 180))}" y2="${f1(41 + 5 * Math.sin((dial + i * 90) * Math.PI / 180))}" stroke="${OL}" stroke-width="1.6"/>`).join('');
+      out += `<text x="132" y="44" font-size="10" font-weight="800" text-anchor="middle" fill="${C.red}">${Math.round(e * 30)} min</text>`;
+      out += [80, 100, 120].map((x, i) => `<g opacity="${f1(glow * 0.8)}">${K.line(K.wave(x, x, 0, 0, 1, 2).map((_, m) => [x + 3 * Math.sin(e * 20 + i + m), 26 - m * 9 - 6 * e]), C.orange, 1.6)}</g>`).join('');
+      out += T.hand(150, 118, '🧤', 22);
+      return out;
+    },
     show(s, e, t) {
       const [x, y] = s.at || [100, 78], sc = s.s || 1, k = s.kind || 'bounce'; let tr = '';
       if (k === 'bounce') tr = `translate(${x} ${f1(y - Math.abs(Math.sin(t / 320)) * 10)}) scale(${sc})`;
@@ -420,6 +544,8 @@ const craftsHome = (() => {
       else if (k === 'up') { const u = (t % 3000) / 3000; tr = `translate(${x} ${f1(lerp(190, -50, u))}) scale(${sc})`; }
       else if (k === 'fall') { const u = (t % 3400) / 3400; tr = `translate(${f1(x + 10 * Math.sin(u * 9))} ${f1(lerp(-10, 150, u))}) scale(${f1(Math.cos(t / 70) * sc)} ${sc})`; }
       else if (k === 'hop') { const u = (t % 1400) / 1400; tr = `translate(${x} ${f1(y - 34 * Math.sin(u * Math.PI))}) rotate(${f1(-12 * Math.sin(u * Math.PI))}) scale(${sc})`; }
+      else if (k === 'shake') tr = `translate(${f1(x + 4 * Math.sin(t / 40))} ${f1(y + 2 * Math.cos(t / 55))}) rotate(${f1(14 * Math.sin(t / 90))}) scale(${sc})`;
+      else if (k === 'swing') tr = `translate(${x} ${y - 60}) rotate(${f1(16 * Math.sin(t / 380))}) translate(0 60) scale(${sc})`;
       else tr = `translate(${x} ${y}) scale(${f1((1 + 0.05 * Math.sin(t / 300)) * sc * 100) / 100})`;
       let out = (s.base || '') + `<g transform="${tr}">${s.item}</g>`;
       const sp = [[30, 26], [172, 32], [40, 124], [166, 116]];
@@ -451,7 +577,14 @@ const craftsHome = (() => {
     { id: 'sew', ico: '🪡', name: 'Simple sewing', c: '#9B3A82' },
     { id: 'party', ico: '🎉', name: 'Holiday & party', c: '#C2371F' },
     { id: 'science', ico: '🚁', name: 'Science crafts', c: '#22305A' },
-    { id: 'string', ico: '🧶', name: 'String art & bracelets', c: '#7A3FB8' }
+    { id: 'string', ico: '🧶', name: 'String art & bracelets', c: '#7A3FB8' },
+    { id: 'paint', ico: '🎨', name: 'Painting crafts', c: '#B8432F' },
+    { id: 'beads', ico: '💍', name: 'Beads & jewelry', c: '#8E3FA0' },
+    { id: 'costume', ico: '🦸', name: 'Costumes & dress-up', c: '#2B62B5' },
+    { id: 'sensory', ico: '🫧', name: 'Sensory & play', c: '#13817F' },
+    { id: 'build', ico: '🏗️', name: 'Building & engineering', c: '#6A5A16' },
+    { id: 'gifts', ico: '🎁', name: 'Gifts for family', c: '#B23A5C' },
+    { id: 'season', ico: '🌸', name: 'Seasons: spring to winter', c: '#3D7A3A' }
   ];
   const LEVELS = [
     { n: 1, name: 'Easy', ico: '🟢', ages: '4+', stars: 3 },
@@ -470,7 +603,10 @@ const craftsHome = (() => {
     if (/glue/.test(m) || acts.includes('glue')) out.push(['🧴', 'Glue is not for eating. Ask a grown-up which glue to use, and wash your hands after.']);
     if (/needle|pin\b|pins|skewer|toothpick/.test(m)) out.push(['📌', 'Pins and needles are sharp. Ask a grown-up to do the poking.']);
     if (c.hot) out.push(['🔥', c.hot]);
-    if (/bead|button|pasta|cereal|seed/.test(m)) out.push(['👶', 'Small pieces can choke babies. Keep them away from little ones.']);
+    else if (/hot glue|glue gun/.test(m)) out.push(['🔥', 'A glue gun gets very hot. Only a grown-up uses it.']);
+    else if (/oven|bake|hot water|kettle|boil|stove|microwave/.test(m) || acts.includes('oven')) out.push(['🔥', 'Ovens and hot water burn. A grown-up does the hot part, and it cools before you touch it.']);
+    if (/paint|food colou?r/.test(m)) out.push(['🎨', 'Paint is not for eating. Ask a grown-up for washable paint, and cover the table.']);
+    if (/bead|button|pasta|cereal|seed|marble|bean|rice|sequin|pom-pom|balloon|lentil|magnet/.test(m)) out.push(['👶', 'Small pieces can choke babies. Keep them away from little ones.']);
     if (c.safe) out.push(['⚠️', c.safe]);
     return out;
   }
@@ -490,23 +626,85 @@ const craftsHome = (() => {
   const wireCards = back => view.querySelectorAll('[data-c]').forEach(b => b.onclick = () => go(craftView, b.dataset.c, back));
   const TIP = 'Do the cutting and poking parts together. Praise the trying, not the neatness: a wonky boat still floats!';
 
-  function crHome(level = 0) {
-    const D = CS(), s = suggest(), made = madeCount(), stickers = CRAFTS.filter(c => D.done[c.id]).map(c => D.done[c.id].sticker || c.ico);
+  // "I have..." quick filters: the things a family is likely to have at home, matched against each craft's materials
+  const HAVE = [
+    { id: 'paper', ico: '📄', name: 'paper', re: /paper|card(?!board)|newspaper/ },
+    { id: 'plates', ico: '🍽️', name: 'plates', re: /plate/ },
+    { id: 'rolls', ico: '🧻', name: 'rolls', re: /roll tube|tube|kitchen roll/ },
+    { id: 'string', ico: '🧶', name: 'string', re: /wool|string|thread|yarn|ribbon|lace|elastic|cord|pipe cleaner/ },
+    { id: 'clay', ico: '🟠', name: 'clay', re: /dough|clay(?! pot)/ },
+    { id: 'paint', ico: '🎨', name: 'paint', re: /paint/ },
+    { id: 'boxes', ico: '📦', name: 'boxes & bottles', re: /box|bottle|carton|cup|lid|jar/ },
+    { id: 'nature', ico: '🍂', name: 'leaves & sticks', re: /leaf|leaves|rock|pinecone|stick|flower|shell|twig/ }
+  ];
+  const norm = x => String(x).toLowerCase().replace(/[^a-z0-9 ]+/g, ' ').replace(/\s+/g, ' ').trim();
+  // The crafts that match a level (0 = any), a material chip and typed words (every word must match the name, a material or the kind).
+  function filter(level = 0, have = '', q = '') {
+    const h = HAVE.find(x => x.id === have), words = norm(q).split(' ').filter(Boolean);
+    return CRAFTS.filter(c => {
+      if (level && c.lv !== level) return false;
+      const mats = c.mat.map(m => m[1].toLowerCase()).join(' | ');
+      if (h && !h.re.test(mats)) return false;
+      if (words.length) {
+        const hay = norm(c.name + ' ' + mats + ' ' + (CATS.find(k => k.id === c.cat) || {}).name + ' ' + LEVELS[c.lv - 1].name);
+        if (!words.every(w => hay.includes(w) || (w.length > 3 && w.endsWith('s') && hay.includes(w.slice(0, -1))))) return false;
+      }
+      return true;
+    }).sort((a, b) => a.lv - b.lv);
+  }
+  // Craft of the day: the same craft all day (from the date), picked from the levels that suit the child's age.
+  function cotd(day = today()) {
+    let h = 2166136261; for (const ch of day) h = Math.imul(h ^ ch.charCodeAt(0), 16777619) >>> 0;
+    const ml = maxLvForAge(), pool = CRAFTS.filter(c => c.lv <= ml), L = pool.length ? pool : CRAFTS;
+    return L[h % L.length];
+  }
+
+  function crHome(level = 0, have = '', q = '') {
+    const D = CS(), s = suggest(), made = madeCount(), stickers = CRAFTS.filter(c => D.done[c.id]).map(c => D.done[c.id].sticker || c.ico), cd = cotd();
     view.innerHTML = `${crumbs('✂️ Crafts corner')}
       <div class="cr-hero"><span class="cr-owl" aria-hidden="true">🦉</span><p>Let's make real things! Watch each little movie, then make it with your hands. Easy ones first, then trickier ones.</p></div>
+      <button class="cr-cotd" id="crDay" aria-label="Craft of the day: ${esc(cd.name)}, ${LEVELS[cd.lv - 1].name}, ${cd.min} minutes"><svg viewBox="0 0 200 150" aria-hidden="true">${frame(cd.steps[cd.steps.length - 1], 1, 600)}</svg>
+        <span class="cr-cotd-t"><small>🌞 Craft of the day</small><b>${cd.ico} ${esc(cd.name)}</b><span class="cr-meta">${lvChip(cd)}<span class="cr-time">⏱ ${cd.min} min</span>${D.done[cd.id] ? '<span class="cr-time">✅ made</span>' : ''}</span></span></button>
       <button class="pick" id="crPick"><span class="big">${s.ico}</span><span><b>Try this: ${esc(s.name)}</b>${LEVELS[s.lv - 1].name} · ${s.min} minutes</span></button>
+      <div class="panel cr-find"><h2>🔎 I have…</h2>
+        <div class="cr-have" role="group" aria-label="Show crafts that use what I have">${HAVE.map(x => `<button class="cr-hv" data-have="${x.id}" aria-pressed="${have === x.id}"><span aria-hidden="true">${x.ico}</span> ${x.name}</button>`).join('')}</div>
+        <div class="cr-search"><input type="search" id="crQ" placeholder="Find a craft: owl, box, star…" aria-label="Find a craft" value="${esc(q)}" autocomplete="off"><button class="tool" id="crQx" aria-label="Clear the search">✖️</button></div></div>
       <div class="cr-levels" role="group" aria-label="Show crafts by level"><button class="cr-lvb" data-lv="0" aria-pressed="${!level}">All</button>${LEVELS.map(l => `<button class="cr-lvb" data-lv="${l.n}" aria-pressed="${level === l.n}">${l.ico} ${l.name} <small>${l.ages}</small></button>`).join('')}</div>
-      ${level ? `<h2 class="cr-h">${LEVELS[level - 1].ico} ${LEVELS[level - 1].name} crafts</h2><div class="cr-cards">${CRAFTS.filter(c => c.lv === level).map(card).join('')}</div>`
-        : `<div class="cr-cats">${CATS.map(k => { const list = CRAFTS.filter(c => c.cat === k.id), dn = list.filter(c => D.done[c.id]).length;
-          return `<button class="cr-cat" data-cat="${k.id}" style="background:${k.c}"><span class="cr-cico" aria-hidden="true">${k.ico}</span><b>${k.name}</b><span>${list.length} crafts${dn ? ` · ${dn} made ✅` : ''}</span></button>`; }).join('')}</div>`}
+      <div id="crList"></div>
       <div class="panel cr-wall"><h2>🏆 My crafts: ${made} made</h2>${stickers.length ? `<div class="cr-stk">${stickers.map(x => `<span>${x}</span>`).join('')}</div>` : '<p class="note">Finish a craft and tap "I made it!" to put it on your wall.</p>'}</div>
       <p class="en-ptip"><span aria-hidden="true">👪</span> <b>Grown-ups:</b> ${TIP}</p>`;
     wireBack(home);
-    sayScreen(`Crafts corner! Let's make things. Try ${s.name}!`);
+    sayScreen(`Crafts corner! Let's make things. The craft of the day is ${cd.name}. Or try ${s.name}!`);
+    const cur = { have, q };
+    function list() {
+      const box = $('#crList'), back = () => crHome(level, cur.have, cur.q);
+      if (cur.have || norm(cur.q)) {
+        const r = filter(level, cur.have, cur.q), h = HAVE.find(x => x.id === cur.have);
+        box.innerHTML = `<h2 class="cr-h" aria-live="polite">${r.length} craft${r.length === 1 ? '' : 's'}${h ? ` with ${h.ico} ${h.name}` : ''}${norm(cur.q) ? ` for “${esc(cur.q.trim())}”` : ''}</h2>` +
+          (r.length ? `<div class="cr-cards">${r.map(card).join('')}</div>` : '<p class="note">No crafts match. Try another word, or tap a different thing you have.</p>');
+      } else if (level) box.innerHTML = `<h2 class="cr-h">${LEVELS[level - 1].ico} ${LEVELS[level - 1].name} crafts</h2><div class="cr-cards">${CRAFTS.filter(c => c.lv === level).map(card).join('')}</div>`;
+      else {
+        box.innerHTML = `<div class="cr-cats">${CATS.map(k => { const l = CRAFTS.filter(c => c.cat === k.id), dn = l.filter(c => D.done[c.id]).length;
+          return `<button class="cr-cat" data-cat="${k.id}" style="background:${k.c}"><span class="cr-cico" aria-hidden="true">${k.ico}</span><b>${k.name}</b><span>${l.length} crafts${dn ? ` · ${dn} made ✅` : ''}</span></button>`; }).join('')}</div>`;
+        box.querySelectorAll('[data-cat]').forEach(b => b.onclick = () => go(catView, b.dataset.cat));
+      }
+      box.querySelectorAll('[data-c]').forEach(b => b.onclick = () => go(craftView, b.dataset.c, back));
+    }
+    $('#crDay').onclick = () => go(craftView, cd.id, () => crHome(level, cur.have, cur.q));
     $('#crPick').onclick = () => go(craftView, s.id);
-    view.querySelectorAll('[data-lv]').forEach(b => b.onclick = () => go(crHome, +b.dataset.lv));
-    view.querySelectorAll('[data-cat]').forEach(b => b.onclick = () => go(catView, b.dataset.cat));
-    wireCards(() => crHome(level));
+    view.querySelectorAll('[data-lv]').forEach(b => b.onclick = () => go(crHome, +b.dataset.lv, cur.have, cur.q));
+    view.querySelectorAll('[data-have]').forEach(b => b.onclick = () => {
+      cur.have = cur.have === b.dataset.have ? '' : b.dataset.have;
+      view.querySelectorAll('[data-have]').forEach(x => x.setAttribute('aria-pressed', x.dataset.have === cur.have));
+      list();
+      const h = HAVE.find(x => x.id === cur.have);
+      if (h) say(`Crafts with ${h.name}! ${filter(level, cur.have, cur.q).length} crafts.`);
+    });
+    const qi = $('#crQ');
+    qi.oninput = () => { cur.q = qi.value; list(); };
+    qi.onkeydown = e => { if (e.key === 'Enter') qi.blur(); };
+    $('#crQx').onclick = () => { qi.value = ''; cur.q = ''; list(); };
+    list();
   }
   function catView(id) {
     const k = CATS.find(x => x.id === id) || CATS[0], list = CRAFTS.filter(c => c.cat === k.id).sort((a, b) => a.lv - b.lv);
@@ -664,8 +862,8 @@ const craftsHome = (() => {
 
   const info = () => ({ crafts: CRAFTS.length, cats: CATS.length, steps: CRAFTS.reduce((a, c) => a + c.steps.length, 0), levels: LEVELS.map(l => CRAFTS.filter(c => c.lv === l.n).length) });
   if (location.hash === '#selftest') window.__crafts = {
-    CATS, LEVELS, get CRAFTS() { return CRAFTS; }, BY, info, safety, frame, stepDur, CS, suggest, raw: (s, e, t = 0) => R[s.a](s, e, t),
-    home: lv => go(crHome, lv || 0), cat: id => go(catView, id), open: id => go(craftView, id), made: id => go(madeView, id), get movie() { return M; }
+    CATS, LEVELS, HAVE, get CRAFTS() { return CRAFTS; }, BY, info, safety, frame, stepDur, CS, suggest, filter, cotd, raw: (s, e, t = 0) => R[s.a](s, e, t),
+    home: (lv, have, q) => go(crHome, lv || 0, have || '', q || ''), cat: id => go(catView, id), open: id => go(craftView, id), made: id => go(madeView, id), get movie() { return M; }
   };
   crHome.add = add; crHome.kit = K; crHome.info = info; crHome.LEVELS = LEVELS; crHome.CATS = CATS;
   return crHome;

@@ -1678,5 +1678,16 @@ body:has(.sp-svg) #toast{pointer-events:none}
 .cr-pad canvas{display:block;width:100%;touch-action:none}
 .cr-cols{justify-content:center}
 .cr-win{align-items:center;text-align:center}.cr-big{font-size:72px;line-height:1;animation:starpop .6s}
-@media (max-width:520px){.cr-text{font-size:19px}.cr-ctrl .tool{min-width:50px;height:50px;font-size:21px}.cr-cats{grid-template-columns:repeat(2,1fr)}.cr-cards{grid-template-columns:repeat(2,1fr)}}
+.cr-cotd{display:flex;align-items:center;gap:14px;width:100%;text-align:left;background:var(--paper);border:3px solid var(--sun);border-radius:24px;padding:10px 14px;box-shadow:0 4px 0 var(--line);min-height:96px}
+.cr-cotd svg{width:132px;max-width:38%;flex:none;border-radius:14px;box-shadow:inset 0 0 0 2px var(--line)}
+.cr-cotd-t{display:flex;flex-direction:column;gap:4px;min-width:0}.cr-cotd-t small{font-weight:800;color:var(--coral-deep);font-size:15px}.cr-cotd-t b{font-family:var(--display);font-size:22px;line-height:1.1}
+.cr-find h2{font-size:22px;margin-bottom:8px}
+.cr-have{display:flex;flex-wrap:wrap;gap:8px}
+.cr-hv{min-height:56px;padding:8px 16px;border-radius:18px;background:var(--bg);box-shadow:0 3px 0 var(--line);font-weight:800;font-size:18px}
+.cr-hv span{font-size:24px}.cr-hv[aria-pressed=true]{background:var(--leaf);color:#fff;box-shadow:0 3px 0 #1E7A4E}
+.cr-search{display:flex;gap:8px;margin-top:10px;align-items:center}
+.cr-search input{flex:1;min-width:0;min-height:56px;font:inherit;font-size:20px;font-weight:700;padding:8px 16px;border-radius:18px;border:3px solid var(--line);background:#fff;color:var(--ink)}
+.cr-search input:focus{outline:3px solid var(--grape);outline-offset:1px}
+.cr-search .tool{min-width:56px;height:56px;font-size:20px}
+@media (max-width:520px){.cr-text{font-size:19px}.cr-ctrl .tool{min-width:50px;height:50px;font-size:21px}.cr-cats{grid-template-columns:repeat(2,1fr)}.cr-cards{grid-template-columns:repeat(2,1fr)}.cr-hv{font-size:16px;padding:8px 12px}.cr-cotd-t b{font-size:19px}}
 @media (prefers-reduced-motion:reduce){.tc-deco,.cr-pulse,.cr-big{animation:none}}

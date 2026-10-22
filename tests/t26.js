@@ -116,7 +116,7 @@ async function run(b, vp, noSpeech, errs) {
   const gameCount = (await p.textContent('.wt-stats')).match(/(\d+)\s*math games/);
   if (!gameCount || +gameCount[1] < 21) errs.push(`${tag}: game count ${gameCount && gameCount[1]}`);
   const craftN = await p.evaluate(() => window.__crafts.info().crafts), craftStat = (await p.textContent('.wt-stats')).match(/(\d+)\s*crafts with/);
-  if (!craftStat || +craftStat[1] !== craftN || craftN < 40) errs.push(`${tag}: What's inside says ${craftStat && craftStat[1]} crafts, the app has ${craftN}`);
+  if (!craftStat || +craftStat[1] !== craftN || craftN < 110) errs.push(`${tag}: What's inside says ${craftStat && craftStat[1]} crafts, the app has ${craftN}`);
   if (!info.txt.includes('Crafts corner')) errs.push(`${tag}: What's inside has no Crafts corner`);
   await noScroll("What's inside"); await shot('inside', true);
   await p.click('#wtBack'); await p.waitForSelector('#wtInside');
