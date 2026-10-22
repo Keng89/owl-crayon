@@ -99,7 +99,7 @@ const errs = [], fails = [];
     await p.click('#tEnglish'); await p.waitForSelector('.en-secs');
     const secs = await p.$$eval('[data-sec]', x => x.map(b => b.dataset.sec));
     for (const id of ['write', 'sounds', 'talk', 'books', 'islands']) if (!secs.includes(id)) fail(`no ${id} section`);
-    if (secs.includes('mission') || secs.length !== 16) fail(`sections ${secs}`);
+    if (secs.includes('mission') || secs.length < 16) fail /* round 4 (t43) adds 3 more */(`sections ${secs}`);
     if (!(await p.$('#enMission'))) fail('no mission strip on the English home');
     await check('english home'); await shot('home');
     const expect = { write: ['.e6-lt', 26], sounds: ['.e6-sg', 4], talk: ['.e6-tk', 10], books: ['.e6-book', 12], islands: ['.e6-isl', 9] };

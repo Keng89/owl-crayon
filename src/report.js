@@ -62,6 +62,8 @@ const report = (() => {
       review: rev.length, reviewDue: rev.filter(r => num(r.due) <= dn).length, pals: keys(e.pals).length };
     // Round 3 (english8.js): letters traced, sound games, Talk time chats, chapter books, grammar islands, missions.
     E.r3 = Object.assign({ traced: 0, tracedAll: 52, words: 0, chats: 0, scenes: 0, scenesAll: 0, books: 0, booksAll: 0, chapters: 0, islands: 0, islandsAll: 9, sound: 0, missions: 0 }, safe(() => englishHome.round3(e), {}));
+    // Round 4 (english10.js): word family words, the 44-sound wall, read-along stories, sayings, word power and listening rounds.
+    E.r4 = Object.assign({ famWords: 0, famAll: 0, houses: 0, wall: 0, wallAll: 44, readAlong: 0, readAlongAll: 0, idioms: 0, idiomsAll: 0, wordPower: 0, listening: 0 }, safe(() => englishHome.round4(e), {}));
     E.nextSight = EN_SIGHT.find(x => x.stage <= stageN && x.words.some(w => !obj(e.sight)[w]));
     E.nextStory = EN_STORIES.find(x => x.stage <= stageN && !obj(e.stories)[x.id]);
     E.nextGame = EN_GAMES.find(x => x.stage <= stageN && !num(rounds['g-' + x.id]));
@@ -182,7 +184,9 @@ const report = (() => {
           ${row('Grammar games played', E.grammar, E.grammarAll, 'var(--grape)')}
           ${fact('Words in the word album', E.album)}${fact('Word-of-the-day streak', `${pl(E.streak, 'day')} (best ${E.bestStreak})`)}${fact('Words in Owl\'s review / due', `${E.review} / ${E.reviewDue}`)}${fact('Blend it rounds', E.blend)}
           ${row('Letters traced (A–Z, a–z)', E.r3.traced, E.r3.tracedAll, 'var(--sky-soft)')}${row('Grammar island badges', E.r3.islands, E.r3.islandsAll, 'var(--grape-soft)')}${row('Chapter books read', E.r3.books, E.r3.booksAll, 'var(--leaf-soft)')}
-          ${fact('Words traced', E.r3.words)}${fact('Talk time chats', `${E.r3.chats} (${E.r3.scenes} of ${E.r3.scenesAll} places)`)}${fact('Sound game rounds', E.r3.sound)}${fact('English missions done', E.r3.missions)}`)}
+          ${fact('Words traced', E.r3.words)}${fact('Talk time chats', `${E.r3.chats} (${E.r3.scenes} of ${E.r3.scenesAll} places)`)}${fact('Sound game rounds', E.r3.sound)}${fact('English missions done', E.r3.missions)}
+          ${row('Word family words found', E.r4.famWords, E.r4.famAll, 'var(--sun)')}${row('Sounds heard on the sound wall', E.r4.wall, E.r4.wallAll, 'var(--coral-soft)')}${row('Sayings &amp; slang explored', E.r4.idioms, E.r4.idiomsAll, 'var(--grape-soft)')}
+          ${fact('Word family houses filled', E.r4.houses)}${fact('Read-along stories', `${E.r4.readAlong} of ${E.r4.readAlongAll}`)}${fact('Word power rounds', E.r4.wordPower)}${fact('Listening and sound hunt rounds', E.r4.listening)}`)}
         ${card('rp-art', '🖍️', 'Art', `${row('Art lessons done', R.done, R.all, 'var(--coral)')}${R.levels.map(l => row(`${l.name} lessons`, l.have, l.all, 'var(--coral-soft)')).join('')}
           ${fact('Pictures saved', R.pics)}${fact('Pixel art', `level ${R.pixel} of 5 · ${pl(R.pixelDone, 'picture')}`)}`)}
         ${card('rp-cr', '✂️', 'Crafts', `${row('Crafts made', C.made, C.all, 'var(--sun)')}${C.levels.map(l => row(`${l.ico} ${l.name}`, l.have, l.all, 'var(--sun-soft)')).join('')}${fact('Times making crafts', C.times)}${C.J.all ? fact('Craft journeys finished', `${C.J.done} of ${C.J.all}${C.J.started > C.J.done ? ` (${C.J.started - C.J.done} under way)` : ''}`) + fact('Journey badges', C.J.badges.length ? esc(C.J.badges.join(', ')) : 'none yet') : ''}`)}
