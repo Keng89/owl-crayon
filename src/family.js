@@ -189,24 +189,12 @@ function wirePlayers() {
   };
 }
 
-/* ---------- daily activity log for the grown-ups' weekly summary ---------- */
+/* ---------- daily activity log for the grown-ups' progress report (src/report.js): q, ok, stars, art, en, cr ---------- */
 function dayLog(k, n = 1) {
   const d = today(), x = st.days[d] = st.days[d] || { q: 0, ok: 0, stars: 0, art: 0 };
   x[k] = (x[k] || 0) + n;
   const keep = Object.keys(st.days).sort().slice(-60); for (const key in st.days) if (!keep.includes(key)) delete st.days[key];
 }
-function weekPanel() {
-  const days = Array.from({ length: 7 }, (_, i) => { const t = new Date(); t.setDate(t.getDate() - 6 + i); const d = t.getFullYear() + '-' + String(t.getMonth() + 1).padStart(2, '0') + '-' + String(t.getDate()).padStart(2, '0'); return [d, st.days[d] || { q: 0, ok: 0, stars: 0, art: 0 }, t.toLocaleDateString('en', { weekday: 'short' })]; });
-  const sum = k => days.reduce((a, [, x]) => a + (x[k] || 0), 0), q = sum('q'), ok = sum('ok'), active = days.filter(([, x]) => x.q || x.art || x.stars).length;
-  const max = Math.max(1, ...days.map(([, x]) => x.stars || 0));
-  const tried = Object.keys(MATH).filter(k => st.skills[k].seen >= 5 && acc(k) != null);
-  const best = tried.sort((a, b) => acc(b) - acc(a))[0], hard = [...tried].sort((a, b) => acc(a) - acc(b)).find(k => acc(k) < 0.7);
-  return `<div class="panel"><h2>This week</h2>
-    <div class="week" aria-label="Stars earned each day">${days.map(([d, x, w]) => `<div class="wk"><i style="height:${Math.round((x.stars || 0) / max * 70)}px"></i><b>${x.stars || 0}</b><span>${w}</span></div>`).join('')}</div>
-    <p class="note">Played on ${active} of the last 7 days. ${q} math questions answered${q ? `, ${Math.round(ok / q * 100)}% right on the first try` : ''}. ${sum('art')} art lesson${sum('art') === 1 ? '' : 's'} or drawing${sum('art') === 1 ? '' : 's'} finished. ${sum('stars')} stars earned.</p>
-    ${best ? `<p class="note">Strongest topic: ${MATH[best].ico} ${MATH[best].name} (${Math.round(acc(best) * 100)}% first try).${hard && hard !== best ? ` Worth practising together: ${MATH[hard].ico} ${MATH[hard].name} (${Math.round(acc(hard) * 100)}%).` : ''}</p>` : ''}</div>`;
-}
-
 /* ---------- badges: milestones a child can collect ---------- */
 const BADGES = [
   ['star1', '🌟', 'First star', 'Earn your first star', () => st.stars >= 1],

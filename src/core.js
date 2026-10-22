@@ -878,14 +878,12 @@ function gate(onPass, box = view) {
 function parent() {
   const rows = WORLDS.map((w, wi) => `<tr><th colspan="6" style="padding-top:16px">${w.ico} ${w.name} (ages ${w.ages})${worldOpen(wi) ? '' : ' · locked'}</th></tr>` + worldSkills(wi).map(s => { const k = s.id, x = st.skills[k], a = acc(k);
     return `<tr><td>${s.ico} ${s.name}</td><td>${level(k)} / 5</td><td><div class="bar"><i style="width:${Math.round(x.m * 100)}%"></i></div></td><td>${a == null ? '–' : Math.round(a * 100) + '%'}</td><td>${x.ms ? (x.ms / 1000).toFixed(1) + 's' : '–'}</td><td>${x.seen}</td></tr>`; }).join('')).join('');
-  const artDone = [1, 2, 3].map(lv => `${LEVEL_NAMES[lv]}: ${LESSONS.filter(l => l.level === lv && st.art.done[l.id]).length} of ${LESSONS.filter(l => l.level === lv).length}`).join(' · ');
   view.innerHTML = `<h1 style="font-size:36px">Grown-ups corner</h1><p class="note">Showing ${profileOf(pid).avatar} ${esc(st.name || 'Player')}. Switch players under Players below.</p>
+    ${report.panel(pid)}
     ${tour.panel()}
     ${timer.panel()}
-    ${weekPanel()}
-    <div class="panel"><h2>Math progress</h2><p class="note">Each topic has 5 levels. It gets harder after answers that are right on the first try, and easier after mistakes. Missed questions come back for review after 1, 2, 4, 8 and 16 days. ${st.review.length} questions are in review, ${dueReviews().length} due today. A new world opens when your child reaches 50% in the world before it.</p>
+    <div class="panel"><h2>Math topic by topic</h2><p class="note">Each topic has 5 levels. It gets harder after answers that are right on the first try, and easier after mistakes. Missed questions come back for review after 1, 2, 4, 8 and 16 days. ${st.review.length} questions are in review, ${dueReviews().length} due today. A new world opens when your child reaches 50% in the world before it.</p>
       <div class="wide"><table class="ptable"><thead><tr><th>Topic</th><th>Level</th><th>Mastery</th><th>Right first try (last 20)</th><th>Avg time</th><th>Answered</th></tr></thead><tbody>${rows}</tbody></table></div></div>
-    <div class="panel"><h2>Art progress</h2><p class="note">${artDone}. Pixel art level ${st.art.pixel} of 5. ${gallery.length} saved pictures.</p></div>
     <div class="panel"><h2>Teach Owl</h2><p class="note">Questions Owl could not answer well. Write a short, simple answer and Owl will use it next time, even offline.</p>
       <div id="misses">${st.owlMisses.length ? st.owlMisses.map((m, i) => `<div class="miss"><b>“${esc(m.q)}”</b><span class="note">${m.at} · ${m.why}</span>
         <textarea id="t${i}" placeholder="A simple answer a child can understand"></textarea><div class="row" style="justify-content:flex-start"><button class="btn leaf" data-teach="${i}" style="font-size:18px;padding:10px 18px">Teach Owl</button><button class="btn alt" data-skip="${i}" style="font-size:18px;padding:10px 18px">Dismiss</button></div></div>`).join('') : '<p class="note">Nothing waiting. Owl has answered everything so far.</p>'}</div>
@@ -913,7 +911,7 @@ function parent() {
     const i = +b.dataset.teach, ans = $('#t' + i).value.trim(); if (!ans) return;
     owlForget(st.owlMisses[i].q); st.owlTaught.push({ q: st.owlMisses[i].q, a: ans }); st.owlMisses.splice(i, 1); save(); go(parent);
   });
-  wirePlayers(); tour.wire(); timer.wire();
+  wirePlayers(); tour.wire(); timer.wire(); report.wire();
   $('#oSave').onclick = () => {
     const cfg = { url: $('#ou').value.trim(), code: $('#oc').value.trim(), on: $('#oo').checked }, m = $('#om');
     if (cfg.url && !/^https:\/\//.test(cfg.url)) { m.textContent = 'The address must start with https://'; return; }
@@ -957,6 +955,7 @@ function parent() {
 //@include crafts4.js
 //@include tour.js
 //@include timer.js
+//@include report.js
 
 /* ---------- start ---------- */
 updateTop();

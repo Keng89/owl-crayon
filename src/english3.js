@@ -30,7 +30,7 @@ const englishHome = (() => {
   }
   // Every reading star is a real star; crossing a stage line says so.
   function give(n) {
-    const before = stage(); E().xp += n; addStars(n);
+    const before = stage(); E().xp += n; dayLog('en', n); addStars(n);
     const after = stage();
     if (after > before) { const S = STAGES[after - 1]; setTimeout(() => toast(`New reading stage: ${S.ico} ${S.name}!`), 600); confetti(40); }
   }
@@ -613,6 +613,8 @@ const englishHome = (() => {
   };
   enHome.info = info;
   // The rest of the English area (english5.js) builds on these.
-  enHome.api = { quiz, give, reward, E, stage, open, talk, tapWords, wireTapWords, lockText, plain, ptip, hooks, maxTier, tierOf, SECTIONS, VIEWS, STAGES, PALS, vocab, enHome };
+  // The reading stage of any player's saved state (the grown-ups' report shows players who are not playing now).
+  const stageFor = s => [5, 4, 3, 2, 1].find(n => s.unlockAll || n <= ageStage(+s.age || 5) || ((s.english && +s.english.xp) || 0) >= STAGES[n - 1].need);
+  enHome.api = { stageFor, quiz, give, reward, E, stage, open, talk, tapWords, wireTapWords, lockText, plain, ptip, hooks, maxTier, tierOf, SECTIONS, VIEWS, STAGES, PALS, vocab, enHome };
   return enHome;
 })();

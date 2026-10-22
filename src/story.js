@@ -821,5 +821,6 @@ const storyHome = (() => {
   }
 
   if (location.hash === '#selftest') window.__quest = { CH, get state() { return S(); }, mapView, stopView, bookView, chapterDone, layout, isDone, nextStop, riddle: makeRiddle, topicOf, tierOf, get watching() { return !!unwatchMap; } };
+  mapView.CH = CH; // the grown-ups' progress report counts chapters and stops
   return mapView;
 })();

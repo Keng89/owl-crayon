@@ -809,7 +809,7 @@ const craftsHome = (() => {
   function award(c, how, sticker) {
     const D = CS(), rec = D.done[c.id], first = !rec, n = first ? LEVELS[c.lv - 1].stars : 1;
     D.done[c.id] = { n: (rec ? rec.n : 0) + 1, first: rec ? rec.first : today(), last: today(), sticker: sticker || (rec && rec.sticker) || c.ico, how };
-    D.stars += n; questTick('art'); dayLog('art'); addStars(n); confetti(60); yay();
+    D.stars += n; questTick('art'); dayLog('art'); dayLog('cr'); addStars(n); confetti(60); yay();
     return { n, first };
   }
   function madeView(id) {
@@ -875,5 +875,6 @@ const craftsHome = (() => {
     home: (lv, have, q) => go(crHome, lv || 0, have || '', q || ''), cat: id => go(catView, id), open: id => go(craftView, id), made: id => go(madeView, id), get movie() { return M; }
   };
   crHome.add = add; crHome.later = later; crHome.warm = () => { const f = later.shift(); if (f) f(); return later.length > 0; }; crHome.kit = K; crHome.info = info; crHome.LEVELS = LEVELS; crHome.CATS = CATS;
+  crHome.all = () => (load(), CRAFTS); crHome.byId = id => (load(), BY[id]);
   return crHome;
 })();

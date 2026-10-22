@@ -571,6 +571,7 @@ const worldHome = (() => {
 
   function worldHome(opt) { screen(opt); }
   worldHome.wallet = wallet;
+  worldHome.kind = id => (BY[id] || {}).c; // for the grown-ups' report
   worldHome.info = () => ({ items: ITEMS.length, lands: LANDS.length - 1, animals: ITEMS.filter(i => i.c === 'animal').length, minP: Math.min(...ITEMS.map(i => i.p)), maxP: Math.max(...ITEMS.map(i => i.p)), landMin: Math.min(...LANDS.filter(l => l.p).map(l => l.p)), landMax: Math.max(...LANDS.map(l => l.p)) });
   if (location.hash === '#selftest') window.__world = {
     ITEMS, LANDS, MS, CATS, terr, whyNot: (id, x, y) => whyNot(BY[id], x, y), wallet, day, open: o => go(worldHome, o), shop: c => go(shopView, c), book: () => go(bookView),
