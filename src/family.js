@@ -100,7 +100,7 @@ function quest() {
   if (!st.quest || st.quest.day !== d) {
     const n = dayNum(d), mathN = st.age <= 6 ? 5 : 8;
     const artJobs = [['art', 1, 'Finish an art lesson or save a drawing', '🖍️'], ['pixel', 1, 'Finish a pixel picture', '👾'], ['mix', 1, 'Make a new color in Mix colors', '🎨'], ['art', 1, 'Finish an art lesson or save a drawing', '🖍️']];
-    const extra = dueReviews().length >= 2 ? ['review', 2, 'Practise 2 old questions', '🔁'] : [['owl', 1, 'Ask Owl a question', '🦉'], ['firsttry', 3, 'Get 3 right on the first try', '🎯']][n % 2];
+    const extra = dueReviews().length >= 2 ? ['review', 2, 'Practise 2 old questions', '🔁'] : [['owl', 1, 'Ask Owl a question', '🦉'], ['firsttry', 3, 'Get 3 right on the first try', '🎯'], ['english', 2, 'Do 2 English mission jobs', '📚']][n % 3];
     st.quest = { day: d, claimed: false, tasks: [['math', mathN, `Answer ${mathN} math questions`, '🔢'], artJobs[n % artJobs.length], extra].map(([k, need, t, ico]) => ({ k, need, t, ico, have: 0 })) };
     save();
   }
@@ -122,7 +122,7 @@ function wireQuest() {
   const q = quest();
   view.querySelectorAll('[data-task]').forEach(b => b.onclick = () => {
     const t = q.tasks[+b.dataset.task];
-    ({ math: () => go(mathHome), firsttry: () => go(mathHome), review: () => go(play, 'review'), art: () => go(artHome), pixel: () => go(pixelHome), mix: () => go(mixTab), owl: () => go(owl) })[t.k]();
+    ({ math: () => go(mathHome), firsttry: () => go(mathHome), review: () => go(play, 'review'), art: () => go(artHome), pixel: () => go(pixelHome), mix: () => go(mixTab), owl: () => go(owl), english: () => go(englishHome) })[t.k]();
   });
   const c = document.getElementById('chest');
   if (c) c.onclick = () => {

@@ -64,12 +64,12 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
     await p.click('#tEnglish'); await p.waitForSelector('.en-secs');
     if ((await S()).stage !== 1) fail('a 5-year-old does not start at stage 1');
     const secs = await p.$$eval('[data-sec]', x => x.map(b => b.dataset.sec));
-    if (secs.length !== 11) fail(`${secs.length} sections`);
+    if (secs.length < 11) fail(`${secs.length} sections`); // 11 from rounds 1-2; round 3 (t41) adds 5 more
     await noScroll('english home'); await bigEnough('english home'); await shot('home');
 
     // 2. Every section renders.
     const expect = { phonics: ['.en-pt', 26], blend: ['#enBlend', 1], sight: ['.en-row', 5], read: ['.en-story', 10], build: ['.en-tray .en-blk', 3], grammar: ['.en-gt', 15], vocab: ['.en-vc', 10], say: ['.en-say', 10], fun: ['.en-fun', 4], play: ['.en-wp', 7], mywords: ['.en-stk', 10] };
-    for (const id of secs) {
+    for (const id of secs.filter(x => expect[x])) {
       await p.evaluate(() => window.__english.go('home')); await p.waitForSelector('.en-secs');
       await p.click(`[data-sec="${id}"]`);
       const [sel, n] = expect[id];

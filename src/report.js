@@ -60,6 +60,8 @@ const report = (() => {
       grammarRounds: EN_GAMES.reduce((a, g) => a + num(rounds['g-' + g.id]), 0), blend: num(rounds.blend),
       streak: wotd.last && dn - dayNum(wotd.last) <= 1 ? num(wotd.streak) : 0, bestStreak: num(wotd.best), wotdDays: num(wotd.n),
       review: rev.length, reviewDue: rev.filter(r => num(r.due) <= dn).length, pals: keys(e.pals).length };
+    // Round 3 (english8.js): letters traced, sound games, Talk time chats, chapter books, grammar islands, missions.
+    E.r3 = Object.assign({ traced: 0, tracedAll: 52, words: 0, chats: 0, scenes: 0, scenesAll: 0, books: 0, booksAll: 0, chapters: 0, islands: 0, islandsAll: 9, sound: 0, missions: 0 }, safe(() => englishHome.round3(e), {}));
     E.nextSight = EN_SIGHT.find(x => x.stage <= stageN && x.words.some(w => !obj(e.sight)[w]));
     E.nextStory = EN_STORIES.find(x => x.stage <= stageN && !obj(e.stories)[x.id]);
     E.nextGame = EN_GAMES.find(x => x.stage <= stageN && !num(rounds['g-' + x.id]));
@@ -110,6 +112,8 @@ const report = (() => {
     if (E.nextSight && E.sight < E.sightAll) add('en', 60, '👀', `Sight words: ${E.sight} of ${E.sightAll} known. Try "Find the word" in the ${E.nextSight.name} set.`);
     if (E.nextStory) add('en', 56, '📖', `Read "${E.nextStory.title}" together (English & Reading → Read). ${E.stories} of ${E.storiesAll} stories read so far.`);
     if (E.grammar === 0 && E.stage >= 2 && E.nextGame) add('en', 52, E.nextGame.ico, `Try a grammar game: ${E.nextGame.name}. No grammar games played yet.`);
+    if (E.letters >= 10 && E.r3.traced === 0) add('en', 48, '✍️', `Try Write letters in English & Reading: ${E.letters} letter sounds heard, no letters traced yet. Start at the green dot.`);
+    if (E.stage >= 3 && E.r3.books === 0) add('en', 50, '📚', 'Read a chapter book together (English & Reading → Chapter books). One chapter a day is plenty.');
     if (E.streak === 0 && E.wotdDays > 0) add('en', 38, '☀️', `Start a new word-of-the-day streak (best so far: ${pl(E.bestStreak, 'day')}).`);
     // Math
     if (M.tried === 0) add('math', 88, '🔢', 'Open the Number Garden and try a first math topic. Owl picks a starting level from your child\'s age.');
@@ -175,7 +179,9 @@ const report = (() => {
           ${row('Letter sounds (A–Z)', E.letters, 26, 'var(--coral)')}${row('All sounds (pairs, magic e, teams)', E.sounds, E.soundsAll, 'var(--coral-soft)')}
           ${row('Sight words known', E.sight, E.sightAll, 'var(--sky)')}${row('Stories read', E.stories, E.storiesAll, 'var(--leaf)')}
           ${row('Grammar games played', E.grammar, E.grammarAll, 'var(--grape)')}
-          ${fact('Words in the word album', E.album)}${fact('Word-of-the-day streak', `${pl(E.streak, 'day')} (best ${E.bestStreak})`)}${fact('Words in Owl\'s review / due', `${E.review} / ${E.reviewDue}`)}${fact('Blend it rounds', E.blend)}`)}
+          ${fact('Words in the word album', E.album)}${fact('Word-of-the-day streak', `${pl(E.streak, 'day')} (best ${E.bestStreak})`)}${fact('Words in Owl\'s review / due', `${E.review} / ${E.reviewDue}`)}${fact('Blend it rounds', E.blend)}
+          ${row('Letters traced (A–Z, a–z)', E.r3.traced, E.r3.tracedAll, 'var(--sky-soft)')}${row('Grammar island badges', E.r3.islands, E.r3.islandsAll, 'var(--grape-soft)')}${row('Chapter books read', E.r3.books, E.r3.booksAll, 'var(--leaf-soft)')}
+          ${fact('Words traced', E.r3.words)}${fact('Talk time chats', `${E.r3.chats} (${E.r3.scenes} of ${E.r3.scenesAll} places)`)}${fact('Sound game rounds', E.r3.sound)}${fact('English missions done', E.r3.missions)}`)}
         ${card('rp-art', '🖍️', 'Art', `${row('Art lessons done', R.done, R.all, 'var(--coral)')}${R.levels.map(l => row(`${l.name} lessons`, l.have, l.all, 'var(--coral-soft)')).join('')}
           ${fact('Pictures saved', R.pics)}${fact('Pixel art', `level ${R.pixel} of 5 · ${pl(R.pixelDone, 'picture')}`)}`)}
         ${card('rp-cr', '✂️', 'Crafts', `${row('Crafts made', C.made, C.all, 'var(--sun)')}${C.levels.map(l => row(`${l.ico} ${l.name}`, l.have, l.all, 'var(--sun-soft)')).join('')}${fact('Times making crafts', C.times)}`)}

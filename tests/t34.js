@@ -92,7 +92,7 @@ const errs = [], fails = [];
     await p.evaluate(() => window.__owl.go(window.__owl.home)); await p.waitForSelector('#tEnglish');
     await p.click('#tEnglish'); await p.waitForSelector('.en-secs');
     const secs = await p.$$eval('[data-sec]', x => x.map(b => b.dataset.sec));
-    if (secs.length !== 11 || !secs.includes('play') || !secs.includes('mywords')) fail(`sections ${secs}`);
+    if (secs.length < 11 || !secs.includes('play') || !secs.includes('mywords')) fail(`sections ${secs}`);
     if (!(await p.$('#enWotd'))) fail('no word of the day strip on the English home');
     if (await p.$('#enRev')) fail('review strip shown with nothing to review');
     await check('english home'); await shot('home');

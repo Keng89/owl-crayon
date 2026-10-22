@@ -1781,6 +1781,123 @@ body:has(.sp-svg) #toast{pointer-events:none}
   .rp-card,.rp-week,.rp-tile,.rp-sugg li{break-inside:avoid}
   .rp-grid{grid-template-columns:1fr 1fr}
 }
+/* ---------- English round 3 (english8.js): writing, sound games, talk time, chapter books, grammar islands, mission ---------- */
+.e6-mis{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:linear-gradient(135deg,#FFF1CC,#FDE0DB);border-radius:22px;padding:12px 16px;min-height:64px;box-shadow:0 4px 0 var(--line)}
+.e6-mis b{display:block;font-family:var(--display);font-size:20px}.e6-mis>span:nth-child(2){flex:1;min-width:0;font-weight:700}
+.e6-mis.ready{animation:e6glow 1.4s infinite}.e6-mis.claimed{opacity:.85}
+.e6-mico{font-size:36px}.e6-mdots{font-size:22px;white-space:nowrap}
+.e6-mlist{display:flex;flex-direction:column;gap:10px}
+.e6-mjob{display:flex;align-items:center;gap:12px;background:var(--paper);border-radius:20px;padding:12px 16px;min-height:72px;text-align:left;box-shadow:0 4px 0 var(--line)}
+.e6-mjob>span:nth-child(2){flex:1;min-width:0;display:flex;flex-direction:column;gap:6px}.e6-mjob b{font-family:var(--display);font-size:20px}
+.e6-mjob.ok{background:var(--leaf-soft)}.e6-mn{font-weight:800;font-variant-numeric:tabular-nums}
+.e6-chest{background:var(--line);border-radius:22px;padding:18px;min-height:64px;font-family:var(--display);font-weight:800;font-size:22px;width:100%}
+.e6-chest.ready{background:var(--sun);box-shadow:0 5px 0 #C9921A;animation:e6glow 1.4s infinite}
+.e6-mclaimed{font-family:var(--display);font-size:24px;font-weight:800;text-align:center;color:var(--leaf-deep)}
+.e6-pop{animation:starpop .4s}
+/* writing */
+.e6-wprog{display:flex;flex-direction:column;gap:4px}
+.e6-lgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(64px,1fr));gap:8px}
+.e6-lgrid.words{grid-template-columns:repeat(auto-fill,minmax(120px,1fr))}.e6-lgrid.dim{opacity:.55}
+.e6-lt{position:relative;background:var(--paper);border-radius:16px;min-height:64px;font-family:var(--display);font-weight:800;font-size:32px;box-shadow:0 4px 0 var(--line);display:flex;align-items:center;justify-content:center;gap:6px}
+.e6-lgrid.words .e6-lt{font-size:24px}.e6-wem{font-size:26px}
+.e6-lt.done{background:var(--leaf-soft)}.e6-lt i{position:absolute;top:2px;right:6px;font-size:14px;font-style:normal;color:var(--leaf-deep)}
+.e6-thead{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap}.e6-thead b{font-family:var(--display);font-size:40px}.e6-tpic{font-size:44px}
+.e6-pwrap{align-self:center;flex:none;max-width:100%}
+.e6-pad{display:block;width:100%;height:100%;touch-action:none;border-radius:24px;box-shadow:0 5px 0 var(--line);background:#fff;user-select:none;-webkit-user-select:none}
+.e6-pad *{fill:none;stroke-linecap:round;stroke-linejoin:round}
+.e6-pad .e6-paper{fill:#fff;stroke:none}
+.e6-ln{stroke:#C9D9E6;stroke-width:1}.e6-ln.mid{stroke-dasharray:4 4}.e6-ln.base{stroke:#9DB6CC;stroke-width:1.5}
+.e6-trk path{stroke:#EEF3F7;stroke-width:18}
+.e6-dot path{stroke:#9FB3C8;stroke-width:2.5;stroke-dasharray:1 6}
+.e6-dot path.on{stroke:var(--sky);stroke-width:4;stroke-dasharray:2 7;animation:e6flow 1s linear infinite}
+.e6-dot path.ok{stroke:var(--leaf);stroke-width:5;stroke-dasharray:none}
+@keyframes e6flow{to{stroke-dashoffset:-18}}
+.e6-demo{stroke:var(--coral);stroke-width:7;opacity:.85}
+.e6-ink path{stroke:#2E8BE6;stroke-width:8;opacity:.9}
+.e6-start circle{fill:#A9B8C8;stroke:#fff;stroke-width:1.5}.e6-start.on circle{fill:var(--leaf);animation:e6pulse 1s infinite;transform-box:fill-box;transform-origin:center}
+.e6-start text{fill:#fff;stroke:none;font:800 9px var(--body);text-anchor:middle}
+.e6-pad path.e6-arrow{fill:var(--coral);stroke:none}
+@keyframes e6pulse{50%{transform:scale(1.25)}}
+.e6-pad.e6-win .e6-dot path{stroke:var(--sun);stroke-width:7;stroke-dasharray:none}
+.e6-pad.e6-win{animation:starpop .5s}.e6-pad.e6-shake{animation:shake .35s 2}
+.e6-thint{text-align:center;font-weight:800;margin:0;min-height:24px;color:var(--ink-soft)}
+/* sound games */
+.e6-word{font-family:var(--display);font-weight:800;font-size:clamp(30px,8vw,44px);text-align:center;display:flex;justify-content:center;align-items:center;gap:4px;flex-wrap:wrap}
+.e6-word i{color:var(--ink-soft);font-style:normal}
+.e6-pips{font-size:18px;letter-spacing:2px;color:var(--coral)}
+.e6-boxes{display:flex;gap:6px;justify-content:center;flex-wrap:wrap}
+.e6-boxes span{min-width:52px;height:56px;border:3px solid var(--sky);border-radius:12px;display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:28px;background:var(--paper);animation:starpop .4s both;padding:0 6px}
+.e6-boxes span.hi{border-color:var(--coral);background:var(--coral-soft)}
+.e6-change{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap}.e6-cpic{font-size:56px}.e6-carrow{font-size:30px;color:var(--ink-soft)}
+.e6-cnew{min-width:52px;height:56px;border-radius:12px;background:var(--leaf);color:#fff;display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:28px;animation:bob 1.2s infinite;padding:0 6px}
+.e6-newword{font-size:40px;text-align:center;animation:starpop .4s}.e6-newword b{font-family:var(--display)}
+.e6-slots{display:flex;gap:8px;justify-content:center}.e6-slots span{width:48px;height:48px;border-radius:50%;background:var(--line);display:grid;place-items:center;font-weight:800;font-size:24px}
+.e6-slots span.on{background:var(--sun);animation:bob 1s infinite}
+.e6-gr{font-family:var(--display);font-size:34px;font-weight:800}
+.e6-clapw{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap}
+.e6-syl{display:inline-block;animation:starpop .4s both;background:var(--sun-soft);border-radius:12px;padding:0 8px}
+.e6-claps{min-height:48px;text-align:center;font-size:38px;letter-spacing:4px;overflow-wrap:anywhere}
+.e6-clapbtn{align-self:center;width:150px;height:150px;border-radius:50%;background:var(--coral);color:#fff;font-size:64px;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 7px 0 var(--coral-deep)}
+.e6-clapbtn small{font-family:var(--display);font-size:20px;font-weight:800}.e6-clapbtn.hit{animation:e6hit .25s}
+@keyframes e6hit{50%{transform:scale(.88)}}
+/* talk time */
+.e6-scene{font-size:44px;text-align:center;letter-spacing:10px;background:linear-gradient(#D9EBFC,#D7F2E3);border-radius:22px;padding:8px}
+.e6-chat{display:flex;flex-direction:column;gap:10px;max-height:46vh;overflow-y:auto;padding:4px}
+.e6-b{display:flex;align-items:flex-end;gap:8px;max-width:88%}.e6-b.me{align-self:flex-end;flex-direction:row-reverse}
+.e6-b.new{animation:drop .35s}.e6-av{font-size:38px;flex:none}
+.e6-b p{margin:0;background:var(--paper);border-radius:20px 20px 20px 6px;padding:10px 14px;font-weight:700;font-size:19px;box-shadow:0 3px 0 var(--line);overflow-wrap:anywhere}
+.e6-b.me p{background:var(--sky-deep);color:#fff;border-radius:20px 20px 6px 20px;box-shadow:none}
+.e6-b p small{display:block;font-size:13px;opacity:.8}
+.e6-b.owl p{background:var(--sun-soft)}.e6-b.tip{align-self:center;max-width:100%}
+.e6-replies{display:flex;flex-direction:column;gap:10px}
+.e6-reply{display:flex;align-items:center;gap:10px;text-align:left;background:var(--paper);border:3px solid var(--sky-soft);border-radius:18px;padding:12px 14px;min-height:60px;font-weight:800;font-size:19px;box-shadow:0 4px 0 var(--line)}
+.e6-reply.wrong{opacity:.45;animation:shake .3s}
+.e6-rn{flex:none;width:34px;height:34px;border-radius:50%;background:var(--sky-deep);color:#fff;display:grid;place-items:center;font-size:17px}
+.e6-card{align-self:center;max-width:420px;width:100%;background:var(--paper);border-radius:22px;padding:14px 16px;border:4px solid var(--grape-soft);display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px;animation:flip .45s}
+.e6-card.k-slang{border-color:var(--sun)}.e6-card.k-polite{border-color:var(--leaf-soft)}
+.e6-card b{font-family:var(--display);font-size:26px}.e6-card p{margin:0;font-weight:700}.e6-card i{color:var(--ink-soft)}
+.e6-ck{font-size:13px;font-weight:800;background:var(--bg);border-radius:999px;padding:2px 10px}.e6-ce{font-size:42px;line-height:1.1}
+.e6-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.e6-flip{position:relative;min-height:140px;border-radius:20px;background:var(--paper);box-shadow:0 4px 0 var(--line);padding:10px}
+.e6-flip.got{background:var(--sun-soft)}
+.e6-front,.e6-back{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;text-align:center}
+.e6-front b,.e6-back b{font-family:var(--display);font-size:19px;line-height:1.1}.e6-front i{position:absolute;top:6px;right:8px;font-style:normal}
+.e6-back{display:none;font-size:15px;font-weight:700}.e6-flip.on .e6-front{display:none}.e6-flip.on .e6-back{display:flex;animation:flip .35s}
+/* chapter books */
+.e6-shelf{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.e6-book{display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center;background:linear-gradient(90deg,#7C2D12 0 10px,var(--paper) 10px);border-radius:8px 20px 20px 8px;padding:14px 10px 14px 18px;min-height:150px;box-shadow:0 4px 0 var(--line)}
+.e6-book b{font-family:var(--display);font-size:18px;line-height:1.15}.e6-book small{color:var(--ink-soft);font-weight:700}
+.e6-book.locked{opacity:.6}.e6-book.read{background:linear-gradient(90deg,var(--leaf-deep) 0 10px,var(--leaf-soft) 10px)}
+.e6-bcov{font-size:48px}
+.e6-chaps{display:flex;gap:6px;justify-content:center}.e6-chaps span{width:34px;height:34px;border-radius:50%;background:var(--line);display:grid;place-items:center;font-weight:800}
+.e6-chaps span.done{background:var(--leaf-deep);color:#fff}.e6-chaps span.now{background:var(--sun)}
+.e6-chname{font-family:var(--display);font-size:22px;color:var(--grape-ink)}
+.e6-bpic{font-size:clamp(60px,16vw,96px);letter-spacing:6px;animation:bob 3s infinite}
+.e6-btext{font-size:clamp(20px,5vw,28px)}
+.e6-vw{color:var(--sky-deep);text-decoration:underline dotted 3px;text-underline-offset:5px}.e6-vw.sample{display:inline;padding:0}
+.e6-vcard{display:flex;align-items:center;gap:12px;background:var(--sky-soft);border-radius:20px;padding:12px 14px;position:relative}
+.e6-vcard>span:nth-child(2){flex:1;min-width:0;display:flex;flex-direction:column}.e6-vcard b{font-family:var(--display);font-size:24px}
+.e6-x{width:44px;height:44px;border-radius:50%;background:var(--paper);flex:none}
+.e6-qk{display:inline-block;border-radius:999px;padding:2px 10px;font-size:15px;font-weight:800;background:var(--grape-soft);color:var(--grape-ink);vertical-align:middle}
+.e6-qk.k-why{background:var(--sun-soft);color:#7A4E00}.e6-qk.k-feel{background:var(--coral-soft);color:var(--coral-deep)}.e6-qk.k-where{background:var(--leaf-soft);color:var(--leaf-deep)}
+.e6-bounce{animation:bob 1s infinite}
+/* grammar islands */
+.e6-ihead{display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center}.e6-ihead b{font-family:var(--display);font-size:24px}
+.e6-sea{position:relative;width:100%;max-width:640px;align-self:center;aspect-ratio:1/1.05;background:radial-gradient(circle at 30% 20%,#BEE3F8,#7FB8E6);border-radius:30px;box-shadow:inset 0 0 0 4px rgba(255,255,255,.4);overflow:hidden}
+.e6-route{position:absolute;inset:0;width:100%;height:100%}.e6-route polyline{fill:none;stroke:#fff;stroke-width:3;stroke-dasharray:2 8;vector-effect:non-scaling-stroke;stroke-linecap:round;opacity:.8}
+.e6-isl{position:absolute;transform:translate(-50%,-50%);width:30%;min-height:96px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:50% 50% 40% 40%;background:rgba(255,241,204,.94);box-shadow:0 5px 0 rgba(34,48,90,.2);padding:6px 4px}
+.e6-isl b{font-family:var(--display);font-size:clamp(12px,3.2vw,17px);line-height:1.05;text-align:center}
+.e6-land{font-size:clamp(26px,7vw,40px);line-height:1}.e6-iico{font-size:20px}.e6-iico.big{font-size:52px}
+.e6-isl.locked{background:rgba(230,236,242,.9)}.e6-isl.won{background:rgba(215,242,227,.96)}
+.e6-isl.cur{box-shadow:0 0 0 4px var(--sun),0 5px 0 rgba(34,48,90,.2)}
+@keyframes e6bob{50%{transform:translate(-50%,calc(-50% - 6px))}}
+.e6-badge{position:absolute;top:-8px;right:-4px;font-size:26px;font-style:normal}
+.e6-boat{position:absolute;bottom:-14px;left:-6px;font-size:26px;font-style:normal;animation:bob 1.2s infinite}
+.e6-ilesson{display:flex;align-items:center;gap:12px;background:var(--paper);border-radius:22px;padding:14px;box-shadow:0 4px 0 var(--line)}.e6-ilesson p{flex:1;margin:0;font-weight:700;font-size:19px}
+.e6-medal{position:relative;font-size:110px;line-height:1;margin:0 auto}.e6-medal b{position:absolute;left:50%;top:58%;transform:translate(-50%,-50%);font-size:34px}
+.e6-medal.new{animation:e6medal 1s both}
+@keyframes e6medal{0%{transform:scale(0) rotate(-200deg)}70%{transform:scale(1.2) rotate(10deg)}to{transform:none}}
+@keyframes e6glow{50%{box-shadow:0 0 0 7px rgba(255,194,61,.75)}}
 </style>
 
 </head><body>
@@ -12670,7 +12787,7 @@ function quest() {
   if (!st.quest || st.quest.day !== d) {
     const n = dayNum(d), mathN = st.age <= 6 ? 5 : 8;
     const artJobs = [['art', 1, 'Finish an art lesson or save a drawing', '🖍️'], ['pixel', 1, 'Finish a pixel picture', '👾'], ['mix', 1, 'Make a new color in Mix colors', '🎨'], ['art', 1, 'Finish an art lesson or save a drawing', '🖍️']];
-    const extra = dueReviews().length >= 2 ? ['review', 2, 'Practise 2 old questions', '🔁'] : [['owl', 1, 'Ask Owl a question', '🦉'], ['firsttry', 3, 'Get 3 right on the first try', '🎯']][n % 2];
+    const extra = dueReviews().length >= 2 ? ['review', 2, 'Practise 2 old questions', '🔁'] : [['owl', 1, 'Ask Owl a question', '🦉'], ['firsttry', 3, 'Get 3 right on the first try', '🎯'], ['english', 2, 'Do 2 English mission jobs', '📚']][n % 3];
     st.quest = { day: d, claimed: false, tasks: [['math', mathN, `Answer ${mathN} math questions`, '🔢'], artJobs[n % artJobs.length], extra].map(([k, need, t, ico]) => ({ k, need, t, ico, have: 0 })) };
     save();
   }
@@ -12692,7 +12809,7 @@ function wireQuest() {
   const q = quest();
   view.querySelectorAll('[data-task]').forEach(b => b.onclick = () => {
     const t = q.tasks[+b.dataset.task];
-    ({ math: () => go(mathHome), firsttry: () => go(mathHome), review: () => go(play, 'review'), art: () => go(artHome), pixel: () => go(pixelHome), mix: () => go(mixTab), owl: () => go(owl) })[t.k]();
+    ({ math: () => go(mathHome), firsttry: () => go(mathHome), review: () => go(play, 'review'), art: () => go(artHome), pixel: () => go(pixelHome), mix: () => go(mixTab), owl: () => go(owl), english: () => go(englishHome) })[t.k]();
   });
   const c = document.getElementById('chest');
   if (c) c.onclick = () => {
@@ -13558,7 +13675,7 @@ function parent() {
       <p class="note">Owl &amp; Crayon works without the internet. Progress, drawings and Owl's answers are saved only in this browser on this device. There are no ads, no tracking and no accounts, and nothing is sent anywhere unless you switch on Online Owl.</p>
       <p class="note">With Online Owl on, only the question your child asks and their age go to your Online Owl server, which asks an AI (Cloudflare's free AI, or Claude by Anthropic) for a short, child-friendly answer. Names and progress are never sent. You can read every answer above, and turn it off at any time.</p>
       <p class="note">The microphone button uses the browser's own speech recognition, which may send the recording to the browser maker (for example Google or Apple) to turn it into text. Typing works without it.</p>
-      <p class="note">Version 2026-10-22 13:06 UTC</p></div>`;
+      <p class="note">Version 2026-10-22 13:21 UTC</p></div>`;
   view.querySelectorAll('[data-teach]').forEach(b => b.onclick = () => {
     const i = +b.dataset.teach, ans = $('#t' + i).value.trim(); if (!ans) return;
     owlForget(st.owlMisses[i].q); st.owlTaught.push({ q: st.owlMisses[i].q, a: ans }); st.owlMisses.splice(i, 1); save(); go(parent);
@@ -19925,6 +20042,1014 @@ const EN_DESC = {
   }));
   Object.assign(window.__english ? window.__english.data : {}, { EN_ALLWORDS, EN_TWISTERS, EN_RHYMES, EN_TALE, EN_DESC });
 })();
+/* ---------- English & Reading, part 6: data for round 3 (letter shapes, sound games, Talk time, phrase cards) ---------- */
+// The screens are in english8.js. Letters are drawn in a box 160 tall: the top line is y 20, the dashed middle line
+// y 65, the base line y 110 and the tail line y 150. Each letter is [width, stroke, stroke...]; strokes are in the
+// order children are taught, each one an SVG path that starts where the pencil goes down.
+const EN_ABC = {
+  A: [80, 'M40 20 L12 110', 'M40 20 L68 110', 'M24 74 L56 74'],
+  B: [72, 'M15 20 L15 110', 'M15 20 C66 18 66 64 15 65', 'M15 65 C76 64 76 112 15 110'],
+  C: [76, 'M66 34 C52 12 14 16 14 65 C14 114 52 118 66 96'],
+  D: [76, 'M15 20 L15 110', 'M15 20 C80 20 80 110 15 110'],
+  E: [68, 'M15 20 L15 110', 'M15 20 L60 20', 'M15 65 L52 65', 'M15 110 L60 110'],
+  F: [66, 'M15 20 L15 110', 'M15 20 L58 20', 'M15 65 L50 65'],
+  G: [78, 'M66 34 C52 12 14 16 14 65 C14 114 56 118 66 92 L66 70 L44 70'],
+  H: [76, 'M15 20 L15 110', 'M61 20 L61 110', 'M15 65 L61 65'],
+  I: [60, 'M30 20 L30 110', 'M12 20 L48 20', 'M12 110 L48 110'],
+  J: [66, 'M48 20 L48 88 C48 118 14 118 12 92', 'M28 20 L62 20'],
+  K: [70, 'M15 20 L15 110', 'M60 20 L15 70', 'M30 56 L62 110'],
+  L: [62, 'M15 20 L15 110 L56 110'],
+  M: [84, 'M12 110 L12 20 L42 76 L72 20 L72 110'],
+  N: [76, 'M15 110 L15 20 L61 110 L61 20'],
+  O: [82, 'M41 20 C10 20 10 110 41 110 C72 110 72 20 41 20'],
+  P: [68, 'M15 20 L15 110', 'M15 20 C68 20 68 68 15 68'],
+  Q: [84, 'M41 20 C10 20 10 110 41 110 C72 110 72 20 41 20', 'M48 86 L74 116'],
+  R: [70, 'M15 20 L15 110', 'M15 20 C68 20 68 66 15 66', 'M34 66 L64 110'],
+  S: [70, 'M60 32 C50 14 16 18 18 40 C20 60 60 60 60 86 C60 112 20 116 12 96'],
+  T: [76, 'M38 20 L38 110', 'M10 20 L66 20'],
+  U: [76, 'M15 20 L15 80 C15 118 61 118 61 80 L61 20'],
+  V: [78, 'M10 20 L39 110 L68 20'],
+  W: [92, 'M8 20 L26 110 L46 46 L66 110 L84 20'],
+  X: [74, 'M12 20 L62 110', 'M62 20 L12 110'],
+  Y: [76, 'M12 20 L38 65', 'M64 20 L38 65 L38 110'],
+  Z: [72, 'M12 20 L60 20 L12 110 L60 110'],
+  a: [72, 'M56 74 C46 60 16 62 16 88 C16 114 50 116 56 100', 'M57 65 L57 110'],
+  b: [70, 'M15 20 L15 110', 'M15 84 C24 60 58 62 58 88 C58 114 24 116 15 98'],
+  c: [66, 'M54 74 C44 60 14 62 14 88 C14 114 44 116 54 104'],
+  d: [72, 'M56 74 C46 60 16 62 16 88 C16 114 50 116 56 100', 'M57 20 L57 110'],
+  e: [68, 'M16 88 L56 88 C56 62 16 60 16 88 C14 114 46 116 56 104'],
+  f: [60, 'M50 28 C44 16 28 16 28 34 L28 110', 'M12 66 L46 66'],
+  g: [72, 'M56 74 C46 60 16 62 16 88 C16 114 50 116 56 100', 'M57 65 L57 130 C57 152 22 152 16 136'],
+  h: [68, 'M15 20 L15 110', 'M15 82 C22 60 54 60 54 82 L54 110'],
+  i: [44, 'M22 65 L22 110', 'M22 44 L22 47'],
+  j: [52, 'M36 65 L36 130 C36 152 12 150 10 136', 'M36 44 L36 47'],
+  k: [64, 'M15 20 L15 110', 'M52 65 L15 92', 'M28 84 L54 110'],
+  l: [40, 'M20 20 L20 110'],
+  m: [80, 'M10 65 L10 110', 'M10 80 C14 60 38 60 39 80 L39 110', 'M39 80 C43 60 68 60 68 80 L68 110'],
+  n: [68, 'M15 65 L15 110', 'M15 80 C20 60 54 60 54 80 L54 110'],
+  o: [70, 'M35 65 C12 65 12 110 35 110 C58 110 58 65 35 65'],
+  p: [70, 'M15 65 L15 150', 'M15 80 C24 60 58 62 58 88 C58 114 24 116 15 98'],
+  q: [72, 'M56 74 C46 60 16 62 16 88 C16 114 50 116 56 100', 'M57 65 L57 150'],
+  r: [60, 'M15 65 L15 110', 'M15 84 C20 64 40 62 52 70'],
+  s: [64, 'M52 72 C46 62 18 62 18 76 C18 88 52 86 52 98 C52 112 22 114 12 104'],
+  t: [60, 'M30 28 L30 102 C30 112 42 112 50 106', 'M14 65 L48 65'],
+  u: [68, 'M15 65 L15 92 C15 116 54 116 54 92 L54 65 L54 110'],
+  v: [66, 'M10 65 L33 110 L56 65'],
+  w: [80, 'M8 65 L22 110 L39 74 L56 110 L70 65'],
+  x: [62, 'M12 65 L52 110', 'M52 65 L12 110'],
+  y: [66, 'M10 65 L33 108', 'M56 65 L20 150'],
+  z: [62, 'M12 65 L52 65 L12 110 L52 110']
+};
+// How to say each stroke, for the voice and for the hint under the letter.
+const EN_ABC_TALK = {
+  line: ['Straight down.', 'Across.', 'Slide down.', 'Across the middle.'],
+  A: 'Slide down, slide down, then across the middle.', B: 'Down, then two bumps.', C: 'Round like a big C.', D: 'Down, then a big round tummy.', E: 'Down, then three lines across.',
+  F: 'Down, then two lines across.', G: 'Round like C, then in and across.', H: 'Down, down, then across.', I: 'Down, then a hat and a shoe.', J: 'Down and hook, then a hat.',
+  K: 'Down, then in and out.', L: 'Down, then along the floor.', M: 'Up, down, up, down.', N: 'Up, down, up.', O: 'Round and round, back to the start.',
+  P: 'Down, then up and round.', Q: 'Round like O, then a little tail.', R: 'Down, round, then a leg.', S: 'Curve back, then curve forward.', T: 'Down, then a line across the top.',
+  U: 'Down, round, and up.', V: 'Down and up.', W: 'Down, up, down, up.', X: 'Slide down, then cross over.', Y: 'Slide in, slide in, then down.', Z: 'Across, slide back, across.',
+  a: 'Round like c, then up and down.', b: 'Down, then up and round.', c: 'Round like a little c.', d: 'Round like c, then tall up and down.', e: 'Across, then round like c.',
+  f: 'Hook and down, then across.', g: 'Round like c, then down and hook.', h: 'Down, then up and over.', i: 'Down, then a dot.', j: 'Down and hook, then a dot.',
+  k: 'Down, then in and out.', l: 'Tall, straight down.', m: 'Down, up and over, up and over.', n: 'Down, up and over.', o: 'Round and round, back to the start.',
+  p: 'Down low, then up and round.', q: 'Round like c, then down low.', r: 'Down, then up and over a little.', s: 'Curve back, then curve forward.', t: 'Down and flick, then across.',
+  u: 'Down, round, up and down.', v: 'Down and up.', w: 'Down, up, down, up.', x: 'Slide down, then cross over.', y: 'Slide in, then a long line down.', z: 'Across, slide back, across.'
+};
+// Short words to trace once letters are going well: [word, emoji].
+const EN_TRACE_WORDS = [['cat', '🐱'], ['dog', '🐶'], ['sun', '☀️'], ['mom', '👩'], ['dad', '👨'], ['pig', '🐷'], ['hat', '🎩'], ['bed', '🛏️'], ['bus', '🚌'], ['red', '🔴'],
+  ['fish', '🐟'], ['frog', '🐸'], ['love', '❤️'], ['book', '📖'], ['star', '⭐'], ['duck', '🦆'], ['home', '🏠'], ['yes', '👍'], ['zoo', '🦓'], ['cake', '🎂']];
+
+/* --- sound games (phonemic awareness) --- */
+// Sounds for chunks the first data file does not list.
+const EN_SND6 = Object.assign({}, EN_SND, { gg: 'guh', ee: 'ee', ea: 'ee', ey: 'ee', oo: 'oo', oa: 'oh', ai: 'ay', ay: 'ay', ar: 'ar', or: 'or', igh: 'eye', ie: 'eye', oe: 'oh', ow: 'ow', ou: 'ow', ck: 'kuh', ll: 'lll', ss: 'sss', x: 'ks' });
+// Words split into their sounds (one chunk per sound): "word:emoji:s-o-u-n-d-s".
+const EN_PHON = ('up:⬆️:u-p,egg:🥚:e-gg,bee:🐝:b-ee,key:🔑:k-ey,tea:🍵:t-ea,cow:🐮:c-ow,pie:🥧:p-ie,toe:🦶:t-oe,car:🚗:c-ar,' +
+  'cat:🐱:c-a-t,dog:🐶:d-o-g,sun:☀️:s-u-n,pig:🐷:p-i-g,bed:🛏️:b-e-d,bus:🚌:b-u-s,fish:🐟:f-i-sh,ship:🚢:sh-i-p,duck:🦆:d-u-ck,moon:🌙:m-oo-n,boat:⛵:b-oa-t,rain:🌧️:r-ai-n,night:🌃:n-igh-t,chick:🐥:ch-i-ck,sheep:🐑:sh-ee-p,book:📖:b-oo-k,star:⭐:s-t-ar,fork:🍴:f-or-k,' +
+  'frog:🐸:f-r-o-g,crab:🦀:c-r-a-b,drum:🥁:d-r-u-m,flag:🚩:f-l-a-g,tent:⛺:t-e-n-t,hand:✋:h-a-n-d,nest:🪺:n-e-s-t,snail:🐌:s-n-ai-l,train:🚆:t-r-ai-n,spoon:🥄:s-p-oo-n,lamp:💡:l-a-m-p,milk:🥛:m-i-l-k,clock:🕰️:c-l-o-ck,' +
+  'plant:🪴:p-l-a-n-t,stamp:📮:s-t-a-m-p,drink:🥤:d-r-i-n-k,splash:💦:s-p-l-a-sh')
+  .split(',').map(x => { const [w, e, s] = x.split(':'); return { w, e, s: s.split('-') }; });
+// Three-sound words for "change one sound" and "first, middle or last sound".
+const EN_CVC = ('cat:🐱,hat:🎩,bat:🦇,rat:🐀,cap:🧢,can:🥫,map:🗺️,tap:🚰,van:🚐,man:👨,pan:🍳,bag:👜,hot:🔥,pot:🍲,dot:⚫,dog:🐶,log:🪵,fog:🌫️,mop:🧹,' +
+  'pig:🐷,dig:⛏️,pin:📌,bin:🗑️,fin:🦈,zip:🤐,lip:👄,kit:🧰,sit:🪑,sun:☀️,bun:🍞,run:🏃,nut:🥜,hut:🛖,cut:✂️,bug:🐛,mug:☕,hug:🤗,jug:🫗,cup:🥤,pup:🐕,bus:🚌,' +
+  'bed:🛏️,red:🔴,ten:🔟,hen:🐔,pen:🖊️,net:🥅,jet:✈️,wet:💦,web:🕸️,leg:🦵,ship:🚢,shop:🛍️,chip:🍟,fish:🐟,dish:🍽️,sock:🧦,rock:🪨,lock:🔒,duck:🦆')
+  .split(',').map(x => { const [w, e] = x.split(':'), s = w.length === 4 ? (/^(sh|ch)/.test(w) ? [w.slice(0, 2), w[2], w[3]] : [w[0], w[1], w.slice(2)]) : w.split(''); return { w, e, s }; });
+// Words to clap: "word:emoji:syl-la-bles".
+const EN_CLAP = ('cat:🐱:cat,sun:☀️:sun,frog:🐸:frog,bird:🐦:bird,cake:🎂:cake,tree:🌳:tree,apple:🍎:ap-ple,tiger:🐯:ti-ger,rabbit:🐰:rab-bit,pencil:✏️:pen-cil,monkey:🐵:mon-key,' +
+  'rocket:🚀:rock-et,zebra:🦓:ze-bra,carrot:🥕:car-rot,rainbow:🌈:rain-bow,popcorn:🍿:pop-corn,penguin:🐧:pen-guin,cupcake:🧁:cup-cake,pizza:🍕:piz-za,' +
+  'banana:🍌:ba-na-na,dinosaur:🦕:di-no-saur,kangaroo:🦘:kan-ga-roo,umbrella:☂️:um-brel-la,hamburger:🍔:ham-bur-ger,octopus:🐙:oc-to-pus,pineapple:🍍:pine-ap-ple,tomato:🍅:to-ma-to,butterfly:🦋:but-ter-fly,elephant:🐘:el-e-phant,' +
+  'watermelon:🍉:wa-ter-mel-on,caterpillar:🐛:cat-er-pil-lar,helicopter:🚁:hel-i-cop-ter,alligator:🐊:al-li-ga-tor,avocado:🥑:av-o-ca-do')
+  .split(',').map(x => { const [w, e, c] = x.split(':'); return { w, e, parts: c.split('-') }; });
+
+/* --- Talk time: everyday expressions and friendly slang, each with a meaning card --- */
+// [id, phrase, emoji, meaning, when to use it, kind]
+const EN_PHRASES = [
+  ['please', 'Please', '🙏', 'The magic word you add when you ask for something.', 'Can I have a turn, please?', 'polite'],
+  ['thanks', 'Thank you', '💐', 'What you say when someone gives you something or helps you.', 'Thank you for the sticker!', 'polite'],
+  ['welcome', "You're welcome", '😊', 'A kind answer when someone says thank you.', '"Thanks for helping!" "You\'re welcome!"', 'polite'],
+  ['excuse', 'Excuse me', '🙋', 'A polite way to get someone\'s attention, or to get past them.', 'Excuse me, where is the library?', 'polite'],
+  ['sorry', "I'm sorry", '😔', 'What you say when you made a mistake or someone is sad.', "I'm sorry I bumped you.", 'polite'],
+  ['bless', 'Bless you!', '🤧', 'What people often say when someone sneezes.', '"Achoo!" "Bless you!"', 'everyday'],
+  ['nice', 'Nice to meet you', '🤝', 'What you say when you meet someone for the first time.', "Hi, I'm Mia. Nice to meet you!", 'everyday'],
+  ['howgoing', "How's it going?", '🙂', 'A friendly way to ask "How are you?"', "Hey Sam, how's it going?", 'everyday'],
+  ['hereyougo', 'Here you go', '🫴', 'What you say when you hand something to someone.', 'Here you go, one apple!', 'everyday'],
+  ['howmuch', 'How much is it?', '💰', 'A question to ask what something costs.', 'How much is the teddy bear?', 'everyday'],
+  ['holdon', 'Hold on', '✋', 'Wait a little moment, please.', 'Hold on, I will get my mom.', 'everyday'],
+  ['getwell', 'Get well soon', '🤒', 'A kind wish for someone who is sick.', 'Get well soon, Grandpa!', 'everyday'],
+  ['makewish', 'Make a wish!', '🎂', 'What people say before you blow out birthday candles.', 'Close your eyes and make a wish!', 'everyday'],
+  ['niceday', 'Have a nice day!', '🌞', 'A friendly goodbye.', 'Bye! Have a nice day!', 'everyday'],
+  ['takecare', 'Take care', '💛', 'A caring way to say goodbye.', 'See you next week. Take care!', 'everyday'],
+  ['myturn', 'Can I have a turn?', '🔄', 'A nice way to ask to play next.', 'That looks fun. Can I have a turn?', 'everyday'],
+  ['whatsup', "What's up?", '👋', 'Slang for "Hi! How are you? What are you doing?"', "Hey Leo, what's up?", 'slang'],
+  ['awesome', 'Awesome!', '🤩', 'Slang for "really great!"', 'We won the game? Awesome!', 'slang'],
+  ['cool', 'Cool!', '😎', 'Slang for "nice!" or "I like it!" (not cold!)', 'You have a dinosaur kite? Cool!', 'slang'],
+  ['noworries', 'No worries', '👌', 'Slang for "That\'s okay, don\'t worry about it."', '"Sorry I\'m late!" "No worries!"', 'slang'],
+  ['seeya', 'See ya!', '👋', 'Slang for "See you later, goodbye!"', 'See ya tomorrow at school!', 'slang'],
+  ['later', 'Catch you later!', '🎣', 'Slang for "Goodbye, see you soon." Nobody gets caught!', 'I have to go home now. Catch you later!', 'slang'],
+  ['mybad', 'My bad', '🙈', 'Slang for "Oops, that was my mistake."', 'I kicked the ball the wrong way. My bad!', 'slang'],
+  ['noway', 'No way!', '😲', 'Slang for "Wow, I can\'t believe it!"', 'You saw a real whale? No way!', 'slang'],
+  ['highfive', 'High five!', '🙌', 'Slap hands up high to say "well done!"', 'We finished the puzzle. High five!', 'slang'],
+  ['gotcha', 'Gotcha!', '👍', 'Slang for "I understand" (or "I caught you!" in tag).', '"Put your shoes by the door." "Gotcha!"', 'slang'],
+  ['youbet', 'You bet!', '✅', 'Slang for "Yes, for sure!"', '"Want to play?" "You bet!"', 'slang'],
+  ['kidding', 'Just kidding!', '😜', 'I was only joking, it is not true.', 'I ate 100 cookies. Just kidding!', 'slang'],
+  ['piece', 'Piece of cake', '🍰', 'Something very easy. No cake needed!', 'That puzzle was a piece of cake.', 'slang'],
+  ['yourock', 'You rock!', '🎸', 'Slang for "You are great!"', 'You helped me clean up. You rock!', 'slang'],
+  ['samehere', 'Same here!', '🙋', 'Slang for "Me too!"', '"I love pizza!" "Same here!"', 'slang'],
+  ['deal', "It's a deal!", '🤝', 'We agree on a plan.', 'You build the tower, I build the bridge. Deal!', 'slang'],
+  ['stuffed', "I'm stuffed", '😮‍💨', 'Slang for "I am very full, I ate a lot!"', 'No more pizza for me, I\'m stuffed!', 'slang'],
+  ['chill', 'Chill out', '🧊', 'Slang for "Calm down, relax."', "Chill out, it's only a game.", 'slang']
+];
+// Talk time scenes. Each turn: [who says it, their line, replies [[text, good?, what Owl says]], their answer after a good reply, a phrase card to show].
+// Replies are always: one friendly and fitting, the others rude or off topic, so a child learns what fits.
+const EN_TALK = [
+  { id: 'park', ico: '🛝', name: 'At the park', stage: 1, who: ['🧒', 'Leo'], place: '🌳🛝🌳', turns: [
+    ["Hi! What's up?", [["Hi! I'm playing on the slide. Want to come?", 1, "Great! You answered and asked him to play."], ['Go away.', 0, "Ouch, that is not friendly. Try a kinder one!"], ['Bananas are yellow.', 0, "Funny, but he asked what you are doing."]], 'Cool! I love the slide!', 'whatsup'],
+    ['Can I have a turn on the swing?', [['Sure! Here you go.', 1, 'Sharing is kind!'], ['No, it is mine forever!', 0, 'Hmm, the swing is for everyone. Try sharing!'], ['I had soup.', 0, "That doesn't answer his question."]], 'Thanks! Wheee!', 'myturn'],
+    ['Oops, I bumped you. Sorry!', [['No worries! Are you okay?', 1, '"No worries" means it\'s okay.'], ['You did it on purpose!', 0, 'He said sorry. Be kind back!'], ['My shoes are blue.', 0, 'He said sorry. What do we say?']], "I'm okay! You're nice.", 'noworries'],
+    ['I have to go home now.', [['Okay! See ya tomorrow!', 1, '"See ya" is a friendly goodbye.'], ['Whatever.', 0, 'That sounds a little rude. Say a nice goodbye!'], ['Look, a pigeon!', 0, 'He is leaving. Say goodbye!']], 'See ya! Bye!', 'seeya']] },
+  { id: 'shop', ico: '🏪', name: 'At the shop', stage: 1, who: ['👩‍💼', 'Mrs. Lee'], place: '🍎🍌🥖', turns: [
+    ['Hello! Can I help you?', [['Hello! Can I have some apples, please?', 1, 'Lovely! You said hello and please.'], ['Give me apples.', 0, 'That sounds bossy. Try with please!'], ['I can jump high.', 0, 'Fun! But she asked how she can help.']], 'Of course! How many would you like?', 'please'],
+    ['How many apples would you like?', [['Three apples, please.', 1, 'Clear and polite!'], ['Purple!', 0, 'She asked how many, so answer with a number.'], ['None of your business.', 0, 'That is rude. Try again!']], 'Three apples. Here you go!', 'hereyougo'],
+    ['That will be two dollars.', [['Here you go. Thank you!', 1, 'Paying and saying thank you. Perfect!'], ['I want a pony.', 0, 'Hmm, it is time to pay.'], ['No!', 0, 'At a shop, we pay for things.']], 'Thank you! Here is your change.', 'thanks'],
+    ['Have a nice day!', [['You too! Bye!', 1, '"You too" sends the wish back. Nice!'], ['Hmph.', 0, 'Say something kind back!'], ['What is a day?', 0, 'She is saying a friendly goodbye.']], 'Bye bye!', 'niceday']] },
+  { id: 'school', ico: '🏫', name: 'First day at school', stage: 1, who: ['👧', 'Mia'], place: '🏫🎒✏️', turns: [
+    ["Hi, I'm Mia. I'm new here.", [["Hi Mia! I'm glad you're here. Nice to meet you!", 1, 'A warm welcome!'], ['So?', 0, 'That might make her feel sad. Try a kinder one!'], ['My cat is fat.', 0, 'She told you her name. Say hello!']], 'Nice to meet you too!', 'nice'],
+    ["How's it going?", [["Good, thanks! How about you?", 1, 'You answered and asked her back. Great talking!'], ['Going where?', 0, "\"How's it going?\" means \"How are you?\""], ['Stop talking to me.', 0, 'That is not friendly.']], "I'm a bit nervous, but I'm okay!", 'howgoing'],
+    ['Can I sit with you?', [['Sure! Come sit here.', 1, 'Kind and welcoming!'], ['No, this table is only for cool kids.', 0, 'Everyone should feel welcome.'], ['I like broccoli.', 0, 'She asked to sit with you.']], 'Yay! Thank you!', null],
+    ['I made a picture for you!', [['Wow, thank you! You rock!', 1, '"You rock" means "you are great!"'], ['Ew, ugly.', 0, 'That would hurt her feelings.'], ['Where is the bus?', 0, 'She gave you a present. What do we say?']], "You're welcome, friend!", 'yourock']] },
+  { id: 'birthday', ico: '🎂', name: 'Birthday party', stage: 1, who: ['🧒', 'Ben'], place: '🎈🎂🎁', turns: [
+    ["Hi! Thanks for coming to my party!", [['Happy birthday, Ben! This present is for you.', 1, 'You said happy birthday and gave the present.'], ['Where is the cake? I want it now!', 0, 'Say hello and happy birthday first!'], ['I am a teapot.', 0, 'Silly! But it is his birthday.']], 'Wow, thank you so much!', null],
+    ["It's cake time! Make a wish!", [["I wish you a super happy birthday!", 1, 'What a kind wish!'], ['Your cake looks yucky.', 0, 'That would make him sad.'], ['I want to go home.', 0, 'Join the fun!']], "Aww, thanks! Let's eat!", 'makewish'],
+    ['Do you want more cake?', [["No thank you, I'm stuffed!", 1, '"I\'m stuffed" means "I am very full!"'], ['Give me ten pieces!', 0, 'That is a lot of cake, and a bit bossy!'], ['Cake is a planet.', 0, 'He asked if you want more.']], 'Ha ha, me too!', 'stuffed'],
+    ['Thanks for the awesome present!', [["You're welcome! Thanks for inviting me!", 1, 'Polite and kind!'], ['It was cheap.', 0, 'We do not need to say that!'], ['Bye.', 0, 'Answer his thank you first.']], 'See you at school!', 'welcome']] },
+  { id: 'doctor', ico: '🩺', name: 'At the doctor', stage: 2, who: ['🧑‍⚕️', 'Dr. Patel'], place: '🏥🩺💊', turns: [
+    ['Hello! What seems to be the trouble?', [['Hello. My tummy hurts.', 1, 'You told the doctor clearly what is wrong.'], ['Nothing, I just like the stickers.', 0, 'Tell the doctor how you feel.'], ['I hate doctors!', 0, 'The doctor wants to help you.']], "Oh dear. Let me have a look.", null],
+    ['When did it start hurting?', [['It started this morning.', 1, 'Good answer to "when".'], ['In the kitchen.', 0, '"When" asks about time, not a place.'], ['Because.', 0, 'Tell the doctor when.']], 'Thank you. Please take a deep breath.', null],
+    ['Achoo! Oh, excuse me!', [['Bless you!', 1, 'People often say "Bless you" after a sneeze.'], ['Gross!', 0, 'That is not very kind.'], ['Where is my hat?', 0, 'The doctor sneezed. What can you say?']], 'Thank you! You are very polite.', 'bless'],
+    ['Drink water and rest. You will feel better soon!', [['Thank you, Doctor! Bye!', 1, 'Lovely manners!'], ['No.', 0, 'The doctor is helping you get well.'], ['Do you like trains?', 0, 'Say thank you and goodbye.']], 'Get well soon!', 'getwell']] },
+  { id: 'phone', ico: '📞', name: 'A phone call', stage: 2, who: ['👵', 'Grandma'], place: '📱💬🏠', turns: [
+    ['Ring ring! Hello, who is this?', [["Hi Grandma! It's me!", 1, 'Say who you are on the phone.'], ['Who are YOU?', 0, 'That sounds rude. Say who you are.'], ['Moo!', 0, 'Silly! Grandma wants to know who is calling.']], 'Hello, sweetie! How are you?', null],
+    ['How was your day?', [['It was great! I learned a new song.', 1, 'You told her about your day!'], ['Bye.', 0, 'She wants to chat with you a little.'], ['A day has 24 hours.', 0, 'True! But she asked how YOUR day was.']], 'Wonderful! Will you sing it for me?', null],
+    ['Can I talk to your mom, please?', [['Sure! Hold on, I will get her.', 1, '"Hold on" means "wait a moment."'], ['No, she is mine.', 0, 'Grandma asked nicely. Help her!'], ['Hang up!', 0, 'That is not polite.']], 'Thank you, dear!', 'holdon'],
+    ['Love you! Talk soon!', [['Love you too, Grandma! Take care!', 1, '"Take care" is a caring goodbye.'], ['Whatever.', 0, 'Grandma said love you. Say something kind!'], ['*hangs up*', 0, 'Say goodbye before you hang up.']], 'Bye bye!', 'takecare']] },
+  { id: 'cafe', ico: '🍝', name: 'At a restaurant', stage: 2, who: ['🧑‍🍳', 'Chef Rosa'], place: '🍝🍕🥤', turns: [
+    ['Welcome! Are you ready to order?', [['Yes, please. Can I have the pasta?', 1, 'A clear, polite order!'], ['FOOD! NOW!', 0, 'Too loud and bossy. Use please!'], ['I have a sock.', 0, 'She is asking what you want to eat.']], 'Great choice! Anything to drink?', 'please'],
+    ['Anything to drink?', [['Some water, please.', 1, 'Polite!'], ['Pasta.', 0, 'You already ordered food. She asked about a drink.'], ['No talking!', 0, 'That is not friendly.']], "Coming right up!", null],
+    ["Oops! I dropped a fork. My bad!", [["That's okay! No worries.", 1, '"My bad" means "my mistake."'], ['You are so clumsy!', 0, 'Everybody drops things sometimes.'], ['I want ice cream.', 0, 'She dropped a fork. Be kind!']], "Thanks! Here's a clean fork.", 'mybad'],
+    ['How was your food?', [["It was yummy! Thank you, it was awesome!", 1, '"Awesome" means "really great."'], ['Bad.', 0, 'If you liked it, say so! If not, say it kindly.'], ['Where is the moon?', 0, 'She asked about your food.']], "I'm so happy you liked it!", 'awesome']] },
+  { id: 'friend', ico: '🧸', name: 'A playdate', stage: 2, who: ['👦', 'Sam'], place: '🧸🧩🏠', turns: [
+    ['Want to build a tower with me?', [['You bet! I will get the blocks.', 1, '"You bet" means "yes, for sure!"'], ['No, I play alone.', 0, 'Sam wants to play with you!'], ['Towers are tall.', 0, 'Answer his question!']], 'Yay! Let\'s go!', 'youbet'],
+    ["You build the bottom, I'll build the top. Deal?", [["It's a deal!", 1, 'Making a plan together. Great teamwork!'], ['I do everything!', 0, 'Share the job!'], ['Purple monkey!', 0, 'He asked if you agree.']], 'High five!', 'deal'],
+    ['Oh no, the tower fell down!', [['Chill out, we can build it again!', 1, '"Chill out" means "calm down, it\'s okay."'], ['It is all your fault!', 0, 'Blaming makes friends sad.'], ['I want to go home.', 0, 'Help your friend!']], "You're right! Let's build it bigger!", 'chill'],
+    ['That was the best tower ever!', [['Same here! High five!', 1, '"Same here" means "me too!"'], ['Mine was better.', 0, 'You built it together!'], ['Okay bye.', 0, 'Celebrate together first!']], 'High five!', 'highfive']] },
+  { id: 'library', ico: '📚', name: 'At the library', stage: 3, who: ['🧑‍🏫', 'Mr. Gray'], place: '📚📖🪑', turns: [
+    ['Hello! Can I help you find a book?', [['Excuse me, where are the dinosaur books?', 1, '"Excuse me" is a polite way to ask.'], ['BOOKS!', 0, 'Libraries are quiet places. Ask nicely!'], ['I can whistle.', 0, 'He asked about books.']], 'Right this way. They are on the blue shelf.', 'excuse'],
+    ['Shh, please use a quiet voice in the library.', [['Oh, sorry! I will whisper.', 1, 'Saying sorry when you forget is great.'], ['NO!', 0, 'Remember, quiet voices here.'], ['Can I have a pizza?', 0, 'He asked you to be quiet.']], 'Thank you!', 'sorry'],
+    ['You can keep the book for two weeks.', [['Gotcha! I will bring it back.', 1, '"Gotcha" means "I understand."'], ['I will keep it forever.', 0, 'Library books go back so others can read them.'], ['Two is a number.', 0, 'True, but he told you a rule!']], 'Wonderful. Happy reading!', 'gotcha'],
+    ['Did you know a T. rex had teeth as big as bananas?', [['No way! That is so cool!', 1, '"No way!" shows you are surprised.'], ['Boring.', 0, 'That is not very kind. Show some interest!'], ['Bananas are yellow.', 0, 'Yes, but react to the fun fact!']], 'Ha ha! The book has lots more facts!', 'noway']] },
+  { id: 'lost', ico: '🧭', name: 'Asking for help', stage: 3, who: ['👮', 'Officer Kim'], place: '🏬🧭👮', turns: [
+    ['Hello there. Are you okay?', [["Excuse me, I can't find my dad.", 1, 'Telling a helper clearly is very smart.'], ['I am fine, go away.', 0, 'If you are lost, a helper can help!'], ['I like cheese.', 0, 'Tell her what is wrong.']], "Don't worry. We will find him together.", 'excuse'],
+    ['What is your name?', [['My name is Ava.', 1, 'A clear answer.'], ['Seven.', 0, 'That sounds like your age. She asked your name.'], ['Secret!', 0, 'It is okay to tell a police officer or a shop worker.']], 'Thank you, Ava.', null],
+    ["What does your dad look like?", [['He is tall and has a green coat.', 1, 'Describing words help a lot!'], ['He looks like a dad.', 0, 'Give more details: tall, short, colors...'], ['Banana!', 0, 'She needs to know what he looks like.']], 'Is that him over there?', null],
+    ['Look! Your dad is here!', [['Dad! Thank you so much for helping me!', 1, 'Thanking a helper is lovely.'], ['Finally.', 0, 'Say thank you to the helper!'], ['Can I have a balloon?', 0, 'Say thank you first!']], "You're welcome. Take care!", 'thanks']] }
+];
+/* ---------- English & Reading, part 7: chapter books for stages 3 to 5 (data; the screens are in english8.js) ---------- */
+// Each book has 3 chapters of 3 pages ([emoji picture, text]). "words" are the tap-for-meaning words ([meaning, emoji]);
+// every form that appears in the text is listed. Questions are [kind, question, right, wrong, wrong]; the kinds are
+// who, what, where, why and feel, so a child practises every kind of question about a story.
+const EN_BOOKS = [
+  { id: 'kite', stage: 3, ico: '🪁', title: "Milo's Runaway Kite", chapters: [
+    ['A Windy Day', [
+      ['🧒🐶', 'Milo had a new red kite. His dog, Pepper, liked to chase its long tail.'],
+      ['🌬️🌳', 'One day the wind was very gusty. The trees swayed and the leaves danced.'],
+      ['🪁💨', 'Milo ran across the park. The kite went up, up, up into the sky!']]],
+    ['Where Did It Go?', [
+      ['😲🪁', 'Then a big gust pulled the string out of his hand. The kite flew away!'],
+      ['🐶👃', 'Pepper sniffed the grass. She barked and ran to the pond.'],
+      ['🌳🪁', 'There was the kite, stuck at the top of a tall tree. Milo felt sad.']]],
+    ['A Kind Helper', [
+      ['👩‍🌾🪜', 'A gardener named Rosa saw them. She carried a ladder over to the tree.'],
+      ['🪜🪁', 'Rosa climbed up carefully and untangled the kite from the branches.'],
+      ['😄🪁', 'Milo said, "Thank you so much!" He held the string tightly all afternoon.']]]],
+    words: { gusty: ['with lots of strong puffs of wind', '🌬️'], gust: ['a sudden strong puff of wind', '💨'], swayed: ['moved slowly from side to side', '🌳'], sniffed: ['smelled with short breaths', '👃'],
+      gardener: ['a person who looks after plants and gardens', '👩‍🌾'], ladder: ['steps you climb to reach high places', '🪜'], untangled: ['took the knots and twists out', '🧶'], tightly: ['holding on hard so it cannot slip', '✊'] },
+    qs: [['who', 'Who found where the kite went?', 'Pepper the dog', 'Rosa', 'a bird'], ['what', 'What color was the kite?', 'red', 'blue', 'green'],
+      ['where', 'Where did the kite get stuck?', 'at the top of a tree', 'in the pond', 'on a roof'], ['why', 'Why did the kite fly away?', 'a big gust pulled the string out of his hand', 'Pepper bit the string', 'Milo let it go'],
+      ['feel', 'How did Milo feel when he saw the kite stuck in the tree?', 'sad', 'sleepy', 'angry']] },
+  { id: 'penguin', stage: 3, ico: '🐧', title: 'Penny Learns to Swim', chapters: [
+    ['Cold Toes', [
+      ['🐧🧊', 'Penny was a little penguin who lived on the ice. All her friends loved to swim.'],
+      ['🌊😟', 'But Penny was nervous. The water looked deep and dark.'],
+      ['🐧🐧', 'Every day she watched her friends dive in. She stayed on the shore.']]],
+    ['A New Friend', [
+      ['🦭👋', 'One morning, a friendly seal named Sid popped up. "Why do you not swim?" he asked.'],
+      ['🐧💬', '"I am scared," Penny said quietly. Sid smiled. "Let us try together, one step at a time."'],
+      ['🦶🌊', 'First Penny dipped her toes. Then she floated with Sid right beside her.']]],
+    ['Zoom!', [
+      ['🐧💨', 'Penny flapped her flippers. She zoomed through the water like a rocket!'],
+      ['🐟✨', 'She even caught a shiny fish. Her friends cheered loudly.'],
+      ['🐧❤️🦭', 'Penny felt brave and proud. "Thank you, Sid!" she said. "Now I love to swim!"']]]],
+    words: { nervous: ['a bit worried or scared', '😟'], shore: ['the land at the edge of the water', '🏖️'], dive: ['to jump into water head first', '🤿'], dipped: ['put in for just a moment', '🦶'],
+      floated: ['stayed on top of the water', '🛟'], flippers: ['flat arms or feet for swimming', '🐧'], zoomed: ['moved very fast', '💨'], proud: ['happy about something you did well', '😊'], brave: ['ready to do something even when it feels scary', '🦁'] },
+    qs: [['who', 'Who helped Penny?', 'Sid the seal', 'a big whale', 'her mom'], ['what', 'What did Penny catch?', 'a shiny fish', 'a crab', 'a shell'],
+      ['where', 'Where did Penny stay while her friends swam?', 'on the shore', 'in a cave', 'in her bed'], ['why', 'Why did Penny not swim at first?', 'she was scared of the deep water', 'she was too tired', 'the water was too hot'],
+      ['feel', 'How did Penny feel at the end?', 'brave and proud', 'sad and lonely', 'cross']] },
+  { id: 'hamster', stage: 3, ico: '🐹', title: 'Where Is Nibbles?', chapters: [
+    ['The Open Door', [
+      ['🏫🐹', 'Nibbles was the class hamster. He had a cozy cage by the window.'],
+      ['🚪😮', 'On Monday morning, Jada saw that the cage door was open. Nibbles was gone!'],
+      ['🧒🧒🧒', 'Ms. Brown said, "Let us all be detectives and search the classroom."']]],
+    ['The Search', [
+      ['🔍📚', 'Leo looked under the desks. Jada peeked behind the bookshelf.'],
+      ['🌻🍪', 'They found sunflower seeds on the floor, and a nibbled cookie crumb. "Clues!" said Jada.'],
+      ['👣🎒', 'The trail of seeds led all the way to Ben\'s backpack.']]],
+    ['Found!', [
+      ['🎒🐹', 'Ben opened his lunchbox very slowly. There was Nibbles, fast asleep on a sandwich!'],
+      ['😂🥪', 'Everyone giggled. Nibbles yawned and twitched his whiskers.'],
+      ['🔒🐹', 'Ms. Brown put Nibbles back and fixed the latch. Now the door stays shut.']]]],
+    words: { cozy: ['warm, soft and comfy', '🛏️'], detectives: ['people who look for clues to solve a mystery', '🕵️'], search: ['look carefully everywhere', '🔍'], peeked: ['took a quick look', '👀'],
+      clues: ['little hints that help you find the answer', '🧩'], trail: ['a line of marks that shows where something went', '👣'], twitched: ['moved in a quick little jump', '🐭'], whiskers: ['long hairs on an animal\'s face', '🐱'], latch: ['a little lock that keeps a door shut', '🔒'] },
+    qs: [['who', 'Who saw the cage door was open?', 'Jada', 'Ben', 'Ms. Brown'], ['what', 'What clues did they find?', 'seeds and a cookie crumb', 'a hat and a shoe', 'a map'],
+      ['where', 'Where was Nibbles hiding?', "in Ben's lunchbox", 'under the rug', 'in the sink'], ['why', 'Why did the class search the room?', 'Nibbles was missing', 'they lost a ball', 'it was a game day'],
+      ['feel', 'How did everyone feel when they found Nibbles?', 'happy, they giggled', 'scared', 'bored']] },
+  { id: 'rainy', stage: 3, ico: '☔', title: "Rosa's Rainy Day", chapters: [
+    ['Nothing to Do', [
+      ['🌧️🪟', 'Rain tapped on the window. Rosa pressed her nose to the glass.'],
+      ['😩🛋️', '"I am so bored," she sighed. "I cannot play outside today."'],
+      ['👴📦', 'Grandpa winked. "Then let us have an adventure inside," he said.']]],
+    ['The Blanket Fort', [
+      ['🛋️🧺', 'They pulled blankets and pillows onto the chairs. Soon they had a fort!'],
+      ['🔦📖', 'Inside the fort, Grandpa turned on a flashlight. They read a book about pirates.'],
+      ['🧦🎭', 'Then Rosa made sock puppets. Her puppet was a grumpy pirate named Captain Toes.']]],
+    ['A Surprise', [
+      ['🎭😂', 'Captain Toes told silly jokes. Grandpa laughed so hard he snorted.'],
+      ['🌤️🌈', 'Suddenly, the sun peeked out. A rainbow stretched across the sky!'],
+      ['🥰👴', '"This was the best rainy day ever," Rosa said, and she gave Grandpa a big hug.']]]],
+    words: { pressed: ['pushed against something', '👃'], bored: ['tired of having nothing fun to do', '😩'], sighed: ['let out a long, slow breath', '😮‍💨'], adventure: ['an exciting thing to do', '🧭'],
+      fort: ['a little hideout or castle', '🏰'], flashlight: ['a small light you hold in your hand', '🔦'], grumpy: ['cross and in a bad mood', '😠'], snorted: ['made a funny noise through the nose', '🐷'], stretched: ['reached out long', '🌈'] },
+    qs: [['who', 'Who had an idea for an inside adventure?', 'Grandpa', 'Mom', 'Captain Toes'], ['what', 'What did they build?', 'a blanket fort', 'a snowman', 'a boat'],
+      ['where', 'Where did they read the pirate book?', 'inside the fort', 'in the garden', 'at school'], ['why', 'Why could Rosa not play outside?', 'it was raining', 'it was night', 'she was sick'],
+      ['feel', 'How did Rosa feel at the start of the story?', 'bored', 'excited', 'scared']] },
+  { id: 'dragon', stage: 4, ico: '🐉', title: "The Dragon Who Couldn't Roar", chapters: [
+    ['A Tiny Squeak', [
+      ['🐉🏔️', 'High in the mountains lived a young dragon named Ember. Every dragon in her family had a mighty roar that shook the rocks.'],
+      ['🐉🐭', 'But when Ember tried to roar, only a tiny squeak came out. The other dragons chuckled, and her cheeks turned pink.'],
+      ['🐉😔', 'Ember flew to a quiet cave to practise alone. She squeaked and squeaked until her throat was sore.']]],
+    ['The Foggy Night', [
+      ['🌫️🏘️', 'One evening, a thick fog rolled into the village below. The villagers could not see their own hands.'],
+      ['👧🔦', 'A little girl named Tess was lost on the mountain path. She called for help, but the fog swallowed her voice.'],
+      ['🐉👂', 'Ember heard her faint cry. The big dragons were snoring, so Ember knew she had to help.']]],
+    ['Ember Saves the Day', [
+      ['🐉🎶', 'Ember squeaked as loudly as she could. Her high squeak whistled through the fog like a bird.'],
+      ['👧🐉', 'Tess followed the sound, step by step, until she reached Ember. Ember carried her safely home.'],
+      ['🎉🐉', 'The whole village cheered. "Your squeak is special," said her grandmother. Ember beamed with joy.']]]],
+    words: { mighty: ['very strong and powerful', '💪'], squeak: ['a tiny, high sound, like a mouse', '🐭'], chuckled: ['laughed quietly', '😄'], practise: ['do something again and again to get better', '🔁'],
+      fog: ['a thick cloud close to the ground', '🌫️'], villagers: ['people who live in a village', '🏘️'], faint: ['very quiet and hard to hear', '🔈'], whistled: ['made a high, clear sound', '🎶'], beamed: ['smiled a big, bright smile', '😁'] },
+    qs: [['who', 'Who was lost in the fog?', 'a girl named Tess', "Ember's grandmother", 'a farmer'], ['what', 'What came out when Ember tried to roar?', 'a tiny squeak', 'fire', 'a song'],
+      ['where', 'Where did Ember go to practise?', 'a quiet cave', 'the village square', 'a lake'], ['why', 'Why could Tess find her way to Ember?', 'she followed the high squeak', 'the sun came out', 'she had a map'],
+      ['feel', 'How did Ember feel at the end?', 'full of joy', 'embarrassed', 'sleepy']] },
+  { id: 'treasure', stage: 4, ico: '🗺️', title: "Grandma's Secret Map", chapters: [
+    ['The Dusty Attic', [
+      ['🏠📦', "Ava and her little brother Leo were exploring Grandma's dusty attic. Old boxes were stacked to the ceiling."],
+      ['📜😮', 'Inside a wooden chest, Leo found a crinkly piece of paper. It was a map with a big red X!'],
+      ['👵😉', 'Grandma smiled when she saw it. "I drew that when I was your age," she said. "Can you solve it?"']]],
+    ['Following the Clues', [
+      ['🌳👣', 'The first clue said, "Walk ten steps from the old oak tree." The children counted carefully out loud.'],
+      ['🐸💧', 'The next clue pointed to the pond. "Look where the frogs like to sit," it read. Ava spotted a flat gray stone.'],
+      ['🪨⛏️', 'Under the stone was a tiny arrow scratched into the ground. It pointed toward the garden shed.']]],
+    ['The Treasure', [
+      ['🛖🧰', 'Behind the shed, they dug in the soft soil. Clunk! Their spade hit a rusty tin box.'],
+      ['🧸💌', 'Inside were a teddy bear, three marbles and a letter that said, "To whoever finds this: be curious and kind."'],
+      ['👵🤗', 'The children raced back to Grandma. They all laughed and shared stories until the stars came out.']]]],
+    words: { exploring: ['looking around a new place to find things', '🧭'], attic: ['a room under the roof of a house', '🏠'], crinkly: ['full of little folds and wrinkles', '📜'], solve: ['find the answer', '💡'],
+      clue: ['a hint that helps you find the answer', '🧩'], spotted: ['noticed, saw', '👀'], scratched: ['marked with something sharp', '✏️'], shed: ['a small hut for garden tools', '🛖'], rusty: ['covered in orange-brown rust from being old and wet', '🟫'], curious: ['wanting to learn and find out things', '🤔'] },
+    qs: [['who', 'Who drew the map?', 'Grandma, when she was a child', 'Leo', 'a pirate'], ['what', 'What was inside the tin box?', 'a teddy bear, marbles and a letter', 'gold coins', 'a phone'],
+      ['where', 'Where did the children find the map?', "in Grandma's attic", 'at the beach', 'in the school library'], ['why', 'Why did they dig behind the shed?', 'an arrow pointed toward the shed', 'they were planting seeds', 'a dog was digging there'],
+      ['feel', 'How do you think Grandma felt when they found her box?', 'happy and proud', 'angry', 'worried']] },
+  { id: 'robot', stage: 4, ico: '🤖', title: "Bolt's Big Bakery Mix-Up", chapters: [
+    ['The New Helper', [
+      ['🥐🤖', "Bolt was a shiny robot who had just started working at Mr. Crumb's bakery. He wanted to be the best helper ever."],
+      ['📋🎂', 'His first job was to bake a birthday cake for a girl named Lulu. Mr. Crumb gave him a recipe and hurried off.'],
+      ['🤖⚡', 'Bolt worked so fast that sparks flew. He did not stop to read the labels on the jars.']]],
+    ['Uh-Oh!', [
+      ['🧂🍰', 'Instead of sugar, Bolt poured in salt. Instead of chocolate, he added pepper!'],
+      ['😝🎂', 'When Mr. Crumb tasted the batter, his face scrunched up. "Bolt, this cake is disgusting!"'],
+      ['🤖😢', "Bolt's lights blinked blue. He felt terrible. \"I rushed and I did not check,\" he admitted."]]],
+    ['A Sweet Ending', [
+      ['🤖🔍', 'Mr. Crumb patted his metal arm. "Mistakes help us learn. Let us try again, slowly this time."'],
+      ['🏷️🍫', 'Bolt read every label twice. He measured the sugar and chocolate very carefully.'],
+      ['🎂🥳', 'The new cake was delicious. Lulu said it was the best cake in the world, and Bolt glowed with pride.']]]],
+    words: { recipe: ['instructions that tell you how to cook something', '📋'], labels: ['little signs that tell you what is inside', '🏷️'], sparks: ['tiny flashes of light', '⚡'], batter: ['a runny mix that becomes a cake when baked', '🥣'],
+      scrunched: ['squeezed up into wrinkles', '😝'], disgusting: ['very yucky', '🤢'], admitted: ['said that something was true, even though it was hard', '🙋'], measured: ['found out exactly how much', '📏'], delicious: ['very, very tasty', '😋'], pride: ['a happy feeling about something you did well', '🏅'] },
+    qs: [['who', 'Who was the cake for?', 'a girl named Lulu', 'Mr. Crumb', 'Bolt'], ['what', 'What did Bolt put in instead of sugar?', 'salt', 'flour', 'jam'],
+      ['where', 'Where did Bolt work?', 'at a bakery', 'at a zoo', 'on a farm'], ['why', 'Why did the first cake go wrong?', 'Bolt rushed and did not read the labels', 'the oven broke', 'Lulu dropped it'],
+      ['feel', 'How did Bolt feel after the first cake?', 'terrible and sorry', 'proud', 'silly and happy']] },
+  { id: 'moon', stage: 4, ico: '🌙', title: 'The Night the Moon Went Missing', chapters: [
+    ['Where Is the Moon?', [
+      ['🦉🦊', 'Hoot the owl and Fern the fox loved to play hide-and-seek under the bright moon.'],
+      ['🌑😮', 'But one night, the sky was completely dark. The moon had vanished!'],
+      ['🦊😟', '"Maybe a giant swallowed it," whispered Fern. Hoot shivered and fluffed up his feathers.']]],
+    ['The Wise Turtle', [
+      ['🐢🌿', 'The two friends hurried to see Old Shell, the wisest turtle in the forest.'],
+      ['🐢💬', 'Old Shell chuckled slowly. "The moon has not gone anywhere. It is hiding in the shadow, like you do in your games."'],
+      ['🌒🌓🌔', '"Each night, a little more of it will shine," she explained. "Watch and see."']]],
+    ['The Moon Returns', [
+      ['🌒✨', 'The next night, a thin silver smile appeared in the sky. "There it is!" hooted Hoot.'],
+      ['🌓🌔', 'Night after night, the moon grew bigger and rounder.'],
+      ['🌕🦉🦊', 'When the full moon finally glowed, Hoot and Fern played hide-and-seek all night long, giggling with delight.']]]],
+    words: { vanished: ['disappeared, could not be seen', '🫥'], swallowed: ['gulped down', '😮'], shivered: ['shook a little from cold or fear', '🥶'], wisest: ['knowing the most, the cleverest', '🧠'],
+      shadow: ['a dark shape where light is blocked', '🌑'], explained: ['told about something so others understand', '💬'], appeared: ['came into sight', '👀'], glowed: ['shone with a soft light', '✨'], delight: ['great happiness', '😄'] },
+    qs: [['who', 'Who explained where the moon was?', 'Old Shell the turtle', 'a giant', 'Fern the fox'], ['what', 'What game did Hoot and Fern like to play?', 'hide-and-seek', 'tag', 'football'],
+      ['where', 'Where did the friends go for help?', 'to the wise turtle in the forest', 'to the beach', 'to the city'], ['why', 'Why did the sky look dark?', 'the moon was hidden in shadow', 'a giant swallowed the moon', 'it was raining'],
+      ['feel', 'How did Hoot feel when the moon first went missing?', 'scared', 'hungry', 'bored']] },
+  { id: 'woods', stage: 5, ico: '🌲', title: 'The Secret of Whispering Woods', chapters: [
+    ['Strange Sounds', [
+      ['🌲👧', 'At the edge of town stood Whispering Woods, a forest so old that its trees seemed to remember everything. Maya visited every Saturday with her notebook.'],
+      ['🌬️👂', 'One afternoon she heard soft voices drifting between the trunks. "Shhh... shhh..." they seemed to murmur. Maya froze, her heart thumping.'],
+      ['📓✏️', 'Instead of running away, she decided to investigate. A good scientist, she reminded herself, always looks for evidence.']]],
+    ['Solving the Mystery', [
+      ['🌳🕳️', 'Maya discovered that several trees were hollow. When the breeze blew through the holes, they hummed like giant flutes.'],
+      ['🦉👶', 'Inside the biggest hollow, three fluffy owlets blinked at her. Their soft hoots added to the whispering chorus.'],
+      ['📋😟', 'But on her way home, Maya noticed a sign: "These trees will be cut down to build a car park." Her stomach dropped.']]],
+    ['Maya Speaks Up', [
+      ['✉️🖍️', 'That night Maya wrote a persuasive letter to the town council. She explained that the woods were a habitat for owls and a treasure for everyone.'],
+      ['🏛️🗣️', 'At the town meeting, Maya read her letter aloud. Her voice wobbled at first, but it grew stronger with every sentence.'],
+      ['🌲🎉', 'The council agreed to protect Whispering Woods and build the car park somewhere else. The trees kept whispering, and Maya kept listening.']]]],
+    words: { murmur: ['a soft, low sound of talking', '🗣️'], investigate: ['look closely to find out the truth', '🔍'], evidence: ['facts or things that show what is true', '🧾'], hollow: ['empty inside', '🕳️'],
+      owlets: ['baby owls', '🦉'], chorus: ['many voices making sound together', '🎶'], persuasive: ['trying to make people agree with you', '🙋'], council: ['a group of people who make decisions for a town', '🏛️'], habitat: ['the natural home of an animal or plant', '🏞️'], protect: ['keep safe from harm', '🛡️'] },
+    qs: [['who', 'Who did Maya write her letter to?', 'the town council', 'her teacher', 'the owls'], ['what', 'What was making the whispering sound?', 'wind in hollow trees and baby owls', 'a ghost', 'a radio'],
+      ['where', 'Where did the owlets live?', 'inside the biggest hollow tree', 'in a barn', 'in Maya\'s notebook'], ['why', 'Why did Maya write the letter?', 'to stop the trees being cut down', 'to win a prize', 'to ask for a pet owl'],
+      ['feel', 'How did Maya feel when she first read her letter aloud?', 'nervous, her voice wobbled', 'sleepy', 'silly']] },
+  { id: 'turtle', stage: 5, ico: '🐢', title: 'Captain Coral and the Plastic Sea', chapters: [
+    ['A Tangled Turtle', [
+      ['🏖️🧒', 'Kai loved the beach more than anywhere in the world. He called himself Captain Coral and searched the rock pools for crabs and starfish.'],
+      ['🐢🥡', 'One morning he spotted a sea turtle struggling near the shore. Its flipper was tangled in an old plastic bag.'],
+      ['🧑‍⚕️🐢', 'Kai ran to get the lifeguard, who gently freed the turtle. It paddled away slowly, and Kai let out a long breath of relief.']]],
+    ['Too Much Plastic', [
+      ['🥤🧴', 'Looking around, Kai realized the sand was littered with bottles, straws and wrappers. His happy place suddenly looked sad.'],
+      ['📚💡', 'At the library he learned that plastic can take hundreds of years to break down, and that many sea creatures mistake it for food.'],
+      ['🧒💭', 'Kai felt frustrated, but then he had an idea. "One person can pick up some rubbish, but a whole town can pick up a lot!"']]],
+    ['The Great Clean-Up', [
+      ['📣📝', 'Kai made colorful posters and invited everyone to a beach clean-up. His classmates helped hand them out.'],
+      ['🧤🗑️', 'On Saturday, more than a hundred people arrived with gloves and bags. Together they collected mountains of plastic.'],
+      ['🐢🌊', 'As the sun set, Kai saw a turtle poke its head above the sparkling waves. He liked to think it was saying thank you.']]]],
+    words: { struggling: ['trying very hard but finding it difficult', '😣'], tangled: ['twisted and caught up', '🧶'], lifeguard: ['a person who keeps swimmers safe', '🛟'], relief: ['a good feeling when a worry goes away', '😌'],
+      littered: ['messy with rubbish', '🗑️'], realized: ['suddenly understood', '💡'], creatures: ['animals', '🐠'], mistake: ['think one thing is another thing', '❓'], frustrated: ['upset because something is hard to change', '😤'], collected: ['gathered together', '🧺'] },
+    qs: [['who', 'Who freed the turtle?', 'the lifeguard', 'Kai\'s teacher', 'a fisherman'], ['what', 'What was the turtle tangled in?', 'a plastic bag', 'a fishing rod', 'seaweed'],
+      ['where', 'Where did Kai learn about plastic in the sea?', 'at the library', 'on TV', 'at the zoo'], ['why', 'Why did Kai organize a clean-up?', 'a whole town can pick up more rubbish than one person', 'he wanted to find treasure', 'his mom told him to'],
+      ['feel', 'How did Kai feel when he saw all the plastic?', 'frustrated', 'proud', 'sleepy']] },
+  { id: 'inventor', stage: 5, ico: '⚙️', title: "The Inventor's Apprentice", chapters: [
+    ['The Workshop', [
+      ['🏚️⚙️', "Theo's neighbor, Ms. Gearwell, had a workshop crammed with springs, wires and half-built machines. Theo begged to be her apprentice."],
+      ['👩‍🔬🧒', '"An inventor needs patience," Ms. Gearwell warned, adjusting her goggles. "Most inventions fail many times before they work."'],
+      ['🌱💧', 'Together they decided to invent a machine that would water plants automatically while people were away on holiday.']]],
+    ['Fail, Fix, Try Again', [
+      ['💦😱', 'Their first try flooded the kitchen floor. The second watered the cat instead of the plants. The cat was not amused.'],
+      ['🧒😤', 'Theo threw down his screwdriver. "It is hopeless!" he shouted. "We will never get it right."'],
+      ['👩‍🔬📓', 'Ms. Gearwell opened a battered notebook. "Look, my famous toaster failed forty-two times. Each failure taught me something."']]],
+    ['The Science Fair', [
+      ['🔧🌿', 'Theo took a deep breath and studied their mistakes. He added a sensor that only released water when the soil felt dry.'],
+      ['🏆🌱', 'At the science fair, their Plant Pal machine worked perfectly. The judges were astonished and awarded it first prize.'],
+      ['🧒😊', 'Theo grinned. He had learned that the most important part of inventing is not giving up.']]]],
+    words: { workshop: ['a room where people build and fix things', '🔧'], apprentice: ['someone who learns a job by working with an expert', '🧑‍🔧'], patience: ['staying calm while you wait or keep trying', '⏳'], automatically: ['all by itself, without help', '🤖'],
+      flooded: ['covered with too much water', '🌊'], amused: ['finding something funny', '😄'], hopeless: ['feeling that something can never work', '😞'], battered: ['old and worn from lots of use', '📓'], sensor: ['a part that notices things like heat, light or wetness', '📡'], astonished: ['very, very surprised', '😲'] },
+    qs: [['who', 'Who did Theo learn from?', 'Ms. Gearwell, the inventor', 'his teacher', 'the judges'], ['what', 'What did the machine do?', 'watered plants when the soil was dry', 'made toast', 'fed the cat'],
+      ['where', 'Where did their second try spray water?', 'on the cat', 'on the roof', 'on the judges'], ['why', 'Why did Ms. Gearwell show Theo her notebook?', 'to show that failing helps you learn', 'to show him a recipe', 'to give him homework'],
+      ['feel', 'How did Theo feel after the second try failed?', 'frustrated, he shouted', 'calm', 'proud']] },
+  { id: 'castle', stage: 5, ico: '🏔️', title: 'Journey to the Ice Castle', chapters: [
+    ['The Legend', [
+      ['🏔️❄️', 'In the village of Frostvale, people told a legend about an ice castle hidden on top of Silver Mountain. Inside, they said, was a lantern that never went out.'],
+      ['🕯️😟', 'That winter, a terrible storm blew out every lamp in the village. The nights were long, dark and freezing.'],
+      ['👧🐕', 'Brave Nadia packed warm clothes, a rope and some bread. With her loyal husky, Pilot, she set off to find the lantern.']]],
+    ['The Climb', [
+      ['🌨️🐕', 'The path was steep and slippery. Snow whirled around them, and the wind howled like a wolf.'],
+      ['🌉😨', 'They reached a narrow ice bridge over a deep valley. Nadia\'s knees trembled, but Pilot went first, testing each step.'],
+      ['🏰✨', 'At last, the ice castle appeared, glittering like a giant crystal in the moonlight.']]],
+    ['The Lantern', [
+      ['🏮🧊', 'In the great hall stood a small lantern, glowing warm and golden. Beside it was a carved message: "Light is meant to be shared."'],
+      ['🕯️🕯️', 'Nadia realized the lantern could light other candles without ever growing dim. She lit a whole basket of them.'],
+      ['🏘️🌟', 'When she returned, every window in Frostvale glowed. The villagers hugged her and Pilot, and the long, dark winter finally felt warm.']]]],
+    words: { legend: ['an old story that people tell, which may or may not be true', '📜'], lantern: ['a lamp you can carry', '🏮'], freezing: ['very, very cold', '🥶'], loyal: ['always faithful and true to a friend', '🐕'],
+      husky: ['a strong dog that can pull sleds in the snow', '🐕'], steep: ['going up sharply, hard to climb', '⛰️'], whirled: ['spun around and around', '🌀'], trembled: ['shook because of fear or cold', '😨'], glittering: ['sparkling with lots of little lights', '✨'], carved: ['cut into a hard material', '🪓'], dim: ['not bright', '🌑'] },
+    qs: [['who', 'Who went with Nadia up the mountain?', 'her husky, Pilot', 'her brother', 'a wizard'], ['what', 'What did the carved message say?', 'Light is meant to be shared.', 'Go home now.', 'Beware of wolves.'],
+      ['where', 'Where was the ice castle?', 'on top of Silver Mountain', 'under the sea', 'in the village'], ['why', 'Why did Nadia go to find the lantern?', 'a storm blew out all the lamps in the village', 'she wanted to be famous', 'she was lost'],
+      ['feel', 'How did Nadia feel on the ice bridge?', 'scared, her knees trembled', 'bored', 'sleepy']] }
+];
+/* ---------- English & Reading, part 8: round 3 screens ---------- */
+// Five new sections join the English home through englishHome.api: Write letters (trace A–Z, a–z and short words with
+// a finger, stroke by stroke), Sound games (count the sounds, change a sound, first/middle/last sound, clap the beats),
+// Talk time (everyday chats with friendly slang and meaning cards), Chapter books (12 longer stories for stages 3–5 with
+// tap-for-meaning words and who/what/where/why/feeling questions) and Grammar islands (9 islands opened in order, each a
+// 5-question challenge with a badge). A daily English mission (3 small jobs) sits on the English home and feeds the daily
+// quest. Every star goes through give(), so it is a normal star; all progress is kept in st.english.
+(() => {
+  const A = englishHome.api, { quiz, give, reward, E, stage, open, talk, ptip, SECTIONS, VIEWS } = A;
+  const R3 = () => {
+    const e = E(); e.trace = e.trace || {}; e.trace.L = e.trace.L || {}; e.trace.W = e.trace.W || {};
+    e.talk = e.talk || {}; e.cards = e.cards || {}; e.books = e.books || {}; e.bookCh = e.bookCh || {}; e.isl = e.isl || {}; e.missions = e.missions || 0;
+    return e;
+  };
+  const snd = c => EN_SND6[c] || c;
+  const plain = h => String(h).replace(/<[^>]+>/g, '');
+
+  /* ===================== daily English mission ===================== */
+  const MJOBS = {
+    trace: ['✍️', 'Trace 2 letters or words', 2, () => go(writeHome)],
+    sound: ['🎧', 'Play a sound game', 1, () => go(soundsHome)],
+    talk: ['🗣️', 'Have a chat in Talk time', 1, () => go(talkHome)],
+    book: ['📚', 'Read a chapter of a book', 1, () => go(booksHome)],
+    island: ['🏝️', 'Play a grammar island', 1, () => go(islandsHome)],
+    stars: ['⭐', 'Earn 6 reading stars', 6, () => go(englishHome)],
+    wotd: ['☀️', 'Find the word of the day', 1, () => go(VIEWS.wotd)]
+  };
+  function mission() {
+    const e = R3(), d = today();
+    if (!e.mission || e.mission.day !== d) {
+      const n = dayNum(d), s = stage();
+      const a = ['trace', 'sound', 'talk'], b = [s >= 3 ? 'book' : 'island', 'stars', VIEWS.wotd ? 'wotd' : 'stars', 'island'];
+      const ks = [a[n % 3], a[(n + 1) % 3], b[n % b.length]];
+      e.mission = { day: d, xp0: e.xp, claimed: false, tasks: [...new Set(ks)].map(k => ({ k, have: 0 })) };
+      if (e.mission.tasks.length < 3) e.mission.tasks.push({ k: 'stars', have: 0 });
+      save();
+    }
+    return e.mission;
+  }
+  const need = t => MJOBS[t.k][2];
+  const have = t => { const e = R3(); return t.k === 'stars' ? Math.max(0, Math.min(6, e.xp - mission().xp0)) : t.k === 'wotd' ? (e.wotd && e.wotd.last === today() ? 1 : 0) : Math.min(need(t), t.have); };
+  const mDone = () => mission().tasks.every(t => have(t) >= need(t));
+  // A finished job ticks the daily quest's "English" job once.
+  function msync() {
+    const m = mission(); let ch = false;
+    m.tasks.forEach(t => { if (!t.ticked && have(t) >= need(t)) { t.ticked = 1; ch = true; questTick('english'); setTimeout(() => toast(`English mission job done: ${MJOBS[t.k][1]}! ✅`), 700); } });
+    if (ch) save();
+  }
+  function mtick(k, by = 1) { const m = mission(); m.tasks.forEach(t => { if (t.k === k) t.have = Math.min(need(t), t.have + by); }); msync(); save(); }
+  function missionView() {
+    const m = mission(), done = mDone(), nav = navId;
+    view.innerHTML = `${crumbs('🎯 English mission')}
+      <p class="note">Three little jobs for today. Finish them all to open the prize!</p>
+      <div class="e6-mlist">${m.tasks.map((t, i) => { const h = have(t), n = need(t), ok = h >= n;
+        return `<button class="e6-mjob${ok ? ' ok' : ''}" data-mj="${i}"><span class="e6-mico">${ok ? '✅' : MJOBS[t.k][0]}</span><span><b>${MJOBS[t.k][1]}</b><span class="meter"><i style="width:${Math.round(h / n * 100)}%"></i></span></span><span class="e6-mn">${h}/${n}</span></button>`; }).join('')}</div>
+      ${m.claimed ? '<p class="e6-mclaimed">🏆 Mission complete! Come back tomorrow for a new one.</p>' : `<button class="e6-chest${done ? ' ready' : ''}" id="mChest">${done ? '🎁 Open the mission prize!' : '🔒 Finish all 3 jobs to open the prize'}</button>`}
+      <div class="cheer" id="cheer" aria-live="polite"></div>${ptip('mission')}`;
+    wireBack(englishHome);
+    sayScreen(`Today's English mission: ${m.tasks.map(t => MJOBS[t.k][1]).join(', ')}.`);
+    view.querySelectorAll('[data-mj]').forEach(b => b.onclick = () => MJOBS[m.tasks[+b.dataset.mj].k][3]());
+    const c = $('#mChest');
+    if (c) c.onclick = () => {
+      if (nav !== navId || m.claimed) return;
+      if (!mDone()) { say('Finish all 3 jobs to open the prize!'); return; }
+      m.claimed = true; const e = R3(); e.missions++; give(3); save(); confetti(60); yay();
+      c.outerHTML = '<p class="e6-mclaimed e6-pop">🏆 Mission complete! +3 ⭐</p>'; say('Mission complete! You earned 3 bonus stars!');
+    };
+  }
+
+  /* ===================== Write letters ===================== */
+  const UPPER = Object.keys(EN_ABC).filter(k => k === k.toUpperCase()), LOWER = Object.keys(EN_ABC).filter(k => k !== k.toUpperCase());
+  const wordsOpen = () => st.unlockAll || stage() >= 2 || Object.keys(R3().trace.L).length >= 6;
+  function writeHome(tab) {
+    const e = R3(), T = tab || e.wtab || 'upper'; e.wtab = T;
+    const L = e.trace.L, Wd = e.trace.W, wo = wordsOpen();
+    const items = T === 'words' ? EN_TRACE_WORDS.map(([w, em]) => [w, `<span class="e6-wem">${em}</span>${w}`, Wd[w]]) : (T === 'upper' ? UPPER : LOWER).map(k => [k, k, L[k]]);
+    const n = Object.keys(L).length;
+    view.innerHTML = `${crumbs('✍️ Write letters')}
+      <div class="en-tabs" role="tablist">${[['upper', 'ABC Big letters'], ['lower', 'abc Small letters'], ['words', `${wo ? '' : '🔒 '}✏️ Words`]].map(([id, nm]) => `<button class="en-tab${T === id ? ' on' : ''}" data-wt="${id}" role="tab" aria-selected="${T === id}">${nm}</button>`).join('')}</div>
+      <div class="e6-wprog"><span class="meter"><i style="width:${Math.round(n / 52 * 100)}%"></i></span><span class="note">✍️ ${n} of 52 letters traced · ${Object.keys(Wd).length} words</span></div>
+      ${T === 'words' && !wo ? '<p class="note">Words open after you trace 6 letters. You can do it!</p>' : `<p class="note">${T === 'words' ? 'Trace a whole word, letter by letter.' : 'Pick a letter. Start at the green dot and follow the arrow.'}</p>`}
+      <div class="e6-lgrid${T === 'words' ? ' words' : ''}${T === 'words' && !wo ? ' dim' : ''}">${items.map(([k, html, done]) => `<button class="e6-lt${done ? ' done' : ''}" data-lt="${esc(k)}" aria-label="${T === 'words' ? esc(k) : `letter ${k}`}">${html}${done ? '<i>✓</i>' : ''}</button>`).join('')}</div>${ptip('write')}`;
+    wireBack(englishHome);
+    sayScreen(T === 'words' ? 'Pick a word to trace.' : 'Pick a letter to trace with your finger.');
+    view.querySelectorAll('[data-wt]').forEach(b => b.onclick = () => go(writeHome, b.dataset.wt));
+    view.querySelectorAll('[data-lt]').forEach(b => b.onclick = () => {
+      if (T === 'words' && !wo) { say('Trace 6 letters first, then words open!'); return; }
+      go(trace, T === 'words' ? 'W' : 'L', b.dataset.lt);
+    });
+  }
+  // Lay letters side by side; returns strokes with their path moved into place.
+  function layout(key, kind) {
+    const glyphs = kind === 'W' ? key.split('') : [key], pad = 8, gap = 6; let x = pad;
+    const strokes = [];
+    glyphs.forEach((g, gi) => {
+      const [w, ...ps] = EN_ABC[g];
+      ps.forEach(d => strokes.push({ g, gi, d: d.replace(/(-?[\d.]+) (-?[\d.]+)/g, (m, a, b) => `${+a + x} ${b}`) }));
+      x += w + gap;
+    });
+    return { strokes, W: x - gap + pad, H: 160, glyphs };
+  }
+  let TR = null;
+  function trace(kind, key) {
+    const e = R3(), Lt = layout(key, kind), { strokes, W, H } = Lt, nav = navId;
+    const low = key.toLowerCase(), LL = EN_LETTERS.find(l => l[0] === low), word = kind === 'W' ? EN_TRACE_WORDS.find(x => x[0] === key) : null;
+    const big = kind === 'L' && key !== low;
+    const title = kind === 'W' ? `Write “${key}”` : `Write ${big ? 'big' : 'small'} ${key}`;
+    TR = { kind, key, k: 0, ink: [], lines: [], done: false, tries: 0, strokes };
+    view.innerHTML = `${crumbs(`✍️ ${esc(title)}`)}
+      <div class="e6-thead">${kind === 'W' ? `<span class="e6-tpic">${word ? word[1] : '✏️'}</span><b>${esc(key)}</b>` : `<span class="e6-tpic">${LL ? LL[3] : ''}</span><b>${key}</b><span class="note">${esc(key)} is for ${LL ? esc(LL[2]) : ''}</span>`}</div>
+      <div class="e6-pwrap" style="aspect-ratio:${W}/${H};width:min(100%, ${kind === 'W' ? 620 : 360}px, calc(52vh * ${(W / H).toFixed(3)}))">
+        <svg class="e6-pad" id="tPad" viewBox="0 0 ${W} ${H}" role="img" aria-label="Tracing pad for ${esc(key)}">
+          <rect x="0" y="0" width="${W}" height="${H}" class="e6-paper"/>
+          <line x1="0" x2="${W}" y1="20" y2="20" class="e6-ln"/><line x1="0" x2="${W}" y1="65" y2="65" class="e6-ln mid"/><line x1="0" x2="${W}" y1="110" y2="110" class="e6-ln base"/><line x1="0" x2="${W}" y1="150" y2="150" class="e6-ln"/>
+          <g class="e6-trk">${strokes.map(s => `<path d="${s.d}"/>`).join('')}</g>
+          <g class="e6-dot">${strokes.map((s, i) => `<path d="${s.d}" data-sk="${i}"/>`).join('')}</g>
+          <path class="e6-demo" id="tDemo" d=""/>
+          <g id="tInk" class="e6-ink"></g>
+          <g id="tMarks"></g>
+        </svg></div>
+      <p class="e6-thint" id="tHint" aria-live="polite"></p>
+      <div class="row" id="tBtns"><button class="btn alt" id="tWatch">👀 Watch me</button><button class="btn alt" id="tClear">🗑️ Again</button><button class="btn leaf" id="tCheck">✅ Check</button></div>
+      <div class="cheer" id="cheer" aria-live="polite"></div><div class="row" id="tNext"></div>${ptip('write')}`;
+    wireBack(() => writeHome(kind === 'W' ? 'words' : big ? 'upper' : 'lower'));
+    const svg = $('#tPad'), inkG = $('#tInk'), marks = $('#tMarks'), demo = $('#tDemo');
+    const els = [...svg.querySelectorAll('.e6-dot path')];
+    strokes.forEach((s, i) => { s.el = els[i]; s.len = s.el.getTotalLength(); s.pts = []; for (let d = 0; d <= s.len; d += 3) { const p = s.el.getPointAtLength(d); s.pts.push([p.x, p.y]); } const p = s.el.getPointAtLength(s.len); s.pts.push([p.x, p.y]); });
+    const allPts = strokes.flatMap(s => s.pts);
+    const scale = () => { const r = svg.getBoundingClientRect(); return r.width ? r.width / W : 2; };
+    const radii = () => { const k = scale(); return [Math.max(12, 22 / k), Math.max(20, 34 / k)]; };
+    const cover = i => { const [r] = radii(), r2 = r * r, P = TR.ink; if (!P.length) return 0; let hit = 0; for (const [x, y] of strokes[i].pts) { for (const [a, b] of P) if ((a - x) * (a - x) + (b - y) * (b - y) <= r2) { hit++; break; } } return hit / strokes[i].pts.length; };
+    const stray = () => { const [, s] = radii(), s2 = s * s, P = TR.ink; if (!P.length) return 0; let out = 0; for (const [a, b] of P) { let near = false; for (const [x, y] of allPts) if ((a - x) * (a - x) + (b - y) * (b - y) <= s2) { near = true; break; } if (!near) out++; } return out / P.length; };
+    TR.cover = cover; TR.stray = stray;
+    const tip = () => kind === 'W' ? `Trace line ${TR.k + 1} of ${strokes.length}, letter ${strokes[TR.k].g}.` : strokes.length > 1 ? `Line ${TR.k + 1}: start at the green dot.` : 'Start at the green dot.';
+    function drawMarks() {
+      els.forEach((el, i) => el.setAttribute('class', i < TR.k ? 'ok' : i === TR.k && !TR.done ? 'on' : ''));
+      marks.innerHTML = strokes.map((s, i) => {
+        if (i < TR.k || TR.done) return '';
+        const [x, y] = s.pts[0], on = i === TR.k, [ax, ay] = strokes[TR.k].pts[0];
+        if (!on && Math.hypot(x - ax, y - ay) < 18) return ''; // a later start right on top of the green dot waits its turn
+        let arrow = '';
+        if (on) { const L = Math.min(s.len * 0.5, 30), p = s.el.getPointAtLength(L), q = s.el.getPointAtLength(Math.min(s.len, L + 4)), ang = Math.atan2(q.y - p.y, q.x - p.x) * 180 / Math.PI;
+          if (s.len > 8) arrow = `<g transform="translate(${p.x.toFixed(1)} ${p.y.toFixed(1)}) rotate(${ang.toFixed(0)})"><path class="e6-arrow" d="M-6 -6 L4 0 L-6 6 Z"/></g>`; }
+        return `${arrow}<g class="e6-start${on ? ' on' : ''}"><circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${on ? 8 : 6.5}"/><text x="${x.toFixed(1)}" y="${(y + 3.5).toFixed(1)}">${i + 1}</text></g>`;
+      }).reverse().join('');
+      $('#tHint').textContent = TR.done ? '' : tip();
+    }
+    drawMarks();
+    // Finger ink, kept in the pad's own units so the size of the screen does not matter.
+    const pt = ev => { const m = svg.getScreenCTM(); if (!m) return null; const p = svg.createSVGPoint(); p.x = ev.clientX; p.y = ev.clientY; const q = p.matrixTransform(m.inverse()); return [q.x, q.y]; };
+    let down = false, line = null, last = null;
+    const add = p => {
+      if (last) { const dx = p[0] - last[0], dy = p[1] - last[1], n = Math.ceil(Math.hypot(dx, dy) / 2.5); for (let i = 1; i <= n; i++) TR.ink.push([last[0] + dx * i / n, last[1] + dy * i / n]); } else TR.ink.push(p);
+      line.pts.push(p); last = p;
+      line.el.setAttribute('d', 'M' + line.pts.map(q => q[0].toFixed(1) + ' ' + q[1].toFixed(1)).join(' L') + (line.pts.length === 1 ? ' l0.1 0' : ''));
+    };
+    svg.onpointerdown = ev => {
+      if (TR.done || nav !== navId) return;
+      const p = pt(ev); if (!p) return; ev.preventDefault();
+      down = true; last = null; try { svg.setPointerCapture(ev.pointerId); } catch (x) {}
+      const el = document.createElementNS('http://www.w3.org/2000/svg', 'path'); inkG.appendChild(el); line = { el, pts: [] }; TR.lines.push(line); add(p);
+    };
+    svg.onpointermove = ev => { if (!down || TR.done) return; const p = pt(ev); if (p) add(p); };
+    svg.onpointerup = svg.onpointercancel = () => {
+      if (!down) return; down = false;
+      if (TR.done || nav !== navId) return;
+      const k0 = TR.k;
+      while (TR.k < strokes.length && cover(TR.k) >= 0.8) TR.k++;
+      if (TR.k > k0) tone([620 + TR.k * 60], 0.07);
+      if (TR.k >= strokes.length) { finishCheck(); return; }
+      drawMarks();
+      if (TR.k > k0) say(strokes.length > 1 ? `Good! Now line ${TR.k + 1}.` : 'Keep going!');
+    };
+    function clear() { TR.ink = []; TR.lines = []; TR.k = 0; inkG.innerHTML = ''; drawMarks(); }
+    function finishCheck() {
+      if (stray() > 0.25) {
+        TR.tries++; oops(); const m = 'Lots of wiggles outside the dotted line! Let\'s try again, nice and slow.';
+        $('#cheer').textContent = ''; $('#tHint').textContent = m; say(m); svg.classList.add('e6-shake');
+        setTimeout(() => { if (nav !== navId) return; svg.classList.remove('e6-shake'); clear(); }, 700); return;
+      }
+      win();
+    }
+    function win() {
+      TR.done = true; drawMarks();
+      const store = e.trace[kind], first = !store[key]; store[key] = (store[key] || 0) + 1;
+      const earned = first ? (kind === 'W' ? 3 : 2) : 1; TR.earned = earned;
+      give(earned); if (TR.tries === 0) questTick('firsttry'); mtick('trace'); save();
+      svg.classList.add('e6-win'); confetti(30); yay();
+      const nice = pick(['Beautiful', 'Super', 'Wonderful', 'Perfect']);
+      $('#cheer').textContent = `${nice}! ${'⭐'.repeat(earned)}`;
+      say(kind === 'W' ? `${nice}! You wrote ${key}! ${key.split('').join(', ')}. ${key}!` : `${nice}! You wrote ${big ? 'big' : 'small'} ${key}! ${LL ? `${key} is for ${LL[2]}.` : ''}`);
+      const list = kind === 'W' ? EN_TRACE_WORDS.map(x => x[0]) : big ? UPPER : LOWER, nx = list[list.indexOf(key) + 1];
+      $('#tBtns').style.display = 'none';
+      $('#tNext').innerHTML = `${nx ? `<button class="btn leaf" id="tGo">Next: ${esc(nx)} ▶</button>` : ''}<button class="btn alt" id="tAll">${kind === 'W' ? 'All words' : 'All letters'}</button>`;
+      if (nx) $('#tGo').onclick = () => go(trace, kind, nx);
+      $('#tAll').onclick = () => go(writeHome, kind === 'W' ? 'words' : big ? 'upper' : 'lower');
+    }
+    // Watch me: each line draws itself in order.
+    function watch() {
+      let t = 0;
+      strokes.forEach((s, i) => {
+        const dur = 0.35 + s.len / 110;
+        setTimeout(() => {
+          if (nav !== navId || !demo.isConnected) return;
+          demo.setAttribute('d', s.d); demo.style.transition = 'none'; demo.style.strokeDasharray = s.len + 1; demo.style.strokeDashoffset = s.len + 1; demo.getBoundingClientRect();
+          demo.style.transition = `stroke-dashoffset ${dur}s linear`; demo.style.strokeDashoffset = 0;
+        }, t * 1000);
+        t += dur + 0.25;
+      });
+      setTimeout(() => { if (nav === navId && demo.isConnected) demo.setAttribute('d', ''); }, t * 1000 + 300);
+    }
+    $('#tWatch').onclick = () => { watch(); say(kind === 'W' ? `Watch: ${key}.` : (EN_ABC_TALK[key] || 'Watch me.')); };
+    $('#tClear').onclick = () => { clear(); $('#cheer').textContent = ''; };
+    $('#tCheck').onclick = () => {
+      if (TR.done) return;
+      if (!TR.ink.length) { say('Trace the dotted line with your finger. Start at the green dot!'); $('#tHint').textContent = 'Trace the dotted line with your finger.'; return; }
+      while (TR.k < strokes.length && cover(TR.k) >= 0.8) TR.k++;
+      if (TR.k >= strokes.length) { finishCheck(); return; }
+      TR.tries++; oops(); drawMarks();
+      const m = stray() > 0.25 ? 'Try to stay on the dotted line.' : `Keep going! ${tip()}`;
+      $('#tHint').textContent = m; say(m);
+    };
+    sayScreen(kind === 'W' ? `Let's write ${key}. Trace each letter, starting at the green dot.` : `Let's write ${big ? 'big' : 'small'} ${key}. ${EN_ABC_TALK[key] || ''} Start at the green dot.`);
+    setTimeout(() => { if (nav === navId) watch(); }, 500);
+  }
+
+  /* ===================== Sound games ===================== */
+  const SGAMES = [['count', '🔢', 'Count the sounds', 'How many sounds in fish? f-i-sh: 3!'], ['change', '🔁', 'Change a sound', 'cat → hat: swap one sound'],
+    ['where', '🎯', 'First, middle, last', 'Which sound is at the start?'], ['clap', '👏', 'Clap the beats', 'Tap a clap for each beat: ba-na-na']];
+  function soundsHome() {
+    const e = R3();
+    view.innerHTML = `${crumbs('🎧 Sound games')}
+      <p class="note">Words are made of little sounds. Listen closely and play with them!</p>
+      <div class="en-gg">${SGAMES.map(([id, ico, name, sub]) => `<button class="en-gt e6-sg" data-sg="${id}"><span class="en-sico">${ico}</span><b>${name}</b><small>${sub}${e.best['snd-' + id] != null ? ` · best ${e.best['snd-' + id]}` : ''}</small></button>`).join('')}</div>${ptip('sounds')}`;
+    wireBack(englishHome);
+    sayScreen('Sound games! Count the sounds, change a sound, find the first, middle or last sound, or clap the beats.');
+    view.querySelectorAll('[data-sg]').forEach(b => b.onclick = () => { const id = b.dataset.sg; id === 'clap' ? go(clap) : go(quiz, ({ count: countSpec, change: changeSpec, where: whereSpec })[id]()); });
+  }
+  const boxes = (s, hi) => `<div class="e6-boxes">${s.map((c, i) => `<span class="${i === hi ? 'hi' : ''}" style="animation-delay:${i * 0.25}s">${esc(c)}</span>`).join('')}</div>`;
+  const sgDone = id => () => { mtick('sound'); };
+  function countSpec() {
+    return { id: 'snd-count', title: '🔢 Count the sounds', back: () => go(soundsHome), tip: 'sounds', n: 6, done: sgDone('count'), gen() {
+      const s = stage(), pool = EN_PHON.filter(x => s <= 1 ? x.s.length <= 4 : true), x = pick(pool), opts = s <= 1 ? [2, 3, 4] : [2, 3, 4, 5];
+      return { prompt: `How many sounds in <b>${esc(x.w)}</b>?`, say: `Say it slowly: ${x.w}. How many sounds can you hear?`, visual: `<div class="en-pic">${x.e}</div><div class="e6-word">${esc(x.w)}</div>`, x,
+        choices: opts.map(v => ({ html: `<span class="e6-pips">${'●'.repeat(v)}</span><small>${v}</small>`, val: v, say: String(v), txt: true })), answer: x.s.length,
+        explain: `Listen: ${x.s.map(snd).join(', ')}. That is ${x.s.length} sounds. ${x.s.some(c => c.length > 1) ? 'Some sounds use two letters!' : ''}` };
+    }, onRight(q) { const ex = document.getElementById('exp'); if (ex) ex.innerHTML = boxes(q.x.s); talk(q.x.s.map(snd).concat([q.x.w]), 0.8); } };
+  }
+  // Every pair of three-sound words that differ in exactly one sound.
+  const PAIRS = (() => { const out = []; for (const a of EN_CVC) for (const b of EN_CVC) { if (a === b || a.s.length !== b.s.length) continue; const diff = a.s.map((c, i) => c !== b.s[i] ? i : -1).filter(i => i >= 0); if (diff.length === 1) out.push({ a, b, pos: diff[0] }); } return out; })();
+  function changeSpec() {
+    return { id: 'snd-change', title: '🔁 Change a sound', back: () => go(soundsHome), tip: 'sounds', n: 6, done: sgDone('change'), gen() {
+      const s = stage(), pool = s <= 1 ? PAIRS.filter(p => p.pos !== 1) : PAIRS, { a, b, pos } = pick(pool);
+      const seen = new Set([a.e, b.e]), others = [];
+      for (const o of shuffle(EN_CVC)) { if (others.length >= 2) break; if (o !== a && o !== b && !seen.has(o.e)) { seen.add(o.e); others.push(o); } }
+      const nm = ['first', 'middle', 'last'][pos];
+      return { prompt: `Change the ${nm} sound <b>${esc(a.s[pos])}</b> to <b>${esc(b.s[pos])}</b>. What's the new word?`,
+        say: `This is ${a.w}. Change ${snd(a.s[pos])} to ${snd(b.s[pos])}. What new word do you get?`,
+        visual: `<div class="e6-change"><span class="e6-cpic">${a.e}</span>${boxes(a.s, pos)}<span class="e6-carrow">➜</span><span class="e6-cnew">${esc(b.s[pos])}</span></div>`, x: b,
+        choices: shuffle([b, ...others]).map(o => ({ html: o.e, val: o.w, say: o.w })), answer: b.w,
+        explain: `${a.w}... swap ${snd(a.s[pos])} for ${snd(b.s[pos])}: ${b.s.map(snd).join(', ')}... ${b.w}!` };
+    }, onRight(q) { const ex = document.getElementById('exp'); if (ex) ex.innerHTML = `<div class="e6-newword">${q.x.e} <b>${esc(q.x.w)}</b></div>`; } };
+  }
+  function whereSpec() {
+    return { id: 'snd-where', title: '🎯 First, middle, last', back: () => go(soundsHome), tip: 'sounds', n: 6, done: sgDone('where'), gen() {
+      const s = stage(), pos = s <= 1 ? pick([0, 2]) : pick([0, 1, 2]), x = pick(EN_CVC), ans = x.s[pos];
+      const ch = [...new Set(x.s)]; for (const c of shuffle('bdfgmnpst'.split(''))) { if (ch.length >= 3) break; if (!ch.includes(c)) ch.push(c); }
+      const nm = ['first', 'middle', 'last'][pos];
+      return { prompt: `What is the <b>${nm}</b> sound in <b>${esc(x.w)}</b>?`, say: `What is the ${nm} sound in ${x.w}? ${x.w}.`,
+        visual: `<div class="en-pic">${x.e}</div><div class="e6-slots">${x.s.map((_, i) => `<span class="${i === pos ? 'on' : ''}">${i === pos ? '?' : ''}</span>`).join('')}</div>`, x,
+        choices: shuffle(ch).map(c => ({ html: `<span class="e6-gr">${esc(c)}</span>`, val: c, say: snd(c), txt: true })), answer: ans,
+        explain: `${x.w}: ${x.s.map(snd).join(', ')}. The ${nm} sound is ${snd(ans)}.` };
+    }, onRight(q) { const ex = document.getElementById('exp'); if (ex) ex.innerHTML = boxes(q.x.s); } };
+  }
+  // Clap the beats: tap the big clap once for each beat, then Done.
+  let CL = null;
+  function clap() {
+    const s = stage(), pool = EN_CLAP.filter(x => x.parts.length <= (s <= 1 ? 3 : 4));
+    const list = []; const by = n => shuffle(pool.filter(x => x.parts.length === n));
+    for (const n of shuffle([1, 2, 3, s >= 2 ? 4 : 2, 3])) { const x = by(n).find(o => !list.includes(o)); if (x) list.push(x); }
+    while (list.length < 5) list.push(pick(pool.filter(o => !list.includes(o))));
+    CL = { list: list.slice(0, 5), i: 0, stars: 0, first: 0 }; clapRound();
+  }
+  function clapRound() { Object.assign(CL, { n: 0, tries: 0, done: false }); drawClap(); say(`Clap the beats in ${CL.list[CL.i].w}. ${CL.list[CL.i].w}.`); }
+  function drawClap(msg, show) {
+    const x = CL.list[CL.i], nav = navId;
+    view.innerHTML = `${crumbs('👏 Clap the beats')}
+      <div class="progress">${CL.list.map((_, k) => `<i class="${k < CL.i ? 'done' : k === CL.i ? 'now' : ''}"></i>`).join('')}</div>
+      <div class="e6-clapw"><div class="en-pic">${x.e}</div><div class="e6-word" id="cWord">${show ? x.parts.map((p, i) => `<span class="e6-syl" style="animation-delay:${i * 0.45}s">${esc(p)}</span>`).join('<i>·</i>') : esc(x.w)}</div>
+        <button class="speak" id="spk" aria-label="Hear the word">🔊</button></div>
+      <div class="e6-claps" id="cClaps" aria-live="polite">${CL.n ? '👏'.repeat(CL.n) : '<span class="note">Tap the hands for each beat!</span>'}</div>
+      <button class="e6-clapbtn" id="cTap" aria-label="Clap">👏<small>Clap!</small></button>
+      <div class="row"><button class="btn alt" id="cReset">↩️ Start over</button><button class="btn leaf" id="cDone">✅ Done (${CL.n})</button></div>
+      <div class="cheer" id="cheer" aria-live="polite">${msg || ''}</div>${ptip('sounds')}`;
+    wireBack(soundsHome);
+    $('#spk').onclick = () => talk([x.w], 0.7);
+    $('#cTap').onclick = () => {
+      if (CL.done || nav !== navId || CL.n >= 6) return;
+      CL.n++; tone([600 + CL.n * 70], 0.06);
+      $('#cClaps').innerHTML = '👏'.repeat(CL.n); $('#cDone').textContent = `✅ Done (${CL.n})`;
+      const b = $('#cTap'); b.classList.remove('hit'); void b.offsetWidth; b.classList.add('hit');
+    };
+    $('#cReset').onclick = () => { if (CL.done) return; CL.n = 0; drawClap(); };
+    $('#cDone').onclick = () => {
+      if (CL.done || nav !== navId) return;
+      if (!CL.n) { say('Tap the clapping hands for each beat first!'); return; }
+      const want = x.parts.length;
+      if (CL.n !== want) {
+        CL.tries++; CL.n = 0; oops();
+        const m = `Listen: ${x.parts.join(', ')}. That is ${want} beat${want > 1 ? 's' : ''}. Try again!`;
+        drawClap(m, true); talk([x.parts.join('... '), `${want} beat${want > 1 ? 's' : ''}`], 0.7); return;
+      }
+      CL.done = true; const first = CL.tries === 0, earned = first ? 2 : 1; CL.stars += earned; if (first) { CL.first++; questTick('firsttry'); }
+      give(earned); yay();
+      drawClap(`${first ? 'Perfect beats!' : 'You got it!'} ${'⭐'.repeat(earned)}`, true);
+      x.parts.forEach((p, i) => setTimeout(() => { if (nav === navId) tone([700 + i * 90], 0.08); }, i * 450));
+      talk([x.parts.join('... ')], 0.7);
+      setTimeout(() => {
+        if (nav !== navId) return; CL.i++;
+        if (CL.i < CL.list.length) { clapRound(); return; }
+        const e = E(); e.rounds['snd-clap'] = (e.rounds['snd-clap'] || 0) + 1; e.best['snd-clap'] = Math.max(e.best['snd-clap'] || 0, CL.first); mtick('sound'); save();
+        reward('Super clapping!', `You clapped ${CL.list.length} words and earned ${CL.stars} ⭐`, () => go(clap), () => go(soundsHome));
+      }, 1500 + x.parts.length * 450);
+    };
+  }
+
+  /* ===================== Talk time ===================== */
+  const PH = Object.fromEntries(EN_PHRASES.map(p => [p[0], p]));
+  const KIND = { polite: ['🎩', 'Polite words'], everyday: ['💬', 'Everyday talk'], slang: ['😎', 'Friendly slang'] };
+  const cardHTML = p => `<div class="e6-card k-${p[5]}"><span class="e6-ck">${KIND[p[5]][0]} ${KIND[p[5]][1]}</span><span class="e6-ce">${p[2]}</span><b>${esc(p[1])}</b><p>${esc(p[3])}</p><i>“${esc(p[4])}”</i></div>`;
+  function talkHome() {
+    const e = R3();
+    view.innerHTML = `${crumbs('🗣️ Talk time')}
+      <div class="en-games"><button class="en-gbtn" id="tkCards">🃏 Phrase cards (${Object.keys(e.cards).length}/${EN_PHRASES.length})</button><button class="en-gbtn" id="tkQuiz">🎯 What does it mean?</button></div>
+      <p class="note">Chat with friends! Pick the friendly answer that fits.</p>
+      <div class="en-gg">${EN_TALK.map(S => `<button class="en-gt e6-tk${open(S.stage) ? '' : ' locked'}" data-tk="${S.id}"><span class="en-sico">${open(S.stage) ? S.ico : '🔒'}</span><b>${esc(S.name)}</b><small>${S.who[0]} ${esc(S.who[1])}${e.talk[S.id] ? ' · ✅' : ''}${open(S.stage) ? '' : ` · Stage ${S.stage}`}</small></button>`).join('')}</div>${ptip('talk')}`;
+    wireBack(englishHome);
+    sayScreen('Talk time! Pick a place and chat with a friend.');
+    $('#tkCards').onclick = () => go(cards);
+    $('#tkQuiz').onclick = () => go(quiz, phraseSpec());
+    view.querySelectorAll('[data-tk]').forEach(b => b.onclick = () => { const S = EN_TALK.find(x => x.id === b.dataset.tk); open(S.stage) ? go(chat, S.id) : say(A.lockText(S.stage)); });
+  }
+  let TK = null;
+  function chat(id) {
+    const S = EN_TALK.find(x => x.id === id);
+    TK = { S, i: 0, log: [], tries: 0, stars: 0, first: 0, wait: false };
+    turn();
+  }
+  const me = () => ({ e: (profileOf(pid) || {}).avatar || '🧒', n: st.name || 'You' });
+  function turn() {
+    const S = TK.S, T = S.turns[TK.i];
+    TK.tries = 0; TK.wait = false; TK.order = shuffle(T[1].map((_, i) => i)); TK.log.push(['them', T[0]]);
+    drawChat(); say(`${S.who[1]} says: ${T[0]}`);
+  }
+  function drawChat(tipTxt, card) {
+    const S = TK.S, T = S.turns[TK.i], nav = navId, M = me();
+    view.innerHTML = `${crumbs(`${S.ico} ${esc(S.name)}`)}
+      <div class="progress">${S.turns.map((_, k) => `<i class="${k < TK.i ? 'done' : k === TK.i ? 'now' : ''}"></i>`).join('')}</div>
+      <div class="e6-scene" aria-hidden="true">${S.place}</div>
+      <div class="e6-chat" id="tkChat">${TK.log.map(([who, t], i) => `<div class="e6-b ${who}${i === TK.log.length - 1 ? ' new' : ''}"><span class="e6-av">${who === 'them' ? S.who[0] : who === 'owl' ? '🦉' : M.e}</span><p><small>${who === 'them' ? esc(S.who[1]) : who === 'owl' ? 'Owl' : esc(M.n)}</small>${esc(t)}</p></div>`).join('')}</div>
+      ${tipTxt ? `<div class="e6-b owl tip"><span class="e6-av">🦉</span><p>${esc(tipTxt)}</p></div>` : ''}
+      ${card ? cardHTML(card) : ''}
+      <div class="e6-replies" id="tkR">${TK.wait ? `<button class="btn leaf" id="tkNext">${TK.i < S.turns.length - 1 ? 'Next ▶' : 'Finish ⭐'}</button>` : TK.order.map((j, n) => `<button class="e6-reply${(TK.bad || []).includes(j) ? ' wrong' : ''}" data-rp="${j}"${(TK.bad || []).includes(j) ? ' disabled' : ''}><span class="e6-rn">${n + 1}</span>${esc(T[1][j][0])}</button>`).join('')}</div>
+      ${TK.wait ? '' : '<div class="row"><button class="btn alt" id="tkHear">🔊 Read the answers</button></div>'}
+      <div class="cheer" id="cheer" aria-live="polite"></div>${ptip('talk')}`;
+    wireBack(talkHome);
+    const ch = $('#tkChat'); try { ch.scrollTop = ch.scrollHeight; } catch (x) {}
+    const h = $('#tkHear'); if (h) h.onclick = () => talk(TK.order.map((j, n) => `${n + 1}. ${T[1][j][0]}`), 0.9);
+    const nx = $('#tkNext'); if (nx) nx.onclick = () => { if (nav !== navId) return; TK.i++; TK.bad = []; if (TK.i < S.turns.length) turn(); else endChat(); };
+    view.querySelectorAll('[data-rp]').forEach(b => b.onclick = () => {
+      if (TK.wait || b.disabled || nav !== navId) return;
+      const j = +b.dataset.rp, [txt, good, why] = T[1][j];
+      if (!good) { TK.tries++; TK.bad = [...(TK.bad || []), j]; oops(); drawChat(why); say(why); return; }
+      const first = TK.tries === 0, earned = first ? 2 : 1; TK.stars += earned; if (first) { TK.first++; questTick('firsttry'); }
+      give(earned); yay(); TK.wait = true; TK.bad = [];
+      TK.log.push(['me', txt]); if (T[2]) TK.log.push(['them', T[2]]);
+      const card = T[3] && PH[T[3]]; if (card) { R3().cards[card[0]] = 1; save(); }
+      drawChat(why, card);
+      $('#cheer').textContent = `${first ? 'Great talking!' : 'Nice!'} ${'⭐'.repeat(earned)}`;
+      talk([txt, T[2] ? `${S.who[1]} says: ${T[2]}` : '', card ? `${card[1]} means: ${card[3]}` : ''].filter(Boolean), 0.9);
+    });
+  }
+  function endChat() {
+    const S = TK.S, e = R3(); e.talk[S.id] = (e.talk[S.id] || 0) + 1; e.rounds['talk-' + S.id] = (e.rounds['talk-' + S.id] || 0) + 1; e.best['talk-' + S.id] = Math.max(e.best['talk-' + S.id] || 0, TK.first);
+    mtick('talk'); save();
+    reward('Great chat!', `You chatted with ${S.who[1]} and earned ${TK.stars} ⭐`, () => go(chat, S.id), () => go(talkHome));
+  }
+  function cards(kind) {
+    const e = R3(), K = kind || 'all', list = EN_PHRASES.filter(p => K === 'all' || p[5] === K);
+    view.innerHTML = `${crumbs('🃏 Phrase cards')}
+      <div class="en-tabs">${[['all', '🌈 All'], ...Object.entries(KIND).map(([k, v]) => [k, `${v[0]} ${v[1]}`])].map(([k, nm]) => `<button class="en-tab${K === k ? ' on' : ''}" data-pk="${k}">${nm}</button>`).join('')}</div>
+      <p class="note">Tap a card to flip it and hear what it means. ⭐ cards were collected in Talk time.</p>
+      <div class="e6-cards">${list.map(p => `<button class="e6-flip${e.cards[p[0]] ? ' got' : ''}" data-pc="${p[0]}" aria-label="${esc(p[1])}"><span class="e6-front"><span class="e6-ce">${p[2]}</span><b>${esc(p[1])}</b>${e.cards[p[0]] ? '<i>⭐</i>' : ''}</span><span class="e6-back"><b>${esc(p[1])}</b><span>${esc(p[3])}</span></span></button>`).join('')}</div>${ptip('talk')}`;
+    wireBack(talkHome);
+    sayScreen('Phrase cards. Tap a card to flip it.');
+    view.querySelectorAll('[data-pk]').forEach(b => b.onclick = () => go(cards, b.dataset.pk));
+    view.querySelectorAll('[data-pc]').forEach(b => b.onclick = () => { const p = PH[b.dataset.pc]; b.classList.toggle('on'); tone([660], 0.05); talk([p[1], `That means: ${p[3]}`, `For example: ${p[4]}`], 0.9); });
+  }
+  function phraseSpec() {
+    return { id: 'phrases', title: '🎯 What does it mean?', back: () => go(talkHome), tip: 'talk', n: 6, gen() {
+      const s = stage(), pool = EN_PHRASES.filter(p => s >= 2 || p[5] !== 'slang' || ['awesome', 'cool', 'seeya', 'highfive', 'whatsup', 'noworries'].includes(p[0])), p = pick(pool);
+      const wrong = shuffle(EN_PHRASES.filter(o => o[0] !== p[0])).slice(0, 2);
+      return { prompt: `What does <b>“${esc(p[1])}”</b> mean?`, say: `What does ${p[1]} mean?`, visual: `<div class="en-pic">${p[2]}</div>`,
+        choices: shuffle([p, ...wrong]).map(o => ({ html: esc(o[3]), val: o[0], say: o[3], txt: true })), answer: p[0], explain: `${p[1]} means: ${p[3]} For example: ${p[4]}` };
+    }, onRight(q) { R3().cards[q.answer] = 1; } };
+  }
+
+  /* ===================== Chapter books ===================== */
+  const pagesOf = B => B.chapters.reduce((a, c) => a + c[1].length, 0);
+  function booksHome() {
+    const e = R3();
+    view.innerHTML = `${crumbs('📚 Chapter books')}
+      <p class="note">Longer stories in chapters. Tap a <span class="e6-vw sample">blue word</span> to see what it means.</p>
+      ${[3, 4, 5].map(s => `<h3 class="section-title">${A.STAGES[s - 1].ico} Stage ${s}: ${A.STAGES[s - 1].name}${open(s) ? '' : ' 🔒'}</h3>
+        <div class="e6-shelf">${EN_BOOKS.filter(b => b.stage === s).map(B => { const ch = e.bookCh[B.id] || 0, done = e.books[B.id];
+          return `<button class="e6-book${open(s) ? '' : ' locked'}${done ? ' read' : ''}" data-bk="${B.id}"><span class="e6-bcov">${open(s) ? B.ico : '🔒'}</span><b>${esc(B.title)}</b><small>${done ? '✅ read' : `${Math.min(ch, B.chapters.length)}/${B.chapters.length} chapters`}</small></button>`; }).join('')}</div>`).join('')}${ptip('books')}`;
+    wireBack(englishHome);
+    sayScreen('Chapter books! Pick a book to read.');
+    view.querySelectorAll('[data-bk]').forEach(b => b.onclick = () => { const B = EN_BOOKS.find(x => x.id === b.dataset.bk); const ch = e.bookCh[B.id] || 0; open(B.stage) ? go(bookPage, B.id, !e.books[B.id] && ch < B.chapters.length ? ch : 0, 0) : say(A.lockText(B.stage)); });
+  }
+  const meaning = (B, w) => B.words[w] ? B.words[w] : EN_WORD[w] && EN_WORD[w].m ? [EN_WORD[w].m, EN_WORD[w].e] : null;
+  const bookWords = (B, text) => text.split(' ').map(w => { const bare = w.replace(/[^\w'-]/g, '').toLowerCase().replace(/^'|'$/g, ''), m = bare && meaning(B, bare);
+    return `<button class="en-tw${m ? ' e6-vw' : ''}" data-bw="${esc(bare)}">${esc(w)}</button>`; }).join(' ');
+  function bookPage(id, c, p) {
+    const B = EN_BOOKS.find(x => x.id === id), ch = B.chapters[c], pg = ch[1][p], lastP = p === ch[1].length - 1, lastC = c === B.chapters.length - 1, nav = navId;
+    view.innerHTML = `${crumbs(`${B.ico} ${esc(B.title)}`)}
+      <div class="e6-chaps">${B.chapters.map((x, k) => `<span class="${k < c ? 'done' : k === c ? 'now' : ''}">${k + 1}</span>`).join('')}</div>
+      <div class="en-page e6-bpage">${p === 0 ? `<b class="e6-chname">Chapter ${c + 1}: ${esc(ch[0])}</b>` : ''}<div class="e6-bpic" aria-hidden="true">${pg[0]}</div>
+        <p class="en-sent e6-btext" id="bkText">${bookWords(B, pg[1])}</p></div>
+      <div id="bkPop" aria-live="polite"></div>
+      <div class="progress">${ch[1].map((_, k) => `<i class="${k < p ? 'done' : k === p ? 'now' : ''}"></i>`).join('')}</div>
+      <div class="row"><button class="btn alt" id="bkPrev"${c || p ? '' : ' disabled'}>◀ Back</button><button class="btn alt" id="bkRead">🔊 Read to me</button><button class="btn leaf" id="bkNext">${lastP ? (lastC ? 'Questions ▶' : 'End of chapter ▶') : 'Next ▶'}</button></div>${ptip('books')}`;
+    wireBack(booksHome);
+    screenText = pg[1];
+    if (p === 0) say(`${c === 0 ? B.title + '. ' : ''}Chapter ${c + 1}: ${ch[0]}.`);
+    view.querySelectorAll('[data-bw]').forEach(b => b.onclick = () => {
+      view.querySelectorAll('.en-tw.lit').forEach(o => o.classList.remove('lit')); b.classList.add('lit');
+      const w = b.dataset.bw, m = meaning(B, w);
+      if (!m) { say(w); return; }
+      $('#bkPop').innerHTML = `<div class="e6-pop e6-vcard"><span class="e6-ce">${m[1]}</span><span><b>${esc(w)}</b><span>${esc(m[0])}</span></span><button class="e6-x" id="bkX" aria-label="Close">✖</button></div>`;
+      $('#bkX').onclick = () => { $('#bkPop').innerHTML = ''; };
+      const e = R3(); e.vocab = e.vocab || {}; e.vocab[w] = 1; save();
+      talk([w, `${w} means ${m[0]}`], 0.85);
+    });
+    $('#bkRead').onclick = () => talk([pg[1]], 0.85);
+    $('#bkPrev').onclick = () => { if (p) go(bookPage, id, c, p - 1); else if (c) go(bookPage, id, c - 1, B.chapters[c - 1][1].length - 1); };
+    $('#bkNext').onclick = () => {
+      if (nav !== navId) return;
+      if (!lastP) { go(bookPage, id, c, p + 1); return; }
+      const e = R3(), fresh = (e.bookCh[id] || 0) < c + 1;
+      if (fresh) { e.bookCh[id] = c + 1; give(1); }
+      mtick('book'); save();
+      if (lastC) { go(quiz, bookQuiz(id)); return; }
+      view.innerHTML = `<div class="view done e6-chend"><div class="big e6-bounce" aria-hidden="true">📖✨</div><h1>End of chapter ${c + 1}!</h1>
+        <p style="font-weight:800;font-size:22px">${fresh ? 'You earned ⭐ for reading a whole chapter!' : 'Great reading!'}</p>
+        <div class="row"><button class="btn leaf" id="bkGo">Chapter ${c + 2}: ${esc(B.chapters[c + 1][0])} ▶</button><button class="btn alt" id="bkShelf">Bookshelf</button></div></div>`;
+      if (fresh) { confetti(25); yay(); }
+      say(`End of chapter ${c + 1}! ${fresh ? 'You earned a star!' : ''} Next: ${B.chapters[c + 1][0]}.`);
+      $('#bkGo').onclick = () => go(bookPage, id, c + 1, 0); $('#bkShelf').onclick = () => go(booksHome);
+    };
+  }
+  const QK = { who: ['🧑', 'Who?'], what: ['❓', 'What?'], where: ['📍', 'Where?'], why: ['🤔', 'Why?'], feel: ['💗', 'Feelings'] };
+  function bookQuiz(id) {
+    const B = EN_BOOKS.find(x => x.id === id);
+    return { id: 'book-' + id, title: `${B.ico} ${esc(B.title)}`, back: () => go(booksHome), tip: 'books',
+      list: B.qs.map(([k, q, a, b, c]) => ({ prompt: `<span class="e6-qk k-${k}">${QK[k][0]} ${QK[k][1]}</span> ${esc(q)}`, say: `${q} ${shuffle([a, b, c]).join(', or ')}?`, choices: shuffle([a, b, c]).map(v => ({ html: esc(v), val: v, say: v, txt: true })), answer: a,
+        explain: k === 'feel' ? `Think about what happened to them. The answer is: ${a}.` : k === 'why' ? `Look for the reason in the story. The answer is: ${a}.` : `Look back at the story. The answer is: ${a}.` })),
+      done(R) { const e = R3(); e.books[id] = Math.max(e.books[id] || 0, R.first + 1); } };
+  }
+
+  /* ===================== Grammar islands ===================== */
+  const POSK = { noun: 'a noun (a naming word)', verb: 'a verb (a doing word)', adj: 'an adjective (a describing word)' };
+  const kindGen = k => () => {
+    const x = pick(EN_POS_W.filter(w => w.k === k)), o = shuffle(EN_POS_W.filter(w => w.k !== k)), others = [];
+    for (const w of o) { if (others.length >= 2) break; if (w.w !== x.w && w.e !== x.e && !others.some(z => z.k === w.k)) others.push(w); }
+    return { prompt: `Which word is ${POSK[k]}?`, say: `Which word is ${POSK[k].replace(/[()]/g, '')}?`, visual: '',
+      choices: shuffle([x, ...others]).map(w => ({ html: `<span class="en-ce">${w.e}</span><span>${esc(w.w)}</span>`, val: w.w, say: w.w, txt: true })), answer: x.w,
+      explain: `${enCap(x.w)} is ${POSK[k]}. ${k === 'noun' ? 'You can point to it.' : k === 'verb' ? `You can ${x.w}!` : 'It tells you what something is like.'}` };
+  };
+  const G = id => { const g = EN_GAMES.find(x => x.id === id); return () => g.gen(stage()); };
+  const ISLANDS = [
+    { id: 'nouns', ico: '🏷️', land: '🌴', name: 'Noun Island', about: 'A noun is a naming word: a person, a place, an animal or a thing. Mom, park, dog and ball are all nouns.', gens: [kindGen('noun'), kindGen('noun'), G('pos')] },
+    { id: 'verbs', ico: '🏃', land: '🌋', name: 'Verb Volcano', about: 'A verb is a doing word, an action: run, jump, eat, sing. If you can do it, it is a verb!', gens: [kindGen('verb'), kindGen('verb'), G('pos')] },
+    { id: 'adjs', ico: '🎨', land: '🏝️', name: 'Adjective Cove', about: 'An adjective describes a noun: big, red, happy, soft. It tells you what something is like.', gens: [kindGen('adj'), G('opp')] },
+    { id: 'plurals', ico: '🔢', land: '🏔️', name: 'Plural Peaks', about: 'Plural means more than one. One cat, two cats. One box, two boxes. Some words change: one mouse, two mice!', gens: [G('plural')] },
+    { id: 'tenses', ico: '⏰', land: '🏜️', name: 'Time Travel Bay', about: 'Verbs change with time. Today I jump. Yesterday I jumped. Many add ed, some change: go, went.', gens: [G('past'), G('isare')] },
+    { id: 'punct', ico: '❗', land: '🗿', name: 'Punctuation Point', about: 'Punctuation marks help us read: a full stop ends a sentence, ? asks, ! shouts. Capitals start sentences and names.', gens: [G('qs'), G('caps')] },
+    { id: 'pronouns', ico: '👤', land: '🛖', name: 'Pronoun Harbor', about: 'Pronouns stand in for names: he, she, it, they, we. Sam is kind. He is kind.', gens: [G('pron')] },
+    { id: 'conj', ico: '🔗', land: '🌿', name: 'Joining Jungle', about: 'Joining words (conjunctions) link ideas: and, but, because, so, or.', gens: [G('conj')] },
+    { id: 'preps', ico: '📦', land: '🏰', name: 'Preposition Castle', about: 'Prepositions tell where things are: in, on, under, behind, next to, between.', gens: [G('prep')] }
+  ];
+  const islOpen = i => st.unlockAll || i === 0 || !!(R3().isl[ISLANDS[i - 1].id] || {}).badge;
+  const badges = () => ISLANDS.filter(I => (R3().isl[I.id] || {}).badge).length;
+  // Island spots on the sea map (percent), in a snake from top left.
+  const SPOT = [[18, 15], [50, 15], [82, 15], [82, 50], [50, 50], [18, 50], [18, 85], [50, 85], [82, 85]];
+  function islandsHome() {
+    const e = R3(), cur = ISLANDS.findIndex((I, i) => islOpen(i) && !(e.isl[I.id] || {}).badge);
+    view.innerHTML = `${crumbs('🏝️ Grammar islands')}
+      <div class="e6-ihead"><b>🏅 ${badges()} of ${ISLANDS.length} badges</b><span class="note">Win each island's badge to sail to the next one!</span></div>
+      <div class="e6-sea"><svg class="e6-route" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><polyline points="${SPOT.map(p => p.join(',')).join(' ')}"/></svg>
+        ${ISLANDS.map((I, i) => { const ok = islOpen(i), b = (e.isl[I.id] || {}).badge;
+          return `<button class="e6-isl${ok ? '' : ' locked'}${b ? ' won' : ''}${i === cur ? ' cur' : ''}" data-is="${i}" style="left:${SPOT[i][0]}%;top:${SPOT[i][1]}%" aria-label="${esc(I.name)}${ok ? '' : ', locked'}">
+            <span class="e6-land">${ok ? I.land : '🌫️'}</span><span class="e6-iico">${ok ? I.ico : '🔒'}</span><b>${esc(I.name)}</b>${b ? '<i class="e6-badge">🏅</i>' : ''}${i === cur ? '<i class="e6-boat">⛵</i>' : ''}</button>`; }).join('')}</div>${ptip('islands')}`;
+    wireBack(englishHome);
+    sayScreen(`Grammar islands! You have ${badges()} badges.${cur >= 0 ? ` Sail to ${ISLANDS[cur].name}!` : ''}`);
+    view.querySelectorAll('[data-is]').forEach(b => b.onclick = () => { const i = +b.dataset.is; islOpen(i) ? go(island, i) : say(`Win the ${ISLANDS[i - 1].name} badge first, then sail here!`); });
+  }
+  function island(i) {
+    const I = ISLANDS[i], r = R3().isl[I.id] || {};
+    view.innerHTML = `${crumbs(`${I.land} ${esc(I.name)}`)}
+      <div class="e6-ilesson"><span class="e6-iico big">${I.ico}</span><p>${esc(I.about)}</p><button class="speak" id="iAbout" aria-label="Read it">🔊</button></div>
+      <p class="note">5 questions. Get 3 right on the first try to win the ${esc(I.name)} badge${r.badge ? ' (you have it! 🏅)' : ''}.</p>
+      <div class="row"><button class="btn leaf" id="iGo">⛵ Let's go!</button></div>${ptip('islands')}`;
+    wireBack(islandsHome);
+    sayScreen(I.about);
+    $('#iAbout').onclick = () => say(I.about);
+    $('#iGo').onclick = () => go(quiz, islandSpec(i));
+  }
+  function islandSpec(i) {
+    const I = ISLANDS[i];
+    return { id: 'isl-' + I.id, title: `${I.land} ${esc(I.name)}`, back: () => go(islandsHome), tip: 'islands', n: 5, gen: () => pick(I.gens)(),
+      done(R) {
+        const e = R3(), x = e.isl[I.id] = e.isl[I.id] || { n: 0, best: 0 };
+        x.n++; x.best = Math.max(x.best, R.first); R.pass = R.first >= 3; R.fresh = R.pass && !x.badge;
+        if (R.pass && !x.badge) { x.badge = today(); give(3); R.stars += 3; }
+        mtick('island');
+      },
+      end(R, rw) { islandEnd(i, R, rw); } };
+  }
+  function islandEnd(i, R, rw) {
+    const I = ISLANDS[i], nx = ISLANDS[i + 1], nextOk = nx && islOpen(i + 1);
+    view.innerHTML = `<div class="view done e6-iend">${R.pass ? `<div class="e6-medal${R.fresh ? ' new' : ''}" aria-hidden="true"><span>🏅</span><b>${I.ico}</b></div>` : '<div class="big" aria-hidden="true">🌊</div>'}
+      <h1>${R.pass ? (R.fresh ? `${esc(I.name)} badge!` : 'Island cleared!') : 'So close!'}</h1>
+      <p style="font-weight:800;font-size:22px">You got ${R.first} of ${R.n} on the first try and earned ${R.stars} ⭐${R.fresh ? ' (with 3 badge stars)' : ''}.</p>
+      ${R.pass ? (nx ? (nextOk ? `<p class="note">${esc(nx.name)} is open! ⛵</p>` : '') : '<p class="note">You won every island. Grammar captain! 🏴‍☠️</p>') : '<p class="note">Get 3 right on the first try to win the badge. Try again!</p>'}
+      <div class="row">${R.pass && nextOk ? `<button class="btn leaf" id="iNext">⛵ ${esc(nx.name)}</button>` : `<button class="btn leaf" id="iAgain">Play again</button>`}<button class="btn alt" id="iMap">🗺️ Map</button><button class="btn alt" id="iPal">📖 Word pal</button></div></div>`;
+    if (R.fresh) { confetti(70); tone([523, 659, 784, 1046, 1318], 0.1); } else if (R.pass) yay();
+    say(R.pass ? (R.fresh ? `You won the ${I.name} badge! ${nx ? `${nx.name} is open now!` : 'You won every island!'}` : 'Island cleared!') : 'So close! Get 3 right on the first try to win the badge.');
+    const n = $('#iNext'); if (n) n.onclick = () => go(island, i + 1);
+    const a = $('#iAgain'); if (a) a.onclick = () => go(quiz, islandSpec(i));
+    $('#iMap').onclick = () => go(islandsHome);
+    $('#iPal').onclick = rw;
+  }
+
+  /* ===================== wiring ===================== */
+  SECTIONS.push(
+    { id: 'write', ico: '✍️', name: 'Write letters', sub: 'Trace ABC, abc and words with your finger', fn: () => writeHome(), c: '#0E7490',
+      tip: 'Say the stroke out loud as your child traces ("down, then across"). Start every letter at the green dot; neat comes later.' },
+    { id: 'sounds', ico: '🎧', name: 'Sound games', sub: 'Count, swap and clap the sounds in words', fn: () => soundsHome(), c: '#9D174D',
+      tip: 'Play these with no letters at all: "What sound does sun start with? Change the s to f, what do you get?" Ears first, eyes later.' },
+    { id: 'talk', ico: '🗣️', name: 'Talk time', sub: 'Chat at the shop, park, party and more', fn: () => talkHome(), c: '#4D7C0F',
+      tip: 'Act the chats out for real: be the shopkeeper or the doctor and let your child answer. Talk about when slang fits (friends) and when it does not.' },
+    { id: 'books', ico: '📚', name: 'Chapter books', sub: `${EN_BOOKS.length} longer stories with tap-for-meaning words`, fn: () => booksHome(), c: '#7C2D12',
+      tip: 'One chapter a day is perfect. Ask a why or a feeling question at the end of each chapter: "Why did she do that? How did he feel?"' },
+    { id: 'islands', ico: '🏝️', name: 'Grammar islands', get sub() { return `Sail ${ISLANDS.length} islands · ${badges()} badges`; }, fn: () => islandsHome(), c: '#1E3A8A',
+      tip: 'Each island is 5 quick questions. Spot the same idea in real life: name the nouns on a walk, act out verbs, describe dinner with adjectives.' },
+    { id: 'mission', ico: '🎯', name: 'English mission', hidden: true, fn: () => missionView(), c: '#000',
+      tip: 'Three small jobs a day keeps English fun. Finishing mission jobs also counts for the daily quest on the home screen.' }
+  );
+  // The mission is reached from its strip on the English home, not from a section tile.
+  const realSecs = SECTIONS.filter(s => !s.hidden);
+  const prevAfter = englishHome.after;
+  englishHome.after = v => {
+    // Hide the mission entry from the tile grid (it has its own strip).
+    v.querySelectorAll('[data-sec="mission"]').forEach(b => b.remove());
+    if (prevAfter) prevAfter(v);
+    const nx = v.querySelector('#enNext'); if (!nx) return;
+    msync();
+    const m = mission(), done = m.tasks.filter(t => have(t) >= need(t)).length, box = document.createElement('button');
+    box.className = 'e6-mis' + (m.claimed ? ' claimed' : done === 3 ? ' ready' : ''); box.id = 'enMission';
+    box.innerHTML = `<span class="e6-mico" aria-hidden="true">🎯</span><span><b>Today's English mission</b>${m.claimed ? '🏆 Complete!' : done === 3 ? '🎁 Prize ready!' : `${done} of 3 jobs done`}</span><span class="e6-mdots">${m.tasks.map(t => have(t) >= need(t) ? '✅' : MJOBS[t.k][0]).join('')}</span>`;
+    nx.parentNode.insertBefore(box, nx);
+    box.onclick = () => go(missionView);
+  };
+  Object.assign(VIEWS, { write: writeHome, trace, sounds: soundsHome, count: () => quiz(countSpec()), change: () => quiz(changeSpec()), where: () => quiz(whereSpec()), clap,
+    talk: talkHome, chat, cards, phrases: () => quiz(phraseSpec()), books: booksHome, book: bookPage, bookQuiz: id => quiz(bookQuiz(id)), islands: islandsHome, island, islandPlay: i => quiz(islandSpec(i)), mission: missionView });
+  const prevMore = englishHome.more;
+  englishHome.more = b => { const x = prevMore ? prevMore(b) : b;
+    return { ...x, games: x.games + SGAMES.length + ISLANDS.length + 2, letters: UPPER.length + LOWER.length, traceWords: EN_TRACE_WORDS.length, soundGames: SGAMES.length,
+      talks: EN_TALK.length, phrases: EN_PHRASES.length, books: EN_BOOKS.length, bookPages: EN_BOOKS.reduce((a, B) => a + pagesOf(B), 0), islands: ISLANDS.length }; };
+  // For the grown-ups' report: what round 3 adds, read from any player's saved english state.
+  englishHome.round3 = e => {
+    const o = v => (v && typeof v === 'object' && !Array.isArray(v) ? v : {}), tr = o(o(e).trace);
+    return { traced: Object.keys(o(tr.L)).filter(k => EN_ABC[k]).length, tracedAll: UPPER.length + LOWER.length, words: Object.keys(o(tr.W)).length,
+      chats: Object.values(o(o(e).talk)).reduce((a, v) => a + (+v || 0), 0), scenes: Object.keys(o(o(e).talk)).length, scenesAll: EN_TALK.length,
+      books: EN_BOOKS.filter(B => o(o(e).books)[B.id]).length, booksAll: EN_BOOKS.length, chapters: Object.values(o(o(e).bookCh)).reduce((a, v) => a + (+v || 0), 0),
+      islands: ISLANDS.filter(I => o(o(o(e).isl)[I.id]).badge).length, islandsAll: ISLANDS.length,
+      sound: ['snd-count', 'snd-change', 'snd-where', 'snd-clap'].reduce((a, k) => a + (+o(o(e).rounds)[k] || 0), 0), missions: +o(e).missions || 0 };
+  };
+  if (location.hash === '#selftest' && window.__english) {
+    Object.defineProperties(window.__english, Object.getOwnPropertyDescriptors({
+      R3, mission, mDone, mtick, layout, countSpec, changeSpec, whereSpec, phraseSpec, bookQuiz, islandSpec, ISLANDS, PAIRS, SGAMES, realSecs,
+      get TR() { return TR; }, get CL() { return CL; }, get TK() { return TK; }
+    }));
+    Object.assign(window.__english.data, { EN_ABC, EN_TRACE_WORDS, EN_PHON, EN_CVC, EN_CLAP, EN_PHRASES, EN_TALK, EN_BOOKS });
+  }
+})();
 /* ---------- Crafts corner: drawing kit, mini-movie engine and screens ---------- */
 // Real crafts to make with paper, playdough, string and boxes, from Easy to Expert. Every step is a short looping
 // "mini-movie" drawn in code (SVG, redrawn each frame: scissors cut along a dashed line, paper folds over, glue dots
@@ -22716,6 +23841,7 @@ const tour = (() => {
         `<b>Sentence builder</b> (${englishHome.info().build} sentences: word order, capital letter, end mark), <b>${englishHome.info().grammar} grammar games</b> (rhymes, opposites, nouns and verbs, plurals, a/an, in/on/under, pronouns, past tense, punctuation, contractions, synonyms, sound-alikes, word parts...), a <b>word book</b> of ${englishHome.info().words} words in ${englishHome.info().topics} topics, and <b>Say it!</b> with ${englishHome.info().sayings} everyday expressions, friendly slang and idioms explained simply.`,
         `<b>Fun games</b>: bubble pop, Feed Munch the monster, a word treasure hunt and silly sentences. Each finished round brings out a word pal for the reading club (${englishHome.info().pals} to collect).`,
         `<b>Word play</b>: a spelling bee with letter tiles, a story maker (hero, place and problem: ${englishHome.info().tales} stories, read aloud), rhyme time that turns into a song (${englishHome.info().rhymes} rhymes), describe it, a sound safari, ${englishHome.info().twisters} tongue twisters, and listen &amp; tap. The word book has age tiers: first words, more words, and ${englishHome.info().bigwords} big words with meanings.`,
+        `<b>Round 3</b>: <b>Write letters</b> (trace all ${englishHome.info().letters} big and small letters stroke by stroke from a green start dot, then ${englishHome.info().traceWords} short words), <b>Sound games</b> (count the sounds, change a sound, first/middle/last sound, clap the beats), <b>Talk time</b> (${englishHome.info().talks} everyday chats with ${englishHome.info().phrases} phrase cards for polite words and friendly slang), <b>${englishHome.info().books} chapter books</b> for stages 3–5 with tap-for-meaning words and who/what/where/why/feeling questions, <b>${englishHome.info().islands} grammar islands</b> with a badge each, and a daily English mission that counts for the quest.`,
         `<b>My words</b>: a word of the day with a daily streak, Owl's review (missed words come back the same day, then after 1 and 3 days, until learned), and a word album that collects a sticker for each word got right twice. Each section ends with a one-line tip for grown-ups.`])}</div>
       <div class="panel"><h2>✂️ Crafts corner</h2>${li([
         `${craftsHome.info().crafts} real crafts in ${craftsHome.info().cats} kinds (origami, paper cutting, collage, paper plates, toilet rolls, cards, playdough, nature, puppets, threading and weaving, recycling, simple sewing, parties, science, string and bracelets, painting, beads and jewelry, costumes, sensory play, building and engineering, gifts for family, and the four seasons), at 4 levels: Easy 4+ (${craftsHome.info().levels[0]}), Medium 6+ (${craftsHome.info().levels[1]}), Tricky 8+ (${craftsHome.info().levels[2]}) and Expert 10+ (${craftsHome.info().levels[3]}).`,
@@ -23016,6 +24142,8 @@ const report = (() => {
       grammarRounds: EN_GAMES.reduce((a, g) => a + num(rounds['g-' + g.id]), 0), blend: num(rounds.blend),
       streak: wotd.last && dn - dayNum(wotd.last) <= 1 ? num(wotd.streak) : 0, bestStreak: num(wotd.best), wotdDays: num(wotd.n),
       review: rev.length, reviewDue: rev.filter(r => num(r.due) <= dn).length, pals: keys(e.pals).length };
+    // Round 3 (english8.js): letters traced, sound games, Talk time chats, chapter books, grammar islands, missions.
+    E.r3 = Object.assign({ traced: 0, tracedAll: 52, words: 0, chats: 0, scenes: 0, scenesAll: 0, books: 0, booksAll: 0, chapters: 0, islands: 0, islandsAll: 9, sound: 0, missions: 0 }, safe(() => englishHome.round3(e), {}));
     E.nextSight = EN_SIGHT.find(x => x.stage <= stageN && x.words.some(w => !obj(e.sight)[w]));
     E.nextStory = EN_STORIES.find(x => x.stage <= stageN && !obj(e.stories)[x.id]);
     E.nextGame = EN_GAMES.find(x => x.stage <= stageN && !num(rounds['g-' + x.id]));
@@ -23066,6 +24194,8 @@ const report = (() => {
     if (E.nextSight && E.sight < E.sightAll) add('en', 60, '👀', `Sight words: ${E.sight} of ${E.sightAll} known. Try "Find the word" in the ${E.nextSight.name} set.`);
     if (E.nextStory) add('en', 56, '📖', `Read "${E.nextStory.title}" together (English & Reading → Read). ${E.stories} of ${E.storiesAll} stories read so far.`);
     if (E.grammar === 0 && E.stage >= 2 && E.nextGame) add('en', 52, E.nextGame.ico, `Try a grammar game: ${E.nextGame.name}. No grammar games played yet.`);
+    if (E.letters >= 10 && E.r3.traced === 0) add('en', 48, '✍️', `Try Write letters in English & Reading: ${E.letters} letter sounds heard, no letters traced yet. Start at the green dot.`);
+    if (E.stage >= 3 && E.r3.books === 0) add('en', 50, '📚', 'Read a chapter book together (English & Reading → Chapter books). One chapter a day is plenty.');
     if (E.streak === 0 && E.wotdDays > 0) add('en', 38, '☀️', `Start a new word-of-the-day streak (best so far: ${pl(E.bestStreak, 'day')}).`);
     // Math
     if (M.tried === 0) add('math', 88, '🔢', 'Open the Number Garden and try a first math topic. Owl picks a starting level from your child\'s age.');
@@ -23131,7 +24261,9 @@ const report = (() => {
           ${row('Letter sounds (A–Z)', E.letters, 26, 'var(--coral)')}${row('All sounds (pairs, magic e, teams)', E.sounds, E.soundsAll, 'var(--coral-soft)')}
           ${row('Sight words known', E.sight, E.sightAll, 'var(--sky)')}${row('Stories read', E.stories, E.storiesAll, 'var(--leaf)')}
           ${row('Grammar games played', E.grammar, E.grammarAll, 'var(--grape)')}
-          ${fact('Words in the word album', E.album)}${fact('Word-of-the-day streak', `${pl(E.streak, 'day')} (best ${E.bestStreak})`)}${fact('Words in Owl\'s review / due', `${E.review} / ${E.reviewDue}`)}${fact('Blend it rounds', E.blend)}`)}
+          ${fact('Words in the word album', E.album)}${fact('Word-of-the-day streak', `${pl(E.streak, 'day')} (best ${E.bestStreak})`)}${fact('Words in Owl\'s review / due', `${E.review} / ${E.reviewDue}`)}${fact('Blend it rounds', E.blend)}
+          ${row('Letters traced (A–Z, a–z)', E.r3.traced, E.r3.tracedAll, 'var(--sky-soft)')}${row('Grammar island badges', E.r3.islands, E.r3.islandsAll, 'var(--grape-soft)')}${row('Chapter books read', E.r3.books, E.r3.booksAll, 'var(--leaf-soft)')}
+          ${fact('Words traced', E.r3.words)}${fact('Talk time chats', `${E.r3.chats} (${E.r3.scenes} of ${E.r3.scenesAll} places)`)}${fact('Sound game rounds', E.r3.sound)}${fact('English missions done', E.r3.missions)}`)}
         ${card('rp-art', '🖍️', 'Art', `${row('Art lessons done', R.done, R.all, 'var(--coral)')}${R.levels.map(l => row(`${l.name} lessons`, l.have, l.all, 'var(--coral-soft)')).join('')}
           ${fact('Pictures saved', R.pics)}${fact('Pixel art', `level ${R.pixel} of 5 · ${pl(R.pixelDone, 'picture')}`)}`)}
         ${card('rp-cr', '✂️', 'Crafts', `${row('Crafts made', C.made, C.all, 'var(--sun)')}${C.levels.map(l => row(`${l.ico} ${l.name}`, l.have, l.all, 'var(--sun-soft)')).join('')}${fact('Times making crafts', C.times)}`)}
