@@ -12,7 +12,7 @@ const TAPS = '.gopt,.g3bk-done,.g3sn-roll,.g3bb-peek,.g3sk-stk,.g3sd-key';
     await p.evaluate(a => { __owl.st.age = a; __owl.st.speak = false; }, age);
     await p.click('#tMath'); await p.click('#gm'); await p.waitForTimeout(300);
     await p.screenshot({ path: `g3-${tag}-home.png`, fullPage: true });
-    const tiles = (await p.$$('.gtile')).length; if (tiles !== 21) fails.push(`${tag}: ${tiles} game tiles, expected 21`);
+    const tiles = (await p.$$('.gtile')).length; if (tiles !== 23) fails.push(`${tag}: ${tiles} game tiles, expected 23`);
     const noScroll = async where => { const [sw, w] = await p.evaluate(() => [document.documentElement.scrollWidth, innerWidth]); if (sw > w) fails.push(`${tag} ${where}: scrollWidth ${sw} > ${w}`); };
     const outside = async where => { const bad = await p.evaluate(sel => { const g = document.querySelector('.game'); if (!g) return []; const r = g.getBoundingClientRect(); return [...g.querySelectorAll(sel)].filter(e => { const q = e.getBoundingClientRect(); return q.width && (q.left < r.left - 1 || q.right > r.right + 1); }).map(e => e.className); }, TAPS); if (bad.length) fails.push(`${tag} ${where}: ${bad.length} buttons outside the game card (${bad[0]})`); };
     const small = async where => { const bad = await p.evaluate(sel => [...document.querySelectorAll('.game ' + sel.split(',').join(',.game '))].filter(e => { const q = e.getBoundingClientRect(); return q.width && (q.width < 38 || q.height < 38); }).map(e => e.className + ' ' + Math.round(e.getBoundingClientRect().width) + 'x' + Math.round(e.getBoundingClientRect().height)), TAPS); if (bad.length) fails.push(`${tag} ${where}: small tap targets ${bad.slice(0, 2)}`); };
