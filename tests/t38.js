@@ -1,7 +1,7 @@
 // Easy to find, fast to open: a cold load on a phone with the CPU slowed 4x (a mid-range phone) paints the home
 // screen within a budget (median of 3 loads; it was about 3.4 s before the art lessons and crafts were built lazily,
 // about 2 s after); the art lessons and crafts are not built at startup, then get built while the app is idle;
-// on a phone (390x844) and a tablet (820x1180) the home screen shows all 9 areas in three groups (Learn, Make, Play)
+// on a phone (390x844) and a tablet (820x1180) the home screen shows all 10 areas in three groups (Learn, Make, Play)
 // on the first screen, each with a big picture and a name, and each tile opens its area and Home comes back; no
 // sideways scroll; the app still works offline after the first visit. Prints "errors none" and "fails none" when clean.
 // Tests take PORT (default 8766) and BUDGET (ms, default 2800). Screenshots go to SHOTS.
@@ -14,7 +14,7 @@ const watch = (p, tag) => {
   p.on('pageerror', e => errs.push(`${tag}: ${e.message}`));
   p.on('console', m => { if (m.type() === 'error' && !/favicon|manifest|sw\.js|service|fonts|Failed to load resource/i.test(m.text())) errs.push(`${tag} console: ${m.text()}`); });
 };
-const GROUPS = { Learn: ['tMath', 'tEnglish', 'tOwl'], Make: ['tArt', 'tCrafts', 'tDraw'], Play: ['tGames', 'tQuest', 'tWorld'] };
+const GROUPS = { Learn: ['tMath', 'tEnglish', 'tScience', 'tOwl'], Make: ['tArt', 'tCrafts', 'tDraw'], Play: ['tGames', 'tQuest', 'tWorld'] };
 
 (async () => {
   const b = await chromium.launch();

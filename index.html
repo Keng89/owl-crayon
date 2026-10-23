@@ -2228,6 +2228,210 @@ body:has(.sp-svg) #toast{pointer-events:none}
 .ps-ctrl{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
 .ps-hangb{background:linear-gradient(135deg,#C8962B,#8B5A2B)}
 @media (prefers-reduced-motion:reduce){.ps-blob.pop,.ps-frame.new,.ps-stage .ps-frame,.ps-slot.bad{animation:none}}
+/* ---------- Science & Nature (src/science.js): home tile, topics, picture cards, quizzes, mini-labs, experiments ---------- */
+.t-science{background:linear-gradient(135deg,#1F7A5C,#2776C3);color:#fff;box-shadow:0 6px 0 #1A5A6E}
+.t-science h2,.t-science p{text-shadow:0 2px 0 rgba(10,40,60,.35)}
+/* Home: Learn has 4 areas. On a tablet they sit in one row of 4; on a phone in two neat rows of 2. */
+.hgroup.g-learn .tiles{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:520px){
+  .hgroup.g-learn .tiles{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .hgroup.g-learn .tile{min-height:100px;flex-direction:row;gap:8px;padding:8px 10px}
+  .hgroup.g-learn .tile .big{font-size:40px}
+  .hgroup.g-learn .tile h2{font-size:17px;text-align:left}
+}
+
+.sc-hello{display:flex;align-items:center;gap:12px;background:var(--paper);border-radius:22px;padding:12px 16px;box-shadow:0 4px 0 var(--line)}
+.sc-hello p{margin:0;font-weight:800;font-size:19px}
+.sc-howl{font-size:48px;line-height:1;animation:bob 2.4s ease-in-out infinite}
+.sc-topics,.sc-labs{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.sc-tt,.sc-lt{background:var(--tc);color:#fff;border-radius:22px;padding:12px;min-height:118px;display:flex;flex-direction:column;align-items:flex-start;gap:4px;text-align:left;box-shadow:0 4px 0 rgba(34,48,90,.25);min-width:0}
+.sc-tt b,.sc-lt b{font-family:var(--display);font-size:19px;line-height:1.15;overflow-wrap:anywhere}
+.sc-tico{font-size:40px;line-height:1}
+.sc-tst{font-size:14px;font-weight:800;opacity:.95;margin-top:auto}
+.sc-homes{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px}
+.sc-ht{display:flex;align-items:center;gap:10px;background:var(--paper);border-radius:18px;padding:10px 12px;min-height:64px;text-align:left;box-shadow:0 3px 0 var(--line);border-left:8px solid #1D7C82;min-width:0}
+.sc-ht b{display:block;font-size:18px}.sc-ht small{display:block;color:var(--ink-soft);font-weight:700;font-size:14px}
+.sc-hico{font-size:34px;flex:none}
+.sc-shelf{display:grid;grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:8px}
+.sc-bdg{display:flex;flex-direction:column;align-items:center;text-align:center;background:var(--paper);border-radius:16px;padding:8px 4px;box-shadow:0 3px 0 var(--line);opacity:.65}
+.sc-bdg.on{opacity:1;background:var(--sun-soft)}
+.sc-bdg i{font-style:normal;font-size:32px}.sc-bdg small{font-size:12px;font-weight:800;line-height:1.2}
+
+/* picture cards */
+.sc-card{background:var(--paper);border-radius:26px;overflow:hidden;box-shadow:0 5px 0 var(--line);border-top:8px solid var(--tc);display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);min-width:0}
+.sc-pic{background:#fff;min-width:0;line-height:0}
+.sc-pic.sm{max-width:360px;width:100%;margin:0 auto;border-radius:18px;overflow:hidden}
+.sc-scene{width:100%;height:auto;display:block}
+.sc-ct{padding:16px 18px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.sc-ct h2{font-size:28px;color:var(--ink)}
+.sc-fact{font-size:21px;line-height:1.45;font-weight:700;margin:0;overflow-wrap:anywhere}
+.sc-dykb{align-self:flex-start;background:var(--sun);color:var(--ink);border-radius:999px;padding:10px 18px;min-height:48px;font-weight:800;font-size:18px;box-shadow:0 3px 0 #C9921A}
+.sc-dyk{margin:0;background:var(--sun-soft);border-radius:16px;padding:10px 14px;font-size:19px;font-weight:700;line-height:1.4;animation:starpop .35s}
+.sc-nav{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.sc-nav .btn{min-height:56px;padding:10px 22px}
+.sc-dots{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;flex:1}
+.sc-dots i{width:14px;height:14px;border-radius:50%;background:var(--line)}.sc-dots i.seen{background:var(--leaf-soft);outline:2px solid var(--leaf)}.sc-dots i.on{background:var(--leaf)}
+.sc-gotcards{text-align:center}
+@media (max-width:640px){.sc-card{grid-template-columns:1fr}.sc-ct h2{font-size:24px}.sc-fact{font-size:19px}}
+
+/* quizzes */
+.sc-q .ptext{font-size:24px}
+.sc-body{width:100%;display:flex;flex-direction:column;gap:12px;align-items:stretch}
+.sc-opts{display:grid;grid-template-columns:repeat(var(--n),minmax(0,1fr));gap:10px}
+.sc-opt{background:var(--paper);border:3px solid var(--line);border-radius:22px;min-height:120px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:8px;box-shadow:0 4px 0 var(--line);min-width:0}
+.sc-opt small{font-weight:800;font-size:16px;line-height:1.2;overflow-wrap:anywhere;text-align:center}
+.sc-oic{font-size:56px;line-height:1}svg.sc-oic{width:70px;height:70px}
+.sc-opt.right,.sc-tfb.right{background:var(--leaf-soft);border-color:var(--leaf)}
+.sc-opt.wrong,.sc-tfb.wrong{background:var(--coral-soft);border-color:var(--coral);animation:shake .4s;opacity:.7}
+.sc-tf{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.sc-tfb{border:3px solid var(--line);background:var(--paper);border-radius:22px;min-height:80px;font-family:var(--display);font-weight:800;font-size:26px;box-shadow:0 4px 0 var(--line)}
+.sc-exp{width:100%}
+.sc-msg{margin:0;min-height:1.4em;font-weight:800;font-size:18px;text-align:center}
+/* drag cards, slots, bins */
+.sc-chip{background:var(--paper);border:3px solid var(--line);border-radius:18px;min-width:72px;min-height:84px;padding:6px 6px 4px;display:inline-flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;touch-action:none;user-select:none;-webkit-user-select:none;box-shadow:0 3px 0 var(--line);max-width:100%}
+.sc-chip small{font-size:13px;font-weight:800;line-height:1.1;text-align:center;overflow-wrap:anywhere;max-width:96px}
+.sc-ic{font-size:38px;line-height:1}svg.sc-ic{width:46px;height:46px}svg.sc-icsvg{overflow:visible}
+.sc-chip.sc-sel{border-color:var(--grape);background:var(--grape-soft);transform:translateY(-3px)}
+.sc-chip.sc-lift{opacity:.3}
+.sc-chip.wrong{animation:shake .4s;border-color:var(--coral)}
+.sc-ghost{position:fixed;z-index:60;pointer-events:none;opacity:.92;transform:scale(1.08) rotate(-3deg);box-shadow:0 10px 20px rgba(34,48,90,.3)}
+.sc-slots{display:flex;align-items:center;justify-content:center;gap:4px;flex-wrap:nowrap}
+.sc-slots.sc-grid{display:grid;grid-template-columns:repeat(var(--n),minmax(0,1fr));gap:8px}
+.sc-slot{position:relative;flex:1 1 0;min-width:0;max-width:130px;min-height:100px;border:3px dashed var(--line);border-radius:18px;background:var(--bg);display:flex;align-items:center;justify-content:center;padding:6px 2px 2px}
+.sc-grid .sc-slot{max-width:none}
+.sc-slot.full{border-style:solid;border-color:var(--sky)}
+.sc-slot.right{border-color:var(--leaf);background:var(--leaf-soft)}
+.sc-slot .sc-chip{min-width:0;width:100%;box-shadow:none;border-width:0;background:transparent;min-height:80px}
+.sc-sn{position:absolute;top:-10px;left:-6px;background:var(--ink);color:#fff;border-radius:999px;font-size:13px;font-weight:800;width:24px;height:24px;display:grid;place-items:center}
+.sc-arr{color:var(--ink-soft);font-size:16px;flex:none}
+.sc-over{border-color:var(--grape)!important;background:var(--grape-soft)!important}
+.sc-cyc{margin:0;text-align:center;font-weight:800;color:var(--grape-ink)}
+.sc-tray{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;min-height:96px;padding:8px;border-radius:18px;background:var(--sun-soft)}
+.sc-empty{align-self:center;font-weight:800;color:var(--ink-soft)}
+.sc-bins{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.sc-bin{border:3px dashed var(--ink-soft);border-radius:20px;background:var(--bg);min-height:130px;padding:8px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.sc-bin b{font-size:17px;display:flex;align-items:center;gap:6px;overflow-wrap:anywhere}
+.sc-bico{font-size:28px}svg.sc-bico{width:30px;height:30px}
+.sc-binin{display:flex;flex-wrap:wrap;gap:4px}
+.sc-done{font-size:30px;animation:starpop .3s}.sc-done svg{width:34px;height:34px}
+.sc-check{min-width:160px}
+.sc-result h1{font-size:44px}
+.sc-res{font-weight:800;font-size:22px;margin:0}
+.sc-badgewon{color:var(--grape-ink)}
+
+/* try at home */
+.sc-exp-card{border-top-color:#1D7C82}
+.sc-safe{background:#FFF0D9;border:3px solid #E0A020;border-radius:18px;padding:12px 16px}
+.sc-safe b{font-size:20px}.sc-safe p{margin:4px 0 0;font-weight:700;font-size:18px}
+.sc-need{display:flex;flex-wrap:wrap;gap:8px}
+.sc-need span{background:var(--sky-soft);border-radius:999px;padding:8px 14px;font-weight:800;font-size:17px}
+.sc-steps{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px;counter-reset:st}
+.sc-steps li{display:flex;align-items:center;gap:10px;font-size:19px;font-weight:700;counter-increment:st}
+.sc-steps li span::before{content:counter(st) ". ";font-weight:800}
+.sc-stepb{flex:none;width:48px;height:48px;border-radius:14px;background:var(--bg);font-size:22px}
+
+/* mini-labs */
+.sc-how{margin:0;font-weight:800;font-size:19px}
+.sc-lab{display:flex;flex-direction:column;gap:12px;min-width:0}
+.sc-win{background:var(--leaf-soft);border:3px solid var(--leaf);border-radius:22px;padding:14px;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;animation:starpop .4s}
+.sc-win b{font-family:var(--display);font-size:24px}.sc-win>span{font-weight:800;font-size:22px}
+.sc-things{display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:8px}
+.sc-thing{background:var(--paper);border:3px solid var(--line);border-radius:18px;min-height:88px;font-size:40px;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 3px 0 var(--line);line-height:1.1}
+.sc-thing small{font-size:13px;font-weight:800;line-height:1.1}
+.sc-thing.sc-sel{border-color:var(--grape);background:var(--grape-soft)}
+.sc-thing.fl{background:var(--sky-soft)}.sc-thing.sk{background:#E3E6EA}
+.sc-thing:disabled{opacity:.75}
+.sc-tank{position:relative;height:220px;border:4px solid #8EA6BC;border-top:0;border-radius:0 0 26px 26px;background:linear-gradient(#EAF6FF 0 22%,transparent 22%);overflow:hidden}
+.sc-water{position:absolute;left:0;right:0;bottom:0;top:22%;background:linear-gradient(#7CC4F2,#2E86C8)}
+.sc-water i{position:absolute;left:-10%;right:-10%;top:-6px;height:12px;border-radius:50%;background:rgba(255,255,255,.55);animation:sway 3s ease-in-out infinite}
+.sc-drop{position:absolute;top:-50px;font-size:38px;line-height:1;transition:top 1.1s cubic-bezier(.4,1.4,.6,1)}
+.sc-drop.floats{top:calc(22% - 24px);animation:bob 2s 1.1s ease-in-out infinite}
+.sc-drop.sinks{top:calc(100% - 44px);transition:top 1.8s cubic-bezier(.3,.1,.4,1)}
+.sc-guess{background:var(--paper);border-radius:20px;padding:12px;box-shadow:0 4px 0 var(--line);text-align:center;display:flex;flex-direction:column;gap:8px}
+.sc-guess b{font-size:20px}
+.sc-up{background:var(--sky-deep)}.sc-down{background:#5A678C}
+.sc-mtable{position:relative;background:#E8D2B0;border-radius:22px;padding:84px 8px 10px;min-height:200px}
+.sc-mag{position:absolute;left:calc(50% - 30px);top:6px;width:60px;height:60px;transition:left .35s,top .35s;cursor:grab;touch-action:none;z-index:2}
+.sc-mag svg{width:100%;height:100%}
+.sc-mag.down{top:20px}.sc-mag.drag{transition:none;cursor:grabbing}
+.sc-mrow{display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:8px}
+.sc-mt{background:#FFF8EE}
+.sc-me{display:inline-block;transition:transform .3s}
+.sc-mt.stick .sc-me{transform:translateY(-34px)}
+.sc-mt.stick{border-color:var(--coral)}
+.sc-mt.nope .sc-me{animation:shake .4s}
+.sc-mres{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.sc-mres>div{background:var(--paper);border-radius:16px;padding:8px 12px;box-shadow:0 3px 0 var(--line);min-height:70px}
+.sc-mres b{display:block;font-size:16px}.sc-mres i{font-style:normal;font-size:28px}
+.sc-pdots{display:flex;justify-content:center;gap:8px}
+.sc-pdots i{width:16px;height:16px;border-radius:50%;background:var(--line)}.sc-pdots i.on{background:var(--leaf)}
+.sc-stage{margin:0;text-align:center;display:flex;flex-direction:column;gap:2px}
+.sc-stage b{font-family:var(--display);font-size:24px}.sc-stage span{font-weight:700;font-size:18px}
+.sc-water-b{background:var(--sky-deep)}.sc-sun-b{background:var(--sun);color:var(--ink);box-shadow:0 5px 0 #C9921A}
+.sc-wday{display:flex;flex-direction:column;align-items:center;gap:4px}
+.sc-wday .sc-pic{max-width:360px;width:100%;border-radius:18px;overflow:hidden}
+.sc-wday b{font-family:var(--display);font-size:24px}
+.sc-kid{display:flex;align-items:center;justify-content:center;gap:10px;background:var(--paper);border-radius:20px;padding:8px;box-shadow:0 3px 0 var(--line);min-height:84px}
+.sc-kidf{font-size:64px;line-height:1}
+.sc-worn{display:flex;flex-wrap:wrap;gap:4px;font-size:32px}.sc-worn i{font-style:normal;animation:starpop .3s}.sc-worn small{font-size:16px;font-weight:800;color:var(--ink-soft)}
+.sc-wardrobe{display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:8px}
+.sc-cl{background:var(--paper);border:3px solid var(--line);border-radius:18px;min-height:80px;font-size:34px;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.1;box-shadow:0 3px 0 var(--line)}
+.sc-cl small{font-size:13px;font-weight:800}
+.sc-cl[aria-pressed=true]{border-color:var(--leaf);background:var(--leaf-soft)}
+.sc-shbox{border-radius:20px;overflow:hidden;max-width:620px;width:100%;margin:0 auto}
+.sc-shbtn .btn{min-height:52px;font-size:20px;padding:8px 16px}
+.sc-sundrag{cursor:grab}
+.sc-pups button[aria-pressed=true]{background:var(--grape);color:#fff}
+.sc-task{margin:0;font-size:19px;font-weight:700;background:var(--sun-soft);border-radius:16px;padding:10px 14px}
+.sc-sunbar{display:flex;align-items:center;gap:8px;font-size:40px;font-weight:800}.sc-sunbar span{font-size:18px}
+
+/* picture animations (SVG groups and emoji) */
+.sc-a{transform-box:fill-box;transform-origin:center}
+.sc-bob{animation:bob 2.2s ease-in-out infinite}
+.sc-spin{animation:scSpin 12s linear infinite}
+.sc-spin-slow{animation:scSpin 24s linear infinite}
+.sc-float{animation:scFloat 3.2s ease-in-out infinite}
+.sc-drift{animation:scDrift 4s ease-in-out infinite alternate}
+.sc-pulse{animation:scPulse 1.6s ease-in-out infinite}
+.sc-fall{animation:scFall 1.4s linear infinite}
+.sc-swim{animation:scSwim 3s ease-in-out infinite alternate}
+.sc-fly{animation:scFly 2.6s ease-in-out infinite alternate}
+.sc-grow{animation:scGrow .9s ease-out both}
+.sc-wiggle{animation:scWiggle 1.2s ease-in-out infinite}
+.sc-rise{animation:scRise 2s ease-in infinite}
+.sc-beat{animation:scBeat 1s ease-in-out infinite}
+.sc-breathe{animation:scBreathe 3s ease-in-out infinite}
+.sc-sway{animation:scSway 3s ease-in-out infinite}
+.sc-twinkle{animation:scPulse 2s ease-in-out infinite}
+.sc-blink{animation:scBlink 4s infinite}
+@keyframes scSpin{to{transform:rotate(360deg)}}
+@keyframes scFloat{50%{transform:translateY(-6px)}}
+@keyframes scDrift{to{transform:translateX(14px)}}
+@keyframes scPulse{50%{opacity:.35;transform:scale(1.12)}}
+@keyframes scFall{from{transform:translateY(-4px);opacity:0}30%{opacity:1}to{transform:translateY(16px);opacity:0}}
+@keyframes scSwim{to{transform:translateX(18px)}}
+@keyframes scFly{to{transform:translate(12px,-8px)}}
+@keyframes scGrow{from{transform:scale(.2);opacity:0}}
+@keyframes scWiggle{25%{transform:rotate(-8deg)}75%{transform:rotate(8deg)}}
+@keyframes scRise{from{transform:translateY(8px);opacity:0}40%{opacity:1}to{transform:translateY(-18px);opacity:0}}
+@keyframes scBeat{15%{transform:scale(1.15)}30%{transform:scale(1)}45%{transform:scale(1.1)}}
+@keyframes scBreathe{50%{transform:scale(1.12)}}
+@keyframes scSway{50%{transform:rotate(4deg) translateX(3px)}}
+@keyframes scBlink{0%,90%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+@media (max-width:520px){
+  .sc-topics,.sc-labs{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .sc-tt,.sc-lt{min-height:104px;padding:10px}
+  .sc-tt b,.sc-lt b{font-size:17px}
+  .sc-hello p{font-size:17px}
+  .sc-opt{min-height:104px}.sc-oic{font-size:46px}svg.sc-oic{width:58px;height:58px}
+  .sc-chip{min-width:64px;min-height:78px}.sc-ic{font-size:32px}svg.sc-ic{width:38px;height:38px}
+  .sc-slot{min-height:90px}
+  .sc-arr{font-size:12px}
+  .sc-tfb{font-size:22px}
+  .sc-shbtn .btn{font-size:17px;padding:8px 10px}
+}
+@media (prefers-reduced-motion:reduce){.sc-a,.sc-howl,.sc-drop,.sc-water i,.sc-dyk{animation:none!important}.sc-drop{transition:none}}
+.btn.sc-sm{min-height:48px}
 </style>
 
 </head><body>
@@ -14569,6 +14773,7 @@ function home() {
       <section class="hgroup g-learn" aria-label="Learn"><h2 class="hg-title"><span aria-hidden="true">📖</span> Learn</h2><div class="tiles">
         <button class="tile t-math" id="tMath"><span class="big">🔢</span><span><h2>Number Garden</h2><p>From counting to algebra</p></span></button>
         <button class="tile t-english" id="tEnglish"><span class="big">📚</span><span><h2>English &amp; Reading</h2><p>Sounds, words, stories and grammar games</p></span><span class="te-deco" aria-hidden="true">Aa Bb Cc</span></button>
+        <button class="tile t-science" id="tScience"><span class="big">🔬</span><span><h2>Science &amp; Nature</h2><p>Animals, space, weather and experiments</p></span></button>
         <button class="tile t-owl" id="tOwl"><span class="big">🦉</span><span><h2>Ask Owl</h2><p>Ask me anything!</p></span></button>
       </div></section>
       <section class="hgroup g-make" aria-label="Make"><h2 class="hg-title"><span aria-hidden="true">🎨</span> Make</h2><div class="tiles">
@@ -14597,6 +14802,7 @@ function home() {
   $('#tQuest').onclick = () => go(storyHome);
   $('#tWorld').onclick = () => go(worldHome);
   $('#tEnglish').onclick = () => go(englishHome);
+  $('#tScience').onclick = () => go(scienceHome);
   $('#tCrafts').onclick = () => go(craftsHome);
   $('#tDraw').onclick = () => go(freeDraw);
   $('#tGames').onclick = () => go(gamesHome);
@@ -15269,7 +15475,7 @@ function parent() {
       <p class="note">Owl &amp; Crayon works without the internet. Progress, drawings and Owl's answers are saved only in this browser on this device. There are no ads, no tracking and no accounts, and nothing is sent anywhere unless you switch on Online Owl.</p>
       <p class="note">With Online Owl on, only the question your child asks and their age go to your Online Owl server, which asks an AI (Cloudflare's free AI, or Claude by Anthropic) for a short, child-friendly answer. Names and progress are never sent. You can read every answer above, and turn it off at any time.</p>
       <p class="note">The microphone button uses the browser's own speech recognition, which may send the recording to the browser maker (for example Google or Apple) to turn it into text. Typing works without it.</p>
-      <p class="note">Version 2026-10-23 02:54 UTC</p></div>`;
+      <p class="note">Version 2026-10-23 03:59 UTC</p></div>`;
   view.querySelectorAll('[data-teach]').forEach(b => b.onclick = () => {
     const i = +b.dataset.teach, ans = $('#t' + i).value.trim(); if (!ans) return;
     owlForget(st.owlMisses[i].q); st.owlTaught.push({ q: st.owlMisses[i].q, a: ans }); st.owlMisses.splice(i, 1); save(); go(parent);
@@ -27413,7 +27619,7 @@ const tour = (() => {
     const nl = nextLesson(), aw = WORLDS[ageWorld(st.age)];
     view.innerHTML = `${crumbs("What's inside")}
       <div class="panel"><h2>At a glance</h2>
-        <div class="wt-stats">${stat(topics, `math topics in ${WORLDS.length} worlds`)}${stat(GAMES.length, 'math games')}${stat(21, 'numbers to trace (0–20)')}${stat(LESSONS.length, 'step-by-step art lessons')}${stat(paintStudio.info().lessons, 'painting lessons in the Painting Studio')}${stat(ART_CATS.length, 'kinds of art')}${stat(FIXED.coloring, 'coloring pages')}${stat(FIXED.places, 'sticker-scene places')}${stat(FIXED.shapes, 'shape puzzles')}${stat(PICS.length, 'pixel pictures')}${stat(FIXED.chapters, `story chapters of ${FIXED.stops} stops`)}${stat(KB.length, 'offline Owl answers')}${stat(BADGES.length, 'badges')}${stat(worldHome.info().items, 'things to buy in My World')}${stat(englishHome.info().words, 'English words in pictures')}${stat(englishHome.info().stories, 'reading stories')}${stat(englishHome.info().games, 'reading and grammar games')}${stat(craftsHome.info().crafts, 'crafts with step-by-step movies')}</div>
+        <div class="wt-stats">${stat(topics, `math topics in ${WORLDS.length} worlds`)}${stat(GAMES.length, 'math games')}${stat(21, 'numbers to trace (0–20)')}${stat(LESSONS.length, 'step-by-step art lessons')}${stat(paintStudio.info().lessons, 'painting lessons in the Painting Studio')}${stat(ART_CATS.length, 'kinds of art')}${stat(FIXED.coloring, 'coloring pages')}${stat(FIXED.places, 'sticker-scene places')}${stat(FIXED.shapes, 'shape puzzles')}${stat(PICS.length, 'pixel pictures')}${stat(FIXED.chapters, `story chapters of ${FIXED.stops} stops`)}${stat(KB.length, 'offline Owl answers')}${stat(BADGES.length, 'badges')}${stat(worldHome.info().items, 'things to buy in My World')}${stat(englishHome.info().words, 'English words in pictures')}${stat(englishHome.info().stories, 'reading stories')}${stat(englishHome.info().games, 'reading and grammar games')}${stat(craftsHome.info().crafts, 'crafts with step-by-step movies')}${stat(scienceHome.info().topics, 'science topics')}${stat(scienceHome.info().labs, 'science mini-labs')}${stat(scienceHome.info().home, 'experiments to try at home')}</div>
         <p class="note">Everything works offline, with no ads and no accounts. Each player has their own progress, owl and pictures.</p></div>
       <div class="panel"><h2>🔢 Number Garden (math)</h2>${li([
         `${WORLDS.map((w, i) => `${w.ico} <b>${w.name}</b> (ages ${w.ages}, ${worldSkills(i).length} topics)`).join(' · ')}.`,
@@ -27441,6 +27647,11 @@ const tour = (() => {
         'Each craft opens on a little movie of the finished craft. A 🐢 button plays the steps in slow motion, the moving hand or tool glows, and a big "I did this step ✓" button cheers your child on and moves to the next step at their own pace.',
         `${craftsHome.JOURNEYS.length} craft journeys (Paper Master, Little Builder, Nature Explorer, Gift Maker, Little Chef, Music Maker): 6 crafts each from easy to expert on a trail, with a badge at the end. Masks, crowns, puppets, pop-up cards, a kite and the fishing game have a "Print template" button that prints the outline at real size.`,
         'Crafts with scissors, glue, needles or pins show a safety note: ask a grown-up. "I made it!" lets your child draw the craft (saved to My pictures) or pick a sticker, and earns stars (more for harder crafts, 1 for a repeat).'])}</div>
+      <div class="panel"><h2>🔬 Science &amp; Nature</h2>${li([
+        `${scienceHome.info().topics} topics: my body and senses, animals and habitats, life cycles (butterfly, frog, plant, hen), plants and seeds, weather and seasons, day and night and space, the water cycle, materials, push and pull, light and shadow, sound, dinosaurs, the ocean, and caring for Earth. ${scienceHome.info().cards} picture cards, each with a fact read aloud by Owl, a "Did you know?", and a little moving picture. The text grows with your child: more detail from age 7 and the science word from age 10.`,
+        `Each topic ends with a 5-question quiz mixing tap the picture, true or false, sort into groups and put a cycle in order by dragging (${scienceHome.info().questions} questions, with harder versions from age 8). 4 or 5 right first time wins the topic's badge.`,
+        `${scienceHome.info().labs} mini-labs: float or sink, a magnet test, grow a plant with water and sunshine, dress for the weather, shadow puppets with a moving sun, and putting the planets in order.`,
+        `<b>Try at home</b>: ${scienceHome.info().home} real experiments (a rainbow in a glass, a bean in a jar, a rain cloud in a jar, dancing raisins, a fizzy volcano, walking water, a string telephone...) with what you need, steps, and an "ask a grown-up" note where one is needed.`])}</div>
       <div class="panel"><h2>🗺️ Owl's Quest, My World, daily quest and owl</h2>${li([
         `<b>Owl's Quest</b>: a story map of ${FIXED.chapters} chapters. Each stop is a few math puzzles, a drawing, or a story choice. Finished chapters become a storybook.`,
         "<b>Today's quest</b> on the home screen: 3 small jobs a day, then a treasure chest.",
@@ -27772,17 +27983,20 @@ const report = (() => {
     Q.nowStops = Q.now >= 0 ? arr(CH[Q.now].stops).filter((_, j) => sd[Q.now + '-' + j]).length : 0;
     Q.nowAll = Q.now >= 0 ? arr(CH[Q.now].stops).length : 0;
 
+    // --- Science & Nature (science.js) ---
+    const Sc = Object.assign({ topics: 14, read: 0, badges: 0, quizzes: 0, labs: 0, labsAll: 6, home: 0, homeAll: 12, badgeNames: [], next: null }, safe(() => scienceHome.stats(s.science), {}));
+
     // --- overall ---
     const pet = obj(s.pet), ps = safe(() => petStage(num(pet.xp)), 0);
     const O = { name: s.name || 'Player', age: num(s.age) || '?', avatar: (profileOf(id) || {}).avatar || '🦉', stars: num(s.stars), streak: num(obj(s.streak).n),
       best: Math.max(num(s.bestStreak), num(obj(s.streak).n)), badges: keys(s.badges).length, badgesAll: BADGES.length, owl: (PET_STAGES[ps] || PET_STAGES[0])[2], owlName: pet.name || 'Hoot',
       quests: num(s.questsDone), limit: num(obj(s.pt).limit) };
-    return { id, O, W, M, E, R, C, Wd, Q };
+    return { id, O, W, M, E, R, C, Wd, Q, Sc };
   }
 
   // Three friendly next steps, picked from the gaps: at most one per area first, the most useful first.
   function suggestions(S) {
-    const { M, E, R, C, Wd, Q, W } = S, out = [];
+    const { M, E, R, C, Wd, Q, W, Sc } = S, out = [];
     const add = (area, score, ico, text) => out.push({ area, score, ico, text });
     // English
     if (E.letters >= 6 && E.blend === 0) add('en', 92, '🧩', `Try the Blend it game in English & Reading — ${E.letters} letter sounds learned, blending not started yet.`);
@@ -27807,6 +28021,9 @@ const report = (() => {
     // Owl's Quest
     if (Q.chaptersAll && Q.stops === 0) add('quest', 58, '🗺️', 'Start Owl\'s Quest: a story map with math, drawing and story stops.');
     else if (Q.now >= 0 && Q.nowAll) add('quest', 30, '🗺️', `Owl's Quest: ${Q.nowStops} of ${Q.nowAll} stops done in "${Q.nowName}". Carry on the story.`);
+    // Science & Nature
+    if (Sc && Sc.read === 0 && Sc.quizzes === 0) add('sci', 40, '🔬', 'Explore Science & Nature together: picture cards about animals, space and weather, then a 5-question quiz.');
+    else if (Sc && Sc.next) add('sci', 28, Sc.next.ico, `Science & Nature: ${Sc.badges} of ${Sc.topics} topic badges won. Try "${Sc.next.name}" next, or an experiment from Try at home (${Sc.home} of ${Sc.homeAll} tried).`);
     // My World
     if (Wd.wallet >= Wd.landMin) add('world', 42, '🌍', `${Wd.wallet} stars saved up for My World. Spending them together is real counting-change math.`);
     out.sort((a, b) => b.score - a.score);
@@ -27828,7 +28045,7 @@ const report = (() => {
   function panel(id) {
     if (id) shown = id;
     if (!profiles.some(p => p.id === shown)) shown = pid;
-    const S = stats(shown), { O, W, M, E, R, C, Wd, Q } = S, tips = suggestions(S);
+    const S = stats(shown), { O, W, M, E, R, C, Wd, Q, Sc } = S, tips = suggestions(S);
     const when = new Date().toLocaleDateString('en', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
     const summary = [`Played on ${pl(W.active, 'day')} of the last 7`, W.min ? `about ${pl(W.min, 'minute')} in all` : '',
       W.q ? `${pl(W.q, 'math question')} (${Math.round(W.ok / W.q * 100)}% right first try)` : '', W.en ? `${pl(W.en, 'reading star')}` : '',
@@ -27866,6 +28083,8 @@ const report = (() => {
         ${card('rp-art', '🖍️', 'Art', `${row('Art lessons done', R.done, R.all, 'var(--coral)')}${R.levels.map(l => row(`${l.name} lessons`, l.have, l.all, 'var(--coral-soft)')).join('')}
           ${fact('Pictures saved', R.pics)}${fact('Pixel art', `level ${R.pixel} of 5 · ${pl(R.pixelDone, 'picture')}`)}`)}
         ${card('rp-cr', '✂️', 'Crafts', `${row('Crafts made', C.made, C.all, 'var(--sun)')}${C.levels.map(l => row(`${l.ico} ${l.name}`, l.have, l.all, 'var(--sun-soft)')).join('')}${fact('Times making crafts', C.times)}${C.J.all ? fact('Craft journeys finished', `${C.J.done} of ${C.J.all}${C.J.started > C.J.done ? ` (${C.J.started - C.J.done} under way)` : ''}`) + fact('Journey badges', C.J.badges.length ? esc(C.J.badges.join(', ')) : 'none yet') : ''}`)}
+        ${card('rp-sci', '🔬', 'Science &amp; Nature', `${row('Topics explored (all cards read)', Sc.read, Sc.topics, 'var(--leaf)')}${row('Topic badges won', Sc.badges, Sc.topics, 'var(--sun)')}${row('Mini-labs done', Sc.labs, Sc.labsAll, 'var(--sky)')}${row('Experiments tried at home', Sc.home, Sc.homeAll, 'var(--grape)')}
+          ${fact('Quizzes finished', Sc.quizzes)}${fact('Science badges', Sc.badgeNames.length ? esc(Sc.badgeNames.join(', ')) : 'none yet')}`)}
         ${card('rp-world', '🌍', 'My World', `${row('Stars spent', Wd.spent, Wd.earned, 'var(--sky)')}
           ${fact('Stars earned / to spend', `${Wd.earned} / ${Wd.wallet}`)}${fact('Things owned', `${Wd.items} (${pl(Wd.animals, 'animal')})`)}${fact('Lands opened', `${Wd.lands} of ${Wd.landsAll}`)}`)}
         ${card('rp-quest', '🗺️', 'Owl\'s Quest', `${row('Chapters finished', Q.chapters, Q.chaptersAll, 'var(--grape)')}${row('Story stops done', Q.stops, Q.stopsAll, 'var(--grape-soft)')}
@@ -28329,6 +28548,923 @@ const paintStudio = (() => {
   Object.assign(f, { done, galHook, info, wall: () => wall(), lab: () => lab() });
   return f;
 })();
+/* ---------- Science & Nature data: 14 topics, 6 mini-labs, 12 experiments to try at home ---------- */
+// Built only when the Science & Nature area first opens (scienceHome calls sciData() once), not at startup.
+// Card text by age: t for everyone, m added from age 7, b (the science word) from age 10. A quiz question's h is the
+// harder version used from age 8. Pictures use the scene language in science.js: "background|emoji x y size anim delay"
+// or "@drawer x y scale anim" in a 200 x 120 box.
+function sciData() {
+  const TOPICS = [
+    { id: 'body', ico: '👀', name: 'My body & senses', c: '#C44E40', badge: '🩺', bname: 'Body expert',
+      cards: [
+        { h: 'Five senses', pic: 'inside|👀 40 42 30 blink|👂 100 42 30|👃 160 42 30|👅 70 80 28 wiggle|✋ 130 80 28 bob', t: 'You have 5 senses: seeing, hearing, smelling, tasting and touching.', m: 'Your senses send messages to your brain all day long.', b: 'Each sense has its own sense organ: eyes, ears, nose, tongue and skin.', dyk: 'Food tastes of less when your nose is blocked, because smell helps you taste!' },
+        { h: 'Your heart', pic: 'inside|@heart 100 56 2.4|🏃 160 70 30 bob', t: 'Your heart is a strong muscle. It pumps blood all around your body.', m: 'Put your hand on your chest and feel it beat. It beats faster when you run!', b: 'Blood carries oxygen and food to every part of you through tubes called blood vessels.', dyk: 'Your heart beats about 100,000 times every day!' },
+        { h: 'Breathing', pic: 'sky|@lungs 100 58 2.3|💨 160 40 26 drift', t: 'You breathe air in and out with your lungs.', m: 'Air goes in through your nose or mouth and fills your lungs like balloons.', b: 'Your lungs take oxygen from the air and breathe out carbon dioxide.', dyk: 'You breathe more than 20,000 times a day, even while you sleep!' },
+        { h: 'Bones and muscles', pic: 'inside|🦴 60 56 40 wiggle|💪 140 56 44 bob', t: 'Bones hold you up. Muscles pull on your bones so you can move.', m: 'Your skeleton also protects soft parts inside, like your brain and heart.', b: 'Grown-ups have 206 bones. Babies have about 300, and some join together as they grow.', dyk: 'The smallest bone in your body is in your ear. It is as small as a grain of rice!' },
+        { h: 'Your brain', pic: 'inside|@brain 100 56 2.4 pulse|💭 150 26 26 float', t: 'Your brain is the boss of your body. It helps you think, feel and remember.', m: 'Messages race from your senses to your brain along nerves.', b: 'Your brain uses about a fifth of your body\'s energy, even when you sleep.', dyk: 'Sleep helps your brain keep what you learned today!' },
+        { h: 'Staying healthy', pic: 'inside|🥦 35 60 30 bob|🧼 80 60 30 wiggle 0.3|💧 125 60 30 bob 0.6|😴 168 60 30 float', t: 'Eat fruit and vegetables, drink water, move about, and sleep well.', m: 'Wash your hands with soap to wash germs away.', b: 'Germs are tiny living things. Soap breaks them up so water can rinse them off.', dyk: 'Singing "Happy Birthday" twice is about how long to wash your hands!' }
+      ],
+      quiz: [
+        { k: 'pic', q: 'Which one do you use to hear?', o: [['👂', 'ear'], ['👀', 'eyes'], ['👃', 'nose']], a: 0, hint: 'Hearing is for sounds.', why: 'Your ears catch sounds.',
+          h: { k: 'pic', q: 'Which part pumps blood around your body?', o: [['@heart', 'heart'], ['@brain', 'brain'], ['🦴', 'bone']], a: 0, why: 'The heart is a muscle that pumps blood.' } },
+        { k: 'tf', q: 'Your heart beats faster when you run.', pic: 'grass|🏃 70 64 40 bob|@heart 140 50 1.8', a: true, why: 'Your muscles need more oxygen, so your heart pumps faster.',
+          h: { k: 'tf', q: 'Grown-ups have more bones than babies.', pic: 'inside|👶 60 60 40|🧑 140 60 40', a: false, why: 'Babies have about 300 bones. Some join together, so grown-ups have 206.' } },
+        { k: 'sort', q: 'Every day, or only sometimes?', g: [['💪', 'Every day'], ['🍬', 'A treat sometimes']], items: [['🥦', 'broccoli', 0], ['🍭', 'lollipop', 1], ['🍎', 'apple', 0], ['🍟', 'fries', 1], ['💧', 'water', 0], ['🍩', 'doughnut', 1]] },
+        { k: 'order', q: 'Put these in order, from baby to grown-up.', items: [['👶', 'baby'], ['🧒', 'child'], ['🧑', 'grown-up'], ['🧓', 'older person']], hint: 'Start with the youngest.' },
+        { k: 'pic', q: 'What do you use to smell a flower?', o: [['👃', 'nose'], ['✋', 'hand'], ['👂', 'ear']], a: 0, why: 'Your nose smells.' }
+      ] },
+    { id: 'animals', ico: '🦁', name: 'Animals & habitats', c: '#9A5B13', badge: '🐾', bname: 'Animal tracker',
+      cards: [
+        { h: 'A home called a habitat', pic: 'forest|🌳 40 66 54|🐿️ 46 48 20 bob|🦉 150 40 26 blink|🦊 130 84 26|🍄 90 92 16', t: 'A habitat is an animal\'s home. It gives food, water and shelter.', m: 'Animals live where they can find everything they need.', b: 'Animals have adaptations: body parts or habits that help them live in their habitat.', dyk: 'A woodpecker\'s long tongue wraps around the inside of its head!' },
+        { h: 'Hot, dry desert', pic: 'desert|@sun 165 24 1.2|🐫 80 70 50 bob|🌵 160 78 34|🦎 40 96 18 swim', t: 'Camels live in the hot, dry desert.', m: 'A camel\'s hump stores fat, so it can go a long time without food.', b: 'Many desert animals hide in the hot day and come out in the cool night.', dyk: 'A thirsty camel can drink about a bathtub of water in a few minutes!' },
+        { h: 'Icy and cold', pic: 'snow|🐧 70 70 40 wiggle|🐧 110 74 34 wiggle 0.4|🧊 160 80 30|❄️ 30 26 16 fall|❄️ 150 20 14 fall 0.6', t: 'Penguins live where it is icy and cold.', m: 'Thick fat and tight feathers keep them warm.', b: 'Penguins huddle together and take turns standing on the windy outside.', dyk: 'Penguins can\'t fly in the air, but they "fly" underwater with their wings!' },
+        { h: 'The rainforest', pic: 'jungle|🌴 30 64 56|🌴 172 64 56|🐒 70 40 28 bob|🦜 130 34 26 fly|🐍 110 92 24 swim', t: 'Rainforests are hot, wet and full of trees. Monkeys and parrots live there.', m: 'More kinds of animals live in rainforests than anywhere else on land.', b: 'A rainforest has layers: the forest floor, the understory, the canopy and the tall emergent trees.', dyk: 'A sloth moves so slowly that tiny green plants grow in its fur!' },
+        { h: 'Animal groups', pic: 'grass|🐄 34 66 32|🐦 82 50 28 fly|🐟 126 66 28 swim|🐞 166 68 24 wiggle', t: 'Animals with fur are mammals. Animals with feathers are birds.', m: 'Fish have scales and gills. Insects have 6 legs.', b: 'Animals with a backbone are vertebrates. Animals without one, like insects, are invertebrates.', dyk: 'A spider is not an insect: it has 8 legs!' },
+        { h: 'Night animals', pic: 'night|@moon 160 26 1.2|🦉 60 56 36 blink|🦇 120 40 26 fly|🦔 120 90 24', t: 'Some animals sleep in the day and wake up at night, like owls and bats.', m: 'Big eyes and great hearing help them find food in the dark.', b: 'Animals that are active at night are called nocturnal.', dyk: 'Bats find their way by squeaking and listening for the echo!' }
+      ],
+      quiz: [
+        { k: 'pic', q: 'Which animal lives in the icy cold?', o: [['🐧', 'penguin'], ['🐫', 'camel'], ['🐒', 'monkey']], a: 0, why: 'Penguins have fat and feathers to stay warm.',
+          h: { k: 'pic', q: 'Which animal is nocturnal (awake at night)?', o: [['🦉', 'owl'], ['🐓', 'rooster'], ['🦋', 'butterfly']], a: 0, why: 'Owls hunt at night with big eyes and sharp ears.' } },
+        { k: 'tf', q: 'A spider is an insect.', pic: 'grass|🕷️ 100 60 50 wiggle', a: false, why: 'Insects have 6 legs. Spiders have 8, so they are not insects.' },
+        { k: 'sort', q: 'Does it live on land or in water?', g: [['🌳', 'Land'], ['🌊', 'Water']], items: [['🐟', 'fish', 1], ['🦁', 'lion', 0], ['🐙', 'octopus', 1], ['🐘', 'elephant', 0], ['🐬', 'dolphin', 1], ['🐿️', 'squirrel', 0]],
+          h: { k: 'sort', q: 'Mammal or bird?', g: [['🐄', 'Mammal'], ['🪶', 'Bird']], items: [['🐬', 'dolphin', 0, 'A dolphin breathes air and feeds its babies milk: a mammal!'], ['🦅', 'eagle', 1], ['🦇', 'bat', 0, 'A bat has fur, not feathers: it is a mammal that flies!'], ['🐧', 'penguin', 1, 'Penguins have feathers, so they are birds, even though they swim.'], ['🐄', 'cow', 0], ['🦉', 'owl', 1]] } },
+        { k: 'order', q: 'Put them in order from smallest to biggest.', items: [['🐜', 'ant'], ['🐭', 'mouse'], ['🐕', 'dog'], ['🐘', 'elephant']], hint: 'Start with the tiniest one.' },
+        { k: 'pic', q: 'Which animal makes its home in the desert?', o: [['🐫', 'camel'], ['🐧', 'penguin'], ['🐠', 'fish']], a: 0, why: 'Camels can go a long time without water.' }
+      ] },
+    { id: 'cycles', ico: '🦋', name: 'Life cycles', c: '#7D3C98', badge: '🦋', bname: 'Life cycle star',
+      cards: [
+        { h: 'The circle of life', pic: 'grass|@cycle 100 56 2|🥚 100 22 20|🐣 140 56 20|🐔 100 90 22|🐥 60 56 20', t: 'Living things are born, grow up, have babies, and then it starts again.', m: 'This circle is called a life cycle.', b: 'Plants and animals have very different life cycles, but every one goes round and round.', dyk: 'Some turtles live to be over 100 years old!' },
+        { h: 'Egg to butterfly', pic: 'grass|🌿 40 74 40|🥚 40 64 12|🐛 90 80 26 swim|@chrys 140 48 1.2|🦋 172 30 26 fly', t: 'A butterfly starts as a tiny egg. A caterpillar hatches and eats and eats!', m: 'Then it makes a chrysalis. Inside, it changes into a butterfly.', b: 'This big change of body shape is called metamorphosis.', dyk: 'A caterpillar\'s first meal is often its own eggshell!' },
+        { h: 'Frogspawn to frog', pic: 'pond|@spawn 50 96 1|@tadpole 100 98 1|@froglet 140 92 0.9|🐸 172 70 30 bob', t: 'Frogs lay eggs called frogspawn in ponds.', m: 'Tadpoles hatch with tails. They grow legs, become froglets, then frogs.', b: 'Tadpoles breathe with gills. Grown frogs breathe with lungs and through their skin.', dyk: 'Some frogs can jump 20 times their own length!' },
+        { h: 'Seed to flower', pic: 'sky|@seed 30 100 1.4|🌱 75 84 26 grow|🌿 120 78 32|🌻 168 66 42 sway|🐝 150 30 18 fly', t: 'A seed grows into a plant. The plant grows flowers, and flowers make new seeds.', m: 'Bees carry pollen from flower to flower so new seeds can grow.', b: 'Moving pollen between flowers is called pollination.', dyk: 'A coconut is a giant seed that can float across the sea!' },
+        { h: 'Egg to hen', pic: 'grass|🥚 40 80 26|🐣 90 78 30 wiggle|🐥 135 80 28 bob|🐔 172 70 36', t: 'A hen lays an egg. A chick hatches, grows, and becomes a hen.', m: 'The chick pecks its way out with a tiny "egg tooth" on its beak.', b: 'The yolk is food for the growing chick inside the egg.', dyk: 'Chicks cheep to their mum before they even hatch!' }
+      ],
+      quiz: [
+        { k: 'order', q: 'Put the butterfly\'s life cycle in order.', cycle: true, items: [['🥚', 'egg'], ['🐛', 'caterpillar'], ['@chrys', 'chrysalis'], ['🦋', 'butterfly']], hint: 'It starts with a tiny egg on a leaf.', why: 'Egg, caterpillar, chrysalis, butterfly, and then new eggs!' },
+        { k: 'order', q: 'Put the frog\'s life cycle in order.', cycle: true, items: [['@spawn', 'frogspawn'], ['@tadpole', 'tadpole'], ['@froglet', 'froglet'], ['🐸', 'frog']], hint: 'Frogspawn comes first. Tadpoles have tails.' },
+        { k: 'pic', q: 'What does a caterpillar turn into?', o: [['🦋', 'butterfly'], ['🐝', 'bee'], ['🐦', 'bird']], a: 0 },
+        { k: 'tf', q: 'A tadpole grows into a frog.', pic: 'pond|@tadpole 70 96 1.4|@arrowR 110 96 1|🐸 150 88 30', a: true, why: 'Tadpoles grow legs, lose their tails and become frogs.',
+          h: { k: 'tf', q: 'A tadpole breathes with lungs, just like us.', pic: 'pond|@tadpole 100 96 1.6', a: false, why: 'Tadpoles breathe with gills. Frogs get lungs later.' } },
+        { k: 'sort', q: 'Does it hatch from an egg, or is it born as a baby?', g: [['🥚', 'Hatches from an egg'], ['🍼', 'Born as a baby']], items: [['🐔', 'chicken', 0], ['🐶', 'puppy', 1], ['🐢', 'turtle', 0], ['🐱', 'kitten', 1], ['🐍', 'snake', 0], ['🐄', 'calf', 1]] }
+      ] },
+    { id: 'plants', ico: '🌱', name: 'Plants & seeds', c: '#268457', badge: '🌻', bname: 'Green thumb',
+      cards: [
+        { h: 'What plants need', pic: 'sky|@sun 40 26 1.2|@rain 160 22 1|🌱 100 80 36 grow|💨 60 70 18 drift', t: 'Plants need water, sunlight and air to grow.', m: 'Most plants also need soil full of goodness.', b: 'Plants make their own food from sunlight, water and air. This is called photosynthesis.', dyk: 'Plants give out the oxygen that we breathe!' },
+        { h: 'Parts of a plant', pic: 'sky|@roots 60 92 1.8|🌸 140 40 30 sway|🍃 140 74 24', t: 'Roots drink water. The stem holds the plant up. Leaves catch sunlight. Flowers make seeds.', m: 'Water travels up the stem from the roots to the leaves.', b: 'Tiny tubes in the stem carry water up, like drinking straws.', dyk: 'Some trees have roots that spread wider than the tree is tall!' },
+        { h: 'Seeds go travelling', pic: 'sky|@dandelion 50 74 1.6|🌬️ 110 40 26 drift|🐿️ 160 80 28 bob|🌰 140 92 14', t: 'Seeds travel to new places to grow.', m: 'Wind blows dandelion seeds. Animals carry seeds in their fur or their tummies.', b: 'Some seed pods burst open and flick their seeds away, like tiny catapults.', dyk: 'Each dandelion seed has its own little parachute!' },
+        { h: 'Trees', pic: 'forest|🌳 60 62 64 sway|🌲 150 62 56|🐦 64 30 18 bob|🐛 160 90 16', t: 'Trees are the biggest plants. They give homes to birds and bugs.', m: 'Count the rings inside a tree trunk to find out how old it is.', b: 'Deciduous trees lose their leaves in autumn. Evergreen trees stay green all year.', dyk: 'Some trees alive today are older than the Egyptian pyramids!' },
+        { h: 'Food from plants', pic: 'inside|🥕 40 66 34 bob|🥬 90 66 34|🍎 140 66 34 bob 0.4|🍓 180 70 24', t: 'We eat lots of different plant parts!', m: 'Carrots are roots, lettuce is leaves, and apples hold the seeds.', b: 'A fruit is the part of a plant that holds its seeds, so a tomato is a fruit!', dyk: 'A strawberry wears its seeds on the outside!' }
+      ],
+      quiz: [
+        { k: 'order', q: 'Put these in order, from seed to flower.', items: [['@seed', 'seed'], ['🌱', 'sprout'], ['🌿', 'young plant'], ['🌻', 'flower']], hint: 'A plant starts as a little seed in the soil.' },
+        { k: 'pic', q: 'Which part of a plant drinks water from the soil?', o: [['@roots', 'roots'], ['🌸', 'flower'], ['🍃', 'leaf']], a: 0, why: 'Roots grow down into the soil and drink.' },
+        { k: 'tf', q: 'Plants need sunlight to grow.', pic: 'sky|@sun 60 30 1.4|🌱 120 80 36', a: true, why: 'Leaves use sunlight to make food for the plant.',
+          h: { k: 'tf', q: 'A tomato is a fruit.', pic: 'inside|🍅 100 60 50 bob', a: true, why: 'A tomato holds the plant\'s seeds, so it is a fruit.' } },
+        { k: 'sort', q: 'Plant or animal?', g: [['🌱', 'Plant'], ['🐾', 'Animal']], items: [['🌵', 'cactus', 0], ['🐝', 'bee', 1], ['🌳', 'tree', 0], ['🐌', 'snail', 1], ['🌷', 'tulip', 0], ['🐸', 'frog', 1]] },
+        { k: 'pic', q: 'Which seed is blown along by the wind?', o: [['@dandelion', 'dandelion'], ['🥥', 'coconut'], ['🍒', 'cherry']], a: 0, why: 'Dandelion seeds have parachutes for the wind.' }
+      ] },
+    { id: 'weather', ico: '⛅', name: 'Weather & seasons', c: '#2776C3', badge: '🌈', bname: 'Weather watcher',
+      cards: [
+        { h: 'What is weather?', pic: 'sky|@sun 40 30 1.2|@cloud 110 30 1.1 drift|@rain 160 30 0.9|🌬️ 60 76 22 drift', t: 'Weather is what the sky and air are doing: sunny, rainy, windy or snowy.', m: 'Weather can change from day to day, and even hour to hour.', b: 'Scientists who study and forecast weather are called meteorologists.', dyk: 'Every snowflake has six sides or six points!' },
+        { h: 'Clouds and rain', pic: 'rain|@rain 70 30 1.4|@rain 140 26 1.2|☂️ 100 86 30 bob', t: 'Clouds are made of tiny drops of water.', m: 'When the drops join and get big and heavy, they fall as rain.', b: 'In very cold clouds the water freezes and falls as snow or hail.', dyk: 'One big fluffy cloud can weigh as much as 100 elephants!' },
+        { h: 'Wind', pic: 'sky|🪁 140 34 30 sway|🌬️ 50 40 30 drift|🌳 60 76 40 sway', t: 'Wind is moving air. You can\'t see it, but you can see what it moves.', m: 'Wind turns windmills and helps kites fly.', b: 'Wind blows when warm air rises and cooler air rushes in to take its place.', dyk: 'The fastest winds on Earth whirl inside tornadoes!' },
+        { h: 'Rainbows', pic: 'sky|@rainbow 100 92 1.6|@sun 30 26 1|@rain 170 26 0.9', t: 'A rainbow appears when the sun shines through raindrops.', m: 'Its colours are red, orange, yellow, green, blue, indigo and violet.', b: 'Raindrops bend sunlight and split it into its colours.', dyk: 'From a plane you can sometimes see a rainbow as a whole circle!' },
+        { h: 'Four seasons', pic: 'sky|🌷 35 70 30 grow|☀️ 80 66 30 spin|🍂 125 66 30 fall|⛄ 168 70 32 bob', t: 'The four seasons are spring, summer, autumn and winter.', m: 'Flowers grow in spring, it\'s hot in summer, leaves fall in autumn and it\'s cold in winter.', b: 'We have seasons because the Earth is tilted as it travels around the Sun.', dyk: 'When it is summer in England, it is winter in Australia!' }
+      ],
+      quiz: [
+        { k: 'order', q: 'Put the seasons in order, starting with spring.', cycle: true, items: [['🌷', 'spring'], ['☀️', 'summer'], ['🍂', 'autumn'], ['⛄', 'winter']], hint: 'After spring comes the hottest season.' },
+        { k: 'pic', q: 'What do you need on a rainy day?', o: [['☂️', 'umbrella'], ['🕶️', 'sunglasses'], ['🩳', 'shorts']], a: 0 },
+        { k: 'tf', q: 'Clouds are made of tiny drops of water.', pic: 'sky|@cloud 100 50 2 drift', a: true, why: 'Clouds are millions of tiny water drops floating in the air.',
+          h: { k: 'tf', q: 'It is summer everywhere on Earth at the same time.', pic: 'space|@earth 100 60 3 spin-slow', a: false, why: 'When it is summer in the north, it is winter in the south.' } },
+        { k: 'sort', q: 'Hot day or cold day?', g: [['☀️', 'Hot day'], ['❄️', 'Cold day']], items: [['🍦', 'ice cream', 0], ['🧣', 'scarf', 1], ['🩳', 'shorts', 0], ['🧤', 'gloves', 1], ['🏖️', 'beach', 0], ['⛄', 'snowman', 1]] },
+        { k: 'pic', q: 'Which weather can make a rainbow?', o: [['🌦️', 'sun and rain'], ['🌙', 'night'], ['🌫️', 'fog']], a: 0, why: 'You need sunshine and raindrops together.' }
+      ] },
+    { id: 'space', ico: '🪐', name: 'Day, night & space', c: '#2B2F77', badge: '🚀', bname: 'Space explorer',
+      cards: [
+        { h: 'The Sun is a star', pic: 'space|@sun 100 60 2.6|@earth 176 96 0.7', t: 'The Sun is a star. It gives us light and warmth.', m: 'It looks small because it is very far away. Never look straight at it!', b: 'The Sun is about 150 million km away. Its light takes about 8 minutes to reach us.', dyk: 'About a million Earths could fit inside the Sun!' },
+        { h: 'Day and night', pic: 'space|@sun 30 60 1.6|@earth 130 60 2.6 spin-slow|@moon 180 30 0.8', t: 'The Earth spins around. When your side faces the Sun, it is day.', m: 'When your side turns away from the Sun, it is night.', b: 'The Earth spins round once every 24 hours: that is one day.', dyk: 'The Earth spins faster than a jet plane flies, but we don\'t feel it!' },
+        { h: 'The Moon', pic: 'night|@moon 100 46 2.2|@stars 100 50 1.6', t: 'The Moon goes around the Earth. It shines because sunlight bounces off it.', m: 'The Moon seems to change shape. These shapes are called phases.', b: 'It takes about a month (29.5 days) to see all the Moon\'s phases.', dyk: 'Footprints on the Moon can last millions of years: there is no wind to blow them away!' },
+        { h: 'Eight planets', pic: 'space|@sun 6 60 2.2|@mercury 40 60 1|@venus 58 60 1|@earth 78 60 1|@mars 98 60 1|@jupiter 124 60 1|@saturn 156 60 0.9|@uranus 180 60 0.6|@neptune 194 60 0.6', t: 'Eight planets travel around the Sun. Earth is one of them!', m: 'In order: Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune.', b: 'The four inner planets are rocky. The four outer ones are giants of gas and ice.', dyk: 'Jupiter is so big that all the other planets could fit inside it!' },
+        { h: 'Stars at night', pic: 'night|@stars 100 40 2.4|🔭 60 84 30|🧒 100 86 30', t: 'Stars are giant balls of hot, glowing gas, very far away.', m: 'People join stars into pictures called constellations.', b: 'Light from some stars travels for thousands of years before it reaches us.', dyk: 'There are more stars in space than grains of sand on all of Earth\'s beaches!' },
+        { h: 'Astronauts', pic: 'space|🚀 60 70 40 bob|🧑‍🚀 140 50 36 float|@earth 170 100 1', t: 'Astronauts fly in rockets up to space.', m: 'In space they float about, because they are falling around the Earth.', b: 'The International Space Station goes around the Earth about 16 times a day.', dyk: 'Astronauts grow a little taller in space!' }
+      ],
+      quiz: [
+        { k: 'pic', q: 'Which one is a star?', o: [['☀️', 'the Sun'], ['🌍', 'Earth'], ['🌙', 'the Moon']], a: 0, why: 'The Sun is our star.' },
+        { k: 'tf', q: 'The Moon makes its own light.', pic: 'night|@moon 100 56 2.4', a: false, why: 'The Moon shines because sunlight bounces off it.' },
+        { k: 'order', q: 'Put these planets in order, closest to the Sun first.', items: [['@mercury', 'Mercury'], ['@venus', 'Venus'], ['@earth', 'Earth'], ['@mars', 'Mars']], hint: 'Earth is the third planet.',
+          h: { k: 'order', q: 'Put these planets in order, closest to the Sun first.', items: [['@mars', 'Mars'], ['@jupiter', 'Jupiter'], ['@saturn', 'Saturn'], ['@neptune', 'Neptune']], hint: 'Mars is the fourth planet and Neptune the farthest.' } },
+        { k: 'sort', q: 'Day or night?', g: [['☀️', 'Day'], ['🌙', 'Night']], items: [['🌟', 'stars', 1], ['🌈', 'rainbow', 0], ['🦇', 'bat flying', 1], ['🐓', 'rooster crowing', 0], ['🦉', 'owl hunting', 1], ['🌻', 'sunflower open', 0]] },
+        { k: 'pic', q: 'Which planet do we live on?', o: [['@earth', 'Earth'], ['@mars', 'Mars'], ['@saturn', 'Saturn']], a: 0,
+          h: { k: 'pic', q: 'Which planet has big, beautiful rings?', o: [['@saturn', 'Saturn'], ['@mars', 'Mars'], ['@earth', 'Earth']], a: 0, why: 'Saturn\'s rings are made of ice and rock.' } }
+      ] },
+    { id: 'water', ico: '💧', name: 'The water cycle', c: '#1D6FA5', badge: '💧', bname: 'Water wizard',
+      cards: [
+        { h: 'Water goes round and round', pic: 'sea|@sun 30 24 1|@evap 70 40 1.2|@cloud 130 22 1.1|@rain 170 24 0.8|@cycle 100 86 1.2', t: 'Water is in oceans, rivers, clouds and even in you!', m: 'The same water goes round and round. This is the water cycle.', b: 'There is about the same amount of water on Earth now as long ago; it just keeps moving.', dyk: 'The water you drink might once have been drunk by a dinosaur!' },
+        { h: 'Up it goes: evaporation', pic: 'sea|@sun 40 24 1.3|@evap 90 54 1.6|@evap 140 54 1.4|@arrowU 175 40 1', t: 'The Sun warms water, and some of it floats up as invisible vapour.', m: 'This is called evaporation. It is why puddles dry up.', b: 'Water vapour is water as a gas.', dyk: 'Wet washing dries on a line because of evaporation!' },
+        { h: 'Clouds form: condensation', pic: 'sky|@cloud 70 34 1.4 drift|@cloud 140 40 1.2 drift|@evap 100 84 1.2', t: 'High up, the vapour cools and makes tiny drops. They form clouds.', m: 'This is condensation. You can see it on a cold window too!', b: 'Cooling turns a gas back into a liquid.', dyk: 'Your breath makes a cloud on a cold day for the same reason!' },
+        { h: 'Down it comes: rain', pic: 'rain|@rain 60 26 1.3|@rain 140 22 1.2|❄️ 100 70 20 fall', t: 'When cloud drops join and get heavy, they fall as rain or snow.', m: 'This is called precipitation.', b: 'Rain, snow, sleet and hail are all kinds of precipitation.', dyk: 'Raindrops are shaped more like little buns than teardrops!' },
+        { h: 'Back to the sea', pic: 'sky|⛰️ 40 70 50|@arrowR 90 88 1|@waves 160 96 0.8|🏞️ 110 70 24', t: 'Rain runs into rivers, lakes and the sea, and the cycle starts again.', m: 'Some water soaks into the ground for plants to drink.', b: 'Water stored under the ground is called groundwater.', dyk: 'Most of Earth\'s water is salty sea water!' },
+        { h: 'Ice, water, steam', pic: 'inside|@ice 50 64 1.6|@drop 100 64 1.6|@steam 150 72 1.6', t: 'Water can be solid ice, runny liquid, or steam.', m: 'Freeze it and it turns to ice. Heat it and it turns to steam.', b: 'Water freezes at 0°C and boils at 100°C.', dyk: 'Ice floats because it is lighter than the same amount of water!' }
+      ],
+      quiz: [
+        { k: 'order', q: 'Put the water cycle in order.', cycle: true, items: [['@evap', 'water rises'], ['☁️', 'clouds form'], ['🌧️', 'rain falls'], ['🌊', 'water collects']], hint: 'First the Sun warms the water and it rises.' },
+        { k: 'tf', q: 'Puddles dry up because the Sun warms the water.', pic: 'sky|@sun 60 30 1.3|@evap 120 80 1.2', a: true, why: 'The water evaporates into the air.',
+          h: { k: 'tf', q: 'Water boils at 50°C.', pic: 'inside|@steam 100 50 2|@thermo 150 60 1.4', a: false, why: 'Water boils at 100°C.' } },
+        { k: 'pic', q: 'Which one is solid water?', o: [['🧊', 'ice'], ['💧', 'water drop'], ['@steam', 'steam']], a: 0, why: 'Ice is frozen, solid water.' },
+        { k: 'sort', q: 'Liquid or solid?', g: [['💧', 'Liquid (runny)'], ['🧱', 'Solid']], items: [['🥛', 'milk', 0], ['🪨', 'rock', 1], ['🧃', 'juice', 0], ['🧊', 'ice', 1], ['🍯', 'honey', 0], ['🥄', 'spoon', 1]] },
+        { k: 'pic', q: 'What are clouds made of?', o: [['💧', 'tiny water drops'], ['🐑', 'sheep\'s wool'], ['💨', 'smoke']], a: 0 }
+      ] },
+    { id: 'materials', ico: '🧱', name: 'Materials', c: '#6A5A16', badge: '🧲', bname: 'Material master',
+      cards: [
+        { h: 'Things are made of materials', pic: 'inside|🪵 36 64 32|🥄 80 64 30|🧸 124 64 32|🪟 168 60 34', t: 'Everything is made of materials, like wood, metal, plastic, glass and fabric.', m: 'We choose a material that is right for the job.', b: 'Properties tell us what a material is like: hard, soft, bendy, waterproof or see-through.', dyk: 'Glass is made from sand heated until it melts!' },
+        { h: 'Float or sink', pic: 'sea|🦆 60 48 30 bob|🪨 140 96 26|@arrowD 140 70 0.8', t: 'Some things float on water. Others sink to the bottom.', m: 'Things that are heavy for their size sink. Light-for-their-size things float.', b: 'Floating depends on density: how much stuff is packed into a space.', dyk: 'A huge metal ship floats because its shape pushes away lots of water!' },
+        { h: 'Magnets', pic: 'lab|@magnet 70 50 1.8 wiggle|📎 130 50 24 bob|🧷 160 70 22 bob 0.3', t: 'Magnets pull some metals, like iron and steel.', m: 'They do not pull wood, plastic or paper, and not even all metals!', b: 'A magnet has a north pole and a south pole. Opposite poles pull together; the same poles push apart.', dyk: 'The Earth is a giant magnet! That is why a compass points north.' },
+        { h: 'Hard and soft', pic: 'inside|🪨 60 64 40|🛏️ 140 64 44 bob', t: 'Some things are hard, like a rock. Some are soft, like a pillow.', m: 'Hard things keep their shape. Soft things squash.', b: 'Diamond is the hardest natural material on Earth.', dyk: 'A diamond is made of the same stuff as pencil lead: carbon!' },
+        { h: 'See-through', pic: 'sky|🪟 70 56 50|🧱 150 60 40', t: 'You can see through glass. It is transparent.', m: 'Wood and bricks block light. They are opaque.', b: 'Things that let some light through, like tissue paper, are translucent.', dyk: 'Some frogs have see-through skin on their tummies!' },
+        { h: 'Waterproof', pic: 'rain|@rain 100 20 1.3|🧥 70 76 36|👢 130 82 30', t: 'Waterproof materials keep water out, like a raincoat or wellies.', m: 'Paper and cotton soak water up. They are absorbent.', b: 'Many waterproof materials are plastic or rubber, or have a wax coating.', dyk: 'Ducks keep dry because their feathers have a waterproof oil!' }
+      ],
+      quiz: [
+        { k: 'sort', q: 'Hard or soft?', g: [['🪨', 'Hard'], ['🧸', 'Soft']], items: [['🧱', 'brick', 0], ['🪶', 'feather', 1], ['🔨', 'hammer', 0], ['🧽', 'sponge', 1], ['🥄', 'spoon', 0], ['🧦', 'sock', 1]] },
+        { k: 'pic', q: 'Which one will a magnet pick up?', o: [['📎', 'paper clip'], ['✏️', 'pencil'], ['🧸', 'teddy']], a: 0, why: 'Paper clips are made of steel.' },
+        { k: 'tf', q: 'A rock floats on water.', pic: 'sea|🪨 100 92 34', a: false, why: 'A rock is heavy for its size, so it sinks.',
+          h: { k: 'tf', q: 'All metals stick to magnets.', pic: 'lab|@magnet 60 50 1.6|🪙 130 60 30', a: false, why: 'Only some metals, like iron and steel. Aluminium cans and gold do not stick.' } },
+        { k: 'pic', q: 'Which one can you see through?', o: [['🪟', 'glass window'], ['🧱', 'brick'], ['🪵', 'wood']], a: 0, why: 'Glass is transparent.' },
+        { k: 'order', q: 'Put them in order, lightest to heaviest.', items: [['🪶', 'feather'], ['🍎', 'apple'], ['📚', 'books'], ['🚗', 'car']], hint: 'Which one could a breath blow away?' }
+      ] },
+    { id: 'forces', ico: '🛝', name: 'Push & pull', c: '#B4462B', badge: '🎢', bname: 'Force finder',
+      cards: [
+        { h: 'Pushes and pulls', pic: 'grass|🛒 60 70 40 swim|👉 22 70 24|🪁 150 34 30 sway', t: 'A force is a push or a pull.', m: 'You push a swing and pull a door open.', b: 'Forces can start things moving, stop them, and change their speed, direction or shape.', dyk: 'When you sit still, the chair is pushing up on you!' },
+        { h: 'Gravity', pic: 'sky|🍎 100 26 28 fall|🌳 40 66 50|@arrowD 140 60 1', t: 'Gravity pulls everything down towards the ground.', m: 'That is why a ball falls when you drop it.', b: 'Gravity also keeps the Moon going around the Earth.', dyk: 'On the Moon, gravity is weaker, so you could jump about 6 times higher!' },
+        { h: 'Friction', pic: 'grass|⚽ 50 88 26 swim|🧊 150 92 26', t: 'Friction slows things down when they rub together.', m: 'A ball rolls further on a smooth floor than on grass or carpet.', b: 'Friction makes heat: rub your hands together fast and feel!', dyk: 'Ice is slippery because there is very little friction!' },
+        { h: 'Ramps and wheels', pic: 'grass|@ramp 90 82 1.6|🚗 70 60 24 swim|🛞 160 80 24 spin', t: 'Things roll faster down a steep ramp.', m: 'Wheels make moving heavy things much easier.', b: 'Ramps, levers and wheels are simple machines: they make work easier.', dyk: 'The wheel was invented over 5,000 years ago!' },
+        { h: 'Floating in the air', pic: 'sky|🎈 70 40 30 float|🪂 140 36 30 float 0.5', t: 'Air pushes back on things that move through it.', m: 'A parachute catches lots of air, so it falls slowly.', b: 'The push of air on moving things is called air resistance.', dyk: 'A feather and a hammer fall at the same speed on the Moon, where there is no air!' }
+      ],
+      quiz: [
+        { k: 'sort', q: 'Is it a push or a pull?', g: [['👉', 'Push'], ['🪝', 'Pull']], items: [['⚽', 'kicking a ball', 0], ['🪁', 'flying a kite', 1], ['🛒', 'moving a trolley', 0], ['🧦', 'putting on socks', 1], ['🔔', 'pressing a doorbell', 0], ['🚪', 'opening a fridge', 1]] },
+        { k: 'tf', q: 'Gravity pulls things up into the sky.', pic: 'sky|🍎 100 40 30 fall|@arrowD 140 60 1', a: false, why: 'Gravity pulls things down towards the ground.',
+          h: { k: 'tf', q: 'On the Moon you could jump higher than on Earth.', pic: 'space|@moon 60 60 2|🧑‍🚀 130 50 36 bob', a: true, why: 'The Moon\'s gravity is weaker, so it pulls you down less.' } },
+        { k: 'pic', q: 'On which would a sliding toy go furthest?', o: [['🧊', 'ice'], ['🌾', 'long grass'], ['🏖️', 'sand']], a: 0, why: 'Ice has the least friction.' },
+        { k: 'order', q: 'Put them in order, slowest to fastest.', items: [['🐌', 'snail'], ['🚶', 'walking'], ['🚲', 'bike'], ['🚀', 'rocket']], hint: 'Which one is super slow?' },
+        { k: 'pic', q: 'What makes a ball fall down?', o: [['🌍', 'gravity'], ['💨', 'wind'], ['🧲', 'a magnet']], a: 0, why: 'The Earth\'s gravity pulls it down.' }
+      ] },
+    { id: 'light', ico: '🔦', name: 'Light & shadow', c: '#7A5A00', badge: '🔦', bname: 'Shadow catcher',
+      cards: [
+        { h: 'Where light comes from', pic: 'night|@sun 40 40 1.1|💡 90 50 30 pulse|🕯️ 130 70 26|🔦 170 70 26', t: 'Light comes from the Sun, lamps, candles and torches.', m: 'The Moon is not a light source: it reflects the Sun\'s light.', b: 'Things that make their own light are called luminous.', dyk: 'Fireflies make their own light!' },
+        { h: 'Shadows', pic: 'grass|@sun 30 26 1.2|🧍 100 70 40|@shadow 136 94 1.6', t: 'A shadow forms when something blocks the light.', m: 'The shadow is on the side away from the light.', b: 'Light travels in straight lines, so it can\'t bend around you.', dyk: 'Your shadow copies every move you make!' },
+        { h: 'Long and short shadows', pic: 'dusk|🌅 30 40 26|🌳 100 70 40|@shadow 150 96 2.2', t: 'In the morning and evening, shadows are long. At midday they are short.', m: 'The higher the Sun is, the shorter the shadow.', b: 'Long ago, people told the time with shadow clocks called sundials.', dyk: 'At midday in summer your shadow can hide right under your feet!' },
+        { h: 'Mirrors', pic: 'inside|🪞 80 60 50|🧒 140 66 36 wiggle', t: 'Mirrors bounce light back. That is how you see yourself!', m: 'Smooth, shiny things reflect light well.', b: 'In a mirror, your reflection is flipped left to right.', dyk: 'A spoon is a curved mirror: one side shows you upside down!' },
+        { h: 'Colours in light', pic: 'sky|@ray 20 30 1|🔺 90 60 30|@rainbow 150 90 0.9', t: 'White light is all the rainbow colours mixed together.', m: 'A prism or a raindrop can split light into colours.', b: 'Different colours of light bend by different amounts, so they spread out.', dyk: 'A soap bubble shows rainbow colours too!' }
+      ],
+      quiz: [
+        { k: 'pic', q: 'Which one gives off its own light?', o: [['💡', 'lamp'], ['🪞', 'mirror'], ['🌙', 'the Moon']], a: 0, why: 'A lamp makes light. Mirrors and the Moon only bounce light.' },
+        { k: 'tf', q: 'Shadows are longest at midday.', pic: 'sky|@sun 100 20 1.2|🌳 100 70 40', a: false, why: 'At midday the Sun is high, so shadows are short.' },
+        { k: 'sort', q: 'Does it make its own light?', g: [['💡', 'Makes light'], ['🚫', 'No light of its own']], items: [['🕯️', 'candle', 0], ['🌙', 'Moon', 1], ['☀️', 'Sun', 0], ['🪞', 'mirror', 1], ['🔦', 'torch', 0], ['📘', 'book', 1]] },
+        { k: 'order', q: 'Put the day in order.', cycle: true, items: [['🌅', 'sunrise'], ['☀️', 'midday'], ['🌇', 'sunset'], ['🌙', 'night']], hint: 'The day begins when the Sun comes up.' },
+        { k: 'pic', q: 'Which one makes a dark shadow?', o: [['🧍', 'a person'], ['🪟', 'a clear window'], ['💧', 'clear water']], a: 0, why: 'A person blocks the light. Clear things let it through.' }
+      ] },
+    { id: 'sound', ico: '🔊', name: 'Sound', c: '#6D3FB8', badge: '🎵', bname: 'Sound detective',
+      cards: [
+        { h: 'Sounds are vibrations', pic: 'inside|🥁 80 64 40|@vibe 80 64 1.6|@sound 110 60 1.4', t: 'Sounds are made when things shake very fast. This is vibrating.', m: 'Touch your throat and hum: you can feel it buzz!', b: 'Vibrations travel through the air as sound waves to your ears.', dyk: 'A cat\'s purr is a vibration in its throat!' },
+        { h: 'Loud and quiet', pic: 'inside|📢 60 60 40 wiggle|@sound 86 60 1.6|🐭 160 80 24', t: 'Some sounds are loud, like a drum. Some are quiet, like a whisper.', m: 'Very loud sounds can hurt your ears. Cover them or move away.', b: 'Loudness is measured in decibels (dB).', dyk: 'A blue whale\'s call is louder than a jet engine!' },
+        { h: 'High and low', pic: 'grass|🐦 60 40 30 fly|🐻 140 74 40', t: 'Some sounds are high, like a bird\'s tweet. Some are low, like a bear\'s growl.', m: 'Small things that vibrate fast make high sounds.', b: 'How high or low a sound is is called its pitch.', dyk: 'Dogs can hear sounds too high for people to hear!' },
+        { h: 'Hearing', pic: 'inside|👂 70 60 50|@sound 110 60 1.4', t: 'Your ears catch sounds and send messages to your brain.', m: 'Sounds get quieter the further away you are.', b: 'Sound needs something to travel through, so space is silent!', dyk: 'Elephants can hear through their feet!' },
+        { h: 'Echoes', pic: 'sky|⛰️ 150 66 70|🗣️ 40 70 34|@sound 66 64 1.2', t: 'An echo is a sound that bounces back to you.', m: 'Shout in a big empty hall or a tunnel to hear one!', b: 'Bats and dolphins use echoes to find their food. This is echolocation.', dyk: 'Sound travels about 1 km in 3 seconds in air!' }
+      ],
+      quiz: [
+        { k: 'sort', q: 'Loud or quiet?', g: [['📢', 'Loud'], ['🤫', 'Quiet']], items: [['🥁', 'big drum', 0], ['🐭', 'mouse squeak', 1], ['🚒', 'fire engine', 0], ['🍃', 'rustling leaf', 1], ['✈️', 'jet plane', 0], ['🐱', 'cat purring', 1]] },
+        { k: 'order', q: 'Put them in order, quietest to loudest.', items: [['🤫', 'whisper'], ['🗣️', 'talking'], ['🎺', 'trumpet'], ['🚀', 'rocket']], hint: 'Start with the softest sound.' },
+        { k: 'tf', q: 'Sound is made by things vibrating.', pic: 'inside|🥁 100 64 40|@vibe 100 64 1.6', a: true, why: 'Things shake back and forth very fast to make sound.',
+          h: { k: 'tf', q: 'Sound can travel through empty space.', pic: 'space|🧑‍🚀 100 60 40 float', a: false, why: 'Sound needs air, water or something solid to travel through. Space is silent.' } },
+        { k: 'pic', q: 'Which makes a high sound?', o: [['🐦', 'little bird tweet'], ['🥁', 'big drum'], ['🐄', 'cow moo']], a: 0, why: 'Small things vibrate fast and make high sounds.' },
+        { k: 'pic', q: 'What do we hear with?', o: [['👂', 'ears'], ['👃', 'nose'], ['✋', 'hands']], a: 0,
+          h: { k: 'pic', q: 'What is a sound that bounces back called?', o: [['⛰️', 'an echo'], ['🤫', 'a whisper'], ['🎵', 'a tune']], a: 0, why: 'Sound bouncing off a wall or cliff is an echo.' } }
+      ] },
+    { id: 'dinos', ico: '🦕', name: 'Dinosaurs', c: '#4E7A1E', badge: '🦴', bname: 'Dino digger',
+      cards: [
+        { h: 'Long, long ago', pic: 'jungle|🦕 70 62 50 bob|🦖 150 66 44|🌋 30 40 30', t: 'Dinosaurs lived a very, very long time ago, long before people.', m: 'The last big dinosaurs lived about 66 million years ago.', b: 'Scientists think a giant space rock hit Earth and changed the climate.', dyk: 'Birds are living relatives of dinosaurs!' },
+        { h: 'Fossils', pic: 'desert|@bury 70 80 1.8|⛏️ 140 60 30 wiggle|@footprint 170 96 0.8', t: 'We know about dinosaurs from fossils: bones and footprints turned to stone.', m: 'Scientists who dig up fossils are called palaeontologists.', b: 'Fossils form when remains are buried and slowly turn to rock over millions of years.', dyk: 'Some fossil footprints show dinosaurs walking in herds!' },
+        { h: 'Plant eaters', pic: 'jungle|🦕 90 60 56 bob|🌴 160 56 50', t: 'Some dinosaurs ate only plants, like the long-necked Diplodocus.', m: 'Long necks could reach leaves high in the trees.', b: 'Animals that eat only plants are called herbivores.', dyk: 'Some long-necked dinosaurs were as long as three buses!' },
+        { h: 'Meat eaters', pic: 'jungle|🦖 100 60 60 wiggle', t: 'T. rex was a big meat eater with sharp teeth.', m: 'Its biggest teeth were as long as bananas!', b: 'Animals that eat meat are called carnivores.', dyk: 'T. rex had tiny arms, but they were very strong!' },
+        { h: 'Big and small', pic: 'jungle|🦕 70 56 64|🐔 160 84 24 bob', t: 'Some dinosaurs were as big as buildings. Some were as small as chickens!', m: 'Many small dinosaurs were fast runners.', b: 'Some dinosaurs had feathers, a clue that birds came from them.', dyk: 'Dinosaur eggs could be as big as a football!' }
+      ],
+      quiz: [
+        { k: 'pic', q: 'How do we know about dinosaurs?', o: [['🦴', 'from fossils'], ['📺', 'from TV'], ['📷', 'from old photos']], a: 0, why: 'Fossils are bones and footprints turned to stone.' },
+        { k: 'tf', q: 'People and dinosaurs lived at the same time.', pic: 'jungle|🦕 70 60 44|🧑 150 66 36', a: false, why: 'Dinosaurs lived millions of years before people.' },
+        { k: 'sort', q: 'Plant eater or meat eater?', g: [['🌿', 'Plants'], ['🍖', 'Meat']], items: [['🦕', 'Diplodocus', 0], ['🦖', 'T. rex', 1], ['🐄', 'cow', 0], ['🦁', 'lion', 1], ['🐰', 'rabbit', 0], ['🦈', 'shark', 1]] },
+        { k: 'order', q: 'How does a fossil form? Put it in order.', items: [['🦕', 'a dinosaur lives'], ['@bury', 'buried in mud'], ['🪨', 'turns to stone'], ['⛏️', 'dug up today']], hint: 'First the dinosaur was alive.' },
+        { k: 'pic', q: 'Which animal is a relative of dinosaurs?', o: [['🐦', 'bird'], ['🐱', 'cat'], ['🐟', 'fish']], a: 0, why: 'Birds came from small feathered dinosaurs.' }
+      ] },
+    { id: 'ocean', ico: '🌊', name: 'The ocean', c: '#0E6E8C', badge: '🐚', bname: 'Ocean explorer',
+      cards: [
+        { h: 'The big blue sea', pic: 'sea|@sun 30 22 1|⛵ 140 46 26 bob|@waves 100 70 1.2|🐳 70 96 30 swim', t: 'Oceans cover most of the Earth. The water is salty.', m: 'There are five oceans. The Pacific is the biggest.', b: 'About 70 out of every 100 parts of Earth\'s surface are ocean.', dyk: 'We have explored more of the Moon than of the deep sea!' },
+        { h: 'Fish', pic: 'under|🐠 60 50 30 swim|🐟 130 70 28 swim 0.5|🐡 100 92 22 bob', t: 'Fish breathe underwater with gills.', m: 'They swim by wiggling their tails and fins.', b: 'Gills take oxygen out of the water.', dyk: 'A seahorse dad carries the babies in a pouch!' },
+        { h: 'Whales and dolphins', pic: 'sea|🐋 70 80 50 bob|🐬 150 64 30 swim', t: 'Whales and dolphins live in the sea, but they breathe air.', m: 'They come up to breathe through a blowhole on top of their head.', b: 'They are mammals: they feed their babies milk.', dyk: 'The blue whale is the biggest animal that has ever lived!' },
+        { h: 'Coral reefs', pic: 'under|@coral 60 88 1.6|@coral 150 90 1.3|🐠 100 50 24 swim|🐢 160 40 26 swim', t: 'Coral reefs are colourful homes for lots of sea creatures.', m: 'Coral is made by tiny animals living together.', b: 'Reefs need clean, warm, shallow water to stay healthy.', dyk: 'The Great Barrier Reef can be seen from space!' },
+        { h: 'The deep sea', pic: 'deep|🦑 80 60 40 float|✨ 140 40 16 pulse|✨ 160 70 14 pulse 0.5|🐙 150 96 24', t: 'Deep down, the ocean is dark and very cold.', m: 'Some deep-sea animals make their own light!', b: 'Living things making light is called bioluminescence.', dyk: 'An octopus has three hearts!' }
+      ],
+      quiz: [
+        { k: 'pic', q: 'Which sea animal breathes air?', o: [['🐳', 'whale'], ['🐟', 'fish'], ['🦀', 'crab']], a: 0, why: 'Whales come up to breathe through a blowhole.' },
+        { k: 'tf', q: 'Sea water is salty.', pic: 'sea|@waves 100 70 1.2|🧂 150 30 26', a: true, why: 'The sea has salt in it, so we can\'t drink it.',
+          h: { k: 'tf', q: 'Whales are fish.', pic: 'sea|🐋 100 80 50 bob', a: false, why: 'Whales are mammals: they breathe air and feed their babies milk.' } },
+        { k: 'sort', q: 'In the sea or on land?', g: [['🌊', 'Sea'], ['🌳', 'Land']], items: [['🐙', 'octopus', 0], ['🐪', 'camel', 1], ['🦈', 'shark', 0], ['🐎', 'horse', 1], ['🐬', 'dolphin', 0], ['🐿️', 'squirrel', 1]] },
+        { k: 'order', q: 'Put them in order, smallest to biggest.', items: [['🦐', 'shrimp'], ['🐠', 'fish'], ['🐬', 'dolphin'], ['🐋', 'whale']], hint: 'The biggest animal ever lives in the sea.' },
+        { k: 'pic', q: 'Where do lots of colourful fish live?', o: [['@coral', 'coral reef'], ['🏜️', 'desert'], ['🏔️', 'mountain']], a: 0 }
+      ] },
+    { id: 'earth', ico: '♻️', name: 'Caring for Earth', c: '#2E7D32', badge: '🌍', bname: 'Earth hero',
+      cards: [
+        { h: 'Reduce, reuse, recycle', pic: 'earth|@bin 60 70 1.8|🔁 130 50 30 spin-slow|🌍 170 80 26', t: 'Use less, use things again, and recycle what you can.', m: 'Recycling turns old things into new things.', b: 'Recycling saves energy and materials, and means less rubbish goes into the ground.', dyk: 'Old plastic bottles can be made into warm fleece jumpers!' },
+        { h: 'Sorting the recycling', pic: 'inside|📰 40 60 28|🥫 80 60 28|🍾 120 60 28|@bin 168 70 1.6', t: 'Paper, cans, glass and some plastics can be recycled.', m: 'Rinse them and put them in the right bin.', b: 'Fruit and vegetable scraps can be composted into rich soil.', dyk: 'A glass bottle can be recycled again and again, forever!' },
+        { h: 'Litter hurts animals', pic: 'sea|🐢 70 86 30 swim|🛍️ 130 80 24 float|🚫 130 80 40', t: 'Litter can hurt animals. Always put rubbish in a bin.', m: 'Sea turtles can mistake plastic bags for jellyfish.', b: 'Plastic takes hundreds of years to break down.', dyk: 'Some beaches have clean-up days where families pick up litter together!' },
+        { h: 'Save energy', pic: 'inside|💡 60 50 36 pulse|🔌 120 70 28|🌞 170 30 28 spin', t: 'Switch off lights and screens when you are not using them.', m: 'Walk, cycle or share a ride when you can.', b: 'Sun and wind power make electricity without smoke.', dyk: 'Solar panels turn sunlight straight into electricity!' },
+        { h: 'Plant trees, help bees', pic: 'grass|🌳 50 64 50 sway|🌼 120 86 24|🐝 140 50 20 fly|🌻 170 76 32 sway', t: 'Trees clean the air. Flowers feed the bees.', m: 'Planting flowers helps bees and butterflies find food.', b: 'Bees pollinate many of the plants we eat.', dyk: 'One tree can be home to hundreds of insects and birds!' }
+      ],
+      quiz: [
+        { k: 'sort', q: 'Recycle it or compost it?', g: [['♻️', 'Recycling bin'], ['🪱', 'Compost']], items: [['🥫', 'can', 0], ['🍌', 'banana peel', 1], ['📰', 'newspaper', 0], ['🍎', 'apple core', 1], ['🍾', 'glass bottle', 0], ['🥚', 'eggshells', 1]] },
+        { k: 'tf', q: 'Turning off the light when you leave a room saves energy.', pic: 'inside|💡 100 50 40 pulse', a: true, why: 'Less electricity is used.' },
+        { k: 'pic', q: 'Where should litter go?', o: [['🗑️', 'in a bin'], ['🌊', 'in the sea'], ['🌳', 'on the grass']], a: 0 },
+        { k: 'order', q: 'How is a can recycled? Put it in order.', items: [['🥫', 'use the can'], ['♻️', 'recycling bin'], ['🏭', 'melted at a factory'], ['🎁', 'made into something new']], hint: 'First you use it.' },
+        { k: 'pic', q: 'Which one helps the Earth?', o: [['🌳', 'planting a tree'], ['💡', 'lights on all day'], ['🚰', 'leaving the tap running']], a: 0,
+          h: { k: 'pic', q: 'What does "reuse" mean?', o: [['🔁', 'use it again'], ['🗑️', 'throw it away'], ['🛍️', 'buy a new one']], a: 0, why: 'Reuse means using something again, like a jar for pencils.' } }
+      ] }
+  ];
+
+  const LABS = [
+    { id: 'float', ico: '🛁', name: 'Float or sink?', c: '#2776C3', blurb: 'Drop things in the water',
+      items: [['🦆', 'rubber duck', 1, 0, 'It is full of air.'], ['🪨', 'stone', 0, 0, 'It is heavy for its size.'], ['🍎', 'apple', 1, 0, 'Apples have air inside.'], ['🔑', 'key', 0, 0, 'Metal is heavy for its size.'],
+        ['🍃', 'leaf', 1, 0, 'It is thin and light.'], ['🪙', 'coin', 0, 0, 'It is small but heavy.'], ['🪵', 'wooden block', 1, 1, 'Wood is lighter than water.'], ['🥄', 'metal spoon', 0, 1, 'Metal sinks unless it holds air, like a boat.']] },
+    { id: 'magnet', ico: '🧲', name: 'Magnet test', c: '#C44E40', blurb: 'What will stick?',
+      items: [['📎', 'paper clip', 1, 0, 'It is made of steel.'], ['✏️', 'pencil', 0, 0, 'Wood and graphite.'], ['🔩', 'nut and bolt', 1, 0, 'They are made of steel.'], ['🧸', 'teddy', 0, 0, 'Fabric and stuffing.'],
+        ['🧷', 'safety pin', 1, 0, 'It is made of steel.'], ['🍌', 'banana', 0, 0, ''], ['🥫', 'tin can', 1, 1, 'Food tins are steel inside.'], ['🥤', 'plastic cup', 0, 1, 'Plastic is not magnetic.']] },
+    { id: 'plant', ico: '🌱', name: 'Grow a plant', c: '#268457', blurb: 'Water and sunshine',
+      stages: [['Seed', '🟤', 'A seed sleeps in the soil.', 'A seed holds a baby plant and its food store.'], ['Roots', '🪢', 'Roots grow down to find water.', 'The seed germinates: roots grow down first.'],
+        ['Sprout', '🌱', 'A shoot pushes up into the light!', 'The shoot grows up towards the light.'], ['Leaves', '🌿', 'Leaves open to catch the sunshine.', 'Leaves use sunlight to make food: photosynthesis.'],
+        ['Bud', '🌷', 'A flower bud is getting ready.', 'The bud protects the flower while it grows.'], ['Flower', '🌻', 'A beautiful flower! It will make new seeds.', 'The flower is pollinated and makes new seeds.']] },
+    { id: 'weather', ico: '🧥', name: 'Dress for the weather', c: '#B4462B', blurb: 'Sun, rain or snow?',
+      clothes: [['🧢', 'cap'], ['🕶️', 'sunglasses'], ['👕', 'T-shirt'], ['🩳', 'shorts'], ['🧥', 'coat'], ['🧣', 'scarf'], ['🧤', 'gloves'], ['👢', 'boots'], ['☂️', 'umbrella'], ['🩴', 'flip-flops']],
+      days: [
+        { name: 'Sunny', ico: '☀️', pic: 'sky|@sun 100 40 2', need: [0, 2, 3], bad: [4, 5, 6], say: 'The sun is hot!', needWhy: 'Keep cool and keep the sun off your head.', badWhy: 'That is too warm for a hot day!' },
+        { name: 'Rainy', ico: '🌧️', pic: 'rain|@rain 70 30 1.4|@rain 140 26 1.2', need: [4, 7, 8], bad: [3, 9, 1], say: 'It is pouring with rain!', needWhy: 'You need to stay dry.', badWhy: 'That won\'t keep you dry.' },
+        { name: 'Snowy', ico: '❄️', pic: 'snow|@snowfall 70 26 1.4|@snowfall 140 22 1.2|⛄ 100 84 30', need: [4, 5, 6, 7], bad: [3, 9], say: 'Brr, it is snowing!', needWhy: 'Keep warm from head to toe.', badWhy: 'You would be far too cold!' }
+      ] },
+    { id: 'shadow', ico: '🐰', name: 'Shadow puppets', c: '#7A5A00', blurb: 'Move the sun',
+      puppets: [['🐰', 'bunny'], ['🦖', 'dinosaur'], ['🧍', 'me'], ['🌲', 'tree']],
+      challenges: [
+        { t: 'Make the shadow short. Put the sun high in the sky!', ok: dx => Math.abs(dx) < 30, win: 'Short shadow! When the sun is high, shadows are short.' },
+        { t: 'Make a long shadow that points to the left.', ok: dx => dx < -75, win: 'Yes! The sun is low on the right, so the shadow stretches left.' },
+        { t: 'Now make a long shadow that points to the right.', ok: dx => dx > 75, win: 'Brilliant! Shadows point away from the light.' }
+      ] },
+    { id: 'planets', ico: '🪐', name: 'Planet order', c: '#2B2F77', blurb: 'Line them up from the Sun',
+      planets: [['mercury', 'Mercury'], ['venus', 'Venus'], ['earth', 'Earth'], ['mars', 'Mars'], ['jupiter', 'Jupiter'], ['saturn', 'Saturn'], ['uranus', 'Uranus'], ['neptune', 'Neptune']] }
+  ];
+
+  const HOME = [
+    { id: 'rainbow', ico: '🌈', name: 'Make a rainbow', pic: 'sky|@sun 30 26 1.2|@glass 100 70 1.6|@rainbow 160 100 0.8', intro: 'Catch sunlight in a glass of water and make your own rainbow!',
+      need: ['a clear glass of water', 'a sunny window', 'a sheet of white paper'], steps: ['Fill the glass with water.', 'Stand it on a sunny window sill.', 'Put the white paper on the floor below.', 'Move the paper until a rainbow appears!'],
+      why: 'The water bends the sunlight and splits it into its colours, just like raindrops do.', why2: 'Water refracts (bends) light. Each colour bends a different amount, so white light spreads into a spectrum.' },
+    { id: 'floattub', ico: '🛁', name: 'Float or sink tub', pic: 'sea|🦆 60 46 28 bob|🍎 110 48 24 bob|🔑 150 96 22', intro: 'Test toys and kitchen things in a tub of water.',
+      need: ['a washing-up bowl of water', 'a towel', 'small things to test: a cork, a spoon, an apple, a toy'], steps: ['Put the bowl on a towel.', 'Pick a thing and guess: float or sink?', 'Gently put it in the water.', 'Sort your things into two piles: floaters and sinkers.'],
+      safety: 'Stay with young children near water, even a small bowl.', why: 'Things that are light for their size float. Heavy-for-their-size things sink.' },
+    { id: 'bean', ico: '🫘', name: 'Grow a bean in a jar', pic: 'sky|@glass 100 70 1.8|🌱 100 44 28 grow', intro: 'Watch roots and a shoot grow, day by day!',
+      need: ['a clear jar', 'kitchen paper or cotton wool', 'a dried bean (like a broad bean)', 'water'], steps: ['Line the jar with damp kitchen paper.', 'Push the bean between the paper and the glass.', 'Keep the paper damp, not flooded.', 'Look every day. Draw what you see!'],
+      why: 'The bean uses its own food store to grow roots down and a shoot up towards the light.', why2: 'This is germination. Roots grow down because of gravity; the shoot grows towards light.' },
+    { id: 'cloudjar', ico: '🌧️', name: 'Rain cloud in a jar', pic: 'sky|@glass 100 70 2|@cloud 100 40 1|@drop 100 82 0.6', intro: 'Make it rain inside a jar!',
+      need: ['a jar of water', 'shaving foam', 'blue food colouring', 'a dropper or teaspoon'], steps: ['Fill the jar three quarters with water.', 'Squirt a "cloud" of shaving foam on top.', 'Drip blue colouring onto the cloud.', 'Watch: when the cloud is full, it "rains"!'],
+      safety: 'A grown-up should handle the shaving foam. Keep it away from eyes and mouths.', why: 'Like a real cloud, the foam can only hold so much water before it falls as rain.' },
+    { id: 'raisins', ico: '🍇', name: 'Dancing raisins', pic: 'inside|@glass 100 70 2|🍇 92 80 12 bob|🍇 108 70 12 bob 0.5', intro: 'Make raisins dance up and down in a glass!',
+      need: ['a clear glass', 'fizzy water', 'a few raisins'], steps: ['Pour fizzy water into the glass.', 'Drop in 5 raisins.', 'Watch them sink... then rise... then sink again!'],
+      why: 'Bubbles stick to the raisins and lift them up. At the top the bubbles pop and the raisins sink.', why2: 'Carbon dioxide bubbles make the raisins less dense, so they float; when the gas escapes they sink again.' },
+    { id: 'volcano', ico: '🌋', name: 'Fizzy volcano', pic: 'desert|🌋 100 64 56|✨ 100 26 20 pulse', intro: 'Make a fizzing, foaming volcano!',
+      need: ['a small cup or bottle', 'a tray', '2 spoons of baking soda', 'vinegar', 'a drop of washing-up liquid', 'red food colouring'], steps: ['Stand the cup on a tray.', 'Put in the baking soda, washing-up liquid and colouring.', 'A grown-up pours in some vinegar.', 'Stand back and watch it erupt!'],
+      safety: 'A grown-up pours the vinegar. Keep it away from eyes, and wash hands afterwards.', why: 'Baking soda and vinegar react and make lots of gas bubbles.', why2: 'An acid (vinegar) and a base (baking soda) react to make carbon dioxide gas: a chemical reaction.' },
+    { id: 'walkwater', ico: '🌈', name: 'Walking water', pic: 'inside|@glass 50 70 1.4|@glass 100 70 1.4|@glass 150 70 1.4', intro: 'Watch coloured water climb up paper and mix!',
+      need: ['3 clear cups', 'kitchen paper', 'water', 'red and blue food colouring'], steps: ['Put the cups in a row.', 'Fill the two end cups with water. Colour one red, one blue.', 'Fold two strips of kitchen paper into bridges between the cups.', 'Wait an hour. What colour is the middle cup?'],
+      why: 'Water climbs up through tiny gaps in the paper and mixes in the middle cup, making purple!', why2: 'This is capillary action: water creeps along tiny spaces in the paper fibres.' },
+    { id: 'maghunt', ico: '🧲', name: 'Magnet hunt', pic: 'inside|@magnet 70 50 1.8 wiggle|🥄 130 70 26|🧸 170 70 26', intro: 'Go on a hunt for magnetic things around your home.',
+      need: ['a fridge magnet', 'a paper and pencil'], steps: ['Make two columns: sticks and does not stick.', 'Touch the magnet to things around the house.', 'Write or draw each thing in the right column.', 'Which materials stick?'],
+      safety: 'Keep magnets away from phones, computers and bank cards, and never put small magnets in your mouth.', why: 'Only things with iron or steel in them stick to a magnet.' },
+    { id: 'shadowtrace', ico: '🌞', name: 'Shadow tracing', pic: 'grass|@sun 30 24 1.1|🧸 100 74 34|@shadow 140 94 1.6', intro: 'Trace a toy\'s shadow in the morning and afternoon.',
+      need: ['a toy', 'paper', 'a pencil or chalk', 'a sunny day'], steps: ['Stand the toy on paper outside in the morning.', 'Trace around its shadow.', 'Come back after lunch and trace it again.', 'Has the shadow moved? Is it longer or shorter?'],
+      safety: 'Never look straight at the Sun.', why: 'As the Sun moves across the sky, the shadow moves and changes length.' },
+    { id: 'stringphone', ico: '📞', name: 'String telephone', pic: 'inside|🥤 40 60 30|🥤 160 60 30|@sound 70 60 1', intro: 'Talk to a friend through a string!',
+      need: ['2 paper cups', 'a long piece of string', 'a sharp pencil'], steps: ['A grown-up pokes a small hole in the bottom of each cup.', 'Thread the string through and tie a knot inside.', 'Walk apart until the string is tight.', 'Whisper into one cup while your friend listens!'],
+      safety: 'A grown-up makes the holes with the sharp pencil.', why: 'Your voice makes the string vibrate, and the vibrations carry the sound to the other cup.' },
+    { id: 'icemelt', ico: '🧊', name: 'Ice melt race', pic: 'inside|@ice 60 70 1.6|@ice 140 70 1.6|🧂 100 40 24', intro: 'Which ice cube melts fastest?',
+      need: ['4 ice cubes', '4 plates', 'salt', 'sugar', 'a timer'], steps: ['Put one ice cube on each plate.', 'Sprinkle salt on one, sugar on one, put one in the sun, and leave one alone.', 'Guess which will melt first.', 'Check every 5 minutes!'],
+      why: 'Salt and warmth make ice melt faster. That\'s why salt is put on icy roads.', why2: 'Salt lowers the temperature at which water freezes, so the ice melts even below 0°C.' },
+    { id: 'balloon', ico: '🎈', name: 'Static balloon', pic: 'inside|🎈 90 40 34 float|🧒 140 74 34', intro: 'Make your hair stand up with a balloon!',
+      need: ['a balloon', 'your hair or a woolly jumper', 'tiny bits of paper'], steps: ['Blow up the balloon and tie it.', 'Rub it on your hair for 10 seconds.', 'Lift it slowly: does your hair follow?', 'Hold it over the paper bits. Do they jump up?'],
+      safety: 'A grown-up blows up the balloon. Pieces of burst balloon are a choking danger, so tidy them away.', why: 'Rubbing gives the balloon a charge of static electricity, which pulls on light things.' }
+  ];
+  return { TOPICS, LABS, HOME };
+}
+/* ---------- Science & Nature: picture cards, quizzes, mini-labs and try-at-home experiments ---------- */
+// 14 topics (my body, animals, life cycles, plants, weather, space, water, materials, forces, light, sound, dinosaurs,
+// the ocean and caring for Earth). Each topic has picture cards (a fact, more for older children, and a "Did you
+// know?") and a 5-question quiz of mixed kinds: tap the picture, true or false, sort into groups, and put a cycle in
+// order by dragging. Six mini-labs (float or sink, magnets, grow a plant, dress for the weather, shadow puppets, planet
+// order) and 12 safe experiments to try at home. Every picture is drawn here in SVG and emoji, nothing is downloaded.
+// The data lives in science2.js and is built the first time this area opens, so the home screen stays quick.
+// Progress is kept per player in st.science, so it is saved, backed up and removed with the player like the rest.
+//
+// Stars: reading all the cards of a topic 1 (once); a quiz 1 per question right first time, +2 for 5 of 5 (the first
+// time it is finished), 1 for a repeat; a topic badge (4 or 5 right first time) +3 once; a mini-lab 3 the first time,
+// then 1; trying an experiment at home 2 (once).
+const scienceHome = (() => {
+  let DATA = null;
+  const D = () => DATA || (DATA = sciData());
+  let fast = false; // tests: shorter pauses
+  const wait = ms => fast ? 40 : ms;
+  const OL = '#22305A';
+  const f1 = n => Math.round(n * 10) / 10;
+  const tierAge = () => +st.age || 5;
+
+  /* --- saved progress, read defensively (an old or damaged save fills itself in) --- */
+  const isObj = v => v && typeof v === 'object' && !Array.isArray(v);
+  function sc(s = st) {
+    if (!isObj(s.science)) s.science = {};
+    const S = s.science;
+    for (const k of ['seen', 'cards', 'quiz', 'badges', 'labs', 'home']) if (!isObj(S[k])) S[k] = {};
+    return S;
+  }
+
+  /* --- pictures: a tiny scene language. "bg|emoji x y size anim delay|@drawer x y scale anim" in a 200x120 box --- */
+  const DR = {
+    cloud: (x, y, s, grey) => `<g transform="translate(${x} ${y}) scale(${s})"><ellipse cx="0" cy="6" rx="24" ry="9" fill="${grey ? '#9AA6B4' : '#fff'}"/><circle cx="-9" cy="0" r="10" fill="${grey ? '#9AA6B4' : '#fff'}"/><circle cx="6" cy="-4" r="13" fill="${grey ? '#AEB9C6' : '#fff'}"/></g>`,
+    storm: (x, y, s) => DR.cloud(x, y, s, 1),
+    rain: (x, y, s) => DR.cloud(x, y, s, 1) + [-14, -5, 4, 13].map((dx, i) => `<g class="sc-a sc-fall" style="animation-delay:${i * 0.25}s"><line x1="${f1(x + dx * s)}" y1="${f1(y + 14 * s)}" x2="${f1(x + dx * s - 2)}" y2="${f1(y + 21 * s)}" stroke="#2E8BE6" stroke-width="2.4" stroke-linecap="round"/></g>`).join(''),
+    snowfall: (x, y, s) => DR.cloud(x, y, s) + [-12, 0, 12].map((dx, i) => `<g class="sc-a sc-fall" style="animation-delay:${i * 0.4}s"><text x="${f1(x + dx * s)}" y="${f1(y + 20 * s)}" font-size="${f1(9 * s)}" text-anchor="middle">❄️</text></g>`).join(''),
+    sun: (x, y, s) => `<g class="sc-a sc-spin"><g transform="translate(${x} ${y}) scale(${s})">${Array.from({ length: 10 }, (_, i) => `<line x1="0" y1="-15" x2="0" y2="-21" stroke="#FFB020" stroke-width="3" stroke-linecap="round" transform="rotate(${i * 36})"/>`).join('')}</g></g><circle cx="${x}" cy="${y}" r="${f1(12 * s)}" fill="#FFC23D" stroke="#F0A020" stroke-width="1.5"/>`,
+    moon: (x, y, s) => `<path transform="translate(${x} ${y}) scale(${s})" d="M4,-14 A14,14 0 1 0 4,14 A11,11 0 1 1 4,-14Z" fill="#FFF3B0" stroke="#E6C860" stroke-width="1.2"/>`,
+    drop: (x, y, s, c = '#2E8BE6') => `<path transform="translate(${x} ${y}) scale(${s})" d="M0,-14 C6,-5 10,0 10,5 A10,10 0 0 1 -10,5 C-10,0 -6,-5 0,-14Z" fill="${c}" stroke="${OL}" stroke-width="1.2"/><circle cx="${f1(x - 3 * s)}" cy="${f1(y + 3 * s)}" r="${f1(2.2 * s)}" fill="#fff" opacity=".7"/>`,
+    waves: (x, y, s) => `<g class="sc-a sc-sway">${[0, 8].map(dy => `<path d="M${f1(x - 40 * s)},${f1(y + dy * s)} ${Array.from({ length: 8 }, (_, i) => `q${f1(5 * s)},${f1(-5 * s)} ${f1(10 * s)},0`).join(' ')}" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" opacity=".85"/>`).join('')}</g>`,
+    arrow: (x, y, s, rot = 0, c = '#F2604F') => `<g transform="translate(${x} ${y}) rotate(${rot}) scale(${s})"><line x1="-14" y1="0" x2="10" y2="0" stroke="${c}" stroke-width="4" stroke-linecap="round"/><path d="M8,-7 L17,0 L8,7Z" fill="${c}"/></g>`,
+    arrowU: (x, y, s) => DR.arrow(x, y, s, -90), arrowD: (x, y, s) => DR.arrow(x, y, s, 90, '#2E8BE6'), arrowL: (x, y, s) => DR.arrow(x, y, s, 180, '#6D55D1'), arrowR: (x, y, s) => DR.arrow(x, y, s, 0, '#2FA36B'),
+    cycle: (x, y, s) => `<g class="sc-a sc-spin-slow"><g transform="translate(${x} ${y}) scale(${s})">${[0, 90, 180, 270].map(r => `<g transform="rotate(${r})"><path d="M18,-4 A18,18 0 0 1 4,17" fill="none" stroke="#6D55D1" stroke-width="3"/><path d="M8,14 L2,20 L-1,12Z" fill="#6D55D1"/></g>`).join('')}</g></g>`,
+    rainbow: (x, y, s) => `<g transform="translate(${x} ${y}) scale(${s})">${['#F2604F', '#FF8A2B', '#FFC23D', '#2FA36B', '#2E8BE6', '#4B37A6', '#8E5BD6'].map((c, i) => `<path d="M${-40 + i * 3},0 A${40 - i * 3},${40 - i * 3} 0 0 1 ${40 - i * 3},0" fill="none" stroke="${c}" stroke-width="3.2"/>`).join('')}</g>`,
+    sound: (x, y, s) => [0, 1, 2].map(i => `<g class="sc-a sc-pulse" style="animation-delay:${i * 0.3}s"><path transform="translate(${x} ${y}) scale(${s})" d="M${6 + i * 7},-${8 + i * 6} Q${12 + i * 9},0 ${6 + i * 7},${8 + i * 6}" fill="none" stroke="#6D55D1" stroke-width="2.6" stroke-linecap="round"/></g>`).join(''),
+    magnet: (x, y, s) => `<g transform="translate(${x} ${y}) scale(${s})"><path d="M-14,10 L-14,-4 A14,14 0 0 1 14,-4 L14,10 L6,10 L6,-4 A6,6 0 0 0 -6,-4 L-6,10Z" fill="#F2604F" stroke="${OL}" stroke-width="1.4"/><rect x="-14" y="6" width="8" height="8" fill="#C9D3DC" stroke="${OL}" stroke-width="1.2"/><rect x="6" y="6" width="8" height="8" fill="#C9D3DC" stroke="${OL}" stroke-width="1.2"/></g>`,
+    heart: (x, y, s) => `<g class="sc-a sc-beat"><path transform="translate(${x} ${y}) scale(${s})" d="M0,12 C-20,0 -12,-16 0,-7 C12,-16 20,0 0,12Z" fill="#E8443A" stroke="${OL}" stroke-width="1.3"/></g>`,
+    lungs: (x, y, s) => `<g class="sc-a sc-breathe"><g transform="translate(${x} ${y}) scale(${s})"><line x1="0" y1="-16" x2="0" y2="-4" stroke="#C96E96" stroke-width="3"/><path d="M-2,-4 C-10,-10 -18,-2 -17,10 C-16,17 -6,16 -3,12Z" fill="#F49AC1" stroke="${OL}" stroke-width="1.2"/><path d="M2,-4 C10,-10 18,-2 17,10 C16,17 6,16 3,12Z" fill="#F49AC1" stroke="${OL}" stroke-width="1.2"/></g></g>`,
+    roots: (x, y, s) => `<g transform="translate(${x} ${y}) scale(${s})"><rect x="-22" y="0" width="44" height="18" fill="#A86B3C" opacity=".55"/><path d="M0,0 L0,-16" stroke="#2FA36B" stroke-width="3"/><path d="M0,-12 q-9,-6 -12,-1 q6,4 12,1Z M0,-16 q9,-6 12,-1 q-6,4 -12,1Z" fill="#2FA36B"/><path d="M0,0 L0,9 M0,4 L-8,12 M0,6 L8,14 M0,9 L-3,16 M-8,12 L-12,15 M8,14 L12,17" stroke="#FFF3D6" stroke-width="1.8" stroke-linecap="round"/></g>`,
+    dandelion: (x, y, s) => `<g transform="translate(${x} ${y}) scale(${s})"><path d="M0,18 Q2,4 0,-4" stroke="#2FA36B" stroke-width="2.4" fill="none"/>${Array.from({ length: 14 }, (_, i) => `<line x1="0" y1="-8" x2="${f1(11 * Math.cos(i / 14 * 6.283))}" y2="${f1(-8 + 11 * Math.sin(i / 14 * 6.283))}" stroke="#B8C2CC" stroke-width="1"/><circle cx="${f1(11 * Math.cos(i / 14 * 6.283))}" cy="${f1(-8 + 11 * Math.sin(i / 14 * 6.283))}" r="1.8" fill="#fff" stroke="#B8C2CC" stroke-width=".6"/>`).join('')}<circle cx="0" cy="-8" r="2.4" fill="#C9A060"/></g>`,
+    chrys: (x, y, s) => `<g transform="translate(${x} ${y}) scale(${s})"><line x1="-16" y1="-16" x2="16" y2="-16" stroke="#8B5A2B" stroke-width="3" stroke-linecap="round"/><line x1="0" y1="-16" x2="0" y2="-11" stroke="#8B5A2B" stroke-width="1.5"/><path d="M0,-11 C8,-8 8,8 0,16 C-8,8 -8,-8 0,-11Z" fill="#7FB04A" stroke="${OL}" stroke-width="1.2"/><path d="M-4,-2 Q0,0 4,-2 M-4,4 Q0,6 4,4" stroke="#4E7A1E" stroke-width="1" fill="none"/></g>`,
+    spawn: (x, y, s) => `<g transform="translate(${x} ${y}) scale(${s})">${[[-8, -6], [3, -9], [12, -2], [-12, 4], [-2, 2], [8, 8], [-5, 11], [14, 10], [4, 14]].map(([a, b]) => `<circle cx="${a}" cy="${b}" r="5" fill="rgba(230,245,255,.9)" stroke="#8EC5F5" stroke-width="1"/><circle cx="${a}" cy="${b}" r="1.8" fill="${OL}"/>`).join('')}</g>`,
+    tadpole: (x, y, s) => `<g class="sc-a sc-swim"><g transform="translate(${x} ${y}) scale(${s})"><ellipse cx="-4" cy="0" rx="8" ry="6" fill="#3A3F4A"/><path d="M3,0 Q10,-6 16,0 Q22,6 26,0" stroke="#3A3F4A" stroke-width="3" fill="none" stroke-linecap="round"/><circle cx="-7" cy="-2" r="1.5" fill="#fff"/></g></g>`,
+    froglet: (x, y, s) => `<g transform="translate(${x} ${y}) scale(${s})"><path d="M8,4 Q18,8 24,2" stroke="#4E9A3A" stroke-width="3" fill="none" stroke-linecap="round"/><ellipse cx="0" cy="2" rx="11" ry="8" fill="#6CC04A" stroke="${OL}" stroke-width="1.2"/><circle cx="-5" cy="-6" r="3.6" fill="#fff" stroke="${OL}" stroke-width="1"/><circle cx="4" cy="-6" r="3.6" fill="#fff" stroke="${OL}" stroke-width="1"/><circle cx="-5" cy="-6" r="1.5" fill="${OL}"/><circle cx="4" cy="-6" r="1.5" fill="${OL}"/><path d="M-9,8 l-5,5 M7,9 l2,5" stroke="#4E9A3A" stroke-width="2.4" stroke-linecap="round"/></g>`,
+    evap: (x, y, s) => [-12, 0, 12].map((dx, i) => `<g class="sc-a sc-rise" style="animation-delay:${i * 0.5}s"><path transform="translate(${f1(x + dx * s)} ${y}) scale(${s})" d="M0,10 q-4,-5 0,-10 q4,-5 0,-10" stroke="#8EC5F5" stroke-width="2.4" fill="none" stroke-linecap="round"/></g>`).join(''),
+    steam: (x, y, s) => DR.evap(x, y, s),
+    coral: (x, y, s) => `<g transform="translate(${x} ${y}) scale(${s})"><path d="M-14,16 L-14,0 M-14,4 L-20,-6 M-14,2 L-8,-8 M0,16 L0,-10 M0,-4 L6,-14 M0,0 L-6,-12 M14,16 L14,-2 M14,4 L20,-8" stroke="#F2789A" stroke-width="5" stroke-linecap="round"/><circle cx="-20" cy="-6" r="3" fill="#FF8A2B"/><circle cx="6" cy="-14" r="3" fill="#FFC23D"/><circle cx="20" cy="-8" r="3" fill="#FF8A2B"/></g>`,
+    bury: (x, y, s) => `<g transform="translate(${x} ${y}) scale(${s})"><rect x="-22" y="-14" width="44" height="9" fill="#C9A06A"/><rect x="-22" y="-5" width="44" height="9" fill="#A97D4A"/><rect x="-22" y="4" width="44" height="10" fill="#8B6239"/><text x="0" y="0" font-size="14" text-anchor="middle" dominant-baseline="central">🦴</text></g>`,
+    planet: (x, y, s, c, ring, bands) => `<g transform="translate(${x} ${y}) scale(${s})">${ring ? `<ellipse cx="0" cy="0" rx="22" ry="6" fill="none" stroke="#D9C38A" stroke-width="3"/>` : ''}<circle cx="0" cy="0" r="12" fill="${c}" stroke="${OL}" stroke-width="1.2"/>${bands ? '<path d="M-11,-4 H11 M-12,2 H12 M-10,7 H10" stroke="rgba(120,70,30,.45)" stroke-width="2"/>' : ''}${ring ? `<path d="M-22,0 A22,6 0 0 0 22,0" fill="none" stroke="#D9C38A" stroke-width="3"/>` : ''}</g>`,
+    mercury: (x, y, s) => DR.planet(x, y, s * 0.6, '#A9A9A9'), venus: (x, y, s) => DR.planet(x, y, s * 0.85, '#E8C77A'),
+    earth: (x, y, s) => `<g transform="translate(${x} ${y}) scale(${s * 0.9})"><circle r="12" fill="#2E8BE6" stroke="${OL}" stroke-width="1.2"/><path d="M-8,-6 q4,-4 8,-1 q2,4 -3,6 q-4,2 -5,-5Z M2,4 q5,-2 7,2 q-1,5 -6,4Z" fill="#2FA36B"/></g>`,
+    mars: (x, y, s) => DR.planet(x, y, s * 0.7, '#D9663B'), jupiter: (x, y, s) => DR.planet(x, y, s * 1.4, '#D9A66B', 0, 1),
+    saturn: (x, y, s) => DR.planet(x, y, s * 1.15, '#E8CF8F', 1), uranus: (x, y, s) => DR.planet(x, y, s, '#8FD8E0'), neptune: (x, y, s) => DR.planet(x, y, s, '#3D6FE0'),
+    orbit: (x, y, s) => `<ellipse cx="${x}" cy="${y}" rx="${f1(40 * s)}" ry="${f1(14 * s)}" fill="none" stroke="#fff" stroke-opacity=".5" stroke-dasharray="3 3"/>`,
+    shadow: (x, y, s) => `<ellipse cx="${x}" cy="${y}" rx="${f1(20 * s)}" ry="${f1(4 * s)}" fill="rgba(34,48,90,.35)"/>`,
+    seed: (x, y, s) => `<ellipse cx="${x}" cy="${y}" rx="${f1(6 * s)}" ry="${f1(4 * s)}" fill="#A86B3C" stroke="${OL}" stroke-width="1"/>`,
+    pot: (x, y, s) => `<g transform="translate(${x} ${y}) scale(${s})"><path d="M-14,-8 L14,-8 L10,12 L-10,12Z" fill="#D9663B" stroke="${OL}" stroke-width="1.3"/><rect x="-16" y="-12" width="32" height="6" rx="2" fill="#E07A4F" stroke="${OL}" stroke-width="1.3"/></g>`,
+    bin: (x, y, s) => `<g transform="translate(${x} ${y}) scale(${s})"><rect x="-12" y="-12" width="24" height="26" rx="3" fill="#2FA36B" stroke="${OL}" stroke-width="1.3"/><rect x="-14" y="-16" width="28" height="5" rx="2" fill="#268457" stroke="${OL}" stroke-width="1.2"/><text x="0" y="2" font-size="13" fill="#fff" text-anchor="middle" dominant-baseline="central">♻</text></g>`,
+    ice: (x, y, s) => `<g transform="translate(${x} ${y}) scale(${s})"><path d="M-10,-6 L0,-12 L12,-6 L12,8 L2,14 L-10,8Z" fill="#D9F1FF" stroke="#8EC5F5" stroke-width="1.4"/><path d="M-10,-6 L2,0 L12,-6 M2,0 L2,14" stroke="#8EC5F5" stroke-width="1.2" fill="none"/></g>`,
+    ramp: (x, y, s) => `<path transform="translate(${x} ${y}) scale(${s})" d="M-30,14 L30,14 L30,-14Z" fill="#D9A86C" stroke="${OL}" stroke-width="1.3"/>`,
+    thermo: (x, y, s) => `<g transform="translate(${x} ${y}) scale(${s})"><rect x="-4" y="-18" width="8" height="28" rx="4" fill="#fff" stroke="${OL}" stroke-width="1.2"/><rect x="-2" y="-6" width="4" height="16" fill="#F2604F"/><circle cx="0" cy="12" r="6" fill="#F2604F" stroke="${OL}" stroke-width="1.2"/></g>`,
+    glass: (x, y, s) => `<g transform="translate(${x} ${y}) scale(${s})"><path d="M-12,-16 L12,-16 L9,16 L-9,16Z" fill="rgba(142,197,245,.35)" stroke="${OL}" stroke-width="1.3"/><path d="M-11,-4 L11,-4 L9,16 L-9,16Z" fill="rgba(46,139,230,.45)"/></g>`,
+    footprint: (x, y, s) => `<g transform="translate(${x} ${y}) scale(${s})"><ellipse cx="0" cy="4" rx="7" ry="9" fill="#8B6239"/><circle cx="-7" cy="-9" r="3" fill="#8B6239"/><circle cx="0" cy="-11" r="3" fill="#8B6239"/><circle cx="7" cy="-9" r="3" fill="#8B6239"/></g>`,
+    ray: (x, y, s) => `<g class="sc-a sc-pulse"><path d="M${x},${y} L${f1(x + 60 * s)},${f1(y + 30 * s)}" stroke="#FFD75E" stroke-width="5" stroke-linecap="round" opacity=".8"/></g>`,
+    vibe: (x, y, s) => `<g class="sc-a sc-wiggle"><g transform="translate(${x} ${y}) scale(${s})"><path d="M-12,-10 l-4,4 l4,4 l-4,4 l4,4 M12,-10 l4,4 l-4,4 l4,4 l-4,4" stroke="#6D55D1" stroke-width="2" fill="none" stroke-linecap="round"/></g></g>`,
+    brain: (x, y, s) => `<g transform="translate(${x} ${y}) scale(${s})"><path d="M-14,4 C-20,-6 -10,-16 -2,-12 C2,-18 14,-16 14,-6 C20,-2 16,10 8,10 C4,14 -6,14 -8,10 C-14,12 -18,8 -14,4Z" fill="#F7A8C4" stroke="${OL}" stroke-width="1.3"/><path d="M0,-12 Q-3,0 0,12 M-10,-4 q4,2 6,-2 M6,-6 q2,4 6,2 M-8,6 q3,-2 5,1 M4,6 q3,-2 6,0" stroke="#C96E96" stroke-width="1.2" fill="none"/></g>`,
+    stars: (x, y, s) => [[-30, -8], [-12, 6], [6, -12], [22, 4], [34, -10], [-22, 14]].map(([a, b], i) => `<g class="sc-a sc-twinkle" style="animation-delay:${i * 0.3}s">${`<circle cx="${f1(x + a * s)}" cy="${f1(y + b * s)}" r="${f1(1.6 * s)}" fill="#FFF3B0"/>`}</g>`).join('')
+  };
+  const BG = {
+    sky: '<rect width="200" height="120" fill="#CDE9FB"/><rect y="96" width="200" height="24" fill="#8FD18A"/>',
+    grass: '<rect width="200" height="120" fill="#E4F6D8"/><rect y="92" width="200" height="28" fill="#7CC36E"/>',
+    night: '<rect width="200" height="120" fill="#1E2A55"/><rect y="98" width="200" height="22" fill="#2E4A3A"/><circle cx="30" cy="20" r="1.5" fill="#fff"/><circle cx="80" cy="12" r="1.2" fill="#fff"/><circle cx="130" cy="26" r="1.4" fill="#fff"/><circle cx="175" cy="14" r="1.2" fill="#fff"/>',
+    space: '<rect width="200" height="120" fill="#0E1433"/>' + [[20, 15], [50, 90], [90, 30], [120, 100], [160, 20], [185, 70], [70, 60], [140, 60], [10, 70]].map(([a, b]) => `<circle cx="${a}" cy="${b}" r="1.2" fill="#fff" opacity=".8"/>`).join(''),
+    sea: '<rect width="200" height="120" fill="#CDE9FB"/><rect y="52" width="200" height="68" fill="#4FA8E0"/>',
+    under: '<rect width="200" height="120" fill="#2E86C8"/><rect y="104" width="200" height="16" fill="#F1D9A0"/><circle cx="30" cy="40" r="3" fill="none" stroke="#BFE3FF"/><circle cx="36" cy="28" r="2" fill="none" stroke="#BFE3FF"/><circle cx="170" cy="50" r="2.5" fill="none" stroke="#BFE3FF"/>',
+    deep: '<rect width="200" height="120" fill="#0B2545"/><rect y="108" width="200" height="12" fill="#3B3F5C"/>',
+    snow: '<rect width="200" height="120" fill="#E8F1FA"/><rect y="94" width="200" height="26" fill="#fff"/>',
+    rain: '<rect width="200" height="120" fill="#B7C4D3"/><rect y="96" width="200" height="24" fill="#7FAF73"/>',
+    inside: '<rect width="200" height="120" fill="#FFF3D6"/><rect y="98" width="200" height="22" fill="#E8C9A0"/>',
+    lab: '<rect width="200" height="120" fill="#E6F4F1"/><rect y="96" width="200" height="24" fill="#D9B98A"/>',
+    desert: '<rect width="200" height="120" fill="#FFE9B8"/><path d="M0,96 Q50,84 100,96 T200,94 V120 H0Z" fill="#F3C77A"/>',
+    forest: '<rect width="200" height="120" fill="#D7F2E3"/><rect y="96" width="200" height="24" fill="#6FBF73"/>',
+    jungle: '<rect width="200" height="120" fill="#BFE6B0"/><rect y="96" width="200" height="24" fill="#4E9A3A"/>',
+    pond: '<rect width="200" height="120" fill="#CDE9FB"/><rect y="80" width="200" height="40" fill="#8FD18A"/><ellipse cx="100" cy="96" rx="80" ry="18" fill="#5BB0E6"/>',
+    autumn: '<rect width="200" height="120" fill="#FCE3C4"/><rect y="96" width="200" height="24" fill="#D99A4E"/>',
+    earth: '<rect width="200" height="120" fill="#DDF3E6"/><rect y="98" width="200" height="22" fill="#8FD18A"/>',
+    dusk: '<rect width="200" height="120" fill="#FFD3B0"/><rect y="96" width="200" height="24" fill="#8FB46E"/>',
+    plain: '<rect width="200" height="120" fill="#F4F7FB"/>'
+  };
+  const PLANETS = new Set(['mercury', 'venus', 'earth', 'mars', 'jupiter', 'saturn', 'uranus', 'neptune']);
+  const SKY_DARK = new Set(['night', 'space', 'deep', 'under']);
+  // One picture from its spec. Emoji sit on their x,y (centre); drawers take x, y and a scale.
+  function scene(spec, label = '') {
+    const parts = String(spec || 'plain').split('|'), bg = parts.shift().trim();
+    let body = BG[bg] || BG.plain;
+    for (const part of parts) {
+      const t = part.trim().split(/\s+/); if (!t[0]) continue;
+      const [e, x = 100, y = 60, s = 30, anim = '', delay = 0] = t;
+      const inner = e[0] === '@' ? (DR[e.slice(1)] ? DR[e.slice(1)](+x, +y, +s || 1) : '') : `<text x="${x}" y="${y}" font-size="${s}" text-anchor="middle" dominant-baseline="central">${e}</text>`;
+      body += anim && anim !== '-' ? `<g class="sc-a sc-${anim}" style="animation-delay:${+delay || 0}s">${inner}</g>` : inner;
+    }
+    return `<svg class="sc-scene${SKY_DARK.has(bg) ? ' dark' : ''}" viewBox="0 0 200 120" role="img" aria-label="${esc(label)}">${body}</svg>`;
+  }
+  // A small picture for an answer button or a drag card: an emoji, or a drawer in its own little box.
+  const icon = (ic, cls = 'sc-ic') => String(ic)[0] === '@' && DR[ic.slice(1)]
+    ? `<svg class="${cls} sc-icsvg" viewBox="0 0 60 60" aria-hidden="true">${DR[ic.slice(1)](30, 30, PLANETS.has(ic.slice(1)) ? 1.6 : 1.25)}</svg>` : `<span class="${cls}" aria-hidden="true">${ic}</span>`;
+
+  /* --- the text a child sees, by age: the fact, more from 7, the science word from 10 --- */
+  const cardText = c => [c.t, tierAge() >= 7 && c.m, tierAge() >= 10 && c.b].filter(Boolean).join(' ');
+  const quizOf = T => T.quiz.map(q => tierAge() >= 8 && q.h ? q.h : q);
+
+  /* --- drag and drop, with tap-tap as well (tap a card, then tap where it goes) --- */
+  function dragKit(root, item, target, drop) {
+    let sel = null;
+    const clear = () => { if (sel) sel.classList.remove('sc-sel'); sel = null; };
+    root.querySelectorAll(item).forEach(el => {
+      el.addEventListener('pointerdown', e => {
+        if (e.button > 0) return;
+        const sx = e.clientX, sy = e.clientY; let ghost = null, over = null;
+        try { el.setPointerCapture(e.pointerId); } catch (x) {}
+        const end = () => { el.removeEventListener('pointermove', move); el.removeEventListener('pointerup', up); el.removeEventListener('pointercancel', cancel); el.removeEventListener('lostpointercapture', cancel); if (ghost) ghost.remove(); if (over) over.classList.remove('sc-over'); el.classList.remove('sc-lift'); };
+        const move = ev => {
+          if (!ghost && Math.hypot(ev.clientX - sx, ev.clientY - sy) < 8) return;
+          if (!ghost) { const r = el.getBoundingClientRect(); ghost = el.cloneNode(true); ghost.classList.add('sc-ghost'); ghost.removeAttribute('id'); ghost.style.width = r.width + 'px'; ghost.style.height = r.height + 'px'; document.body.appendChild(ghost); el.classList.add('sc-lift'); clear(); }
+          ghost.style.left = ev.clientX - ghost.offsetWidth / 2 + 'px'; ghost.style.top = ev.clientY - ghost.offsetHeight / 2 + 'px';
+          const u = document.elementFromPoint(ev.clientX, ev.clientY), t = u && u.closest(target);
+          if (over !== t) { if (over) over.classList.remove('sc-over'); over = t && root.contains(t) ? t : null; if (over) over.classList.add('sc-over'); }
+        };
+        const up = ev => {
+          const was = !!ghost; end();
+          if (!was) return;
+          el._dragged = true; setTimeout(() => { el._dragged = false; }, 0);
+          const u = document.elementFromPoint(ev.clientX, ev.clientY), t = u && u.closest(target);
+          if (t && root.contains(t) && el.isConnected) drop(el, t);
+        };
+        const cancel = () => end();
+        el.addEventListener('pointermove', move); el.addEventListener('pointerup', up); el.addEventListener('pointercancel', cancel); el.addEventListener('lostpointercapture', cancel);
+      });
+      el.addEventListener('click', e => {
+        e.stopPropagation();
+        if (el._dragged) { el._dragged = false; return; }
+        if (sel && sel !== el) { const t = el.closest(target); if (t) { const s = sel; clear(); drop(s, t); return; } }
+        if (sel === el) { clear(); return; }
+        clear(); sel = el; el.classList.add('sc-sel'); tone([700]);
+      });
+    });
+    root.querySelectorAll(target).forEach(t => t.addEventListener('click', () => { if (sel && sel.isConnected) { const s = sel; clear(); drop(s, t); } }));
+  }
+
+  /* --- put things in order: cards from the tray into numbered slots --- */
+  // items: the right order, each [icon, label]. onCheck(ok) after Check; returns { el }.
+  function orderUI(box, items, { cycle = false, grid = 0, onCheck, onMove }) {
+    const n = items.length, slots = Array(n).fill(null);
+    let tray = shuffle(items.map((_, i) => i)), msg = '';
+    const chip = i => `<button class="sc-chip" data-it="${i}" aria-label="${esc(items[i][1])}">${icon(items[i][0])}<small>${esc(items[i][1])}</small></button>`;
+    function render() {
+      const full = slots.every(x => x != null);
+      box.innerHTML = `<div class="sc-slots${grid ? ' sc-grid' : ''}" style="--n:${grid || n}">${slots.map((it, k) => `<div class="sc-slot${it != null ? ' full' : ''}" data-slot="${k}" role="button" tabindex="0" aria-label="Place ${k + 1}"><span class="sc-sn">${k + 1}</span>${it == null ? '' : chip(it)}</div>${!grid && k < n - 1 ? '<span class="sc-arr" aria-hidden="true">➜</span>' : ''}`).join('')}</div>
+        ${cycle ? '<p class="sc-cyc">↻ …and round again!</p>' : ''}
+        <div class="sc-tray" data-slot="tray" role="button" aria-label="Tray">${tray.map(chip).join('') || '<span class="sc-empty">All placed! Tap Check.</span>'}</div>
+        <p class="sc-msg" aria-live="polite">${msg}</p>
+        <div class="row"><button class="btn leaf sc-check" id="scChk"${full ? '' : ' disabled'}>Check ✓</button></div>`;
+      dragKit(box, '.sc-chip', '.sc-slot, .sc-tray', (el, t) => {
+        const i = +el.dataset.it, from = slots.indexOf(i), to = t.dataset.slot;
+        msg = '';
+        if (to === 'tray') { if (from >= 0) { slots[from] = null; tray.push(i); } }
+        else {
+          const k = +to, there = slots[k];
+          if (from === k) return render();
+          if (from >= 0) { slots[from] = there; } else { tray = tray.filter(x => x !== i); if (there != null) tray.push(there); }
+          slots[k] = i; tone([520 + k * 60]);
+        }
+        render(); if (onMove) onMove();
+      });
+      box.querySelector('#scChk').onclick = () => {
+        if (!slots.every(x => x != null)) return;
+        const wrong = slots.map((it, k) => it !== k ? k : -1).filter(k => k >= 0);
+        if (!wrong.length) { box.querySelectorAll('.sc-slot').forEach(s => s.classList.add('right')); box.querySelector('#scChk').disabled = true; box.querySelectorAll('.sc-chip').forEach(c => c.disabled = true); onCheck(true); return; }
+        wrong.forEach(k => { tray.push(slots[k]); slots[k] = null; });
+        msg = `${wrong.length === 1 ? '1 card was' : wrong.length + ' cards were'} in the wrong place. The right ones stay. Try again!`;
+        render(); onCheck(false, wrong.length);
+      };
+    }
+    render();
+    return { get slots() { return slots.slice(); }, get tray() { return tray.slice(); } };
+  }
+
+  /* --- sort into groups: drag (or tap) each card into its group --- */
+  function sortUI(box, groups, items, { onWrong, onDone }) {
+    const placed = items.map(() => null), order = shuffle(items.map((_, i) => i));
+    let msg = '';
+    const chip = i => `<button class="sc-chip" data-it="${i}" aria-label="${esc(items[i][1])}">${icon(items[i][0])}<small>${esc(items[i][1])}</small></button>`;
+    function render() {
+      box.innerHTML = `<div class="sc-bins">${groups.map((g, k) => `<div class="sc-bin" data-bin="${k}" role="button" tabindex="0" aria-label="${esc(g[1])}"><b>${icon(g[0], 'sc-bico')} ${esc(g[1])}</b><div class="sc-binin">${items.map((_, i) => i).filter(i => placed[i] === k).map(i => `<span class="sc-done" aria-label="${esc(items[i][1])}">${icon(items[i][0])}</span>`).join('')}</div></div>`).join('')}</div>
+        <div class="sc-tray">${order.filter(i => placed[i] == null).map(chip).join('') || '<span class="sc-empty">All sorted!</span>'}</div><p class="sc-msg" aria-live="polite">${msg}</p>`;
+      dragKit(box, '.sc-chip', '.sc-bin', (el, t) => {
+        const i = +el.dataset.it, g = +t.dataset.bin;
+        if (items[i][2] === g) { placed[i] = g; msg = `Yes! ${items[i][1]}: ${groups[g][1]}.`; tone([600, 800]); render(); if (placed.every(x => x != null)) onDone(); }
+        else { msg = items[i][3] || `Not quite. Where else could ${items[i][1]} go?`; oops(); render(); const c = box.querySelector(`[data-it="${i}"]`); if (c) c.classList.add('wrong'); onWrong(i); }
+      });
+    }
+    render();
+  }
+
+  /* --- screens --- */
+  const tTile = (T, S) => { const b = S.badges[T.id], seen = (S.cards[T.id] ? 1 : 0), q = S.quiz[T.id];
+    return `<button class="sc-tt" data-topic="${T.id}" style="--tc:${T.c}" aria-label="${esc(T.name)}${b ? ', badge won' : ''}"><span class="sc-tico" aria-hidden="true">${T.ico}</span><b>${esc(T.name)}</b><span class="sc-tst">${seen ? '📖✓' : '📖'} ${q ? `🎯${q.best}/5` : '🎯'} ${b ? T.badge : ''}</span></button>`; };
+  function scHome() {
+    document.querySelectorAll('.sc-ghost').forEach(g => g.remove());
+    const { TOPICS, LABS, HOME } = D(), S = sc(), nb = TOPICS.filter(T => S.badges[T.id]).length, nl = LABS.filter(L => S.labs[L.id]).length;
+    const a = tierAge();
+    view.innerHTML = `${crumbs('🔬 Science &amp; Nature')}
+      <div class="sc-hello"><span class="sc-howl" aria-hidden="true">🦉</span><p>${a <= 6 ? 'Let\'s find out how the world works! Pick a picture.' : a <= 9 ? 'Explore a topic, take the quiz to win its badge, then try a mini-lab!' : 'Pick a topic to explore, test yourself in the quiz, and run the labs and real experiments.'}</p></div>
+      <h3 class="section-title">🔎 Topics <span class="tag">🏅 ${nb} of ${TOPICS.length}</span></h3>
+      <div class="sc-topics">${TOPICS.map(T => tTile(T, S)).join('')}</div>
+      <h3 class="section-title">🧪 Mini-labs <span class="tag">${nl} of ${LABS.length} done</span></h3>
+      <div class="sc-labs">${LABS.map(L => `<button class="sc-lt" data-lab="${L.id}" style="--tc:${L.c}"><span class="sc-tico" aria-hidden="true">${L.ico}</span><b>${esc(L.name)}</b><span class="sc-tst">${S.labs[L.id] ? '✅ done' : esc(L.blurb)}</span></button>`).join('')}</div>
+      <h3 class="section-title">🏠 Try at home <span class="tag">${HOME.filter(h => S.home[h.id]).length} of ${HOME.length} tried</span></h3>
+      <div class="sc-homes">${HOME.map(h => `<button class="sc-ht" data-home="${h.id}"><span class="sc-hico" aria-hidden="true">${h.ico}</span><span><b>${esc(h.name)}</b><small>${h.safety ? '⚠️ with a grown-up' : 'Easy and safe'}${S.home[h.id] ? ' · ✅ tried' : ''}</small></span></button>`).join('')}</div>
+      <h3 class="section-title">🏅 My science badges</h3>
+      <div class="sc-shelf">${TOPICS.map(T => `<span class="sc-bdg${S.badges[T.id] ? ' on' : ''}" title="${esc(T.bname)}"><i aria-hidden="true">${S.badges[T.id] ? T.badge : '🔒'}</i><small>${esc(T.bname)}</small></span>`).join('')}</div>
+      <p class="note">For grown-ups: get 4 or 5 right first time in a topic quiz to win its badge. Cards say more as your child gets older (ages 5, 7 and 10+). Experiments marked ⚠️ need a grown-up.</p>`;
+    wireBack(home);
+    sayScreen(a <= 6 ? 'Science and Nature! Pick a picture to find out how the world works.' : 'Science and Nature. Pick a topic, a mini-lab, or an experiment to try at home.');
+    view.querySelectorAll('[data-topic]').forEach(b => b.onclick = () => go(topicView, b.dataset.topic, 0));
+    view.querySelectorAll('[data-lab]').forEach(b => b.onclick = () => go(labView, b.dataset.lab));
+    view.querySelectorAll('[data-home]').forEach(b => b.onclick = () => go(homeExpView, b.dataset.home));
+  }
+
+  const topicOf = id => D().TOPICS.find(T => T.id === id) || D().TOPICS[0];
+  function topicView(id, i = 0) {
+    const T = topicOf(id), S = sc(), n = T.cards.length; i = clamp(+i || 0, 0, n - 1);
+    const c = T.cards[i], seen = Array.isArray(S.seen[T.id]) ? S.seen[T.id] : (S.seen[T.id] = []);
+    if (!seen.includes(i)) { seen.push(i); save(); }
+    let gotNow = false;
+    if (!S.cards[T.id] && seen.length >= n) { S.cards[T.id] = today(); gotNow = true; addStars(1); }
+    const txt = cardText(c);
+    view.innerHTML = `${crumbs(`${T.ico} ${esc(T.name)}`)}
+      <div class="sc-card" style="--tc:${T.c}">
+        <div class="sc-pic">${scene(c.pic, c.h)}</div>
+        <div class="sc-ct"><h2>${esc(c.h)}</h2><p class="sc-fact">${esc(txt)}</p>
+          <button class="sc-dykb" id="scDyk" aria-expanded="false">💡 Did you know?</button>
+          <p class="sc-dyk" id="scDykT" hidden>${esc(c.dyk)}</p></div>
+      </div>
+      <div class="sc-nav">
+        <button class="btn alt sc-prev" id="scPrev"${i ? '' : ' disabled'} aria-label="Card before">◀</button>
+        <span class="sc-dots" aria-label="Card ${i + 1} of ${n}">${T.cards.map((_, k) => `<i class="${k === i ? 'on' : seen.includes(k) ? 'seen' : ''}"></i>`).join('')}</span>
+        ${i < n - 1 ? '<button class="btn sc-next" id="scNext" aria-label="Next card">Next ▶</button>' : '<button class="btn leaf sc-next" id="scQuiz">🎯 Quiz time!</button>'}
+      </div>
+      <div class="row"><button class="btn alt sm sc-sm" id="scSay">🔊 Read it again</button>${i < n - 1 ? '<button class="btn alt sm sc-sm" id="scSkip">🎯 Go to the quiz</button>' : ''}</div>
+      ${gotNow ? '<p class="cheer sc-gotcards">You read every card! +1 ⭐</p>' : ''}`;
+    wireBack(scHome);
+    const talk = () => say(`${c.h}. ${txt}`);
+    sayScreen(`${c.h}. ${txt}`);
+    $('#scSay').onclick = talk;
+    $('#scDyk').onclick = () => { const p = $('#scDykT'); p.hidden = false; $('#scDyk').setAttribute('aria-expanded', 'true'); tone([660, 880]); say('Did you know? ' + c.dyk); };
+    $('#scPrev').onclick = () => go(topicView, T.id, i - 1);
+    if ($('#scNext')) $('#scNext').onclick = () => go(topicView, T.id, i + 1);
+    if ($('#scSkip')) $('#scSkip').onclick = () => go(quizView, T.id);
+    if ($('#scQuiz')) $('#scQuiz').onclick = () => go(quizView, T.id);
+  }
+
+  /* --- the quiz --- */
+  let cur = null; // the question on screen, for tests
+  function quizView(id) {
+    const T = topicOf(id), qs = quizOf(T), Q = { T, qs, i: 0, miss: qs.map(() => 0) };
+    ask(Q);
+  }
+  function ask(Q) {
+    document.querySelectorAll('.sc-ghost').forEach(g => g.remove());
+    const { T, qs, i } = Q, q = qs[i], nav = navId;
+    cur = { topic: T.id, i, q };
+    view.innerHTML = `${crumbs(`${T.ico} ${esc(T.name)} quiz`)}
+      <div class="progress">${qs.map((_, k) => `<i class="${k < i ? 'done' : k === i ? 'now' : ''}"></i>`).join('')}</div>
+      <div class="qcard sc-q" style="--tc:${T.c}" data-kind="${q.k}">
+        <div class="prompt"><div class="ptext">${esc(q.q)}</div><button class="speak" id="spk" aria-label="Read it to me">🔊</button></div>
+        <div id="scBody" class="sc-body"></div>
+        <div class="cheer" id="cheer" aria-live="polite"></div>
+        <div id="exp" class="sc-exp"></div>
+      </div>`;
+    wireBack(() => topicView(T.id, 0));
+    const box = $('#scBody');
+    const extra = q.k === 'tf' ? ' True or false?' : q.k === 'sort' ? ' Drag each picture into its group.' : q.k === 'order' ? ' Drag the pictures into the right order.' : (tierAge() <= 8 ? ' Is it ' + q.o.map(o => o[1]).join(', or ') + '?' : '');
+    const qSay = q.q + extra; say(qSay);
+    $('#spk').onclick = () => say(qSay);
+    const missed = () => { Q.miss[i]++; oops(); };
+    const explain = text => { $('#exp').innerHTML = `<div class="explain"><p>${esc(text)}</p></div>`; say(text); };
+    const right = () => {
+      const w = Q.miss[i] ? 'Now you know it!' : pick(['Great job!', 'You got it!', 'Super scientist!', 'Yes!', 'Brilliant!']);
+      $('#cheer').textContent = w + (Q.miss[i] ? '' : ' ✓'); yay();
+      if (q.why) explain(`${w} ${q.why}`); else say(w);
+      setTimeout(() => { if (nav !== navId) return; Q.i++; Q.i < qs.length ? ask(Q) : quizDone(Q); }, wait(q.why ? 2600 : 1400));
+    };
+    if (q.k === 'pic') {
+      const opts = shuffle(q.o.map((o, k) => k));
+      box.innerHTML = `<div class="sc-opts" style="--n:${opts.length}">${opts.map(k => `<button class="sc-opt" data-o="${k}" aria-label="${esc(q.o[k][1])}">${icon(q.o[k][0], 'sc-oic')}<small>${esc(q.o[k][1])}</small></button>`).join('')}</div>`;
+      let done = false;
+      box.querySelectorAll('[data-o]').forEach(b => b.onclick = () => {
+        if (done || b.disabled) return;
+        if (+b.dataset.o === q.a) { done = true; b.classList.add('right'); box.querySelectorAll('[data-o]').forEach(x => x.disabled = true); right(); }
+        else { b.classList.add('wrong'); b.disabled = true; missed(); explain(`Not that one. ${q.hint || 'Look again and try another!'}`); }
+      });
+    } else if (q.k === 'tf') {
+      box.innerHTML = `${q.pic ? `<div class="sc-pic sm">${scene(q.pic, q.q)}</div>` : ''}<div class="sc-tf"><button class="sc-tfb t" data-tf="true">✅ True</button><button class="sc-tfb f" data-tf="false">❌ False</button></div>`;
+      let done = false;
+      box.querySelectorAll('[data-tf]').forEach(b => b.onclick = () => {
+        if (done || b.disabled) return;
+        if ((b.dataset.tf === 'true') === q.a) { done = true; b.classList.add('right'); box.querySelectorAll('[data-tf]').forEach(x => x.disabled = true); right(); }
+        else { b.classList.add('wrong'); b.disabled = true; missed(); explain(`Not quite. ${q.why || ''}`.trim()); }
+      });
+    } else if (q.k === 'sort') {
+      sortUI(box, q.g, q.items, { onWrong: () => missed(), onDone: () => right() });
+    } else if (q.k === 'order') {
+      orderUI(box, q.items, { cycle: q.cycle, onCheck: ok => { if (ok) right(); else { missed(); explain(q.hint || 'Think about what happens first, and what comes next.'); } } });
+    }
+  }
+  function quizDone(Q) {
+    cur = null;
+    const { T, qs } = Q, S = sc(), first = Q.miss.filter(m => !m).length, prev = S.quiz[T.id];
+    let stars = prev ? 1 : first + (first === qs.length ? 2 : 0);
+    S.quiz[T.id] = { n: (prev ? +prev.n || 0 : 0) + 1, best: Math.max(prev ? +prev.best || 0 : 0, first), last: first, at: today() };
+    let badge = false;
+    if (first >= 4 && !S.badges[T.id]) { S.badges[T.id] = today(); badge = true; stars += 3; }
+    if (stars) addStars(stars); else save();
+    confetti(first >= 4 ? 40 : 15);
+    view.innerHTML = `<div class="view done sc-result">
+      <div class="big">${badge ? T.badge : first >= 4 ? '🏆' : '🌟'}</div>
+      <h1>${first === qs.length ? 'Amazing!' : first >= 3 ? 'Well done!' : 'Good try!'}</h1>
+      <p class="sc-res">${first} of ${qs.length} right first time · +${stars} ⭐</p>
+      ${badge ? `<p class="sc-res sc-badgewon">New badge: ${T.badge} ${esc(T.bname)}!</p>` : !S.badges[T.id] ? '<p class="note">Get 4 or 5 right first time to win this topic\'s badge.</p>' : ''}
+      <div class="row"><button class="btn leaf" id="scAgain">Try again</button><button class="btn alt" id="scCards">📖 Cards</button><button class="btn" id="scNextT">Next topic ▶</button></div></div>`;
+    say(`You got ${first} of ${qs.length} right first time and earned ${stars} stars!${badge ? ` You won the ${T.bname} badge!` : ''}`);
+    const L = D().TOPICS, nx = L[(L.indexOf(T) + 1) % L.length];
+    $('#scAgain').onclick = () => go(quizView, T.id);
+    $('#scCards').onclick = () => go(topicView, T.id, 0);
+    $('#scNextT').onclick = () => go(topicView, nx.id, 0);
+  }
+
+  /* --- try at home --- */
+  function homeExpView(id) {
+    const { HOME } = D(), h = HOME.find(x => x.id === id) || HOME[0], S = sc(), done = !!S.home[h.id];
+    view.innerHTML = `${crumbs(`${h.ico} ${esc(h.name)}`)}
+      <div class="sc-card sc-exp-card" style="--tc:#1D7C82"><div class="sc-pic">${scene(h.pic, h.name)}</div>
+        <div class="sc-ct"><p class="sc-fact">${esc(h.intro)}</p></div></div>
+      ${h.safety ? `<div class="sc-safe" role="note"><b>⚠️ Ask a grown-up</b><p>${esc(h.safety)}</p></div>` : ''}
+      <div class="panel"><h2>🧺 You need</h2><div class="sc-need">${h.need.map(n => `<span>${esc(n)}</span>`).join('')}</div></div>
+      <div class="panel"><h2>👣 Steps</h2><ol class="sc-steps">${h.steps.map((s, k) => `<li><button class="sc-stepb" data-step="${k}" aria-label="Read step ${k + 1}">🔊</button><span>${esc(s)}</span></li>`).join('')}</ol></div>
+      <div class="panel"><h2>🤔 What's happening?</h2><p class="sc-fact">${esc(tierAge() >= 9 && h.why2 ? h.why2 : h.why)}</p></div>
+      <div class="row"><button class="btn leaf" id="scTried">${done ? '✅ We tried it!' : 'We tried it! ⭐'}</button></div>`;
+    wireBack(scHome);
+    sayScreen(`${h.name}. ${h.intro}${h.safety ? ' Ask a grown-up to help. ' + h.safety : ''}`);
+    view.querySelectorAll('[data-step]').forEach(b => b.onclick = () => say(`Step ${+b.dataset.step + 1}. ${h.steps[+b.dataset.step]}`));
+    $('#scTried').onclick = () => {
+      if (S.home[h.id]) { say('You already tried this one. Great scientist!'); return; }
+      S.home[h.id] = today(); addStars(2); confetti(25); yay();
+      $('#scTried').textContent = '✅ We tried it! +2 ⭐'; say('Brilliant! You are a real scientist. Two stars!');
+    };
+  }
+
+  /* --- mini-labs --- */
+  const labOf = id => D().LABS.find(L => L.id === id) || D().LABS[0];
+  function labWin(L, msg) {
+    const S = sc(), first = !S.labs[L.id], stars = first ? 3 : 1;
+    S.labs[L.id] = (+S.labs[L.id] || 0) + 1; addStars(stars); confetti(40); yay();
+    const box = $('#scWin'); if (!box) return;
+    box.innerHTML = `<div class="sc-win"><b>🎉 ${esc(msg)}</b><span>+${stars} ⭐</span><div class="row"><button class="btn leaf" id="scLabAgain">Play again</button><button class="btn alt" id="scLabHome">More labs</button></div></div>`;
+    box.scrollIntoView({ block: 'nearest' });
+    say(`${msg} You earned ${stars} stars!`);
+    $('#scLabAgain').onclick = () => go(labView, L.id);
+    $('#scLabHome').onclick = () => go(scHome);
+  }
+  let labNow = null; // the running lab's state, for tests
+  function labView(id) {
+    document.querySelectorAll('.sc-ghost').forEach(g => g.remove());
+    const L = labOf(id);
+    view.innerHTML = `${crumbs(`${L.ico} ${esc(L.name)}`)}<p class="sc-how" id="scHow"></p><div class="sc-lab" id="scLab"></div><div id="scWin" aria-live="polite"></div>`;
+    wireBack(scHome);
+    labNow = { id: L.id };
+    LAB[L.id](L, $('#scLab'), t => { $('#scHow').textContent = t; });
+  }
+  const LAB = {
+    // Float or sink: guess, then the thing drops into the tank and floats or sinks.
+    float(L, el, how) {
+      const items = L.items.filter(x => tierAge() >= 7 || !x[3]), done = {}, nav = navId; let sel = null, good = 0;
+      labNow.items = items;
+      how('Tap a thing. Will it float or sink? Guess, then watch it drop in the water!'); sayScreen('Float or sink? Tap a thing, then guess!');
+      el.innerHTML = `<div class="sc-tank" id="scTank"><div class="sc-water"><i></i></div></div>
+        <div class="sc-guess" id="scGuess" hidden><b id="scGq"></b><div class="row"><button class="btn sc-up" data-g="1">⬆️ Float</button><button class="btn sc-down" data-g="0">⬇️ Sink</button></div></div>
+        <div class="sc-things">${items.map((x, k) => `<button class="sc-thing" data-k="${k}" aria-label="${esc(x[1])}">${x[0]}<small>${esc(x[1])}</small></button>`).join('')}</div>
+        <p class="sc-msg" id="scMsg" aria-live="polite"></p>`;
+      const tank = $('#scTank');
+      view.querySelectorAll('.sc-thing').forEach(b => b.onclick = () => {
+        if (b.disabled) return; sel = +b.dataset.k;
+        view.querySelectorAll('.sc-thing').forEach(x => x.classList.toggle('sc-sel', x === b));
+        $('#scGuess').hidden = false; $('#scGq').textContent = `Will the ${items[sel][1]} float or sink?`; say(`Will the ${items[sel][1]} float or sink?`);
+      });
+      view.querySelectorAll('[data-g]').forEach(b => b.onclick = () => {
+        if (sel == null) return;
+        const k = sel, x = items[k], fl = !!x[2], guess = b.dataset.g === '1'; sel = null;
+        if (guess === fl) good++;
+        done[k] = true; $('#scGuess').hidden = true;
+        const btn = view.querySelector(`.sc-thing[data-k="${k}"]`); btn.disabled = true; btn.classList.remove('sc-sel'); btn.classList.add(fl ? 'fl' : 'sk');
+        const n = Object.keys(done).length, it = document.createElement('span');
+        it.className = 'sc-drop'; it.textContent = x[0]; it.style.left = (8 + ((n - 1) % 5) * 18) + '%'; tank.appendChild(it);
+        requestAnimationFrame(() => requestAnimationFrame(() => { it.classList.add(fl ? 'floats' : 'sinks'); }));
+        tone(fl ? [500, 700] : [400, 250]);
+        const msg = `${guess === fl ? 'Good guess! ' : 'Surprise! '}The ${x[1]} ${fl ? 'floats' : 'sinks'}. ${x[4] || ''}`;
+        $('#scMsg').textContent = msg; say(msg);
+        labNow.done = n;
+        if (n === items.length) setTimeout(() => { if (nav === navId) labWin(L, `You tested everything! ${good} of ${items.length} guesses right.`); }, wait(1400));
+      });
+    },
+    // Magnets: tap a thing (or drag the magnet onto it); metal things made of iron or steel jump up and stick.
+    magnet(L, el, how) {
+      const items = L.items.filter(x => tierAge() >= 7 || !x[3]), done = {}, nav = navId;
+      labNow.items = items;
+      how('Drag the magnet onto a thing, or tap the thing. Does it stick?'); sayScreen('Magnet test! Drag the magnet to a thing, or tap it. Does it stick?');
+      el.innerHTML = `<div class="sc-mtable"><div class="sc-mag" id="scMag" aria-hidden="true"><svg viewBox="0 0 60 60">${DR.magnet(30, 32, 1.6)}</svg></div>
+        <div class="sc-mrow">${items.map((x, k) => `<button class="sc-thing sc-mt" data-k="${k}" aria-label="${esc(x[1])}"><span class="sc-me">${x[0]}</span><small>${esc(x[1])}</small></button>`).join('')}</div></div>
+        <div class="sc-mres"><div><b>🧲 Sticks</b><span id="scYes"></span></div><div><b>🚫 Doesn't stick</b><span id="scNo"></span></div></div>
+        <p class="sc-msg" id="scMsg" aria-live="polite"></p>`;
+      const mag = $('#scMag'), table = view.querySelector('.sc-mtable');
+      const test = k => {
+        if (done[k] || nav !== navId) return; done[k] = true;
+        const b = view.querySelector(`.sc-mt[data-k="${k}"]`), x = items[k], yes = !!x[2];
+        const tr = table.getBoundingClientRect(), br = b.getBoundingClientRect();
+        mag.style.left = (br.left - tr.left + br.width / 2 - 30) + 'px'; mag.classList.add('down');
+        b.disabled = true; b.classList.add(yes ? 'stick' : 'nope');
+        tone(yes ? [880, 1100] : [300]);
+        const msg = yes ? `Snap! The ${x[1]} sticks. ${x[4] || 'It has iron or steel in it.'}` : `Nothing happens. The ${x[1]} is not magnetic. ${x[4] || ''}`;
+        $('#scMsg').textContent = msg; say(msg);
+        $(yes ? '#scYes' : '#scNo').insertAdjacentHTML('beforeend', `<i aria-label="${esc(x[1])}">${x[0]}</i>`);
+        setTimeout(() => { if (mag.isConnected) mag.classList.remove('down'); }, wait(900));
+        labNow.done = Object.keys(done).length;
+        if (labNow.done === items.length) setTimeout(() => { if (nav === navId) labWin(L, 'You tested every thing with the magnet!'); }, wait(1400));
+      };
+      view.querySelectorAll('.sc-mt').forEach(b => b.onclick = () => test(+b.dataset.k));
+      // Dragging the magnet: it follows the finger and tests whatever it is let go over.
+      mag.style.touchAction = 'none';
+      mag.addEventListener('pointerdown', e => {
+        const tr = table.getBoundingClientRect(); try { mag.setPointerCapture(e.pointerId); } catch (x) {}
+        mag.classList.add('drag');
+        const mv = ev => { mag.style.left = (ev.clientX - tr.left - 30) + 'px'; mag.style.top = (ev.clientY - tr.top - 30) + 'px'; };
+        const up = ev => { mag.removeEventListener('pointermove', mv); mag.removeEventListener('pointerup', up); mag.classList.remove('drag'); mag.style.top = '';
+          mag.style.visibility = 'hidden'; const u = document.elementFromPoint(ev.clientX, ev.clientY); mag.style.visibility = '';
+          const b = u && u.closest('.sc-mt'); if (b && !b.disabled) test(+b.dataset.k); };
+        mag.addEventListener('pointermove', mv); mag.addEventListener('pointerup', up);
+      });
+    },
+    // Grow a plant: each stage needs water and sunshine.
+    plant(L, el, how) {
+      const ST = L.stages, nav = navId; let stage = 0, w = false, s = false;
+      labNow.stage = 0;
+      how('Give your seed water 💧 and sunshine ☀️. Each time it gets both, it grows!'); sayScreen('Grow a plant! Give it water and sunshine.');
+      const draw = () => {
+        const g = stage, stem = [0, 8, 26, 40, 50, 56][g];
+        const leaves = g >= 2 ? `<path d="M100,${92 - stem * 0.5} q-16,-10 -22,0 q10,8 22,0Z" fill="#2FA36B"/><path d="M100,${92 - stem * 0.6} q16,-10 22,0 q-10,8 -22,0Z" fill="#2FA36B"/>` : '';
+        const more = g >= 3 ? `<path d="M100,${92 - stem * 0.85} q-14,-8 -18,0 q8,6 18,0Z" fill="#3DBB7A"/><path d="M100,${92 - stem * 0.9} q14,-8 18,0 q-8,6 -18,0Z" fill="#3DBB7A"/>` : '';
+        const top = g === 4 ? `<ellipse cx="100" cy="${92 - stem - 4}" rx="6" ry="9" fill="#7FB04A" stroke="${OL}" stroke-width="1"/>` : g >= 5 ? `<g class="sc-a sc-grow">${Array.from({ length: 8 }, (_, i) => `<ellipse cx="100" cy="${92 - stem - 14}" rx="5" ry="11" fill="#FFC23D" stroke="#E0A020" transform="rotate(${i * 45} 100 ${92 - stem - 4})"/>`).join('')}<circle cx="100" cy="${92 - stem - 4}" r="7" fill="#8B5A2B"/></g>` : '';
+        const roots = g >= 1 ? `<path d="M100,96 l0,10 M100,100 l-7,8 M100,102 l7,8" stroke="#FFF3D6" stroke-width="1.8" stroke-linecap="round"/>` : '';
+        $('#scPlant').innerHTML = `<svg class="sc-scene" viewBox="0 0 200 120" role="img" aria-label="${ST[g][0]}">${BG.sky}<rect x="70" y="92" width="60" height="22" fill="#8B6239"/>${roots}${g === 0 ? DR.seed(100, 100, 1.4) : `<g class="sc-a sc-grow"><line x1="100" y1="96" x2="100" y2="${96 - stem}" stroke="#2FA36B" stroke-width="3"/>${leaves}${more}${top}</g>`}${DR.pot(100, 104, 2.3)}${w ? '<text x="40" y="60" font-size="20">💧</text>' : ''}${s ? DR.sun(160, 26, 1) : ''}</svg>`;
+        $('#scStage').innerHTML = `<b>${ST[g][1]} ${esc(ST[g][0])}</b><span>${esc(tierAge() >= 9 ? ST[g][3] : ST[g][2])}</span>`;
+        view.querySelectorAll('.sc-pdots i').forEach((d, k) => d.classList.toggle('on', k <= g));
+      };
+      el.innerHTML = `<div class="sc-pic" id="scPlant"></div><div class="sc-pdots" aria-hidden="true">${ST.map(() => '<i></i>').join('')}</div><p class="sc-stage" id="scStage"></p>
+        <div class="row"><button class="btn sc-water-b" id="scW">💧 Water</button><button class="btn sc-sun-b" id="scS">☀️ Sunshine</button></div><p class="sc-msg" id="scMsg" aria-live="polite"></p>`;
+      draw();
+      const give = kind => {
+        if (stage >= ST.length - 1 || nav !== navId) return;
+        let msg;
+        if (kind === 'w') { if (w) msg = 'Splash! The soil is wet already. Now it needs sunshine.'; else { w = true; msg = 'Glug glug! The roots drink the water.'; tone([500, 600]); } }
+        else { if (s) msg = 'It has lots of sunshine. Now it needs a drink of water.'; else { s = true; msg = 'Warm sunshine! The leaves catch the light.'; tone([700, 900]); } }
+        if (w && s) { stage++; w = s = false; msg = `It grew! ${ST[stage][2]}`; yay(); labNow.stage = stage; }
+        draw(); $('#scMsg').textContent = msg; say(msg);
+        if (stage === ST.length - 1) { $('#scW').disabled = $('#scS').disabled = true; setTimeout(() => { if (nav === navId) labWin(L, 'Your seed grew into a flower!'); }, wait(1200)); }
+      };
+      $('#scW').onclick = () => give('w'); $('#scS').onclick = () => give('s');
+    },
+    // Dress for the weather: three kinds of day, put on the right clothes, then Check.
+    weather(L, el, how) {
+      const W = L.days, nav = navId; let r = 0, on = new Set(), said = -1;
+      labNow.round = 0;
+      how('Look at the weather. Tap clothes to put them on, then tap Check.');
+      const draw = () => {
+        const d = W[r];
+        el.innerHTML = `<div class="sc-wday"><div class="sc-pic">${scene(d.pic, d.name)}</div><b>${d.ico} ${esc(d.name)}</b></div>
+          <div class="sc-kid" aria-live="polite"><span class="sc-kidf" aria-hidden="true">🧒</span><span class="sc-worn">${[...on].map(k => `<i>${L.clothes[k][0]}</i>`).join('') || '<small>Nothing on yet</small>'}</span></div>
+          <div class="sc-wardrobe">${L.clothes.map((c, k) => `<button class="sc-cl" data-c="${k}" aria-pressed="${on.has(k)}" aria-label="${esc(c[1])}">${c[0]}<small>${esc(c[1])}</small></button>`).join('')}</div>
+          <p class="sc-msg" id="scMsg" aria-live="polite"></p>
+          <div class="row"><button class="btn leaf" id="scWChk">Check ✓</button></div><p class="note">Day ${r + 1} of ${W.length}</p>`;
+        view.querySelectorAll('[data-c]').forEach(b => b.onclick = () => { const k = +b.dataset.c; on.has(k) ? on.delete(k) : on.add(k); tone([on.has(k) ? 700 : 400]); const m = $('#scMsg').textContent; draw(); $('#scMsg').textContent = m; });
+        $('#scWChk').onclick = () => {
+          const name = k => L.clothes[k][1];
+          const miss = d.need.filter(k => !on.has(k)), bad = d.bad.filter(k => on.has(k));
+          let msg;
+          if (bad.length) { msg = `Hmm, ${name(bad[0])} on a ${d.name.toLowerCase()} day? ${d.badWhy}`; oops(); }
+          else if (miss.length) { msg = `Almost! You still need ${miss.map(name).join(' and ')}. ${d.needWhy}`; oops(); }
+          else {
+            yay(); r++; labNow.round = r; on = new Set();
+            if (r >= W.length) { msg = 'Everyone is dressed just right!'; $('#scMsg').textContent = msg; $('#scWChk').disabled = true; setTimeout(() => { if (nav === navId) labWin(L, 'You dressed for every kind of weather!'); }, wait(800)); return; }
+            msg = `Perfect for a ${d.name.toLowerCase()} day! Next: a ${W[r].name.toLowerCase()} day.`; draw();
+          }
+          $('#scMsg').textContent = msg; say(msg);
+        };
+        if (said !== r) { said = r; sayScreen(`It's a ${d.name.toLowerCase()} day. ${d.say} What should you wear?`); }
+      };
+      draw();
+    },
+    // Shadow puppets: move the sun across the sky; the puppet's shadow swings and stretches.
+    shadow(L, el, how) {
+      const nav = navId; let p = 0.2, ch = 0, pup = L.puppets[0][0], playing = 0;
+      labNow.challenge = 0;
+      how('Drag the sun across the sky, or use the buttons. Watch the shadow!');
+      el.innerHTML = `<div class="sc-pic sc-shbox"><svg id="scSh" class="sc-scene" viewBox="0 0 300 180" role="img" aria-label="A puppet and its shadow"></svg></div>
+        <div class="row sc-shbtn"><button class="btn alt" id="scSL" aria-label="Move the sun left">◀ 🌅</button><button class="btn alt" id="scSP">▶️ Play the day</button><button class="btn alt" id="scSR" aria-label="Move the sun right">🌇 ▶</button></div>
+        <div class="chips sc-pups">${L.puppets.map(x => `<button data-pup="${x[0]}" aria-pressed="${x[0] === pup}" aria-label="${esc(x[1])}">${x[0]} ${esc(x[1])}</button>`).join('')}</div>
+        <p class="sc-task" id="scTask"></p><p class="sc-msg" id="scMsg" aria-live="polite"></p>`;
+      const geo = () => {
+        const sx = 30 + 240 * p, sy = 76 - 62 * Math.sin(Math.PI * p);
+        const t = (150 - sy) / (90 - sy), dx = clamp((150 - sx) * t, -150, 150);
+        return { sx, sy, dx };
+      };
+      const draw = () => {
+        const { sx, sy, dx } = geo(), k = -dx / 60;
+        $('#scSh').innerHTML = `<rect width="300" height="180" fill="${p < 0.15 || p > 0.85 ? '#FFD3B0' : '#CDE9FB'}"/><rect y="150" width="300" height="30" fill="#8FD18A"/>
+          <g transform="matrix(1 0 ${f1(k)} -0.4 150 150)" opacity=".5" class="sc-shadow"><text x="0" y="0" font-size="60" text-anchor="middle" style="filter:brightness(0)">${pup}</text></g>
+          <text x="150" y="150" font-size="60" text-anchor="middle">${pup}</text>
+          <g id="scSun" class="sc-sundrag">${DR.sun(f1(sx), f1(sy), 1.1)}<circle cx="${f1(sx)}" cy="${f1(sy)}" r="26" fill="transparent"/></g>`;
+        $('#scSh').setAttribute('aria-label', `The sun is ${p < 0.35 ? 'low on the left' : p > 0.65 ? 'low on the right' : 'high in the sky'}; the shadow is ${Math.abs(dx) < 35 ? 'short' : 'long'} and points ${dx < 0 ? 'left' : 'right'}.`);
+        labNow.p = p; labNow.dx = dx;
+      };
+      const C = L.challenges;
+      const task = () => { if (ch < C.length) { $('#scTask').innerHTML = `<b>Challenge ${ch + 1} of ${C.length}:</b> ${esc(C[ch].t)}`; say(C[ch].t); } };
+      const check = () => {
+        if (ch >= C.length) return;
+        const { dx } = geo();
+        if (C[ch].ok(dx)) {
+          const msg = C[ch].win; ch++; labNow.challenge = ch; yay();
+          $('#scMsg').textContent = msg;
+          if (ch >= C.length) { $('#scTask').textContent = 'All challenges done!'; say(msg); setTimeout(() => { if (nav === navId) labWin(L, 'You are a shadow scientist!'); }, wait(1000)); }
+          else setTimeout(() => { if (nav === navId) { say(msg); task(); } }, wait(300));
+        }
+      };
+      const setP = v => { p = clamp(v, 0, 1); draw(); check(); };
+      draw(); sayScreen('Shadow puppets! Move the sun and watch the shadow change.'); setTimeout(() => { if (nav === navId) task(); }, wait(1600)); $('#scTask').innerHTML = `<b>Challenge 1 of ${C.length}:</b> ${esc(C[0].t)}`;
+      $('#scSL').onclick = () => setP(p - 0.1); $('#scSR').onclick = () => setP(p + 0.1);
+      $('#scSP').onclick = () => {
+        if (playing) return; playing = 1; let t0 = null; p = 0;
+        const step = ts => { if (nav !== navId || !$('#scSh')) { playing = 0; return; } t0 = t0 || ts; const v = Math.min(1, (ts - t0) / (fast ? 300 : 5000)); p = v; draw(); if (v < 1) requestAnimationFrame(step); else { playing = 0; check(); } };
+        requestAnimationFrame(step);
+      };
+      view.querySelectorAll('[data-pup]').forEach(b => b.onclick = () => { pup = b.dataset.pup; view.querySelectorAll('[data-pup]').forEach(x => x.setAttribute('aria-pressed', x === b)); draw(); });
+      const svg = $('#scSh'); svg.style.touchAction = 'none';
+      svg.addEventListener('pointerdown', e => {
+        const r = svg.getBoundingClientRect(), { sx, sy } = geo(), x = (e.clientX - r.left) / r.width * 300, y = (e.clientY - r.top) / r.height * 180;
+        if (Math.hypot(x - sx, y - sy) > 40) return;
+        try { svg.setPointerCapture(e.pointerId); } catch (z) {}
+        const mv = ev => { const xx = (ev.clientX - r.left) / r.width * 300; p = clamp((xx - 30) / 240, 0, 1); draw(); };
+        const up = () => { svg.removeEventListener('pointermove', mv); svg.removeEventListener('pointerup', up); check(); };
+        svg.addEventListener('pointermove', mv); svg.addEventListener('pointerup', up);
+      });
+    },
+    // Planet order: drag the planets into place, from the Sun outwards.
+    planets(L, el, how) {
+      const list = tierAge() >= 7 ? L.planets : L.planets.slice(0, 4), nav = navId;
+      labNow.n = list.length;
+      how(`Drag the planets into order, starting next to the Sun ☀️.${tierAge() >= 9 ? ' Tip: My Very Easy Method Just Speeds Up Naming!' : ''}`);
+      sayScreen(`Put the ${list.length} planets in order, starting next to the Sun.`);
+      el.innerHTML = `<div class="sc-sunbar" aria-hidden="true">☀️ <span>The Sun</span></div><div id="scPl"></div><p class="sc-msg" id="scMsg" aria-live="polite"></p>`;
+      orderUI($('#scPl'), list.map(x => ['@' + x[0], x[1]]), { grid: 4, onCheck: ok => {
+        if (ok) { $('#scMsg').textContent = list.map(x => x[1]).join(', ') + '!'; setTimeout(() => { if (nav === navId) labWin(L, 'You put the planets in order!'); }, wait(900)); }
+        else { oops(); say('Some planets are in the wrong place. Try again!'); }
+      } });
+    }
+  };
+
+  /* --- for the grown-ups' report and What's inside --- */
+  function info() {
+    const { TOPICS, LABS, HOME } = D();
+    return { topics: TOPICS.length, cards: TOPICS.reduce((a, T) => a + T.cards.length, 0), questions: TOPICS.reduce((a, T) => a + T.quiz.length + T.quiz.filter(q => q.h).length, 0), labs: LABS.length, home: HOME.length,
+      kinds: [...new Set(TOPICS.flatMap(T => T.quiz.map(q => q.k)))].length };
+  }
+  function stats(sci) {
+    const S = isObj(sci) ? sci : {}, o = k => isObj(S[k]) ? S[k] : {}, { TOPICS, LABS, HOME } = D();
+    const quiz = o('quiz');
+    return { topics: TOPICS.length, read: TOPICS.filter(T => o('cards')[T.id]).length, badges: TOPICS.filter(T => o('badges')[T.id]).length,
+      quizzes: TOPICS.reduce((a, T) => a + (isObj(quiz[T.id]) ? +quiz[T.id].n || 0 : 0), 0), labs: LABS.filter(L => +o('labs')[L.id] > 0).length, labsAll: LABS.length,
+      home: HOME.filter(h => o('home')[h.id]).length, homeAll: HOME.length, badgeNames: TOPICS.filter(T => o('badges')[T.id]).map(T => `${T.badge} ${T.bname}`),
+      next: TOPICS.find(T => !o('badges')[T.id]) || null };
+  }
+
+  if (location.hash === '#selftest') window.__science = {
+    D, built: () => !!DATA, sc: () => sc(), cardText, quizOf, scene, info, stats, get cur() { return cur; }, get lab() { return labNow; }, set fast(v) { fast = !!v; },
+    home: () => go(scHome), topic: (id, i) => go(topicView, id, i || 0), quiz: id => go(quizView, id), labView: id => go(labView, id), exp: id => go(homeExpView, id)
+  };
+  scHome.info = info; scHome.stats = stats;
+  return scHome;
+})();
 
 /* ---------- start ---------- */
 updateTop();
@@ -28339,7 +29475,7 @@ go(profiles.length > 1 ? whoView : home);
   const idle = f => window.requestIdleCallback ? requestIdleCallback(f, { timeout: 3000 }) : setTimeout(f, 60);
   setTimeout(() => idle(function warm() { if (artWarmStep() || craftsHome.warm()) idle(warm); }), 3000);
 }
-if (location.hash === "#selftest") window.__owl = { get pid() { return pid; }, store, storeWaiting: () => storeUnsaved.size, addStars, MATH, LESSONS, get artPending() { return artBuilt ? 0 : ART_LATER.length; }, BRUSHES, get livePad() { return livePad; }, lessonSVG, PICS, get st() { return st; }, get profiles() { return profiles; }, quest, questTick, gainXP, petStage, go, home, mathHome, artHome, catView, drawLesson, gamesHome, ART_CATS, lessonView, play, speakable, storyHome, colorHome, sceneHome, shapeHome, flipHome, galTab, worldHome, englishHome, craftsHome };
+if (location.hash === "#selftest") window.__owl = { get pid() { return pid; }, store, storeWaiting: () => storeUnsaved.size, addStars, MATH, LESSONS, get artPending() { return artBuilt ? 0 : ART_LATER.length; }, BRUSHES, get livePad() { return livePad; }, lessonSVG, PICS, get st() { return st; }, get profiles() { return profiles; }, quest, questTick, gainXP, petStage, go, home, mathHome, artHome, catView, drawLesson, gamesHome, ART_CATS, lessonView, play, speakable, storyHome, colorHome, sceneHome, shapeHome, flipHome, galTab, worldHome, englishHome, craftsHome, scienceHome };
 if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) {
   try {
     // A new version installs in the background; offer a tap to switch rather than reloading mid-game.

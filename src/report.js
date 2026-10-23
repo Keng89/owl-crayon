@@ -96,17 +96,20 @@ const report = (() => {
     Q.nowStops = Q.now >= 0 ? arr(CH[Q.now].stops).filter((_, j) => sd[Q.now + '-' + j]).length : 0;
     Q.nowAll = Q.now >= 0 ? arr(CH[Q.now].stops).length : 0;
 
+    // --- Science & Nature (science.js) ---
+    const Sc = Object.assign({ topics: 14, read: 0, badges: 0, quizzes: 0, labs: 0, labsAll: 6, home: 0, homeAll: 12, badgeNames: [], next: null }, safe(() => scienceHome.stats(s.science), {}));
+
     // --- overall ---
     const pet = obj(s.pet), ps = safe(() => petStage(num(pet.xp)), 0);
     const O = { name: s.name || 'Player', age: num(s.age) || '?', avatar: (profileOf(id) || {}).avatar || '🦉', stars: num(s.stars), streak: num(obj(s.streak).n),
       best: Math.max(num(s.bestStreak), num(obj(s.streak).n)), badges: keys(s.badges).length, badgesAll: BADGES.length, owl: (PET_STAGES[ps] || PET_STAGES[0])[2], owlName: pet.name || 'Hoot',
       quests: num(s.questsDone), limit: num(obj(s.pt).limit) };
-    return { id, O, W, M, E, R, C, Wd, Q };
+    return { id, O, W, M, E, R, C, Wd, Q, Sc };
   }
 
   // Three friendly next steps, picked from the gaps: at most one per area first, the most useful first.
   function suggestions(S) {
-    const { M, E, R, C, Wd, Q, W } = S, out = [];
+    const { M, E, R, C, Wd, Q, W, Sc } = S, out = [];
     const add = (area, score, ico, text) => out.push({ area, score, ico, text });
     // English
     if (E.letters >= 6 && E.blend === 0) add('en', 92, '🧩', `Try the Blend it game in English & Reading — ${E.letters} letter sounds learned, blending not started yet.`);
@@ -131,6 +134,9 @@ const report = (() => {
     // Owl's Quest
     if (Q.chaptersAll && Q.stops === 0) add('quest', 58, '🗺️', 'Start Owl\'s Quest: a story map with math, drawing and story stops.');
     else if (Q.now >= 0 && Q.nowAll) add('quest', 30, '🗺️', `Owl's Quest: ${Q.nowStops} of ${Q.nowAll} stops done in "${Q.nowName}". Carry on the story.`);
+    // Science & Nature
+    if (Sc && Sc.read === 0 && Sc.quizzes === 0) add('sci', 40, '🔬', 'Explore Science & Nature together: picture cards about animals, space and weather, then a 5-question quiz.');
+    else if (Sc && Sc.next) add('sci', 28, Sc.next.ico, `Science & Nature: ${Sc.badges} of ${Sc.topics} topic badges won. Try "${Sc.next.name}" next, or an experiment from Try at home (${Sc.home} of ${Sc.homeAll} tried).`);
     // My World
     if (Wd.wallet >= Wd.landMin) add('world', 42, '🌍', `${Wd.wallet} stars saved up for My World. Spending them together is real counting-change math.`);
     out.sort((a, b) => b.score - a.score);
@@ -152,7 +158,7 @@ const report = (() => {
   function panel(id) {
     if (id) shown = id;
     if (!profiles.some(p => p.id === shown)) shown = pid;
-    const S = stats(shown), { O, W, M, E, R, C, Wd, Q } = S, tips = suggestions(S);
+    const S = stats(shown), { O, W, M, E, R, C, Wd, Q, Sc } = S, tips = suggestions(S);
     const when = new Date().toLocaleDateString('en', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
     const summary = [`Played on ${pl(W.active, 'day')} of the last 7`, W.min ? `about ${pl(W.min, 'minute')} in all` : '',
       W.q ? `${pl(W.q, 'math question')} (${Math.round(W.ok / W.q * 100)}% right first try)` : '', W.en ? `${pl(W.en, 'reading star')}` : '',
@@ -190,6 +196,8 @@ const report = (() => {
         ${card('rp-art', '🖍️', 'Art', `${row('Art lessons done', R.done, R.all, 'var(--coral)')}${R.levels.map(l => row(`${l.name} lessons`, l.have, l.all, 'var(--coral-soft)')).join('')}
           ${fact('Pictures saved', R.pics)}${fact('Pixel art', `level ${R.pixel} of 5 · ${pl(R.pixelDone, 'picture')}`)}`)}
         ${card('rp-cr', '✂️', 'Crafts', `${row('Crafts made', C.made, C.all, 'var(--sun)')}${C.levels.map(l => row(`${l.ico} ${l.name}`, l.have, l.all, 'var(--sun-soft)')).join('')}${fact('Times making crafts', C.times)}${C.J.all ? fact('Craft journeys finished', `${C.J.done} of ${C.J.all}${C.J.started > C.J.done ? ` (${C.J.started - C.J.done} under way)` : ''}`) + fact('Journey badges', C.J.badges.length ? esc(C.J.badges.join(', ')) : 'none yet') : ''}`)}
+        ${card('rp-sci', '🔬', 'Science &amp; Nature', `${row('Topics explored (all cards read)', Sc.read, Sc.topics, 'var(--leaf)')}${row('Topic badges won', Sc.badges, Sc.topics, 'var(--sun)')}${row('Mini-labs done', Sc.labs, Sc.labsAll, 'var(--sky)')}${row('Experiments tried at home', Sc.home, Sc.homeAll, 'var(--grape)')}
+          ${fact('Quizzes finished', Sc.quizzes)}${fact('Science badges', Sc.badgeNames.length ? esc(Sc.badgeNames.join(', ')) : 'none yet')}`)}
         ${card('rp-world', '🌍', 'My World', `${row('Stars spent', Wd.spent, Wd.earned, 'var(--sky)')}
           ${fact('Stars earned / to spend', `${Wd.earned} / ${Wd.wallet}`)}${fact('Things owned', `${Wd.items} (${pl(Wd.animals, 'animal')})`)}${fact('Lands opened', `${Wd.lands} of ${Wd.landsAll}`)}`)}
         ${card('rp-quest', '🗺️', 'Owl\'s Quest', `${row('Chapters finished', Q.chapters, Q.chaptersAll, 'var(--grape)')}${row('Story stops done', Q.stops, Q.stopsAll, 'var(--grape-soft)')}

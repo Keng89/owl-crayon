@@ -240,6 +240,7 @@ function home() {
       <section class="hgroup g-learn" aria-label="Learn"><h2 class="hg-title"><span aria-hidden="true">📖</span> Learn</h2><div class="tiles">
         <button class="tile t-math" id="tMath"><span class="big">🔢</span><span><h2>Number Garden</h2><p>From counting to algebra</p></span></button>
         <button class="tile t-english" id="tEnglish"><span class="big">📚</span><span><h2>English &amp; Reading</h2><p>Sounds, words, stories and grammar games</p></span><span class="te-deco" aria-hidden="true">Aa Bb Cc</span></button>
+        <button class="tile t-science" id="tScience"><span class="big">🔬</span><span><h2>Science &amp; Nature</h2><p>Animals, space, weather and experiments</p></span></button>
         <button class="tile t-owl" id="tOwl"><span class="big">🦉</span><span><h2>Ask Owl</h2><p>Ask me anything!</p></span></button>
       </div></section>
       <section class="hgroup g-make" aria-label="Make"><h2 class="hg-title"><span aria-hidden="true">🎨</span> Make</h2><div class="tiles">
@@ -268,6 +269,7 @@ function home() {
   $('#tQuest').onclick = () => go(storyHome);
   $('#tWorld').onclick = () => go(worldHome);
   $('#tEnglish').onclick = () => go(englishHome);
+  $('#tScience').onclick = () => go(scienceHome);
   $('#tCrafts').onclick = () => go(craftsHome);
   $('#tDraw').onclick = () => go(freeDraw);
   $('#tGames').onclick = () => go(gamesHome);
@@ -999,6 +1001,8 @@ function parent() {
 //@include timer.js
 //@include report.js
 //@include paint.js
+//@include science2.js
+//@include science.js
 
 /* ---------- start ---------- */
 updateTop();
@@ -1009,7 +1013,7 @@ go(profiles.length > 1 ? whoView : home);
   const idle = f => window.requestIdleCallback ? requestIdleCallback(f, { timeout: 3000 }) : setTimeout(f, 60);
   setTimeout(() => idle(function warm() { if (artWarmStep() || craftsHome.warm()) idle(warm); }), 3000);
 }
-if (location.hash === "#selftest") window.__owl = { get pid() { return pid; }, store, storeWaiting: () => storeUnsaved.size, addStars, MATH, LESSONS, get artPending() { return artBuilt ? 0 : ART_LATER.length; }, BRUSHES, get livePad() { return livePad; }, lessonSVG, PICS, get st() { return st; }, get profiles() { return profiles; }, quest, questTick, gainXP, petStage, go, home, mathHome, artHome, catView, drawLesson, gamesHome, ART_CATS, lessonView, play, speakable, storyHome, colorHome, sceneHome, shapeHome, flipHome, galTab, worldHome, englishHome, craftsHome };
+if (location.hash === "#selftest") window.__owl = { get pid() { return pid; }, store, storeWaiting: () => storeUnsaved.size, addStars, MATH, LESSONS, get artPending() { return artBuilt ? 0 : ART_LATER.length; }, BRUSHES, get livePad() { return livePad; }, lessonSVG, PICS, get st() { return st; }, get profiles() { return profiles; }, quest, questTick, gainXP, petStage, go, home, mathHome, artHome, catView, drawLesson, gamesHome, ART_CATS, lessonView, play, speakable, storyHome, colorHome, sceneHome, shapeHome, flipHome, galTab, worldHome, englishHome, craftsHome, scienceHome };
 if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) {
   try {
     // A new version installs in the background; offer a tap to switch rather than reloading mid-game.
