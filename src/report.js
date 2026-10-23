@@ -66,6 +66,8 @@ const report = (() => {
     E.r4 = Object.assign({ famWords: 0, famAll: 0, houses: 0, wall: 0, wallAll: 44, readAlong: 0, readAlongAll: 0, idioms: 0, idiomsAll: 0, wordPower: 0, listening: 0 }, safe(() => englishHome.round4(e), {}));
     // The Learn to Read path (english11.js): lessons done, where the child is, sounds known, unit check-ups.
     E.path = Object.assign({ done: 0, all: 0, now: null, nowTitle: '', check: null, sounds: 0, soundsAll: 0, checks: 0, checksAll: 0, weak: [], placed: 0 }, safe(() => englishHome.pathStats(e), {}));
+    // My Book Studio (english12.js): books the child wrote.
+    E.studio = Object.assign({ books: 0, pages: 0 }, safe(() => englishHome.studioStats(e), {}));
     E.nextSight = EN_SIGHT.find(x => x.stage <= stageN && x.words.some(w => !obj(e.sight)[w]));
     E.nextStory = EN_STORIES.find(x => x.stage <= stageN && !obj(e.stories)[x.id]);
     E.nextGame = EN_GAMES.find(x => x.stage <= stageN && !num(rounds['g-' + x.id]));
@@ -189,7 +191,7 @@ const report = (() => {
           ${fact('Questions answered', M.answered)}${fact('In review / due today', `${M.review} / ${M.due}`)}
           ${M.best ? fact('Strongest topic', `${M.best.ico} ${esc(M.best.name)} (${M.best.acc}%)`) : ''}${M.hard ? fact('Worth practising', `${M.hard.ico} ${esc(M.hard.name)} (${M.hard.acc}%)`) : ''}`)}
         ${card('rp-en', '📚', 'English &amp; Reading', `<p class="rp-stage">${E.stageIco} Stage ${E.stage} of ${E.stages}: <b>${esc(E.stageName)}</b> · ${pl(E.xp, 'reading star')}</p>
-          ${E.path.all ? `${row('Reading path lessons done', E.path.done, E.path.all, 'var(--leaf)')}${fact('Reading path', `${E.path.done >= E.path.all ? `all ${E.path.all} lessons done` : E.path.now ? `lesson ${E.path.now} of ${E.path.all}` : `unit ${E.path.check} check-up (lesson ${E.path.done} of ${E.path.all} done)`} · ${E.path.sounds} of ${E.path.soundsAll} sounds known`)}${fact('Unit check-up badges', `${E.path.checks} of ${E.path.checksAll}${E.path.weak.length ? ` · practising ${esc(E.path.weak.slice(0, 6).join(' '))}` : ''}`)}` : ''}
+          ${E.path.all ? `${row('Reading path lessons done', E.path.done, E.path.all, 'var(--leaf)')}${fact('Reading path', `${E.path.done >= E.path.all ? `all ${E.path.all} lessons done` : E.path.now ? `lesson ${E.path.now} of ${E.path.all}` : `unit ${E.path.check} check-up (lesson ${E.path.done} of ${E.path.all} done)`} · ${E.path.sounds} of ${E.path.soundsAll} sounds known`)}${fact('Unit check-up badges', `${E.path.checks} of ${E.path.checksAll}${E.path.weak.length ? ` · practising ${esc(E.path.weak.slice(0, 6).join(' '))}` : ''}`)}` : ''}${E.studio.books || E.studio.pages ? fact('My Book Studio', `${E.studio.books} book${E.studio.books === 1 ? '' : 's'} written · ${E.studio.pages} pages`) : ''}
           ${row('Letter sounds (A–Z)', E.letters, 26, 'var(--coral)')}${row('All sounds (pairs, magic e, teams)', E.sounds, E.soundsAll, 'var(--coral-soft)')}
           ${row('Sight words known', E.sight, E.sightAll, 'var(--sky)')}${row('Stories read', E.stories, E.storiesAll, 'var(--leaf)')}
           ${row('Grammar games played', E.grammar, E.grammarAll, 'var(--grape)')}

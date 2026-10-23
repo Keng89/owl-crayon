@@ -107,7 +107,7 @@ const errs = [], fails = [];
     await p.click('#tEnglish'); await p.waitForSelector('.en-secs');
     const secs = await p.$$eval('[data-sec]', x => x.map(b => b.dataset.sec));
     for (const id of ['soundlab', 'wordpower', 'karaoke', 'talk']) if (!secs.includes(id)) fail(`no ${id} section`);
-    if (secs.length !== 19) fail(`${secs.length} sections`);
+    if (secs.length !== 20) fail(`${secs.length} sections`); // My Book Studio (t48) is the 20th
     await check('english home'); await shot('home');
     const expect = { soundlab: ['[data-lab]', 5], wordpower: ['[data-wp]', 8], karaoke: ['[data-kk]', 26], talk: ['.e6-tk', 20] };
     for (const [id, [sel, n]] of Object.entries(expect)) {

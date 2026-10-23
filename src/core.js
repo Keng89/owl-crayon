@@ -992,6 +992,7 @@ function parent() {
 //@include english8.js
 //@include english10.js
 //@include english11.js
+//@include english12.js
 //@include crafts.js
 //@include crafts2.js
 //@include crafts3.js

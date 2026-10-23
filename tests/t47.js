@@ -3,7 +3,7 @@
 // over every lesson that the blend words and the 2-3 sentences (and grammar choices) can be read with the sounds and
 // tricky words taught so far, re-checked here with the test's own list of taught spellings; every lesson has a grown-up
 // tip and every sound a check-up picture word. The "📖 Today's reading lesson" button sits at the top of the English
-// home (and the 19 section tiles stay); lesson 1 (s a t) and lesson 25 (x) are played end to end through the real
+// home (and the 20 section tiles stay); lesson 1 (s a t) and lesson 25 (x) are played end to end through the real
 // buttons (review cards, new sound, blend, read, finger-tracing on the Write letters pad, the 3-round game) for exactly
 // 5 stars, a replay of lesson 1 for 1; weak sounds come first in the review; a wrong game answer goes to Owl's review;
 // the placement check (units 1-2 right, unit 3 wrong) starts the path at lesson 11 with lessons 1-10 marked known (+2);
@@ -87,7 +87,7 @@ const errs = [], fails = [];
     if (!homeB) fail('no Today\'s reading lesson button'); else {
       if (!/Today's reading lesson/.test(homeB.txt) || !/Lesson 1 of/.test(homeB.txt)) fail(`button text ${homeB.txt}`);
       if (!homeB.above) fail('the reading lesson button is not at the top');
-      if (homeB.secs !== 19) fail(`${homeB.secs} section tiles`);
+      if (homeB.secs !== 20) fail(`${homeB.secs} section tiles`);
       if (homeB.h < 64) fail(`button height ${homeB.h}`);
     }
     await check('english home'); await shot('home');

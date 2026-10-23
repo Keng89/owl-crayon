@@ -20,6 +20,8 @@ A math and art app for kids where an owl answers questions in simple words. Buil
 
 **Studio tools:** free draw with mirror and 4/6/8-way mandala symmetry, pixel art (5 levels, the last one uses grid coordinates), color mixing challenges, and a gallery.
 
+**My Book Studio** (English & Reading, src/english12.js): the child writes their own little books from 164 picture word tiles (Who, Does, What, Where & when, Describe, Join, . ! ?) with grammar taught as they write (a/an, he/she/it + verb-s, plurals, "yesterday" past tense with irregulars, he → him), a checked big letter and end mark, Owl reading each sentence, emoji-sticker pictures, 24 story starters, 3 fill-the-frame books, a read-along bookshelf and printing; books in st.english.mybooks. Test t48.
+
 **Ask Owl** answers ~55 topics across math and art offline, works out sums including dividing, and logs anything it can't answer for a grown-up to teach it.
 
 ## How "it improves itself" works
