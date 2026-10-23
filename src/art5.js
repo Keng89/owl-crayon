@@ -1,7 +1,7 @@
 /* ---------- art5: doodles, kawaii, origami, nature art, weaving & string, shadows & silhouettes ---------- */
 // Uses the helpers from art.js (ac, ae, al, ap, ar, apg, apl, guide, fold, stroke, paint, atext, zig).
 // Wrapped in an IIFE so the little helpers below never clash with other files.
-ART_LATER.push(() => {
+ART_LATER.push(/*lazy{*/() => {
   const f1 = n => +n.toFixed(1);
   // Colour that soaks in like a marker: lines underneath stay visible. ev = holes via even-odd.
   const T = (c, s, ev) => `<g class="pt" style="fill:${c};mix-blend-mode:multiply${ev ? ';fill-rule:evenodd' : ''}">${s}</g>`;
@@ -482,4 +482,4 @@ ART_LATER.push(() => {
       ['Fill the afternoon shadow with dots.', inClip(['a5s-notoy', 'a5s-sh2'], paint('#3D7DD8', shDots))],
       ['The sun was on the other side of the toy. Draw a sun for each shadow and show someone!', sunIcon(170, 66, '#FFE58A') + sunIcon(30, 66, '#FFC23D')]] }
   );
-});
+}/*}lazy*/);

@@ -9,7 +9,7 @@ craftsHome.CATS.push(
   { id: 'music', ico: '🥁', name: 'Music makers', c: '#7D3C98' },
   { id: 'toys', ico: '🎲', name: 'Toys & games', c: '#1F6FA8' }
 );
-craftsHome.later.push(() => {
+craftsHome.later.push(/*lazy{*/() => {
   const K = craftsHome.kit, C = K.C, OL = K.OL;
   const S = (t, a, o = {}) => ({ t, a, ...o });
   const mid = svg => K.g(svg, -100, -75);
@@ -705,4 +705,4 @@ craftsHome.later.push(() => {
     magnetfish, cupball, stonettt, bowling, spinner, hopfrog, jumpbunny, popflower, popcake, popdragon, rockpet, storystones, mandala, leafanimals,
     dreamcatcher, kite, machebowl, eggcaterpillar, castle, suncatcher, cottonsheep, platefish, owlmask, icepaint, stickpuppet, spoondoll, shadowpuppets,
     shadowtheatre, marionette, loomweave]);
-});
+}/*}lazy*/);

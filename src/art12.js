@@ -3,7 +3,7 @@
 // Every lesson keeps one paper, and every step names its brush, colour (and sometimes size), so the pad is set up
 // for the child as each step opens (core.js drawLesson). `plevel` is the studio level 1–4 (Easy, Medium, Tricky,
 // Expert); `level` is the Art School level it sits in for locking (Easy and Medium are Beginner).
-ART_LATER.push(() => {
+ART_LATER.push(/*lazy{*/() => {
   const BK = '#22252B', DB = '#22305A', RD = '#F2604F', OR = '#FF8A2B', YE = '#FFC23D', GR = '#2FA36B', BL = '#2E8BE6', PU = '#6D55D1', PK = '#F49AC1', BR = '#8B5A2B', WH = '#FFFFFF',
     LB = '#8EC5F5', NV = '#123E6E', GY = '#9AA0A8', LY = '#FFE79A', DG = '#1F6B45', TE = '#1D9A8F', MG = '#C2367A', PE = '#F6C9A8', DR = '#8E2A20', LG = '#9BD67A';
   const THIN = 5, MED = 12, THICK = 28;
@@ -610,4 +610,4 @@ ART_LATER.push(() => {
   }
 
   P.forEach(l => LESSONS.push(l));
-});
+}/*}lazy*/);

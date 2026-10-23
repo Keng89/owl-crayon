@@ -1,5 +1,5 @@
 /* ---------- sticker scenes: pick a place, add stickers, doodle, count, tell a story, save ---------- */
-const sceneHome = (() => {
+const sceneHome = lazyArea(/*lazy{*/() => {
   const W = 400, H = 300; // scene units; the stage is always 4:3
   // Starry skies need the same stars every time, so they come from a tiny seeded random.
   const dots = (n, seed, y0, y1, r0, r1, fill) => { let s = seed, o = ''; const R = () => (s = (s * 9301 + 49297) % 233280) / 233280;
@@ -446,4 +446,4 @@ const sceneHome = (() => {
     return t.toDataURL('image/jpeg', 0.75);
   }
   return sceneHome;
-})();
+}/*}lazy*/, []);

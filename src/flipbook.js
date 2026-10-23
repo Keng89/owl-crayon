@@ -4,7 +4,7 @@
 // guide on each frame to trace. Saved flipbooks go to My pictures (the first frame, like any picture) and, with
 // all their frames as small JPEGs, to a per-player list (flip:<player>, newest 6) that My flipbooks and the
 // gallery play back.
-const flipHome = (() => {
+const flipHome = lazyArea(/*lazy{*/() => {
   const W = 400, H = 300, MINF = 2, MAXF = 12, KEEP = 6, FW = 320, FH = 240, MAXBYTES = 1500000;
   const SPEEDS = [['🐢', 'Slow', 450], ['🐈', 'Medium', 230], ['🐇', 'Fast', 120]];
   const SIZES = [[4, 'thin', 6], [10, 'medium', 14], [22, 'thick', 26]];
@@ -386,4 +386,4 @@ const flipHome = (() => {
   const f = () => home();
   f.gal = gal;
   return f;
-})();
+}/*}lazy*/, ['__flip']);

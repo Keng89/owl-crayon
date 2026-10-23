@@ -1,7 +1,7 @@
 /* ---------- art8: art around the world, masks & puppets, cards & gifts, mixed media, chalk & pastels, mosaic & stained glass ---------- */
 // Uses the helpers from art.js (ac, ae, al, ap, ar, apg, apl, guide, fold, stroke, paint, atext).
 // Wrapped in an IIFE so the little helpers below never clash with other files.
-ART_LATER.push(() => {
+ART_LATER.push(/*lazy{*/() => {
   const f1 = n => +n.toFixed(1);
   // Colour that soaks in like a marker: lines underneath stay visible. ev = holes via even-odd.
   const T = (c, s, ev) => `<g class="pt" style="fill:${c};mix-blend-mode:multiply${ev ? ';fill-rule:evenodd' : ''}">${s}</g>`;
@@ -482,4 +482,4 @@ ART_LATER.push(() => {
       ['Colour all the background squares light blue.', pxCells('.')],
       ['Glue it on card. Now make your own pixel animal to keep it company!', stroke('#3D7DD8', wide(ar(14, 27, 172, 146, 6), 5))]] }
   );
-});
+}/*}lazy*/);

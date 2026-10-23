@@ -2,7 +2,7 @@
 // Same step format as crafts2.js. New movie kinds from crafts.js used here: dab (sponge, finger, stamp, dropper, cork
 // or straw prints, spread: true for watercolor), pour (a jug tips and the level rises; grain: true for beans, rice or
 // sand), stir, stack (pieces drop and land), knot, measure (a ruler and pencil marks), launch (spoon catapult) and oven.
-craftsHome.later.push(() => {
+craftsHome.later.push(/*lazy{*/() => {
   const K = craftsHome.kit, C = K.C;
   const S = (t, a, o = {}) => ({ t, a, ...o });
   const mid = svg => K.g(svg, -100, -75);
@@ -358,8 +358,8 @@ craftsHome.later.push(() => {
   craftsHome.add([spongeFlowers, bubbleWrap, saltPaint, marblePaint, blowPaint, fingerBugs, resist, potato, blotFly,
     pastaNeck, strawBeads, paperBeads, buttonBrace, clayBeads, pipeRing, lizard,
     cape, eyeMask, ribbonWand, bagVest, earBand, shield, plateCrown]);
-});
-craftsHome.later.push(() => {
+}/*}lazy*/);
+craftsHome.later.push(/*lazy{*/() => {
   const K = craftsHome.kit, C = K.C;
   const S = (t, a, o = {}) => ({ t, a, ...o });
   const mid = svg => K.g(svg, -100, -75);
@@ -690,8 +690,8 @@ craftsHome.later.push(() => {
   craftsHome.add([playdough, rainstick, shaker, calmJar, texture, cloudDough, pompom,
     bridge, cupTower, catapult, toothpick, balloonCar, marbleRun, paperTower, raft,
     frame, coupons, flowerPot, tasselMark, handprint, garland]);
-});
-craftsHome.later.push(() => {
+}/*}lazy*/);
+craftsHome.later.push(/*lazy{*/() => {
   const K = craftsHome.kit, C = K.C;
   const S = (t, a, o = {}) => ({ t, a, ...o });
   const mid = svg => K.g(svg, -100, -75);
@@ -943,4 +943,4 @@ craftsHome.later.push(() => {
   })();
 
   craftsHome.add([tissueFlower, filterFly, jellyfish, sandArt, autumnTree, pumpkin, sockSnow, stickFlake, star3d, fox, tulip, oriHeart, oriFly, fortune, starBox]);
-});
+}/*}lazy*/);

@@ -2,7 +2,7 @@
 // Five chapters of nine stops on a winding storybook map. Each stop tells a short story, then asks for
 // 3 math puzzles (from the player's age world, so the adaptive engine learns from them), a drawing, or a story choice
 // that changes a later line. Progress lives in st.story = { chapter, stop, done, picks, got }.
-const storyHome = (() => {
+const storyHome = lazyArea(/*lazy{*/() => {
   const CRAYON = { red: '#F2604F', orange: '#FF8A2B', yellow: '#FFC23D', green: '#2FA36B', blue: '#2E8BE6', purple: '#6D55D1', pink: '#F49AC1', brown: '#8B5A2B', black: '#22305A' };
   const cr = (n, name) => ({ crayon: CRAYON[n], name });
   const g = (e, name) => ({ e, name });
@@ -826,4 +826,4 @@ const storyHome = (() => {
   if (location.hash === '#selftest') window.__quest = { CH, get state() { return S(); }, mapView, stopView, bookView, chapterDone, layout, isDone, nextStop, riddle: makeRiddle, topicOf, tierOf, get watching() { return !!unwatchMap; } };
   mapView.CH = CH; // the grown-ups' progress report counts chapters and stops
   return mapView;
-})();
+}/*}lazy*/, ['__quest']);

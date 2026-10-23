@@ -8,7 +8,11 @@
 // tricky words taught so far) are used, and decodable() checks that in code for every word, sentence and grammar choice.
 // EN_PATH is the data and the checker; the screens below join the English home through englishHome.api.
 // Progress is kept per player in st.english.path ({ done, checks, weak, placed, days }); stars go through give().
-const EN_PATH = (() => {
+// Building the path checks every word of every lesson, which is slow on a phone, so EN_PATH (enPath()) and the screens
+// (UI() below) are built the first time something needs them, or while the app is idle, not while it starts.
+let EN_PATH_ = null;
+const enPath = () => EN_PATH_ || (EN_PATH_ = enPathBuild());
+const enPathBuild = /*lazy{*/() => {
   // [key, sound to say, picture word, emoji, mouth tip, action, chant]
   const GD = [
     ['s', 'sss', 'sun', '☀️', 'Teeth together, a big smile, and let the air hiss out.', 'Make your arm a wiggly snake: sss!', 'Sss, sss, sss, the snake says sss!'],
@@ -311,10 +315,15 @@ const EN_PATH = (() => {
     return bad;
   }
   return { G, GP, UNITS, LESSONS, BANK, IRREG, segment, soundOK, decodable, sentOK, wordsOf, hasG, picWords, picFor, audit };
-})();
+}/*}lazy*/;
 
 (() => {
-  const A = englishHome.api, { give, E, talk, ptip, hooks, SECTIONS, VIEWS, tapWords } = A;
+  const A = englishHome.api, { SECTIONS, VIEWS } = A;
+  let ui = null;
+  const UI = () => ui || (ui = uiBuild());
+  const uiBuild = /*lazy{*/() => {
+  const { give, E, talk, ptip, hooks, tapWords } = A;
+  const EN_PATH = enPath();
   const { G, UNITS, LESSONS, decodable, soundOK, hasG, picWords, picFor, segment } = EN_PATH;
   const voice = () => !!(st.speak && 'speechSynthesis' in window && typeof SpeechSynthesisUtterance !== 'undefined');
   const o = v => (v && typeof v === 'object' && !Array.isArray(v) ? v : {});
@@ -694,8 +703,12 @@ const EN_PATH = (() => {
     $('#dnPath').onclick = () => go(pathHome);
   }
 
+  return { G, UNITS, LESSONS, ALLG, o, P, NODES, curNode, knownSounds, openNode, pathHome, lessonIntro, lstep, checkIntro, placeIntro, tipFor, games, makeRound, picQ,
+    get LS() { return LS; }, get CK() { return CK; }, get PL() { return PL; } };
+  }/*}lazy*/;
+
   /* ===================== wiring ===================== */
-  SECTIONS.push({ id: 'path', ico: '📖', name: 'Learn to Read', hidden: true, fn: () => pathHome(), c: '#000',
+  SECTIONS.push({ id: 'path', ico: '📖', name: 'Learn to Read', hidden: true, fn: () => UI().pathHome(), c: '#000',
     tip: 'One short lesson a day, in order. Sit beside your child, say the sounds crisply, and let them do the reading; praise the effort, not just the right answer.' });
   // The English home gets a big "Today's reading lesson" button at the very top (the section has no tile of its own).
   const prevAfter = englishHome.after;
@@ -703,19 +716,24 @@ const EN_PATH = (() => {
     v.querySelectorAll('[data-sec="path"]').forEach(b => b.remove());
     if (prevAfter) prevAfter(v);
     const c = v.querySelector('.crumbs'); if (!c) return;
+    const { P, curNode, LESSONS, openNode } = UI();
     const p = P(), cur = curNode(p), done = LESSONS.filter(L => p.done[L.id]).length, b = document.createElement('button');
     b.className = 'e11-home'; b.id = 'enPath';
     b.innerHTML = `<span class="e11-hico" aria-hidden="true">📖</span><span><b>Today's reading lesson</b>${cur ? (cur.t === 'L' ? `Lesson ${cur.L.n} of ${LESSONS.length} · ${esc(cur.L.title)}` : `Unit ${cur.U.n} check-up`) : 'Path complete! 🏆'}<span class="meter"><i style="width:${Math.round(done / LESSONS.length * 100)}%"></i></span></span><span class="e11-go">▶</span>`;
     c.insertAdjacentElement('afterend', b);
-    b.onclick = () => cur ? openNode(cur) : go(pathHome);
+    b.onclick = () => cur ? openNode(cur) : go(UI().pathHome);
   };
-  Object.assign(VIEWS, { path: pathHome, lesson: lessonIntro, lstep: (k, i) => lstep(k, i), checkup: checkIntro, placement: placeIntro });
+  // Built while the app is idle a little after the home screen is up (core.js), so English & Reading opens quickly.
+  englishHome.warm = () => { UI(); return false; };
+  Object.assign(VIEWS, { path: (...a) => UI().pathHome(...a), lesson: (...a) => UI().lessonIntro(...a), lstep: (k, i) => UI().lstep(k, i),
+    checkup: (...a) => UI().checkIntro(...a), placement: (...a) => UI().placeIntro(...a) });
   const prevMore = englishHome.more;
-  englishHome.more = b => { const x = prevMore ? prevMore(b) : b;
+  englishHome.more = b => { const x = prevMore ? prevMore(b) : b, { LESSONS, UNITS, ALLG } = UI();
     return { ...x, pathLessons: LESSONS.length, pathUnits: UNITS.length, pathSounds: ALLG.length, pathTricky: new Set(LESSONS.flatMap(L => L.tw.map(t => t.toLowerCase()))).size,
       pathSentences: LESSONS.reduce((a, L) => a + L.sents.length, 0), pathGrammar: LESSONS.filter(L => L.gp).length }; };
   // For the grown-ups' report: where a player is on the reading path, read from any saved english state.
   englishHome.pathStats = e => {
+    const { o, LESSONS, UNITS, G, ALLG, curNode, knownSounds } = UI();
     const p = o(o(e).path), done = o(p.done), checks = o(p.checks), n = LESSONS.filter(L => done[L.id]).length, cur = curNode({ done, checks });
     return { done: n, all: LESSONS.length, now: cur ? (cur.t === 'L' ? cur.L.n : null) : null, nowTitle: cur && cur.t === 'L' ? cur.L.title : '', check: cur && cur.t === 'C' ? cur.U.n : null,
       sounds: knownSounds({ done }).length, soundsAll: ALLG.length, checks: UNITS.filter(U => o(checks[U.id]).pass).length, checksAll: UNITS.length,
@@ -723,8 +741,10 @@ const EN_PATH = (() => {
   };
   if (location.hash === '#selftest' && window.__english) {
     Object.defineProperties(window.__english, Object.getOwnPropertyDescriptors({
-      PATH: EN_PATH, P, NODES, curNode, pathHome, tipFor, games, makeRound, picQ,
-      get LS() { return LS; }, get CK() { return CK; }, get PL() { return PL; }
+      get PATH() { return enPath(); }, get P() { return UI().P; }, get NODES() { return UI().NODES; }, get curNode() { return UI().curNode; },
+      get pathHome() { return UI().pathHome; }, get tipFor() { return UI().tipFor; }, get games() { return UI().games; },
+      get makeRound() { return UI().makeRound; }, get picQ() { return UI().picQ; },
+      get LS() { return UI().LS; }, get CK() { return UI().CK; }, get PL() { return UI().PL; }
     }));
   }
 })();

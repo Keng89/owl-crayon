@@ -1,6 +1,6 @@
 /* ---------- art7: 3 more lessons in each of the 12 newer kinds (vehicles to famous styles) ---------- */
 // Uses the helpers from art.js. Wrapped in a block so the little helpers below never clash with other files.
-ART_LATER.push(() => {
+ART_LATER.push(/*lazy{*/() => {
   const f1 = n => +n.toFixed(1);
   // Colour that soaks in like a marker: lines underneath stay visible (multiply blend). ev = holes via even-odd.
   const T = (c, s, ev) => `<g class="pt" style="fill:${c};mix-blend-mode:multiply${ev ? ';fill-rule:evenodd' : ''}">${s}</g>`;
@@ -452,4 +452,4 @@ ART_LATER.push(() => {
       ['Draw lines inside the big wave, following its shape. Add flying foam dots.', ap('M18 170 C30 126 52 86 96 64') + ap('M40 176 C50 136 70 100 106 80') + ap('M60 182 C68 146 84 116 114 92') + [[170, 64], [176, 80], [166, 92], [184, 52], [156, 100]].map(([x, y]) => ac(x, y, 2.2)).join('')],
       ['Color the waves deep blue, the foam white, and the sky pale yellow.', T('#F6E7C1', ar(0, 0, 200, 200)) + T('#2E5FB8', ap(waveFill)) + T('#7FA7E0', ap(smallWave + ' V200 H86 Z')) + T('#A9B4C4', ap('M118 146 L150 104 L182 146 Z')) + paint('#fff', apg('137.3,120.7 143,125 150,118 157,125 162.7,120.7 150,104')) + T('#C99A6E', ap('M126 182 Q160 190 196 178 L192 188 Q160 198 130 190 Z'))]] }
   );
-});
+}/*}lazy*/);

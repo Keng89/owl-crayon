@@ -1,7 +1,7 @@
 /* ---------- coloring book: tap a shape to fill it, with colour-by-number and colour-by-sum ---------- */
 // Every page is drawn from closed paths (one per fillable shape) with bold outlines, so a fill can never leak.
 // Pairs that belong together (two eyes, two wings) are one shape made of two pieces, so a young child fills both at once.
-const colorHome = (function () {
+const colorHome = lazyArea(/*lazy{*/function () {
   const CB = [['k', '#22305A', 'dark blue'], ['r', '#F2604F', 'red'], ['o', '#FF8A2B', 'orange'], ['y', '#FFC23D', 'yellow'], ['g', '#2FA36B', 'green'], ['b', '#2E8BE6', 'blue'],
     ['u', '#6D55D1', 'purple'], ['p', '#F49AC1', 'pink'], ['n', '#8B5A2B', 'brown'], ['w', '#FFFFFF', 'white'], ['lb', '#8EC5F5', 'light blue'], ['lg', '#A8E06A', 'light green'],
     ['ly', '#FFE79A', 'cream'], ['gy', '#9AA0A8', 'grey'], ['sk', '#F6C9A0', 'peach'], ['t', '#2EC4B6', 'teal']];
@@ -439,4 +439,4 @@ const colorHome = (function () {
 
   if (location.hash === '#selftest') window.__color = { PAGES, HEX, NAME, colorPage, colorHomeView, svgFor, spots: id => spots(byId(id), view.querySelector('.cb-svg')), get state() { return st.coloring; } };
   return () => colorHomeView();
-})();
+}/*}lazy*/, ['__color']);

@@ -1,7 +1,7 @@
 /* ---------- more art lessons (art2): vehicles, ocean, bugs & birds, dinosaurs, food, fairy tales ---------- */
 // Uses the helpers from art.js (ac, ae, al, ap, ar, apg, apl, guide, paint, fold, atext, ring, zig).
 // Wrapped in a block so the little helpers below do not clash with other files.
-ART_LATER.push(() => {
+ART_LATER.push(/*lazy{*/() => {
   const f1 = n => +n.toFixed(1);
   // A star with n points, outer radius R, inner radius r, turned by rot degrees.
   const starPts = (cx, cy, R, r, n = 5, rot = 0) => Array.from({ length: n * 2 }, (_, i) => {
@@ -299,4 +299,4 @@ ART_LATER.push(() => {
       ['Draw gold coins and a jewel on the ground in front.', ae(40, 184, 10, 4) + ae(62, 188, 10, 4) + ae(150, 180, 10, 4) + ae(150, 175, 10, 4) + apg('90,182 98,174 106,182 98,192')],
       ['Erase the guides. Color the chest brown and the treasure gold!', '', { clear: true }]] }
   );
-});
+}/*}lazy*/);

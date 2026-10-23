@@ -3,7 +3,7 @@
 // Card text by age: t for everyone, m added from age 7, b (the science word) from age 10. A quiz question's h is the
 // harder version used from age 8. Pictures use the scene language in science.js: "background|emoji x y size anim delay"
 // or "@drawer x y scale anim" in a 200 x 120 box.
-function sciData() {
+const sciData = /*lazy{*/function () {
   const TOPICS = [
     { id: 'body', ico: '👀', name: 'My body & senses', c: '#C44E40', badge: '🩺', bname: 'Body expert',
       cards: [
@@ -306,4 +306,4 @@ function sciData() {
       safety: 'A grown-up blows up the balloon. Pieces of burst balloon are a choking danger, so tidy them away.', why: 'Rubbing gives the balloon a charge of static electricity, which pulls on light things.' }
   ];
   return { TOPICS, LABS, HOME };
-}
+}/*}lazy*/;

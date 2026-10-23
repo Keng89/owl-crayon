@@ -4,6 +4,12 @@ src/shell.html pulls in style.css and core.js, and core.js pulls in math.js and 
 through `/*@include name*/` and `//@include name` lines.
 Outputs: index.html + sw.js (the installable offline app) and dist/page.html (the same page without
 <html>/<head>, for previewing as a Claude artifact).
+
+Lazy code: a function expression written as /*lazy{*/ () => { ... } /*}lazy*/ is not compiled while the app starts.
+In index.html its source goes into a <script type="text/plain"> at the end of the page, and the function becomes a
+stub, __lazy(n, __lzS => eval(__lzS)), that compiles it on its first call with a direct eval at the same spot, so it
+sees exactly the same variables (see __lazy in core.js). The browser does not parse those blocks while the page
+loads, which keeps the home screen fast as the app grows. dist/page.html keeps the code inline (no eval).
 """
 import hashlib, pathlib, re
 root = pathlib.Path(__file__).parent
@@ -17,8 +23,19 @@ body = expand((src / 'shell.html').read_text())
 # The grown-ups corner shows the build date, so a family can tell which version they have.
 import datetime
 body = body.replace('__BUILD__', datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%d %H:%M UTC'))
+LAZY = re.compile(r'/\*lazy\{\*/(.*?)/\*\}lazy\*/', re.S)
+assert body.count('/*lazy{*/') == body.count('/*}lazy*/') == len(LAZY.findall(body)), 'unmatched /*lazy{*/ markers'
 (root / 'dist').mkdir(exist_ok=True)
-(root / 'dist/page.html').write_text(body)
+(root / 'dist/page.html').write_text(LAZY.sub(lambda m: m.group(1), body))
+chunks = []
+def stub(m):
+    code = m.group(1)
+    assert not re.search(r'</script|<!--', code, re.I), 'lazy code must not contain </script or <!--'
+    assert '/*lazy{*/' not in code, 'lazy blocks cannot nest'
+    chunks.append(f'<script type="text/plain" id="lz{len(chunks)}">({code})\n//# sourceURL=lazy{len(chunks)}.js\n</script>')
+    return f'__lazy({len(chunks) - 1}, __lzS => eval(__lzS))'
+body = LAZY.sub(stub, body)
+body += '\n' + '\n'.join(chunks)
 
 head = '''<!doctype html>
 <html lang="en"><head>
@@ -48,4 +65,4 @@ self.addEventListener('fetch', e => {{
   }}).catch(() => caches.match('index.html'))));
 }});
 ''')
-print('built', ver, len(html) // 1024, 'KB')
+print('built', ver, len(html) // 1024, 'KB,', len(chunks), 'lazy blocks')

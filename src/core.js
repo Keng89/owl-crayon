@@ -1,3 +1,32 @@
+/* ---------- lazy code ---------- */
+// Big parts the home screen does not need are marked /*lazy{*/ () => { ... } /*}lazy*/ in src/. build.py keeps their
+// source as plain text in index.html, so the browser does not parse it while the app starts, and puts a call to
+// __lazy here in its place. On the first call, the text is compiled by `ev` (a direct eval at the original spot, so
+// the code sees the same variables) and the real function runs; later calls go straight to it.
+const __lazy = (id, ev) => {
+  let f = null;
+  return function (...a) {
+    if (!f) { const el = document.getElementById('lz' + id); f = ev(el.textContent); el.remove(); }
+    return f.apply(this, a);
+  };
+};
+// A whole area (a module that is `(() => { ... return home; })()`) built the first time it is used: the name stands for
+// the area's home function, and the first call or property read builds the area, then passes everything through.
+// Its test hooks (window.__quest...) build it when a test reads them.
+const lazyArea = (build, hooks = []) => {
+  let m = null, busy = false;
+  const get = () => {
+    if (m) return m;
+    if (busy) throw new Error('lazyArea used while it is being built');
+    busy = true; try { m = build(); } finally { busy = false; }
+    return m;
+  };
+  if (location.hash === '#selftest') hooks.forEach(h => Object.defineProperty(window, h, { configurable: true, enumerable: true,
+    get() { get(); const d = Object.getOwnPropertyDescriptor(window, h); return d && 'value' in d ? d.value : undefined; },
+    set(v) { Object.defineProperty(window, h, { value: v, writable: true, configurable: true, enumerable: true }); } }));
+  return new Proxy(() => {}, { apply: (t, self, a) => get().apply(self, a), get: (t, k) => get()[k], set: (t, k, v) => { get()[k] = v; return true; }, has: (t, k) => k in get() });
+};
+
 /* ---------- storage (works offline, survives without localStorage) ---------- */
 // When a write fails (storage full, private mode), the value is kept in memory and reads of that key use it, so the
 // app never reads back an older copy from localStorage (switching players and back kept the old progress before).
@@ -1009,11 +1038,11 @@ function parent() {
 /* ---------- start ---------- */
 updateTop();
 go(profiles.length > 1 ? whoView : home);
-// The art lessons and crafts are not built at startup. A few seconds after the first screen is up, they are built one
-// file at a time whenever the app is idle, so Art School and the Crafts corner open quickly later too.
+// The art lessons, crafts and Learn to Read are not built at startup. A few seconds after the first screen is up, they are built one
+// part at a time whenever the app is idle, so Art School, the Crafts corner and English open quickly later too.
 {
   const idle = f => window.requestIdleCallback ? requestIdleCallback(f, { timeout: 3000 }) : setTimeout(f, 60);
-  setTimeout(() => idle(function warm() { if (artWarmStep() || craftsHome.warm()) idle(warm); }), 3000);
+  setTimeout(() => idle(function warm() { if (artWarmStep() || craftsHome.warm() || englishHome.warm()) idle(warm); }), 3000);
 }
 if (location.hash === "#selftest") window.__owl = { get pid() { return pid; }, store, storeWaiting: () => storeUnsaved.size, addStars, MATH, LESSONS, get artPending() { return artBuilt ? 0 : ART_LATER.length; }, BRUSHES, get livePad() { return livePad; }, lessonSVG, PICS, get st() { return st; }, get profiles() { return profiles; }, quest, questTick, gainXP, petStage, go, home, mathHome, artHome, catView, drawLesson, gamesHome, ART_CATS, lessonView, play, speakable, storyHome, colorHome, sceneHome, shapeHome, flipHome, galTab, worldHome, englishHome, craftsHome, scienceHome };
 if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) {

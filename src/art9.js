@@ -1,7 +1,7 @@
 /* ---------- art9: music, toys, weather, castles, gardens, silly creatures ---------- */
 // Uses the helpers from art.js (ac, ae, al, ap, ar, apg, apl, guide, paint, atext).
 // Wrapped in a function so the little helpers below never clash with other files.
-ART_LATER.push(() => {
+ART_LATER.push(/*lazy{*/() => {
   const f1 = n => +n.toFixed(1);
   const DEG = Math.PI / 180, STEP = 3;
 
@@ -632,4 +632,4 @@ ART_LATER.push(() => {
       ['Draw spikes on the big hump, spots, and more waves.', spikes + spots + lowWaves],
       ['Color your sea monster. Is it green, purple or rainbow?', M(paint(SKY, ar(0, 0, 200, 140)) + paint('#6DB3F2', ap(wd + ' L200 200 L0 200 Z')) + paint('#6CC08B', F(head) + ap('M48 60 Q30 100 40 140 L76 140 Q62 104 78 62 Z') + F(poly(arcE(112, 140, 20, 26, 180, 360).pts)) + F(poly(arcE(156, 140, 16, 18, 180, 360).pts)) + ap(tailD + ' Z')) + paint('#FFD43B', F(hornA) + F(hornB)) + paint('#3E9A62', spots))]] });
   }
-});
+}/*}lazy*/);

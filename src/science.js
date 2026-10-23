@@ -10,7 +10,7 @@
 // Stars: reading all the cards of a topic 1 (once); a quiz 1 per question right first time, +2 for 5 of 5 (the first
 // time it is finished), 1 for a repeat; a topic badge (4 or 5 right first time) +3 once; a mini-lab 3 the first time,
 // then 1; trying an experiment at home 2 (once).
-const scienceHome = (() => {
+const scienceHome = lazyArea(/*lazy{*/() => {
   let DATA = null;
   const D = () => DATA || (DATA = sciData());
   let fast = false; // tests: shorter pauses
@@ -605,4 +605,4 @@ const scienceHome = (() => {
   };
   scHome.info = info; scHome.stats = stats;
   return scHome;
-})();
+}/*}lazy*/, ['__science']);

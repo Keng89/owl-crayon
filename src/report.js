@@ -3,7 +3,7 @@
 // It works for any player, not only the one playing now, and every field is read defensively, so a brand-new
 // player or a state saved by an older version (no st.english, st.crafts, st.world, st.story, st.pt...) shows zeros
 // instead of breaking. "This week" adds 3 suggestions picked from the gaps. A print button prints only the report.
-const report = (() => {
+const report = lazyArea(/*lazy{*/() => {
   let shown = null; // which player's report is on screen
   const num = v => (Number.isFinite(+v) ? +v : 0);
   const obj = v => (v && typeof v === 'object' && !Array.isArray(v) ? v : {});
@@ -225,4 +225,4 @@ const report = (() => {
   }
   if (location.hash === '#selftest') window.__report = { stats, suggestions, panel, wire, set shown(v) { shown = v; }, get shown() { return shown; } };
   return { panel, wire, stats, suggestions };
-})();
+}/*}lazy*/, ['__report']);

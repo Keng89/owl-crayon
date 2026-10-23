@@ -387,7 +387,7 @@ const BRUSHES = (() => {
 
 /* ---- 🎨 Paint like a pro: brush technique lessons (Art skills › Brush Techniques) ---- */
 // `brush` and `paper` preselect them on the pad; a step's third item { brush } switches brush at that step.
-ART_LATER.push(() => {
+ART_LATER.push(/*lazy{*/() => {
   const band = (y, h, col, op = 0.75) => paint(col, `<path d="M15 ${y} Q57 ${y - 7} 100 ${y} T185 ${y} L185 ${y + h} Q143 ${y + h + 7} 100 ${y + h} T15 ${y + h}Z" opacity="${op}"/>`);
   const frame = ar(15, 15, 170, 170, 8);
   const sky = paint('#1F2027', ar(15, 15, 170, 170, 8));
@@ -451,4 +451,4 @@ ART_LATER.push(() => {
       ['Pick Chalk and purple, thin size. Draw a little shadow under each cloud.', stroke('#6D55D1', ap('M40 86 Q65 92 90 86') + ap('M108 134 Q128 140 148 134')), { brush: 'chalk' }],
       ['Smudge the shadows gently into the white. Now your clouds look soft and round!', '', { brush: 'smudge' }]] }
   );
-});
+}/*}lazy*/);

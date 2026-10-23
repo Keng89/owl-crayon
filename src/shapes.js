@@ -1,7 +1,7 @@
 /* ---------- shape puzzles: drag colourful shapes onto a silhouette to finish a picture (math + art) ---------- */
 // Easy: a few big pieces whose outlines are drawn inside the picture. Medium: only the outer outline with faint
 // piece hints, and some pieces must be turned. Tricky: classic 7-piece tangrams, with turn and flip and no hints.
-const shapeHome = (() => {
+const shapeHome = lazyArea(/*lazy{*/() => {
   const INK = '#22305A', SIL = '#BCC7D8', COLS = ['#F2604F', '#2E8BE6', '#FFC23D', '#2FA36B', '#6D55D1', '#FF8A2B', '#F49AC1', '#2EC4B6'];
   const LEVELS = [
     { id: 'easy', name: 'Easy', ico: '🟢', step: 90, tol: 64, lead: 'Match each shape to its outline.' },
@@ -537,4 +537,4 @@ const shapeHome = (() => {
 
   if (location.hash === '#selftest') window.__shapes = { PUZZLES, LEVELS, INFO, verify, grid, tSolve, open: id => go(puzzleView, id), home: lvl => go(gridView, lvl), get cur() { return cur; }, get state() { return rec(); } };
   return f => { from = f === 'math' ? 'math' : 'art'; gridView(); };
-})();
+}/*}lazy*/, ['__shapes']);

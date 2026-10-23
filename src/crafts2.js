@@ -1,7 +1,7 @@
 /* ---------- Crafts corner, part 2: paper folding, cutting, collage, plates, tubes, cards and clay ---------- */
 // Each step is { t: what to do (read aloud), a: the kind of mini-movie, ...what it draws }. Drawings use the kit in
 // crafts.js (viewBox 0 0 200 150). K.ori(...) folds a paper model step by step, so origami movies stay true to the paper.
-craftsHome.later.push(() => {
+craftsHome.later.push(/*lazy{*/() => {
   const K = craftsHome.kit, C = K.C;
   const S = (t, a, o = {}) => ({ t, a, ...o });
   const mid = svg => K.g(svg, -100, -75); // a finished picture drawn around the middle, for the "show" movie
@@ -432,4 +432,4 @@ craftsHome.later.push(() => {
   })();
 
   craftsHome.add([fan, dog, plane, cup, hat, boat, frog, crane, heart, snake, chain, flake, rainbow, fish, robot, lion, sun, bug, mask, binos, rocket, owl, handCard, popup, monster, snakeClay, snail, pot, hog]);
-});
+}/*}lazy*/);

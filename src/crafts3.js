@@ -1,5 +1,5 @@
 /* ---------- Crafts corner, part 3: nature, puppets, threading, recycling, sewing, parties, science and string ---------- */
-craftsHome.later.push(() => {
+craftsHome.later.push(/*lazy{*/() => {
   const K = craftsHome.kit, C = K.C;
   const S = (t, a, o = {}) => ({ t, a, ...o });
   const mid = svg => K.g(svg, -100, -75);
@@ -385,4 +385,4 @@ craftsHome.later.push(() => {
   })();
 
   craftsHome.add([leafPrint, rockBug, coneOwl, crownN, sockP, bagP, fingerP, necklace, weaveMat, feeder, planter, boxBot, car, lacing, pillow, buttonSew, lantern, partyCrown, wand, heli, pinwheel, kaleido, strawRocket, letter, braid, friend, stringArt]);
-});
+}/*}lazy*/);
