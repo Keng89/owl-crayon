@@ -428,7 +428,7 @@ const paintStudio = (() => {
   // My pictures gets a button to the wall.
   function galHook() {
     const c = view.querySelector('.crumbs'); if (!c) return;
-    c.insertAdjacentHTML('afterend', `<div class="row" style="justify-content:flex-start"><button class="btn leaf sm" id="psToWall">🖼️ My gallery wall (${hung().length})</button></div>`);
+    c.insertAdjacentHTML('afterend', `<div class="row" style="justify-content:flex-start"><button class="btn leaf sm" id="psToWall" style="min-height:48px">🖼️ My gallery wall (${hung().length})</button></div>`);
     $('#psToWall').onclick = () => go(wall);
   }
   const info = () => { const all = lessons(); return { lessons: all.length, kinds: CATS.length, levels: [1, 2, 3, 4].map(n => all.filter(l => l.plevel === n).length), frames: FRAMES.length, find: FIND.length }; };
