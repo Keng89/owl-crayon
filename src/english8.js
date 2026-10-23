@@ -100,7 +100,8 @@
     return { strokes, W: x - gap + pad, H: 160, glyphs };
   }
   let TR = null;
-  function trace(kind, key) {
+  // hook (english11.js, the reading path): { back, done } — the lesson gives its own stars, so a hooked trace gives none.
+  function trace(kind, key, hook) {
     const e = R3(), Lt = layout(key, kind), { strokes, W, H } = Lt, nav = navId;
     const low = key.toLowerCase(), LL = EN_LETTERS.find(l => l[0] === low), word = kind === 'W' ? EN_TRACE_WORDS.find(x => x[0] === key) : null;
     const big = kind === 'L' && key !== low;
@@ -121,7 +122,7 @@
       <p class="e6-thint" id="tHint" aria-live="polite"></p>
       <div class="row" id="tBtns"><button class="btn alt" id="tWatch">👀 Watch me</button><button class="btn alt" id="tClear">🗑️ Again</button><button class="btn leaf" id="tCheck">✅ Check</button></div>
       <div class="cheer" id="cheer" aria-live="polite"></div><div class="row" id="tNext"></div>${ptip('write')}`;
-    wireBack(() => writeHome(kind === 'W' ? 'words' : big ? 'upper' : 'lower'));
+    wireBack(hook ? hook.back : () => writeHome(kind === 'W' ? 'words' : big ? 'upper' : 'lower'));
     const svg = $('#tPad'), inkG = $('#tInk'), marks = $('#tMarks'), demo = $('#tDemo');
     const els = [...svg.querySelectorAll('.e6-dot path')];
     strokes.forEach((s, i) => { s.el = els[i]; s.len = s.el.getTotalLength(); s.pts = []; for (let d = 0; d <= s.len; d += 3) { const p = s.el.getPointAtLength(d); s.pts.push([p.x, p.y]); } const p = s.el.getPointAtLength(s.len); s.pts.push([p.x, p.y]); });
@@ -182,6 +183,11 @@
     }
     function win() {
       TR.done = true; drawMarks();
+      if (hook) {
+        if (kind === 'L' || EN_TRACE_WORDS.some(x => x[0] === key)) e.trace[kind][key] = (e.trace[kind][key] || 0) + 1;
+        TR.earned = 0; mtick('trace'); save(); svg.classList.add('e6-win'); confetti(30); yay(); $('#tBtns').style.display = 'none';
+        $('#cheer').textContent = 'Beautiful writing! ✅'; say(`Beautiful! You wrote ${key.split('').join(', ')}.`); hook.done(); return;
+      }
       const store = e.trace[kind], first = !store[key]; store[key] = (store[key] || 0) + 1;
       const earned = first ? (kind === 'W' ? 3 : 2) : 1; TR.earned = earned;
       give(earned); if (TR.tries === 0) questTick('firsttry'); mtick('trace'); save();

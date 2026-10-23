@@ -64,6 +64,8 @@ const report = (() => {
     E.r3 = Object.assign({ traced: 0, tracedAll: 52, words: 0, chats: 0, scenes: 0, scenesAll: 0, books: 0, booksAll: 0, chapters: 0, islands: 0, islandsAll: 9, sound: 0, missions: 0 }, safe(() => englishHome.round3(e), {}));
     // Round 4 (english10.js): word family words, the 44-sound wall, read-along stories, sayings, word power and listening rounds.
     E.r4 = Object.assign({ famWords: 0, famAll: 0, houses: 0, wall: 0, wallAll: 44, readAlong: 0, readAlongAll: 0, idioms: 0, idiomsAll: 0, wordPower: 0, listening: 0 }, safe(() => englishHome.round4(e), {}));
+    // The Learn to Read path (english11.js): lessons done, where the child is, sounds known, unit check-ups.
+    E.path = Object.assign({ done: 0, all: 0, now: null, nowTitle: '', check: null, sounds: 0, soundsAll: 0, checks: 0, checksAll: 0, weak: [], placed: 0 }, safe(() => englishHome.pathStats(e), {}));
     E.nextSight = EN_SIGHT.find(x => x.stage <= stageN && x.words.some(w => !obj(e.sight)[w]));
     E.nextStory = EN_STORIES.find(x => x.stage <= stageN && !obj(e.stories)[x.id]);
     E.nextGame = EN_GAMES.find(x => x.stage <= stageN && !num(rounds['g-' + x.id]));
@@ -114,6 +116,8 @@ const report = (() => {
     // English
     if (E.letters >= 6 && E.blend === 0) add('en', 92, '🧩', `Try the Blend it game in English & Reading — ${E.letters} letter sounds learned, blending not started yet.`);
     else if (E.letters < 26) add('en', E.letters ? 72 : 80, '🔤', `Letter sounds: ${E.letters} of 26 letters heard so far. Tap through the rest together in English & Reading, saying the sound ("sss"), not the name.`);
+    if (E.path.all && !E.path.done) add('en', 90, '📖', `Start "Learn to Read" (the 📖 Today's reading lesson button in English & Reading): ${E.path.all} short daily phonics lessons, one sound at a time. The placement check skips sounds your child already knows.`);
+    else if (E.path.all && E.path.done < E.path.all) add('en', 66, '📖', `Reading path: ${E.path.now ? `lesson ${E.path.now} (${E.path.nowTitle}) is next` : `the unit ${E.path.check} check-up is next`}. One 5–8 minute lesson a day, sitting together, works best.`);
     if (E.reviewDue) add('en', 86, '🔁', `Owl's review has ${pl(E.reviewDue, 'word')} waiting (English & Reading → My words). A 2-minute round helps them stick.`);
     if (E.nextSight && E.sight < E.sightAll) add('en', 60, '👀', `Sight words: ${E.sight} of ${E.sightAll} known. Try "Find the word" in the ${E.nextSight.name} set.`);
     if (E.nextStory) add('en', 56, '📖', `Read "${E.nextStory.title}" together (English & Reading → Read). ${E.stories} of ${E.storiesAll} stories read so far.`);
@@ -185,6 +189,7 @@ const report = (() => {
           ${fact('Questions answered', M.answered)}${fact('In review / due today', `${M.review} / ${M.due}`)}
           ${M.best ? fact('Strongest topic', `${M.best.ico} ${esc(M.best.name)} (${M.best.acc}%)`) : ''}${M.hard ? fact('Worth practising', `${M.hard.ico} ${esc(M.hard.name)} (${M.hard.acc}%)`) : ''}`)}
         ${card('rp-en', '📚', 'English &amp; Reading', `<p class="rp-stage">${E.stageIco} Stage ${E.stage} of ${E.stages}: <b>${esc(E.stageName)}</b> · ${pl(E.xp, 'reading star')}</p>
+          ${E.path.all ? `${row('Reading path lessons done', E.path.done, E.path.all, 'var(--leaf)')}${fact('Reading path', `${E.path.done >= E.path.all ? `all ${E.path.all} lessons done` : E.path.now ? `lesson ${E.path.now} of ${E.path.all}` : `unit ${E.path.check} check-up (lesson ${E.path.done} of ${E.path.all} done)`} · ${E.path.sounds} of ${E.path.soundsAll} sounds known`)}${fact('Unit check-up badges', `${E.path.checks} of ${E.path.checksAll}${E.path.weak.length ? ` · practising ${esc(E.path.weak.slice(0, 6).join(' '))}` : ''}`)}` : ''}
           ${row('Letter sounds (A–Z)', E.letters, 26, 'var(--coral)')}${row('All sounds (pairs, magic e, teams)', E.sounds, E.soundsAll, 'var(--coral-soft)')}
           ${row('Sight words known', E.sight, E.sightAll, 'var(--sky)')}${row('Stories read', E.stories, E.storiesAll, 'var(--leaf)')}
           ${row('Grammar games played', E.grammar, E.grammarAll, 'var(--grape)')}
