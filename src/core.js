@@ -156,6 +156,7 @@ const GEN = {
 //@include art10.js
 //@include art11.js
 //@include brushes.js
+//@include art12.js
 artArmed = true; // every lesson file is queued now; the first read of LESSONS or ART_CATS builds them
 
 /* ---------- state ---------- */
@@ -456,6 +457,7 @@ function artHome() {
       <button class="tool-tile" data-tool="free"><span class="ico">🖍️</span><b>Free draw</b><span>Any idea you like</span></button>
       <button class="tool-tile" data-tool="mandala" style="background:var(--grape);box-shadow:0 4px 0 #4B37A6"><span class="ico">🏵️</span><b>Mandala mode</b><span>Lines copy around</span></button>
       <button class="tool-tile" data-tool="pixel" style="background:var(--sky-deep);box-shadow:0 4px 0 #1D5FA0"><span class="ico">👾</span><b>Pixel art</b><span>Color the squares</span></button>
+      <button class="tool-tile ps-tile" data-tool="studio"><span class="ico">🖼️</span><b>Painting Studio</b><span>Real painting lessons, color lab and my gallery wall</span></button>
       <button class="tool-tile" data-tool="mix" style="background:var(--sun);color:var(--ink);box-shadow:0 4px 0 #C9921A"><span class="ico">🎨</span><b>Mix colors</b><span>Make new colors</span></button>
       <button class="tool-tile" data-tool="color" style="background:#F49AC1;color:var(--ink);box-shadow:0 4px 0 #C96E96"><span class="ico">🖌️</span><b>Coloring book</b><span>Tap to fill colors</span></button>
       <button class="tool-tile" data-tool="scene" style="background:var(--orange-deep);box-shadow:0 4px 0 #7F4413"><span class="ico">🏞️</span><b>Sticker scenes</b><span>Make a picture story</span></button>
@@ -469,7 +471,7 @@ function artHome() {
   wireBack(home);
   sayScreen('Welcome to Art School! Pick a lesson or a tool.');
   if (nl) $('#nextL').onclick = () => go(drawLesson, nl.id);
-  view.querySelectorAll('[data-tool]').forEach(b => b.onclick = () => { const t = b.dataset.tool; go(t === 'free' ? freeDraw : t === 'mandala' ? () => freeDraw(8) : t === 'pixel' ? pixelHome : t === 'mix' ? mixTab : t === 'color' ? colorHome : t === 'scene' ? sceneHome : t === 'shapes' ? shapeHome : t === 'flip' ? flipHome : galTab); });
+  view.querySelectorAll('[data-tool]').forEach(b => b.onclick = () => { const t = b.dataset.tool; go(t === 'free' ? freeDraw : t === 'mandala' ? () => freeDraw(8) : t === 'pixel' ? pixelHome : t === 'mix' ? mixTab : t === 'color' ? colorHome : t === 'scene' ? sceneHome : t === 'shapes' ? shapeHome : t === 'flip' ? flipHome : t === 'studio' ? paintStudio : galTab); });
   view.querySelectorAll('[data-cat]').forEach(b => b.onclick = () => go(catView, b.dataset.cat));
 }
 function catView(cid) {
@@ -510,7 +512,7 @@ function drawLesson(id) {
         <div class="stepnav"><button class="btn alt" id="prev" aria-label="Back one step">◀</button><button class="speak" id="gspk" aria-label="Read it">🔊</button><button class="speak" id="gplay" aria-label="Show me again">✏️</button><button class="btn" id="next">Next ▶</button></div></div>
       <div class="studio" id="studio"></div>
     </div>`;
-  wireBack(() => catView(ls.cat));
+  wireBack(() => ls.studio ? paintStudio(ls.cat) : catView(ls.cat));
   const pad = makePad($('#studio'), { square: true, brush: ls.brush, paper: ls.paper, extra: `<button class="tool" id="trace" aria-pressed="false">👻 Trace</button>${ls.tool === 'mandala' ? '<button class="tool" id="mand">🏵️ Mandala mode</button>' : ''}` });
   const render = () => {
     $('#sn').textContent = `Step ${i + 1} of ${ls.steps.length}`;
@@ -520,7 +522,9 @@ function drawLesson(id) {
     $('#prev').disabled = i === 0; $('#prev').style.opacity = i === 0 ? .4 : 1;
     $('#next').textContent = i === ls.steps.length - 1 ? 'I finished! 🎉' : 'Next ▶';
     pad.setTrace(trace ? lessonSVG(ls, i, 'trace-svg') : '');
-    const o = ls.steps[i][2]; if (o && o.brush) pad.setBrush(o.brush); // a brush-technique step picks its brush
+    // A brush-technique or painting step picks its brush (and a painting step its paper, color and size too).
+    const o = ls.steps[i][2];
+    if (o) { if (o.paper && o.paper !== pad.paper()) pad.setPaper(o.paper); if (o.brush) pad.setBrush(o.brush); if (o.color) pad.setColor(o.color); if (o.size) pad.setSize(o.size); }
     say(ls.steps[i][0]);
   };
   $('#prev').onclick = () => { if (i > 0) { i--; render(); } };
@@ -535,6 +539,7 @@ function drawLesson(id) {
       <div class="row">${nl ? `<button class="btn leaf" id="nl">Next: ${nl.title}</button>` : ''}<button class="btn alt" id="more">More lessons</button></div></div>`;
     if (nl) $('#nl').onclick = () => go(drawLesson, nl.id);
     $('#more').onclick = () => go(catView, ls.cat);
+    paintStudio.done(ls, pad.drawn());
   };
   $('#gspk').onclick = () => say(ls.steps[i][0]);
   $('#gplay').onclick = () => { $('#gsvg').innerHTML = lessonSVG(ls, i, 'art-svg'); drawIn($('#gsvg svg')); };
@@ -561,7 +566,7 @@ function makePad(el, { square = false, sym = 0, extra = '', brush = 'round', pap
   el.innerHTML = `<div class="tools brush-row" role="group" aria-label="Brushes">${BRUSHES.LIST.map(b => `<button class="tool br" data-b="${b.id}" aria-label="${b.name}" aria-pressed="false"><span class="bico">${b.ico}</span><span class="bnm">${b.name}</span></button>`).join('')}<button class="tool br paper-b" id="ppr" aria-label="Paper"></button></div>
     <div class="tools brush-row stamp-row" role="group" aria-label="Stamp shapes" hidden>${BRUSHES.STAMPS.map(([id, ico, nm]) => `<button class="tool" data-st="${id}" aria-label="${nm} stamp" aria-pressed="${id === 'star'}">${ico}</button>`).join('')}</div>
     <div class="canvas-wrap${square ? ' sq' : ''}" id="cw"><div id="tr"></div><canvas id="cv" role="img" aria-label="Drawing pad: draw here with your finger"></canvas><canvas id="wet" aria-hidden="true"></canvas><div class="mirror-line" id="ml" hidden></div></div>
-    <div class="tools">${PAINT.map((c, i) => `<button class="sw" style="background:${c};${c === '#FFFFFF' ? 'box-shadow:inset 0 0 0 2px var(--line)' : ''}" data-c="${c}" aria-label="${PAINT_NAMES[i]}" aria-pressed="${i === 0}"></button>`).join('')}</div>
+    <div class="tools">${PAINT.map((c, i) => `<button class="sw" style="background:${c};${c === '#FFFFFF' ? 'box-shadow:inset 0 0 0 2px var(--line)' : ''}" data-c="${c}" aria-label="${PAINT_NAMES[i]}" aria-pressed="${i === 0}"></button>`).join('')}<button class="sw sw-mix" data-c="" hidden aria-label="mixed color" aria-pressed="false"></button></div>
     <div class="tools">
       <button class="tool size" data-z="5" aria-label="thin"><i style="width:6px;height:6px"></i></button>
       <button class="tool size" data-z="12" aria-pressed="true" aria-label="medium"><i style="width:14px;height:14px"></i></button>
@@ -600,7 +605,10 @@ function makePad(el, { square = false, sym = 0, extra = '', brush = 'round', pap
   setSym(sym);
   const pickColor = c => { color = c; eraser = false; el.querySelector('#er').setAttribute('aria-pressed', 'false'); el.querySelectorAll('.sw').forEach(x => x.setAttribute('aria-pressed', x.dataset.c === c)); };
   el.querySelectorAll('.sw').forEach(b => b.onclick = () => pickColor(b.dataset.c));
-  el.querySelectorAll('[data-z]').forEach(b => b.onclick = () => { size = +b.dataset.z; el.querySelectorAll('[data-z]').forEach(x => x.setAttribute('aria-pressed', x === b)); });
+  const setSize = z => { size = z; el.querySelectorAll('[data-z]').forEach(x => x.setAttribute('aria-pressed', +x.dataset.z === z)); };
+  el.querySelectorAll('[data-z]').forEach(b => b.onclick = () => setSize(+b.dataset.z));
+  // A painting lesson step can ask for a mixed color that is not on the palette: it gets its own swatch.
+  const setColor = c => { c = String(c).toUpperCase(); if (!PAINT.includes(c)) { const m = el.querySelector('.sw-mix'); m.dataset.c = c; m.style.background = c; m.hidden = false; } pickColor(c); };
   el.querySelector('#er').onclick = e => { eraser = !eraser; e.currentTarget.setAttribute('aria-pressed', eraser); };
   function setBrush(id, speak) {
     eng.setBrush(id); const b = BRUSHES.get(eng.getBrush());
@@ -636,7 +644,7 @@ function makePad(el, { square = false, sym = 0, extra = '', brush = 'round', pap
   }
   el.querySelector('#sav').onclick = () => savePic(true);
   return (livePad = { setTrace: svg => { el.querySelector('#tr').innerHTML = svg; }, save: savePic, drawn: () => dirty, cv, wet,
-    setBrush, setPaper, brush: () => eng.getBrush(), paper: () => paperId, busy: () => eng.busy(), settle: () => eng.settle() });
+    setBrush, setPaper, setColor, setSize, color: () => color, size: () => size, brush: () => eng.getBrush(), paper: () => paperId, busy: () => eng.busy(), settle: () => eng.settle() });
 }
 const MIXES = { 'red+yellow': ['#FF8A2B', 'orange'], 'blue+yellow': ['#2FA36B', 'green'], 'blue+red': ['#6D55D1', 'purple'], 'red+white': ['#F49AC1', 'pink'], 'blue+white': ['#8EC5F5', 'light blue'], 'white+yellow': ['#FFE79A', 'light yellow'], 'black+red': ['#8E2A20', 'dark red'], 'black+blue': ['#123E6E', 'navy blue'], 'black+white': ['#9AA0A8', 'grey'], 'black+yellow': ['#7A7A1E', 'olive'] };
 const BASE = { red: '#F2604F', yellow: '#FFC23D', blue: '#2E8BE6', white: '#FFFFFF', black: '#22252B' };
@@ -665,7 +673,7 @@ function mixTab() {
 function galTab() {
   view.innerHTML = `${crumbs('My pictures')}` + (gallery.length ? `<div class="gallery">${gallery.map(g => `<img src="${g}" alt="My drawing">`).join('')}</div>`
     : `<div class="mix"><span style="font-size:64px">🖼️</span><p style="font-weight:800;font-size:22px;text-align:center">Your saved drawings will show up here.</p></div>`);
-  wireBack(artHome); flipHome.gal();
+  wireBack(artHome); flipHome.gal(); paintStudio.galHook();
 }
 
 /* ---------- pixel art: copy a picture square by square; the last level uses grid coordinates ---------- */
@@ -990,6 +998,7 @@ function parent() {
 //@include tour.js
 //@include timer.js
 //@include report.js
+//@include paint.js
 
 /* ---------- start ---------- */
 updateTop();
