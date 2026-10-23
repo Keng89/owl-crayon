@@ -6,7 +6,7 @@ Outputs: index.html + sw.js (the installable offline app) and dist/page.html (th
 <html>/<head>, for previewing as a Claude artifact).
 
 Lazy code: a function expression written as /*lazy{*/ () => { ... } /*}lazy*/ is not compiled while the app starts.
-In index.html its source goes into a <script type="text/plain"> at the end of the page, and the function becomes a
+In index.html its source goes into a <script type="text/plain"> just before the app's <script> (before any code runs, so a stub called during startup finds it), and the function becomes a
 stub, __lazy(n, __lzS => eval(__lzS)), that compiles it on its first call with a direct eval at the same spot, so it
 sees exactly the same variables (see __lazy in core.js). The browser does not parse those blocks while the page
 loads, which keeps the home screen fast as the app grows. dist/page.html keeps the code inline (no eval).
@@ -35,7 +35,6 @@ def stub(m):
     chunks.append(f'<script type="text/plain" id="lz{len(chunks)}">({code})\n//# sourceURL=lazy{len(chunks)}.js\n</script>')
     return f'__lazy({len(chunks) - 1}, __lzS => eval(__lzS))'
 body = LAZY.sub(stub, body)
-body += '\n' + '\n'.join(chunks)
 
 head = '''<!doctype html>
 <html lang="en"><head>
@@ -48,7 +47,9 @@ head = '''<!doctype html>
 <link rel="apple-touch-icon" href="icon-192.png">
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 '''
-html = head + body.replace('<div id="app">', '</head><body>\n<div id="app">', 1) + '\n</body></html>\n'
+body = body.replace('<div id="app">', '</head><body>\n<div id="app">', 1)
+i = body.index('<script>', body.index('<div id="app">'))
+html = head + body[:i] + ''.join(c + '\n' for c in chunks) + body[i:] + '\n</body></html>\n'
 (root / 'index.html').write_text(html)
 ver = hashlib.sha1(html.encode()).hexdigest()[:8]
 (root / 'sw.js').write_text(f'''// Caches the whole app on first visit so it runs with no internet.
