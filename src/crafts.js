@@ -640,7 +640,8 @@ const craftsHome = (() => {
     { id: 'boxes', ico: '📦', name: 'boxes & bottles', re: /box|bottle|carton|cup|lid|jar/ },
     { id: 'nature', ico: '🍂', name: 'leaves & sticks', re: /leaf|leaves|rock|pinecone|stick|flower|shell|twig/ }
   ];
-  const norm = x => String(x).toLowerCase().replace(/[^a-z0-9 ]+/g, ' ').replace(/\s+/g, ' ').trim();
+  // accents are dropped first, so "pinata" finds the piñata and "mache" finds papier-mâché
+  const norm = x => String(x).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9 ]+/g, ' ').replace(/\s+/g, ' ').trim();
   // The crafts that match a level (0 = any), a material chip and typed words (every word must match the name, a material or the kind).
   function filter(level = 0, have = '', q = '') {
     load();

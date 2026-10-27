@@ -1028,6 +1028,7 @@ function parent() {
 //@include crafts4.js
 //@include crafts5.js
 //@include crafts6.js
+//@include crafts7.js
 //@include tour.js
 //@include timer.js
 //@include report.js
